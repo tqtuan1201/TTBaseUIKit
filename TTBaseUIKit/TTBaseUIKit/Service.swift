@@ -13,4 +13,8 @@ public class Service {
     public static func printData() {
         print("Init TTBaseUIKit Successfully")
     }
+    
+    public static func printUpdate() {
+        print("Update TTBaseUIKit Successfully")
+    }
 }
