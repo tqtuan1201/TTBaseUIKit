@@ -7,11 +7,12 @@ Pod::Spec.new do |s|
   s.license      = "MIT"
   s.author       = { "Truong Quang Tuan" => "truongquangtuanit@gmail.com" }
   s.platform     = :ios, "10.0"
-  s.source       = { :git => "https://github.com/tuan123/TTBaseUIKit.git", :tag => "1.0.0" }
+  s.source       = { :git => "https://github.com/tuan123/TTBaseUIKit.git", :tag => s.version.to_s }
   s.source_files = "TTBaseUIKit/**/*"
   s.exclude_files = "TTBaseUIKit/**/*.plist"
   s.swift_version = '5.0'
   s.ios.deployment_target  = '10.0'
+  s.frameworks = 'UIKit'
   
 end
 
