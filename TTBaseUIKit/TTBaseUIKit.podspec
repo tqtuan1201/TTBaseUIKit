@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
   s.name         = "TTBaseUIKit"
-  s.version      = "1.0.1"
+  s.version      = "1.0.2"
   s.summary      = "Custom UIKit"
   s.description  = "BaseUIView, BaseUILable, BaseUIButton, BaseUITableView"
   s.homepage     = "https://github.com/tuan123/TTBaseUIKit"
