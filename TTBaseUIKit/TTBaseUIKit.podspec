@@ -12,7 +12,7 @@ Pod::Spec.new do |s|
   s.exclude_files = "TTBaseUIKit/**/*.plist"
   s.swift_version = '5.0'
   s.ios.deployment_target  = '10.0'
-  s.frameworks = 'UIKit'
+  s.frameworks = 'UIKit', 'Foundation'
   
 end
 

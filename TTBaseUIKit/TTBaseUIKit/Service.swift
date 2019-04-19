@@ -17,4 +17,8 @@ public class Service {
     public static func printUpdate() {
         print("Update TTBaseUIKit Successfully")
     }
+    
+    public static func ahuhu() {
+        print("Update TTBaseUIKit Successfully")
+    }
 }
