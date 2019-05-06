@@ -9,6 +9,15 @@
 import Foundation
 import UIKit
 
+
+@objc protocol navigationViewRepresentable {
+    func setTitle(title:String)
+}
+
 open class TTBaseUINavigationView: TTBaseUIView {
     
+}
+
+extension TTBaseUINavigationView : navigationViewRepresentable {
+    open func setTitle(title: String) { }
 }

@@ -54,7 +54,7 @@ open class TTBaseUICollectionViewCell : UICollectionViewCell, ReusableView {
         self.contentView.addSubview(panel)
         
     }
-    
+   
     fileprivate func  setupBaseContraints() {
         self.contentView.translatesAutoresizingMaskIntoConstraints = false
         self.contentView.setLeadingAnchor(constant: 0).setTrailingAnchor(constant: 0).setTopAnchor(constant: 0).setBottomAnchor(constant: 0).done()

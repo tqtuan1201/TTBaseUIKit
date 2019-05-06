@@ -15,6 +15,7 @@ open class TTBaseUIStackView: UIStackView {
     open var axisContraint:NSLayoutConstraint.Axis = .vertical
     open var spacingContraint:CGFloat = TTBaseUIKitConfig.getSizeConfig().P_CONS_DEF
     open var alignmentContraint:UIStackView.Alignment = .center
+    open var distributionValue:UIStackView.Distribution = .equalSpacing
     
 
     public override init(frame: CGRect) {
@@ -22,11 +23,12 @@ open class TTBaseUIStackView: UIStackView {
         self.setupUI()
     }
     
-    public convenience init(axis:NSLayoutConstraint.Axis, spacing:CGFloat, alignment:UIStackView.Alignment ) {
+    public convenience init(axis:NSLayoutConstraint.Axis, spacing:CGFloat, alignment:UIStackView.Alignment, distributionValue:UIStackView.Distribution = .equalSpacing) {
         self.init(frame: .zero)
         self.axisContraint = axis
         self.spacingContraint = spacing
         self.alignmentContraint = alignment
+        self.distributionValue = distributionValue
         self.setupUI()
     }
     
@@ -38,8 +40,8 @@ open class TTBaseUIStackView: UIStackView {
         self.axis          = self.axisContraint
         self.spacing       = self.spacingContraint
         self.alignment     = self.alignmentContraint
+        self.distribution  = self.distributionValue
         
-        self.distribution  = UIStackView.Distribution.equalSpacing
         self.setAutoresizingMaskIntoConstraints().done()
         
     }

@@ -12,13 +12,13 @@ import UIKit
 
 
 public class DarkBaseUIView: TTBaseUIView {
-    public override func updateUI() {
+    public override func updateBaseUIView() {
         self.backgroundColor = TTBaseUIKitConfig.getViewConfig().viewBgColor
     }
 }
 
 public class WhitekBaseUIView: TTBaseUIView {
-    public override func updateUI() {
+    public override func updateBaseUIView() {
         self.backgroundColor = UIColor.white
     }
 }
@@ -29,25 +29,38 @@ open class TTBaseUIViewController<BaseView:TTBaseUIView>: UIViewController {
     open var P_CONS_DEF:CGFloat { get { return TTSize.P_CONS_DEF}}
     
     open var bgView:UIColor { get { return TTView.viewBgColor}}
+    open var isEffectView:Bool { get { return true}}
+    
     open var paddingStatus:(CGFloat,CGFloat,CGFloat,CGFloat) { get { return (0,0,0,0)}}
     open var paddingNav:(CGFloat,CGFloat,CGFloat,CGFloat) { get { return (0,0,0,0)}}
+
+    open var navType:NAV_STYLE { get { return .STATUS_NAV}}
+    open lazy var statusBar:TTBaseUIView = TTBaseUIView()
+    open lazy var navBar:TTBaseUINavigationView = TTBaseUINavigationView()
     
-    public var statusBar:TTBaseUIView = TTBaseUIView()
-    public var navBar:TTBaseUINavigationView = TTBaseUINavigationView()
+    fileprivate let panelEffectView:TTBaseUIView = {
+        let view = TTBaseUIView()
+        view.isUserInteractionEnabled = false
+        view.layer.zPosition = 1000
+        return view
+    }()
     
-    fileprivate var isAddNavBar:Bool = true
+    public enum NAV_STYLE {
+        case ONLY_STATUS
+        case STATUS_NAV
+        case NO_VIEW
+    }
 
     internal var contentView: BaseView {
         return view as! BaseView
     }
     
+    open func updateBaseUI() { }
+    
+    
     public init() {
         super.init(nibName: nil, bundle: nil)
-    }
-    
-    public init(isAddNavBar:Bool = true) {
-        super.init(nibName: nil, bundle: nil)
-        self.isAddNavBar = isAddNavBar
+        self.updateBaseUI()
     }
     
     required public init?(coder aDecoder: NSCoder) { fatalError("init(coder:) has not been implemented") }
@@ -58,6 +71,7 @@ open class TTBaseUIViewController<BaseView:TTBaseUIView>: UIViewController {
     
     override open func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(true)
+        self.setupEffectForView()
         self.navigationController?.hidesBarsOnSwipe = false
         self.navigationController?.navigationBar.isHidden = true
     }
@@ -78,26 +92,66 @@ open class TTBaseUIViewController<BaseView:TTBaseUIView>: UIViewController {
     
     private func setupUI() {
         self.view.backgroundColor = self.bgView
-        if self.isAddNavBar {
-            self.statusBar.layer.zPosition = 10000
-            self.statusBar.backgroundColor = TTBaseUIKitConfig.getViewConfig().viewBgNavColor
-            
+        self.statusBar.layer.zPosition = 10000
+        self.statusBar.backgroundColor = TTBaseUIKitConfig.getViewConfig().viewBgNavColor
+        
+        switch self.navType {
+        case .STATUS_NAV:
             self.view.addSubview(self.statusBar)
             self.view.addSubview(self.navBar)
+        break
+        case .ONLY_STATUS:
+            self.view.addSubview(self.statusBar)
+            break
+        case .NO_VIEW:
+            break
+        }
+        
+        self.view.addSubview(self.panelEffectView)
+    }
+    
+    private func setupEffectForView() {
+        if self.isEffectView {
+            self.panelEffectView.alpha = 0.8
+            UIView.animate(withDuration: 0.2) {
+                self.panelEffectView.alpha = 0
+            }
         }
     }
     
-    
     private func setupConstraints() {
-        if self.isAddNavBar {
+        
+        switch self.navType {
+        case .STATUS_NAV:
             self.statusBar.setLeadingAnchor(constant: 0).setTopAnchor(constant: 0).setTrailingAnchor(constant: 0).setHeightAnchor(constant: TTBaseUIKitConfig.getSizeConfig().H_STATUS).layer.zPosition = 1000
             self.navBar.setLeadingAnchor(constant: 0).setTopAnchorWithAboveView(nextToView: self.statusBar, constant: 0).setTrailingAnchor(constant: 0).setHeightAnchor(constant: TTSize.H_NAV).layer.zPosition = 1000
+            break
+        case .ONLY_STATUS:
+            self.statusBar.setLeadingAnchor(constant: 0).setTopAnchor(constant: 0).setTrailingAnchor(constant: 0).setHeightAnchor(constant: TTBaseUIKitConfig.getSizeConfig().H_STATUS).layer.zPosition = 1000
+            break
+        case .NO_VIEW:
+            break
         }
+
+        self.panelEffectView.setFullContraints(constant: 0)
         
     }
 }
 
 
 extension TTBaseUIViewController {
-
+    
+    public func setBgNav(withStatusColor statusColor:UIColor, navColor:UIColor) {
+        self.setStatusBgColor(color: statusColor)
+        self.setNavBgColor(color: statusColor)
+    }
+    
+    public func setStatusBgColor(color:UIColor) {
+        self.statusBar.setBgColor(color)
+    }
+    
+    public func setNavBgColor(color:UIColor) {
+        self.navBar.setBgColor(color)
+    }
+    
 }

@@ -41,8 +41,34 @@ open class TTBaseUITableView: UITableView {
         self.translatesAutoresizingMaskIntoConstraints = false
         
         if isSetContentInset {
-            self.contentInset = UIEdgeInsets(top: TTSize.H_NAV - TTSize.P_CONS_DEF, left: 0, bottom: TTSize.P_CONS_DEF, right: 0)
+            self.contentInset = UIEdgeInsets(top: TTSize.H_NAV, left: 0, bottom: TTSize.P_CONS_DEF, right: 0)
         }
 
+    }
+}
+
+extension TTBaseUITableView {
+    
+    public func reloadAsyncData() {
+        DispatchQueue.main.async { [weak self] in self?.reloadData() }
+    }
+    
+    public func reloadAsyncRows(with indexs:[IndexPath], animation:RowAnimation = RowAnimation.automatic) {
+        DispatchQueue.main.async { [weak self] in guard let strongSelf = self else { return }
+            for index in indexs { if strongSelf.cellForRow(at: index) != nil { strongSelf.reloadRows(at: [index], with: animation) } }
+        }
+    }
+    
+    public func visibleIndexPathsToReload(intersecting indexPaths: [IndexPath]) -> [IndexPath] {
+        let indexPathsForVisibleRows = self.indexPathsForVisibleRows ?? []
+        let indexPathsIntersection = Set(indexPathsForVisibleRows).intersection(indexPaths)
+        return Array(indexPathsIntersection)
+    }
+    
+    public func setContentInset( inset:UIEdgeInsets) {
+        self.contentInset = inset
+    }
+    public func resetContentInset() {
+        self.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
     }
 }

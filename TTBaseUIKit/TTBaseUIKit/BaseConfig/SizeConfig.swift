@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import UIKit
 
 public class SizeConfig {
     
@@ -20,19 +21,31 @@ public class SizeConfig {
     public var CORNER_RADIUS:CGFloat = 4.0
 
     public var H_ICON:CGFloat = 40.0
+    public var H_ICON_CELL:CGFloat = 56.0
+    
+    public var H_SEG:CGFloat = 40.0
+    public var H_SEG_LINE:CGFloat = 2.0
+    
     public var H_TEXTFIELD:CGFloat = 35.0
     public var H_LINEVIEW:CGFloat = 2.0
     public var H_STATUS:CGFloat = UIApplication.shared.statusBarFrame.height
     public var H_NAV:CGFloat = 45.0
+    public var H_BORDER:CGFloat = 2
     
     public var H_CELL:CGFloat = UIScreen.main.bounds.width / 5
+    public var H_CELL_HEADER_SPACE:CGFloat = UIScreen.main.bounds.width / 6.5
     public var H_HEADER:CGFloat = UIScreen.main.bounds.width / 3
     public var H_FOOTER:CGFloat = UIScreen.main.bounds.width / 5
+    public var H_SEARCH_BAR:CGFloat = 55.0
+    
     
     public var H_CELL_COLECT:CGFloat = UIScreen.main.bounds.width / 2.4
     public var H_BUTTON:CGFloat = 40.0
+    public var H_BUTTON_WITH_PANEL:CGFloat = 55.0
     
     public var W_BUTTON:CGFloat = UIScreen.main.bounds.width / 2
+    public var W_TEXT_RIGHTVIEW:CGFloat = UIScreen.main.bounds.width / 6
+    public var W_TEXT_LEFTVIEW:CGFloat = UIScreen.main.bounds.width / 6
     
     public var P_CONS_DEF:CGFloat = 8.0
     public var P_CONS_LEFT_H:CGFloat = 8.0

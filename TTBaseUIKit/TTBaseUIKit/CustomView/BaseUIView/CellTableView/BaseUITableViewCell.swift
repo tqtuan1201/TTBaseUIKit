@@ -23,9 +23,9 @@ open class TTBaseUITableViewCell: UITableViewCell, ReusableView {
     open var isSetBoderBottom:Bool { get { return false }}
     
     open func updateUI() { }
-    
+
     fileprivate var isSetBorder:Bool = false
-    
+
     required public init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
         self.setupUI()
@@ -54,10 +54,7 @@ open class TTBaseUITableViewCell: UITableViewCell, ReusableView {
     
     override open func layoutSubviews() {
         super.layoutSubviews()
-        self.panel.layoutIfNeeded()
-        if self.isSetBoderBottom {
-            self.panel.addBorder(withRectEdge: .bottom, borderColor: TTView.lineColor, borderHeight: 1)
-        }
+        if self.isSetBoderBottom { self.panel.addBorder(withRectEdge: .bottom, borderColor: TTView.lineColor, borderHeight: 1) }
     }
     
     private func setupBgViewSelect() -> UIView {

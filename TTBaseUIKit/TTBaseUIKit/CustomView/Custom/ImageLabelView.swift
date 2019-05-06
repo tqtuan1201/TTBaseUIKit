@@ -37,7 +37,7 @@ open class TTImageLabelView : TTBaseUIView {
         fatalError("init(coder:) has not been implemented")
     }
     
-    open override func updateUI() {
+    open override func updateBaseUIView() {
         self.setupViewCodable(with: [imageView, titleLabel] )
     }
     

@@ -24,16 +24,23 @@ open class TTBaseUITextField: UITextField   {
         case ONLY_BOTTOM
     }
     
+    public var onTextEditChangedHandler:((_ textField:TTBaseUITextField,_ textString:String) -> Void)?
+    
+    open func updateUI() { }
+    
+    
     fileprivate var type:TYPE = .DEFAULT
     
-    override init(frame: CGRect) {
+    public override init(frame: CGRect) {
         super.init(frame: frame)
         self.setupUI()
+        self.updateUI()
     }
     
     public required  init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
         self.setupUI()
+        self.updateUI()
     }
     
     open override func textRect(forBounds bounds: CGRect) -> CGRect {
@@ -112,37 +119,37 @@ extension TTBaseUITextField {
         return self
     }
     
-    func setKeyboardStyleByText() -> TTBaseUITextField {
+    public func setKeyboardStyleByText() -> TTBaseUITextField {
         self.setKeyBoardStyle(type: .default)
         return self
     }
     
-    func setKeyboardStyleByNumber() -> TTBaseUITextField  {
+    public func setKeyboardStyleByNumber() -> TTBaseUITextField  {
         self.setKeyBoardStyle(type: .numberPad)
         return self
     }
     
-    func setKeyboardStyleByEmail()  -> TTBaseUITextField  {
+    public func setKeyboardStyleByEmail()  -> TTBaseUITextField  {
         self.setKeyBoardStyle(type: .emailAddress)
         return self
     }
     
-    func setKeyboardStyleByDate()  -> TTBaseUITextField {
+    public func setKeyboardStyleByDate()  -> TTBaseUITextField {
         self.setKeyBoardStyle(type: .numbersAndPunctuation)
         return self
     }
     
-    func setKeyboardStyleByMoney()  -> TTBaseUITextField {
+    public func setKeyboardStyleByMoney()  -> TTBaseUITextField {
         self.setKeyBoardStyle(type: .decimalPad)
         return self
     }
     
-    func setKeyboardStyleByPhone()  -> TTBaseUITextField {
+    public func setKeyboardStyleByPhone()  -> TTBaseUITextField {
         self.setKeyBoardStyle(type: .numberPad)
         return self
     }
     
-    func setNoBorder() -> TTBaseUITextField {
+    public func setNoBorder() -> TTBaseUITextField {
         self.layer.borderWidth = 0
         self.borderStyle       = .none
         self.layer.borderColor = UIColor.clear.cgColor
@@ -153,8 +160,18 @@ extension TTBaseUITextField {
         self.textColor = color
         return self
     }
+    
     public func setBgColor(_ color:UIColor) {
         self.backgroundColor = color
+    }
+    
+    
+    public func setText(text:String) {
+        self.text = text
+    }
+    
+    public func setPasswordView() {
+        self.isSecureTextEntry = true
     }
 }
 
@@ -162,7 +179,7 @@ extension TTBaseUITextField {
 extension TTBaseUITextField {
     
     @objc fileprivate func textEditChanged(_ sender:UITextField) {
-        //let textInputString = sender.text
+        self.onTextEditChangedHandler?(self, String.get(sender.text))
     }
 }
 

@@ -14,9 +14,9 @@ protocol AppSettingsConfigurable {
     var numberOpenApp:Int {get set}
 }
 
-class TTBaseUIKitSetting {
+public class TTBaseUIKitSetting {
     
-    private init() {}; static let shared: TTBaseUIKitSetting = TTBaseUIKitSetting()
+    private init() {}; public static let shared: TTBaseUIKitSetting = TTBaseUIKitSetting()
     
     struct KEY {
         static let  DEFAULT_LANGUAGE:String = "DEFAULT_LANGUAGE"
@@ -25,13 +25,13 @@ class TTBaseUIKitSetting {
     }
     
     
-    fileprivate func updateDefaults(for key: String, value: Any) {
+    public func updateDefaults(for key: String, value: Any) {
         // Save value into UserDefaults
         UserDefaults.standard.set(value, forKey: key)
         UserDefaults.standard.synchronize()
     }
     
-    fileprivate func value<T>(for key: String) -> T? {
+    public func value<T>(for key: String) -> T? {
         // Get value from UserDefaults
         UserDefaults.standard.synchronize()
         return UserDefaults.standard.value(forKey: key) as? T

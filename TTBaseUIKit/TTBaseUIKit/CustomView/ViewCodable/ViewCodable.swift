@@ -42,6 +42,11 @@ public protocol TTViewCodable {
     func setupData()
     
     /*
+     This function should be used to call base API
+     */
+    func setupBaseAPI()
+    
+    /*
      This function should be used to link actions to your customs views.
      For example, you could add a selector to a button or use reactive bindings here.
      */
@@ -101,7 +106,9 @@ extension TTViewCodable {
         self.setupConstraints()
         self.setupStyles()
         self.setupData()
+        self.setupBaseAPI()
         self.bindComponents()
+        self.bindViewModel()
         self.setupAcessibilityIdentifiers()
     }
     
@@ -119,6 +126,9 @@ extension TTViewCodable {
     
     public func setupData() {}
     
+    public func setupBaseAPI() {}
+    
     public func bindViewModel() {}
+
     
 }

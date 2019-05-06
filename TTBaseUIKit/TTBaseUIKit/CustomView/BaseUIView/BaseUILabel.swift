@@ -49,6 +49,7 @@ open class TTBaseUILabel : UILabel, ViewDrawer, TextDrawer {
     
     public convenience init(withType type:TYPE, text:String = "", align:NSTextAlignment = .center) {
         self.init()
+        self.type = type
         switch type {
         case .HEADER:
             self.setFontSize(size: TTBaseUIKitConfig.getFontConfig().HEADER_H).done()
@@ -134,14 +135,14 @@ extension TTBaseUILabel {
     }
     
     public func setHorizontalContentHuggingPriority() -> TTBaseUILabel {
-        self.setContentHuggingPriority( UILayoutPriority.required, for: .horizontal)
-        self.setContentCompressionResistancePriority(  UILayoutPriority.required, for: .horizontal)
+        self.setContentHuggingPriority( UILayoutPriority.defaultHigh, for: .horizontal)
+        self.setContentCompressionResistancePriority(  UILayoutPriority.defaultHigh, for: .horizontal)
         return self
     }
     
     public func setVerticalContentHuggingPriority() -> TTBaseUILabel {
-        self.setContentHuggingPriority( UILayoutPriority.required, for: .vertical)
-        self.setContentCompressionResistancePriority(  UILayoutPriority.required, for: .vertical)
+        self.setContentHuggingPriority( UILayoutPriority.defaultHigh, for: .vertical)
+        self.setContentCompressionResistancePriority(  UILayoutPriority.defaultHigh, for: .vertical)
         return self
     }
     

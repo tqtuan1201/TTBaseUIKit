@@ -10,6 +10,10 @@ import Foundation
 
 struct CONSTANT {
     
+    enum TAG_VIEW : Int {
+        case LOADING = -111
+    }
+    
     enum FORMAT_DATE : String {
         case ID                     = "dd.MM.yyyy_HH.mm.ss"
         case YYYY_MM_DD             = "yyyy-MM-dd"

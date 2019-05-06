@@ -66,4 +66,14 @@ extension TTBaseUtil {
             return nil
         }
     }
+
+    /// Convert JSonString to  to dic [String:AnyObject]
+    ///
+    public static func convertJSonToDict(text: String) -> [String:AnyObject] {
+        if let data = text.data(using: String.Encoding.utf8) {
+            guard let result: [String:AnyObject] = try? JSONSerialization.jsonObject(with: data, options: [.mutableContainers, .allowFragments]) as? [String:AnyObject]  else { return [:]}
+            return result
+        }
+        return [:]
+    }
 }

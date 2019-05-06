@@ -29,7 +29,7 @@ extension UITableView {
     public func register<T: UITableViewCell>(_: T.Type) where T: ReusableView {
         register(T.self, forCellReuseIdentifier: T.defaultReuseIdentifier)
     }
-    
+
     /// Get cell with the default reuse cell identifier
     public func dequeueReusableCell<T: UITableViewCell>(forIndexPath indexPath: IndexPath) -> T where T: ReusableView {
         
@@ -39,6 +39,24 @@ extension UITableView {
         
         return cell
     }
+    
+    
+    /// Register cell with automatically setting Identifier
+    public func register<T: UITableViewHeaderFooterView>(_: T.Type) where T: ReusableView {
+        register(T.self, forHeaderFooterViewReuseIdentifier: T.defaultReuseIdentifier)
+    }
+
+    /// Get cell with the default reuse cell identifier
+    public func dequeueReusableHeaderFooterCell<T: UITableViewHeaderFooterView>() -> T where T: ReusableView {
+        
+        
+        guard let cell = dequeueReusableHeaderFooterView(withIdentifier: T.defaultReuseIdentifier) as? T else {
+            fatalError("Could not dequeue cell: \(T.self) with identifier: \(T.defaultReuseIdentifier)")
+        }
+        
+        return cell
+    }
+    
 }
 
 /// Extend to easier allow for identifier to be set without much work
