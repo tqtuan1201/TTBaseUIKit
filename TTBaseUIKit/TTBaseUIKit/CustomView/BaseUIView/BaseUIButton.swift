@@ -89,7 +89,7 @@ extension TTBaseUIButton {
     
     public func setWarringType() -> TTBaseUIButton {
         self.isUserInteractionEnabled = true
-        self.setTextColor(color: UIColor.white).backgroundColor = TTBaseUIKitConfig.getViewConfig().buttonBgWar
+        self.setTextColor(color: UIColor.white).setBgColor(color: TTBaseUIKitConfig.getViewConfig().buttonBgWar).done()
         return self
     }
     

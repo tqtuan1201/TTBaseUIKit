@@ -55,7 +55,9 @@ open class TTIconTextSubtextTextSubTextRightTableViewCell : TTBaseUITableViewCel
     fileprivate func setupBaseUI() {
         
         self.titleLeftRightLabel.setNumberOfLine(number: self.numberOfLineTitle)
+        self.titleLeftRightLabel.setBgColor(UIColor.clear)
         self.subLeftRight.setNumberOfLine(number: self.numberOfLineSub)
+        self.subLeftRight.setBgColor(UIColor.clear)
         
         self.imageRight.setCorner(withCornerRadius: self.cornerImages).done()
         

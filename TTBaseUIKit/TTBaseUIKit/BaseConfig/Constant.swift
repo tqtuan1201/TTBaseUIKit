@@ -10,8 +10,16 @@ import Foundation
 
 struct CONSTANT {
     
+    enum POSITION_VIEW : CGFloat {
+        case SKELETON_LAYER = 50.0
+        case EFFECT_VIEW = 200.0
+        case NAV_VIEW = 300.0
+        case LOADING_VIEW = 8000.0
+    }
+
     enum TAG_VIEW : Int {
         case LOADING = -111
+        case BG_UISTACKVIEW = 100
     }
     
     enum FORMAT_DATE : String {

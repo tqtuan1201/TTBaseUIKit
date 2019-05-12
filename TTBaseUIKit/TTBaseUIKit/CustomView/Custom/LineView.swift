@@ -16,7 +16,7 @@ import Foundation
 ///
 open class TTLineView: TTBaseUIView {
     
-    var bgColor:UIColor = TTBaseUIKitConfig.getViewConfig().lineColor
+    var bgColor:UIColor = TTBaseUIKitConfig.getViewConfig().lineDefColor
     
     override open func updateBaseUIView() {
         self.translatesAutoresizingMaskIntoConstraints = false
@@ -29,5 +29,13 @@ open class TTLineView: TTBaseUIView {
 extension TTLineView {
     public func setLineColor(_ color:UIColor) {
         self.setBgColor(color)
+    }
+    
+    public func setDefaultColor() {
+        self.setBgColor(TTView.lineDefColor)
+    }
+    
+    public func setActiveLineColor() {
+        self.setBgColor(TTView.lineActiveColor)
     }
 }

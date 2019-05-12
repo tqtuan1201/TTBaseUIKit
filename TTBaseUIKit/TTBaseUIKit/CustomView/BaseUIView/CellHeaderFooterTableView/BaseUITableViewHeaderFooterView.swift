@@ -48,7 +48,7 @@ open class TTBaseUITableViewHeaderFooterView: UITableViewHeaderFooterView, Reusa
         super.layoutSubviews()
         self.panel.layoutIfNeeded()
         if self.isSetBoderBottom {
-            self.panel.addBorder(withRectEdge: .bottom, borderColor: TTView.lineColor, borderHeight: 1)
+            self.panel.addBorder(withRectEdge: .bottom, borderColor: TTView.lineDefColor, borderHeight: 1)
         }
     }
     

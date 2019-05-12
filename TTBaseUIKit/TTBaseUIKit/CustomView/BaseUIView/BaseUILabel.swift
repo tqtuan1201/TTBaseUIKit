@@ -111,6 +111,7 @@ extension TTBaseUILabel {
     }
     
     public func setTextColor(color:UIColor) -> TTBaseUILabel {
+        self.textDefColor = color
         self.textColor = color
         return self
     }
@@ -121,6 +122,7 @@ extension TTBaseUILabel {
     }
     
     public func setBgColor(_ color:UIColor) {
+        self.viewDefBgColor = color
         self.backgroundColor = color
     }
     

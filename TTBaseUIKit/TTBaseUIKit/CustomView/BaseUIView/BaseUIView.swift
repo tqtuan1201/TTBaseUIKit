@@ -65,8 +65,10 @@ open class TTBaseUIView: UIView, ViewDrawer {
 
 extension TTBaseUIView {
     
-    public func setTouchHandler() {
+    public func setTouchHandler() -> TTBaseUIView {
+        self.isUserInteractionEnabled = true
         self.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(self.onTouchView(_:))))
+        return self
     }
     
     public func setCorner(withCornerRadius conner:CGFloat) {
@@ -75,6 +77,7 @@ extension TTBaseUIView {
     }
     
     public func setBgColor(_ color:UIColor) {
+        self.viewDefBgColor = color
         self.backgroundColor = color
     }
     

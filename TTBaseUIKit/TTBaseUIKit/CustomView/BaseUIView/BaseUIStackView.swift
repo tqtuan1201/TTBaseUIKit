@@ -11,7 +11,6 @@ import UIKit
 
 open class TTBaseUIStackView: UIStackView {
     
-    open var viewDefBgColor: UIColor = TTBaseUIKitConfig.getViewConfig().viewBgColor
     open var axisContraint:NSLayoutConstraint.Axis = .vertical
     open var spacingContraint:CGFloat = TTBaseUIKitConfig.getSizeConfig().P_CONS_DEF
     open var alignmentContraint:UIStackView.Alignment = .center
@@ -53,7 +52,9 @@ extension TTBaseUIStackView {
      * @param color: set color for view
      */
     public func setBackgroundColorByView(color: UIColor, conerRadius:CGFloat = 0) {
+        if let bgView = self.viewWithTag(CONSTANT.TAG_VIEW.BG_UISTACKVIEW.rawValue) { bgView.backgroundColor = color; return }
         let subView = UIView(frame: bounds)
+        subView.tag = CONSTANT.TAG_VIEW.BG_UISTACKVIEW.rawValue
         subView.setConerRadius(with: conerRadius)
         subView.isUserInteractionEnabled = false
         subView.backgroundColor = color

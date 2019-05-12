@@ -14,7 +14,7 @@ open class TTBaseUITextField: UITextField   {
     fileprivate var textDefColor:UIColor = TTBaseUIKitConfig.getViewConfig().textDefColor
     fileprivate var textpading:CGFloat = 5.0
     fileprivate let lineHeight:CGFloat = 1.5
-    fileprivate var lineColor:UIColor = TTBaseUIKitConfig.getViewConfig().lineColor
+    fileprivate var lineColor:UIColor = TTBaseUIKitConfig.getViewConfig().lineDefColor
     
     
     public enum TYPE {
@@ -25,6 +25,7 @@ open class TTBaseUITextField: UITextField   {
     }
     
     public var onTextEditChangedHandler:((_ textField:TTBaseUITextField,_ textString:String) -> Void)?
+    public var onDismissKeyboard:(() -> Void)?
     
     open func updateUI() { }
     
@@ -93,7 +94,7 @@ open class TTBaseUITextField: UITextField   {
     }
     
     @objc fileprivate func dismissKeyboard(_ sennder: UIButton) {
-        UIApplication.topViewController()?.dismissKeyboard()
+        self.onDismissKeyboard?(); UIApplication.topViewController()?.dismissKeyboard()
     }
 }
 

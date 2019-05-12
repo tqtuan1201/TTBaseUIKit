@@ -63,7 +63,7 @@ open class TTBaseUITableViewController: TTBaseUIViewController<TTBaseUIView>, UI
         
         self.tableView.delegate                 = self
         
-        self.tableView.keyboardDismissMode      = .onDrag
+        self.tableView.keyboardDismissMode      = self.keyboardDismissMode
         self.view.insertSubview(self.tableView, at: 0)
         
     }

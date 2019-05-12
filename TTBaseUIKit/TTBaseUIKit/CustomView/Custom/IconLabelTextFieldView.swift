@@ -92,4 +92,14 @@ extension TTIconLabelTextFieldView {
         self.labelTextField.inputTextField.setTextColor(color: color).done()
         return self
     }
+    
+    public func onTouchHandle( complete:@escaping (() -> ()) ) {
+        self.labelTextField.isUserInteractionEnabled = false
+        self.iconLeftImageView.isUserInteractionEnabled = false
+        self.setTouchHandler().onTouchHandler = { view in
+            complete()
+        }
+    }
+    
+    
 }

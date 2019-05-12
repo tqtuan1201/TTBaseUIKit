@@ -17,10 +17,15 @@ open class ViewConfig {
     public var textDefColor: UIColor =  UIColor.getColorFromHex.init(netHex: 0x555555)
     public var textWarringColor: UIColor = UIColor.getColorFromHex.init(netHex: 0xC41F53)
     
+    public var viewBgSkeleton: UIColor = UIColor.getColorFromHex.init(netHex: 0xe8e8e8)
+    public var viewBgGradientSkeleton: UIColor = UIColor.white.withAlphaComponent(0.2)
+    public var viewBgGradientMoveSkeleton: UIColor = UIColor.darkGray.withAlphaComponent(0.14)
+    
     public var viewBgNavColor: UIColor = UIColor.getColorFromHex.init(netHex: 0x1C82AD)
     public var viewDefColor: UIColor = UIColor.white
     public var viewBgColor: UIColor = UIColor.getColorFromHex.init(netHex: 0xDBDBDB)
     public var viewPanelWithButtomColor: UIColor = UIColor.white
+    public var viewIconTextBgTableView: UIColor =  UIColor.darkText.withAlphaComponent(0.5)
     
     
     public var tableRowTextColor: UIColor = UIColor.getColorFromHex.init(netHex: 0x555555)
@@ -30,7 +35,7 @@ open class ViewConfig {
     public var tableRowDev2BgColor: UIColor = UIColor.getColorFromHex.init(netHex: 0xEDEDED)
     
     public var viewBgCellColor: UIColor = UIColor.white
-    public var viewBgCellSelectedColor: UIColor = UIColor.getColorFromHex.init(netHex: 0x1C82AD)
+    public var viewBgCellSelectedColor: UIColor = UIColor.getColorFromHex.init(netHex: 0xe8f2f6)
     
     public var labelBgDef: UIColor = UIColor.getColorFromHex.init(netHex: 0x1C82AD)
     public var labelBgWar: UIColor = UIColor.getColorFromHex.init(netHex: 0xC41F53)
@@ -48,7 +53,9 @@ open class ViewConfig {
     public var segBgLine: UIColor = UIColor.white
     public var segLineBottomBg: UIColor = UIColor.getColorFromHex.init(netHex: 0xC41F53)
     
-    public var lineColor: UIColor =  UIColor.getColorFromHex.init(netHex: 0x1C82AD)
+    public var lineDefColor: UIColor =  UIColor.getColorFromHex.init(netHex: 0xe5e5e5)
+    public var lineActiveColor: UIColor =  UIColor.getColorFromHex.init(netHex: 0xC41F53)
+    
     public var iconColor: UIColor =  UIColor.getColorFromHex.init(netHex: 0x777777)
     public var iconRightTextFieldColor: UIColor =  UIColor.getColorFromHex.init(netHex: 0x777777)
     

@@ -19,6 +19,7 @@ class Config {
         static let logoDefName:String = "img.logo.Def.png"
         static let fontImageNamePro:String = "fa-light-300"
         static let fontImageNameFree:String = "fa-regular-400"
+        static let noDataGifImageName:String = "empty.gif"
     }
 
 }

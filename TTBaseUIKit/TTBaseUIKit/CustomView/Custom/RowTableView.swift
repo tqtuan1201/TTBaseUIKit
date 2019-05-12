@@ -95,6 +95,15 @@ extension TTRowTableView {
             }
         }
     }
+
+    public func setColum(byString values:[String]) {
+        for (index, view) in self.stackView.arrangedSubviews.enumerated() {
+            guard let columnLabel:TTBaseUILabel = view as? TTBaseUILabel  else { return }
+            if values.indices.contains(index) {
+                columnLabel.setText(text: values[index]).layoutIfNeeded()
+            }
+        }
+    }
     
     public func setTitleColum(byString values:[String], fontSize:CGFloat, isBold:Bool) {
         for (index, view) in self.stackView.arrangedSubviews.enumerated() {

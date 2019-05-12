@@ -21,10 +21,12 @@ open class TTBaseUITableViewCell: UITableViewCell, ReusableView {
     
     open var isSetBgSelected:Bool { get { return true }}
     open var isSetBoderBottom:Bool { get { return false }}
-    
+
     open func updateUI() { }
 
     fileprivate var isSetBorder:Bool = false
+
+    public var skeletonLayer:CALayer?
 
     required public init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
@@ -54,7 +56,8 @@ open class TTBaseUITableViewCell: UITableViewCell, ReusableView {
     
     override open func layoutSubviews() {
         super.layoutSubviews()
-        if self.isSetBoderBottom { self.panel.addBorder(withRectEdge: .bottom, borderColor: TTView.lineColor, borderHeight: 1) }
+        if self.isSetBoderBottom { self.panel.addBorder(withRectEdge: .bottom, borderColor: TTView.lineDefColor, borderHeight: 1) }
+        if self.skeletonLayer != nil {self.skeletonLayer?.frame = CGRect.init(x: -4, y: 0, width: self.panel.frame.width + 8, height: self.panel.frame.height)}
     }
     
     private func setupBgViewSelect() -> UIView {
@@ -78,6 +81,7 @@ open class TTBaseUITableViewCell: UITableViewCell, ReusableView {
     private func setupContraints() {
         self.panel.setFullContraints(lead: self.padding.0, trail: self.padding.2, top: self.padding.1, bottom: self.padding.3)
     }
+    
 }
 
 extension TTBaseUITableViewCell {
@@ -95,6 +99,37 @@ extension TTBaseUITableViewCell {
                 return tb
             } else {
                 return nil
+            }
+        }
+    }
+    
+    public func setSkeletonAnimation() ->  TTBaseUITableViewCell{
+        self.skeletonLayer = UIView.getGradientSkeletonLayer()
+        self.clipsToBounds = true
+        self.panel.layer.addSublayer(self.skeletonLayer!)
+        return self
+    }
+    
+    public func onStartSkeletonAnimation(isSetAllSubView:Bool = true) {
+        self.skeletonLayer?.isHidden = false
+        let views = isSetAllSubView ? self.panel.subviewsRecursive(): self.panel.subviews
+        for view in views {
+            view.backgroundColor = TTView.viewBgSkeleton
+            if let lb = view as? TTBaseUILabel {lb.textColor = TTView.viewBgSkeleton}
+        }
+    }
+
+    public func onStopSkeletonAnimation(isSetAllSubView:Bool = true) {
+        self.skeletonLayer?.isHidden = true
+        let views = isSetAllSubView ? self.panel.subviewsRecursive(): self.panel.subviews
+        for view in views {
+            if let view = view as? TTBaseUIView {
+                view.backgroundColor = view.viewDefBgColor
+            } else if let lb = view as? TTBaseUILabel {
+                lb.textColor = lb.textDefColor
+                lb.backgroundColor = lb.viewDefBgColor
+            } else {
+                 view.backgroundColor = UIColor.clear
             }
         }
     }

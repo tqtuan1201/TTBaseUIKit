@@ -11,6 +11,11 @@
 		93073FC122644132009AF63F /* TTBaseUIKitSetting.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93073FC022644132009AF63F /* TTBaseUIKitSetting.swift */; };
 		93073FC32264416A009AF63F /* TTLanguageManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93073FC22264416A009AF63F /* TTLanguageManager.swift */; };
 		93073FC522644473009AF63F /* GlobalFunctions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93073FC422644473009AF63F /* GlobalFunctions.swift */; };
+		93083CB322815E6500957B4D /* BaseUISearchBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93083CB222815E6500957B4D /* BaseUISearchBar.swift */; };
+		93083CB62281662C00957B4D /* Device.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93083CB52281662C00957B4D /* Device.swift */; };
+		93083CB82281664D00957B4D /* DeviceVersion.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93083CB72281664D00957B4D /* DeviceVersion.swift */; };
+		93083CBA2281667300957B4D /* DeviceType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93083CB92281667300957B4D /* DeviceType.swift */; };
+		93083CBC2281669F00957B4D /* DeviceSize.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93083CBB2281669F00957B4D /* DeviceSize.swift */; };
 		9310AE972269C4C500003C38 /* TextSubtextIconTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9310AE962269C4C500003C38 /* TextSubtextIconTableViewCell.swift */; };
 		931B5C412257730F009B01A3 /* TTBaseUIKit.h in Headers */ = {isa = PBXBuildFile; fileRef = 931B5C3F2257730F009B01A3 /* TTBaseUIKit.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		931B5C4822577356009B01A3 /* Service.swift in Sources */ = {isa = PBXBuildFile; fileRef = 931B5C4722577356009B01A3 /* Service.swift */; };
@@ -28,6 +33,8 @@
 		9358C8382268A68000D2D10F /* ImageLabelView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9358C8372268A67F00D2D10F /* ImageLabelView.swift */; };
 		9358C83A2268AA6800D2D10F /* BaseUICollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9358C8392268AA6800D2D10F /* BaseUICollectionViewController.swift */; };
 		935F24C7226B423100B93AA2 /* img.icon.down.png in Resources */ = {isa = PBXBuildFile; fileRef = 935F24C6226B423000B93AA2 /* img.icon.down.png */; };
+		935F690D22802EDB00A38FDA /* BaseWKWebView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 935F690C22802EDB00A38FDA /* BaseWKWebView.swift */; };
+		935F6910228030B400A38FDA /* empty.gif in Resources */ = {isa = PBXBuildFile; fileRef = 935F690F228030B300A38FDA /* empty.gif */; };
 		936091C9225B297C007D8F6B /* TTBaseFunc.swift in Sources */ = {isa = PBXBuildFile; fileRef = 936091C8225B297C007D8F6B /* TTBaseFunc.swift */; };
 		936091CB225B29F3007D8F6B /* ValueConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = 936091CA225B29F3007D8F6B /* ValueConfig.swift */; };
 		936091CD225B2DD5007D8F6B /* BaseCustomViewRepresentable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 936091CC225B2DD5007D8F6B /* BaseCustomViewRepresentable.swift */; };
@@ -79,15 +86,18 @@
 		93D6BE7F22637FB400906781 /* LabelTextFieldView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93D6BE7E22637FB400906781 /* LabelTextFieldView.swift */; };
 		93D6BE812263F3E200906781 /* LineView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93D6BE802263F3E200906781 /* LineView.swift */; };
 		93D6BE8522640CEA00906781 /* img.hideKeyboard.png in Resources */ = {isa = PBXBuildFile; fileRef = 93D6BE8422640CEA00906781 /* img.hideKeyboard.png */; };
-		FBDE891766CFACF61CB742E5 /* Pods_TTBaseUIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2043EF6288A06289BB9E501D /* Pods_TTBaseUIKit.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		2043EF6288A06289BB9E501D /* Pods_TTBaseUIKit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_TTBaseUIKit.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		93073FBE22643D36009AF63F /* String+Config.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+Config.swift"; sourceTree = "<group>"; };
 		93073FC022644132009AF63F /* TTBaseUIKitSetting.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TTBaseUIKitSetting.swift; sourceTree = "<group>"; };
 		93073FC22264416A009AF63F /* TTLanguageManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TTLanguageManager.swift; sourceTree = "<group>"; };
 		93073FC422644473009AF63F /* GlobalFunctions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GlobalFunctions.swift; sourceTree = "<group>"; };
+		93083CB222815E6500957B4D /* BaseUISearchBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseUISearchBar.swift; sourceTree = "<group>"; };
+		93083CB52281662C00957B4D /* Device.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Device.swift; sourceTree = "<group>"; };
+		93083CB72281664D00957B4D /* DeviceVersion.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeviceVersion.swift; sourceTree = "<group>"; };
+		93083CB92281667300957B4D /* DeviceType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeviceType.swift; sourceTree = "<group>"; };
+		93083CBB2281669F00957B4D /* DeviceSize.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeviceSize.swift; sourceTree = "<group>"; };
 		9310AE962269C4C500003C38 /* TextSubtextIconTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextSubtextIconTableViewCell.swift; sourceTree = "<group>"; };
 		931B5C3C2257730E009B01A3 /* TTBaseUIKit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = TTBaseUIKit.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		931B5C3F2257730F009B01A3 /* TTBaseUIKit.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TTBaseUIKit.h; sourceTree = "<group>"; };
@@ -107,6 +117,8 @@
 		9358C8372268A67F00D2D10F /* ImageLabelView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageLabelView.swift; sourceTree = "<group>"; };
 		9358C8392268AA6800D2D10F /* BaseUICollectionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseUICollectionViewController.swift; sourceTree = "<group>"; };
 		935F24C6226B423000B93AA2 /* img.icon.down.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = img.icon.down.png; sourceTree = "<group>"; };
+		935F690C22802EDB00A38FDA /* BaseWKWebView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseWKWebView.swift; sourceTree = "<group>"; };
+		935F690F228030B300A38FDA /* empty.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; name = empty.gif; path = "../../../../../../../P.CONTACT/ContactPlus[XC]/UpdateContact/Images/empty.gif"; sourceTree = "<group>"; };
 		936091C8225B297C007D8F6B /* TTBaseFunc.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TTBaseFunc.swift; sourceTree = "<group>"; };
 		936091CA225B29F3007D8F6B /* ValueConfig.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ValueConfig.swift; sourceTree = "<group>"; };
 		936091CC225B2DD5007D8F6B /* BaseCustomViewRepresentable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseCustomViewRepresentable.swift; sourceTree = "<group>"; };
@@ -167,19 +179,21 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				FBDE891766CFACF61CB742E5 /* Pods_TTBaseUIKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		38602FD7FEA4246352814234 /* Frameworks */ = {
+		93083CB42281660A00957B4D /* Ekhoo_Device */ = {
 			isa = PBXGroup;
 			children = (
-				2043EF6288A06289BB9E501D /* Pods_TTBaseUIKit.framework */,
+				93083CB52281662C00957B4D /* Device.swift */,
+				93083CB72281664D00957B4D /* DeviceVersion.swift */,
+				93083CB92281667300957B4D /* DeviceType.swift */,
+				93083CBB2281669F00957B4D /* DeviceSize.swift */,
 			);
-			name = Frameworks;
+			path = Ekhoo_Device;
 			sourceTree = "<group>";
 		};
 		931B5C322257730E009B01A3 = {
@@ -188,7 +202,6 @@
 				931B5C3E2257730F009B01A3 /* TTBaseUIKit */,
 				931B5C3D2257730F009B01A3 /* Products */,
 				C1E82363976BF3558CA8E560 /* Pods */,
-				38602FD7FEA4246352814234 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -242,6 +255,14 @@
 				9389D10F2279BDA200D6319E /* fa-light-300.ttf */,
 			);
 			path = Fonts;
+			sourceTree = "<group>";
+		};
+		935F690E228030A000A38FDA /* gif */ = {
+			isa = PBXGroup;
+			children = (
+				935F690F228030B300A38FDA /* empty.gif */,
+			);
+			path = gif;
 			sourceTree = "<group>";
 		};
 		936091C6225B258D007D8F6B /* CustomView */ = {
@@ -332,6 +353,8 @@
 				93B6A098226B56030045C107 /* BaseUISegmentedControl.swift */,
 				93C0D2A42274738B00E5889C /* BaseHeaderView.swift */,
 				93CB1C57228013BB00A0CA54 /* BaseUISearchViewController.swift */,
+				935F690C22802EDB00A38FDA /* BaseWKWebView.swift */,
+				93083CB222815E6500957B4D /* BaseUISearchBar.swift */,
 			);
 			path = BaseUIView;
 			sourceTree = "<group>";
@@ -385,6 +408,7 @@
 		93D6BE8222640C9E00906781 /* Images */ = {
 			isa = PBXGroup;
 			children = (
+				935F690E228030A000A38FDA /* gif */,
 				939EA8802276B0D5008DDCBC /* img.logo.Def.png */,
 				939EA8812276B0D5008DDCBC /* img.logo.idea.png */,
 				93C0D29A227461D200E5889C /* img.NoImage1.png */,
@@ -399,6 +423,7 @@
 		93D6BE8322640CAB00906781 /* Support */ = {
 			isa = PBXGroup;
 			children = (
+				93083CB42281660A00957B4D /* Ekhoo_Device */,
 				9331B4952279803F00E1C26D /* AwesomePro.swift */,
 				9331B49022797E9500E1C26D /* Fonts */,
 				93C0D2A9227491D000E5889C /* Test */,
@@ -493,6 +518,7 @@
 				9389D1162279C53000D6319E /* fa-regular-400.ttf in Resources */,
 				93C0D29D227461D200E5889C /* img.NoImage2.png in Resources */,
 				939EA8832276B0D5008DDCBC /* img.logo.idea.png in Resources */,
+				935F6910228030B400A38FDA /* empty.gif in Resources */,
 				935F24C7226B423100B93AA2 /* img.icon.down.png in Resources */,
 				936A50572267142D00CA384C /* img.NoImage.png in Resources */,
 				93C0D29C227461D200E5889C /* img.NoImage1.png in Resources */,
@@ -535,11 +561,13 @@
 				933A92B0227755DD008ECCC4 /* RowTableView.swift in Sources */,
 				93892BE3227B206A006098DA /* BasePasswordUITextField.swift in Sources */,
 				936091D1225B31AC007D8F6B /* UIView+Config.swift in Sources */,
+				935F690D22802EDB00A38FDA /* BaseWKWebView.swift in Sources */,
 				9358C832226895E200D2D10F /* BaseUICollectionViewCell.swift in Sources */,
 				93768AA32258E6330033DDBB /* UIColor+Config.swift in Sources */,
 				9358C83A2268AA6800D2D10F /* BaseUICollectionViewController.swift in Sources */,
 				93073FBF22643D36009AF63F /* String+Config.swift in Sources */,
 				93C99512225F6D170081FA81 /* BaseUITextField.swift in Sources */,
+				93083CB82281664D00957B4D /* DeviceVersion.swift in Sources */,
 				93C0D2A322746B6900E5889C /* IconTextSubtextTextSubTextRightTableViewCell.swift in Sources */,
 				93D6BE7F22637FB400906781 /* LabelTextFieldView.swift in Sources */,
 				933A92BA2277762F008ECCC4 /* UIImageCircleView.swift in Sources */,
@@ -569,11 +597,13 @@
 				93C05A102261BF1B00E27EDB /* BaseUIStackView.swift in Sources */,
 				93C99514225F6DFB0081FA81 /* UIApplication+Config.swift in Sources */,
 				936091CB225B29F3007D8F6B /* ValueConfig.swift in Sources */,
+				93083CB62281662C00957B4D /* Device.swift in Sources */,
 				93A17A3C2273005B005CCD33 /* BaseUITableViewHeaderFooterView.swift in Sources */,
 				93768A982258CFFD0033DDBB /* Configuration.swift in Sources */,
 				9389D11C227A025A00D6319E /* BaseUICricleView.swift in Sources */,
 				9310AE972269C4C500003C38 /* TextSubtextIconTableViewCell.swift in Sources */,
 				93C0D29F2274699300E5889C /* IconTextSubtextTableViewCell.swift in Sources */,
+				93083CBC2281669F00957B4D /* DeviceSize.swift in Sources */,
 				93C99516225F6E3C0081FA81 /* UIViewController+Config.swift in Sources */,
 				931B5C4822577356009B01A3 /* Service.swift in Sources */,
 				9320F1A02269733E003B8628 /* BaseUITableViewController.swift in Sources */,
@@ -589,9 +619,11 @@
 				93768A9E2258DE080033DDBB /* SizeConfig.swift in Sources */,
 				936091CF225B2FCE007D8F6B /* BaseUIView.swift in Sources */,
 				936091CD225B2DD5007D8F6B /* BaseCustomViewRepresentable.swift in Sources */,
+				93083CB322815E6500957B4D /* BaseUISearchBar.swift in Sources */,
 				93768A9C2258D3510033DDBB /* Constant.swift in Sources */,
 				9320F19A226970D4003B8628 /* BaseUITableViewCell.swift in Sources */,
 				9320F19E2269728C003B8628 /* TextIconTableViewCell.swift in Sources */,
+				93083CBA2281667300957B4D /* DeviceType.swift in Sources */,
 				9389D11A2279E8D100D6319E /* UIImageFontCircleView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -733,6 +765,7 @@
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
 				INFOPLIST_FILE = TTBaseUIKit/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
@@ -741,6 +774,7 @@
 					"@executable_path/Frameworks",
 					"@loader_path/Frameworks",
 				);
+				OTHER_LDFLAGS = "";
 				PRODUCT_BUNDLE_IDENTIFIER = TQT.TTBaseUIKit;
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
 				SKIP_INSTALL = YES;
@@ -762,6 +796,7 @@
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
 				INFOPLIST_FILE = TTBaseUIKit/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
@@ -770,6 +805,7 @@
 					"@executable_path/Frameworks",
 					"@loader_path/Frameworks",
 				);
+				OTHER_LDFLAGS = "";
 				PRODUCT_BUNDLE_IDENTIFIER = TQT.TTBaseUIKit;
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
 				SKIP_INSTALL = YES;

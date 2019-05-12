@@ -21,7 +21,7 @@ extension UIViewController {
             if strongSelf.view.viewWithTag(CONSTANT.TAG_VIEW.LOADING.rawValue) != nil { return }
             
             let panelLoadingView:TTBaseUIView = TTBaseUIView()
-            panelLoadingView.layer.zPosition = 8000
+            panelLoadingView.layer.zPosition = CONSTANT.POSITION_VIEW.LOADING_VIEW.rawValue
             panelLoadingView.tag = CONSTANT.TAG_VIEW.LOADING.rawValue
             
             panelLoadingView.backgroundColor = UIColor.white.withAlphaComponent(0.2)
@@ -63,5 +63,11 @@ extension UIViewController {
         DispatchQueue.main.async {
             self.present(alert, animated: true, completion: nil)
         }
+    }
+    
+    public func presentDef(vc:UIViewController, type:UIModalPresentationStyle = .fullScreen) {
+        vc.modalPresentationStyle = type
+        vc.modalTransitionStyle   = .crossDissolve
+        self.present(vc, animated: true, completion: nil)
     }
 }

@@ -31,6 +31,7 @@ open class TTLabelTextFieldView : TTBaseUIView {
     open var sizeIconRight:(CGFloat, CGFloat) { get { return (TTSize.H_ICON / 2, TTSize.H_ICON / 2) } }
     open var iconRight:UIImage? { get { return UIImage.init(fromTTBaseUIKit: "img.icon.down.png") } }
     open var iconRightColor:UIColor { get { return TTView.iconRightTextFieldColor}}
+    open var isAnimationLine:Bool { get { return true}}
     
     fileprivate var isPasswordTextField:Bool  = false
     
@@ -39,7 +40,7 @@ open class TTLabelTextFieldView : TTBaseUIView {
     public let titleLabel:TTBaseUILabel = TTBaseUILabel()
     public var inputTextField:TTBaseUITextField = TTBaseUITextField(withPlaceholder: "Please input text", type: .NO_PADING)
     public let lineView:TTLineView = TTLineView()
-    
+
     public convenience init(withSetPasswordTextField isSet:Bool) {
         self.init()
         self.isPasswordTextField = isSet
@@ -52,7 +53,8 @@ open class TTLabelTextFieldView : TTBaseUIView {
     }
     
     fileprivate func setupBaseUIView() {
-        if isPasswordTextField { self.inputTextField = TTBasePasswordUITextField(withPlaceholder: "Please input text", type: .NO_PADING)}
+        if self.isPasswordTextField { self.inputTextField = TTBasePasswordUITextField(withPlaceholder: "Please input text", type: .NO_PADING)}
+        if self.isAnimationLine {self.lineView.setDefaultColor() }
         self.setupViewCodable(with: [titleLabel, inputTextField, lineView] )
         if self.iconRight != nil && !isPasswordTextField {
             self.iconRightImageView.image = self.iconRight
@@ -82,6 +84,21 @@ extension TTLabelTextFieldView : TTViewCodable {
         self.titleLabel.setText(text: "Title text").setAlign(align: .left).done()
         self.inputTextField.setNoBorder().done()
     }
+    
+    public func bindComponents() {
+        if self.isAnimationLine {
+            self.inputTextField.addTarget(self, action: #selector(self.editingDidBeginTextField(_:)), for: UIControl.Event.editingDidBegin)
+            self.inputTextField.addTarget(self, action: #selector(self.editingDidEndTextField(_:)), for: UIControl.Event.editingDidEnd)
+        }
+    }
+    
+    @objc private func editingDidBeginTextField(_ textField:UITextField) {
+        self.lineView.setActiveLineColor()
+    }
+    
+    @objc private func editingDidEndTextField(_ textField:UITextField) {
+        self.lineView.setDefaultColor()
+    }
 }
 
 extension TTLabelTextFieldView {
@@ -106,5 +123,13 @@ extension TTLabelTextFieldView {
         self.titleLabel.setBgColor(title)
         self.inputTextField.setBgColor(title)
         return self
+    }
+    
+    public func onTouchHandle( complete:@escaping (() -> ()) ) {
+        self.titleLabel.isUserInteractionEnabled = false
+        self.inputTextField.isUserInteractionEnabled = false
+        self.setTouchHandler().onTouchHandler = { view in
+            complete()
+        }
     }
 }

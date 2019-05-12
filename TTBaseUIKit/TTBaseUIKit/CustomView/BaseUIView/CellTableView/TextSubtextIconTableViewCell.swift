@@ -73,3 +73,24 @@ open class TTTextSubtextIconTableViewCell : TTBaseUITableViewCell {
     }
     
 }
+
+public protocol TTTextSubtextIconTableViewCellRepresentable {
+    
+    var imageName:String { get }
+    var iconName:String { get }
+    var titleText:String { get }
+    var subText:String { get }
+    
+}
+
+extension TTTextSubtextIconTableViewCell {
+    
+    public func configure(withRepresentable viewModel: TTTextSubtextIconTableViewCellRepresentable) {
+        
+        if !viewModel.imageName.isEmpty { self.imageRight.setImageByName(name: viewModel.imageName) }
+        if !viewModel.iconName.isEmpty { self.imageRight.setIConImage(with: viewModel.iconName).done() }
+        
+        self.titleLabel.setText(text: viewModel.titleText).done()
+        self.subLabel.setText(text: viewModel.subText).done()
+    }
+}

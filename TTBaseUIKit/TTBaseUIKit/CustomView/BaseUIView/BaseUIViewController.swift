@@ -41,7 +41,7 @@ open class TTBaseUIViewController<BaseView:TTBaseUIView>: UIViewController {
     fileprivate let panelEffectView:TTBaseUIView = {
         let view = TTBaseUIView()
         view.isUserInteractionEnabled = false
-        view.layer.zPosition = 1000
+        view.layer.zPosition = CONSTANT.POSITION_VIEW.EFFECT_VIEW.rawValue
         return view
     }()
     
@@ -94,11 +94,13 @@ open class TTBaseUIViewController<BaseView:TTBaseUIView>: UIViewController {
         self.view.backgroundColor = self.bgView
         self.statusBar.layer.zPosition = 10000
         self.statusBar.backgroundColor = TTBaseUIKitConfig.getViewConfig().viewBgNavColor
-        
+        self.statusBar.layer.zPosition = CONSTANT.POSITION_VIEW.NAV_VIEW.rawValue
+        self.navBar.layer.zPosition = CONSTANT.POSITION_VIEW.NAV_VIEW.rawValue
         switch self.navType {
         case .STATUS_NAV:
             self.view.addSubview(self.statusBar)
             self.view.addSubview(self.navBar)
+            
         break
         case .ONLY_STATUS:
             self.view.addSubview(self.statusBar)
@@ -123,11 +125,11 @@ open class TTBaseUIViewController<BaseView:TTBaseUIView>: UIViewController {
         
         switch self.navType {
         case .STATUS_NAV:
-            self.statusBar.setLeadingAnchor(constant: 0).setTopAnchor(constant: 0).setTrailingAnchor(constant: 0).setHeightAnchor(constant: TTBaseUIKitConfig.getSizeConfig().H_STATUS).layer.zPosition = 1000
-            self.navBar.setLeadingAnchor(constant: 0).setTopAnchorWithAboveView(nextToView: self.statusBar, constant: 0).setTrailingAnchor(constant: 0).setHeightAnchor(constant: TTSize.H_NAV).layer.zPosition = 1000
+            self.statusBar.setLeadingAnchor(constant: 0).setTopAnchor(constant: 0).setTrailingAnchor(constant: 0).setHeightAnchor(constant: TTBaseUIKitConfig.getSizeConfig().H_STATUS).done()
+            self.navBar.setLeadingAnchor(constant: 0).setTopAnchorWithAboveView(nextToView: self.statusBar, constant: 0).setTrailingAnchor(constant: 0).setHeightAnchor(constant: TTSize.H_NAV).done()
             break
         case .ONLY_STATUS:
-            self.statusBar.setLeadingAnchor(constant: 0).setTopAnchor(constant: 0).setTrailingAnchor(constant: 0).setHeightAnchor(constant: TTBaseUIKitConfig.getSizeConfig().H_STATUS).layer.zPosition = 1000
+            self.statusBar.setLeadingAnchor(constant: 0).setTopAnchor(constant: 0).setTrailingAnchor(constant: 0).setHeightAnchor(constant: TTBaseUIKitConfig.getSizeConfig().H_STATUS).done()
             break
         case .NO_VIEW:
             break

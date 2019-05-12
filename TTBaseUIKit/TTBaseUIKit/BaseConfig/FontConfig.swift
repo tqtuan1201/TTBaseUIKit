@@ -11,14 +11,21 @@ import UIKit
 
 public class FontConfig {
     
-    var HEADER_H:CGFloat = 22
-    var TITLE_H:CGFloat = 18
-    var SUB_TITLE_H:CGFloat = 14
+    var HEADER_H:CGFloat = 16
+    var TITLE_H:CGFloat = 14
+    var SUB_TITLE_H:CGFloat = 12
     var SUB_SUB_TITLE_H:CGFloat = 10
     var FONT:UIFont = UIFont.systemFont(ofSize: 14, weight: UIFont.Weight.medium)
     
     
-    public init() {}
+    public init() {
+        if Device.size() < .screen4_7Inch {
+            self.HEADER_H = 14.5
+            self.TITLE_H = 13.5
+            self.SUB_TITLE_H = 11.5
+            self.SUB_SUB_TITLE_H = 9.5
+        }
+    }
     
     public convenience init(with headerH:CGFloat, titleH:CGFloat, subTitleH:CGFloat, subSubTileH:CGFloat, font:UIFont) {
         self.init()
@@ -28,9 +35,7 @@ public class FontConfig {
         self.SUB_SUB_TITLE_H = subSubTileH
         self.FONT = font
     }
-    
-    
-    
+   
 }
 
 // MARK: For Base public funcs

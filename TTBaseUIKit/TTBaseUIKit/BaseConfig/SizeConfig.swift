@@ -27,7 +27,7 @@ public class SizeConfig {
     public var H_SEG_LINE:CGFloat = 2.0
     
     public var H_TEXTFIELD:CGFloat = 35.0
-    public var H_LINEVIEW:CGFloat = 2.0
+    public var H_LINEVIEW:CGFloat = 1.5
     public var H_STATUS:CGFloat = UIApplication.shared.statusBarFrame.height
     public var H_NAV:CGFloat = 45.0
     public var H_BORDER:CGFloat = 2

@@ -7,7 +7,7 @@
 //
 
 import Foundation
-
+import UIKit
 
 /// Easier way to create cell identifier
 public protocol ReusableView: class {
@@ -55,6 +55,97 @@ extension UITableView {
         }
         
         return cell
+    }
+    
+    
+    public func setNonBgNoData() {
+        self.backgroundView = nil
+        self.backgroundView?.isUserInteractionEnabled = false
+        self.isScrollEnabled = true
+    }
+    
+    public func setBgGifNoData(withImageName imageString:String, onTouchHandle:(() -> ())?)  {
+        
+        let panelView:UIView = UIView()
+        panelView.backgroundColor = UIColor.white
+        panelView.translatesAutoresizingMaskIntoConstraints = false
+        
+        let webView:TTBaseWKWebView = TTBaseWKWebView(gifNameString: imageString)
+        
+        webView.contentMode = UIView.ContentMode.bottom
+        webView.scrollView.isScrollEnabled = false
+        panelView.addSubview(webView)
+        
+        webView.widthAnchor.constraint(equalTo: panelView.widthAnchor, multiplier: 1).isActive = true
+        webView.heightAnchor.constraint(equalTo: webView.widthAnchor, multiplier: 1).isActive = true
+        webView.centerXAnchor.constraint(equalTo: panelView.centerXAnchor, constant: 1).isActive = true
+        webView.centerYAnchor.constraint(equalTo: panelView.centerYAnchor, constant: 1).isActive = true
+        
+        self.backgroundView = panelView
+        self.backgroundView?.isUserInteractionEnabled = true
+        self.backgroundView?.translatesAutoresizingMaskIntoConstraints = false
+        self.backgroundView?.leadingAnchor.constraint(equalTo: self.layoutMarginsGuide.leadingAnchor, constant: 0).isActive = true
+        self.backgroundView?.trailingAnchor.constraint(equalTo: self.layoutMarginsGuide.trailingAnchor, constant: 0).isActive = true
+        self.backgroundView?.topAnchor.constraint(equalTo: self.layoutMarginsGuide.topAnchor, constant: 0).isActive = true
+        self.backgroundView?.bottomAnchor.constraint(equalTo: self.layoutMarginsGuide.bottomAnchor, constant: 0).isActive = true
+        
+        self.backgroundView?.alpha = 0
+        UIView.animate(withDuration: 0.8) {
+            self.backgroundView?.alpha = 1
+        }
+        self.isScrollEnabled = false
+        
+        webView.onTouchHandler = { baseWebView in
+            onTouchHandle?()
+        }
+    }
+    
+    
+    public func setStaticBgNoData(withImageName icon:String = AwesomePro.Light.clock.rawValue, color:UIColor = TTBaseUIKitConfig.getViewConfig().viewIconTextBgTableView, title:String, des:String , onTouchHandle:(() -> ())?)  {
+        
+        let panelView:TTBaseUIView = TTBaseUIView()
+        panelView.backgroundColor = UIColor.clear
+        
+        var paddingTop:CGFloat = TTSize.P_CONS_DEF
+        
+        var imageView:TTBaseUIImageView = TTBaseUIImageFontView(withFontIconSize: icon, sizeIcon: CGSize(width: 100, height: 100), colorIcon: color, contendMode: .scaleAspectFit)
+        if icon.contains(".ing") || icon.contains(".png") { imageView = TTBaseUIImageView(with: icon) ; paddingTop = TTSize.P_CONS_DEF + 3 }
+        
+        imageView.backgroundColor = UIColor.clear
+        panelView.addSubview(imageView)
+        
+        imageView.setWidthAnchor(constant: TTSize.W / 4.5).setHeightAnchor(constant: TTSize.W / 4.5).setFullCenterAnchor(constant: 0)
+        
+        let titleLabel:TTBaseUILabel = TTBaseUILabel(withType: .TITLE, text: title, align: .center)
+        titleLabel.setTextColor(color: color).done()
+        titleLabel.backgroundColor = UIColor.clear
+        panelView.addSubview(titleLabel)
+        
+        titleLabel.setVerticalContentHuggingPriority().setLeadingAnchor(constant: 0).setTrailingAnchor(constant: 0).setTopAnchorWithAboveView(nextToView: imageView, constant: paddingTop).done()
+        
+        let subLabel:TTBaseUILabel = TTBaseUILabel(withType: .SUB_TITLE, text: des, align: .center)
+        subLabel.backgroundColor = UIColor.clear
+        subLabel.setTextColor(color: color).done()
+        panelView.addSubview(subLabel)
+        
+        subLabel.setVerticalContentHuggingPriority().setLeadingAnchor(constant: 0).setTrailingAnchor(constant: 0).setTopAnchorWithAboveView(nextToView: titleLabel, constant: TTSize.P_CONS_DEF / 2).done()
+        
+        self.backgroundView = panelView
+        self.backgroundView?.isUserInteractionEnabled = true
+        self.backgroundView?.translatesAutoresizingMaskIntoConstraints = false
+        self.backgroundView?.leadingAnchor.constraint(equalTo: self.layoutMarginsGuide.leadingAnchor, constant: 0).isActive = true
+        self.backgroundView?.trailingAnchor.constraint(equalTo: self.layoutMarginsGuide.trailingAnchor, constant: 0).isActive = true
+        self.backgroundView?.topAnchor.constraint(equalTo: self.layoutMarginsGuide.topAnchor, constant: 0).isActive = true
+        self.backgroundView?.bottomAnchor.constraint(equalTo: self.layoutMarginsGuide.bottomAnchor, constant: 0).isActive = true
+        
+        self.backgroundView?.alpha = 0
+        UIView.animate(withDuration: 0.2) {
+            self.backgroundView?.alpha = 1
+        }
+        self.isScrollEnabled = false
+        panelView.setTouchHandler().onTouchHandler = { view in
+            onTouchHandle?()
+        }
     }
     
 }

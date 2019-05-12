@@ -13,7 +13,7 @@ open class TTBaseUIImageView: UIImageView, ViewDrawer {
     var viewDefBgColor: UIColor = TTBaseUIKitConfig.getViewConfig().viewDefColor
     var viewDefCornerRadius: CGFloat = TTBaseUIKitConfig.getSizeConfig().CORNER_RADIUS
     
-    var paddingContentImage: CGFloat = 0
+    public var paddingContentImage: CGFloat = 0
     
     open func updateUI() { }
     
@@ -145,7 +145,7 @@ extension TTBaseUIImageView {
     }
 
     public func setIConImage(with name:String, color:UIColor = TTBaseUIKitConfig.getViewConfig().iconColor,  scale:UIView.ContentMode = .scaleAspectFill)  -> TTBaseUIImageView {
-        self.image = UIImage.fontAwesomeIconWithName(nameString: name, size: CGSize(width: 400, height: 400), iconColor: color, backgroundColor: UIColor.clear)
+        self.image = UIImage.fontAwesomeIconWithName(nameString: name, size: CGSize(width: 60, height: 60), iconColor: color, backgroundColor: UIColor.clear)
         self.contentMode = scale
         return self
     }

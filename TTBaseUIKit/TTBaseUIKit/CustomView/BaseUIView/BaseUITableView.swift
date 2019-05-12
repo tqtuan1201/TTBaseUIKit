@@ -40,7 +40,7 @@ open class TTBaseUITableView: UITableView {
         self.backgroundColor = self.bgColor
         self.translatesAutoresizingMaskIntoConstraints = false
         
-        if isSetContentInset {
+        if isSetContentInset { // App will be caculator from safeAreaLayout, not topAnchor View
             self.contentInset = UIEdgeInsets(top: TTSize.H_NAV, left: 0, bottom: TTSize.P_CONS_DEF, right: 0)
         }
 

@@ -105,10 +105,10 @@ extension TTViewCodable {
         self.setupCustomView()
         self.setupConstraints()
         self.setupStyles()
-        self.setupData()
-        self.setupBaseAPI()
         self.bindComponents()
         self.bindViewModel()
+        self.setupData()
+        self.setupBaseAPI()
         self.setupAcessibilityIdentifiers()
     }
     

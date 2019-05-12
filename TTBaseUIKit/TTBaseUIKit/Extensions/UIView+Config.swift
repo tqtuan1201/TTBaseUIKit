@@ -81,18 +81,19 @@ extension UIView {
         return subviews + subviews.flatMap { $0.subviewsRecursive() }
     }
     
-    public func getGradientSkeletonLayer() -> CALayer {
+    public static func getGradientSkeletonLayer() -> CALayer {
         
         let startLocations : [NSNumber] = [-1.0,-0.5, 0.0]
         let endLocations : [NSNumber] = [1.0,1.5, 2.0]
-        let gradientBackgroundColor : CGColor = UIColor(white: 0.9, alpha: 1.0).cgColor
-        let gradientMovingColor : CGColor = UIColor.white.withAlphaComponent(0.9).cgColor
+        let gradientBackgroundColor : CGColor = TTView.viewBgGradientSkeleton.cgColor
+        let gradientMovingColor : CGColor = TTView.viewBgGradientMoveSkeleton.cgColor
         
         let movingAnimationDuration : CFTimeInterval = 0.8
         let delayBetweenAnimationLoops : CFTimeInterval = 1.0
         
         let gradientLayer = CAGradientLayer()
-        gradientLayer.frame = self.bounds
+        gradientLayer.zPosition = CONSTANT.POSITION_VIEW.SKELETON_LAYER.rawValue
+        gradientLayer.frame = CGRect.init(x: -4, y: 0, width: TTSize.W + 8, height: TTSize.H_CELL)
         gradientLayer.startPoint = CGPoint(x: 0.0, y: 1.0)
         gradientLayer.endPoint = CGPoint(x: 1.0, y: 1.0)
         gradientLayer.colors = [ gradientBackgroundColor, gradientMovingColor, gradientBackgroundColor ]
