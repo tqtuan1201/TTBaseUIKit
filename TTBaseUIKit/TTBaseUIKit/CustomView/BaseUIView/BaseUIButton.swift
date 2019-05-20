@@ -69,7 +69,7 @@ open class TTBaseUIButton: UIButton, ViewDrawer, TextDrawer {
     
     private func setupUI() {
         self.translatesAutoresizingMaskIntoConstraints = false
-        self.contentEdgeInsets = UIEdgeInsets(top: 4, left: 8, bottom: 8, right: 8)
+        self.contentEdgeInsets = UIEdgeInsets(top: TTSize.P_CONS_DEF, left: TTSize.P_CONS_DEF, bottom: TTSize.P_CONS_DEF, right: TTSize.P_CONS_DEF)
         self.drawView()
         self.drawButton()
     }
@@ -148,6 +148,15 @@ extension TTBaseUIButton {
         self.viewDefBgColor  = color
         self.backgroundColor = color
         return self
+    }
+    
+    public func setIconImage(iconName:AwesomePro.Light, color:UIColor, padding:CGFloat = TTBaseUIKitConfig.getSizeConfig().P_CONS_DEF) {
+        self.setText(text: "").done()
+        self.setImage(UIImage.fontAwesomeIconWithName(nameString: iconName.rawValue, size: CGSize(width: 70, height: 70), iconColor: color, backgroundColor: UIColor.clear) , for: .normal)
+        self.backgroundColor = UIColor.clear
+        self.tintColor = color
+        self.contentEdgeInsets = UIEdgeInsets(top: padding, left: padding, bottom: padding, right: padding)
+        self.imageView?.contentMode = .scaleAspectFit
     }
     
     public func setText(text:String,textColor:UIColor,bgColor:UIColor, alignment:UIControl.ContentHorizontalAlignment = .center) {

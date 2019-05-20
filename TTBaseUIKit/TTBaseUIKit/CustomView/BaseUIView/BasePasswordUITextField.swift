@@ -16,7 +16,7 @@ open class TTBasePasswordUITextField:TTBaseUITextField {
     open var padingIcon:CGFloat { get { return 0}}
     
     public let panelIcon:UIView = UIView()
-    public let eyeIconImageView:TTBaseUIImageFontView = TTBaseUIImageFontView.init(withFontIconLightSize: .eye, colorIcon: TTView.iconRightTextFieldColor)
+    public let eyeIconImageView:TTBaseUIImageFontView = TTBaseUIImageFontView.init(withFontIconLightSize: .eye,sizeIcon: CGSize(width: 30, height: 30), colorIcon: TTView.iconRightTextFieldColor)
     
     open override func updateUI() {
         super.updateUI()

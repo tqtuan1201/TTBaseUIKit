@@ -11,7 +11,7 @@ import UIKit
 
 open class TTBaseUIImageFontView : TTBaseUIImageView {
     
-    public convenience init(withFontIconSize nameCVarIcon:CVarArg, sizeIcon:CGSize = CGSize(width: 600, height: 600), colorIcon:UIColor = TTBaseUIKitConfig.getViewConfig().iconColor, contendMode:UIView.ContentMode = UIView.ContentMode.scaleAspectFit) {
+    public convenience init(withFontIconSize nameCVarIcon:CVarArg, sizeIcon:CGSize = CGSize(width: 100, height: 100), colorIcon:UIColor = TTBaseUIKitConfig.getViewConfig().iconColor, contendMode:UIView.ContentMode = UIView.ContentMode.scaleAspectFit) {
         self.init()
         self.image = UIImage.fontAwesomeIconWithName(nameString: String(format: "%C", nameCVarIcon), size: sizeIcon, iconColor: colorIcon, backgroundColor: UIColor.clear)
         self.contentMode = contendMode

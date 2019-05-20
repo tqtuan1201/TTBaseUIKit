@@ -9,7 +9,7 @@
 import Foundation
 import UIKit
 
-
+public protocol TTBaseUIViewControllerRepresentable {}
 
 public class DarkBaseUIView: TTBaseUIView {
     public override func updateBaseUIView() {
@@ -23,7 +23,7 @@ public class WhitekBaseUIView: TTBaseUIView {
     }
 }
 
-open class TTBaseUIViewController<BaseView:TTBaseUIView>: UIViewController {
+open class TTBaseUIViewController<BaseView:TTBaseUIView>: UIViewController, TTBaseUIViewControllerRepresentable {
     
     
     open var P_CONS_DEF:CGFloat { get { return TTSize.P_CONS_DEF}}

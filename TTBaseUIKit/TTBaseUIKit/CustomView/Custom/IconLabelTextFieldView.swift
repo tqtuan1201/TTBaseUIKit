@@ -27,7 +27,7 @@ open class TTIconLabelTextFieldView : TTBaseUIView {
     
     open var paddingTextField:(CGFloat,CGFloat,CGFloat,CGFloat) { get { return (0,0,0,0)}}
     
-    public var iconLeftImageView:TTBaseUIImageFontView = TTBaseUIImageFontView(withFontIconLightSize: .analytics)
+    public var iconLeftImageView:TTBaseUIImageFontView = TTBaseUIImageFontView(withFontIconLightSize: .analytics, sizeIcon: CGSize.init(width: 50, height: 50))
     
     public var labelTextField:TTLabelTextFieldView = TTLabelTextFieldView()
     
@@ -36,6 +36,15 @@ open class TTIconLabelTextFieldView : TTBaseUIView {
     required public init() {
         super.init()
         self.setConerRadius(with: panelConer)
+        self.setupBaseUIView()
+        self.setupBaseConstraints()
+    }
+
+    required public init(withIcon icon:AwesomePro.Light, coner:CGFloat = TTBaseUIKitConfig.getSizeConfig().CORNER_RADIUS, paddingContentImage:CGFloat = TTBaseUIKitConfig.getSizeConfig().CORNER_RADIUS) {
+        super.init()
+        self.iconLeftImageView = TTBaseUIImageFontView(withFontIconLightSize: icon, sizeIcon: CGSize.init(width: 50, height: 50))
+        self.paddingIconLeftImage = paddingContentImage
+        self.setConerRadius(with: coner)
         self.setupBaseUIView()
         self.setupBaseConstraints()
     }
@@ -85,6 +94,13 @@ extension TTIconLabelTextFieldView {
         self.iconLeftImageView.setIConImage(with: iconName, color: self.iconColor).done()
         return self
     }
+
+    public func setText(withTitle title:String, textPlaceHolder:String) -> TTIconLabelTextFieldView {
+        self.labelTextField.titleLabel.setText(text: title).done()
+        self.labelTextField.inputTextField.placeholder = textPlaceHolder
+        return self
+    }
+    
     
     public func setColor(_ color:UIColor) -> TTIconLabelTextFieldView {
         self.iconLeftImageView.setIconColor(color).done()

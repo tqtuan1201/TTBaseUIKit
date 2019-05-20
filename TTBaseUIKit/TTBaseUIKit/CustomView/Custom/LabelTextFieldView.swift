@@ -27,24 +27,33 @@ open class TTLabelTextFieldView : TTBaseUIView {
     open var paddingTopView:CGFloat { get { return 4 } }
     open var heightTextField:CGFloat { get { return TTBaseUIKitConfig.getSizeConfig().H_TEXTFIELD } }
     open var heightLine:CGFloat { get { return TTBaseUIKitConfig.getSizeConfig().H_LINEVIEW } }
+    open var padingIcon:CGFloat { get { return 0}}
     
     open var sizeIconRight:(CGFloat, CGFloat) { get { return (TTSize.H_ICON / 2, TTSize.H_ICON / 2) } }
-    open var iconRight:UIImage? { get { return UIImage.init(fromTTBaseUIKit: "img.icon.down.png") } }
     open var iconRightColor:UIColor { get { return TTView.iconRightTextFieldColor}}
     open var isAnimationLine:Bool { get { return true}}
-    
-    fileprivate var isPasswordTextField:Bool  = false
-    
-    public let iconRightImageView:TTBaseUIImageView = TTBaseUIImageView()
 
     public let titleLabel:TTBaseUILabel = TTBaseUILabel()
     public var inputTextField:TTBaseUITextField = TTBaseUITextField(withPlaceholder: "Please input text", type: .NO_PADING)
     public let lineView:TTLineView = TTLineView()
 
+    fileprivate var isPasswordTextField:Bool  = false
+    
+    public var onTouchRightImageHandler:(() -> Void)?
+    public let panelIcon:UIView = UIView()
+    public var rightIconImageView:TTBaseUIImageFontView?
+    
     public convenience init(withSetPasswordTextField isSet:Bool) {
         self.init()
         self.isPasswordTextField = isSet
         self.setupBaseUIView()
+    }
+    
+    public convenience init(withShowImageRight nameIcon:AwesomePro.Light) {
+        self.init()
+        self.rightIconImageView = TTBaseUIImageFontView.init(withFontIconLightSize: nameIcon, sizeIcon: CGSize(width: 30, height: 30), colorIcon: self.iconRightColor)
+        self.setupBaseUIView()
+        self.setupRightImageView()
     }
     
     open override func updateBaseUIView() {
@@ -56,13 +65,25 @@ open class TTLabelTextFieldView : TTBaseUIView {
         if self.isPasswordTextField { self.inputTextField = TTBasePasswordUITextField(withPlaceholder: "Please input text", type: .NO_PADING)}
         if self.isAnimationLine {self.lineView.setDefaultColor() }
         self.setupViewCodable(with: [titleLabel, inputTextField, lineView] )
-        if self.iconRight != nil && !isPasswordTextField {
-            self.iconRightImageView.image = self.iconRight
-            self.inputTextField.rightView = self.iconRightImageView
+    }
+    
+    fileprivate func setupRightImageView() {
+        
+        if let rightIconView = self.rightIconImageView {
+            rightIconView.translatesAutoresizingMaskIntoConstraints = true
+            self.panelIcon.addSubview(rightIconView)
+            
+            self.panelIcon.frame = CGRect.init(x: 0, y: 0, width: sizeIconRight.0 + padingIcon, height: sizeIconRight.1)
+            rightIconView.frame = CGRect.init(x: 0, y: 0, width: sizeIconRight.0, height: sizeIconRight.1)
+            rightIconView.tintColor = self.iconRightColor
+            self.inputTextField.rightView = self.panelIcon
             self.inputTextField.rightViewMode = .always
-            self.iconRightImageView.tintColor = self.iconRightColor
-            self.iconRightImageView.frame = CGRect.init(x: 0, y: 0, width: sizeIconRight.0, height: sizeIconRight.1)
+            
             self.inputTextField.rightView?.translatesAutoresizingMaskIntoConstraints = true
+            
+            rightIconView.setActiveOnTouchHandle().onTouchHandler = { [weak self ] imageView in guard let strongSelf = self else { return }
+                strongSelf.onTouchRightImageHandler?()
+            }
         }
     }
     

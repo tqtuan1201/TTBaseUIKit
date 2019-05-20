@@ -17,6 +17,8 @@
 		93083CBA2281667300957B4D /* DeviceType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93083CB92281667300957B4D /* DeviceType.swift */; };
 		93083CBC2281669F00957B4D /* DeviceSize.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93083CBB2281669F00957B4D /* DeviceSize.swift */; };
 		9310AE972269C4C500003C38 /* TextSubtextIconTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9310AE962269C4C500003C38 /* TextSubtextIconTableViewCell.swift */; };
+		93165644228918BC006C7101 /* BaseScrollUIStackView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93165643228918BC006C7101 /* BaseScrollUIStackView.swift */; };
+		9316564922897712006C7101 /* BaseUIProgressView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9316564822897711006C7101 /* BaseUIProgressView.swift */; };
 		931B5C412257730F009B01A3 /* TTBaseUIKit.h in Headers */ = {isa = PBXBuildFile; fileRef = 931B5C3F2257730F009B01A3 /* TTBaseUIKit.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		931B5C4822577356009B01A3 /* Service.swift in Sources */ = {isa = PBXBuildFile; fileRef = 931B5C4722577356009B01A3 /* Service.swift */; };
 		9320F19A226970D4003B8628 /* BaseUITableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9320F199226970D4003B8628 /* BaseUITableViewCell.swift */; };
@@ -41,6 +43,8 @@
 		936091CF225B2FCE007D8F6B /* BaseUIView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 936091CE225B2FCE007D8F6B /* BaseUIView.swift */; };
 		936091D1225B31AC007D8F6B /* UIView+Config.swift in Sources */ = {isa = PBXBuildFile; fileRef = 936091D0225B31AC007D8F6B /* UIView+Config.swift */; };
 		936091D3225B3E64007D8F6B /* BaseUILabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 936091D2225B3E64007D8F6B /* BaseUILabel.swift */; };
+		936822EA228EBFFE00BDD0DB /* BaseNotificationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 936822E9228EBFFE00BDD0DB /* BaseNotificationView.swift */; };
+		936822EC228EC10900BDD0DB /* BaseNotificationViewConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = 936822EB228EC10900BDD0DB /* BaseNotificationViewConfig.swift */; };
 		936A50572267142D00CA384C /* img.NoImage.png in Resources */ = {isa = PBXBuildFile; fileRef = 936A50562267142D00CA384C /* img.NoImage.png */; };
 		936E0AC92273E92500FCD2B5 /* TextTableHeaderFooterViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 936E0AC82273E92500FCD2B5 /* TextTableHeaderFooterViewCell.swift */; };
 		93768A982258CFFD0033DDBB /* Configuration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93768A972258CFFD0033DDBB /* Configuration.swift */; };
@@ -49,6 +53,8 @@
 		93768A9E2258DE080033DDBB /* SizeConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93768A9D2258DE080033DDBB /* SizeConfig.swift */; };
 		93768AA02258E4340033DDBB /* ViewConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93768A9F2258E4340033DDBB /* ViewConfig.swift */; };
 		93768AA32258E6330033DDBB /* UIColor+Config.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93768AA22258E6330033DDBB /* UIColor+Config.swift */; };
+		938162E022929CB0007B71A7 /* BasePopupViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 938162DF22929CB0007B71A7 /* BasePopupViewController.swift */; };
+		938162E222929CED007B71A7 /* PopupViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 938162E122929CED007B71A7 /* PopupViewController.swift */; };
 		93892BE3227B206A006098DA /* BasePasswordUITextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93892BE2227B2069006098DA /* BasePasswordUITextField.swift */; };
 		9389D1102279BDA200D6319E /* fa-light-300.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 9389D10F2279BDA200D6319E /* fa-light-300.ttf */; };
 		9389D1162279C53000D6319E /* fa-regular-400.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 9389D1152279C53000D6319E /* fa-regular-400.ttf */; };
@@ -99,6 +105,8 @@
 		93083CB92281667300957B4D /* DeviceType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeviceType.swift; sourceTree = "<group>"; };
 		93083CBB2281669F00957B4D /* DeviceSize.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeviceSize.swift; sourceTree = "<group>"; };
 		9310AE962269C4C500003C38 /* TextSubtextIconTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextSubtextIconTableViewCell.swift; sourceTree = "<group>"; };
+		93165643228918BC006C7101 /* BaseScrollUIStackView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseScrollUIStackView.swift; sourceTree = "<group>"; };
+		9316564822897711006C7101 /* BaseUIProgressView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseUIProgressView.swift; sourceTree = "<group>"; };
 		931B5C3C2257730E009B01A3 /* TTBaseUIKit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = TTBaseUIKit.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		931B5C3F2257730F009B01A3 /* TTBaseUIKit.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TTBaseUIKit.h; sourceTree = "<group>"; };
 		931B5C402257730F009B01A3 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -125,6 +133,8 @@
 		936091CE225B2FCE007D8F6B /* BaseUIView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseUIView.swift; sourceTree = "<group>"; };
 		936091D0225B31AC007D8F6B /* UIView+Config.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+Config.swift"; sourceTree = "<group>"; };
 		936091D2225B3E64007D8F6B /* BaseUILabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseUILabel.swift; sourceTree = "<group>"; };
+		936822E9228EBFFE00BDD0DB /* BaseNotificationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseNotificationView.swift; sourceTree = "<group>"; };
+		936822EB228EC10900BDD0DB /* BaseNotificationViewConfig.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseNotificationViewConfig.swift; sourceTree = "<group>"; };
 		936A50562267142D00CA384C /* img.NoImage.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = img.NoImage.png; sourceTree = "<group>"; };
 		936E0AC82273E92500FCD2B5 /* TextTableHeaderFooterViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextTableHeaderFooterViewCell.swift; sourceTree = "<group>"; };
 		93768A972258CFFD0033DDBB /* Configuration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Configuration.swift; sourceTree = "<group>"; };
@@ -133,6 +143,8 @@
 		93768A9D2258DE080033DDBB /* SizeConfig.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SizeConfig.swift; sourceTree = "<group>"; };
 		93768A9F2258E4340033DDBB /* ViewConfig.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewConfig.swift; sourceTree = "<group>"; };
 		93768AA22258E6330033DDBB /* UIColor+Config.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor+Config.swift"; sourceTree = "<group>"; };
+		938162DF22929CB0007B71A7 /* BasePopupViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BasePopupViewController.swift; sourceTree = "<group>"; };
+		938162E122929CED007B71A7 /* PopupViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopupViewController.swift; sourceTree = "<group>"; };
 		93892BE2227B2069006098DA /* BasePasswordUITextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BasePasswordUITextField.swift; sourceTree = "<group>"; };
 		9389D10F2279BDA200D6319E /* fa-light-300.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "fa-light-300.ttf"; sourceTree = "<group>"; };
 		9389D1152279C53000D6319E /* fa-regular-400.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "fa-regular-400.ttf"; sourceTree = "<group>"; };
@@ -288,6 +300,15 @@
 			path = Utilities;
 			sourceTree = "<group>";
 		};
+		936822E8228EBFF100BDD0DB /* NotificationView */ = {
+			isa = PBXGroup;
+			children = (
+				936822E9228EBFFE00BDD0DB /* BaseNotificationView.swift */,
+				936822EB228EC10900BDD0DB /* BaseNotificationViewConfig.swift */,
+			);
+			path = NotificationView;
+			sourceTree = "<group>";
+		};
 		93768A962258CFCA0033DDBB /* BaseConfig */ = {
 			isa = PBXGroup;
 			children = (
@@ -316,6 +337,15 @@
 			path = Extensions;
 			sourceTree = "<group>";
 		};
+		938162DE22929C91007B71A7 /* PopupView */ = {
+			isa = PBXGroup;
+			children = (
+				938162DF22929CB0007B71A7 /* BasePopupViewController.swift */,
+				938162E122929CED007B71A7 /* PopupViewController.swift */,
+			);
+			path = PopupView;
+			sourceTree = "<group>";
+		};
 		93A17A3A22730029005CCD33 /* CellHeaderFooterTableView */ = {
 			isa = PBXGroup;
 			children = (
@@ -329,6 +359,8 @@
 		93C05A0B2261B59C00E27EDB /* BaseUIView */ = {
 			isa = PBXGroup;
 			children = (
+				938162DE22929C91007B71A7 /* PopupView */,
+				936822E8228EBFF100BDD0DB /* NotificationView */,
 				9320F19C226970F3003B8628 /* CellColectionView */,
 				93A17A3A22730029005CCD33 /* CellHeaderFooterTableView */,
 				9320F19B226970E4003B8628 /* CellTableView */,
@@ -347,6 +379,7 @@
 				9358C8392268AA6800D2D10F /* BaseUICollectionViewController.swift */,
 				93C9951B225F75D70081FA81 /* BaseUINavigationView.swift */,
 				93C05A0F2261BF1B00E27EDB /* BaseUIStackView.swift */,
+				93165643228918BC006C7101 /* BaseScrollUIStackView.swift */,
 				9358C833226899BE00D2D10F /* BaseUICollectionView.swift */,
 				9320F19F2269733E003B8628 /* BaseUITableViewController.swift */,
 				9320F1A122697372003B8628 /* BaseUITableView.swift */,
@@ -355,6 +388,7 @@
 				93CB1C57228013BB00A0CA54 /* BaseUISearchViewController.swift */,
 				935F690C22802EDB00A38FDA /* BaseWKWebView.swift */,
 				93083CB222815E6500957B4D /* BaseUISearchBar.swift */,
+				9316564822897711006C7101 /* BaseUIProgressView.swift */,
 			);
 			path = BaseUIView;
 			sourceTree = "<group>";
@@ -561,11 +595,14 @@
 				933A92B0227755DD008ECCC4 /* RowTableView.swift in Sources */,
 				93892BE3227B206A006098DA /* BasePasswordUITextField.swift in Sources */,
 				936091D1225B31AC007D8F6B /* UIView+Config.swift in Sources */,
+				936822EC228EC10900BDD0DB /* BaseNotificationViewConfig.swift in Sources */,
 				935F690D22802EDB00A38FDA /* BaseWKWebView.swift in Sources */,
 				9358C832226895E200D2D10F /* BaseUICollectionViewCell.swift in Sources */,
 				93768AA32258E6330033DDBB /* UIColor+Config.swift in Sources */,
 				9358C83A2268AA6800D2D10F /* BaseUICollectionViewController.swift in Sources */,
+				936822EA228EBFFE00BDD0DB /* BaseNotificationView.swift in Sources */,
 				93073FBF22643D36009AF63F /* String+Config.swift in Sources */,
+				938162E022929CB0007B71A7 /* BasePopupViewController.swift in Sources */,
 				93C99512225F6D170081FA81 /* BaseUITextField.swift in Sources */,
 				93083CB82281664D00957B4D /* DeviceVersion.swift in Sources */,
 				93C0D2A322746B6900E5889C /* IconTextSubtextTextSubTextRightTableViewCell.swift in Sources */,
@@ -577,6 +614,7 @@
 				93D2D360225AF2BA00D2811F /* BaseConfigRepresentable.swift in Sources */,
 				93C9951A225F754A0081FA81 /* BaseUIViewController.swift in Sources */,
 				93073FC32264416A009AF63F /* TTLanguageManager.swift in Sources */,
+				93165644228918BC006C7101 /* BaseScrollUIStackView.swift in Sources */,
 				93C0D2AB227491DE00E5889C /* ListCellTestTableViewController.swift in Sources */,
 				9331B4962279803F00E1C26D /* AwesomePro.swift in Sources */,
 				9358C83622689D0100D2D10F /* BaseUIImageView.swift in Sources */,
@@ -598,6 +636,7 @@
 				93C99514225F6DFB0081FA81 /* UIApplication+Config.swift in Sources */,
 				936091CB225B29F3007D8F6B /* ValueConfig.swift in Sources */,
 				93083CB62281662C00957B4D /* Device.swift in Sources */,
+				938162E222929CED007B71A7 /* PopupViewController.swift in Sources */,
 				93A17A3C2273005B005CCD33 /* BaseUITableViewHeaderFooterView.swift in Sources */,
 				93768A982258CFFD0033DDBB /* Configuration.swift in Sources */,
 				9389D11C227A025A00D6319E /* BaseUICricleView.swift in Sources */,
@@ -608,6 +647,7 @@
 				931B5C4822577356009B01A3 /* Service.swift in Sources */,
 				9320F1A02269733E003B8628 /* BaseUITableViewController.swift in Sources */,
 				939EA87D22769457008DDCBC /* IconLabelTextFieldView.swift in Sources */,
+				9316564922897712006C7101 /* BaseUIProgressView.swift in Sources */,
 				93768A9A2258D30D0033DDBB /* FontConfig.swift in Sources */,
 				9358C834226899BE00D2D10F /* BaseUICollectionView.swift in Sources */,
 				939EA88B2276E2AA008DDCBC /* ButtonPanelView.swift in Sources */,

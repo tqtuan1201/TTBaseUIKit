@@ -8,21 +8,29 @@
 
 import Foundation
 
-struct CONSTANT {
+public struct CONSTANT {
     
-    enum POSITION_VIEW : CGFloat {
+    public enum LOADING_TYPE {
+        case VIEW_CENTER
+        case TAB_TOP
+        case NAV_BUTTOM
+    }
+    
+    public enum POSITION_VIEW : CGFloat {
         case SKELETON_LAYER = 50.0
         case EFFECT_VIEW = 200.0
         case NAV_VIEW = 300.0
+        case NOTIFICATION_VIEW = 299.0
         case LOADING_VIEW = 8000.0
     }
 
-    enum TAG_VIEW : Int {
+    public enum TAG_VIEW : Int {
         case LOADING = -111
         case BG_UISTACKVIEW = 100
+        case NOTIFICATION_VIEW = 101
     }
     
-    enum FORMAT_DATE : String {
+    public enum FORMAT_DATE : String {
         case ID                     = "dd.MM.yyyy_HH.mm.ss"
         case YYYY_MM_DD             = "yyyy-MM-dd"
         case DD_MM_YYYY             = "dd/MM/yyyy"

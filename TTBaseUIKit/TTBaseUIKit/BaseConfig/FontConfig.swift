@@ -11,11 +11,11 @@ import UIKit
 
 public class FontConfig {
     
-    var HEADER_H:CGFloat = 16
-    var TITLE_H:CGFloat = 14
-    var SUB_TITLE_H:CGFloat = 12
-    var SUB_SUB_TITLE_H:CGFloat = 10
-    var FONT:UIFont = UIFont.systemFont(ofSize: 14, weight: UIFont.Weight.medium)
+    public var HEADER_H:CGFloat = 16
+    public var TITLE_H:CGFloat = 14
+    public var SUB_TITLE_H:CGFloat = 12
+    public var SUB_SUB_TITLE_H:CGFloat = 10
+    public var FONT:UIFont = UIFont.systemFont(ofSize: 14, weight: UIFont.Weight.regular)
     
     
     public init() {

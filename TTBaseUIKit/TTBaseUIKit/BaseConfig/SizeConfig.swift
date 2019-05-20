@@ -23,6 +23,8 @@ public class SizeConfig {
     public var H_ICON:CGFloat = 40.0
     public var H_ICON_CELL:CGFloat = 56.0
     
+    public var H_LOADING_CENTER:CGFloat = Device.size() > .screen4Inch ? 70.0 : 40.0
+    
     public var H_SEG:CGFloat = 40.0
     public var H_SEG_LINE:CGFloat = 2.0
     
@@ -30,6 +32,7 @@ public class SizeConfig {
     public var H_LINEVIEW:CGFloat = 1.5
     public var H_STATUS:CGFloat = UIApplication.shared.statusBarFrame.height
     public var H_NAV:CGFloat = 45.0
+    public var H_PROCESS_VIEW:CGFloat = 6.0
     public var H_BORDER:CGFloat = 2
     
     public var H_CELL:CGFloat = UIScreen.main.bounds.width / 5
@@ -52,6 +55,9 @@ public class SizeConfig {
     public var P_CONS_RIGHT_H:CGFloat = 8.0
     public var P_CONS_TOP_H:CGFloat = 8.0
     public var P_CONS_BOTOM_H:CGFloat = 8.0
+    
+    public var NOTIFI_HEIGHT:CGFloat = 80.0
+    public var NOTIFI_ICON_HEIGHT:CGFloat = 45.0
     
     public init() {}
     

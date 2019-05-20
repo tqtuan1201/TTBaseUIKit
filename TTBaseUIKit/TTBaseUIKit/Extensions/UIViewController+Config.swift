@@ -9,43 +9,92 @@
 import Foundation
 import UIKit
 
+//MARK:// For custom loading view
 extension UIViewController {
-    public func dismissKeyboard() {
-        DispatchQueue.main.async {
-            self.view.endEditing(true)
+    
+    public func showLoadingView(type:CONSTANT.LOADING_TYPE, padding:CGFloat = 0) {
+        DispatchQueue.main.async { [weak self] in guard let strongSelf = self else { return }
+            if strongSelf.view.viewWithTag(CONSTANT.TAG_VIEW.LOADING.rawValue) != nil { return }
+            switch type {
+            case .VIEW_CENTER:
+                let panel:TTBaseUIView = strongSelf.createCenterLoadingView()
+                strongSelf.view.addSubview(panel)
+                panel.setFullContraints(constant: 0)
+                break
+            case .NAV_BUTTOM:
+                var paddingTop:CGFloat = 0
+                if let baseVC = strongSelf as? TTBaseUIViewController {
+                    switch baseVC.navType {
+                    case .NO_VIEW:
+                        paddingTop = 0
+                        break
+                    case .ONLY_STATUS:
+                        paddingTop = TTSize.H_STATUS
+                        break
+                    case .STATUS_NAV:
+                        paddingTop = TTSize.H_STATUS + TTSize.H_NAV
+                        break
+                    }
+                }
+                
+                if padding != 0 {paddingTop = padding}
+                
+                let processView:TTBaseUIProgressView = TTBaseUIProgressView(progressViewStyle: .default)
+                processView.onStart()
+                processView.layer.zPosition = CONSTANT.POSITION_VIEW.LOADING_VIEW.rawValue
+                processView.tag = CONSTANT.TAG_VIEW.LOADING.rawValue
+                strongSelf.view.addSubview(processView)
+                processView.setLeadingAnchor(constant: 0).setTopAnchor(constant: paddingTop).setTrailingAnchor(constant: 0).setHeightAnchor(constant: TTSize.H_PROCESS_VIEW).done()
+                break
+            case .TAB_TOP:
+                let processView:TTBaseUIProgressView = TTBaseUIProgressView(progressViewStyle: .default)
+                processView.onStart()
+                processView.layer.zPosition = CONSTANT.POSITION_VIEW.LOADING_VIEW.rawValue
+                processView.tag = CONSTANT.TAG_VIEW.LOADING.rawValue
+                strongSelf.view.addSubview(processView)
+                processView.setLeadingAnchor(constant: 0).setTrailingAnchor(constant: 0).setHeightAnchor(constant: TTSize.H_PROCESS_VIEW).done()
+                processView.bottomAnchor.constraint(equalTo: strongSelf.view.layoutMarginsGuide.bottomAnchor, constant: 0).isActive = true
+                break
+            }
         }
     }
     
-    public func showLoadingView() {
-        DispatchQueue.main.async { [weak self] in guard let strongSelf = self else { return }
-            if strongSelf.view.viewWithTag(CONSTANT.TAG_VIEW.LOADING.rawValue) != nil { return }
-            
-            let panelLoadingView:TTBaseUIView = TTBaseUIView()
-            panelLoadingView.layer.zPosition = CONSTANT.POSITION_VIEW.LOADING_VIEW.rawValue
-            panelLoadingView.tag = CONSTANT.TAG_VIEW.LOADING.rawValue
-            
-            panelLoadingView.backgroundColor = UIColor.white.withAlphaComponent(0.2)
-            
-            let panelInd:TTBaseUIView = TTBaseUIView(withCornerRadius: TTSize.CORNER_RADIUS)
-            panelInd.backgroundColor = TTView.viewBgNavColor.withAlphaComponent(0.4)
-            
-            let actInd: UIActivityIndicatorView = UIActivityIndicatorView()
-            actInd.translatesAutoresizingMaskIntoConstraints = false
-            actInd.style = UIActivityIndicatorView.Style.whiteLarge
-            actInd.startAnimating()
-            
-            panelInd.addSubview(actInd)
-            
-            panelLoadingView.addSubview(panelInd)
-            
-            strongSelf.view.addSubview(panelLoadingView)
-            
-            actInd.setFullContraints(constant: TTSize.P_CONS_DEF * 2.5)
-            
-            panelInd.setHeightAnchor(constant: 80).setWidthAnchor(constant: 80).setFullCenterAnchor(constant: 0)
-            
-            panelLoadingView.setFullContraints(constant: 0)
-            strongSelf.view.addSubview(panelLoadingView)
+    fileprivate func createCenterLoadingView() -> TTBaseUIView {
+        
+        let panelLoadingView:TTBaseUIView = TTBaseUIView()
+        panelLoadingView.layer.zPosition = CONSTANT.POSITION_VIEW.LOADING_VIEW.rawValue
+        panelLoadingView.tag = CONSTANT.TAG_VIEW.LOADING.rawValue
+        
+        panelLoadingView.backgroundColor = UIColor.white.withAlphaComponent(0.2)
+        
+        let panelInd:TTBaseUIView = TTBaseUIView(withCornerRadius: TTSize.CORNER_RADIUS)
+        panelInd.backgroundColor = TTView.viewBgNavColor.withAlphaComponent(0.4)
+        
+        let actInd: UIActivityIndicatorView = UIActivityIndicatorView()
+        actInd.translatesAutoresizingMaskIntoConstraints = false
+        actInd.style = Device.size() > DeviceSize.screen4Inch ? UIActivityIndicatorView.Style.whiteLarge : UIActivityIndicatorView.Style.white
+        actInd.startAnimating()
+        
+        panelInd.addSubview(actInd)
+        
+        panelLoadingView.addSubview(panelInd)
+        
+        self.view.addSubview(panelLoadingView)
+        
+        actInd.setFullContraints(constant: TTSize.P_CONS_DEF * 2.5)
+        
+        panelInd.setHeightAnchor(constant: TTSize.H_LOADING_CENTER).setWidthAnchor(constant: TTSize.H_LOADING_CENTER).setFullCenterAnchor(constant: 0)
+        
+        panelLoadingView.setFullContraints(constant: 0)
+        return panelLoadingView
+    }
+}
+
+extension UIViewController {
+    
+    public func dismissKeyboard() {
+        DispatchQueue.main.async {
+            self.view.endEditing(true)
         }
     }
     

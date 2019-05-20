@@ -11,9 +11,9 @@ import UIKit
 
 open class ViewConfig {
 
-    public var textHeaderColor: UIColor = UIColor.darkText
-    public var textTitleColor: UIColor =  UIColor.darkText
-    public var textSubTitleColor: UIColor =  UIColor.darkText
+    public var textHeaderColor: UIColor = UIColor.getColorFromHex.init(netHex: 0x3c3c3c)
+    public var textTitleColor: UIColor =  UIColor.getColorFromHex.init(netHex: 0x555555)
+    public var textSubTitleColor: UIColor =  UIColor.getColorFromHex.init(netHex: 0x555555)
     public var textDefColor: UIColor =  UIColor.getColorFromHex.init(netHex: 0x555555)
     public var textWarringColor: UIColor = UIColor.getColorFromHex.init(netHex: 0xC41F53)
     
@@ -59,6 +59,13 @@ open class ViewConfig {
     public var iconColor: UIColor =  UIColor.getColorFromHex.init(netHex: 0x777777)
     public var iconRightTextFieldColor: UIColor =  UIColor.getColorFromHex.init(netHex: 0x777777)
     
+    public var processViewBgColor:UIColor = UIColor.getColorFromHex.init(netHex: 0xC41F53).withAlphaComponent(0.4)
+    public var processViewProcessColor:UIColor = UIColor.getColorFromHex.init(netHex: 0xC41F53).withAlphaComponent(0.2)
+    public var processViewTrackColor:UIColor = UIColor.getColorFromHex.init(netHex: 0xC41F53).withAlphaComponent(0.8)
+
+    public var notificationBgSuccess: UIColor = UIColor.getColorFromHex.init(netHex: 0x0077ab)
+    public var notificationBgWarning: UIColor = UIColor.getColorFromHex.init(netHex: 0xcc9a05)
+    public var notificationBgError: UIColor = UIColor.getColorFromHex.init(netHex: 0xb22a37)
     
     public init() {}
 }
