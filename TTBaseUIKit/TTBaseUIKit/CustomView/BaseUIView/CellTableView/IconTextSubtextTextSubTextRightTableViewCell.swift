@@ -94,7 +94,10 @@ open class TTIconTextSubtextTextSubTextRightTableViewCell : TTBaseUITableViewCel
 public protocol TTIconTextSubtextTextSubTextRightTableViewCellRepresentable {
     
     var imageName:String { get }
+    
     var iconName:String { get }
+    var iconColor:UIColor { get }
+    
     var titleLeftText:String { get }
     var titleRightText:String { get }
     var subLeftText:String { get }
@@ -107,5 +110,10 @@ extension TTIconTextSubtextTextSubTextRightTableViewCell {
     public func configure(withRepresentable viewModel: TTIconTextSubtextTextSubTextRightTableViewCellRepresentable) {
         self.titleLeftRightLabel.setText(withTextLeft: viewModel.titleLeftText, right: viewModel.titleRightText)
         self.subLeftRight.setText(withTextLeft: viewModel.subLeftText, right: viewModel.subRightText)
+        if viewModel.iconName != "" {
+            DispatchQueue.main.async { [weak self] in self?.imageRight.setIConImage(with: viewModel.iconName, color: viewModel.iconColor, scale: .scaleAspectFit).done() }
+        } else if !viewModel.imageName.isEmpty {
+            DispatchQueue.main.async { [weak self] in self?.imageRight.setImage(with: viewModel.imageName).done() }
+        }
     }
 }

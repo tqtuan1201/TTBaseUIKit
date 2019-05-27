@@ -102,10 +102,10 @@ open class TTBaseUITextField: UITextField   {
 extension TTBaseUITextField {
     
     func setHiddenKeyboardAccessoryView() -> TTBaseUITextField {
-        let panelView:UIView = UIView(frame: CGRect(x: 0, y: 0, width: TTBaseUIKitConfig.getSizeConfig().W, height: 30))
-        panelView.backgroundColor = UIColor.clear
+        let panelView:UIView = UIView(frame: CGRect(x: 0, y: 0, width: TTBaseUIKitConfig.getSizeConfig().W, height: 34))
+        panelView.backgroundColor = TTView.viewBgAccessoryViewColor
         
-        let hiddenButton:UIButton = UIButton(frame: CGRect.init(x: TTBaseUIKitConfig.getSizeConfig().W - 40, y: 0, width: 35, height: 30))
+        let hiddenButton:UIButton = UIButton(frame: CGRect.init(x: TTBaseUIKitConfig.getSizeConfig().W - 35, y: 2, width: 35, height: 32))
         hiddenButton.addTarget(self, action: #selector(self.dismissKeyboard(_:)), for: .touchUpInside)
         hiddenButton.contentEdgeInsets = UIEdgeInsets(top: 4, left: 4, bottom: 4, right: 4)
         hiddenButton.backgroundColor = UIColor.white
@@ -117,47 +117,48 @@ extension TTBaseUITextField {
         panelView.addSubview(hiddenButton)
         
         self.inputAccessoryView = panelView
+
         return self
     }
     
-    public func setKeyboardStyleByText() -> TTBaseUITextField {
+    @discardableResult public func setKeyboardStyleByText() -> TTBaseUITextField {
         self.setKeyBoardStyle(type: .default)
         return self
     }
     
-    public func setKeyboardStyleByNumber() -> TTBaseUITextField  {
+    @discardableResult public func setKeyboardStyleByNumber() -> TTBaseUITextField  {
         self.setKeyBoardStyle(type: .numberPad)
         return self
     }
     
-    public func setKeyboardStyleByEmail()  -> TTBaseUITextField  {
+    @discardableResult public func setKeyboardStyleByEmail()  -> TTBaseUITextField  {
         self.setKeyBoardStyle(type: .emailAddress)
         return self
     }
     
-    public func setKeyboardStyleByDate()  -> TTBaseUITextField {
+    @discardableResult public func setKeyboardStyleByDate()  -> TTBaseUITextField {
         self.setKeyBoardStyle(type: .numbersAndPunctuation)
         return self
     }
     
-    public func setKeyboardStyleByMoney()  -> TTBaseUITextField {
+    @discardableResult public func setKeyboardStyleByMoney()  -> TTBaseUITextField {
         self.setKeyBoardStyle(type: .decimalPad)
         return self
     }
     
-    public func setKeyboardStyleByPhone()  -> TTBaseUITextField {
+    @discardableResult public func setKeyboardStyleByPhone()  -> TTBaseUITextField {
         self.setKeyBoardStyle(type: .numberPad)
         return self
     }
     
-    public func setNoBorder() -> TTBaseUITextField {
+    @discardableResult public func setNoBorder() -> TTBaseUITextField {
         self.layer.borderWidth = 0
         self.borderStyle       = .none
         self.layer.borderColor = UIColor.clear.cgColor
         return self
     }
     
-    public func setTextColor(color:UIColor) -> TTBaseUITextField {
+    @discardableResult public func setTextColor(color:UIColor) -> TTBaseUITextField {
         self.textColor = color
         return self
     }

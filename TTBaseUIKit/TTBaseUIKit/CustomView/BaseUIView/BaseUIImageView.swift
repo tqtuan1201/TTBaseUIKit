@@ -13,6 +13,7 @@ open class TTBaseUIImageView: UIImageView, ViewDrawer {
     var viewDefBgColor: UIColor = TTBaseUIKitConfig.getViewConfig().viewDefColor
     var viewDefCornerRadius: CGFloat = TTBaseUIKitConfig.getSizeConfig().CORNER_RADIUS
     
+    fileprivate lazy var skeletonImg:UIImage = UIImage(fromTTBaseUIKit: Config.Value.noImageName) ?? UIImage()
     public var paddingContentImage: CGFloat = 0
     
     open func updateUI() { }
@@ -97,6 +98,18 @@ open class TTBaseUIImageView: UIImageView, ViewDrawer {
     
 }
 
+//MARK://
+extension TTBaseUIImageView {
+    public func setAnimalForSkeletonView() {
+        if let img = self.image { self.skeletonImg = img }
+        self.image =  UIImage(fromTTBaseUIKit: Config.Value.noImageName)
+    }
+    
+    public func setRollBackViewForSkeletonAnimal() {
+        self.image = self.skeletonImg
+    }
+}
+
 extension TTBaseUIImageView {
     
     public func setActiveOnTouchHandle() -> TTBaseUIImageView {
@@ -115,30 +128,30 @@ extension TTBaseUIImageView {
         self.setBgColor(bgColor).setIconColor(iconColor).setIconPadding(padding).done()
     }
     
-    public func setCorner(withCornerRadius conner:CGFloat) -> TTBaseUIImageView {
+    @discardableResult public func setCorner(withCornerRadius conner:CGFloat) -> TTBaseUIImageView {
         if conner == 0 { return self }
         self.viewDefCornerRadius = conner
         self.drawView()
         return self
     }
     
-    public func setBgColor(_ color:UIColor)  -> TTBaseUIImageView {
+    @discardableResult public func setBgColor(_ color:UIColor)  -> TTBaseUIImageView {
         self.backgroundColor = color
         return self
     }
     
-    public func setIconColor(_ color:UIColor)  -> TTBaseUIImageView {
+    @discardableResult public func setIconColor(_ color:UIColor)  -> TTBaseUIImageView {
         self.image = self.image?.tinted(with: color)
         return self
     }
     
-    public func setIconPadding(_ padding:CGFloat)  -> TTBaseUIImageView {
+    @discardableResult public func setIconPadding(_ padding:CGFloat)  -> TTBaseUIImageView {
         guard let imagePadding = self.image?.addImagePadding(x: padding, y: padding) else { return self}
         self.image = imagePadding.withRenderingMode(UIImage.RenderingMode.alwaysTemplate)
         return self
     }
     
-    public func setImage(with name:String, scale:UIView.ContentMode = .scaleAspectFill)  -> TTBaseUIImageView {
+    @discardableResult public func setImage(with name:String, scale:UIView.ContentMode = .scaleAspectFill)  -> TTBaseUIImageView {
         self.setImageByName(name: name)
         self.contentMode = scale
         return self

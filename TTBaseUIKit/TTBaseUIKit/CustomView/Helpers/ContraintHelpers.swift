@@ -11,7 +11,7 @@ import UIKit
 
 extension UIView {
     
-    public func setLeadingAnchor(_ view:UIView? = nil, isUpdate:Bool = false, constant:CGFloat, isApplySafeArea:Bool = false, priority:UILayoutPriority? = nil) -> UIView {
+    @discardableResult public func setLeadingAnchor(_ view:UIView? = nil, isUpdate:Bool = false, constant:CGFloat, isApplySafeArea:Bool = false, priority:UILayoutPriority? = nil) -> UIView {
         let identifierAnchor:String = "TTBase.Contraint.setLeadingAnchor"
         guard let  superView = (view == nil) ? self.superview : view else { return self }
         if isUpdate {
@@ -30,7 +30,7 @@ extension UIView {
         return self
     }
     
-    public func setTrailingAnchor(_ view:UIView? = nil, isUpdate:Bool = false, constant:CGFloat, isApplySafeArea:Bool = false, priority:UILayoutPriority? = nil) -> UIView {
+    @discardableResult public func setTrailingAnchor(_ view:UIView? = nil, isUpdate:Bool = false, constant:CGFloat, isApplySafeArea:Bool = false, priority:UILayoutPriority? = nil) -> UIView {
         let identifierAnchor:String = "TTBase.Contraint.setTrailingAnchor"
         guard let  superView = (view == nil) ? self.superview : view else { return self }
         if isUpdate {
@@ -49,7 +49,7 @@ extension UIView {
         return self
     }
     
-    public func setTopAnchor(_ view:UIView? = nil, isUpdate:Bool = false, constant:CGFloat, priority:UILayoutPriority? = nil) -> UIView {
+   @discardableResult public func setTopAnchor(_ view:UIView? = nil, isUpdate:Bool = false, constant:CGFloat, priority:UILayoutPriority? = nil) -> UIView {
         let identifierAnchor:String = "TTBase.Contraint.setTopAnchor"
         guard let  superView = (view == nil) ? self.superview : view else { return self }
         if isUpdate {
@@ -63,7 +63,7 @@ extension UIView {
         return self
     }
     
-    public func setBottomAnchor(_ view:UIView? = nil, isUpdate:Bool = false, constant:CGFloat,isMarginsGuide:Bool = false, priority:UILayoutPriority? = nil) -> UIView {
+    @discardableResult public func setBottomAnchor(_ view:UIView? = nil, isUpdate:Bool = false, constant:CGFloat,isMarginsGuide:Bool = false, priority:UILayoutPriority? = nil) -> UIView {
         let identifierAnchor:String = "TTBase.Contraint.setBottomAnchor"
         guard let  superView = (view == nil) ? self.superview : view else { return self }
         if isUpdate {
@@ -78,7 +78,7 @@ extension UIView {
         return self
     }
     
-    public func setCenterXAnchor(_ view:UIView? = nil, isUpdate:Bool = false, constant:CGFloat) -> UIView {
+    @discardableResult public func setCenterXAnchor(_ view:UIView? = nil, isUpdate:Bool = false, constant:CGFloat) -> UIView {
         
         let identifierAnchor:String = "TTBase.Contraint.setCenterXAnchor"
         guard let  superView = (view == nil) ? self.superview : view else { return self }
@@ -92,7 +92,7 @@ extension UIView {
         return self
     }
     
-    public func setcenterYAnchor(_ view:UIView? = nil, isUpdate:Bool = false, constant:CGFloat) -> UIView {
+    @discardableResult public func setcenterYAnchor(_ view:UIView? = nil, isUpdate:Bool = false, constant:CGFloat) -> UIView {
         let identifierAnchor:String = "TTBase.Contraint.setcenterYAnchor"
         guard let  superView = (view == nil) ? self.superview : view else { return self }
         if isUpdate {
@@ -110,7 +110,7 @@ extension UIView {
         self.setCenterXAnchor(superView, isUpdate: isUpdate, constant: constant).setcenterYAnchor(superView, isUpdate: isUpdate, constant: constant).done()
     }
     
-    public func setWidthAnchor(_ isUpdate:Bool = false, constant:CGFloat, priority:UILayoutPriority? = nil) -> UIView {
+    @discardableResult public func setWidthAnchor(_ isUpdate:Bool = false, constant:CGFloat, priority:UILayoutPriority? = nil) -> UIView {
         let identifierAnchor:String = "TTBase.Contraint.setWidthAnchor"
         if isUpdate {
             self.constraintWithIdentifier(identifierAnchor)?.constant = constant
@@ -123,7 +123,7 @@ extension UIView {
         return self
     }
     
-    public func setHeightAnchor(_ isUpdate:Bool = false, constant:CGFloat, priority:UILayoutPriority? = nil) -> UIView {
+    @discardableResult public func setHeightAnchor(_ isUpdate:Bool = false, constant:CGFloat, priority:UILayoutPriority? = nil) -> UIView {
         let identifierAnchor:String = "TTBase.Contraint.setHeightAnchor"
         if isUpdate {
             self.constraintWithIdentifier(identifierAnchor)?.constant = constant
@@ -166,7 +166,7 @@ extension UIView {
         return self
     }
     
-    public func setBottomAnchorWithBelowView(_ isUpdate:Bool = false, view:UIView, constant:CGFloat) -> UIView {
+    @discardableResult public func setBottomAnchorWithBelowView(_ isUpdate:Bool = false, view:UIView, constant:CGFloat) -> UIView {
         let identifierAnchor:String = "TTBase.Contraint.setBottomAnchorWithBelowView"
         if isUpdate {
             self.superview?.constraintWithIdentifier(identifierAnchor)?.constant = -constant
@@ -178,7 +178,7 @@ extension UIView {
         return self
     }
 
-    public func setTrailingWithNextToView(_ isUpdate:Bool = false, view:UIView, constant:CGFloat) -> UIView {
+   @discardableResult public func setTrailingWithNextToView(_ isUpdate:Bool = false, view:UIView, constant:CGFloat) -> UIView {
         let identifierAnchor:String = "TTBase.Contraint.setTrailingWithNextToView"
         if isUpdate {
             self.superview?.constraintWithIdentifier(identifierAnchor)?.constant = -constant
@@ -190,7 +190,7 @@ extension UIView {
         return self
     }
     
-    public func setLeadingWithNextToView(_ isUpdate:Bool = false, view:UIView, constant:CGFloat) -> UIView {
+    @discardableResult public func setLeadingWithNextToView(_ isUpdate:Bool = false, view:UIView, constant:CGFloat) -> UIView {
         let identifierAnchor:String = "TTBase.Contraint.setLeadingWithNextToView"
         if isUpdate {
             self.superview?.constraintWithIdentifier(identifierAnchor)?.constant = constant

@@ -124,23 +124,28 @@ extension TTLabelTextFieldView : TTViewCodable {
 
 extension TTLabelTextFieldView {
     
+    public func setRightView(withShowImageRight nameIcon:AwesomePro.Light) {
+        self.rightIconImageView = TTBaseUIImageFontView.init(withFontIconLightSize: nameIcon, sizeIcon: CGSize(width: 30, height: 30), colorIcon: self.iconRightColor)
+        self.setupRightImageView()
+    }
+    
     public func setTextForInputTextField(textString:String) {
         self.inputTextField.text = textString
     }
     
-    public func setText(withTitle title:String, textPlaceHolder:String) -> TTLabelTextFieldView {
+    @discardableResult public func setText(withTitle title:String, textPlaceHolder:String) -> TTLabelTextFieldView {
         self.titleLabel.setText(text: title).done()
         self.inputTextField.placeholder = textPlaceHolder
         return self
     }
     
-    public func setColor(withTitleColor titleColor:UIColor, textFieldColor:UIColor) -> TTLabelTextFieldView {
+    @discardableResult public func setColor(withTitleColor titleColor:UIColor, textFieldColor:UIColor) -> TTLabelTextFieldView {
         self.titleLabel.setTextColor(color: titleColor).done()
         self.inputTextField.setTextColor(color: textFieldColor).done()
         return self
     }
     
-    public func setColor(withBgColor title:UIColor, textField:UIColor) -> TTLabelTextFieldView {
+    @discardableResult public func setColor(withBgColor title:UIColor, textField:UIColor) -> TTLabelTextFieldView {
         self.titleLabel.setBgColor(title)
         self.inputTextField.setBgColor(title)
         return self

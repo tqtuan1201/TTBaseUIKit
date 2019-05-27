@@ -100,8 +100,13 @@ extension UIViewController {
     
     public func removeLoading() {
         DispatchQueue.main.async { [weak self] in guard let strongSelf = self else { return }
-            guard let loadingView =  strongSelf.view.viewWithTag(CONSTANT.TAG_VIEW.LOADING.rawValue) else { return }
-            loadingView.removeFromSuperview()
+            if let processView = strongSelf.view.viewWithTag(TTBaseUIKit.CONSTANT.TAG_VIEW.LOADING.rawValue) as? TTBaseUIProgressView {
+                processView.onFinished()
+                processView.removeFromSuperview()
+            } else {
+                guard let loadingView = strongSelf.view.viewWithTag(TTBaseUIKit.CONSTANT.TAG_VIEW.LOADING.rawValue) else { return }
+                loadingView.removeFromSuperview()
+            }
         }
     }
     

@@ -108,8 +108,9 @@ open class TTBaseUIViewController<BaseView:TTBaseUIView>: UIViewController, TTBa
         case .NO_VIEW:
             break
         }
+    
+        if self.isEffectView { self.view.addSubview(self.panelEffectView) }
         
-        self.view.addSubview(self.panelEffectView)
     }
     
     private func setupEffectForView() {

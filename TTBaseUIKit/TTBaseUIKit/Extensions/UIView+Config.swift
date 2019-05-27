@@ -115,6 +115,37 @@ extension UIView {
         return gradientLayer
     }
     
+    
+    public func onStartSkeletonCustomViewAnimation() {
+        if !(self.layer.sublayers?.filter({$0.name == "SkeletonAnimating"}) ?? []).isEmpty { return }
+        self.clipsToBounds = true
+        self.layer.addSublayer(UIView.getGradientSkeletonLayer())
+        let views = self.subviewsRecursive()
+        for view in views {
+            view.backgroundColor = TTView.viewBgSkeleton
+            if let lb = view as? TTBaseUILabel {lb.textColor = TTView.viewBgSkeleton}
+            if let img = view as? TTBaseUIImageView {img.setAnimalForSkeletonView()}
+        }
+    }
+    
+    public func onStopSkeletonCustomViewAnimation() {
+        self.layer.sublayers?.filter({$0.name == "SkeletonAnimating"}).first?.removeFromSuperlayer()
+        let views = self.subviewsRecursive()
+        for view in views {
+            if let view = view as? TTBaseUIView {
+                view.backgroundColor = view.viewDefBgColor
+            } else if let lb = view as? TTBaseUILabel {
+                lb.textColor = lb.textDefColor
+                lb.backgroundColor = lb.viewDefBgColor
+            } else if let img = view as? TTBaseUIImageView {
+              img.setRollBackViewForSkeletonAnimal()
+            } else {
+                view.backgroundColor = UIColor.clear
+            }
+        }
+    }
+    
+    
 //    public func startSkeletonAnimating() {
 //        if (self.layer.sublayers?.filter({$0.name == "SkeletonAnimating"}).isEmpty ?? false) {
 //            self.layer.addSublayer(self.getGradientSkeletonLayer())

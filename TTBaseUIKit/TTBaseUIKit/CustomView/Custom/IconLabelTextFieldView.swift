@@ -81,28 +81,28 @@ open class TTIconLabelTextFieldView : TTBaseUIView {
 
 extension TTIconLabelTextFieldView {
     
-    public func setText(withTitle title:String, textPlaceHolder:String, icon:AwesomePro.Light) -> TTIconLabelTextFieldView {
+    @discardableResult public func setText(withTitle title:String, textPlaceHolder:String, icon:AwesomePro.Light) -> TTIconLabelTextFieldView {
         self.labelTextField.titleLabel.setText(text: title).done()
         self.labelTextField.inputTextField.placeholder = textPlaceHolder
         self.iconLeftImageView.setIConImage(with: icon.rawValue, color: self.iconColor).done()
         return self
     }
     
-    public func setText(withTitle title:String, textPlaceHolder:String, iconName:String) -> TTIconLabelTextFieldView {
+    @discardableResult public func setText(withTitle title:String, textPlaceHolder:String, iconName:String) -> TTIconLabelTextFieldView {
         self.labelTextField.titleLabel.setText(text: title).done()
         self.labelTextField.inputTextField.placeholder = textPlaceHolder
         self.iconLeftImageView.setIConImage(with: iconName, color: self.iconColor).done()
         return self
     }
 
-    public func setText(withTitle title:String, textPlaceHolder:String) -> TTIconLabelTextFieldView {
+    @discardableResult public func setText(withTitle title:String, textPlaceHolder:String) -> TTIconLabelTextFieldView {
         self.labelTextField.titleLabel.setText(text: title).done()
         self.labelTextField.inputTextField.placeholder = textPlaceHolder
         return self
     }
     
     
-    public func setColor(_ color:UIColor) -> TTIconLabelTextFieldView {
+    @discardableResult public func setColor(_ color:UIColor) -> TTIconLabelTextFieldView {
         self.iconLeftImageView.setIconColor(color).done()
         self.labelTextField.titleLabel.setTextColor(color: color).done()
         self.labelTextField.inputTextField.setTextColor(color: color).done()

@@ -36,6 +36,8 @@ public struct CONSTANT {
         case DD_MM_YYYY             = "dd/MM/yyyy"
         case DD_MM_YY               = "dd/MM/YY"
         case DDMMYYYY               = "ddMMyyyy"
+        case YYYYMMDD               = "yyyyMMdd"
+        case YYYYMM                 = "yyyyMM"
         case DDMM                   = "dd/MM"
         case DDMM_HH_MM_A                 = "dd/MM hh:mm a"
         case DD_MM_YYYY_HH_MM       = "dd/MM/yyyy HH:mm"

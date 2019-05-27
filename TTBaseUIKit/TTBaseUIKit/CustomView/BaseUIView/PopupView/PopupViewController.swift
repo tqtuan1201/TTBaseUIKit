@@ -35,15 +35,15 @@ open class TTPopupViewController: TTBasePopupViewController {
         super.init(isAllowTouchPanel: isAllowTouchPanel)
     }
     
-    public convenience init(title:String, subTitle:String) {
-        self.init(isAllowTouchPanel: true)
+    public convenience init(title:String, subTitle:String, isAllowTouchPanel:Bool = true) {
+        self.init(isAllowTouchPanel: isAllowTouchPanel)
         self.titleString = title
         self.subString = subTitle
         self.setupData()
     }
     
-    public convenience init(title:String, subTitle:String, buttons:[TTBaseUIButton]) {
-        self.init(isAllowTouchPanel: true)
+    public convenience init(title:String, subTitle:String, buttons:[TTBaseUIButton], isAllowTouchPanel:Bool = true) {
+        self.init(isAllowTouchPanel: isAllowTouchPanel)
         self.titleString = title
         self.subString = subTitle
         self.buttons = buttons

@@ -36,6 +36,26 @@ extension String {
         guard let decodedData = NSData(base64Encoded:self , options: .ignoreUnknownCharacters) else { return nil }
         return String(data: decodedData as Data, encoding: .utf8)
     }
+
+    ///
+    /// This func return date
+    ///
+    public func toDate(withFormat format: CONSTANT.FORMAT_DATE) -> Date? {
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = format.rawValue
+        return dateFormatter.date(from: self)
+    }
+    
+    ///
+    /// This func return date with set timeZone
+    ///
+    public func toDate(withFormat format: CONSTANT.FORMAT_DATE, timeZone:TimeZone) -> Date? {
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = format.rawValue
+        dateFormatter.timeZone = timeZone
+        return dateFormatter.date(from: self)
+    }
+    
 }
 
 // MARK: For static func

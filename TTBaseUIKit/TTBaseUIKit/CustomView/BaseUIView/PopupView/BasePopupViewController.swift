@@ -11,6 +11,7 @@ import UIKit
 
 open class TTBasePopupViewController : TTBaseUIViewController<DarkBaseUIView> {
     
+    open override var isEffectView: Bool { get { return false } }
     fileprivate var isAllowTouchPanelView:Bool = true
     
     public init(isAllowTouchPanel:Bool) {
@@ -19,7 +20,13 @@ open class TTBasePopupViewController : TTBaseUIViewController<DarkBaseUIView> {
         self.setupBaseView()
         self.setupTargets()
     }
-    
+
+    open override func viewDidLoad() {
+        super.viewDidLoad()
+        self.view.alpha = 0
+        self.view.backgroundColor = UIColor.darkGray.withAlphaComponent(0.6)
+        UIView.animate(withDuration: 0.4) { self.view.alpha = 1 }
+    }
     required public init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }

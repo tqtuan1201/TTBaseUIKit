@@ -94,29 +94,29 @@ extension TTBaseUILabel {
         self.setFontSize(size: fontSize).setText(text: text).setAlign(align: align).setTextColor(color: color).done()
     }
     
-    public func setText(text:String, isBold:Bool = false) -> TTBaseUILabel {
+    @discardableResult public func setText(text:String, isBold:Bool = false) -> TTBaseUILabel {
         self.text = text
         if isBold { self.setBold().done() }
         return self
     }
     
-    public func setBold()  -> TTBaseUILabel {
+    @discardableResult public func setBold()  -> TTBaseUILabel {
         self.font = UIFont.boldSystemFont(ofSize: self.font.pointSize)
         return self
     }
     
-    public func setAlign(align:NSTextAlignment) -> TTBaseUILabel {
+    @discardableResult public func setAlign(align:NSTextAlignment) -> TTBaseUILabel {
         self.textAlignment = align
         return self
     }
     
-    public func setTextColor(color:UIColor) -> TTBaseUILabel {
+    @discardableResult public func setTextColor(color:UIColor) -> TTBaseUILabel {
         self.textDefColor = color
         self.textColor = color
         return self
     }
     
-    public func setFontSize(size:CGFloat) -> TTBaseUILabel {
+    @discardableResult public func setFontSize(size:CGFloat) -> TTBaseUILabel {
         self.font = self.font.withSize(size)
         return self
     }
@@ -131,30 +131,30 @@ extension TTBaseUILabel {
 // MARK: For setText
 extension TTBaseUILabel {
     
-    public func setFullContentHuggingPriority() -> TTBaseUILabel {
+    @discardableResult public func setFullContentHuggingPriority() -> TTBaseUILabel {
         self.setHorizontalContentHuggingPriority().setVerticalContentHuggingPriority().done()
         return self
     }
     
-    public func setHorizontalContentHuggingPriority() -> TTBaseUILabel {
+    @discardableResult public func setHorizontalContentHuggingPriority() -> TTBaseUILabel {
         self.setContentHuggingPriority( UILayoutPriority.defaultHigh, for: .horizontal)
         self.setContentCompressionResistancePriority(  UILayoutPriority.defaultHigh, for: .horizontal)
         return self
     }
     
-    public func setVerticalContentHuggingPriority() -> TTBaseUILabel {
+    @discardableResult public func setVerticalContentHuggingPriority() -> TTBaseUILabel {
         self.setContentHuggingPriority( UILayoutPriority.defaultHigh, for: .vertical)
         self.setContentCompressionResistancePriority(  UILayoutPriority.defaultHigh, for: .vertical)
         return self
     }
     
-    public func setSizeToFit() -> TTBaseUILabel {
+    @discardableResult public func setSizeToFit() -> TTBaseUILabel {
         self.clipsToBounds = true
         self.sizeToFit()
         return self
     }
     
-    public func setMutilLine(numberOfLine:Int = 0, textAlignment:NSTextAlignment = .center)  -> TTBaseUILabel {
+    @discardableResult public func setMutilLine(numberOfLine:Int = 0, textAlignment:NSTextAlignment = .center)  -> TTBaseUILabel {
         self.numberOfLines = numberOfLine
         self.textAlignment = textAlignment
         self.lineBreakMode = .byWordWrapping

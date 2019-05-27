@@ -77,7 +77,10 @@ open class TTTextSubtextIconTableViewCell : TTBaseUITableViewCell {
 public protocol TTTextSubtextIconTableViewCellRepresentable {
     
     var imageName:String { get }
+    
     var iconName:String { get }
+    var iconColor:UIColor { get }
+    
     var titleText:String { get }
     var subText:String { get }
     
@@ -87,10 +90,14 @@ extension TTTextSubtextIconTableViewCell {
     
     public func configure(withRepresentable viewModel: TTTextSubtextIconTableViewCellRepresentable) {
         
-        if !viewModel.imageName.isEmpty { self.imageRight.setImageByName(name: viewModel.imageName) }
-        if !viewModel.iconName.isEmpty { self.imageRight.setIConImage(with: viewModel.iconName).done() }
-        
         self.titleLabel.setText(text: viewModel.titleText).done()
         self.subLabel.setText(text: viewModel.subText).done()
+        
+        if viewModel.iconName != "" {
+            DispatchQueue.main.async { [weak self] in self?.imageRight.setIConImage(with: viewModel.iconName, color: viewModel.iconColor, scale: .scaleAspectFit).done() }
+        } else if !viewModel.imageName.isEmpty {
+            DispatchQueue.main.async { [weak self] in self?.imageRight.setImage(with: viewModel.imageName).done() }
+        }
+        
     }
 }

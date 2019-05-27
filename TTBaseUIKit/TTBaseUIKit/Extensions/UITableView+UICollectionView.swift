@@ -100,11 +100,19 @@ extension UITableView {
         }
     }
     
+
+    public func setStaticBgNoData(withIcon icon:AwesomePro.Light , color:UIColor = TTBaseUIKitConfig.getViewConfig().viewIconTextBgTableView, title:String, des:String, isScrool:Bool = false, onTouchHandle:(() -> ())?)  {
+            self.setStaticBgNoData(withImageName: icon.rawValue, color: color, title: title, des: des, isScrool: isScrool) {
+                onTouchHandle?()
+            }
+    }
     
-    public func setStaticBgNoData(withImageName icon:String = AwesomePro.Light.clock.rawValue, color:UIColor = TTBaseUIKitConfig.getViewConfig().viewIconTextBgTableView, title:String, des:String , onTouchHandle:(() -> ())?)  {
+    public func setStaticBgNoData(withImageName icon:String = AwesomePro.Light.clock.rawValue, color:UIColor = TTBaseUIKitConfig.getViewConfig().viewIconTextBgTableView, title:String, des:String, isScrool:Bool = false, onTouchHandle:(() -> ())?)  {
         
-        let panelView:TTBaseUIView = TTBaseUIView()
-        panelView.backgroundColor = UIColor.clear
+        let emptyView = TTBaseUIView()
+        emptyView.setBgColor(UIColor.clear)
+        emptyView.frame = CGRect(x: self.center.x, y: self.center.y, width: self.bounds.size.width, height: self.bounds.size.height)
+        emptyView.translatesAutoresizingMaskIntoConstraints = true
         
         var paddingTop:CGFloat = TTSize.P_CONS_DEF
         
@@ -112,40 +120,43 @@ extension UITableView {
         if icon.contains(".ing") || icon.contains(".png") { imageView = TTBaseUIImageView(with: icon) ; paddingTop = TTSize.P_CONS_DEF + 3 }
         
         imageView.backgroundColor = UIColor.clear
-        panelView.addSubview(imageView)
+        emptyView.addSubview(imageView)
         
         imageView.setWidthAnchor(constant: TTSize.W / 4.5).setHeightAnchor(constant: TTSize.W / 4.5).setFullCenterAnchor(constant: 0)
         
         let titleLabel:TTBaseUILabel = TTBaseUILabel(withType: .TITLE, text: title, align: .center)
         titleLabel.setTextColor(color: color).done()
         titleLabel.backgroundColor = UIColor.clear
-        panelView.addSubview(titleLabel)
+        emptyView.addSubview(titleLabel)
         
-        titleLabel.setVerticalContentHuggingPriority().setLeadingAnchor(constant: 0).setTrailingAnchor(constant: 0).setTopAnchorWithAboveView(nextToView: imageView, constant: paddingTop).done()
+        titleLabel.setVerticalContentHuggingPriority().setTopAnchorWithAboveView(nextToView: imageView, constant: paddingTop).done()
+        titleLabel.leftAnchor.constraint(equalTo: emptyView.leftAnchor, constant: paddingTop).isActive = true
+        titleLabel.rightAnchor.constraint(equalTo: emptyView.rightAnchor, constant: -paddingTop).isActive = true
         
         let subLabel:TTBaseUILabel = TTBaseUILabel(withType: .SUB_TITLE, text: des, align: .center)
         subLabel.backgroundColor = UIColor.clear
         subLabel.setTextColor(color: color).done()
-        panelView.addSubview(subLabel)
+        emptyView.addSubview(subLabel)
         
-        subLabel.setVerticalContentHuggingPriority().setLeadingAnchor(constant: 0).setTrailingAnchor(constant: 0).setTopAnchorWithAboveView(nextToView: titleLabel, constant: TTSize.P_CONS_DEF / 2).done()
+        subLabel.setVerticalContentHuggingPriority().setTopAnchorWithAboveView(nextToView: titleLabel, constant: TTSize.P_CONS_DEF / 2).done()
+        subLabel.leftAnchor.constraint(equalTo: emptyView.leftAnchor, constant: paddingTop).isActive = true
+        subLabel.rightAnchor.constraint(equalTo: emptyView.rightAnchor, constant: -paddingTop).isActive = true
         
-        self.backgroundView = panelView
+        
+        // The only tricky part is here:
+        self.backgroundView = emptyView
+        self.separatorStyle = .none
         self.backgroundView?.isUserInteractionEnabled = true
-        self.backgroundView?.translatesAutoresizingMaskIntoConstraints = false
-        self.backgroundView?.leadingAnchor.constraint(equalTo: self.layoutMarginsGuide.leadingAnchor, constant: 0).isActive = true
-        self.backgroundView?.trailingAnchor.constraint(equalTo: self.layoutMarginsGuide.trailingAnchor, constant: 0).isActive = true
-        self.backgroundView?.topAnchor.constraint(equalTo: self.layoutMarginsGuide.topAnchor, constant: 0).isActive = true
-        self.backgroundView?.bottomAnchor.constraint(equalTo: self.layoutMarginsGuide.bottomAnchor, constant: 0).isActive = true
         
         self.backgroundView?.alpha = 0
         UIView.animate(withDuration: 0.2) {
             self.backgroundView?.alpha = 1
         }
-        self.isScrollEnabled = false
-        panelView.setTouchHandler().onTouchHandler = { view in
+        self.isScrollEnabled = isScrool
+        emptyView.setTouchHandler().onTouchHandler = { view in
             onTouchHandle?()
         }
+        
     }
     
 }

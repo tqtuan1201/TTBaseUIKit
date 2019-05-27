@@ -101,7 +101,7 @@ extension TTBaseUITableViewController {
             if self.paddingHeader.4 != 0 { headerView.setHeightAnchor(constant: self.paddingHeader.4).done() }
             
             let superViewTop:UIView = isFixedAnchorTop ? self.view : (headerView.superview ?? self.view)
-            headerView.setLeadingAnchor(self.view,constant: self.paddingHeader.0, isApplySafeArea: false).setTopAnchor(superViewTop, constant: self.paddingHeader.1).setTrailingAnchor(self.view, constant: self.paddingHeader.2, isApplySafeArea: false).done()
+            headerView.setLeadingAnchor(self.view,constant: self.paddingHeader.0, isApplySafeArea: false).setTopAnchor(superViewTop, constant: self.paddingHeader.1).setTrailingAnchor(self.view, constant: self.paddingHeader.2, isApplySafeArea: false, priority: .defaultHigh).done()
         }
         
         self.tableView.tableHeaderView?.layoutIfNeeded()

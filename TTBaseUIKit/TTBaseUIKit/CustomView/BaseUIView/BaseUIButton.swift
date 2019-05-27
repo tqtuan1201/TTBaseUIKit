@@ -87,13 +87,13 @@ extension TTBaseUIButton {
         self.backgroundColor = viewDefBgColor
     }
     
-    public func setWarringType() -> TTBaseUIButton {
+    @discardableResult public func setWarringType() -> TTBaseUIButton {
         self.isUserInteractionEnabled = true
         self.setTextColor(color: UIColor.white).setBgColor(color: TTBaseUIKitConfig.getViewConfig().buttonBgWar).done()
         return self
     }
     
-    public func setEnable() -> TTBaseUIButton {
+    @discardableResult public func setEnable() -> TTBaseUIButton {
         self.isUserInteractionEnabled = true
         self.backgroundColor = viewDefBgColor.withAlphaComponent(1)
         return self
@@ -112,19 +112,19 @@ extension TTBaseUIButton {
         self.imageView?.contentMode = .scaleAspectFit
     }
     
-    public func resetBorderCorner() -> TTBaseUIButton {
+    @discardableResult public func resetBorderCorner() -> TTBaseUIButton {
         self.layer.cornerRadius    = 0
         self.clipsToBounds         = false
         return self
     }
 
-    public func setHidden() -> TTBaseUIButton {
+    @discardableResult public func setHidden() -> TTBaseUIButton {
         self.setTitle("", for: .normal)
         self.isHidden = true
         return self
     }
     
-    public func setNonHidden() -> TTBaseUIButton {
+    @discardableResult public func setNonHidden() -> TTBaseUIButton {
         self.isHidden = false
         return self
     }
@@ -134,17 +134,17 @@ extension TTBaseUIButton {
         return self
     }
     
-    public func setText(text:String) -> TTBaseUIButton {
+    @discardableResult public func setText(text:String) -> TTBaseUIButton {
         self.setTitle(text, for: .normal)
         return self
     }
     
-    public func setTextColor(color:UIColor) -> TTBaseUIButton {
+    @discardableResult public func setTextColor(color:UIColor) -> TTBaseUIButton {
         self.setTitleColor(color, for: UIControl.State.normal)
         return self
     }
     
-    public func setBgColor(color:UIColor) -> TTBaseUIButton {
+    @discardableResult public func setBgColor(color:UIColor) -> TTBaseUIButton {
         self.viewDefBgColor  = color
         self.backgroundColor = color
         return self
@@ -163,18 +163,18 @@ extension TTBaseUIButton {
         self.setText(text: text).setTextColor(color: textColor).setTextAligment(alignment: alignment).done()
     }
     
-    public func setFullContentHuggingPriority() -> TTBaseUIButton {
+    @discardableResult public func setFullContentHuggingPriority() -> TTBaseUIButton {
         self.setHorizontalContentHuggingPriority().setVerticalContentHuggingPriority().done()
         return self
     }
     
-    public func setHorizontalContentHuggingPriority() -> TTBaseUIButton {
+    @discardableResult public func setHorizontalContentHuggingPriority() -> TTBaseUIButton {
         self.setContentHuggingPriority( UILayoutPriority.required, for: .horizontal)
         self.setContentCompressionResistancePriority(  UILayoutPriority.required, for: .horizontal)
         return self
     }
     
-    public func setVerticalContentHuggingPriority() -> TTBaseUIButton {
+    @discardableResult public func setVerticalContentHuggingPriority() -> TTBaseUIButton {
         self.setContentHuggingPriority( UILayoutPriority.required, for: .vertical)
         self.setContentCompressionResistancePriority(  UILayoutPriority.required, for: .vertical)
         return self

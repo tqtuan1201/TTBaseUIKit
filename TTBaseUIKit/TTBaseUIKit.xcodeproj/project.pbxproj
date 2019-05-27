@@ -47,6 +47,8 @@
 		936822EC228EC10900BDD0DB /* BaseNotificationViewConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = 936822EB228EC10900BDD0DB /* BaseNotificationViewConfig.swift */; };
 		936A50572267142D00CA384C /* img.NoImage.png in Resources */ = {isa = PBXBuildFile; fileRef = 936A50562267142D00CA384C /* img.NoImage.png */; };
 		936E0AC92273E92500FCD2B5 /* TextTableHeaderFooterViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 936E0AC82273E92500FCD2B5 /* TextTableHeaderFooterViewCell.swift */; };
+		93706FC32293ED2B008D8CCC /* BaseDatePicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93706FC22293ED2B008D8CCC /* BaseDatePicker.swift */; };
+		93706FC52293EFC6008D8CCC /* Date+Config.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93706FC42293EFC6008D8CCC /* Date+Config.swift */; };
 		93768A982258CFFD0033DDBB /* Configuration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93768A972258CFFD0033DDBB /* Configuration.swift */; };
 		93768A9A2258D30D0033DDBB /* FontConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93768A992258D30D0033DDBB /* FontConfig.swift */; };
 		93768A9C2258D3510033DDBB /* Constant.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93768A9B2258D3510033DDBB /* Constant.swift */; };
@@ -137,6 +139,8 @@
 		936822EB228EC10900BDD0DB /* BaseNotificationViewConfig.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseNotificationViewConfig.swift; sourceTree = "<group>"; };
 		936A50562267142D00CA384C /* img.NoImage.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = img.NoImage.png; sourceTree = "<group>"; };
 		936E0AC82273E92500FCD2B5 /* TextTableHeaderFooterViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextTableHeaderFooterViewCell.swift; sourceTree = "<group>"; };
+		93706FC22293ED2B008D8CCC /* BaseDatePicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseDatePicker.swift; sourceTree = "<group>"; };
+		93706FC42293EFC6008D8CCC /* Date+Config.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Date+Config.swift"; sourceTree = "<group>"; };
 		93768A972258CFFD0033DDBB /* Configuration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Configuration.swift; sourceTree = "<group>"; };
 		93768A992258D30D0033DDBB /* FontConfig.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FontConfig.swift; sourceTree = "<group>"; };
 		93768A9B2258D3510033DDBB /* Constant.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constant.swift; sourceTree = "<group>"; };
@@ -309,6 +313,14 @@
 			path = NotificationView;
 			sourceTree = "<group>";
 		};
+		93706FC12293ED0E008D8CCC /* DatePicker */ = {
+			isa = PBXGroup;
+			children = (
+				93706FC22293ED2B008D8CCC /* BaseDatePicker.swift */,
+			);
+			path = DatePicker;
+			sourceTree = "<group>";
+		};
 		93768A962258CFCA0033DDBB /* BaseConfig */ = {
 			isa = PBXGroup;
 			children = (
@@ -333,6 +345,7 @@
 				93C99517225F716A0081FA81 /* General+Config.swift */,
 				93073FBE22643D36009AF63F /* String+Config.swift */,
 				9358C82F226895B500D2D10F /* UITableView+UICollectionView.swift */,
+				93706FC42293EFC6008D8CCC /* Date+Config.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -359,6 +372,7 @@
 		93C05A0B2261B59C00E27EDB /* BaseUIView */ = {
 			isa = PBXGroup;
 			children = (
+				93706FC12293ED0E008D8CCC /* DatePicker */,
 				938162DE22929C91007B71A7 /* PopupView */,
 				936822E8228EBFF100BDD0DB /* NotificationView */,
 				9320F19C226970F3003B8628 /* CellColectionView */,
@@ -605,6 +619,7 @@
 				938162E022929CB0007B71A7 /* BasePopupViewController.swift in Sources */,
 				93C99512225F6D170081FA81 /* BaseUITextField.swift in Sources */,
 				93083CB82281664D00957B4D /* DeviceVersion.swift in Sources */,
+				93706FC32293ED2B008D8CCC /* BaseDatePicker.swift in Sources */,
 				93C0D2A322746B6900E5889C /* IconTextSubtextTextSubTextRightTableViewCell.swift in Sources */,
 				93D6BE7F22637FB400906781 /* LabelTextFieldView.swift in Sources */,
 				933A92BA2277762F008ECCC4 /* UIImageCircleView.swift in Sources */,
@@ -657,6 +672,7 @@
 				936091C9225B297C007D8F6B /* TTBaseFunc.swift in Sources */,
 				936091D3225B3E64007D8F6B /* BaseUILabel.swift in Sources */,
 				93768A9E2258DE080033DDBB /* SizeConfig.swift in Sources */,
+				93706FC52293EFC6008D8CCC /* Date+Config.swift in Sources */,
 				936091CF225B2FCE007D8F6B /* BaseUIView.swift in Sources */,
 				936091CD225B2DD5007D8F6B /* BaseCustomViewRepresentable.swift in Sources */,
 				93083CB322815E6500957B4D /* BaseUISearchBar.swift in Sources */,
