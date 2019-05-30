@@ -10,7 +10,7 @@ import UIKit
 
 open class TTBaseUIImageView: UIImageView, ViewDrawer {
     
-    var viewDefBgColor: UIColor = TTBaseUIKitConfig.getViewConfig().viewDefColor
+    var viewDefBgColor: UIColor = UIColor.clear
     var viewDefCornerRadius: CGFloat = TTBaseUIKitConfig.getSizeConfig().CORNER_RADIUS
     
     fileprivate lazy var skeletonImg:UIImage = UIImage(fromTTBaseUIKit: Config.Value.noImageName) ?? UIImage()

@@ -138,6 +138,7 @@ extension UIView {
                 lb.textColor = lb.textDefColor
                 lb.backgroundColor = lb.viewDefBgColor
             } else if let img = view as? TTBaseUIImageView {
+               img.backgroundColor = img.viewDefBgColor
               img.setRollBackViewForSkeletonAnimal()
             } else {
                 view.backgroundColor = UIColor.clear
