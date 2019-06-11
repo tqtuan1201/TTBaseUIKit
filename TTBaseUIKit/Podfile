@@ -4,7 +4,6 @@
 target 'TTBaseUIKit' do
   # Comment the next line if you're not using Swift and don't want to use dynamic frameworks
   use_frameworks!
-   # pod 'TTBaseUIKit', :path => '/STORE/S.JOB/J.PROJECT/P.BUILD_LIB/TTBaseUIKit/TTBaseUIKit/'
   # Pods for TTBaseUIKit
 
 end
