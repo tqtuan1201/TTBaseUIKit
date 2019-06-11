@@ -3,11 +3,11 @@ Pod::Spec.new do |s|
   s.version      = "1.0.5"
   s.summary      = "Custom UIKit"
   s.description  = "BaseUIView, BaseUILable, BaseUIButton, BaseUITableView"
-  s.homepage     = "https://github.com/tuan123/TTBaseUIKit"
+  s.homepage     = "https://github.com/tqtuan1201/TTBaseUIKit"
   s.license      = "MIT"
   s.author       = { "Truong Quang Tuan" => "truongquangtuanit@gmail.com" }
   s.platform     = :ios, "10.0"
-  s.source       = { :git => "https://github.com/tuan123/TTBaseUIKit.git", :tag => s.version.to_s }
+  s.source       = { :git => "https://github.com/tqtuan1201/TTBaseUIKit.git", :tag => s.version.to_s }
   s.source_files = "TTBaseUIKit/**/*"
   s.exclude_files = "TTBaseUIKit/**/*.plist"
   s.swift_version = '5.0'
@@ -17,5 +17,3 @@ Pod::Spec.new do |s|
   
 end
 
-
-  
