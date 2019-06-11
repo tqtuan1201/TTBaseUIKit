@@ -86,6 +86,10 @@ open class TTBaseUITableViewCell: UITableViewCell, ReusableView {
 
 extension TTBaseUITableViewCell {
     
+    public func setBgPanelView(color:UIColor) {
+        self.panel.setBgColor(color)
+    }
+    
     public func getTableView() -> UITableView? {
         guard let superView = self.superview else { return nil }
         if #available(iOS 11, *) {
@@ -116,6 +120,7 @@ extension TTBaseUITableViewCell {
         for view in views {
             view.backgroundColor = TTView.viewBgSkeleton
             if let lb = view as? TTBaseUILabel {lb.textColor = TTView.viewBgSkeleton}
+            if let img = view as? TTBaseUIImageView {img.setAnimalForSkeletonView()}
         }
     }
 
@@ -128,6 +133,9 @@ extension TTBaseUITableViewCell {
             } else if let lb = view as? TTBaseUILabel {
                 lb.textColor = lb.textDefColor
                 lb.backgroundColor = lb.viewDefBgColor
+            }  else if let img = view as? TTBaseUIImageView {
+                img.backgroundColor = img.viewDefBgColor
+                img.setRollBackViewForSkeletonAnimal()
             } else {
                  view.backgroundColor = UIColor.clear
             }

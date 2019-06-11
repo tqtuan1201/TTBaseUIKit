@@ -30,20 +30,20 @@ open class TTBaseUILabel : UILabel, ViewDrawer, TextDrawer {
     var type:TYPE = .NONE
     
     public var onTouchHandler:((_ label:TTBaseUILabel) -> Void)?
+    
     open func updateUI() { }
     
-    override init(frame: CGRect) {
+    
+    public override init(frame: CGRect) {
         super.init(frame: frame)
         
         self.setupUI()
-        self.setupTargets()
         self.updateUI()
     }
     
     public required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
         self.setupUI()
-        self.setupTargets()
         self.updateUI()
     }
     
@@ -75,15 +75,17 @@ open class TTBaseUILabel : UILabel, ViewDrawer, TextDrawer {
         self.drawLable()
         
     }
-    
-    private func setupTargets() {
-        self.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(self.onTouchView(_:))))
-    }
-    
+
     @objc private func onTouchView(_ sender:UITapGestureRecognizer) {
         self.onTouchHandler?(self)
     }
     
+    
+    @discardableResult public func setTouchHandler() -> TTBaseUILabel {
+        self.isUserInteractionEnabled = true
+        self.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(self.onTouchView(_:))))
+        return self
+    }
 }
 
 // MARK:// For base functions
@@ -121,9 +123,10 @@ extension TTBaseUILabel {
         return self
     }
     
-    public func setBgColor(_ color:UIColor) {
+    @discardableResult public func setBgColor(_ color:UIColor)  -> TTBaseUILabel{
         self.viewDefBgColor = color
         self.backgroundColor = color
+        return self
     }
     
 }
@@ -160,5 +163,7 @@ extension TTBaseUILabel {
         self.lineBreakMode = .byWordWrapping
         return self
     }
+    
+    
 }
 

@@ -11,6 +11,7 @@ import UIKit
 
 open class TTBasePopupViewController : TTBaseUIViewController<DarkBaseUIView> {
     
+    open override var navType: TTBaseUIViewController<DarkBaseUIView>.NAV_STYLE { get { return .NO_VIEW }}
     open override var isEffectView: Bool { get { return false } }
     fileprivate var isAllowTouchPanelView:Bool = true
     

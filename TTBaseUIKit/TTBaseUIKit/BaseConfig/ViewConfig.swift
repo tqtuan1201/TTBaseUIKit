@@ -19,11 +19,12 @@ open class ViewConfig {
     
     public var viewBgSkeleton: UIColor = UIColor.getColorFromHex.init(netHex: 0xe8e8e8)
     public var viewBgGradientSkeleton: UIColor = UIColor.white.withAlphaComponent(0.2)
-    public var viewBgGradientMoveSkeleton: UIColor = UIColor.darkGray.withAlphaComponent(0.14)
+    public var viewBgGradientMoveSkeleton: UIColor = UIColor.darkGray.withAlphaComponent(0.08)
     
     public var viewBgAccessoryViewColor: UIColor = UIColor.white.withAlphaComponent(0.8)
     public var viewBgNavColor: UIColor = UIColor.getColorFromHex.init(netHex: 0x1C82AD)
     public var viewDefColor: UIColor = UIColor.white
+    public var viewDisableColor: UIColor = UIColor.getColorFromHex.init(netHex: 0xc5c5c5)
     public var viewBgColor: UIColor = UIColor.getColorFromHex.init(netHex: 0xDBDBDB)
     public var viewPanelWithButtomColor: UIColor = UIColor.white
     public var viewIconTextBgTableView: UIColor =  UIColor.darkText.withAlphaComponent(0.5)
@@ -67,6 +68,9 @@ open class ViewConfig {
     public var notificationBgSuccess: UIColor = UIColor.getColorFromHex.init(netHex: 0x0077ab)
     public var notificationBgWarning: UIColor = UIColor.getColorFromHex.init(netHex: 0xcc9a05)
     public var notificationBgError: UIColor = UIColor.getColorFromHex.init(netHex: 0xb22a37)
+    
+    public var dismissPresentBgview: UIColor = UIColor.white
+    public var dismissPresentLineBgview: UIColor = UIColor.getColorFromHex.init(netHex: 0xc5c5c5)
     
     public init() {}
 }

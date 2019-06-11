@@ -154,7 +154,7 @@ extension UIView {
     }
     
     
-    public func setTopAnchorWithAboveView(_ isUpdate:Bool = false, nextToView:UIView, constant:CGFloat) -> UIView {
+    @discardableResult public func setTopAnchorWithAboveView(_ isUpdate:Bool = false, nextToView:UIView, constant:CGFloat) -> UIView {
         let identifierAnchor:String = "TTBase.Contraint.setTopAnchorWithAboveView"
         if isUpdate {
             self.superview?.constraintWithIdentifier(identifierAnchor)?.constant = constant

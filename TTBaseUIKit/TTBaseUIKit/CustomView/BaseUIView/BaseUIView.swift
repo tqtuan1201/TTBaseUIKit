@@ -16,17 +16,6 @@ open class TTBaseUIView: UIView, ViewDrawer {
     
     var viewDefBgColor: UIColor = TTBaseUIKitConfig.getViewConfig().viewDefColor
     var viewDefCornerRadius: CGFloat = TTBaseUIKitConfig.getSizeConfig().CORNER_RADIUS
-    
-    
-    fileprivate lazy var startLocations : [NSNumber] = [-1.0,-0.5, 0.0]
-    fileprivate lazy var endLocations : [NSNumber] = [1.0,1.5, 2.0]
-    
-    fileprivate lazy var gradientBackgroundColor : CGColor = UIColor(white: 0.85, alpha: 1.0).cgColor
-    fileprivate lazy var gradientMovingColor : CGColor = UIColor(white: 0.75, alpha: 1.0).cgColor
-    
-    fileprivate lazy var movingAnimationDuration : CFTimeInterval = 0.8
-    fileprivate lazy var delayBetweenAnimationLoops : CFTimeInterval = 1.0
-    
 
     open func updateBaseUIView() { }
     public var onTouchHandler:((_ view:TTBaseUIView) -> Void)?

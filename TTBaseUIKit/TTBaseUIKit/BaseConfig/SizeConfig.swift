@@ -25,6 +25,11 @@ public class SizeConfig {
     
     public var H_LOADING_CENTER:CGFloat = Device.size() > .screen4Inch ? 70.0 : 40.0
     
+    public var H_DISSMISS_PRESENTVIEW:CGFloat = 20.0
+    public var W_DISSMISS_PRESENTVIEW:CGFloat = 6.0
+    public var H_DISSMISS_LINESPACE_PRESENTVIEW:CGFloat = 6.0
+    public var W_DISSMISS_LINESPACE_PRESENTVIEW:CGFloat = 40.0
+    
     public var H_SEG:CGFloat = 40.0
     public var H_SEG_LINE:CGFloat = 2.0
     

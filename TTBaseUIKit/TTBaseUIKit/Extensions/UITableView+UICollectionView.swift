@@ -134,8 +134,7 @@ extension UITableView {
         titleLabel.rightAnchor.constraint(equalTo: emptyView.rightAnchor, constant: -paddingTop).isActive = true
         
         let subLabel:TTBaseUILabel = TTBaseUILabel(withType: .SUB_TITLE, text: des, align: .center)
-        subLabel.backgroundColor = UIColor.clear
-        subLabel.setTextColor(color: color).done()
+        subLabel.setMutilLine(numberOfLine: 10, textAlignment: .center).setTextColor(color: color).backgroundColor = UIColor.clear
         emptyView.addSubview(subLabel)
         
         subLabel.setVerticalContentHuggingPriority().setTopAnchorWithAboveView(nextToView: titleLabel, constant: TTSize.P_CONS_DEF / 2).done()

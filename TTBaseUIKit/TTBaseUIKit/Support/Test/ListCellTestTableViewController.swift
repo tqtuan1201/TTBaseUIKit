@@ -9,7 +9,7 @@
 import Foundation
 import UIKit
 
-public class TTListCellTestTableViewController: TTBaseUITableViewController {
+open class TTListCellTestTableViewController: TTBaseUITableViewController {
     
     override open var tableStyle: UITableView.Style { get { return .grouped}}
     
@@ -20,7 +20,7 @@ public class TTListCellTestTableViewController: TTBaseUITableViewController {
         TTIconTextSubtextTextSubTextRightTableViewCell.self
     ]
     
-    override public func viewDidLoad() {
+    override open func viewDidLoad() {
         super.viewDidLoad()
         self.setupViewCodable(with: [])
     }

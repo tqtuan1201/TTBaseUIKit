@@ -1,6 +1,6 @@
 {
   "name": "TTBaseUIKit",
-  "version": "1.0.0",
+  "version": "1.0.5",
   "summary": "Custom UIKit",
   "description": "BaseUIView, BaseUILable, BaseUIButton, BaseUITableView",
   "homepage": "https://github.com/tuan123/TTBaseUIKit",
@@ -13,9 +13,14 @@
   },
   "source": {
     "git": "https://github.com/tuan123/TTBaseUIKit.git",
-    "tag": "1.0.0"
+    "tag": "1.0.5"
   },
   "source_files": "TTBaseUIKit/**/*",
   "exclude_files": "TTBaseUIKit/**/*.plist",
-  "swift_versions": "5.0"
+  "swift_versions": "5.0",
+  "resources": "TTBaseUIKit/Support/Fonts/*",
+  "frameworks": [
+    "UIKit",
+    "Foundation"
+  ]
 }

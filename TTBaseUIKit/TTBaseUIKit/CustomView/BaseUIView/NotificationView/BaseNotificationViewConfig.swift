@@ -297,7 +297,7 @@ extension TTBaseNotificationViewConfig {
             self.currentNotifiView.setLeadingAnchor(constant: 0).setTrailingAnchor(constant: 0).setBottomAnchor(constant: height, isMarginsGuide: false).done()
             break
         case .BOTTOM:
-            self.currentNotifiView.setLeadingAnchor(constant: 0).setTrailingAnchor(constant: 0).setBottomAnchor(constant: 0).done()
+            self.currentNotifiView.setLeadingAnchor(constant: 0).setTrailingAnchor(constant: 0).setBottomAnchor(constant: 0, isMarginsGuide: true).done()
             break
         }
     }
@@ -340,7 +340,7 @@ extension TTBaseNotificationViewConfig {
             self.currentNotifiView.setLeadingAnchor(constant: 0).setTrailingAnchor(constant: 0).setBottomAnchor(constant: height, isMarginsGuide: false).done()
             break
         case .BOTTOM:
-            self.currentNotifiView.setLeadingAnchor(constant: 0).setTrailingAnchor(constant: 0).setBottomAnchor(constant: 0).done()
+            self.currentNotifiView.setLeadingAnchor(constant: 0).setTrailingAnchor(constant: 0).setBottomAnchor(constant: 0, isMarginsGuide: true).done()
             break
         }
     }
@@ -378,6 +378,7 @@ extension TTBaseNotificationViewConfig {
             notifiView.setHiddenButton()
             break
         case .ICON_TEXT_BUTTON:
+            
             break
         }
         

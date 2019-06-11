@@ -7,15 +7,29 @@
 //
 
 import UIKit
+import TTBaseUIKit
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
 
-
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
+        
+        let view:ViewConfig = ViewConfig()
+        view.viewBgNavColor = UIColor.getColorFromHex.init(netHex: 0xC41F53)
+        
+        let size:SizeConfig = SizeConfig()
+        let font:FontConfig = FontConfig()
+        
+        TTBaseUIKitConfig.withDefaultConfig(withFontConfig: font, frameSize: size, view: view)?.start(withViewLog: true)
+        
+        
+        self.window = UIWindow(frame: UIScreen.main.bounds)
+        self.window!.rootViewController = UINavigationController.init(rootViewController: MenuViewController())
+        self.window!.makeKeyAndVisible()
+        
         return true
     }
 
