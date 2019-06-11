@@ -9,7 +9,7 @@ EXTERNAL SOURCES:
     :path: "../TTBaseUIKit/TTBaseUIKit.podspec"
 
 SPEC CHECKSUMS:
-  TTBaseUIKit: 120f9c637054964e4e4a3ba12f285855cebdb434
+  TTBaseUIKit: 7b2b0bff4f46ec1d043d516c6d1aac5ef2e6ed92
 
 PODFILE CHECKSUM: f8594ca4f3f8a6ffa7da1343a2fb5cfe86b98801
 

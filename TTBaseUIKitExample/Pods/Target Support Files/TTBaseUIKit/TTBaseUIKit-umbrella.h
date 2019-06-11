@@ -10,6 +10,7 @@
 #endif
 #endif
 
+#import "TTBaseUIKit.h"
 
 FOUNDATION_EXPORT double TTBaseUIKitVersionNumber;
 FOUNDATION_EXPORT const unsigned char TTBaseUIKitVersionString[];

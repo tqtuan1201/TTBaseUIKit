@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
   s.name         = "TTBaseUIKit"
-  s.version      = "1.0.9"
+  s.version      = "1.0.10"
   s.summary      = "Custom UIKit"
   s.description  = "BaseUIView, BaseUILable, BaseUIButton, BaseUITableView"
   s.homepage     = "https://github.com/tqtuan1201/TTBaseUIKit"
@@ -8,10 +8,10 @@ Pod::Spec.new do |s|
   s.author       = { "Truong Quang Tuan" => "truongquangtuanit@gmail.com" }
   s.platform     = :ios, "10.0"
   s.source       = { :git => "https://github.com/tqtuan1201/TTBaseUIKit.git", :tag => s.version.to_s }
-  s.source_files = "TTBaseUIKit/**/*.{swift}"
+  s.source_files = "TTBaseUIKit/**/*"
   s.exclude_files = "TTBaseUIKit/**/*.plist"
   s.swift_version = '5.0'
-  s.resources = 'TTBaseUIKit/Support/Fonts/*.{ttf}'
+  s.resources = 'TTBaseUIKit/Support/Fonts/*'
   s.ios.deployment_target  = '10.0'
   s.frameworks = 'UIKit', 'Foundation'
   
