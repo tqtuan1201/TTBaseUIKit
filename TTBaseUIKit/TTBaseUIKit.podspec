@@ -11,7 +11,7 @@ Pod::Spec.new do |s|
   s.source_files = "TTBaseUIKit/**/*"
   s.exclude_files = "TTBaseUIKit/**/*.plist"
   s.swift_version = '5.0'
-  s.resources = 'TTBaseUIKit/Support/Fonts/*'
+  s.resources = "TTBaseUIKit/Support/Fonts/*"
   s.ios.deployment_target  = '10.0'
   s.frameworks = 'UIKit', 'Foundation'
   
