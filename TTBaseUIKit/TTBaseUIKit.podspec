@@ -1,4 +1,4 @@
-Pod::Spec.new do |s|
+openPod::Spec.new do |s|
   s.name         = "TTBaseUIKit"
   s.version      = "1.0.5"
   s.summary      = "Custom UIKit"
