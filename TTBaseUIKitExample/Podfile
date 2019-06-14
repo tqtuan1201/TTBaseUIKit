@@ -5,4 +5,5 @@ platform :ios, '10.0'
 target 'TTBaseUIKitExample' do
   use_frameworks!
       pod 'TTBaseUIKit', :path => '../TTBaseUIKit/TTBaseUIKit.podspec'
+      #pod 'TTBaseUIKit'
 end

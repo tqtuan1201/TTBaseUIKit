@@ -1,5 +1,5 @@
 PODS:
-  - TTBaseUIKit (1.0.9)
+  - TTBaseUIKit (1.0.13)
 
 DEPENDENCIES:
   - TTBaseUIKit (from `../TTBaseUIKit/TTBaseUIKit.podspec`)
@@ -9,8 +9,8 @@ EXTERNAL SOURCES:
     :path: "../TTBaseUIKit/TTBaseUIKit.podspec"
 
 SPEC CHECKSUMS:
-  TTBaseUIKit: 7b2b0bff4f46ec1d043d516c6d1aac5ef2e6ed92
+  TTBaseUIKit: dfd8dba0749662e5b120ace8d8dd9585adda92e0
 
-PODFILE CHECKSUM: f8594ca4f3f8a6ffa7da1343a2fb5cfe86b98801
+PODFILE CHECKSUM: 8dcb3328c990fd76c9f55fcf2a2013c70a7ac982
 
 COCOAPODS: 1.7.1
