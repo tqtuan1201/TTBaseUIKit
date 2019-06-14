@@ -139,6 +139,12 @@ extension TTBaseUILabel {
         return self
     }
     
+    @discardableResult func setTextAttr(with attr:NSMutableAttributedString) -> TTBaseUILabel{
+        self.setText(text: "")
+        self.attributedText = attr
+        return self
+    }
+    
     @discardableResult public func setHorizontalContentHuggingPriority() -> TTBaseUILabel {
         self.setContentHuggingPriority( UILayoutPriority.defaultHigh, for: .horizontal)
         self.setContentCompressionResistancePriority(  UILayoutPriority.defaultHigh, for: .horizontal)

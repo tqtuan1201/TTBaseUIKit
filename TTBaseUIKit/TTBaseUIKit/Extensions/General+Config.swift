@@ -177,3 +177,43 @@ extension CALayer {
     }
 }
 
+//MARK:// NSMutableAttributedString
+extension NSMutableAttributedString {
+    
+    
+    
+    @discardableResult func textStyle(withText text: String, textColor:UIColor, font:UIFont) -> NSMutableAttributedString {
+        let attrs: [NSAttributedString.Key: Any] = [.font: font, .foregroundColor : textColor]
+        let boldString = NSMutableAttributedString(string:text, attributes: attrs)
+        append(boldString)
+        
+        return self
+    }
+    
+    @discardableResult func bold(_ text: String, textColor:UIColor, systemFontsize:CGFloat) -> NSMutableAttributedString {
+        let attrs: [NSAttributedString.Key: Any] = [.font: UIFont.systemFont(ofSize: systemFontsize, weight: .bold), .foregroundColor : textColor]
+        let boldString = NSMutableAttributedString(string:text, attributes: attrs)
+        append(boldString)
+        
+        return self
+    }
+    
+    @discardableResult func normal(_ text: String, textColor:UIColor, systemFontsize:CGFloat) -> NSMutableAttributedString {
+        let attrs: [NSAttributedString.Key: Any] = [.font: UIFont.systemFont(ofSize: systemFontsize, weight: .regular), .foregroundColor : textColor]
+        let nomalString = NSMutableAttributedString(string:text, attributes: attrs)
+        append(nomalString)
+        
+        return self
+    }
+    
+    @discardableResult func strikethrough(_ text: String, textColor:UIColor, systemFontsize:CGFloat) -> NSMutableAttributedString {
+        var attrs: [NSAttributedString.Key: Any] = [.strikethroughStyle: NSNumber(integerLiteral: NSUnderlineStyle.single.rawValue)]
+        attrs[.font] = UIFont.systemFont(ofSize: systemFontsize)
+        attrs[.foregroundColor] = textColor
+        let nomalString = NSMutableAttributedString(string:text, attributes: attrs)
+        append(nomalString)
+        
+        return self
+    }
+    
+}
