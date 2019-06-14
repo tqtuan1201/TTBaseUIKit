@@ -1,6 +1,6 @@
 {
   "name": "TTBaseUIKit",
-  "version": "1.0.13",
+  "version": "1.0.14",
   "summary": "Custom UIKit",
   "description": "BaseUIView, BaseUILable, BaseUIButton, BaseUITableView",
   "homepage": "https://github.com/tqtuan1201/TTBaseUIKit",
@@ -13,12 +13,14 @@
   },
   "source": {
     "git": "https://github.com/tqtuan1201/TTBaseUIKit.git",
-    "tag": "1.0.13"
+    "tag": "1.0.14"
   },
   "source_files": "TTBaseUIKit/**/*",
   "exclude_files": "TTBaseUIKit/**/*.plist",
   "swift_versions": "5.0",
-  "resources": "TTBaseUIKit/Support/Fonts/*{.ttf}",
+  "resource_bundles": {
+    "TTBaseUIKit": "Support/Fonts/fa-light-300.ttf"
+  },
   "frameworks": [
     "UIKit",
     "Foundation"

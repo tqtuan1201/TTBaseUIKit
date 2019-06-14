@@ -7,7 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		11CE00C9CA584411A303AD3F /* Pods_TTBaseUIKitExample.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CEB44D697FA7ED0C1A1399BC /* Pods_TTBaseUIKitExample.framework */; };
+		68F0923AEBECCEF97603E6C8 /* Pods_TTBaseUIKitExample.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2EC8053821E486EC623F29AC /* Pods_TTBaseUIKitExample.framework */; };
 		930F2A6022AA75100001A511 /* Element.swift in Sources */ = {isa = PBXBuildFile; fileRef = 930F2A5F22AA75100001A511 /* Element.swift */; };
 		934B1FFC22ABB6F000140EF7 /* CellTypeTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 934B1FFB22ABB6F000140EF7 /* CellTypeTableViewController.swift */; };
 		934B1FFE22ABBAB400140EF7 /* ShowMessageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 934B1FFD22ABBAB400140EF7 /* ShowMessageViewController.swift */; };
@@ -29,7 +29,9 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		519C0A56BA88FA342AD44182 /* Pods-TTBaseUIKitExample.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TTBaseUIKitExample.debug.xcconfig"; path = "Target Support Files/Pods-TTBaseUIKitExample/Pods-TTBaseUIKitExample.debug.xcconfig"; sourceTree = "<group>"; };
+		2EC8053821E486EC623F29AC /* Pods_TTBaseUIKitExample.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_TTBaseUIKitExample.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		59835AA18C33ED0693CD71C0 /* Pods-TTBaseUIKitExample.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TTBaseUIKitExample.debug.xcconfig"; path = "Target Support Files/Pods-TTBaseUIKitExample/Pods-TTBaseUIKitExample.debug.xcconfig"; sourceTree = "<group>"; };
+		83B36C7C42DD1FE51F2F1E0C /* Pods-TTBaseUIKitExample.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TTBaseUIKitExample.release.xcconfig"; path = "Target Support Files/Pods-TTBaseUIKitExample/Pods-TTBaseUIKitExample.release.xcconfig"; sourceTree = "<group>"; };
 		930F2A5F22AA75100001A511 /* Element.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Element.swift; sourceTree = "<group>"; };
 		934B1FFB22ABB6F000140EF7 /* CellTypeTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CellTypeTableViewController.swift; sourceTree = "<group>"; };
 		934B1FFD22ABBAB400140EF7 /* ShowMessageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShowMessageViewController.swift; sourceTree = "<group>"; };
@@ -50,8 +52,6 @@
 		93F0FDD022580B990037C427 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		93F0FDD322580B990037C427 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		93F0FDD522580B990037C427 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		C54701A125140EE9C7EC81BA /* Pods-TTBaseUIKitExample.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TTBaseUIKitExample.release.xcconfig"; path = "Target Support Files/Pods-TTBaseUIKitExample/Pods-TTBaseUIKitExample.release.xcconfig"; sourceTree = "<group>"; };
-		CEB44D697FA7ED0C1A1399BC /* Pods_TTBaseUIKitExample.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_TTBaseUIKitExample.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -59,28 +59,28 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				11CE00C9CA584411A303AD3F /* Pods_TTBaseUIKitExample.framework in Frameworks */,
+				68F0923AEBECCEF97603E6C8 /* Pods_TTBaseUIKitExample.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		2B9C73CDA26B537D79F428C9 /* Frameworks */ = {
-			isa = PBXGroup;
-			children = (
-				CEB44D697FA7ED0C1A1399BC /* Pods_TTBaseUIKitExample.framework */,
-			);
-			name = Frameworks;
-			sourceTree = "<group>";
-		};
 		6A34018F88219E181DE14D80 /* Pods */ = {
 			isa = PBXGroup;
 			children = (
-				519C0A56BA88FA342AD44182 /* Pods-TTBaseUIKitExample.debug.xcconfig */,
-				C54701A125140EE9C7EC81BA /* Pods-TTBaseUIKitExample.release.xcconfig */,
+				59835AA18C33ED0693CD71C0 /* Pods-TTBaseUIKitExample.debug.xcconfig */,
+				83B36C7C42DD1FE51F2F1E0C /* Pods-TTBaseUIKitExample.release.xcconfig */,
 			);
 			path = Pods;
+			sourceTree = "<group>";
+		};
+		809052B1BB079492D8D60CAF /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				2EC8053821E486EC623F29AC /* Pods_TTBaseUIKitExample.framework */,
+			);
+			name = Frameworks;
 			sourceTree = "<group>";
 		};
 		930F2A5E22AA75050001A511 /* Test */ = {
@@ -123,7 +123,7 @@
 				93F0FDC822580B980037C427 /* TTBaseUIKitExample */,
 				93F0FDC722580B980037C427 /* Products */,
 				6A34018F88219E181DE14D80 /* Pods */,
-				2B9C73CDA26B537D79F428C9 /* Frameworks */,
+				809052B1BB079492D8D60CAF /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -158,11 +158,11 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 93F0FDD822580B990037C427 /* Build configuration list for PBXNativeTarget "TTBaseUIKitExample" */;
 			buildPhases = (
-				5544DAAF9CF57E1193CBFCA4 /* [CP] Check Pods Manifest.lock */,
+				6493CC7917FD23B384A9BDCF /* [CP] Check Pods Manifest.lock */,
 				93F0FDC222580B980037C427 /* Sources */,
 				93F0FDC322580B980037C427 /* Frameworks */,
 				93F0FDC422580B980037C427 /* Resources */,
-				0209D26EE23AA9BB8B364A91 /* [CP] Embed Pods Frameworks */,
+				10BDF386134A55A00F4743FF /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -220,7 +220,7 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		0209D26EE23AA9BB8B364A91 /* [CP] Embed Pods Frameworks */ = {
+		10BDF386134A55A00F4743FF /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -237,7 +237,7 @@
 			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-TTBaseUIKitExample/Pods-TTBaseUIKitExample-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
-		5544DAAF9CF57E1193CBFCA4 /* [CP] Check Pods Manifest.lock */ = {
+		6493CC7917FD23B384A9BDCF /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -424,7 +424,7 @@
 		};
 		93F0FDD922580B990037C427 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 519C0A56BA88FA342AD44182 /* Pods-TTBaseUIKitExample.debug.xcconfig */;
+			baseConfigurationReference = 59835AA18C33ED0693CD71C0 /* Pods-TTBaseUIKitExample.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
@@ -444,7 +444,7 @@
 		};
 		93F0FDDA22580B990037C427 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = C54701A125140EE9C7EC81BA /* Pods-TTBaseUIKitExample.release.xcconfig */;
+			baseConfigurationReference = 83B36C7C42DD1FE51F2F1E0C /* Pods-TTBaseUIKitExample.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
