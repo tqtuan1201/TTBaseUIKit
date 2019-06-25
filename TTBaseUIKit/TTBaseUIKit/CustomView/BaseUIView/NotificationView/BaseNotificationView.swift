@@ -24,7 +24,7 @@ open class TTBaseNotificationView: TTBaseUIView {
     fileprivate var bgPanelView:UIColor = UIColor.clear
     
     fileprivate var isAutoVerticalSize:Bool = false
-    
+
     convenience init(withPadding padding:(CGFloat,CGFloat,CGFloat,CGFloat), bgColorNotifi:UIColor, bgPanelView:UIColor, isAutoVerticalSize:Bool) {
         self.init()
         self.padding = padding
@@ -33,6 +33,7 @@ open class TTBaseNotificationView: TTBaseUIView {
         self.isAutoVerticalSize = isAutoVerticalSize
         self.setupBaseUIView()
         self.setupBaseContraints()
+        
     }
     
     fileprivate func setupBaseUIView() {

@@ -13,6 +13,9 @@ class BaseUITableViewController: TTBaseUITableViewController {
     
     override var navType: TTBaseUIViewController<TTBaseUIView>.NAV_STYLE { get { return .STATUS_NAV}}
     
+    var lgNavType:BaseUINavigationView.TYPE { get { return .DEFAULT}}
+    var backType:BaseUINavigationView.NAV_BACK = .BACK_POP
+    
     override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
         super.viewWillTransition(to: size, with: coordinator)
         DispatchQueue.main.async { [weak self] in guard let strongSelf = self else { return }
@@ -23,28 +26,11 @@ class BaseUITableViewController: TTBaseUITableViewController {
         }
     }
     
-    override init() {
-        super.init()
-        self.navBar = BaseUINavigationView(withType: .DEFAULT)
-        if let nav = self.navBar as? BaseUINavigationView  {nav.delegate = self }
-        self.tableView = TTBaseUITableView(frame: CGRect.init(x: 0, y: 0, width: XSize.W, height: XSize.H), style: .grouped)
-    }
     
-    convenience init(withNav nav:BaseUINavigationView, stype:UITableView.Style = .grouped) {
-        self.init()
-        self.navBar = nav
-        if let nav = self.navBar as? BaseUINavigationView  {nav.delegate = self }
-        self.tableView = TTBaseUITableView(frame: CGRect.init(x: 0, y: 0, width: XSize.W, height: XSize.H), style: stype)
-    }
-    
-    convenience init(stype:UITableView.Style = .grouped) {
-        self.init()
-        if let nav = self.navBar as? BaseUINavigationView  {nav.delegate = self }
-        self.tableView = TTBaseUITableView(frame: CGRect.init(x: 0, y: 0, width: XSize.W, height: XSize.H), style: stype)
-    }
-    
-    required init?(coder aDecoder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
+    override func updateBaseUI() {
+        super.updateBaseUI()
+        self.navBar = BaseUINavigationView(withType: self.lgNavType)
+        self.setDelegate()
     }
     
 }
@@ -52,6 +38,11 @@ class BaseUITableViewController: TTBaseUITableViewController {
 
 //For Base private funcs
 extension BaseUITableViewController : BaseUINavigationViewDelegate{
+    
+    fileprivate func setDelegate() {
+        if let lgNav = self.navBar as? BaseUINavigationView { lgNav.delegate = self }
+    }
+    
     func navDidTouchUpBackButton(withNavView nav: BaseUINavigationView) {
         self.navigationController?.popViewController(animated: true)
     }

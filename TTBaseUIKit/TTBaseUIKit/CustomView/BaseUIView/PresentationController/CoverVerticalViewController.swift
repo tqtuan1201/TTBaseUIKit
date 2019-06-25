@@ -66,8 +66,8 @@ fileprivate extension TTCoverVerticalViewController {
     func onSetDownSwipe() {
         let downSwipe = UISwipeGestureRecognizer(target: self, action: #selector(handleSwipes(_:)))
         downSwipe.direction = .down
-        self.dissmissView.isUserInteractionEnabled = true
-        self.dissmissView.addGestureRecognizer(downSwipe)
+        self.view.isUserInteractionEnabled = true
+        self.view.addGestureRecognizer(downSwipe)
     }
     
     @objc func handleSwipes(_ sender:UISwipeGestureRecognizer) {

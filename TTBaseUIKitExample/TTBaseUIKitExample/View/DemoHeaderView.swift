@@ -22,8 +22,10 @@ class DemoHeaderView: TTBaseHeaderView {
     override func updateBaseUIView() {
         super.updateBaseUIView()
         self.setupViewCodable(with: [bgImageView, profileImageView, titleLable, versionLable])
+        
+
     }
-    
+
 }
 
 extension DemoHeaderView : TTViewCodable {

@@ -38,10 +38,10 @@ class MenuViewController: BaseUITableViewController {
     fileprivate let menu:[MenuFuction] = MenuFuction.getAll()
     fileprivate let headerView = DemoHeaderView()
     
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         self.setupUI()
-        
     }
     
     
@@ -52,9 +52,10 @@ class MenuViewController: BaseUITableViewController {
         let noti:TTBaseNotificationViewConfig = TTBaseNotificationViewConfig(with: window)
         noti.setText(with: "WELCOME ^^", subTitle: "Just demo little element ui with write by  programmatically swift")
         noti.type = .NOTIFICATION_VIEW
+        noti.touchType = .SWIPE
         noti.notifiType = .SUCCESS
         noti.onShow()
-        
+
     }
     
     private func setupUI(){
@@ -138,7 +139,7 @@ extension MenuViewController: UITableViewDataSource {
             self.present(vc, animated: true)
             
         } else if menu.name == "EMPTY_TABLE" {
-            let emptyVC = EmptyTableViewController(withNav: BaseUINavigationView.init(withType: .DETAIL))
+            let emptyVC = EmptyTableViewController()
             self.navigationController?.pushViewController(emptyVC, animated: true)
         } else if menu.name == "" {
             

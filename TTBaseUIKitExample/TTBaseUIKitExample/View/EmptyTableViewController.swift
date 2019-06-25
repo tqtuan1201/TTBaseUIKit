@@ -4,6 +4,7 @@ import TTBaseUIKit
 class EmptyTableViewController: BaseUITableViewController {
     
     override var navType: TTBaseUIViewController<TTBaseUIView>.NAV_STYLE { get { return .STATUS_NAV}}
+    override var lgNavType: BaseUINavigationView.TYPE { get { return .DETAIL}}
     
     fileprivate var dataTest:[String] = ["","","","","","",""] {
         didSet { self.tableView.reloadAsyncData() }

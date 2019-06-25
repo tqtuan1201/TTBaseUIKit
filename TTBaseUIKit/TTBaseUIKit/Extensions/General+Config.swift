@@ -13,18 +13,34 @@ import UIKit
 public final class Fonts {
     
     static func podFont(name: String, size: CGFloat) -> UIFont {
-        
         //Why do extra work if its available.
         if let font = UIFont(name: name, size: size) {return font}
         
         let bundle = Bundle(for: Fonts.self) //get the current bundle
-        let url = bundle.url(forResource: name, withExtension: "ttf")! //get the bundle url
-        let data = NSData(contentsOf: url)! //get the font data
-        let provider = CGDataProvider(data: data)! //convert the data into a provider
-        let cgFont = CGFont(provider)! //convert provider to cgfont
-        let fontName = cgFont.postScriptName as String?  ?? "" //crashes if can't get name
+        
+        var urlBundle:URL?
+        
+        // For test local
+        if let url = bundle.url(forResource: name, withExtension: "ttf") {
+            urlBundle = url
+        }
+        // If this framework is added using CocoaPods, resources is placed under a subdirectory
+        if let url = bundle.url(forResource: name, withExtension: "ttf", subdirectory: "TTBaseUIKit.bundle") {
+            urlBundle = url
+        }
+        
+        if let url = bundle.url(forResource: name, withExtension: "ttf", subdirectory: "Frameworks/TTBaseUIKit.framework") {
+            urlBundle = url
+        }
+        
+        
+        guard let url = urlBundle else { return UIFont() }
+        guard let data = NSData(contentsOf: url) else { return UIFont() }
+        guard let provider = CGDataProvider(data: data) else { return UIFont() } //convert the data into a provider
+        guard let cgFont = CGFont(provider) else { return UIFont() }//convert provider to cgfont
+        let fontName = cgFont.postScriptName as String?  ?? ""//crashes if can't get name
         CTFontManagerRegisterGraphicsFont(cgFont, nil) //Registers the font, like the plist
-        return UIFont(name: fontName, size: size)!
+        return UIFont(name: fontName, size: size) ?? UIFont()
     }
 }
 
@@ -81,7 +97,8 @@ extension UIImage {
     }
     
     public convenience init?(fromTTBaseUIKit name:String) {
-         self.init(named: "\(Config.Value.LinkFrameworks)/\(name)")
+         let url = Bundle(for: Fonts.self).url(forResource: name, withExtension: "", subdirectory: "TTBaseUIKit.bundle")
+         self.init(named: url?.path ?? "")
          self.accessibilityIdentifier = name
     }
     

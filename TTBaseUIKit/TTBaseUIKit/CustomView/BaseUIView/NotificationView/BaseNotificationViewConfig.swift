@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import UIKit
 
 public class TTBaseNotificationViewConfig {
     
@@ -46,6 +47,7 @@ public class TTBaseNotificationViewConfig {
     }
     
     public enum TOUCH_TYPE {
+        case SWIPE
         case NONE
         case BUTTON
         case NOTIFI_VIEW
@@ -105,12 +107,11 @@ public class TTBaseNotificationViewConfig {
             self.onShowViewController()
             break
         }
-
-        self.setTargets()
         
         self.setText()
-        
+        self.setTargets()
         DispatchQueue.main.async { self.addAnimations() }
+    
     }
     
     public var getCurrentNotifi:TTBaseNotificationView { get { return self.currentNotifiView } }
@@ -129,6 +130,7 @@ extension TTBaseNotificationViewConfig {
         self.subString = subTitle
     }
 }
+
 //MARK:// For Touch handle
 extension TTBaseNotificationViewConfig {
     
@@ -155,6 +157,17 @@ extension TTBaseNotificationViewConfig {
         case .BUTTON:
             self.currentNotifiView.buttonRight.onTouchHandler = { _ in
                 self.onTouchButtonViewHandler?()
+            }
+            break
+        case .SWIPE:
+            self.currentNotifiView.setSwipeHandler(with: .up).onTouchHandler = { _ in
+                TTBaseFunc.shared.printLog(object: "self.currentNotifiView.onSetUpSwipe().onSwipeHandler")
+                UIView.animate(withDuration: 0.4, delay: 0.1, options: UIView.AnimationOptions.transitionCurlUp, animations: {
+                    self.currentNotifiView.transform = CGAffineTransform(translationX: 0, y:  -300)
+                }, completion: { (isComplete) in
+                    if self.isHiddenStatusBar { if let statusBar: UIView = UIApplication.shared.value(forKey: "statusBar") as? UIView { statusBar.isHidden = false } }
+                    self.setHiddenNotificationView()
+                })
             }
             break
         case .NONE:
@@ -199,7 +212,7 @@ extension TTBaseNotificationViewConfig{
             self.currentNotifiView.alpha = 1
         }) { (isComplete) in
             if self.timeToShow != 0 {
-                UIView.animate(withDuration: 0.7, delay: self.timeToShow, options: UIView.AnimationOptions.transitionCurlUp, animations: {
+                UIView.animate(withDuration: 0.7, delay: self.timeToShow, options: UIView.AnimationOptions.allowUserInteraction, animations: {
                     self.currentNotifiView.alpha = 0
                 }, completion: { (isComplete) in
                     self.setHiddenNotificationView()
@@ -212,14 +225,14 @@ extension TTBaseNotificationViewConfig{
         var transformHeight:CGFloat = (self.type == .NOTIFICATION_VIEW ) ? TTBaseNotificationViewConfig.HIGHT_NOTIFIVIEW + TTSize.H_STATUS : TTBaseNotificationViewConfig.HIGHT_NOTIFIVIEW
         transformHeight = transformHeight +  self.paddingTopAnimal
         self.contentView?.alpha = 0
-        UIView.animate(withDuration: 0.6, animations: {
+        
+        UIView.animate(withDuration: 0.6, delay: 0.1, options: .allowUserInteraction, animations: {
             if self.isHiddenStatusBar { if let statusBar: UIView = UIApplication.shared.value(forKey: "statusBar") as? UIView { statusBar.isHidden = true } }
             self.currentNotifiView.transform = CGAffineTransform(translationX: 0, y:  transformHeight)
             self.contentView?.alpha = 1
         }) { (isComplete) in
-            
             if self.timeToShow != 0 {
-                UIView.animate(withDuration: 0.4, delay: self.timeToShow, options: UIView.AnimationOptions.transitionCurlUp, animations: {
+                UIView.animate(withDuration: 0.4, delay: self.timeToShow, options: UIView.AnimationOptions.allowUserInteraction, animations: {
                     self.currentNotifiView.transform = CGAffineTransform(translationX: 0, y:  -transformHeight)
                 }, completion: { (isComplete) in
                     if self.isHiddenStatusBar { if let statusBar: UIView = UIApplication.shared.value(forKey: "statusBar") as? UIView { statusBar.isHidden = false } }
@@ -232,14 +245,14 @@ extension TTBaseNotificationViewConfig{
     fileprivate func setAnimalForBellowNav() {
         let transformHeight:CGFloat = TTBaseNotificationViewConfig.HIGHT_NOTIFIVIEW + TTSize.H_STATUS + TTSize.H_NAV
         self.contentView?.alpha = 0
-        UIView.animate(withDuration: 0.6, animations: {
+        
+        UIView.animate(withDuration: 0.6, delay: 0.1, options: .allowUserInteraction, animations: {
             if self.isHiddenStatusBar { if let statusBar: UIView = UIApplication.shared.value(forKey: "statusBar") as? UIView { statusBar.isHidden = true } }
             self.currentNotifiView.transform = CGAffineTransform(translationX: 0, y:  transformHeight)
             self.contentView?.alpha = 1
         }) { (isComplete) in
-            
             if self.timeToShow != 0 {
-                UIView.animate(withDuration: 0.4, delay: self.timeToShow, options: UIView.AnimationOptions.transitionCurlUp, animations: {
+                UIView.animate(withDuration: 0.4, delay: self.timeToShow, options: UIView.AnimationOptions.allowUserInteraction, animations: {
                     self.currentNotifiView.transform = CGAffineTransform(translationX: 0, y:  -transformHeight)
                 }, completion: { (isComplete) in
                     if self.isHiddenStatusBar { if let statusBar: UIView = UIApplication.shared.value(forKey: "statusBar") as? UIView { statusBar.isHidden = false } }

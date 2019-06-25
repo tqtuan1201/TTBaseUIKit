@@ -19,7 +19,7 @@ open class TTBaseUIView: UIView, ViewDrawer {
 
     open func updateBaseUIView() { }
     public var onTouchHandler:((_ view:TTBaseUIView) -> Void)?
-    
+
     public required init() {
         super.init(frame: .zero)
         self.viewDefCornerRadius = 0
@@ -49,10 +49,17 @@ open class TTBaseUIView: UIView, ViewDrawer {
     @objc private func onTouchView(_ sender:UITapGestureRecognizer) {
         self.onTouchHandler?(self)
     }
-   
 }
 
 extension TTBaseUIView {
+
+    @discardableResult public func setSwipeHandler(with direction:UISwipeGestureRecognizer.Direction) -> TTBaseUIView {
+        self.isUserInteractionEnabled = true
+        let tap = UISwipeGestureRecognizer(target: self, action: #selector(self.onTouchView(_:)))
+        tap.direction = direction
+        self.addGestureRecognizer(tap)
+        return self
+    }
     
     @discardableResult public func setTouchHandler() -> TTBaseUIView {
         self.isUserInteractionEnabled = true

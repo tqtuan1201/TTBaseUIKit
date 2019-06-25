@@ -27,8 +27,10 @@ open class TTBaseUITableViewController: TTBaseUIViewController<TTBaseUIView>, UI
         self.tableView = TTBaseUITableView(frame: CGRect.init(x: 0, y: 0, width: TTSize.W, height: TTSize.H), style: self.tableStyle)
         if navType == .NO_VIEW {
             self.tableView.resetContentInset()
+        } else if navType == .ONLY_STATUS {
+            self.tableView.resetContentInset()
         } else if navType == .STATUS_NAV {
-            self.tableView.setContentInset(inset: UIEdgeInsets(top: TTSize.H_STATUS + TTSize.P_CONS_DEF, left: 0, bottom: TTSize.P_CONS_DEF, right: 0))
+            self.tableView.setContentInset(inset: UIEdgeInsets(top: TTSize.H_NAV, left: 0, bottom: TTSize.P_CONS_DEF, right: 0))
         }
     }
     
