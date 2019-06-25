@@ -1,14 +1,14 @@
 # TTBaseUIKit
-> Project build with programmatically UI
+
+Build your project with programmatically UI
+
 [![Version](https://img.shields.io/cocoapods/v/SwiftMessages.svg?style=flat)](http://cocoadocs.org/docsets/SwiftMessages)
 [![License](https://img.shields.io/cocoapods/l/SwiftMessages.svg?style=flat)](http://cocoadocs.org/docsets/SwiftMessages)
 [![Platform](https://img.shields.io/cocoapods/p/SwiftMessages.svg?style=flat)](http://cocoadocs.org/docsets/SwiftMessages)
 [![Carthage compatible](https://img.shields.io/badge/Carthage-compatible-4BC51D.svg?style=flat)](https://github.com/Carthage/Carthage)
 
-Build your project with programmatically UI
-
 <p align="center">
-  <img src="./Design/swiftmessages.png" />
+  <img src="./Images/TTBaseUIKit.png" />
 </p>
 
 
