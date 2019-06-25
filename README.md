@@ -7,7 +7,10 @@
 
 One to two paragraph statement about your product and what it does.
 
-![](header.png)
+<p align="center">
+  <img src="./Design/swiftmessages.png" />
+</p>
+
 
 ## Installation
 
