@@ -42,17 +42,17 @@ A few motivating and useful examples of how your product can be used. Spice this
 
 Config setting in AppDelegate
 ````swift
-        let view:ViewConfig = ViewConfig()
-        view.viewBgNavColor = UIColor.getColorFromHex.init(netHex: 0xC41F53)
+let view:ViewConfig = ViewConfig()
+view.viewBgNavColor = UIColor.getColorFromHex.init(netHex: 0xC41F53)
         
-        let size:SizeConfig = SizeConfig()
-        let font:FontConfig = FontConfig()
+let size:SizeConfig = SizeConfig()
+let font:FontConfig = FontConfig()
         
-        TTBaseUIKitConfig.withDefaultConfig(withFontConfig: font, frameSize: size, view: view)?.start(withViewLog: true)
+TTBaseUIKitConfig.withDefaultConfig(withFontConfig: font, frameSize: size, view: view)?.start(withViewLog: true)
         
-        self.window = UIWindow(frame: UIScreen.main.bounds)
-        self.window!.rootViewController = UINavigationController.init(rootViewController: YourViewController())
-        self.window!.makeKeyAndVisible()
+self.window = UIWindow(frame: UIScreen.main.bounds)
+self.window!.rootViewController = UINavigationController.init(rootViewController: YourViewController())
+self.window!.makeKeyAndVisible()
 
 ````
 <p align="center">
@@ -62,12 +62,12 @@ Config setting in AppDelegate
 Custom show message
 
 ````swift
-        let noti:TTBaseNotificationViewConfig = TTBaseNotificationViewConfig(with: window)
-        noti.setText(with: "WELCOME ^^", subTitle: "Just demo little element ui with write by  programmatically swift")
-        noti.type = .NOTIFICATION_VIEW
-        noti.touchType = .SWIPE
-        noti.notifiType = .SUCCESS
-        noti.onShow()
+let noti:TTBaseNotificationViewConfig = TTBaseNotificationViewConfig(with: window)
+noti.setText(with: "WELCOME ^^", subTitle: "Just demo little element ui with write by  programmatically swift")
+noti.type = .NOTIFICATION_VIEW
+noti.touchType = .SWIPE
+noti.notifiType = .SUCCESS
+noti.onShow()
 ````
 
 <p align="center">
@@ -77,16 +77,16 @@ Custom show message
 Custom show popup
 
 ````swift
-            let popupVC = TTPopupViewController(title: "SOMETHING LIKE THIS", subTitle: "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has b", isAllowTouchPanel: true)
-            self.present(popupVC, animated: true)
+let popupVC = TTPopupViewController(title: "SOMETHING LIKE THIS", subTitle: "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has b", isAllowTouchPanel: true)
+self.present(popupVC, animated: true)
 ````
 
 
 Set show nodata for uitableview
 
 ````swift
-            self.tableView.setStaticBgNoData(title: "NO DATA", des: "Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from 45 BC, making ") {
-                print("Touch handle!!!!")
+self.tableView.setStaticBgNoData(title: "NO DATA", des: "Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from 45 BC, making ") {
+  print("Touch handle!!!!")
             }
 ````
 <p align="center">
@@ -98,7 +98,7 @@ _For more examples and usage, please refer to example project [TTBaseUIKitExampl
 
 ## Meta
 
-Truong Quang Tuan – [@website](https://12bay.vn) – truongquangtuanit@gmail.com
+Truong Quang Tuan – [@website/gmail](https://12bay.vn) – truongquangtuanit@gmail.com
 
 Distributed under the XYZ license. See ``LICENSE`` for more information.
 
