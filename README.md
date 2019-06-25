@@ -39,11 +39,20 @@ github "tqtuan1201/TTBaseUIKit"
 A few motivating and useful examples of how your product can be used. Spice this up with code blocks and potentially more screenshots.
 
 <p align="center">
-  <img src="./Images/TTBaseUIKit.png" />
-  <img src="./Images/TTBaseUIKit.png" />
-  <img src="./Images/TTBaseUIKit.png" />
+  <img src="./Images/2019-06-11 14.36.47.gif" />
 </p>
 
+<div class="row">
+  <div class="column">
+    <img src="img_snow.jpg" alt="Snow" style="width:100%">
+  </div>
+  <div class="column">
+    <img src="img_forest.jpg" alt="Forest" style="width:100%">
+  </div>
+  <div class="column">
+    <img src="img_mountains.jpg" alt="Mountains" style="width:100%">
+  </div>
+</div>
 ### Basics
 
 Config setting in AppDelegate
