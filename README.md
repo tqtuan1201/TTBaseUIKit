@@ -38,11 +38,6 @@ github "tqtuan1201/TTBaseUIKit"
 
 A few motivating and useful examples of how your product can be used. Spice this up with code blocks and potentially more screenshots.
 
-
-<p align="center">
-  <img src="./Images/1.gif"  style="width:50%; height:50%" />
-</p>
-
 ### Basics
 
 Config setting in AppDelegate
@@ -60,10 +55,8 @@ Config setting in AppDelegate
         self.window!.makeKeyAndVisible()
 
 ````
-
-
 <p align="center">
-  <img src="./Images/2.gif"  style="width:50%; height:50%" />
+  <img src="./Images/1.gif"  style="width:50%; height:50%" />
 </p>
 
 Custom show message
@@ -78,7 +71,7 @@ Custom show message
 ````
 
 <p align="center">
-  <img src="./Images/3.gif"  style="width:50%; height:50%" />
+  <img src="./Images/2.gif"  style="width:50%; height:50%" />
 </p>
 
 Custom show popup
@@ -96,9 +89,12 @@ Set show nodata for uitableview
                 print("Touch handle!!!!")
             }
 ````
+<p align="center">
+  <img src="./Images/3.gif"  style="width:50%; height:50%" />
+</p>
 
 
-_For more examples and usage, please refer to the [Wiki][wiki]._
+_For more examples and usage, please refer to example project [TTBaseUIKitExample]_
 
 ## Meta
 
