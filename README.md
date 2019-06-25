@@ -8,7 +8,7 @@ Build your project with programmatically UI
 [![Carthage compatible](https://img.shields.io/badge/Carthage-compatible-4BC51D.svg?style=flat)](https://github.com/Carthage/Carthage)
 
 <p align="center">
-  <img src="./Images/TTBaseUIKit.png" />
+  <img src="./Images/bg.png" />
 </p>
 
 ### CocoaPods
@@ -38,9 +38,11 @@ github "tqtuan1201/TTBaseUIKit"
 
 A few motivating and useful examples of how your product can be used. Spice this up with code blocks and potentially more screenshots.
 
+
 <p align="center">
-  <img src="./Images/2019-06-11 14.36.47.gif"  style="width:50%; height:50%" />
+  <img src="./Images/1.gif"  style="width:50%; height:50%" />
 </p>
+
 ### Basics
 
 Config setting in AppDelegate
@@ -59,6 +61,11 @@ Config setting in AppDelegate
 
 ````
 
+
+<p align="center">
+  <img src="./Images/2.gif"  style="width:50%; height:50%" />
+</p>
+
 Custom show message
 
 ````swift
@@ -69,6 +76,27 @@ Custom show message
         noti.notifiType = .SUCCESS
         noti.onShow()
 ````
+
+<p align="center">
+  <img src="./Images/3.gif"  style="width:50%; height:50%" />
+</p>
+
+Custom show popup
+
+````swift
+            let popupVC = TTPopupViewController(title: "SOMETHING LIKE THIS", subTitle: "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has b", isAllowTouchPanel: true)
+            self.present(popupVC, animated: true)
+````
+
+
+Set show nodata for uitableview
+
+````swift
+            self.tableView.setStaticBgNoData(title: "NO DATA", des: "Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from 45 BC, making ") {
+                print("Touch handle!!!!")
+            }
+````
+
 
 _For more examples and usage, please refer to the [Wiki][wiki]._
 
