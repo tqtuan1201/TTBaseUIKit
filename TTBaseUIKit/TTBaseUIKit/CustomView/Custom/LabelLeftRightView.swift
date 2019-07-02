@@ -67,7 +67,9 @@ open class TTLabelLeftRightView: TTBaseUIView {
         } else {
             if isSetWidthAnchor { self.rightLabel.widthAnchor.constraint(greaterThanOrEqualToConstant: TTSize.W_TEXT_RIGHTVIEW).isActive = true }
             self.rightLabel.setHorizontalContentHuggingPriority().done()
-            self.rightLabel.heightAnchor.constraint(equalTo: self.leftLabel.heightAnchor, multiplier: 1).isActive = true
+            self.leftLabel.setVerticalContentHuggingPriority(priority: .required)
+            self.rightLabel.setVerticalContentHuggingPriority(priority: .defaultLow)
+            //self.rightLabel.heightAnchor.constraint(equalTo: self.leftLabel.heightAnchor, multiplier: 1).isActive = true
         }
 
     }

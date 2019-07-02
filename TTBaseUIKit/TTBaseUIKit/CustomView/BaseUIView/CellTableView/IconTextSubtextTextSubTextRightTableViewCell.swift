@@ -44,7 +44,7 @@ open class TTIconTextSubtextTextSubTextRightTableViewCell : TTBaseUITableViewCel
     public var titleLeftRightLabel:TTLabelLeftRightView = TTLabelLeftRightView(withType: .TITLE, coner: 0, isHuggingRight: nil)
     public var subLeftRight:TTLabelLeftRightView = TTLabelLeftRightView(withType: .SUB_TITLE, coner: 0, isHuggingRight: nil)
     public var imageRight:TTBaseUIImageView = TTBaseUIImageView()
-    public var stackView:TTBaseUIStackView =  TTBaseUIStackView(axis: .vertical, spacing: TTSize.P_CONS_DEF, alignment: .leading)
+    public var stackView:TTBaseUIStackView =  TTBaseUIStackView(axis: .vertical, spacing: TTSize.P_CONS_DEF, alignment: .fill, distributionValue:  .fill)
     
     override open func updateUI() {
         self.setupBaseUI()
@@ -79,13 +79,14 @@ open class TTIconTextSubtextTextSubTextRightTableViewCell : TTBaseUITableViewCel
         self.imageRight.setWidthAnchor(constant: self.sizeImages.0).setHeightAnchor(constant: self.sizeImages.1)
             .setLeadingAnchor(constant: self.paddingLeftImage).setcenterYAnchor(constant: 0).done()
         
-        self.titleLeftRightLabel.setTrailingAnchor(constant: paddingText).done()
-        self.subLeftRight.setTrailingAnchor(constant: paddingText).done()
+        //self.titleLeftRightLabel.setLeadingAnchor(constant: paddingText).setTrailingAnchor(constant: paddingText).done()
+        //self.subLeftRight.setLeadingAnchor(constant: paddingText).setTrailingAnchor(constant: paddingText).done()
         
         self.stackView.setLeadingWithNextToView(view: imageRight, constant: self.paddingStack.0).setTopAnchor(constant: self.paddingStack.1)
             .setTrailingAnchor(constant: self.paddingStack.2).setBottomAnchor(constant: self.paddingStack.3).done()
         
-        self.lineView.setHeightAnchor(constant: self.lineHeight).setTrailingAnchor(constant: paddingText).done()
+        self.lineView.setHeightAnchor(constant: self.lineHeight)
+        //.setLeadingAnchor(constant: paddingText).setTrailingAnchor(constant: paddingText).done()
     }
     
 }

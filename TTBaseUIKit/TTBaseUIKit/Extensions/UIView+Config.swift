@@ -122,8 +122,8 @@ extension UIView {
         self.layer.addSublayer(UIView.getGradientSkeletonLayer())
         let views = self.subviewsRecursive()
         for view in views {
-            view.backgroundColor = TTView.viewBgSkeleton
-            if let lb = view as? TTBaseUILabel {lb.textColor = TTView.viewBgSkeleton}
+            //view.backgroundColor = TTView.viewBgSkeleton
+            if let lb = view as? TTBaseUILabel {lb.onAddSkeletonMark()}
             if let img = view as? TTBaseUIImageView {img.setAnimalForSkeletonView()}
         }
     }
@@ -132,16 +132,15 @@ extension UIView {
         self.layer.sublayers?.filter({$0.name == "SkeletonAnimating"}).first?.removeFromSuperlayer()
         let views = self.subviewsRecursive()
         for view in views {
-            if let view = view as? TTBaseUIView {
-                view.backgroundColor = view.viewDefBgColor
+            if let _ = view as? TTBaseUIView {
+                //view.backgroundColor = view.viewDefBgColor
             } else if let lb = view as? TTBaseUILabel {
-                lb.textColor = lb.textDefColor
-                lb.backgroundColor = lb.viewDefBgColor
+                lb.onRemoveSkeletonMark()
             } else if let img = view as? TTBaseUIImageView {
                img.backgroundColor = img.viewDefBgColor
               img.setRollBackViewForSkeletonAnimal()
             } else {
-                view.backgroundColor = UIColor.clear
+                //view.backgroundColor = UIColor.clear
             }
         }
     }

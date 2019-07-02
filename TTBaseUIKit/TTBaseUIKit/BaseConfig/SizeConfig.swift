@@ -21,6 +21,7 @@ public class SizeConfig {
     public var CORNER_RADIUS:CGFloat = 4.0
 
     public var H_ICON:CGFloat = 40.0
+    public var H_SMALL_ICON:CGFloat = 30.0
     public var H_ICON_CELL:CGFloat = 56.0
     
     public var H_LOADING_CENTER:CGFloat = Device.size() > .screen4Inch ? 70.0 : 40.0

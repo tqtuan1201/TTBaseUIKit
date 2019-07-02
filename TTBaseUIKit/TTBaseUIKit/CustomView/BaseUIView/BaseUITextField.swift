@@ -26,6 +26,7 @@ open class TTBaseUITextField: UITextField   {
     
     public var onTextEditChangedHandler:((_ textField:TTBaseUITextField,_ textString:String) -> Void)?
     public var onDismissKeyboard:(() -> Void)?
+    public var onTouchIconHandler:((_ textField:TTBaseUITextField) -> Void)?
     
     open func updateUI() { }
     
@@ -110,7 +111,7 @@ extension TTBaseUITextField {
         hiddenButton.contentEdgeInsets = UIEdgeInsets(top: 4, left: 4, bottom: 4, right: 4)
         hiddenButton.backgroundColor = UIColor.white
         hiddenButton.tintColor = TTBaseUIKitConfig.getViewConfig().buttonBgDef
-        hiddenButton.setImage(UIImage(fromTTBaseUIKit: "img.hideKeyboard")?.withRenderingMode(.alwaysTemplate), for: .normal)
+        hiddenButton.setImage(UIImage(fromTTBaseUIKit: "img.hideKeyboard.png")?.withRenderingMode(.alwaysTemplate), for: .normal)
         hiddenButton.layer.cornerRadius    = 4
         hiddenButton.clipsToBounds = false
         
@@ -174,6 +175,31 @@ extension TTBaseUITextField {
     
     public func setPasswordView() {
         self.isSecureTextEntry = true
+    }
+    
+    public func setIcon(icon:AwesomePro.Light, isRight:Bool, size:CGSize = CGSize.init(width: TTBaseUIKitConfig.getSizeConfig().H_ICON / 2, height:TTBaseUIKitConfig.getSizeConfig().H_ICON / 2), iconColor:UIColor = TTBaseUIKitConfig.getViewConfig().iconColor) {
+        let panelIcon:UIView = UIView()
+        let eyeIconImageView:TTBaseUIImageFontView = TTBaseUIImageFontView.init(withFontIconLightSize: icon,sizeIcon: CGSize(width: 30, height: 30), colorIcon: TTView.iconRightTextFieldColor)
+        
+        eyeIconImageView.translatesAutoresizingMaskIntoConstraints = true
+        panelIcon.addSubview(eyeIconImageView)
+        
+        panelIcon.frame = CGRect.init(x: 0, y: 0, width: size.width, height: size.height)
+        eyeIconImageView.frame = CGRect.init(x: 0, y: 0, width: size.width, height: size.height)
+        eyeIconImageView.tintColor = iconColor
+        
+        if isRight {
+            self.rightView = panelIcon
+            self.rightViewMode = .always
+            self.rightView?.translatesAutoresizingMaskIntoConstraints = true
+        } else {
+            self.leftView = panelIcon
+            self.leftViewMode = .always
+            self.leftView?.translatesAutoresizingMaskIntoConstraints = true
+        }
+        eyeIconImageView.setActiveOnTouchHandle().onTouchHandler = { [weak self ] imageView in guard let strongSelf = self else { return }
+            strongSelf.onTouchIconHandler?(strongSelf)
+        }
     }
 }
 

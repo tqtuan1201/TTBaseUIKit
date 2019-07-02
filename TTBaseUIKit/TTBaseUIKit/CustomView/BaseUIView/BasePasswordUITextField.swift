@@ -30,7 +30,7 @@ open class TTBasePasswordUITextField:TTBaseUITextField {
 extension TTBasePasswordUITextField {
     
     fileprivate func setupBaseUIView() {
-        
+        self.isSecureTextEntry = true
         self.eyeIconImageView.translatesAutoresizingMaskIntoConstraints = true
         self.panelIcon.addSubview(self.eyeIconImageView)
         

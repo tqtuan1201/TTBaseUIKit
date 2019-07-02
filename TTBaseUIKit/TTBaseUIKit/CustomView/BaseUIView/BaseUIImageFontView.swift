@@ -11,28 +11,36 @@ import UIKit
 
 open class TTBaseUIImageFontView : TTBaseUIImageView {
     
-    public convenience init(withFontIconSize nameCVarIcon:CVarArg, sizeIcon:CGSize = CGSize(width: 100, height: 100), colorIcon:UIColor = TTBaseUIKitConfig.getViewConfig().iconColor, contendMode:UIView.ContentMode = UIView.ContentMode.scaleAspectFit) {
-        self.init()
+    public init(withFontIconSize nameCVarIcon:CVarArg, sizeIcon:CGSize = CGSize(width: 100, height: 100), colorIcon:UIColor = TTBaseUIKitConfig.getViewConfig().iconColor, contendMode:UIView.ContentMode = UIView.ContentMode.scaleAspectFit) {
+        super.init()
         self.image = UIImage.fontAwesomeIconWithName(nameString: String(format: "%C", nameCVarIcon), size: sizeIcon, iconColor: colorIcon, backgroundColor: UIColor.clear)
         self.contentMode = contendMode
     }
     
-    public convenience init(withFontIconSize nameIconString:String, sizeIcon:CGSize = CGSize(width: 600, height: 600), colorIcon:UIColor = TTBaseUIKitConfig.getViewConfig().iconColor, contendMode:UIView.ContentMode = UIView.ContentMode.scaleAspectFit) {
-        self.init()
+    public init(withFontIconSize nameIconString:String, sizeIcon:CGSize = CGSize(width: 600, height: 600), colorIcon:UIColor = TTBaseUIKitConfig.getViewConfig().iconColor, contendMode:UIView.ContentMode = UIView.ContentMode.scaleAspectFit) {
+        super.init()
         self.image = UIImage.fontAwesomeIconWithName(nameString: nameIconString, size: sizeIcon, iconColor: colorIcon, backgroundColor: UIColor.clear)
         self.contentMode = contendMode
     }
     
-    public convenience init(withFontIconLightSize icon:AwesomePro.Light, sizeIcon:CGSize = CGSize(width: 600, height: 600), colorIcon:UIColor = TTBaseUIKitConfig.getViewConfig().iconColor, contendMode:UIView.ContentMode = UIView.ContentMode.scaleAspectFit) {
-        self.init()
+    public init(withFontIconLightSize icon:AwesomePro.Light, sizeIcon:CGSize = CGSize(width: 600, height: 600), colorIcon:UIColor = TTBaseUIKitConfig.getViewConfig().iconColor, contendMode:UIView.ContentMode = UIView.ContentMode.scaleAspectFit) {
+        super.init()
         self.image = UIImage.fontAwesomeIconWithName(nameString: icon.rawValue, size: sizeIcon, iconColor: colorIcon, backgroundColor: UIColor.clear)
         self.contentMode = contendMode
     }
     
-    public convenience init(withFontIconRegularSize icon:AwesomePro.Regular, sizeIcon:CGSize = CGSize(width: 600, height: 600), colorIcon:UIColor = TTBaseUIKitConfig.getViewConfig().iconColor, contendMode:UIView.ContentMode = UIView.ContentMode.scaleAspectFit) {
-        self.init()
+    public init(withFontIconRegularSize icon:AwesomePro.Regular, sizeIcon:CGSize = CGSize(width: 600, height: 600), colorIcon:UIColor = TTBaseUIKitConfig.getViewConfig().iconColor, contendMode:UIView.ContentMode = UIView.ContentMode.scaleAspectFit) {
+        super.init()
         self.image = UIImage.fontAwesomeIconWithName(nameString: icon.rawValue, size: sizeIcon, iconColor: colorIcon, backgroundColor: UIColor.clear)
         self.contentMode = contendMode
     }
+        
+    public required init() {
+        super.init()
+        self.image = UIImage.fontAwesomeIconWithName(nameString: AwesomePro.Light.user.rawValue, size: CGSize.init(width: 60, height: 60), iconColor: TTView.iconColor, backgroundColor: UIColor.clear)
+    }
     
+    public required init?(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
 }

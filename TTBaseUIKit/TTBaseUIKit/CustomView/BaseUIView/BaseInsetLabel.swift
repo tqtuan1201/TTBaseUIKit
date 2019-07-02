@@ -39,6 +39,11 @@ open class TTBaseInsetLabel: TTBaseUILabel {
 
 extension TTBaseInsetLabel {
     
+    public func resetInset() {
+        self.inset = UIEdgeInsets(top: 2, left: 2, bottom: 2, right: 2)
+    }
+    
+    
     public func getHeight() -> CGFloat {
         self.sizeToFit()
         return self.frame.height + self.inset.top + self.inset.bottom

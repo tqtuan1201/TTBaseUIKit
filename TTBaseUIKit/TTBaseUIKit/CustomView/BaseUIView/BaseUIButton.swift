@@ -19,6 +19,7 @@ open class TTBaseUIButton: UIButton, ViewDrawer, TextDrawer {
     var fontDef: UIFont  = TTBaseUIKitConfig.getFontConfig().FONT
    
     public enum TYPE {
+        case NO_BG_COLOR
         case DEFAULT
         case ICON
         case DISABLE
@@ -44,9 +45,12 @@ open class TTBaseUIButton: UIButton, ViewDrawer, TextDrawer {
             self.setNonEnable()
             break
         case .WARRING:
-            self.setWarringType().done()
+            self.setWarringType()
             break
+        case .NO_BG_COLOR:
+            self.setNoBgType()
         }
+        
         self.setText(text: text).done()
         if isSetSize { self.setWidthAnchor(constant: TTBaseUIKitConfig.getSizeConfig().W_BUTTON).setHeightAnchor(constant: TTBaseUIKitConfig.getSizeConfig().H_BUTTON).done() }
     }
@@ -85,6 +89,12 @@ extension TTBaseUIButton {
     public func setDefaultType() {
         self.isUserInteractionEnabled = true
         self.backgroundColor = viewDefBgColor
+    }
+
+    public func setNoBgType() {
+        self.isUserInteractionEnabled = true
+        self.backgroundColor = UIColor.clear
+        self.setTextColor(color: TTView.textDefColor)
     }
     
     @discardableResult public func setWarringType() -> TTBaseUIButton {

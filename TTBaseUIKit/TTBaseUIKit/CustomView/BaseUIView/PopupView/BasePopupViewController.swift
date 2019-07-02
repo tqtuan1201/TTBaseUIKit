@@ -15,6 +15,8 @@ open class TTBasePopupViewController : TTBaseUIViewController<DarkBaseUIView> {
     open override var isEffectView: Bool { get { return false } }
     fileprivate var isAllowTouchPanelView:Bool = true
     
+    public var panelTouchView:TTBaseUIView =  TTBaseUIView()
+    
     public init(isAllowTouchPanel:Bool) {
         super.init()
         self.isAllowTouchPanelView = isAllowTouchPanel
@@ -24,6 +26,9 @@ open class TTBasePopupViewController : TTBaseUIViewController<DarkBaseUIView> {
 
     open override func viewDidLoad() {
         super.viewDidLoad()
+        self.view.insertSubview(self.panelTouchView, at: 0)
+        self.panelTouchView.setFullContraints(constant: 0)
+        self.panelTouchView.setBgColor(UIColor.clear)
         self.view.alpha = 0
         self.view.backgroundColor = UIColor.darkGray.withAlphaComponent(0.6)
         UIView.animate(withDuration: 0.4) { self.view.alpha = 1 }
@@ -43,8 +48,8 @@ extension TTBasePopupViewController {
     
     fileprivate func setupTargets() {
         if isAllowTouchPanelView {
-            self.view.isUserInteractionEnabled = true
-            self.view.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(self.onTouchView(_:))))
+            self.panelTouchView.isUserInteractionEnabled = true
+            self.panelTouchView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(self.onTouchView(_:))))
         }
     }
     

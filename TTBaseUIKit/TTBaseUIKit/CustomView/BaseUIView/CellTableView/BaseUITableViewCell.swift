@@ -118,8 +118,8 @@ extension TTBaseUITableViewCell {
         self.skeletonLayer?.isHidden = false
         let views = isSetAllSubView ? self.panel.subviewsRecursive(): self.panel.subviews
         for view in views {
-            view.backgroundColor = TTView.viewBgSkeleton
-            if let lb = view as? TTBaseUILabel {lb.textColor = TTView.viewBgSkeleton}
+            //view.backgroundColor = TTView.viewBgSkeleton
+            if let lb = view as? TTBaseUILabel {lb.onAddSkeletonMark()}
             if let img = view as? TTBaseUIImageView {img.setAnimalForSkeletonView()}
         }
     }
@@ -129,16 +129,16 @@ extension TTBaseUITableViewCell {
         let views = isSetAllSubView ? self.panel.subviewsRecursive(): self.panel.subviews
         for view in views {
             if let view = view as? TTBaseUIView {
-                view.backgroundColor = view.viewDefBgColor
+                //view.backgroundColor = view.viewDefBgColor
             } else if let lb = view as? TTBaseUILabel {
-                lb.textColor = lb.textDefColor
-                lb.backgroundColor = lb.viewDefBgColor
+                lb.onRemoveSkeletonMark()
             }  else if let img = view as? TTBaseUIImageView {
                 img.backgroundColor = img.viewDefBgColor
                 img.setRollBackViewForSkeletonAnimal()
-            } else {
-                 view.backgroundColor = UIColor.clear
             }
+//            else {
+//                 view.backgroundColor = UIColor.clear
+//            }
         }
     }
 }

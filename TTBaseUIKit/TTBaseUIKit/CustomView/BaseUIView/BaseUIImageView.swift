@@ -157,8 +157,14 @@ extension TTBaseUIImageView {
         return self
     }
 
-    public func setIConImage(with name:String, color:UIColor = TTBaseUIKitConfig.getViewConfig().iconColor,  scale:UIView.ContentMode = .scaleAspectFill)  -> TTBaseUIImageView {
-        self.image = UIImage.fontAwesomeIconWithName(nameString: name, size: CGSize(width: 60, height: 60), iconColor: color, backgroundColor: UIColor.clear)
+    @discardableResult public func setIConImage(with name:String, color:UIColor = TTBaseUIKitConfig.getViewConfig().iconColor,  scale:UIView.ContentMode = .scaleAspectFill, size:CGSize = CGSize(width: 60, height: 60))  -> TTBaseUIImageView {
+        self.image = UIImage.fontAwesomeIconWithName(nameString: name, size: size, iconColor: color, backgroundColor: UIColor.clear)
+        self.contentMode = scale
+        return self
+    }
+    
+    @discardableResult public func setIConImage(with name:AwesomePro.Light, color:UIColor = TTBaseUIKitConfig.getViewConfig().iconColor,  scale:UIView.ContentMode = .scaleAspectFill, size:CGSize = CGSize(width: 60, height: 60))  -> TTBaseUIImageView {
+        self.image = UIImage.fontAwesomeIconWithName(nameString: name.rawValue, size: size, iconColor: color, backgroundColor: UIColor.clear)
         self.contentMode = scale
         return self
     }

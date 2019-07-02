@@ -11,6 +11,10 @@ protocol ViewDrawer {
     var viewDefCornerRadius: CGFloat { get }
 }
 
+protocol SkeletonMarkView {
+
+}
+
 protocol TextDrawer {
     var textDefColor: UIColor { get }
     var textDefHeight: CGFloat { get }
@@ -45,6 +49,22 @@ extension ViewDrawer where Self: UIView {
         self.layer.cornerRadius    = viewDefCornerRadius
         self.clipsToBounds         = true
         self.translatesAutoresizingMaskIntoConstraints = false
+    }
+}
+
+
+extension SkeletonMarkView where Self: UIView {
+    
+    func drawSkeletonView() {
+        if self.viewWithTag(CONSTANT.TAG_VIEW.MARK_SKELETON.rawValue) != nil { return }
+        let skeletonMarkView:TTBaseSkeletonMarkView = TTBaseSkeletonMarkView()
+        skeletonMarkView.viewWithTag(CONSTANT.TAG_VIEW.MARK_SKELETON.rawValue)
+        self.addSubview(skeletonMarkView)
+        skeletonMarkView.setFullContraints(constant: 0)
+    }
+    
+    func removeSkeletonView() {
+        self.viewWithTag(CONSTANT.TAG_VIEW.MARK_SKELETON.rawValue)?.removeFromSuperview()
     }
 }
 

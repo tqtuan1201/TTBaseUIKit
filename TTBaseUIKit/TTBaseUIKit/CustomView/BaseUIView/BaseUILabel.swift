@@ -26,6 +26,7 @@ open class TTBaseUILabel : UILabel, ViewDrawer, TextDrawer {
     public var textDefHeight: CGFloat = TTBaseUIKitConfig.getFontConfig().TITLE_H
     public var textDefIsUpper: Bool = false
     public var fontDef: UIFont = TTBaseUIKitConfig.getFontConfig().FONT
+    public lazy var skeletonMarkView:TTBaseSkeletonMarkView = TTBaseSkeletonMarkView()
     
     var type:TYPE = .NONE
     
@@ -134,26 +135,20 @@ extension TTBaseUILabel {
 // MARK: For setText
 extension TTBaseUILabel {
     
-    @discardableResult public func setFullContentHuggingPriority() -> TTBaseUILabel {
-        self.setHorizontalContentHuggingPriority().setVerticalContentHuggingPriority().done()
+    @discardableResult public func setFullContentHuggingPriority(priority:UILayoutPriority = UILayoutPriority.required) -> TTBaseUILabel {
+        self.setHorizontalContentHuggingPriority(priority: priority).setVerticalContentHuggingPriority(priority: priority).done()
         return self
     }
     
-    @discardableResult func setTextAttr(with attr:NSMutableAttributedString) -> TTBaseUILabel{
-        self.setText(text: "")
-        self.attributedText = attr
+    @discardableResult public func setHorizontalContentHuggingPriority(priority:UILayoutPriority = UILayoutPriority.required) -> TTBaseUILabel {
+        self.setContentHuggingPriority( priority, for: .horizontal)
+        self.setContentCompressionResistancePriority(  priority, for: .horizontal)
         return self
     }
     
-    @discardableResult public func setHorizontalContentHuggingPriority() -> TTBaseUILabel {
-        self.setContentHuggingPriority( UILayoutPriority.defaultHigh, for: .horizontal)
-        self.setContentCompressionResistancePriority(  UILayoutPriority.defaultHigh, for: .horizontal)
-        return self
-    }
-    
-    @discardableResult public func setVerticalContentHuggingPriority() -> TTBaseUILabel {
-        self.setContentHuggingPriority( UILayoutPriority.defaultHigh, for: .vertical)
-        self.setContentCompressionResistancePriority(  UILayoutPriority.defaultHigh, for: .vertical)
+    @discardableResult public func setVerticalContentHuggingPriority(priority:UILayoutPriority = UILayoutPriority.required) -> TTBaseUILabel {
+        self.setContentHuggingPriority( priority, for: .vertical)
+        self.setContentCompressionResistancePriority(  priority, for: .vertical)
         return self
     }
     
@@ -170,6 +165,21 @@ extension TTBaseUILabel {
         return self
     }
     
+    @discardableResult public func setTextAttr(with attr:NSMutableAttributedString) -> TTBaseUILabel{
+        self.setText(text: "")
+        self.attributedText = attr
+        return self
+    }
     
 }
 
+//MARK:// Skeleton
+extension TTBaseUILabel {
+    public func onAddSkeletonMark() {
+        self.addSubview(self.skeletonMarkView)
+        self.skeletonMarkView.setFullContraints(constant: 0)
+    }
+    public func onRemoveSkeletonMark() {
+        self.skeletonMarkView.removeFromSuperview()
+    }
+}
