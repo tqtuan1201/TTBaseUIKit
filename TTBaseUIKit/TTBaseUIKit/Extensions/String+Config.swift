@@ -70,4 +70,12 @@ extension String {
     public static func get(_ stringOptional:String?) -> String {
         return stringOptional ?? ""
     }
+    
+    public func capitalizingFirstLetter() -> String {
+        return prefix(1).capitalized + dropFirst()
+    }
+    
+    public mutating func capitalizeFirstLetter() {
+        self = self.capitalizingFirstLetter()
+    }
 }

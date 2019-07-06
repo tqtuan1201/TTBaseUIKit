@@ -179,7 +179,7 @@ extension TTBaseUITextField {
     
     public func setIcon(icon:AwesomePro.Light, isRight:Bool, size:CGSize = CGSize.init(width: TTBaseUIKitConfig.getSizeConfig().H_ICON / 2, height:TTBaseUIKitConfig.getSizeConfig().H_ICON / 2), iconColor:UIColor = TTBaseUIKitConfig.getViewConfig().iconColor) {
         let panelIcon:UIView = UIView()
-        let eyeIconImageView:TTBaseUIImageFontView = TTBaseUIImageFontView.init(withFontIconLightSize: icon,sizeIcon: CGSize(width: 30, height: 30), colorIcon: TTView.iconRightTextFieldColor)
+        let eyeIconImageView:TTBaseUIImageFontView = TTBaseUIImageFontView.init(withFontIconLightSize: icon,sizeIcon: CGSize(width: 30, height: 30), colorIcon: iconColor)
         
         eyeIconImageView.translatesAutoresizingMaskIntoConstraints = true
         panelIcon.addSubview(eyeIconImageView)

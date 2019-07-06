@@ -104,6 +104,7 @@
 		93D6BE7F22637FB400906781 /* LabelTextFieldView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93D6BE7E22637FB400906781 /* LabelTextFieldView.swift */; };
 		93D6BE812263F3E200906781 /* LineView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93D6BE802263F3E200906781 /* LineView.swift */; };
 		93D6BE8522640CEA00906781 /* img.hideKeyboard.png in Resources */ = {isa = PBXBuildFile; fileRef = 93D6BE8422640CEA00906781 /* img.hideKeyboard.png */; };
+		93D8510622CCAA0E00663B5A /* BaseMonthYearPicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93D8510522CCAA0E00663B5A /* BaseMonthYearPicker.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -206,6 +207,7 @@
 		93D6BE7E22637FB400906781 /* LabelTextFieldView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LabelTextFieldView.swift; sourceTree = "<group>"; };
 		93D6BE802263F3E200906781 /* LineView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LineView.swift; sourceTree = "<group>"; };
 		93D6BE8422640CEA00906781 /* img.hideKeyboard.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = img.hideKeyboard.png; sourceTree = "<group>"; };
+		93D8510522CCAA0E00663B5A /* BaseMonthYearPicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseMonthYearPicker.swift; sourceTree = "<group>"; };
 		A502B4E02981E1CF011C877A /* Pods-TTBaseUIKit.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TTBaseUIKit.debug.xcconfig"; path = "Target Support Files/Pods-TTBaseUIKit/Pods-TTBaseUIKit.debug.xcconfig"; sourceTree = "<group>"; };
 		D8F56DFEF67A8199D51B7CC9 /* Pods-TTBaseUIKit.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TTBaseUIKit.release.xcconfig"; path = "Target Support Files/Pods-TTBaseUIKit/Pods-TTBaseUIKit.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -347,6 +349,7 @@
 			isa = PBXGroup;
 			children = (
 				93706FC22293ED2B008D8CCC /* BaseDatePicker.swift */,
+				93D8510522CCAA0E00663B5A /* BaseMonthYearPicker.swift */,
 			);
 			path = DatePicker;
 			sourceTree = "<group>";
@@ -689,6 +692,7 @@
 				93C8B7CA22680D92000858F6 /* TTBaseUtil.swift in Sources */,
 				9364AC7B229FCAF800239535 /* CoverVerticalPresentationController.swift in Sources */,
 				93073FC522644473009AF63F /* GlobalFunctions.swift in Sources */,
+				93D8510622CCAA0E00663B5A /* BaseMonthYearPicker.swift in Sources */,
 				9358C830226895B500D2D10F /* UITableView+UICollectionView.swift in Sources */,
 				93C05A102261BF1B00E27EDB /* BaseUIStackView.swift in Sources */,
 				93C99514225F6DFB0081FA81 /* UIApplication+Config.swift in Sources */,

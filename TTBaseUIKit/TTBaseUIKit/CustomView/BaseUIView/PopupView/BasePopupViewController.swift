@@ -30,7 +30,7 @@ open class TTBasePopupViewController : TTBaseUIViewController<DarkBaseUIView> {
         self.panelTouchView.setFullContraints(constant: 0)
         self.panelTouchView.setBgColor(UIColor.clear)
         self.view.alpha = 0
-        self.view.backgroundColor = UIColor.darkGray.withAlphaComponent(0.6)
+        self.view.backgroundColor = UIColor.darkGray.withAlphaComponent(0.85)
         UIView.animate(withDuration: 0.4) { self.view.alpha = 1 }
     }
     required public init?(coder aDecoder: NSCoder) {

@@ -10,6 +10,12 @@ import Foundation
 
 extension Date {
     
+    public func monthName() -> String {
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = CONSTANT.FORMAT_DATE.MMMM.rawValue
+        return dateFormatter.string(from: self).capitalizingFirstLetter()
+    }
+    
     public func getDateWithEvenTime(byPeriod interval:Int) -> Date {
         let calendar = Calendar.current
         let nextDiff = interval - (calendar.component(.minute, from: self) % interval)
@@ -160,7 +166,7 @@ extension Date {
     
     public func monthNameFull() -> String {
         let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "MMMM YYYY"
+        dateFormatter.dateFormat = CONSTANT.FORMAT_DATE.MMMYYYY.rawValue
         return dateFormatter.string(from: self)
     }
     

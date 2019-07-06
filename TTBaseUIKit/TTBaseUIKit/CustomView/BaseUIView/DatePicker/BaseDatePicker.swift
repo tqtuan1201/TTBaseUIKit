@@ -31,6 +31,7 @@ open class TTBaseDatePicker: TTBasePopupViewController {
     
     public init() {
         super.init(isAllowTouchPanel: false)
+        self.setupViewCodable(with: []) 
     }
     
     public init(with isAllowTouchPanel:Bool, selectedDate:Date, mode:UIDatePicker.Mode = .date, textColor:UIColor = UIColor.darkText) {
@@ -46,7 +47,7 @@ open class TTBaseDatePicker: TTBasePopupViewController {
     
     open override func viewDidLoad() {
         super.viewDidLoad()
-        self.setupViewCodable(with: [])
+        DispatchQueue.main.async { self.setupViewCodable(with: []) }
     }
     
     @objc fileprivate func datePickerValueChanged(_ sender: UIDatePicker){
