@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		930300EC22D46F650015F021 /* BaseCircleLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 930300EB22D46F650015F021 /* BaseCircleLabel.swift */; };
+		930300EE22D46FA60015F021 /* BaseBadgeInsetLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 930300ED22D46FA60015F021 /* BaseBadgeInsetLabel.swift */; };
+		930300F022D46FD30015F021 /* BaseButtonBadge.swift in Sources */ = {isa = PBXBuildFile; fileRef = 930300EF22D46FD30015F021 /* BaseButtonBadge.swift */; };
 		93073FBF22643D36009AF63F /* String+Config.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93073FBE22643D36009AF63F /* String+Config.swift */; };
 		93073FC122644132009AF63F /* TTBaseUIKitSetting.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93073FC022644132009AF63F /* TTBaseUIKitSetting.swift */; };
 		93073FC32264416A009AF63F /* TTLanguageManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93073FC22264416A009AF63F /* TTLanguageManager.swift */; };
@@ -72,6 +75,8 @@
 		9389D1182279E8A900D6319E /* BaseUIImageFontView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9389D1172279E8A900D6319E /* BaseUIImageFontView.swift */; };
 		9389D11A2279E8D100D6319E /* UIImageFontCircleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9389D1192279E8D100D6319E /* UIImageFontCircleView.swift */; };
 		9389D11C227A025A00D6319E /* BaseUICricleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9389D11B227A025A00D6319E /* BaseUICricleView.swift */; };
+		938F527522E7FAF100E80FFB /* TextSubTextTableHeaderFooterViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 938F527422E7FAF100E80FFB /* TextSubTextTableHeaderFooterViewCell.swift */; };
+		938FAFD222EED5FE0048AD1B /* VietNamLunar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 938FAFD122EED5FE0048AD1B /* VietNamLunar.swift */; };
 		939EA87D22769457008DDCBC /* IconLabelTextFieldView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 939EA87C22769457008DDCBC /* IconLabelTextFieldView.swift */; };
 		939EA8822276B0D5008DDCBC /* img.logo.Def.png in Resources */ = {isa = PBXBuildFile; fileRef = 939EA8802276B0D5008DDCBC /* img.logo.Def.png */; };
 		939EA8832276B0D5008DDCBC /* img.logo.idea.png in Resources */ = {isa = PBXBuildFile; fileRef = 939EA8812276B0D5008DDCBC /* img.logo.idea.png */; };
@@ -108,6 +113,9 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		930300EB22D46F650015F021 /* BaseCircleLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseCircleLabel.swift; sourceTree = "<group>"; };
+		930300ED22D46FA60015F021 /* BaseBadgeInsetLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseBadgeInsetLabel.swift; sourceTree = "<group>"; };
+		930300EF22D46FD30015F021 /* BaseButtonBadge.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseButtonBadge.swift; sourceTree = "<group>"; };
 		93073FBE22643D36009AF63F /* String+Config.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+Config.swift"; sourceTree = "<group>"; };
 		93073FC022644132009AF63F /* TTBaseUIKitSetting.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TTBaseUIKitSetting.swift; sourceTree = "<group>"; };
 		93073FC22264416A009AF63F /* TTLanguageManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TTLanguageManager.swift; sourceTree = "<group>"; };
@@ -175,6 +183,8 @@
 		9389D1172279E8A900D6319E /* BaseUIImageFontView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseUIImageFontView.swift; sourceTree = "<group>"; };
 		9389D1192279E8D100D6319E /* UIImageFontCircleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIImageFontCircleView.swift; sourceTree = "<group>"; };
 		9389D11B227A025A00D6319E /* BaseUICricleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseUICricleView.swift; sourceTree = "<group>"; };
+		938F527422E7FAF100E80FFB /* TextSubTextTableHeaderFooterViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextSubTextTableHeaderFooterViewCell.swift; sourceTree = "<group>"; };
+		938FAFD122EED5FE0048AD1B /* VietNamLunar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VietNamLunar.swift; sourceTree = "<group>"; };
 		939EA87C22769457008DDCBC /* IconLabelTextFieldView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IconLabelTextFieldView.swift; sourceTree = "<group>"; };
 		939EA8802276B0D5008DDCBC /* img.logo.Def.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = img.logo.Def.png; sourceTree = "<group>"; };
 		939EA8812276B0D5008DDCBC /* img.logo.idea.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = img.logo.idea.png; sourceTree = "<group>"; };
@@ -322,6 +332,7 @@
 				93073FC22264416A009AF63F /* TTLanguageManager.swift */,
 				93073FC422644473009AF63F /* GlobalFunctions.swift */,
 				93C8B7C922680D92000858F6 /* TTBaseUtil.swift */,
+				938FAFD122EED5FE0048AD1B /* VietNamLunar.swift */,
 			);
 			path = Utilities;
 			sourceTree = "<group>";
@@ -398,6 +409,7 @@
 				93A17A3B2273005B005CCD33 /* BaseUITableViewHeaderFooterView.swift */,
 				93A17A3D227301FB005CCD33 /* SpaceTableHeaderViewCell.swift */,
 				936E0AC82273E92500FCD2B5 /* TextTableHeaderFooterViewCell.swift */,
+				938F527422E7FAF100E80FFB /* TextSubTextTableHeaderFooterViewCell.swift */,
 			);
 			path = CellHeaderFooterTableView;
 			sourceTree = "<group>";
@@ -420,7 +432,10 @@
 				933A92B92277762F008ECCC4 /* UIImageCircleView.swift */,
 				9389D1192279E8D100D6319E /* UIImageFontCircleView.swift */,
 				936091D2225B3E64007D8F6B /* BaseUILabel.swift */,
+				930300ED22D46FA60015F021 /* BaseBadgeInsetLabel.swift */,
+				930300EB22D46F650015F021 /* BaseCircleLabel.swift */,
 				93BC8ABD22A0D50E005B47EF /* BaseInsetLabel.swift */,
+				930300EF22D46FD30015F021 /* BaseButtonBadge.swift */,
 				93C9950F225F66E10081FA81 /* BaseUIButton.swift */,
 				93C99511225F6D170081FA81 /* BaseUITextField.swift */,
 				93892BE2227B2069006098DA /* BasePasswordUITextField.swift */,
@@ -660,8 +675,10 @@
 				93073FBF22643D36009AF63F /* String+Config.swift in Sources */,
 				938162E022929CB0007B71A7 /* BasePopupViewController.swift in Sources */,
 				93C99512225F6D170081FA81 /* BaseUITextField.swift in Sources */,
+				930300F022D46FD30015F021 /* BaseButtonBadge.swift in Sources */,
 				93083CB82281664D00957B4D /* DeviceVersion.swift in Sources */,
 				93706FC32293ED2B008D8CCC /* BaseDatePicker.swift in Sources */,
+				938FAFD222EED5FE0048AD1B /* VietNamLunar.swift in Sources */,
 				93C0D2A322746B6900E5889C /* IconTextSubtextTextSubTextRightTableViewCell.swift in Sources */,
 				93BC8ABE22A0D50E005B47EF /* BaseInsetLabel.swift in Sources */,
 				93D6BE7F22637FB400906781 /* LabelTextFieldView.swift in Sources */,
@@ -707,10 +724,12 @@
 				93C0D29F2274699300E5889C /* IconTextSubtextTableViewCell.swift in Sources */,
 				93083CBC2281669F00957B4D /* DeviceSize.swift in Sources */,
 				930F364922C5C4E400CB9A70 /* BasePanelViewUIStackView.swift in Sources */,
+				930300EC22D46F650015F021 /* BaseCircleLabel.swift in Sources */,
 				93C99516225F6E3C0081FA81 /* UIViewController+Config.swift in Sources */,
 				931B5C4822577356009B01A3 /* Service.swift in Sources */,
 				9320F1A02269733E003B8628 /* BaseUITableViewController.swift in Sources */,
 				939EA87D22769457008DDCBC /* IconLabelTextFieldView.swift in Sources */,
+				930300EE22D46FA60015F021 /* BaseBadgeInsetLabel.swift in Sources */,
 				9316564922897712006C7101 /* BaseUIProgressView.swift in Sources */,
 				93768A9A2258D30D0033DDBB /* FontConfig.swift in Sources */,
 				9364AC7D229FCB4000239535 /* DismissView.swift in Sources */,
@@ -732,6 +751,7 @@
 				9364AC7F229FCE1000239535 /* CoverVerticalViewController.swift in Sources */,
 				9320F19E2269728C003B8628 /* TextIconTableViewCell.swift in Sources */,
 				93083CBA2281667300957B4D /* DeviceType.swift in Sources */,
+				938F527522E7FAF100E80FFB /* TextSubTextTableHeaderFooterViewCell.swift in Sources */,
 				9389D11A2279E8D100D6319E /* UIImageFontCircleView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

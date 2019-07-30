@@ -57,7 +57,7 @@ open class TTBaseUITableViewHeaderFooterView: UITableViewHeaderFooterView, Reusa
     private func setupUI() {
         self.tintColor = self.tintHeaderColor
         self.panel.backgroundColor    = self.bgColor
-        self.backgroundColor = UIColor.clear
+        //self.backgroundColor = UIColor.clear
         self.backgroundView = self.setBackgroundView(withColor: self.backgroundViewColor)
         self.contentView.addSubview(panel)
         self.panel.setConerRadius(with: self.cornerRadius)

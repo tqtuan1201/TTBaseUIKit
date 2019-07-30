@@ -76,4 +76,10 @@ extension TTBaseUtil {
         }
         return [:]
     }
+    
+    /// Get App versions
+    ///
+    public static func getAppVersion() -> String {
+        return Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String ?? ""
+    }
 }

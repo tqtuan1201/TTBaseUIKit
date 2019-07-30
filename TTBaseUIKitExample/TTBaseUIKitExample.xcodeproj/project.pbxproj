@@ -22,7 +22,7 @@
 		93BC0C4422AA62DC00E61D3C /* BaseUIViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93BC0C4322AA62DC00E61D3C /* BaseUIViewController.swift */; };
 		93BC0C4722AA69E300E61D3C /* DemoHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93BC0C4622AA69E300E61D3C /* DemoHeaderView.swift */; };
 		93F0FDCA22580B980037C427 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93F0FDC922580B980037C427 /* AppDelegate.swift */; };
-		93F0FDCC22580B980037C427 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93F0FDCB22580B980037C427 /* ViewController.swift */; };
+		93F0FDCC22580B980037C427 /* TestViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93F0FDCB22580B980037C427 /* TestViewController.swift */; };
 		93F0FDCF22580B980037C427 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 93F0FDCD22580B980037C427 /* Main.storyboard */; };
 		93F0FDD122580B990037C427 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 93F0FDD022580B990037C427 /* Assets.xcassets */; };
 		93F0FDD422580B990037C427 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 93F0FDD222580B990037C427 /* LaunchScreen.storyboard */; };
@@ -45,7 +45,7 @@
 		93BC0C4622AA69E300E61D3C /* DemoHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DemoHeaderView.swift; sourceTree = "<group>"; };
 		93F0FDC622580B980037C427 /* TTBaseUIKitExample.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TTBaseUIKitExample.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		93F0FDC922580B980037C427 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		93F0FDCB22580B980037C427 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		93F0FDCB22580B980037C427 /* TestViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestViewController.swift; sourceTree = "<group>"; };
 		93F0FDCE22580B980037C427 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		93F0FDD022580B990037C427 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		93F0FDD322580B990037C427 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -142,7 +142,7 @@
 				93BC0C4522AA653700E61D3C /* View */,
 				93BC0C3822AA60B700E61D3C /* Base */,
 				93F0FDC922580B980037C427 /* AppDelegate.swift */,
-				93F0FDCB22580B980037C427 /* ViewController.swift */,
+				93F0FDCB22580B980037C427 /* TestViewController.swift */,
 				93F0FDCD22580B980037C427 /* Main.storyboard */,
 				93F0FDD022580B990037C427 /* Assets.xcassets */,
 				93F0FDD222580B990037C427 /* LaunchScreen.storyboard */,
@@ -269,7 +269,7 @@
 				93BC0C3E22AA61EB00E61D3C /* BaseUINavigationView.swift in Sources */,
 				93BC0C4022AA622B00E61D3C /* Util.swift in Sources */,
 				9371FA6322AF89F6005549E0 /* DatePickerViewController.swift in Sources */,
-				93F0FDCC22580B980037C427 /* ViewController.swift in Sources */,
+				93F0FDCC22580B980037C427 /* TestViewController.swift in Sources */,
 				93BC0C4222AA629500E61D3C /* MenuViewController.swift in Sources */,
 				9371FA6522AF8A89005549E0 /* EmptyTableViewController.swift in Sources */,
 				934B1FFC22ABB6F000140EF7 /* CellTypeTableViewController.swift in Sources */,

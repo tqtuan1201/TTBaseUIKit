@@ -14,9 +14,9 @@ open class TTUIImageFontCircleView: TTBaseUICricleView {
     var sizeIcon:CGSize = CGSize(width: 1000, height: 1000)
     var padding:CGFloat  = 12.0
     
-    var bgColor:UIColor = UIColor.red
-    var imageCircleView:TTBaseUIImageFontView = TTBaseUIImageFontView()
+    var bgColor:UIColor = UIColor.clear
     
+    public var imageCircleView:TTBaseUIImageFontView = TTBaseUIImageFontView()
     
     public convenience init(with iconName:String, iconColor:UIColor, bgColor:UIColor, paddingContent:CGFloat = 12.0, borderWidth:CGFloat = 0, borderColor:UIColor =  UIColor.clear) {
         self.init()

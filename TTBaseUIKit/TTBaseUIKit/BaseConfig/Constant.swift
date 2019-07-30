@@ -58,6 +58,7 @@ public struct CONSTANT {
         case D_MMMM                 = "d MMMM"
         case HH_MM_A                = "hh:mm a"
         case MMMM                   = "MMMM"
+        case EEEE                   = "EEEE"
         
         
     }

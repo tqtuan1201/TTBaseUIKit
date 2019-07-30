@@ -20,12 +20,13 @@ open class TTBaseUICollectionView: UICollectionView {
         self.setupBaseUI()
     }
     
-    public convenience init(collectionViewLayout layout: UICollectionViewLayout) {
-        self.init(frame: .zero, collectionViewLayout: layout)
+    public init(collectionViewLayout layout: UICollectionViewLayout) {
+        super.init(frame: .zero, collectionViewLayout: layout)
+        self.setupBaseUI()
     }
     
-    public convenience init(collectionViewLayout layout: UICollectionViewLayout, bgColor:UIColor, isShowCroll:Bool, isSetContent:Bool) {
-        self.init(frame: .zero, collectionViewLayout: layout)
+    public init(collectionViewLayout layout: UICollectionViewLayout, bgColor:UIColor, isShowCroll:Bool, isSetContent:Bool) {
+        super.init(frame: .zero, collectionViewLayout: layout)
         self.bgColor = bgColor
         self.isShowScrollIndicator = isShowCroll
         self.isSetContentInset = isSetContent
@@ -47,5 +48,11 @@ open class TTBaseUICollectionView: UICollectionView {
         }
         
 
+    }
+}
+
+extension TTBaseUICollectionView {
+    public func setBgColor(color:UIColor) {
+        self.backgroundColor = color
     }
 }

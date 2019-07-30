@@ -11,6 +11,7 @@ import UIKit
 
 public class FontConfig {
     
+    public var HEADER_SUPER_H:CGFloat = 24
     public var HEADER_H:CGFloat = 16
     public var TITLE_H:CGFloat = 14
     public var SUB_TITLE_H:CGFloat = 12

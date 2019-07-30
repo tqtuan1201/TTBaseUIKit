@@ -44,12 +44,14 @@ open class TTBaseMonthYearPicker: TTBasePopupViewController {
     
     public init() {
         super.init(isAllowTouchPanel: false)
+        self.setupViewCodable(with: [])
     }
     
     public init(with type:TYPE , isAllowTouchPanel:Bool, textColor:UIColor = UIColor.darkText) {
         super.init(isAllowTouchPanel: isAllowTouchPanel)
         self.type = type
         self.textColor = textColor
+        self.setupViewCodable(with: [])
     }
     
     required public init?(coder aDecoder: NSCoder) {
@@ -58,7 +60,6 @@ open class TTBaseMonthYearPicker: TTBasePopupViewController {
     
     open override func viewDidLoad() {
         super.viewDidLoad()
-        DispatchQueue.main.async { self.setupViewCodable(with: []) }
     }
     
     

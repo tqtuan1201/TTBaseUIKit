@@ -12,6 +12,7 @@ import UIKit
 open class TTBaseUILabel : UILabel, ViewDrawer, TextDrawer {
     
     public enum TYPE {
+        case HEADER_SUPER
         case HEADER
         case TITLE
         case SUB_TITLE
@@ -52,9 +53,11 @@ open class TTBaseUILabel : UILabel, ViewDrawer, TextDrawer {
         self.init()
         self.type = type
         switch type {
+        case .HEADER_SUPER:
+            self.setFontSize(size: TTBaseUIKitConfig.getFontConfig().HEADER_SUPER_H).done()
+            break
         case .HEADER:
             self.setFontSize(size: TTBaseUIKitConfig.getFontConfig().HEADER_H).done()
-        break
         case .TITLE:
             self.setFontSize(size: TTBaseUIKitConfig.getFontConfig().TITLE_H).done()
         break

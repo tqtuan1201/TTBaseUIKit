@@ -55,7 +55,7 @@ open class TTBaseUIButton: UIButton, ViewDrawer, TextDrawer {
         if isSetSize { self.setWidthAnchor(constant: TTBaseUIKitConfig.getSizeConfig().W_BUTTON).setHeightAnchor(constant: TTBaseUIKitConfig.getSizeConfig().H_BUTTON).done() }
     }
     
-    override init(frame: CGRect) {
+    public override init(frame: CGRect) {
         super.init(frame: frame)
         self.setupUI()
         self.setupTargets()
