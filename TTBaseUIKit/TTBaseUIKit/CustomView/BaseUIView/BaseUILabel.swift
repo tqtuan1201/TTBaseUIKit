@@ -174,6 +174,11 @@ extension TTBaseUILabel {
         return self
     }
     
+    @discardableResult public func setNonBold() -> TTBaseUILabel {
+        self.font = UIFont.systemFont(ofSize: self.font.pointSize)
+        return self
+    }
+    
 }
 
 //MARK:// Skeleton

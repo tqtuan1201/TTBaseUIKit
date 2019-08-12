@@ -22,6 +22,7 @@ open class TTBaseMonthYearPicker: TTBasePopupViewController {
         case MONTH_YEAR(String?,String?) //(01,2019)
     }
     
+    fileprivate var locate:Locale = Locale(identifier: "vi_VN")
     fileprivate var type:TYPE = .MONTH_YEAR(nil,nil)
     fileprivate var selectedMonthYear:(String?, String?) = (nil, nil)
     public lazy var panel:TTBaseUIView = TTBaseUIView(withCornerRadius: TTBaseUIKitConfig.getSizeConfig().CORNER_RADIUS)
@@ -47,8 +48,9 @@ open class TTBaseMonthYearPicker: TTBasePopupViewController {
         self.setupViewCodable(with: [])
     }
     
-    public init(with type:TYPE , isAllowTouchPanel:Bool, textColor:UIColor = UIColor.darkText) {
+    public init(with type:TYPE, locate:Locale,  isAllowTouchPanel:Bool, textColor:UIColor = UIColor.darkText) {
         super.init(isAllowTouchPanel: isAllowTouchPanel)
+        self.locate = locate
         self.type = type
         self.textColor = textColor
         self.setupViewCodable(with: [])
@@ -132,7 +134,7 @@ extension TTBaseMonthYearPicker {
     }
     
     fileprivate func getDisplayMonth(with month:String) -> String {
-        return ("04-\(month)-1991 00:00:00".toDate(withFormat: .DD_MM_YYYY_HH_MM_SS)?.monthName() ?? month)
+        return ("04-\(month)-1991 00:00:00".toDate(withFormat: .DD_MM_YYYY_HH_MM_SS)?.monthName(with: self.locate) ?? month)
     }
 }
 

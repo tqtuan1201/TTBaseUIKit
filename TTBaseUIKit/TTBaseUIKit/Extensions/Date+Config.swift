@@ -10,8 +10,31 @@ import Foundation
 
 extension Date {
     
-    public func monthName() -> String {
+    public func compareByDate(date:Date) -> ComparisonResult {
+        return Calendar.current.compare(self, to: date, toGranularity: .day)
+    }
+    
+    public func sameDate(date:Date) -> Bool {
+        let order = Calendar.current.compare(self, to: date, toGranularity: .day)
+        switch order {
+        case .orderedSame:
+            return true
+        default:
+            return false
+        }
+    }
+    
+    public func startOfMonth() -> Date {
+        return Calendar.current.date(from: Calendar.current.dateComponents([.year, .month], from: Calendar.current.startOfDay(for: self)))!
+    }
+    
+    public func endOfMonth() -> Date {
+        return Calendar.current.date(byAdding: DateComponents(month: 1, day: -1), to: self.startOfMonth())!
+    }
+    
+    public func monthName(with locate:Locale = Locale.init(identifier :  "vi_VN")) -> String {
         let dateFormatter = DateFormatter()
+        dateFormatter.locale = locate
         dateFormatter.dateFormat = CONSTANT.FORMAT_DATE.MMMM.rawValue
         return dateFormatter.string(from: self).capitalizingFirstLetter()
     }
@@ -164,9 +187,10 @@ extension Date {
         return calendar.date(from: dateComponent)!
     }
     
-    public func monthNameFull() -> String {
+    public func monthNameFull(with locate:Locale = Locale(identifier: "vi_VN")) -> String {
         let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = CONSTANT.FORMAT_DATE.MMMYYYY.rawValue
+        dateFormatter.locale = locate
+        dateFormatter.dateFormat = CONSTANT.FORMAT_DATE.MMMMYYYY.rawValue
         return dateFormatter.string(from: self)
     }
     

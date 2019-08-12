@@ -55,4 +55,8 @@ extension TTBaseUICollectionView {
     public func setBgColor(color:UIColor) {
         self.backgroundColor = color
     }
+    
+    public func reloadAsyncData() {
+        DispatchQueue.main.async { [weak self] in self?.reloadData() }
+    }
 }
