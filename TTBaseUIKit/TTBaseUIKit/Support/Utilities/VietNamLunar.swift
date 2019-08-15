@@ -8,7 +8,7 @@
 
 import Foundation
 
-class VietNamLunar {
+open class TTVietNamLunar {
     
     static let PI:Double = Double.pi
     
@@ -144,7 +144,7 @@ class VietNamLunar {
      */
     
     public static func convertSolar2Lunar(currentDate:Date, timeZone:Double) -> [Int] {
-        return VietNamLunar.convertSolar2Lunar(dd: currentDate.day(), mm: currentDate.month(), yy: currentDate.year(), timeZone: timeZone)
+        return TTVietNamLunar.convertSolar2Lunar(dd: currentDate.day(), mm: currentDate.month(), yy: currentDate.year(), timeZone: timeZone)
     }
 
     public static func convertSolar2Lunar(dd:Int, mm:Int, yy:Int, timeZone:Double) -> [Int] {

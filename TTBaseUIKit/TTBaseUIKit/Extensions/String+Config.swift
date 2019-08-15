@@ -56,6 +56,32 @@ extension String {
         return dateFormatter.date(from: self)
     }
     
+    public func components(withMaxLength length: Int) -> [String] {
+        return stride(from: 0, to: self.count, by: length).map {
+            let start = self.index(self.startIndex, offsetBy: $0)
+            let end = self.index(start, offsetBy: length, limitedBy: self.endIndex) ?? self.endIndex
+            return String(self[start..<end])
+        }
+    }
+    
+    public subscript(_ i: Int) -> String {
+        let idx1 = index(startIndex, offsetBy: i)
+        let idx2 = index(idx1, offsetBy: 1)
+        return String(self[idx1..<idx2])
+    }
+    
+    public subscript (r: Range<Int>) -> String {
+        let start = index(startIndex, offsetBy: r.lowerBound)
+        let end = index(startIndex, offsetBy: r.upperBound)
+        return String(self[start ..< end])
+    }
+    
+    public subscript (r: CountableClosedRange<Int>) -> String {
+        let startIndex =  self.index(self.startIndex, offsetBy: r.lowerBound)
+        let endIndex = self.index(startIndex, offsetBy: r.upperBound - r.lowerBound)
+        return String(self[startIndex...endIndex])
+    }
+    
 }
 
 // MARK: For static func

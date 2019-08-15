@@ -20,6 +20,7 @@ open class TTIconLabelView : TTBaseUIView {
     open var multiplierImage:CGFloat { get { return 0.5}}
     open var padding:CGFloat { get { return TTSize.P_CONS_DEF}}
     open var numberOfLine:Int { get { return 4}}
+    open var isSetContentHugging:Bool { get { return true}}
     open var sizeImages:(CGFloat,CGFloat) { get { return (TTSize.H_SMALL_ICON, TTSize.H_SMALL_ICON)}}
     
     
@@ -103,9 +104,9 @@ fileprivate extension TTIconLabelView {
         self.textLabel.setTopAnchor(constant: self.padding, priority: .defaultHigh).setBottomAnchor(constant: self.padding, priority: .defaultHigh).setTrailingAnchor(constant: self.padding)
         
         if self.isAutoHeightSizing {
-            self.textLabel.setFullContentHuggingPriority()
+            if self.isSetContentHugging { self.textLabel.setFullContentHuggingPriority() }
         } else {
-            self.textLabel.setHorizontalContentHuggingPriority()
+            if self.isSetContentHugging { self.textLabel.setHorizontalContentHuggingPriority() }
         }
         
     }

@@ -108,6 +108,6 @@ extension TTBaseUITableViewController {
         
         self.tableView.tableHeaderView?.layoutIfNeeded()
         self.tableView.tableHeaderView = self.tableView.tableHeaderView
-        
+        self.tableView.tableHeaderView?.layer.zPosition = 100
     }
 }

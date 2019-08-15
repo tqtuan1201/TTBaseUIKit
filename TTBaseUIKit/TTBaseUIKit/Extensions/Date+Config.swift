@@ -10,6 +10,22 @@ import Foundation
 
 extension Date {
     
+    public func isFirstDateOfMonth() -> Bool {
+        return self.firstDayOfMonth().compareByDate(date: self) == .orderedSame
+    }
+    
+    public func allDates(till endDate: Date) -> [Date] {
+        var date = self
+        var array: [Date] = []
+        while endDate.compareByDate(date: date)  == .orderedDescending || endDate.compareByDate(date: date)  == .orderedSame {
+            array.append(date)
+            if let _date = Calendar.current.date(byAdding: .day, value: 1, to: date) {
+                date = _date
+            }
+        }
+        return array
+    }
+
     public func compareByDate(date:Date) -> ComparisonResult {
         return Calendar.current.compare(self, to: date, toGranularity: .day)
     }

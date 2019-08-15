@@ -128,7 +128,7 @@ extension TTBaseUITableViewCell {
         self.skeletonLayer?.isHidden = true
         let views = isSetAllSubView ? self.panel.subviewsRecursive(): self.panel.subviews
         for view in views {
-            if let view = view as? TTBaseUIView {
+            if let _ = view as? TTBaseUIView {
                 //view.backgroundColor = view.viewDefBgColor
             } else if let lb = view as? TTBaseUILabel {
                 lb.onRemoveSkeletonMark()

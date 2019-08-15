@@ -10,6 +10,26 @@ import Foundation
 import UIKit
 
 extension UIView {
+    
+    public func setBorder(with width:CGFloat, color:UIColor, coner:CGFloat) {
+        self.layer.borderWidth = width
+        self.layer.borderColor = color.cgColor
+        self.setConerRadius(with: coner)
+    }
+    
+    public func setDashedLine(strokeColor: UIColor, lineWidth: CGFloat) {
+        self.layer.sublayers?.filter({$0.name == "BORDER_DASH"}).forEach({$0.removeFromSuperlayer()})
+        let border = CAShapeLayer()
+        border.name = "BORDER_DASH"
+        border.lineWidth = lineWidth
+        border.strokeColor = strokeColor.cgColor
+        border.fillColor = nil
+        border.lineDashPattern = [4, 4]
+        border.path = UIBezierPath(rect: self.bounds).cgPath
+        border.frame = self.bounds;
+        self.layer.addSublayer(border)
+    }
+    
     public func done(_ completion: (() -> Void)? = nil) {
         completion?()
     }

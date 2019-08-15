@@ -158,6 +158,67 @@ extension UITableView {
         
     }
     
+    ///
+    /// Set backgroundView(Image-Title-Subtitle-Button) for UITableView
+    ///
+    /// - parameter imageName: name of image
+    ///
+    public func setStaticBgWithButtonNoData(with imageName:String, color:UIColor = TTBaseUIKitConfig.getViewConfig().viewIconTextBgTableView, title:String, des:String, textButton:String, buttonColor:UIColor, isScrool:Bool = false, onTouchHandle:(() -> ())?)  {
+        
+        let emptyView = TTBaseUIView()
+        emptyView.setBgColor(UIColor.clear)
+        emptyView.frame = CGRect(x: self.center.x, y: self.center.y, width: self.bounds.size.width, height: self.bounds.size.height)
+        emptyView.translatesAutoresizingMaskIntoConstraints = true
+        let paddingTop:CGFloat = TTSize.P_CONS_DEF
+        
+        let imageView:TTBaseUIImageView = TTBaseUIImageView(imageName: imageName, contentMode: .scaleAspectFit)
+        
+        imageView.backgroundColor = UIColor.clear
+        emptyView.addSubview(imageView)
+        
+        imageView.setWidthAnchor(constant: TTSize.W / 4.5).setHeightAnchor(constant: TTSize.W / 4.5).setFullCenterAnchor(constant: 0)
+        
+        let titleLabel:TTBaseUILabel = TTBaseUILabel(withType: .TITLE, text: title, align: .center).setBold()
+        titleLabel.setTextColor(color: color).done()
+        titleLabel.backgroundColor = UIColor.clear
+        emptyView.addSubview(titleLabel)
+        
+        titleLabel.setVerticalContentHuggingPriority().setTopAnchorWithAboveView(nextToView: imageView, constant: paddingTop).done()
+        titleLabel.leftAnchor.constraint(equalTo: emptyView.leftAnchor, constant: paddingTop).isActive = true
+        titleLabel.rightAnchor.constraint(equalTo: emptyView.rightAnchor, constant: -paddingTop).isActive = true
+        
+        let subLabel:TTBaseUILabel = TTBaseUILabel(withType: .SUB_TITLE, text: des, align: .center)
+        subLabel.setMutilLine(numberOfLine: 10, textAlignment: .center).setTextColor(color: color).backgroundColor = UIColor.clear
+        emptyView.addSubview(subLabel)
+        
+        subLabel.setVerticalContentHuggingPriority().setTopAnchorWithAboveView(nextToView: titleLabel, constant: TTSize.P_CONS_DEF / 2).done()
+        subLabel.leftAnchor.constraint(equalTo: emptyView.leftAnchor, constant: paddingTop).isActive = true
+        subLabel.rightAnchor.constraint(equalTo: emptyView.rightAnchor, constant: -paddingTop).isActive = true
+        
+        let button:TTBaseUIButton = TTBaseUIButton(textString: textButton, type: .DEFAULT, isSetSize: false)
+        emptyView.addSubview(button)
+        button.setTopAnchorWithAboveView(nextToView: subLabel, constant: TTSize.P_CONS_DEF * 2).setHeightAnchor(constant: TTSize.H_BUTTON)
+        button.leftAnchor.constraint(equalTo: emptyView.leftAnchor, constant: TTSize.P_CONS_DEF * 2).isActive = true
+        button.rightAnchor.constraint(equalTo: emptyView.rightAnchor, constant: -TTSize.P_CONS_DEF * 2).isActive = true
+        button.backgroundColor = buttonColor
+        
+        
+        // The only tricky part is here:
+        self.backgroundView = emptyView
+        self.separatorStyle = .none
+        self.backgroundView?.isUserInteractionEnabled = true
+        
+        self.backgroundView?.alpha = 0
+        UIView.animate(withDuration: 0.2) {
+            self.backgroundView?.alpha = 1
+        }
+        self.isScrollEnabled = isScrool
+        button.onTouchHandler = { btn in
+            onTouchHandle?()
+        }
+        
+    }
+    
 }
 
 /// Extend to easier allow for identifier to be set without much work
