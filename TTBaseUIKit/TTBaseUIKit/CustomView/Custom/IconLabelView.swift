@@ -12,7 +12,7 @@ import UIKit
 ///
 /// This Class to view Default:
 ///
-/// [Horizontal] - Icon UIImageFontView - Text Label
+/// [Horizontal] - Icon UIImageFontView - Text InsetLabel
 ///
 ///
 open class TTIconLabelView : TTBaseUIView {

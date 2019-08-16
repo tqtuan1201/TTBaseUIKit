@@ -17,7 +17,13 @@ public class TTBaseUtil {
 }
 
 extension TTBaseUtil {
-
+    
+    /// Get no image default
+    ///
+    public class func getNoImageDef() -> UIImage? {
+        return UIImage(fromTTBaseUIKit: Config.Value.noImageName)
+    }
+    
     /// Check connect network
     ///
     public class func isConnectedToNetwork() -> Bool {

@@ -30,6 +30,7 @@ open class TTBaseUIViewController<BaseView:TTBaseUIView>: UIViewController, TTBa
     
     open var bgView:UIColor { get { return TTView.viewBgColor}}
     open var isEffectView:Bool { get { return true}}
+    open var isGetKeyboardHeight:Bool { get { return false } }
     
     open var paddingStatus:(CGFloat,CGFloat,CGFloat,CGFloat) { get { return (0,0,0,0)}}
     open var paddingNav:(CGFloat,CGFloat,CGFloat,CGFloat) { get { return (0,0,0,0)}}
@@ -37,6 +38,11 @@ open class TTBaseUIViewController<BaseView:TTBaseUIView>: UIViewController, TTBa
     open var navType:NAV_STYLE { get { return .STATUS_NAV}}
     open lazy var statusBar:TTBaseUIView = TTBaseUIView()
     open lazy var navBar:TTBaseUINavigationView = TTBaseUINavigationView()
+
+    public lazy var frameKeyBoard:CGRect = .zero
+
+    public var onHandleKeyboardWillShow:((_ size:CGRect) -> ())?
+    public var onHandleKeyboardWillHide:(() -> ())?
     
     fileprivate let panelEffectView:TTBaseUIView = {
         let view = TTBaseUIView()
@@ -60,12 +66,14 @@ open class TTBaseUIViewController<BaseView:TTBaseUIView>: UIViewController, TTBa
     
     public init() {
         super.init(nibName: nil, bundle: nil)
+        self.setKeyboardObserver()
         self.updateBaseUI()
     }
     
     required public init?(coder aDecoder: NSCoder) { fatalError("init(coder:) has not been implemented") }
     
     deinit {
+        self.onRemoveKeyboardObserver()
         TTBaseFunc.shared.printLog(with: "Release memory for ", object: TTBaseUIViewController.description())
     }
     
@@ -138,6 +146,32 @@ open class TTBaseUIViewController<BaseView:TTBaseUIView>: UIViewController, TTBa
 
         self.panelEffectView.setFullContraints(constant: 0)
         
+    }
+    
+    fileprivate func onRemoveKeyboardObserver() {
+        //Removing notifies on keyboard appearing
+        if !self.isGetKeyboardHeight { return }
+        NotificationCenter.default.removeObserver(self, name: UIResponder.keyboardWillShowNotification, object: nil)
+        NotificationCenter.default.removeObserver(self, name: UIResponder.keyboardWillHideNotification, object: nil)
+    }
+    
+    fileprivate func setKeyboardObserver() {
+        if !self.isGetKeyboardHeight { return }
+        NotificationCenter.default.addObserver(self, selector: #selector(self.keyboardWillShow), name: UIResponder.keyboardWillShowNotification, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(self.keyboardWillHide), name: UIResponder.keyboardWillHideNotification, object: nil)
+    }
+
+     @objc fileprivate func keyboardWillShow(notification: Notification) {
+        if let keyboardSize = (notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue {
+            self.frameKeyBoard = keyboardSize
+            self.viewDidLayoutSubviews()
+            self.onHandleKeyboardWillShow?(keyboardSize)
+        }
+    }
+    
+    @objc fileprivate func keyboardWillHide(notification: Notification) {
+        self.frameKeyBoard = .zero
+        self.onHandleKeyboardWillHide?()
     }
 }
 
