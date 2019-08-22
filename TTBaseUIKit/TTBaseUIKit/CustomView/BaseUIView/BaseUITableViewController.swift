@@ -11,6 +11,8 @@ import UIKit
 
 open class TTBaseUITableViewController: TTBaseUIViewController<TTBaseUIView>, UITableViewDelegate {
 
+    open var isPullToRequest:Bool { get { return false } }
+    
     open var bgTableView:UIColor { get { return  UIColor.clear}}
     open var tableStyle:UITableView.Style { get { return  UITableView.Style.grouped}}
     open var estimatedRowHeight:CGFloat { get { return  TTSize.H_CELL}}
@@ -21,7 +23,12 @@ open class TTBaseUITableViewController: TTBaseUIViewController<TTBaseUIView>, UI
     open var paddingHeader:(CGFloat,CGFloat,CGFloat,CGFloat, CGFloat) { get { return (0,0,0,0,TTSize.W/1.6)}} // Lead.Top.Trail.Bottom.Height
     
     public var tableView:TTBaseUITableView = TTBaseUITableView(frame: .zero, style: .grouped)
-
+    public lazy var refreshControl = UIRefreshControl()
+    
+    
+    
+    public var didPullToRequestDataHandle:( () -> ())?
+    
     public override init() {
         super.init()
         self.tableView = TTBaseUITableView(frame: CGRect.init(x: 0, y: 0, width: TTSize.W, height: TTSize.H), style: self.tableStyle)
@@ -32,6 +39,7 @@ open class TTBaseUITableViewController: TTBaseUIViewController<TTBaseUIView>, UI
         } else if navType == .STATUS_NAV {
             self.tableView.setContentInset(inset: UIEdgeInsets(top: TTSize.H_NAV, left: 0, bottom: TTSize.P_CONS_DEF, right: 0))
         }
+        self.setPullToRequest()
     }
     
     required public init?(coder aDecoder: NSCoder) {
@@ -88,6 +96,22 @@ open class TTBaseUITableViewController: TTBaseUIViewController<TTBaseUIView>, UI
     
 }
 
+//MARK://PullToRequest
+extension TTBaseUITableViewController {
+    
+    fileprivate func setPullToRequest() {
+        if !self.isPullToRequest { return }
+        self.refreshControl.tintColor = TTView.refreshViewColor
+        self.refreshControl.layer.zPosition = 120
+        self.tableView.refreshControl = self.refreshControl
+        self.refreshControl.addTarget(self, action: #selector(refreshData(_:)), for: .valueChanged)
+    }
+    
+    @objc fileprivate func refreshData(_ sender: Any) {
+        self.didPullToRequestDataHandle?()
+    }
+    
+}
 // MARK: For Base public funcs
 extension TTBaseUITableViewController {
     

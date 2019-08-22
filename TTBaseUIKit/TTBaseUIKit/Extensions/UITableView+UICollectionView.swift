@@ -163,7 +163,7 @@ extension UITableView {
     ///
     /// - parameter imageName: name of image
     ///
-    public func setStaticBgWithButtonNoData(with imageName:String, color:UIColor = TTBaseUIKitConfig.getViewConfig().viewIconTextBgTableView, title:String, des:String, textButton:String, buttonColor:UIColor, isScrool:Bool = false, onTouchHandle:(() -> ())?)  {
+    public func setStaticBgWithButtonNoData(with imageName:String, color:UIColor = TTBaseUIKitConfig.getViewConfig().viewIconTextBgTableView, title:String, des:String, textButton:String, buttonColor:UIColor, isScrool:Bool = false, timeAnimation:TimeInterval = 0.2, onTouchHandle:(() -> ())?)  {
         
         let emptyView = TTBaseUIView()
         emptyView.setBgColor(UIColor.clear)
@@ -209,7 +209,7 @@ extension UITableView {
         self.backgroundView?.isUserInteractionEnabled = true
         
         self.backgroundView?.alpha = 0
-        UIView.animate(withDuration: 0.2) {
+        UIView.animate(withDuration: timeAnimation) {
             self.backgroundView?.alpha = 1
         }
         self.isScrollEnabled = isScrool

@@ -57,7 +57,7 @@ open class TTBaseUITableViewCell: UITableViewCell, ReusableView {
     override open func layoutSubviews() {
         super.layoutSubviews()
         if self.isSetBoderBottom { self.panel.addBorder(withRectEdge: .bottom, borderColor: TTView.lineDefColor, borderHeight: 1) }
-        if self.skeletonLayer != nil {self.skeletonLayer?.frame = CGRect.init(x: -4, y: 0, width: self.panel.frame.width + 8, height: self.panel.frame.height)}
+        if self.skeletonLayer != nil {self.skeletonLayer?.frame = CGRect.init(x: -4, y: 0, width: self.contentView.frame.width + 8, height: self.contentView.frame.height)}
     }
     
     private func setupBgViewSelect() -> UIView {
@@ -125,6 +125,7 @@ extension TTBaseUITableViewCell {
     }
 
     public func onStopSkeletonAnimation(isSetAllSubView:Bool = true) {
+        if (self.skeletonLayer?.isHidden ?? false) == true { return }
         self.skeletonLayer?.isHidden = true
         let views = isSetAllSubView ? self.panel.subviewsRecursive(): self.panel.subviews
         for view in views {

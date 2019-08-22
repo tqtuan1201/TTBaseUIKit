@@ -11,6 +11,8 @@ import UIKit
 
 open class ViewConfig {
 
+    
+    public var refreshViewColor: UIColor = UIColor.getColorFromHex.init(netHex: 0x1C82AD)
     public var textHeaderColor: UIColor = UIColor.getColorFromHex.init(netHex: 0x3c3c3c)
     public var textTitleColor: UIColor =  UIColor.getColorFromHex.init(netHex: 0x555555)
     public var textSubTitleColor: UIColor =  UIColor.getColorFromHex.init(netHex: 0x555555)
