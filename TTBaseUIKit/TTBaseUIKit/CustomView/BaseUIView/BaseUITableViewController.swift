@@ -79,6 +79,13 @@ open class TTBaseUITableViewController: TTBaseUIViewController<TTBaseUIView>, UI
     }
     
     private func setupBaseConstraint() {
+        
+        if self.isPullToRequest {
+            self.refreshControl.translatesAutoresizingMaskIntoConstraints = false
+            self.refreshControl.topAnchor.constraint(equalTo: self.topLayoutGuide.bottomAnchor, constant: TTSize.P_CONS_DEF * 2 ).isActive = true
+            self.refreshControl.setCenterXAnchor(constant: 0)
+        }
+        
         self.tableView.topAnchor.constraint(equalTo: self.view.topAnchor, constant: self.padding.1).isActive = true
         if #available(iOS 11.0, *) {
             self.tableView.leadingAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.leadingAnchor, constant:  self.padding.0).isActive = true

@@ -14,6 +14,7 @@ open class TTPopupViewController: TTBasePopupViewController {
     fileprivate lazy var titleString:String = ""
     fileprivate lazy var subString:String = ""
     
+    open var paddingButton:CGFloat { get { return TTSize.P_CONS_DEF * 2 } }
     
     public lazy var HEIGHT_BUTTON:CGFloat = TTSize.H_BUTTON
     
@@ -25,25 +26,25 @@ open class TTPopupViewController: TTBasePopupViewController {
     public lazy var cancelButton:TTBaseUIButton = TTBaseUIButton(textString: "Cancel", type: .DEFAULT, isSetSize: false)
     public lazy var okButton:TTBaseUIButton = TTBaseUIButton(textString: "OK", type: .WARRING, isSetSize: false)
     
-    var didTouchCancelButton:(() -> Void)?
-    var didTouchOKButton:(() -> Void)?
+    public var didTouchCancelButton:(() -> Void)?
+    public var didTouchOKButton:(() -> Void)?
     
-    fileprivate let panelButtonView:TTBaseUIStackView = TTBaseUIStackView(axis: .horizontal, spacing: TTSize.P_CONS_DEF, alignment: .fill, distributionValue: .fillEqually)
+    public var panelButtonView:TTBaseUIStackView = TTBaseUIStackView(axis: .horizontal, spacing: TTSize.P_CONS_DEF, alignment: .fill, distributionValue: .fillEqually)
     
     
-    override init(isAllowTouchPanel: Bool) {
+    public override init(isAllowTouchPanel: Bool) {
         super.init(isAllowTouchPanel: isAllowTouchPanel)
     }
     
-    public convenience init(title:String, subTitle:String, isAllowTouchPanel:Bool = true) {
-        self.init(isAllowTouchPanel: isAllowTouchPanel)
+    public init(title:String, subTitle:String, isAllowTouchPanel:Bool = true) {
+        super.init(isAllowTouchPanel: isAllowTouchPanel)
         self.titleString = title
         self.subString = subTitle
         self.setupData()
     }
     
-    public convenience init(title:String, subTitle:String, buttons:[TTBaseUIButton], isAllowTouchPanel:Bool = true) {
-        self.init(isAllowTouchPanel: isAllowTouchPanel)
+    public init(title:String, subTitle:String, buttons:[TTBaseUIButton], isAllowTouchPanel:Bool = true) {
+        super.init(isAllowTouchPanel: isAllowTouchPanel)
         self.titleString = title
         self.subString = subTitle
         self.buttons = buttons
@@ -84,8 +85,10 @@ extension TTPopupViewController : TTViewCodable {
     
     open func setupCustomView() {
         
-        self.panelButtonView.addArrangedSubview(self.cancelButton)
-        self.panelButtonView.addArrangedSubview(self.okButton)
+        if self.buttons.isEmpty {
+            self.panelButtonView.addArrangedSubview(self.cancelButton)
+            self.panelButtonView.addArrangedSubview(self.okButton)
+        }
         
         self.panelView.addSubview(titleLabel)
         self.panelView.addSubview(subTitle)
@@ -126,6 +129,6 @@ extension TTPopupViewController : TTViewCodable {
         
         
         self.panelButtonView.setTopAnchorWithAboveView(nextToView: self.subTitle, constant: P_CONS_DEF * 1.5).setHeightAnchor(constant: self.HEIGHT_BUTTON).done()
-        self.panelButtonView.setLeadingAnchor(constant: P_CONS_DEF * 2).setTrailingAnchor(constant: P_CONS_DEF * 2).setBottomAnchor(constant: P_CONS_DEF * 2).done()
+        self.panelButtonView.setLeadingAnchor(constant: self.paddingButton).setTrailingAnchor(constant: self.paddingButton).setBottomAnchor(constant: P_CONS_DEF * 2).done()
     }
 }

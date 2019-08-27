@@ -13,6 +13,7 @@ open class TTBaseUICollectionViewCell : UICollectionViewCell, ReusableView {
     
     public var panel:TTBaseUIView            = TTBaseUIView()
     
+    open var isSetPanelBgColor:Bool { get { return true } }
     open var bgColor:UIColor { get { return TTBaseUIKitConfig.getViewConfig().viewBgCellColor }}
     open var bgSelectColor:UIColor { get {  return TTBaseUIKitConfig.getViewConfig().viewBgCellSelectedColor }}
     open var padding:CGFloat { get { return TTBaseUIKitConfig.getSizeConfig().P_CONS_DEF }}
@@ -37,10 +38,12 @@ open class TTBaseUICollectionViewCell : UICollectionViewCell, ReusableView {
     
     open override var isSelected: Bool {
         didSet {
-            if isSelected {
-                self.panel.backgroundColor = bgSelectColor
-            } else {
-                self.panel.backgroundColor = bgColor
+            if isSetPanelBgColor {
+                if isSelected {
+                    self.panel.backgroundColor = bgSelectColor
+                } else {
+                    self.panel.backgroundColor = bgColor
+                }
             }
         }
     }
