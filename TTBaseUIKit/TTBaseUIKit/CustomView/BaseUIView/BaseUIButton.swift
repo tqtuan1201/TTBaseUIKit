@@ -12,7 +12,7 @@ import UIKit
 open class TTBaseUIButton: UIButton, ViewDrawer, TextDrawer {
     
     var viewDefBgColor: UIColor = TTBaseUIKitConfig.getViewConfig().buttonBgDef
-    var viewDefCornerRadius: CGFloat = TTBaseUIKitConfig.getSizeConfig().CORNER_RADIUS
+    var viewDefCornerRadius: CGFloat = TTBaseUIKitConfig.getSizeConfig().CORNER_BUTTON
     var textDefColor: UIColor = UIColor.white
     var textDefHeight: CGFloat = TTBaseUIKitConfig.getFontConfig().TITLE_H
     var textDefIsUpper: Bool = true

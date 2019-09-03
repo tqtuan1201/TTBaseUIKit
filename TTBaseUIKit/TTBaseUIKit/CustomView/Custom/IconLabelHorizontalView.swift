@@ -24,12 +24,14 @@ open class TTIconLabelHorizontalView: TTBaseUIView {
     open var isSetHorizontalContentHugging:Bool { get { return false}}
     open var isSetVerticalContentHugging:Bool { get { return false}}
     
+    open func updateUI() { }
     
     public var iconImageView:TTBaseUIImageFontView = TTBaseUIImageFontView(withFontIconLightSize: .file, sizeIcon: CGSize(width: 60, height: 60), colorIcon: TTView.iconColor, contendMode: .scaleAspectFit)
     public var textLabel:TTBaseUILabel = TTBaseUILabel(withType: .TITLE, text: "Title Label", align: .left)
     
     fileprivate var textColor:UIColor = TTView.textDefColor
     fileprivate var iconColor:UIColor = TTView.iconColor
+    
     
     public init(WithIcon nameIcon:AwesomePro.Light, text:String, color:UIColor) {
         super.init()
@@ -38,16 +40,19 @@ open class TTIconLabelHorizontalView: TTBaseUIView {
         self.iconImageView = TTBaseUIImageFontView.init(withFontIconLightSize: nameIcon, sizeIcon: CGSize(width: 30, height: 30), colorIcon: iconColor)
         self.textLabel.setText(text: text)
         self.setupBaseUIView()
+        self.updateUI()
     }
     
     required public init() {
         super.init()
         self.setupBaseUIView()
+        self.updateUI()
     }
     
     required public init?(coder aDecoder: NSCoder) {
         super.init()
         self.setupBaseUIView()
+        self.updateUI()
     }
     
 }

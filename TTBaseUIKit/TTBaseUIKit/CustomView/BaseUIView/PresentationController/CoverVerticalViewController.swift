@@ -72,8 +72,9 @@ fileprivate extension TTCoverVerticalViewController {
     
     @objc func handleSwipes(_ sender:UISwipeGestureRecognizer) {
         if sender.direction == .down {
-            self.dismiss(animated: true, completion: nil)
-            self.onDissmissViewHandler?()
+            self.dismiss(animated: true) { [weak self] in guard let strongSelf = self else { return }
+                strongSelf.onDissmissViewHandler?()
+            }
         }
     }
     
