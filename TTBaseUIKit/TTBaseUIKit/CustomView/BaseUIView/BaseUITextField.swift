@@ -16,6 +16,7 @@ open class TTBaseUITextField: UITextField   {
     fileprivate let lineHeight:CGFloat = 1.5
     fileprivate var lineColor:UIColor = TTBaseUIKitConfig.getViewConfig().lineDefColor
     
+    fileprivate var isInputText:Bool = true
     
     public enum TYPE {
         case DEFAULT
@@ -30,6 +31,7 @@ open class TTBaseUITextField: UITextField   {
     
     open func updateUI() { }
     
+    public var onTouchHandler:((_ textField:TTBaseUITextField) -> Void)?
     
     fileprivate var type:TYPE = .DEFAULT
     
@@ -88,6 +90,7 @@ open class TTBaseUITextField: UITextField   {
         self.font             = TTBaseUIKitConfig.getFontConfig().FONT
         self.borderStyle      = UITextField.BorderStyle.roundedRect
         self.addTarget(self, action: #selector(self.textEditChanged(_:)), for: .editingChanged)
+        self.delegate = self
     }
     
     fileprivate func setKeyBoardStyle(type:UIKeyboardType) {
@@ -96,6 +99,17 @@ open class TTBaseUITextField: UITextField   {
     
     @objc fileprivate func dismissKeyboard(_ sennder: UIButton) {
         self.onDismissKeyboard?(); UIApplication.topViewController()?.dismissKeyboard()
+    }
+    
+    @discardableResult public func setTouchHandler() -> TTBaseUITextField {
+        self.isInputText = false
+        self.isUserInteractionEnabled = true
+        self.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(self.onTouchView(_:))))
+        return self
+    }
+    
+    @objc private func onTouchView(_ sender:UITapGestureRecognizer) {
+        self.onTouchHandler?(self)
     }
 }
 
@@ -204,8 +218,10 @@ extension TTBaseUITextField {
 }
 
 // For real time format text
-extension TTBaseUITextField {
-    
+extension TTBaseUITextField : UITextFieldDelegate {
+    public func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
+        return self.isInputText
+    }
     @objc fileprivate func textEditChanged(_ sender:UITextField) {
         self.onTextEditChangedHandler?(self, String.get(sender.text))
     }

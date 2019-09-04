@@ -14,6 +14,8 @@
 		6DAC63E2230549F6005FDDEA /* Validation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6DAC63E1230549F6005FDDEA /* Validation.swift */; };
 		6DAC63E423054BE5005FDDEA /* SlideImageCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6DAC63E323054BE5005FDDEA /* SlideImageCollectionViewCell.swift */; };
 		6DAC63E72305592A005FDDEA /* IconLabelHorizontalView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6DAC63E62305592A005FDDEA /* IconLabelHorizontalView.swift */; };
+		6DEEC8AF231F646600F233C2 /* BaseShadowPanelView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6DEEC8AE231F646600F233C2 /* BaseShadowPanelView.swift */; };
+		6DEEC8B1231F683B00F233C2 /* BaseUITextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6DEEC8B0231F683B00F233C2 /* BaseUITextView.swift */; };
 		930300EC22D46F650015F021 /* BaseCircleLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 930300EB22D46F650015F021 /* BaseCircleLabel.swift */; };
 		930300EE22D46FA60015F021 /* BaseBadgeInsetLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 930300ED22D46FA60015F021 /* BaseBadgeInsetLabel.swift */; };
 		930300F022D46FD30015F021 /* BaseButtonBadge.swift in Sources */ = {isa = PBXBuildFile; fileRef = 930300EF22D46FD30015F021 /* BaseButtonBadge.swift */; };
@@ -127,6 +129,8 @@
 		6DAC63E1230549F6005FDDEA /* Validation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Validation.swift; sourceTree = "<group>"; };
 		6DAC63E323054BE5005FDDEA /* SlideImageCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SlideImageCollectionViewCell.swift; sourceTree = "<group>"; };
 		6DAC63E62305592A005FDDEA /* IconLabelHorizontalView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IconLabelHorizontalView.swift; sourceTree = "<group>"; };
+		6DEEC8AE231F646600F233C2 /* BaseShadowPanelView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseShadowPanelView.swift; sourceTree = "<group>"; };
+		6DEEC8B0231F683B00F233C2 /* BaseUITextView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseUITextView.swift; sourceTree = "<group>"; };
 		930300EB22D46F650015F021 /* BaseCircleLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseCircleLabel.swift; sourceTree = "<group>"; };
 		930300ED22D46FA60015F021 /* BaseBadgeInsetLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseBadgeInsetLabel.swift; sourceTree = "<group>"; };
 		930300EF22D46FD30015F021 /* BaseButtonBadge.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseButtonBadge.swift; sourceTree = "<group>"; };
@@ -485,6 +489,8 @@
 				938187AA22CA54CB00BDE318 /* BaseSkeletonMarkView.swift */,
 				6D5BF33622FAAFA90066DE78 /* BaBaseGradientUIImageView.swift */,
 				6D5BF33A22FAB0E00066DE78 /* UIImageFontPaddingView.swift */,
+				6DEEC8AE231F646600F233C2 /* BaseShadowPanelView.swift */,
+				6DEEC8B0231F683B00F233C2 /* BaseUITextView.swift */,
 			);
 			path = BaseUIView;
 			sourceTree = "<group>";
@@ -706,6 +712,7 @@
 				936822EA228EBFFE00BDD0DB /* BaseNotificationView.swift in Sources */,
 				93073FBF22643D36009AF63F /* String+Config.swift in Sources */,
 				938162E022929CB0007B71A7 /* BasePopupViewController.swift in Sources */,
+				6DEEC8AF231F646600F233C2 /* BaseShadowPanelView.swift in Sources */,
 				93C99512225F6D170081FA81 /* BaseUITextField.swift in Sources */,
 				930300F022D46FD30015F021 /* BaseButtonBadge.swift in Sources */,
 				93083CB82281664D00957B4D /* DeviceVersion.swift in Sources */,
@@ -747,6 +754,7 @@
 				9358C830226895B500D2D10F /* UITableView+UICollectionView.swift in Sources */,
 				93C05A102261BF1B00E27EDB /* BaseUIStackView.swift in Sources */,
 				93C99514225F6DFB0081FA81 /* UIApplication+Config.swift in Sources */,
+				6DEEC8B1231F683B00F233C2 /* BaseUITextView.swift in Sources */,
 				936091CB225B29F3007D8F6B /* ValueConfig.swift in Sources */,
 				93083CB62281662C00957B4D /* Device.swift in Sources */,
 				938162E222929CED007B71A7 /* PopupViewController.swift in Sources */,

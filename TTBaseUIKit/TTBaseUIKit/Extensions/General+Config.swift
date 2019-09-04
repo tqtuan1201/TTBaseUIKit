@@ -79,6 +79,18 @@ extension UISegmentedControl {
 
 extension UIImage {
 
+    
+    public class func resizeImage(_ image: UIImage, newWidth: CGFloat) -> UIImage {
+        
+        let scale = newWidth / image.size.width
+        let newHeight = image.size.height * scale
+        UIGraphicsBeginImageContextWithOptions(CGSize(width: newWidth, height: newHeight), false,  UIScreen.main.scale)
+        image.draw(in: CGRect(x: 0, y: 0, width: newWidth, height: newHeight))
+        let newImage = UIGraphicsGetImageFromCurrentImageContext()
+        UIGraphicsEndImageContext()
+        return (newImage ?? UIImage())
+    }
+    
     public static func fontAwesomeIconWithName(nameString: String, size: CGSize, iconColor: UIColor, backgroundColor: UIColor = UIColor.clear) -> UIImage? {
         let paragraph = NSMutableParagraphStyle()
         paragraph.alignment = NSTextAlignment.center

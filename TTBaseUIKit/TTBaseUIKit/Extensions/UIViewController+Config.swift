@@ -12,6 +12,19 @@ import UIKit
 //MARK:// For custom loading view
 extension UIViewController {
     
+    
+    public func dismissAll(animated: Bool, completion: (() -> Void)? = nil) {
+        if let optionalWindow = UIApplication.shared.delegate?.window, let window = optionalWindow, let rootViewController = window.rootViewController, let presentedViewController = rootViewController.presentedViewController  {
+            if let snapshotView = window.snapshotView(afterScreenUpdates: false) {
+                presentedViewController.view.addSubview(snapshotView)
+                presentedViewController.modalTransitionStyle = .coverVertical
+            }
+            if !isBeingDismissed {
+                rootViewController.dismiss(animated: animated, completion: completion)
+            }
+        }
+    }
+    
     public func showLoadingView(type:CONSTANT.LOADING_TYPE, padding:CGFloat = 0) {
         DispatchQueue.main.async { [weak self] in guard let strongSelf = self else { return }
             if strongSelf.view.viewWithTag(CONSTANT.TAG_VIEW.LOADING.rawValue) != nil { return }
@@ -123,5 +136,9 @@ extension UIViewController {
         vc.modalPresentationStyle = type
         vc.modalTransitionStyle   = .crossDissolve
         self.present(vc, animated: true, completion: nil)
+    }
+    
+    public func onDismiss() {
+        DispatchQueue.main.async { [weak self] in  self?.dismiss(animated: true, completion: nil) }
     }
 }
