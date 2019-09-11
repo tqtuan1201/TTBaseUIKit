@@ -47,6 +47,7 @@ open class TTBaseUIView: UIView, ViewDrawer {
     }
     
     @objc private func onTouchView(_ sender:UITapGestureRecognizer) {
+        self.shakeAnimation(x: 1, y: 1, duration: 0.7)
         self.onTouchHandler?(self)
     }
 }

@@ -7,6 +7,11 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		6D1104162328E1B700DC7E4A /* LogViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6D1104152328E1B700DC7E4A /* LogViewModel.swift */; };
+		6D1104182328E1F400DC7E4A /* LogViewHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6D1104172328E1F400DC7E4A /* LogViewHelper.swift */; };
+		6D11041A2328E24700DC7E4A /* LogTrackingTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6D1104192328E24700DC7E4A /* LogTrackingTableViewController.swift */; };
+		6D11041C2328E26200DC7E4A /* LogTrackingWebViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6D11041B2328E26200DC7E4A /* LogTrackingWebViewController.swift */; };
+		6D11041E2328E9B900DC7E4A /* img.log.png in Resources */ = {isa = PBXBuildFile; fileRef = 6D11041D2328E9B900DC7E4A /* img.log.png */; };
 		6D5BF33722FAAFA90066DE78 /* BaBaseGradientUIImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6D5BF33622FAAFA90066DE78 /* BaBaseGradientUIImageView.swift */; };
 		6D5BF33922FAB0920066DE78 /* LableSubLabelView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6D5BF33822FAB0920066DE78 /* LableSubLabelView.swift */; };
 		6D5BF33B22FAB0E00066DE78 /* UIImageFontPaddingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6D5BF33A22FAB0E00066DE78 /* UIImageFontPaddingView.swift */; };
@@ -122,6 +127,11 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		6D1104152328E1B700DC7E4A /* LogViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogViewModel.swift; sourceTree = "<group>"; };
+		6D1104172328E1F400DC7E4A /* LogViewHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogViewHelper.swift; sourceTree = "<group>"; };
+		6D1104192328E24700DC7E4A /* LogTrackingTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogTrackingTableViewController.swift; sourceTree = "<group>"; };
+		6D11041B2328E26200DC7E4A /* LogTrackingWebViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogTrackingWebViewController.swift; sourceTree = "<group>"; };
+		6D11041D2328E9B900DC7E4A /* img.log.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = img.log.png; sourceTree = "<group>"; };
 		6D5BF33622FAAFA90066DE78 /* BaBaseGradientUIImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaBaseGradientUIImageView.swift; sourceTree = "<group>"; };
 		6D5BF33822FAB0920066DE78 /* LableSubLabelView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LableSubLabelView.swift; sourceTree = "<group>"; };
 		6D5BF33A22FAB0E00066DE78 /* UIImageFontPaddingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIImageFontPaddingView.swift; sourceTree = "<group>"; };
@@ -251,6 +261,33 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		6D1104122328E18500DC7E4A /* Helper */ = {
+			isa = PBXGroup;
+			children = (
+				6D1104132328E19700DC7E4A /* LogView */,
+			);
+			path = Helper;
+			sourceTree = "<group>";
+		};
+		6D1104132328E19700DC7E4A /* LogView */ = {
+			isa = PBXGroup;
+			children = (
+				6D1104142328E1A700DC7E4A /* Model */,
+				6D1104172328E1F400DC7E4A /* LogViewHelper.swift */,
+				6D1104192328E24700DC7E4A /* LogTrackingTableViewController.swift */,
+				6D11041B2328E26200DC7E4A /* LogTrackingWebViewController.swift */,
+			);
+			path = LogView;
+			sourceTree = "<group>";
+		};
+		6D1104142328E1A700DC7E4A /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				6D1104152328E1B700DC7E4A /* LogViewModel.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
 		6D5BF33C22FAB1250066DE78 /* Calendar */ = {
 			isa = PBXGroup;
 			children = (
@@ -549,6 +586,7 @@
 			children = (
 				935F690E228030A000A38FDA /* gif */,
 				939EA8802276B0D5008DDCBC /* img.logo.Def.png */,
+				6D11041D2328E9B900DC7E4A /* img.log.png */,
 				939EA8812276B0D5008DDCBC /* img.logo.idea.png */,
 				93C0D29A227461D200E5889C /* img.NoImage1.png */,
 				93C0D29B227461D200E5889C /* img.NoImage2.png */,
@@ -562,6 +600,7 @@
 		93D6BE8322640CAB00906781 /* Support */ = {
 			isa = PBXGroup;
 			children = (
+				6D1104122328E18500DC7E4A /* Helper */,
 				93083CB42281660A00957B4D /* Ekhoo_Device */,
 				9331B4952279803F00E1C26D /* AwesomePro.swift */,
 				9331B49022797E9500E1C26D /* Fonts */,
@@ -656,6 +695,7 @@
 				93D6BE8522640CEA00906781 /* img.hideKeyboard.png in Resources */,
 				9389D1162279C53000D6319E /* fa-regular-400.ttf in Resources */,
 				93C0D29D227461D200E5889C /* img.NoImage2.png in Resources */,
+				6D11041E2328E9B900DC7E4A /* img.log.png in Resources */,
 				939EA8832276B0D5008DDCBC /* img.logo.idea.png in Resources */,
 				935F6910228030B400A38FDA /* empty.gif in Resources */,
 				935F24C7226B423100B93AA2 /* img.icon.down.png in Resources */,
@@ -699,6 +739,7 @@
 				936E0AC92273E92500FCD2B5 /* TextTableHeaderFooterViewCell.swift in Sources */,
 				6D5BF33922FAB0920066DE78 /* LableSubLabelView.swift in Sources */,
 				933A92B0227755DD008ECCC4 /* RowTableView.swift in Sources */,
+				6D11041A2328E24700DC7E4A /* LogTrackingTableViewController.swift in Sources */,
 				93892BE3227B206A006098DA /* BasePasswordUITextField.swift in Sources */,
 				936091D1225B31AC007D8F6B /* UIView+Config.swift in Sources */,
 				6D5BF33B22FAB0E00066DE78 /* UIImageFontPaddingView.swift in Sources */,
@@ -725,6 +766,7 @@
 				93C99518225F716A0081FA81 /* General+Config.swift in Sources */,
 				93D6BE812263F3E200906781 /* LineView.swift in Sources */,
 				93B6A099226B56030045C107 /* BaseUISegmentedControl.swift in Sources */,
+				6D1104182328E1F400DC7E4A /* LogViewHelper.swift in Sources */,
 				6DAC63E72305592A005FDDEA /* IconLabelHorizontalView.swift in Sources */,
 				93D2D360225AF2BA00D2811F /* BaseConfigRepresentable.swift in Sources */,
 				93C9951A225F754A0081FA81 /* BaseUIViewController.swift in Sources */,
@@ -761,6 +803,7 @@
 				93A17A3C2273005B005CCD33 /* BaseUITableViewHeaderFooterView.swift in Sources */,
 				6DAC63E423054BE5005FDDEA /* SlideImageCollectionViewCell.swift in Sources */,
 				93768A982258CFFD0033DDBB /* Configuration.swift in Sources */,
+				6D11041C2328E26200DC7E4A /* LogTrackingWebViewController.swift in Sources */,
 				9330657C22C9C78B0077D17E /* ButtonsPanelStackView.swift in Sources */,
 				9389D11C227A025A00D6319E /* BaseUICricleView.swift in Sources */,
 				9310AE972269C4C500003C38 /* TextSubtextIconTableViewCell.swift in Sources */,
@@ -787,6 +830,7 @@
 				936091D3225B3E64007D8F6B /* BaseUILabel.swift in Sources */,
 				93768A9E2258DE080033DDBB /* SizeConfig.swift in Sources */,
 				93706FC52293EFC6008D8CCC /* Date+Config.swift in Sources */,
+				6D1104162328E1B700DC7E4A /* LogViewModel.swift in Sources */,
 				936091CF225B2FCE007D8F6B /* BaseUIView.swift in Sources */,
 				936091CD225B2DD5007D8F6B /* BaseCustomViewRepresentable.swift in Sources */,
 				93083CB322815E6500957B4D /* BaseUISearchBar.swift in Sources */,

@@ -97,9 +97,11 @@ open class TTBaseShadowContentView<T: UIView>: TTBaseUIView {
     
     open override func updateBaseUIView() {
         super.updateBaseUIView()
+        self.panelView.isUserInteractionEnabled = false
         self.addSubview(self.panelView)
         self.panelView.setFullContraints(lead: self.shadowHeight * 1.5, trail: self.shadowHeight * 1.5, top: 0, bottom: self.shadowHeight * 2.3)
     }
+    
 }
 
 open class TTBaseShadowPanelView: TTBaseUIView {

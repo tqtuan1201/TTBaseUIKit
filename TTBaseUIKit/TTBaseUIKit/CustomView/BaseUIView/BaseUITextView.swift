@@ -50,6 +50,8 @@ open class TTBaseUITextView: UITextView   {
         self.translatesAutoresizingMaskIntoConstraints = false
         self.textColor        = self.textDefColor
         self.font             = TTBaseUIKitConfig.getFontConfig().FONT
+        self.textContainer.maximumNumberOfLines = 4
+        self.textContainer.lineBreakMode = .byTruncatingTail
         self.delegate = self
         if self.type == .NO_BORDER {
             self.setBorder(with: 0, color: .clear, coner: TTSize.CORNER_RADIUS)
