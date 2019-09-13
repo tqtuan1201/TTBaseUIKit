@@ -22,6 +22,8 @@ public class TTBaseUIKitSetting {
         static let  DEFAULT_LANGUAGE:String = "DEFAULT_LANGUAGE"
         static let  SELECTED_LANGUAGE:String = "SELECTED_LANGUAGE"
         static let  NUMBER_OPEN_APP:String = "NUMBER_OPEN_APP"
+        
+        static let  DEV_ISSHOWMESSAGE:String = "DEV_ISSHOWMESSAGE"
     }
     
     
@@ -59,5 +61,4 @@ extension TTBaseUIKitSetting : AppSettingsConfigurable {
         get { return TTLanguageManager.Languages.init(rawValue: self.value(for: KEY.SELECTED_LANGUAGE) ?? "nil")}
         set { self.updateDefaults(for: KEY.SELECTED_LANGUAGE, value: (newValue ?? TTLanguageManager.Languages.en).rawValue)}
     }
-    
 }

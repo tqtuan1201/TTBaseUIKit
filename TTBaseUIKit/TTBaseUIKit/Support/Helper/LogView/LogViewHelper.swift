@@ -17,7 +17,7 @@ open class LogViewHelper {
     private  init(){}
     
     public var didTouchLogButtonHandle:( () -> ())?
-    public var didTouchLogLabelHandle:( () -> ())?
+    public var didTouchReportlHandle:( () -> ())?
     
     public func config(withDes des:String, isStartAppToShow:Bool) -> LogViewHelper {
         self.viewModel.displayString =  des
@@ -35,6 +35,7 @@ extension LogViewHelper {
     }
     
     public func add(withLog log:LogViewModel) {
+        if self.viewModel.logs.count >= 70 { self.viewModel.logs = [] }
         self.viewModel.logs.append(log)
     }
     
@@ -50,87 +51,111 @@ extension LogViewHelper {
     public func onShow() {
         DispatchQueue.main.async {
             if let windown = UIApplication.shared.keyWindow {
-                
-                let buttonHeight:CGFloat = 45.0
-                let labelHeight:CGFloat = 55.0
-                let paddingBottom:CGFloat = 150.0
-                
-                if windown.viewWithTag(-1122) == nil {
-                    
-                    let button:TTBaseUIButton = TTBaseUIButton()
-                    button.layer.zPosition = 900000
-                    button.tag = -1122
-                    button.frame = CGRect.init(x: TTSize.W - TTSize.P_CONS_DEF -  buttonHeight, y: TTSize.H - paddingBottom -  labelHeight, width: buttonHeight, height: buttonHeight)
-                    button.translatesAutoresizingMaskIntoConstraints = true
-                    button.backgroundColor = UIColor.red.withAlphaComponent(0.7)
-                    button.setImage(UIImage(fromTTBaseUIKit: "img.log.png")?.withRenderingMode(.alwaysTemplate), for: .normal)
-                    button.tintColor = UIColor.white
-                    button.isUserInteractionEnabled = true
-                    button.setConerRadius(with: 4)
-                    
-                    let textLabel:TTBaseInsetLabel = TTBaseInsetLabel(withType: .SUB_TITLE, text: "DEV MODE", align: .right)
-                    textLabel.setConerRadius(with: 4)
-                    textLabel.layer.zPosition = 900000
-                    textLabel.tag = -1123
-                    textLabel.isUserInteractionEnabled = true
-                    textLabel.textColor = UIColor.white
-                    textLabel.translatesAutoresizingMaskIntoConstraints = true
-                    textLabel.frame = CGRect.init(x: TTSize.W - labelHeight * 2 - TTSize.P_CONS_DEF, y: TTSize.H - paddingBottom, width: labelHeight * 2, height: labelHeight)
-                    textLabel.backgroundColor = UIColor.red.withAlphaComponent(0.3)
-                    textLabel.setMutilLine(numberOfLine: 2, textAlignment: .right)
-                    textLabel.text = self.viewModel.displayString
-                    
-                    windown.insertSubview(button, at: 80000)
-                    windown.insertSubview(textLabel, at: 80000)
-                    
-                    if self.viewModel.isStartAppToShow {
-                        textLabel.isHidden = false
-                        button.isHidden = false
-                    } else {
-                        textLabel.isHidden = true
-                        button.isHidden = true
-                    }
-                    
-                    textLabel.setTouchHandler().onTouchHandler = { [weak self] _ in
-                        self?.didTouchLogLabelHandle?()
-                    }
-                    
-                    button.onTouchHandler = {  [weak self] _ in
-                        self?.didTouchLogButtonHandle?()
-                        DispatchQueue.main.async {
-                            let logsVC = LogTrackingTableViewController()
-                            UIApplication.topViewController()?.present(logsVC, animated: true, completion: nil)
-                        }
-                    }
-                    
                     let longPressRecognizer = UILongPressGestureRecognizer(target: self, action: #selector(self.addAccountLongPressGesture(_:)))
                     windown.addGestureRecognizer(longPressRecognizer)
-                }
             }
         }
     }
+    
     @objc fileprivate func addAccountLongPressGesture(_ sender: UILongPressGestureRecognizer)
     {
-        if sender.state == .recognized {
-            if let windown = UIApplication.shared.keyWindow {
-                if let button = windown.viewWithTag(-1122){
-                    if button.isHidden {
-                        button.isHidden = false
-                        button.isUserInteractionEnabled = true
-                    } else {
-                        button.isHidden = true
-                    }
+        if sender.state == .ended {
+            
+            if self.viewModel.isShow { return }
+            
+            DispatchQueue.main.async { [weak self] in guard let strongSelf = self else { return }
+                let showLogVC = OptionLogPresentViewController(with: "IS DEV MODE", subTitle: strongSelf.viewModel.displayString)
+                if !strongSelf.viewModel.isShow {
+                    strongSelf.viewModel.isShow = true
+                    UIApplication.topViewController()?.present(showLogVC, animated: true, completion: {
+                        strongSelf.viewModel.isShow = true
+                    })
                 }
-                if let textLog = windown.viewWithTag(-1123){
-                    if textLog.isHidden {
-                        textLog.isUserInteractionEnabled = true
-                        textLog.isHidden = false
-                    } else {
-                        textLog.isHidden = true
-                    }
+                
+                showLogVC.didLoad? = { [weak self] in guard let strongSelf = self else { return }
+                    strongSelf.viewModel.isShow = true
+                }
+                
+                showLogVC.onDissmissViewHandler = { [weak self] in guard let strongSelf = self else { return }
+                    strongSelf.viewModel.isShow = false
+                }
+                
+                showLogVC.showLogButton.onTouchHandler = {  [weak self] _ in guard let strongSelf = self else { return }
+                    showLogVC.dismiss(animated: true, completion: {
+                        strongSelf.didTouchLogButtonHandle?()
+                        strongSelf.viewModel.isShow = false
+                        DispatchQueue.main.async {
+                            UIApplication.topViewController()?.presentDef(vc: LogTrackingTableViewController(), type: .overFullScreen)
+                        }
+                    })
+                }
+                
+                showLogVC.showReportBugButton.onTouchHandler = {  [weak self] _ in guard let strongSelf = self else { return }
+                    showLogVC.dismiss(animated: true, completion: {
+                        strongSelf.didTouchReportlHandle?()
+                        strongSelf.viewModel.isShow = false
+                    })
                 }
             }
         }
     }
 }
 
+
+class OptionLogPresentViewController: TTCoverVerticalViewController {
+    
+    
+    let label:TTBaseUILabel  = TTBaseUILabel(withType: .TITLE, text: "IS DEV MODE", align: .left)
+    let subLabel:TTBaseUILabel  = TTBaseUILabel(withType: .SUB_TITLE, text: "View log by json or report bugs", align: .left)
+    
+    let showLogButton:TTBaseUIButton = TTBaseUIButton(textString: "SHOW LOG FILE", type: .DEFAULT, isSetSize: false)
+    let showReportBugButton:TTBaseUIButton = TTBaseUIButton(textString: "REPORT BUG", type: .WARRING, isSetSize: false)
+    
+    init(with title:String, subTitle:String) {
+        super.init()
+        self.label.setText(text: title)
+        self.subLabel.setText(text: subTitle)
+    }
+    
+    public var didLoad:( () -> ())?
+    
+    public required init?(coder aDecoder: NSCoder) { fatalError("init(coder:) has not been implemented") }
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        self.didLoad?()
+    }
+    
+    override func updateBaseUI() {
+        super.updateBaseUI()
+        
+        self.bgView = UIColor.black.withAlphaComponent(0.8)
+        
+        self.view.backgroundColor = UIColor.clear
+        
+        self.view.addSubview(self.label)
+        self.view.addSubview(self.subLabel)
+        self.view.addSubview(self.showLogButton)
+        self.view.addSubview(self.showReportBugButton)
+        
+        self.label.setVerticalContentHuggingPriority()
+            .setLeadingAnchor(constant: 8).setTrailingAnchor(constant: 8)
+            .setTopAnchor(constant: 10)
+        
+        self.subLabel.setVerticalContentHuggingPriority()
+            .setLeadingAnchor(constant: 8).setTrailingAnchor(constant: 8)
+            .setTopAnchorWithAboveView(nextToView: self.label, constant: 10)
+        
+        self.showLogButton.setTopAnchorWithAboveView(nextToView: self.subLabel, constant: 30)
+            .setLeadingAnchor(constant: 8).setTrailingAnchor(constant: 8)
+            .setHeightAnchor(constant: 35)
+        
+        self.showReportBugButton.setTopAnchorWithAboveView(nextToView: self.showLogButton, constant: 8)
+            .setLeadingAnchor(constant: 8).setTrailingAnchor(constant: 8)
+            .setHeightAnchor(constant: 35)
+            .setBottomAnchor(constant: 20, isMarginsGuide: true, priority: .defaultHigh)
+        
+        
+    }
+    
+}

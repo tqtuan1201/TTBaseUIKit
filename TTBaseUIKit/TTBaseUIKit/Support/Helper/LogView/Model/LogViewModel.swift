@@ -29,7 +29,8 @@ public class LogViewModel {
 class LogTrackingViewModel {
    
     var isStartAppToShow:Bool = true
-    var displayString:String = "IS DEV MODE\nREPORT_BUG"
+    var isShow:Bool = false
+    var displayString:String = "View log by json or report bugs"
     var logs:[LogViewModel] = [] {didSet {self.willRefreshData?()}}
     
     var willRefreshData:( () -> () )?

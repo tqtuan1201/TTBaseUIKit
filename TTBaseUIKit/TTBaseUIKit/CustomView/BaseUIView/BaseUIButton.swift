@@ -190,5 +190,11 @@ extension TTBaseUIButton {
         return self
     }
     
+    public func setEnableWithDelay() {
+        DispatchQueue.main.asyncAfter(deadline: .now() + 5.0) { [weak self] in guard let strongSelf = self else { return }
+            strongSelf.isUserInteractionEnabled = true
+            strongSelf.backgroundColor = strongSelf.viewDefBgColor.withAlphaComponent(1)
+        }
+    }
     
 }

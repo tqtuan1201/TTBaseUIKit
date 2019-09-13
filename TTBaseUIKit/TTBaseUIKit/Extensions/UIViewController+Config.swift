@@ -81,7 +81,7 @@ extension UIViewController {
         panelLoadingView.backgroundColor = UIColor.white.withAlphaComponent(0.2)
         
         let panelInd:TTBaseUIView = TTBaseUIView(withCornerRadius: TTSize.CORNER_RADIUS)
-        panelInd.backgroundColor = TTView.viewBgNavColor.withAlphaComponent(0.4)
+        panelInd.backgroundColor = TTView.viewBgLoadingColor.withAlphaComponent(0.4)
         
         let actInd: UIActivityIndicatorView = UIActivityIndicatorView()
         actInd.translatesAutoresizingMaskIntoConstraints = false
