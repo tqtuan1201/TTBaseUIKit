@@ -25,6 +25,7 @@ public class TTLanguageManager {
         case zhHant = "zh-Hant"
         case zhHK = "zh-HK"
         case vi = "vi-VN"
+        case de_DE = "de-DE"
     }
     
     private init(){} ; public static let shared: TTLanguageManager = TTLanguageManager()
@@ -68,5 +69,14 @@ extension TTLanguageManager {
         currentLanguage = language
     }
 
+    ///
+    /// Check select language
+    ///
+    
+    public func isSelectedLanguage() -> Bool {
+        return TTBaseUIKitSetting.shared.selectedLanguage != nil
+    }
+    
+    
 }
 
