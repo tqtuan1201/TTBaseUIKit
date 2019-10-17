@@ -14,7 +14,7 @@ open class TTTextTableHeaderFooterViewCell: TTBaseUITableViewHeaderFooterView {
     open var bgColorLabel:UIColor { get { return UIColor.clear }}
     
     open var paddingLabel:(CGFloat,CGFloat,CGFloat,CGFloat) { get { return (TTSize.P_CONS_DEF,TTSize.P_CONS_DEF / 2,TTSize.P_CONS_DEF,TTSize.P_CONS_DEF / 2)}}
-    open var numberOfLineLabel:Int { get { return 5 }}
+    open var numberOfLineLabel:Int { get { return 100 }}
     
     
     public var titleLabel:TTBaseUILabel = TTBaseUILabel(withType: .TITLE, text: "Text Line",align: .left)

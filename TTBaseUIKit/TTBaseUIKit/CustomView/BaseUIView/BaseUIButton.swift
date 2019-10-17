@@ -28,7 +28,7 @@ open class TTBaseUIButton: UIButton, ViewDrawer, TextDrawer {
     
     var type:TYPE = .DEFAULT
     
-    
+    open func updateBaseUIButtonView() { }
     public var onTouchHandler:((_ button:TTBaseUIButton) -> Void)?
     
     public convenience init(textString text:String = "", type:TYPE = .DEFAULT, isSetSize:Bool = false) {
@@ -59,12 +59,14 @@ open class TTBaseUIButton: UIButton, ViewDrawer, TextDrawer {
         super.init(frame: frame)
         self.setupUI()
         self.setupTargets()
+        self.updateBaseUIButtonView()
     }
     
     public required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
         self.setupUI()
         self.setupTargets()
+        self.updateBaseUIButtonView()
     }
     
     private func setupTargets(){

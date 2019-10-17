@@ -73,6 +73,7 @@ extension TTRowTableView {
             label.setText(text: column).setTextColor(color: rowTextColor).done()
             label.setMutilLine(numberOfLine: self.numberOfLine, textAlignment: .center).done()
             label.setTopAnchor(constant: self.paddingLabel).setBottomAnchor(constant: self.paddingLabel).done()
+            self.layer.setValue(label, forKey: "\(ID_DEFINE)\(index)")
             self.stackView.addArrangedSubview(label)
         }
     }
@@ -82,6 +83,10 @@ extension TTRowTableView {
 // MARK: For public funcs
 extension TTRowTableView {
     
+    public func getLabelColum(IndexRow index:Int) -> TTBaseUILabel? {
+        return self.layer.value(forKey: "\(ID_DEFINE)\(index)") as? TTBaseUILabel
+    }
+        
     public func setColum(byString values:[String], indexRow:Int = 0) {
         for (index, view) in self.stackView.arrangedSubviews.enumerated() {
             guard let columnLabel:TTBaseUILabel = view as? TTBaseUILabel  else { return }

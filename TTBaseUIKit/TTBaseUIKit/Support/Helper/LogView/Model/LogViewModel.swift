@@ -22,7 +22,7 @@ public class LogViewModel {
     }
     
     public func getDisplayService() -> String {
-        return " \(name) - \(time.dateString(withFormat: .HH_MM_A))".uppercased()
+        return " \(name) - \(time.dateString(withFormat: .HH_MM_A))"
     }
 }
 
