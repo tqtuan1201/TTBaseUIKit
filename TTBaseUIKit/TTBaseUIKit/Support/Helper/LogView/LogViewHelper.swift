@@ -18,6 +18,7 @@ open class LogViewHelper {
     
     public var didTouchLogButtonHandle:( () -> ())?
     public var didTouchReportlHandle:( () -> ())?
+    public var didTouchSettinglHandle:( () -> ())?
     
     public func config(withDes des:String, isStartAppToShow:Bool) -> LogViewHelper {
         self.viewModel.displayString =  des
@@ -96,6 +97,14 @@ extension LogViewHelper {
                         strongSelf.viewModel.isShow = false
                     })
                 }
+                
+                showLogVC.showSettingButton.onTouchHandler = {  [weak self] _ in guard let strongSelf = self else { return }
+                    showLogVC.dismiss(animated: true, completion: {
+                        strongSelf.didTouchSettinglHandle?()
+                        strongSelf.viewModel.isShow = false
+                    })
+                }
+                
             }
         }
     }
@@ -110,6 +119,7 @@ class OptionLogPresentViewController: TTCoverVerticalViewController {
     
     let showLogButton:TTBaseUIButton = TTBaseUIButton(textString: "SHOW LOG FILE", type: .DEFAULT, isSetSize: false)
     let showReportBugButton:TTBaseUIButton = TTBaseUIButton(textString: "REPORT BUG", type: .WARRING, isSetSize: false)
+    let showSettingButton:TTBaseUIButton = TTBaseUIButton(textString: "SETTING", type: .WARRING, isSetSize: false)
     
     init(with title:String, subTitle:String) {
         super.init()
@@ -137,6 +147,7 @@ class OptionLogPresentViewController: TTCoverVerticalViewController {
         self.view.addSubview(self.subLabel)
         self.view.addSubview(self.showLogButton)
         self.view.addSubview(self.showReportBugButton)
+        self.view.addSubview(self.showSettingButton)
         
         self.label.setVerticalContentHuggingPriority()
             .setLeadingAnchor(constant: 8).setTrailingAnchor(constant: 8)
@@ -151,6 +162,10 @@ class OptionLogPresentViewController: TTCoverVerticalViewController {
             .setHeightAnchor(constant: 35)
         
         self.showReportBugButton.setTopAnchorWithAboveView(nextToView: self.showLogButton, constant: 8)
+            .setLeadingAnchor(constant: 8).setTrailingAnchor(constant: 8)
+            .setHeightAnchor(constant: 35)
+            
+        self.showSettingButton.setTopAnchorWithAboveView(nextToView: self.showReportBugButton, constant: 8)
             .setLeadingAnchor(constant: 8).setTrailingAnchor(constant: 8)
             .setHeightAnchor(constant: 35)
             .setBottomAnchor(constant: 20, isMarginsGuide: true, priority: .defaultHigh)

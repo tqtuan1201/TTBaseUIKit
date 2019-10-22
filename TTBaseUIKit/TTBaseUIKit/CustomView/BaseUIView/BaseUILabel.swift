@@ -161,10 +161,10 @@ extension TTBaseUILabel {
         return self
     }
     
-    @discardableResult public func setMutilLine(numberOfLine:Int = 0, textAlignment:NSTextAlignment = .center)  -> TTBaseUILabel {
+    @discardableResult public func setMutilLine(numberOfLine:Int = 0, textAlignment:NSTextAlignment = .center, mode:NSLineBreakMode = .byTruncatingTail)  -> TTBaseUILabel {
         self.numberOfLines = numberOfLine
         self.textAlignment = textAlignment
-        self.lineBreakMode = .byWordWrapping
+        self.lineBreakMode = mode
         return self
     }
     

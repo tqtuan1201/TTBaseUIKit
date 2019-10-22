@@ -12,6 +12,10 @@
 		6D11041A2328E24700DC7E4A /* LogTrackingTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6D1104192328E24700DC7E4A /* LogTrackingTableViewController.swift */; };
 		6D11041C2328E26200DC7E4A /* LogTrackingWebViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6D11041B2328E26200DC7E4A /* LogTrackingWebViewController.swift */; };
 		6D11041E2328E9B900DC7E4A /* img.log.png in Resources */ = {isa = PBXBuildFile; fileRef = 6D11041D2328E9B900DC7E4A /* img.log.png */; };
+		6D59D7C8235EA4060007AA25 /* TTBaseShadowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6D59D7C7235EA4060007AA25 /* TTBaseShadowView.swift */; };
+		6D59D7CA235EA4A70007AA25 /* BaseShadowTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6D59D7C9235EA4A70007AA25 /* BaseShadowTableViewCell.swift */; };
+		6D59D7CC235EA50C0007AA25 /* BaseShadowCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6D59D7CB235EA50C0007AA25 /* BaseShadowCollectionViewCell.swift */; };
+		6D59D7CE235EA7480007AA25 /* TwoButtomView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6D59D7CD235EA7480007AA25 /* TwoButtomView.swift */; };
 		6D5BF33722FAAFA90066DE78 /* BaBaseGradientUIImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6D5BF33622FAAFA90066DE78 /* BaBaseGradientUIImageView.swift */; };
 		6D5BF33922FAB0920066DE78 /* LableSubLabelView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6D5BF33822FAB0920066DE78 /* LableSubLabelView.swift */; };
 		6D5BF33B22FAB0E00066DE78 /* UIImageFontPaddingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6D5BF33A22FAB0E00066DE78 /* UIImageFontPaddingView.swift */; };
@@ -132,6 +136,10 @@
 		6D1104192328E24700DC7E4A /* LogTrackingTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogTrackingTableViewController.swift; sourceTree = "<group>"; };
 		6D11041B2328E26200DC7E4A /* LogTrackingWebViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogTrackingWebViewController.swift; sourceTree = "<group>"; };
 		6D11041D2328E9B900DC7E4A /* img.log.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = img.log.png; sourceTree = "<group>"; };
+		6D59D7C7235EA4060007AA25 /* TTBaseShadowView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TTBaseShadowView.swift; sourceTree = "<group>"; };
+		6D59D7C9235EA4A70007AA25 /* BaseShadowTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseShadowTableViewCell.swift; sourceTree = "<group>"; };
+		6D59D7CB235EA50C0007AA25 /* BaseShadowCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseShadowCollectionViewCell.swift; sourceTree = "<group>"; };
+		6D59D7CD235EA7480007AA25 /* TwoButtomView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TwoButtomView.swift; sourceTree = "<group>"; };
 		6D5BF33622FAAFA90066DE78 /* BaBaseGradientUIImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaBaseGradientUIImageView.swift; sourceTree = "<group>"; };
 		6D5BF33822FAB0920066DE78 /* LableSubLabelView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LableSubLabelView.swift; sourceTree = "<group>"; };
 		6D5BF33A22FAB0E00066DE78 /* UIImageFontPaddingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIImageFontPaddingView.swift; sourceTree = "<group>"; };
@@ -346,6 +354,7 @@
 				9310AE962269C4C500003C38 /* TextSubtextIconTableViewCell.swift */,
 				93C0D29E2274699300E5889C /* IconTextSubtextTableViewCell.swift */,
 				93C0D2A222746B6900E5889C /* IconTextSubtextTextSubTextRightTableViewCell.swift */,
+				6D59D7C9235EA4A70007AA25 /* BaseShadowTableViewCell.swift */,
 			);
 			path = CellTableView;
 			sourceTree = "<group>";
@@ -355,6 +364,7 @@
 			children = (
 				9358C831226895E200D2D10F /* BaseUICollectionViewCell.swift */,
 				6DAC63E323054BE5005FDDEA /* SlideImageCollectionViewCell.swift */,
+				6D59D7CB235EA50C0007AA25 /* BaseShadowCollectionViewCell.swift */,
 			);
 			path = CellColectionView;
 			sourceTree = "<group>";
@@ -577,6 +587,8 @@
 				933A92AF227755DC008ECCC4 /* RowTableView.swift */,
 				930F364622C5C41100CB9A70 /* IconLabelTextFieldHorizontalView.swift */,
 				6D5BF33822FAB0920066DE78 /* LableSubLabelView.swift */,
+				6D59D7C7235EA4060007AA25 /* TTBaseShadowView.swift */,
+				6D59D7CD235EA7480007AA25 /* TwoButtomView.swift */,
 			);
 			path = Custom;
 			sourceTree = "<group>";
@@ -797,6 +809,7 @@
 				93C05A102261BF1B00E27EDB /* BaseUIStackView.swift in Sources */,
 				93C99514225F6DFB0081FA81 /* UIApplication+Config.swift in Sources */,
 				6DEEC8B1231F683B00F233C2 /* BaseUITextView.swift in Sources */,
+				6D59D7CA235EA4A70007AA25 /* BaseShadowTableViewCell.swift in Sources */,
 				936091CB225B29F3007D8F6B /* ValueConfig.swift in Sources */,
 				93083CB62281662C00957B4D /* Device.swift in Sources */,
 				938162E222929CED007B71A7 /* PopupViewController.swift in Sources */,
@@ -809,6 +822,7 @@
 				9310AE972269C4C500003C38 /* TextSubtextIconTableViewCell.swift in Sources */,
 				93C0D29F2274699300E5889C /* IconTextSubtextTableViewCell.swift in Sources */,
 				6DAC63E02305497D005FDDEA /* LineTableHeaderFooterViewCell.swift in Sources */,
+				6D59D7C8235EA4060007AA25 /* TTBaseShadowView.swift in Sources */,
 				93083CBC2281669F00957B4D /* DeviceSize.swift in Sources */,
 				930F364922C5C4E400CB9A70 /* BasePanelViewUIStackView.swift in Sources */,
 				930300EC22D46F650015F021 /* BaseCircleLabel.swift in Sources */,
@@ -824,9 +838,11 @@
 				9358C834226899BE00D2D10F /* BaseUICollectionView.swift in Sources */,
 				939EA88B2276E2AA008DDCBC /* ButtonPanelView.swift in Sources */,
 				93C0D2A52274738B00E5889C /* BaseHeaderView.swift in Sources */,
+				6D59D7CE235EA7480007AA25 /* TwoButtomView.swift in Sources */,
 				93C99510225F66E10081FA81 /* BaseUIButton.swift in Sources */,
 				93CB1C58228013BB00A0CA54 /* BaseUISearchViewController.swift in Sources */,
 				936091C9225B297C007D8F6B /* TTBaseFunc.swift in Sources */,
+				6D59D7CC235EA50C0007AA25 /* BaseShadowCollectionViewCell.swift in Sources */,
 				936091D3225B3E64007D8F6B /* BaseUILabel.swift in Sources */,
 				93768A9E2258DE080033DDBB /* SizeConfig.swift in Sources */,
 				93706FC52293EFC6008D8CCC /* Date+Config.swift in Sources */,

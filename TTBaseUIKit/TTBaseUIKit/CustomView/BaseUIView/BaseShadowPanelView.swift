@@ -67,7 +67,7 @@ extension TTBaseShadowButtonView :TTViewCodable {
 
 open class TTBaseShadowContentView<T: UIView>: TTBaseUIView {
     
-    fileprivate var bgShadown:UIColor = UIColor.darkGray.withAlphaComponent(0.4)
+    fileprivate var bgShadown:UIColor = UIColor.darkGray.withAlphaComponent(0.2)
     
     open var textColor:UIColor {get { return TTView.textDefColor } }
     open var bgPanel:UIColor { get { return .white } }
