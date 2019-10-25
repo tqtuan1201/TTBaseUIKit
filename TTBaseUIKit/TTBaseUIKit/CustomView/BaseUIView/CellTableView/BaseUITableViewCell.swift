@@ -110,7 +110,7 @@ extension TTBaseUITableViewCell {
     public func setSkeletonAnimation() ->  TTBaseUITableViewCell{
         self.skeletonLayer = UIView.getGradientSkeletonLayer()
         self.clipsToBounds = true
-        self.panel.layer.addSublayer(self.skeletonLayer!)
+        if let skeLayer =  self.skeletonLayer { self.panel.layer.addSublayer(skeLayer) }
         return self
     }
     

@@ -21,6 +21,8 @@ open class TTBaseUICollectionViewCell : UICollectionViewCell, ReusableView {
     
     open func updateUI() { }
     
+    public var skeletonLayer:CALayer?
+    
     public override init(frame: CGRect) {
         super.init(frame: frame)
         self.setupBaseUIView()
@@ -35,6 +37,12 @@ open class TTBaseUICollectionViewCell : UICollectionViewCell, ReusableView {
         self.updateUI()
         
     }
+    
+    override open func layoutSubviews() {
+        super.layoutSubviews()
+        if self.skeletonLayer != nil {self.skeletonLayer?.frame = CGRect.init(x: -4, y: 0, width: self.contentView.frame.width + 8, height: self.contentView.frame.height)}
+    }
+    
     
     open override var isSelected: Bool {
         didSet {
@@ -65,4 +73,38 @@ open class TTBaseUICollectionViewCell : UICollectionViewCell, ReusableView {
         self.panel.setTrailingAnchor(self.contentView, constant: self.padding).setLeadingAnchor(self.contentView, constant: self.padding).setTopAnchor(self.contentView, constant: self.padding).setBottomAnchor(self.contentView, constant: self.padding).done()
     }
     
+}
+
+//MARK:// For skeleton Animation
+extension TTBaseUICollectionViewCell {
+    public func setSkeletonAnimation() -> TTBaseUICollectionViewCell {
+        self.skeletonLayer = UIView.getGradientSkeletonLayer()
+        self.clipsToBounds = true
+        if let skeLayer =  self.skeletonLayer { self.panel.layer.addSublayer(skeLayer) } 
+        return self
+    }
+    
+    public func onStartSkeletonAnimation(isSetAllSubView:Bool = true) {
+        self.skeletonLayer?.isHidden = false
+        let views = isSetAllSubView ? self.panel.subviewsRecursive(): self.panel.subviews
+        for view in views {
+            if let lb = view as? TTBaseUILabel {lb.onAddSkeletonMark()}
+            if let img = view as? TTBaseUIImageView {img.setAnimalForSkeletonView()}
+        }
+    }
+    
+    public func onStopSkeletonAnimation(isSetAllSubView:Bool = true) {
+        if (self.skeletonLayer?.isHidden ?? false) == true { return }
+        self.skeletonLayer?.isHidden = true
+        let views = isSetAllSubView ? self.panel.subviewsRecursive(): self.panel.subviews
+        for view in views {
+            if let _ = view as? TTBaseUIView {
+            } else if let lb = view as? TTBaseUILabel {
+                lb.onRemoveSkeletonMark()
+            }  else if let img = view as? TTBaseUIImageView {
+                img.backgroundColor = img.viewDefBgColor
+                img.setRollBackViewForSkeletonAnimal()
+            }
+        }
+    }
 }
