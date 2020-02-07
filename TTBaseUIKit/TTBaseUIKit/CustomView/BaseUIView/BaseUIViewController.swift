@@ -31,6 +31,7 @@ open class TTBaseUIViewController<BaseView:TTBaseUIView>: UIViewController, TTBa
     open var bgView:UIColor { get { return TTView.viewBgColor}}
     open var isEffectView:Bool { get { return true}}
     open var isGetKeyboardHeight:Bool { get { return false } }
+    open var isSetHiddenTabar:Bool { get { return false}}
     
     open var paddingStatus:(CGFloat,CGFloat,CGFloat,CGFloat) { get { return (0,0,0,0)}}
     open var paddingNav:(CGFloat,CGFloat,CGFloat,CGFloat) { get { return (0,0,0,0)}}
@@ -77,11 +78,30 @@ open class TTBaseUIViewController<BaseView:TTBaseUIView>: UIViewController, TTBa
         TTBaseFunc.shared.printLog(with: "Release memory for ", object: TTBaseUIViewController.description())
     }
     
+    
+    override open func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(true)
+        if self.isSetHiddenTabar { self.tabBarController?.tabBar.isHidden = false ; self.hidesBottomBarWhenPushed = false }
+    }
+    
+    
     override open func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(true)
         self.setupEffectForView()
         self.navigationController?.hidesBarsOnSwipe = false
         self.navigationController?.navigationBar.isHidden = true
+        self.navigationController?.isNavigationBarHidden = true
+    
+        if self.isSetHiddenTabar { self.tabBarController?.tabBar.isHidden = true ; self.hidesBottomBarWhenPushed = true }
+        
+    }
+    
+    
+    open override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(true)
+        self.navigationController?.hidesBarsOnSwipe = false
+        self.navigationController?.navigationBar.isHidden = true
+        self.navigationController?.isNavigationBarHidden = true
     }
     
     

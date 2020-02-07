@@ -86,7 +86,7 @@ extension LogTrackingTableViewController: UITableViewDataSource {
     
     public func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         let text:TTTextTableHeaderFooterViewCell = tableView.dequeueReusableHeaderFooterCell()
-        
+        text.titleLabel.setMutilLine(numberOfLine: 0, textAlignment: .left, mode: .byTruncatingTail)
         text.titleLabel.setBold().setText(text: logs[section].getDisplayService())
         return text
     }

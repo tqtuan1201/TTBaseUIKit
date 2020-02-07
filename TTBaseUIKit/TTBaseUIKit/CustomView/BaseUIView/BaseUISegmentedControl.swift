@@ -26,7 +26,7 @@ open class TTBaseUISegmentedControl: UISegmentedControl {
     open var lineBottomColor:UIColor { get { return TTView.segLineBottomBg }}
     open var textLineBottomColor:UIColor { get { return UIColor.darkText }}
     open var paddingLine:(CGFloat,CGFloat,CGFloat,CGFloat) { get { return (0,0,0,0)}}
-    
+    open var conerRadio:CGFloat { get { return TTSize.CORNER_RADIUS }}
     open var fontSize:CGFloat { get { return TTFont.getHeaderSize() } }
     
     public enum TYPE {
@@ -34,7 +34,6 @@ open class TTBaseUISegmentedControl: UISegmentedControl {
         case LINE_BOTTOM
     }
     
-    fileprivate lazy var conerRadio:CGFloat = TTSize.CORNER_RADIUS
     fileprivate lazy var underlineView = UIView()
     fileprivate lazy var type:TYPE = .DEFAULT
     
@@ -42,10 +41,9 @@ open class TTBaseUISegmentedControl: UISegmentedControl {
     
     open func updateUI() { }
     
-    public convenience init(with type:TYPE, items:[Any], bgColor:UIColor = UIColor.blue, conerRadio:CGFloat = 0) {
-        self.init(items: items)
+    public init(with type:TYPE, items:[Any], bgColor:UIColor = UIColor.blue) {
+        super.init(items: items)
         self.type = type
-        self.conerRadio = conerRadio
         if type == .LINE_BOTTOM {
             self.addUnderlineForSelectedSegment()
             self.updateUIByStyle()
@@ -107,8 +105,7 @@ open class TTBaseUISegmentedControl: UISegmentedControl {
             self.removeBorders(withColor: self.bgLineStyleColor, selected: bgLineStyleColor, hightLight: self.lineBottomColor.withAlphaComponent(0.4))
             
         }
-        
-        
+
     }
 }
 

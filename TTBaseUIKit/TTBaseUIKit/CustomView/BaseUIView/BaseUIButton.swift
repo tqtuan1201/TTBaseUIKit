@@ -23,6 +23,7 @@ open class TTBaseUIButton: UIButton, ViewDrawer, TextDrawer {
         case DEFAULT
         case ICON
         case DISABLE
+        case BORDER
         case WARRING
     }
     
@@ -49,6 +50,8 @@ open class TTBaseUIButton: UIButton, ViewDrawer, TextDrawer {
             break
         case .NO_BG_COLOR:
             self.setNoBgType()
+        case .BORDER:
+            self.setBorderType()
         }
         
         self.setText(text: text).done()
@@ -97,6 +100,12 @@ extension TTBaseUIButton {
         self.isUserInteractionEnabled = true
         self.backgroundColor = UIColor.clear
         self.setTextColor(color: TTView.textDefColor)
+    }
+
+    public func setBorderType() {
+        self.isUserInteractionEnabled = true
+        self.backgroundColor = UIColor.white
+        self.setBorder(with: TTSize.H_BORDER, color: TTView.buttonBorderColor, coner: TTSize.CORNER_BUTTON)
     }
     
     @discardableResult public func setWarringType() -> TTBaseUIButton {

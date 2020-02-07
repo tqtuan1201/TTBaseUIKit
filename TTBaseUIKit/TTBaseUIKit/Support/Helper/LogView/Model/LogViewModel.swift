@@ -13,16 +13,18 @@ public class LogViewModel {
     public var name:String = ""
     public var request:String = ""
     public var response:String = ""
+    public var urlRequest:String = ""
     public var time:Date = Date()
     
-    public init(withName name:String, request:String, response:String) {
+    public init(withName name:String, request:String, response:String, urlRequest:String) {
         self.name = name
         self.request = request
         self.response = response
+        self.urlRequest = urlRequest
     }
     
     public func getDisplayService() -> String {
-        return " \(name) - \(time.dateString(withFormat: .HH_MM_A))"
+        return "\(name) - \(time.dateString(withFormat: .HH_MM_A))\n\(urlRequest)"
     }
 }
 

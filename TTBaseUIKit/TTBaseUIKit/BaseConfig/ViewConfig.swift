@@ -24,7 +24,7 @@ open class ViewConfig {
     public var viewBgGradientMoveSkeleton: UIColor = UIColor.darkGray.withAlphaComponent(0.08)
     
     public var viewBgAccessoryViewColor: UIColor = UIColor.white.withAlphaComponent(0.8)
-    public var viewBgNavColor: UIColor = UIColor.getColorFromHex.init(netHex: 0x1C82AD)
+    public var viewBgNavColor: UIColor = UIColor.getColorFromHex.init(netHex: 0x00A79E)
     public var viewBgLoadingColor: UIColor = UIColor.getColorFromHex.init(netHex: 0x1C82AD)
     public var viewDefColor: UIColor = UIColor.white
     public var viewDisableColor: UIColor = UIColor.getColorFromHex.init(netHex: 0xc5c5c5)
@@ -49,6 +49,7 @@ open class ViewConfig {
     public var buttonBgDef: UIColor = UIColor.getColorFromHex.init(netHex: 0x1C82AD)
     public var buttonBgWar: UIColor = UIColor.getColorFromHex.init(netHex: 0xC41F53)
     public var buttonBgDis: UIColor = UIColor.getColorFromHex.init(netHex: 0x454545)
+    public var buttonBorderColor: UIColor =  UIColor.getColorFromHex.init(netHex: 0xe5e5e5)
     
     public var segSelectedColor: UIColor = UIColor.getColorFromHex.init(netHex: 0x1C82AD)
     public var segTextColor: UIColor = UIColor.getColorFromHex.init(netHex: 0x1C82AD)
