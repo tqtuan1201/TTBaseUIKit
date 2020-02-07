@@ -134,6 +134,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		1AA3F41FB12F5BD90C552F1C /* Pods_TTBaseUIKit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_TTBaseUIKit.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		6D1104152328E1B700DC7E4A /* LogViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogViewModel.swift; sourceTree = "<group>"; };
 		6D1104172328E1F400DC7E4A /* LogViewHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogViewHelper.swift; sourceTree = "<group>"; };
 		6D1104192328E24700DC7E4A /* LogTrackingTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogTrackingTableViewController.swift; sourceTree = "<group>"; };
@@ -326,6 +327,7 @@
 				931B5C3E2257730F009B01A3 /* TTBaseUIKit */,
 				931B5C3D2257730F009B01A3 /* Products */,
 				C1E82363976BF3558CA8E560 /* Pods */,
+				CC31F72015A7682FF3394AB8 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -639,6 +641,14 @@
 				D8F56DFEF67A8199D51B7CC9 /* Pods-TTBaseUIKit.release.xcconfig */,
 			);
 			path = Pods;
+			sourceTree = "<group>";
+		};
+		CC31F72015A7682FF3394AB8 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				1AA3F41FB12F5BD90C552F1C /* Pods_TTBaseUIKit.framework */,
+			);
+			name = Frameworks;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */

@@ -1,6 +1,0 @@
-framework module TTBaseUIKit {
-  umbrella header "TTBaseUIKit-umbrella.h"
-
-  export *
-  module * { export * }
-}
