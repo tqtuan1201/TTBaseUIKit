@@ -200,7 +200,7 @@ extension TTBaseUIViewController {
     
     public func setBgNav(withStatusColor statusColor:UIColor, navColor:UIColor) {
         self.setStatusBgColor(color: statusColor)
-        self.setNavBgColor(color: statusColor)
+        self.setNavBgColor(color: navColor)
     }
     
     public func setStatusBgColor(color:UIColor) {
