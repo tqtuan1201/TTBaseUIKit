@@ -85,7 +85,7 @@ extension UIViewController {
         
         let actInd: UIActivityIndicatorView = UIActivityIndicatorView()
         actInd.translatesAutoresizingMaskIntoConstraints = false
-        actInd.style = Device.size() > DeviceSize.screen4Inch ? UIActivityIndicatorView.Style.large : UIActivityIndicatorView.Style.medium
+        actInd.style = Device.size() > DeviceSize.screen4Inch ? UIActivityIndicatorView.Style.whiteLarge : UIActivityIndicatorView.Style.white
         actInd.startAnimating()
         
         panelInd.addSubview(actInd)
