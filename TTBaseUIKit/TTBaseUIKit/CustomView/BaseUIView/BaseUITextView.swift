@@ -17,6 +17,8 @@ open class TTBaseUITextView: UITextView   {
     fileprivate var lineColor:UIColor = TTBaseUIKitConfig.getViewConfig().lineDefColor
     fileprivate var isSetHiddenKeyboardAccessoryView:Bool = true
     
+    open var paddingTextUIEdgeInsets:UIEdgeInsets { get { return UIEdgeInsets.init(top: 8, left: 8, bottom: 8, right: 8)} }
+    
     public enum TYPE {
         case DEFAULT
         case NO_BORDER
@@ -52,6 +54,8 @@ open class TTBaseUITextView: UITextView   {
         self.font             = TTBaseUIKitConfig.getFontConfig().FONT
         self.textContainer.maximumNumberOfLines = 4
         self.textContainer.lineBreakMode = .byTruncatingTail
+        self.textContainerInset = self.paddingTextUIEdgeInsets
+
         self.delegate = self
         if self.type == .NO_BORDER {
             self.setBorder(with: 0, color: .clear, coner: TTSize.CORNER_RADIUS)
@@ -153,6 +157,12 @@ extension TTBaseUITextView {
     
     public func setPasswordView() {
         self.isSecureTextEntry = true
+    }
+    
+    public func setAutoSizeWhenInputText(withMaximumNumberOfLines line:Int) {
+           self.textContainer.lineBreakMode = .byTruncatingTail
+           self.textContainer.maximumNumberOfLines = line
+           self.isScrollEnabled = false
     }
 }
 

@@ -104,4 +104,35 @@ extension String {
     public mutating func capitalizeFirstLetter() {
         self = self.capitalizingFirstLetter()
     }
+    
+    
+    
+    public func htmlAttributedString() -> NSAttributedString? {
+        guard let data = self.data(using: String.Encoding.utf16, allowLossyConversion: false) else { return nil }
+        guard let html = try? NSMutableAttributedString(
+            data: data,
+            options: [NSAttributedString.DocumentReadingOptionKey.documentType: NSAttributedString.DocumentType.html],
+            documentAttributes: nil) else { return nil }
+        return html
+    }
+    
+    public func subStringToIndex(_ str: String) -> String{
+        if let range = self.range(of: str) {
+            let index: Int = self.distance(from: self.startIndex, to: range.lowerBound)
+            return (self as NSString).substring(to: index)
+        } else {
+            return self
+        }
+        
+    }
+    
+    public func subStringFromIndex(_ str: String) -> String{
+        if let range = self.range(of: str) {
+            let index: Int = self.distance(from: self.startIndex, to: range.lowerBound)
+            return (self as NSString).substring(from: index + 1)
+        } else {
+            return self
+        }
+        
+    }
 }

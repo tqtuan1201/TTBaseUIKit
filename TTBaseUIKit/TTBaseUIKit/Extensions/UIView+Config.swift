@@ -11,7 +11,12 @@ import UIKit
 
 extension UIView {
     
-
+    
+    
+    public func setConerDef() {
+        self.setConerRadius(with: TTSize.CORNER_RADIUS)
+    }
+    
     public func setBorder(with width:CGFloat, color:UIColor, coner:CGFloat) {
         self.layer.borderWidth = width
         self.layer.borderColor = color.cgColor
