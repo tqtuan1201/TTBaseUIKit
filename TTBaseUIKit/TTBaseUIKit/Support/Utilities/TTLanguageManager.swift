@@ -24,7 +24,8 @@ public class TTLanguageManager {
         case zhHans = "zh-Hans"
         case zhHant = "zh-Hant"
         case zhHK = "zh-HK"
-        case vi = "vi-VN"
+        case viVN = "vi-VN"
+        case vi = "vi"
         case de_DE = "de-DE"
     }
     

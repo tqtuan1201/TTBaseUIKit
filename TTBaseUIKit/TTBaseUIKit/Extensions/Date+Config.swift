@@ -259,6 +259,47 @@ extension Date {
         return (self.day() == date.day()) && (self.month() == self.month() && (self.year() == date.year()))
         
     }
+    
+    public func yearsFrom(_ date: Date) -> Int {
+         return (Calendar.current as NSCalendar).components(.year, from: date, to: self, options: []).year!
+     }
+    
+    public func monthsFrom(_ date: Date) -> Int {
+         return (Calendar.current as NSCalendar).components(.month, from: date, to: self, options: []).month!
+     }
+    
+    public func weeksFrom(_ date: Date) -> Int {
+         return (Calendar.current as NSCalendar).components(.weekOfYear, from: date, to: self, options: []).weekOfYear!
+     }
+    
+    public func daysFrom(_ date: Date) -> Int {
+         return (Calendar.current as NSCalendar).components(.day, from: date, to: self, options: []).day!
+     }
+    
+    public func hoursFrom(_ date: Date) -> Int {
+         return (Calendar.current as NSCalendar).components(.hour, from: date, to: self, options: []).hour!
+     }
+    
+    public func minutesFrom(_ date: Date) -> Int{
+         return (Calendar.current as NSCalendar).components(.minute, from: date, to: self, options: []).minute!
+     }
+    
+    public func secondsFrom(_ date: Date) -> Int{
+         return (Calendar.current as NSCalendar).components(.second, from: date, to: self, options: []).second!
+     }
+     
+    public func offsetFrom(_ date: Date) -> String {
+         if yearsFrom(date)   > 0 { return "\(yearsFrom(date))y"   }
+         if monthsFrom(date)  > 0 { return "\(monthsFrom(date))M"  }
+         if weeksFrom(date)   > 0 { return "\(weeksFrom(date))w"   }
+         if daysFrom(date)    > 0 { return "\(daysFrom(date))d"    }
+         if hoursFrom(date)   > 0 { return "\(hoursFrom(date))h"   }
+         if minutesFrom(date) > 0 { return "\(minutesFrom(date))m" }
+         if secondsFrom(date) > 0 { return "\(secondsFrom(date))s" }
+         return ""
+     }
+     
+    
 }
 
 public func ==(lhs: Date, rhs: Date) -> Bool {
@@ -272,5 +313,6 @@ public func <(lhs: Date, rhs: Date) -> Bool {
 public func >(lhs: Date, rhs: Date) -> Bool {
     return rhs.compare(lhs) == ComparisonResult.orderedAscending
 }
+
 
 

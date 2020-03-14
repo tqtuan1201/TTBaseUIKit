@@ -141,4 +141,20 @@ extension TTBaseUITableViewController {
         self.tableView.tableHeaderView = self.tableView.tableHeaderView
         self.tableView.tableHeaderView?.layer.zPosition = 100
     }
+    
+    public func addFooterView(withView baseView:TTBaseUIView, padding:CGFloat = TTBaseUIKitConfig.getSizeConfig().P_CONS_DEF, height:CGFloat? = nil, bgPanel:UIColor = .clear) {
+        
+        let panelFooterView:TTBaseUIView = TTBaseUIView()
+        panelFooterView.addSubview(baseView)
+        panelFooterView.setBgColor(bgPanel)
+        
+        baseView.setFullContraints(constant: padding)
+        
+        if let _height:CGFloat = height { baseView.setHeightAnchor(constant: _height) }
+        
+        let size = panelFooterView.systemLayoutSizeFitting(UIView.layoutFittingCompressedSize)
+        panelFooterView.translatesAutoresizingMaskIntoConstraints = true
+        panelFooterView.frame = CGRect.init(x: 0, y: 0, width: size.width, height: size.height)
+        self.tableView.tableFooterView = panelFooterView
+    }
 }

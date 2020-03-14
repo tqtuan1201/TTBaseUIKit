@@ -135,4 +135,98 @@ extension String {
         }
         
     }
+    
+    
+    public func htmlAttributedString(withFontSize size:CGFloat = TTBaseUIKitConfig.getFontConfig().TITLE_H) -> NSAttributedString? {
+         guard let data = self.data(using: String.Encoding.utf16, allowLossyConversion: false) else { return nil }
+         guard let html = try? NSMutableAttributedString(
+             data: data,
+             options: [NSAttributedString.DocumentReadingOptionKey.documentType: NSAttributedString.DocumentType.html],
+             documentAttributes: nil) else { return nil }
+         
+         let fontAtt: [NSAttributedString.Key: Any] = [.font: UIFont.systemFont(ofSize: size, weight: .regular), .foregroundColor : TTView.labelBgWar]
+         if let _rang = NSRange.init(self) {
+             html.addAttributes(fontAtt, range: _rang)
+         }
+
+         return html
+     }
+     
+    
+    public func removeDiacritics() -> String {
+        return self.folding(options: .diacriticInsensitive, locale: .current)
+    }
+    
+    public func splitString(byStartString start:String) -> String {
+        if let endIndex = self.range(of: start)?.upperBound {
+            return String(self[endIndex ..< self.endIndex])
+        } else {
+            return self
+        }
+    }
+
+    public func splitString(byEndString end:String) -> String {
+        if let endIndex = self.range(of: end)?.lowerBound {
+            return String(self[..<endIndex])
+        } else {
+            return self
+        }
+    }
+    
+}
+
+//MARK:// For validation string
+extension String {
+
+     public var isEmail: Bool {
+         do {
+             let regex = try NSRegularExpression(pattern: "^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$", options: .caseInsensitive)
+             return regex.firstMatch(in: self, options: NSRegularExpression.MatchingOptions(rawValue: 0), range: NSMakeRange(0, self.count)) != nil
+         } catch {
+             return false
+         }
+     }
+     
+     public var isStringText:Bool {
+         // Only allow numbers. Look for anything not a number.
+         
+         let characterSet:CharacterSet = CharacterSet(charactersIn: "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLKMNOPQRSTUVWXYZ0123456789 !,.?()-_^&$@+\n")
+         
+         let range = self.rangeOfCharacter(from: characterSet.inverted)
+         return (range == nil)
+     }
+
+    public  var isTextOnly:Bool {
+         // Only allow numbers. Look for anything not a number.
+         
+         let characterSet:CharacterSet = CharacterSet(charactersIn: "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLKMNOPQRSTUVWXYZ0123456789 ")
+         
+         let range = self.rangeOfCharacter(from: characterSet.inverted)
+         return (range == nil)
+     }
+     
+    public  var isPhoneNumber: Bool {
+
+         let charcter  = CharacterSet(charactersIn: "+0123456789").inverted
+         let inputString = self.components(separatedBy: charcter).joined(separator: "")
+         return  self == inputString
+     }
+     
+     public var isName:Bool {
+         let _nameTrim = self.trimmingCharacters(
+             in: CharacterSet.whitespacesAndNewlines
+         )
+         if _nameTrim.range(of: " ") != nil {
+             return true
+         } else {
+             return false
+         }
+         
+     }
+    
+    public mutating func replace(_ data:String, dataReplace:String) -> String {
+        self = (self as NSString).replacingOccurrences(of: data, with: dataReplace)
+        return self
+    }
+    
 }

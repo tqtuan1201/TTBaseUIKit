@@ -88,4 +88,15 @@ extension TTBaseUtil {
     public static func getAppVersion() -> String {
         return Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String ?? ""
     }
+    
+    
+    public static func domainEmailList() -> [String] {
+        let domains = [
+            "facebook.com", "gmail.com", "googlemail.com",
+            "google.com", "hotmail.com", "mail.com", "msn.com",
+            "live.com", "yahoo.com"]
+        return domains
+    }
 }
+
+

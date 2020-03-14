@@ -15,8 +15,12 @@ open class TTBaseUITextField: UITextField   {
     fileprivate var textpading:CGFloat = 5.0
     fileprivate let lineHeight:CGFloat = 1.5
     fileprivate var lineColor:UIColor = TTBaseUIKitConfig.getViewConfig().lineDefColor
+    fileprivate var isActiveFillEmail:Bool = false
     
     fileprivate var isInputText:Bool = true
+    fileprivate var isForceUpperCase:Bool = false
+    fileprivate var isAutoFieldEmail:Bool = false
+    fileprivate var isRemoveDiacritics:Bool = false
     
     public enum TYPE {
         case DEFAULT
@@ -135,6 +139,21 @@ extension TTBaseUITextField {
 
         return self
     }
+
+    @discardableResult public func setAutoFillEmail() -> TTBaseUITextField {
+        self.isAutoFieldEmail = true
+        return self
+    }
+    
+    @discardableResult public func setRemoveDiacritics() -> TTBaseUITextField {
+        self.isRemoveDiacritics = true
+        return self
+    }
+    
+    @discardableResult public func setForceInputUpperCase() -> TTBaseUITextField {
+        self.isForceUpperCase = true
+        return self
+    }
     
     @discardableResult public func setKeyboardStyleByText() -> TTBaseUITextField {
         self.setKeyBoardStyle(type: .default)
@@ -220,14 +239,65 @@ extension TTBaseUITextField {
 // For real time format text
 extension TTBaseUITextField : UITextFieldDelegate {
     public func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
+        if self.isForceUpperCase {
+            let firstLowercaseCharRange = string.rangeOfCharacter(from: NSCharacterSet.lowercaseLetters)
+            if let _ = firstLowercaseCharRange {
+                if let text = textField.text, text.isEmpty {
+                    textField.text = string.uppercased()
+                }
+                else {
+                    let beginning = textField.beginningOfDocument
+                    if let start = textField.position(from: beginning, offset: range.location),
+                        let end = textField.position(from: start, offset: range.length),
+                        let replaceRange = textField.textRange(from: start, to: end) {
+                        textField.replace(replaceRange, withText: string.uppercased())
+                    }
+                }
+                return false
+            }
+        }
         return self.isInputText
     }
     @objc fileprivate func textEditChanged(_ sender:UITextField) {
-        self.onTextEditChangedHandler?(self, String.get(sender.text))
+        
+        if self.isRemoveDiacritics { sender.text = String.get(sender.text).removeDiacritics() }
+        
+        if self.isAutoFieldEmail {
+            self.emailEditingChanged(sender)
+            self.onTextEditChangedHandler?(self, String.get(sender.text))
+        } else {
+            self.onTextEditChangedHandler?(self, String.get(sender.text))
+        }
     }
 }
 
+// MARK:// For auto fill email
+extension TTBaseUITextField {
+    
+}
+
+
 // MARK:// For format currency
 extension TTBaseUITextField {
+    
+    fileprivate func emailEditingChanged(_ sender:UITextField) {
+        sender.text = sender.text?.replace(" ", dataReplace: "")
+        var emailString = sender.text ?? ""
+        let preCharate:Int = emailString.subStringFromIndex("@").count
+        
+        if emailString.contains("@") &&  preCharate == 3 && isActiveFillEmail {
+            for domain in TTBaseUtil.domainEmailList() {
+                let preDomainString = "@" + domain[..<domain.index(domain.startIndex, offsetBy: 2)] //.substring(to: domain.index(domain.startIndex, offsetBy: 2))
+                if emailString.contains(preDomainString) {
+                    sender.text         = emailString.replace(preDomainString, dataReplace: "@" + domain)
+                    self.isActiveFillEmail   = false
+                    UIApplication.topViewController()?.dismissKeyboard()
+                    break
+                }
+            }
+        }
+        let preAfterCharate:Int = sender.text?.subStringFromIndex("@").count ?? 0
+        if preAfterCharate < 3 {isActiveFillEmail   = true }
+    }
     
 }

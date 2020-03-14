@@ -189,4 +189,8 @@ open class Device {
         return type() == .simulator
     }
     
+    static public func isCheckIpadBySystem() -> Bool {
+        return UIDevice.current.userInterfaceIdiom == .pad
+    }
+    
 }

@@ -17,7 +17,9 @@ open class TTBaseUITextView: UITextView   {
     fileprivate var lineColor:UIColor = TTBaseUIKitConfig.getViewConfig().lineDefColor
     fileprivate var isSetHiddenKeyboardAccessoryView:Bool = true
     
-    open var paddingTextUIEdgeInsets:UIEdgeInsets { get { return UIEdgeInsets.init(top: 8, left: 8, bottom: 8, right: 8)} }
+    open var maxNumberOfLines:Int { get { return 4 } }
+    open var paddingTextUIEdgeInsets:UIEdgeInsets { get { return UIEdgeInsets.init(top: TTSize.P_CONS_DEF, left: TTSize.P_CONS_DEF, bottom: TTSize.P_CONS_DEF, right: TTSize.P_CONS_DEF)} }
+    open var paddingContentInset:UIEdgeInsets { get { return UIEdgeInsets.init(top: TTSize.P_CONS_DEF, left: TTSize.P_CONS_DEF, bottom: TTSize.P_CONS_DEF, right: TTSize.P_CONS_DEF)} }
     
     public enum TYPE {
         case DEFAULT
@@ -52,10 +54,13 @@ open class TTBaseUITextView: UITextView   {
         self.translatesAutoresizingMaskIntoConstraints = false
         self.textColor        = self.textDefColor
         self.font             = TTBaseUIKitConfig.getFontConfig().FONT
-        self.textContainer.maximumNumberOfLines = 4
+        
+        self.textContainer.maximumNumberOfLines = self.maxNumberOfLines
         self.textContainer.lineBreakMode = .byTruncatingTail
+        
         self.textContainerInset = self.paddingTextUIEdgeInsets
-
+        self.contentInset = self.paddingContentInset
+        
         self.delegate = self
         if self.type == .NO_BORDER {
             self.setBorder(with: 0, color: .clear, coner: TTSize.CORNER_RADIUS)

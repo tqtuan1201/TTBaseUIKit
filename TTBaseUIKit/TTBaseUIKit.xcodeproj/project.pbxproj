@@ -23,6 +23,7 @@
 		6D7ADBB023ED66DB0022D291 /* BaseSquarePinView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6D7ADBAF23ED66DB0022D291 /* BaseSquarePinView.swift */; };
 		6D7ADBB223ED67300022D291 /* BaseSquarePinsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6D7ADBB123ED67300022D291 /* BaseSquarePinsView.swift */; };
 		6D7ADBB423ED677D0022D291 /* BaseLabelTextViewByVerticalView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6D7ADBB323ED677D0022D291 /* BaseLabelTextViewByVerticalView.swift */; };
+		6DAB3BDB2413286300571DE9 /* BaseTwoButtonDiffWidthView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6DAB3BDA2413286300571DE9 /* BaseTwoButtonDiffWidthView.swift */; };
 		6DAC63E02305497D005FDDEA /* LineTableHeaderFooterViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6DAC63DF2305497D005FDDEA /* LineTableHeaderFooterViewCell.swift */; };
 		6DAC63E2230549F6005FDDEA /* Validation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6DAC63E1230549F6005FDDEA /* Validation.swift */; };
 		6DAC63E423054BE5005FDDEA /* SlideImageCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6DAC63E323054BE5005FDDEA /* SlideImageCollectionViewCell.swift */; };
@@ -155,6 +156,7 @@
 		6D7ADBAF23ED66DB0022D291 /* BaseSquarePinView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseSquarePinView.swift; sourceTree = "<group>"; };
 		6D7ADBB123ED67300022D291 /* BaseSquarePinsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseSquarePinsView.swift; sourceTree = "<group>"; };
 		6D7ADBB323ED677D0022D291 /* BaseLabelTextViewByVerticalView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseLabelTextViewByVerticalView.swift; sourceTree = "<group>"; };
+		6DAB3BDA2413286300571DE9 /* BaseTwoButtonDiffWidthView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseTwoButtonDiffWidthView.swift; sourceTree = "<group>"; };
 		6DAC63DF2305497D005FDDEA /* LineTableHeaderFooterViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LineTableHeaderFooterViewCell.swift; sourceTree = "<group>"; };
 		6DAC63E1230549F6005FDDEA /* Validation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Validation.swift; sourceTree = "<group>"; };
 		6DAC63E323054BE5005FDDEA /* SlideImageCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SlideImageCollectionViewCell.swift; sourceTree = "<group>"; };
@@ -612,6 +614,7 @@
 				6D5BF33822FAB0920066DE78 /* LableSubLabelView.swift */,
 				6D59D7C7235EA4060007AA25 /* TTBaseShadowView.swift */,
 				6D59D7CD235EA7480007AA25 /* TwoButtomView.swift */,
+				6DAB3BDA2413286300571DE9 /* BaseTwoButtonDiffWidthView.swift */,
 			);
 			path = Custom;
 			sourceTree = "<group>";
@@ -790,6 +793,7 @@
 				6DAC63E2230549F6005FDDEA /* Validation.swift in Sources */,
 				935F690D22802EDB00A38FDA /* BaseWKWebView.swift in Sources */,
 				9358C832226895E200D2D10F /* BaseUICollectionViewCell.swift in Sources */,
+				6DAB3BDB2413286300571DE9 /* BaseTwoButtonDiffWidthView.swift in Sources */,
 				93768AA32258E6330033DDBB /* UIColor+Config.swift in Sources */,
 				6DD17E1123EFD5F2007B49A6 /* BaseLabelIconHorizontalView.swift in Sources */,
 				9358C83A2268AA6800D2D10F /* BaseUICollectionViewController.swift in Sources */,

@@ -36,8 +36,8 @@ open class TTBaseIconCircleView: TTBaseUICricleView {
         
         self.addSubview(self.iconUIImage)
         
-        self.iconUIImage.heightAnchor.constraint(equalTo: self.heightAnchor, multiplier: 0.6).isActive = true
-        self.iconUIImage.widthAnchor.constraint(equalTo: self.widthAnchor, multiplier: 0.6).isActive = true
+        self.iconUIImage.heightAnchor.constraint(equalTo: self.heightAnchor, multiplier: self.sizeMultiplier).isActive = true
+        self.iconUIImage.widthAnchor.constraint(equalTo: self.widthAnchor, multiplier: self.sizeMultiplier).isActive = true
         self.iconUIImage.setcenterYAnchor(constant: 0).setCenterXAnchor(constant: 0).done()
     }
     
