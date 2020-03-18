@@ -142,3 +142,28 @@ extension UIViewController {
         DispatchQueue.main.async { [weak self] in  self?.dismiss(animated: true, completion: nil) }
     }
 }
+
+
+
+import Foundation
+import MessageUI
+import ContactsUI
+import AddressBookUI
+
+extension UIViewController : MFMessageComposeViewControllerDelegate {
+    
+    public func sendSMS(with messageString:String, phones:[String], completion:(() -> ())? = nil ) {
+            let messageVC  = MFMessageComposeViewController()
+            messageVC.body = messageString
+            messageVC.recipients = phones
+            messageVC.messageComposeDelegate = self
+            self.showLoadingView(type: .VIEW_CENTER)
+        self.present(messageVC, animated: true) { [weak self] in
+            if completion == nil { self?.removeLoading() }
+        }
+    }
+    
+    public func messageComposeViewController(_ controller: MFMessageComposeViewController, didFinishWith result: MessageComposeResult) {
+        controller.dismiss(animated: true, completion: nil)
+    }
+}
