@@ -152,6 +152,7 @@ extension TTBaseUITextField {
     
     @discardableResult public func setForceInputUpperCase() -> TTBaseUITextField {
         self.isForceUpperCase = true
+        self.autocapitalizationType = .allCharacters
         return self
     }
     
@@ -244,6 +245,8 @@ extension TTBaseUITextField : UITextFieldDelegate {
             if let _ = firstLowercaseCharRange {
                 if let text = textField.text, text.isEmpty {
                     textField.text = string.uppercased()
+                    TTBaseFunc.shared.printLog(object: "self.onTextEditChangedHandler | isForceUpperCase \(String.get(textField.text))")
+                    self.onTextEditChangedHandler?(self, String.get(textField.text))
                 }
                 else {
                     let beginning = textField.beginningOfDocument
@@ -258,6 +261,7 @@ extension TTBaseUITextField : UITextFieldDelegate {
         }
         return self.isInputText
     }
+    
     @objc fileprivate func textEditChanged(_ sender:UITextField) {
         
         if self.isRemoveDiacritics { sender.text = String.get(sender.text).removeDiacritics() }
@@ -265,7 +269,9 @@ extension TTBaseUITextField : UITextFieldDelegate {
         if self.isAutoFieldEmail {
             self.emailEditingChanged(sender)
             self.onTextEditChangedHandler?(self, String.get(sender.text))
+            TTBaseFunc.shared.printLog(object: "self.onTextEditChangedHandler | isAutoFieldEmail: \(String.get(sender.text))")
         } else {
+            TTBaseFunc.shared.printLog(object: "self.onTextEditChangedHandler \(String.get(sender.text))")
             self.onTextEditChangedHandler?(self, String.get(sender.text))
         }
     }

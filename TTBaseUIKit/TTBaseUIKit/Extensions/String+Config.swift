@@ -157,6 +157,12 @@ extension String {
         return self.folding(options: .diacriticInsensitive, locale: .current)
     }
     
+    public  func removeDiacriticsVN() -> String {
+        let newString:String = self.folding(options: .diacriticInsensitive, locale: Locale.init(identifier: "vi"))
+        return (newString as NSString).replacingOccurrences(of: "đ", with: "d")
+        
+    }
+    
     public func splitString(byStartString start:String) -> String {
         if let endIndex = self.range(of: start)?.upperBound {
             return String(self[endIndex ..< self.endIndex])

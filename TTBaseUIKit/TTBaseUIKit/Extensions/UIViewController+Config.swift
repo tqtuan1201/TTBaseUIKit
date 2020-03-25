@@ -57,7 +57,7 @@ extension UIViewController {
                 processView.layer.zPosition = CONSTANT.POSITION_VIEW.LOADING_VIEW.rawValue
                 processView.tag = CONSTANT.TAG_VIEW.LOADING.rawValue
                 strongSelf.view.addSubview(processView)
-                processView.setLeadingAnchor(constant: 0).setTopAnchor(constant: paddingTop).setTrailingAnchor(constant: 0).setHeightAnchor(constant: TTSize.H_PROCESS_VIEW).done()
+                processView.setLeadingAnchor(constant: -4).setTopAnchor(constant: paddingTop).setTrailingAnchor(constant: -4).setHeightAnchor(constant: TTSize.H_PROCESS_VIEW).done()
                 break
             case .TAB_TOP:
                 let processView:TTBaseUIProgressView = TTBaseUIProgressView(progressViewStyle: .default)
@@ -65,7 +65,7 @@ extension UIViewController {
                 processView.layer.zPosition = CONSTANT.POSITION_VIEW.LOADING_VIEW.rawValue
                 processView.tag = CONSTANT.TAG_VIEW.LOADING.rawValue
                 strongSelf.view.addSubview(processView)
-                processView.setLeadingAnchor(constant: 0).setTrailingAnchor(constant: 0).setHeightAnchor(constant: TTSize.H_PROCESS_VIEW).done()
+                processView.setLeadingAnchor(constant: -4).setTrailingAnchor(constant: -4).setHeightAnchor(constant: TTSize.H_PROCESS_VIEW).done()
                 processView.bottomAnchor.constraint(equalTo: strongSelf.view.layoutMarginsGuide.bottomAnchor, constant: 0).isActive = true
                 break
             }

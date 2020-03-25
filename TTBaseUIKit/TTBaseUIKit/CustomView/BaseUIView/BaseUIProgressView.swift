@@ -34,6 +34,8 @@ open class TTBaseUIProgressView: UIProgressView {
 extension TTBaseUIProgressView {
     fileprivate func setupBaseUIView() {
         self.setConerRadius(with: 0)
+        self.clipsToBounds = false
+        self.layer.cornerRadius = 0
         self.translatesAutoresizingMaskIntoConstraints = false
         self.backgroundColor = TTView.processViewBgColor
         self.progressTintColor = TTView.processViewProcessColor
