@@ -26,7 +26,13 @@ public struct CONSTANT {
 
     public enum TAG_VIEW : Int {
         case LOADING = -111
+        
         case MARK_SKELETON = -112
+        case LABEL_SKELETON = -113
+        case BUTTON_SKELETON = -114
+        case IMAGE_SKELETON = -115
+        case WKWEB_VIEW_SKELETON = -116
+        
         case BG_UISTACKVIEW = 100
         case NOTIFICATION_VIEW = 101
     }

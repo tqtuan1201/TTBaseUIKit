@@ -18,6 +18,8 @@ open class TTBaseUIButton: UIButton, ViewDrawer, TextDrawer {
     var textDefIsUpper: Bool = true
     var fontDef: UIFont  = TTBaseUIKitConfig.getFontConfig().FONT
    
+    public lazy var skeletonMarkView:TTBaseSkeletonMarkView = TTBaseSkeletonMarkView()
+    
     public enum TYPE {
         case NO_BG_COLOR
         case DEFAULT
@@ -205,6 +207,28 @@ extension TTBaseUIButton {
         DispatchQueue.main.asyncAfter(deadline: .now() + 5.0) { [weak self] in guard let strongSelf = self else { return }
             strongSelf.isUserInteractionEnabled = true
             strongSelf.backgroundColor = strongSelf.viewDefBgColor.withAlphaComponent(1)
+        }
+    }
+    
+}
+
+
+//MARK:// Skeleton
+extension TTBaseUIButton {
+    
+    public func onAddSkeletonMark() {
+        if self.viewWithTag(CONSTANT.TAG_VIEW.BUTTON_SKELETON.rawValue) != nil { return }
+        self.addSubview(self.skeletonMarkView)
+        self.skeletonMarkView.tag = CONSTANT.TAG_VIEW.BUTTON_SKELETON.rawValue
+        self.addSubview(self.skeletonMarkView)
+        self.skeletonMarkView.setFullContraints(constant: 0)
+    }
+    
+    public func onRemoveSkeletonMark() {
+        UIView.animate(withDuration: 0.2, animations: {
+            self.skeletonMarkView.alpha = 0
+        }) { (isComplete) in
+            self.skeletonMarkView.removeFromSuperview()
         }
     }
     

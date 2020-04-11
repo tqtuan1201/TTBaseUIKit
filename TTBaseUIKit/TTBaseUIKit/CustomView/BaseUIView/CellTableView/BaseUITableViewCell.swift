@@ -120,7 +120,8 @@ extension TTBaseUITableViewCell {
         for view in views {
             //view.backgroundColor = TTView.viewBgSkeleton
             if let lb = view as? TTBaseUILabel {lb.onAddSkeletonMark()}
-            if let img = view as? TTBaseUIImageView {img.setAnimalForSkeletonView()}
+            if let btn = view as? TTBaseUIButton {btn.onAddSkeletonMark()}
+            if let img = view as? TTBaseUIImageView {img.onAddSkeletonMark()}
         }
     }
 
@@ -133,13 +134,11 @@ extension TTBaseUITableViewCell {
                 //view.backgroundColor = view.viewDefBgColor
             } else if let lb = view as? TTBaseUILabel {
                 lb.onRemoveSkeletonMark()
-            }  else if let img = view as? TTBaseUIImageView {
-                img.backgroundColor = img.viewDefBgColor
-                img.setRollBackViewForSkeletonAnimal()
+            }  else if let btn = view as? TTBaseUIButton {
+                btn.onRemoveSkeletonMark()
+            } else if let img = view as? TTBaseUIImageView {
+                img.onRemoveSkeletonMark()
             }
-//            else {
-//                 view.backgroundColor = UIColor.clear
-//            }
         }
     }
 }

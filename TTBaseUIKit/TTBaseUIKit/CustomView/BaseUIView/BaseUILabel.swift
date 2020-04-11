@@ -184,10 +184,19 @@ extension TTBaseUILabel {
 //MARK:// Skeleton
 extension TTBaseUILabel {
     public func onAddSkeletonMark() {
+        if self.viewWithTag(CONSTANT.TAG_VIEW.LABEL_SKELETON.rawValue) != nil { return }
+        self.addSubview(self.skeletonMarkView)
+        self.skeletonMarkView.tag = CONSTANT.TAG_VIEW.LABEL_SKELETON.rawValue
         self.addSubview(self.skeletonMarkView)
         self.skeletonMarkView.setFullContraints(constant: 0)
     }
+
     public func onRemoveSkeletonMark() {
-        self.skeletonMarkView.removeFromSuperview()
+        UIView.animate(withDuration: 0.2, animations: {
+            self.skeletonMarkView.alpha = 0
+        }) { (isComplete) in
+            self.skeletonMarkView.removeFromSuperview()
+        }
     }
+    
 }

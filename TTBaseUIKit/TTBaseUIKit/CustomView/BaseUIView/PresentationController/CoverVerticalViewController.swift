@@ -16,15 +16,22 @@ open class TTCoverVerticalViewController: UIViewController {
     open var bgSafeView:UIColor = UIColor.white
     open var isAddDownSwipe:Bool = true
     open var heightDissmissView:CGFloat = TTSize.H_DISSMISS_PRESENTVIEW
+    open var timeAnimationChangeFrame:TimeInterval { get { return 0.2 } }
     
+    public var skeletonLayer:CALayer?
     public var panelView:TTBaseUIView = TTBaseUIView()
     public var bottomSafeAreaView:TTBaseUIView = TTBaseUIView()
-    
     public var dissmissView:TTDismissView = TTDismissView()
+    public var coverPresentationController:TTCoverVerticalPresentationController?
     
     public var onDissmissViewHandler:(() -> Void)?
     
     open func updateBaseUI() { }
+    
+    override open func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+        if self.skeletonLayer != nil {self.skeletonLayer?.frame = CGRect.init(x: -4, y: 0, width: self.view.frame.width + 8, height: self.view.frame.height)}
+    }
     
     public override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
         super.init(nibName: nil, bundle: nil)
@@ -59,6 +66,11 @@ open class TTCoverVerticalViewController: UIViewController {
         self.bottomSafeAreaView.setBgColor(safe)
     }
     
+    public func onUpdateLayout() {
+        UIView.animate(withDuration: self.timeAnimationChangeFrame) { [weak self] in
+            self?.coverPresentationController?.containerViewDidLayoutSubviews()
+        }
+    }
 }
 
 fileprivate extension TTCoverVerticalViewController {
@@ -103,11 +115,57 @@ fileprivate extension TTCoverVerticalViewController {
 
 extension TTCoverVerticalViewController: UIViewControllerTransitioningDelegate {
     public func presentationController(forPresented presented: UIViewController, presenting: UIViewController?, source: UIViewController) -> UIPresentationController? {
-        let present =  TTCoverVerticalPresentationController(presentedViewController: presented, presenting: presenting)
-        present.onTouchDimmingViewHandler = { [weak self] in guard let strongSelf = self else { return }
+        self.coverPresentationController = TTCoverVerticalPresentationController(presentedViewController: presented, presenting: presenting)
+        self.coverPresentationController?.onTouchDimmingViewHandler = { [weak self] in guard let strongSelf = self else { return }
             strongSelf.onDissmissViewHandler?()
         }
-        return present
+        return self.coverPresentationController
     }
     
 }
+
+
+
+//MARK:// Skeleton animations
+extension TTCoverVerticalViewController {
+    
+    public func setSkeletonAnimation() ->  TTCoverVerticalViewController {
+        self.skeletonLayer = UIView.getGradientSkeletonLayer()
+        if let skeLayer =  self.skeletonLayer { self.view.layer.addSublayer(skeLayer) }
+        return self
+    }
+    
+    public func onStartSkeletonAnimation(isSetAllSubView:Bool = true) {
+        self.skeletonLayer?.isHidden = false
+        
+        let views = isSetAllSubView ? self.view.subviewsRecursive(): self.view.subviews
+        for view in views {
+            if view as? TTDismissView  == nil {
+                if let lb = view as? TTBaseUILabel {lb.onAddSkeletonMark()}
+                if let btn = view as? TTBaseUIButton {btn.onAddSkeletonMark()}
+                if let img = view as? TTBaseUIImageView {img.onAddSkeletonMark()}
+                if let web = view as? TTBaseWKWebView {web.onAddSkeletonMark()}
+            }
+        }
+    }
+
+    public func onStopSkeletonAnimation(isSetAllSubView:Bool = true) {
+        if (self.skeletonLayer?.isHidden ?? false) == true { return }
+        self.skeletonLayer?.isHidden = true
+        let views = isSetAllSubView ? self.view.subviewsRecursive(): self.view.subviews
+        for view in views {
+            if let _ = view as? TTBaseUIView {
+                //view.backgroundColor = view.viewDefBgColor
+            } else if let lb = view as? TTBaseUILabel {
+                lb.onRemoveSkeletonMark()
+            }  else if let btn = view as? TTBaseUIButton {
+                btn.onRemoveSkeletonMark()
+            } else if let img = view as? TTBaseUIImageView {
+                img.onRemoveSkeletonMark()
+            } else if let web = view as? TTBaseWKWebView {
+                web.onRemoveSkeletonMark()
+            }
+        }
+    }
+}
+

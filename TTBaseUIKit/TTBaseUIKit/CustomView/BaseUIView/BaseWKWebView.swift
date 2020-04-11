@@ -11,6 +11,8 @@ import WebKit
 
 open class TTBaseWKWebView: WKWebView, UIGestureRecognizerDelegate {
     
+    public lazy var skeletonMarkView:TTBaseSkeletonMarkView = TTBaseSkeletonMarkView()
+    
     override init(frame: CGRect, configuration: WKWebViewConfiguration) {
         super.init(frame: .zero, configuration: configuration)
     }
@@ -52,6 +54,29 @@ open class TTBaseWKWebView: WKWebView, UIGestureRecognizerDelegate {
     
     
 }
+
+
+//MARK:// Skeleton
+extension TTBaseWKWebView {
+    
+    public func onAddSkeletonMark() {
+        if self.viewWithTag(CONSTANT.TAG_VIEW.WKWEB_VIEW_SKELETON.rawValue) != nil { return }
+        self.addSubview(self.skeletonMarkView)
+        self.skeletonMarkView.tag = CONSTANT.TAG_VIEW.WKWEB_VIEW_SKELETON.rawValue
+        self.addSubview(self.skeletonMarkView)
+        self.skeletonMarkView.setFullContraints(constant: 0)
+    }
+
+    public func onRemoveSkeletonMark() {
+        UIView.animate(withDuration: 0.2, animations: {
+            self.skeletonMarkView.alpha = 0
+        }) { (isComplete) in
+            self.skeletonMarkView.removeFromSuperview()
+        }
+    }
+    
+}
+
 
 extension WKWebView {
 

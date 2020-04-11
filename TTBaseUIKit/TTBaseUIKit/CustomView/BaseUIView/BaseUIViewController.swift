@@ -42,6 +42,8 @@ open class TTBaseUIViewController<BaseView:TTBaseUIView>: UIViewController, TTBa
 
     public lazy var frameKeyBoard:CGRect = .zero
 
+    public var skeletonLayer:CALayer?
+    
     public var onHandleKeyboardWillShow:((_ size:CGRect) -> ())?
     public var onHandleKeyboardWillHide:(() -> ())?
     
@@ -104,6 +106,10 @@ open class TTBaseUIViewController<BaseView:TTBaseUIView>: UIViewController, TTBa
         self.navigationController?.isNavigationBarHidden = true
     }
     
+    override open func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+        if self.skeletonLayer != nil {self.skeletonLayer?.frame = CGRect.init(x: -4, y: 0, width: self.contentView.frame.width + 8, height: self.contentView.frame.height)}
+    }
     
     open override func viewDidLoad() {
         super.viewDidLoad()
@@ -211,5 +217,49 @@ extension TTBaseUIViewController {
         self.navBar.setBgColor(color)
     }
     
+}
+
+
+//MARK:// Skeleton animations
+extension TTBaseUIViewController {
+    
+    public func setSkeletonAnimation() ->  TTBaseUIViewController {
+        self.skeletonLayer = UIView.getGradientSkeletonLayer()
+        if let skeLayer =  self.skeletonLayer { self.contentView.layer.addSublayer(skeLayer) }
+        return self
+    }
+    
+    public func onStartSkeletonAnimation(isSetAllSubView:Bool = true) {
+        self.skeletonLayer?.isHidden = false
+        
+        let views = isSetAllSubView ? self.contentView.subviewsRecursive(): self.contentView.subviews
+        for view in views {
+            if view as? TTBaseUINavigationView  == nil {
+                if let lb = view as? TTBaseUILabel {lb.onAddSkeletonMark()}
+                if let btn = view as? TTBaseUIButton {btn.onAddSkeletonMark()}
+                if let img = view as? TTBaseUIImageView {img.onAddSkeletonMark()}
+                if let web = view as? TTBaseWKWebView {web.onAddSkeletonMark()}
+            }
+        }
+    }
+
+    public func onStopSkeletonAnimation(isSetAllSubView:Bool = true) {
+        if (self.skeletonLayer?.isHidden ?? false) == true { return }
+        self.skeletonLayer?.isHidden = true
+        let views = isSetAllSubView ? self.contentView.subviewsRecursive(): self.contentView.subviews
+        for view in views {
+            if let _ = view as? TTBaseUIView {
+                //view.backgroundColor = view.viewDefBgColor
+            } else if let lb = view as? TTBaseUILabel {
+                lb.onRemoveSkeletonMark()
+            }  else if let btn = view as? TTBaseUIButton {
+                btn.onRemoveSkeletonMark()
+            } else if let img = view as? TTBaseUIImageView {
+                img.onRemoveSkeletonMark()
+            } else if let web = view as? TTBaseWKWebView {
+                web.onRemoveSkeletonMark()
+            }
+        }
+    }
 }
 

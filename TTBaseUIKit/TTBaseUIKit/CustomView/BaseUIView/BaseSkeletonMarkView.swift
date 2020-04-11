@@ -13,5 +13,6 @@ open class TTBaseSkeletonMarkView : TTBaseUIView {
     open override func updateBaseUIView() {
         super.updateBaseUIView()
         self.backgroundColor = TTView.viewBgSkeleton
+        self.setConerDef()
     }
 }

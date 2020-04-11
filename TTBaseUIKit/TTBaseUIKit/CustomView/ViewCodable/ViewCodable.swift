@@ -56,6 +56,16 @@ public protocol TTViewCodable {
      This function should be used to react for viewModel
      */
     func bindViewModel()
+
+    /*
+     This function should be used to set delegate for views
+     */
+    func setupBaseDelegate()
+    
+    /*
+     This function should be used to set data when change language view for test automationTest
+     */
+    func setupDataByChangeLocalizable()
     
     /*
      This function should be used to set AcessibilityIdentifiers view for test automationTest
@@ -108,6 +118,8 @@ extension TTViewCodable {
         self.bindComponents()
         self.bindViewModel()
         self.setupData()
+        self.setupDataByChangeLocalizable()
+        self.setupBaseDelegate()
         self.setupBaseAPI()
         self.setupAcessibilityIdentifiers()
     }
@@ -129,6 +141,10 @@ extension TTViewCodable {
     public func setupBaseAPI() {}
     
     public func bindViewModel() {}
+    
+    public func setupBaseDelegate() {}
+    
+    public func setupDataByChangeLocalizable() {}
 
     
 }

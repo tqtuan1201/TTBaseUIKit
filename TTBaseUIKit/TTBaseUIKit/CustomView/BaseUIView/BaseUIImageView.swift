@@ -13,8 +13,10 @@ open class TTBaseUIImageView: UIImageView, ViewDrawer {
     var viewDefBgColor: UIColor = UIColor.clear
     var viewDefCornerRadius: CGFloat = TTBaseUIKitConfig.getSizeConfig().CORNER_RADIUS
     
-    fileprivate lazy var skeletonImg:UIImage = UIImage(fromTTBaseUIKit: Config.Value.noImageName) ?? UIImage()
+    
     public var paddingContentImage: CGFloat = 0
+    public lazy var skeletonMarkView:TTBaseSkeletonMarkView = TTBaseSkeletonMarkView()
+    fileprivate lazy var skeletonImg:UIImage = UIImage(fromTTBaseUIKit: Config.Value.noImageName) ?? UIImage()
     
     open func updateUI() { }
     
@@ -109,6 +111,25 @@ extension TTBaseUIImageView {
         self.image = self.skeletonImg
     }
 }
+
+//MARK:// Skeleton
+extension TTBaseUIImageView {
+    public func onAddSkeletonMark() {
+        if self.viewWithTag(CONSTANT.TAG_VIEW.IMAGE_SKELETON.rawValue) != nil { return }
+        self.addSubview(self.skeletonMarkView)
+        self.skeletonMarkView.tag = CONSTANT.TAG_VIEW.IMAGE_SKELETON.rawValue
+        self.skeletonMarkView.setFullContraints(constant: 0)
+    }
+    
+    public func onRemoveSkeletonMark() {
+        UIView.animate(withDuration: 0.2, animations: {
+            self.skeletonMarkView.alpha = 0
+        }) { (isComplete) in
+            self.skeletonMarkView.removeFromSuperview()
+        }
+    }
+}
+
 
 extension TTBaseUIImageView {
     

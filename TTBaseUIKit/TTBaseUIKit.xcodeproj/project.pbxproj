@@ -36,6 +36,8 @@
 		6DD17E0D23EFD503007B49A6 /* BaseScrollPanelView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6DD17E0C23EFD503007B49A6 /* BaseScrollPanelView.swift */; };
 		6DD17E0F23EFD559007B49A6 /* BaseIconCircleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6DD17E0E23EFD559007B49A6 /* BaseIconCircleView.swift */; };
 		6DD17E1123EFD5F2007B49A6 /* BaseLabelIconHorizontalView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6DD17E1023EFD5F2007B49A6 /* BaseLabelIconHorizontalView.swift */; };
+		6DE8F2E82441F66A00646BF3 /* BaseNewSegmentedControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6DE8F2E72441F66A00646BF3 /* BaseNewSegmentedControl.swift */; };
+		6DE8F2EA2441F6A000646BF3 /* BasePaddingGenericView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6DE8F2E92441F6A000646BF3 /* BasePaddingGenericView.swift */; };
 		6DEEC8AF231F646600F233C2 /* BaseShadowPanelView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6DEEC8AE231F646600F233C2 /* BaseShadowPanelView.swift */; };
 		6DEEC8B1231F683B00F233C2 /* BaseUITextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6DEEC8B0231F683B00F233C2 /* BaseUITextView.swift */; };
 		930300EC22D46F650015F021 /* BaseCircleLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 930300EB22D46F650015F021 /* BaseCircleLabel.swift */; };
@@ -174,6 +176,8 @@
 		6DD17E0C23EFD503007B49A6 /* BaseScrollPanelView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseScrollPanelView.swift; sourceTree = "<group>"; };
 		6DD17E0E23EFD559007B49A6 /* BaseIconCircleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseIconCircleView.swift; sourceTree = "<group>"; };
 		6DD17E1023EFD5F2007B49A6 /* BaseLabelIconHorizontalView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseLabelIconHorizontalView.swift; sourceTree = "<group>"; };
+		6DE8F2E72441F66A00646BF3 /* BaseNewSegmentedControl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseNewSegmentedControl.swift; sourceTree = "<group>"; };
+		6DE8F2E92441F6A000646BF3 /* BasePaddingGenericView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BasePaddingGenericView.swift; sourceTree = "<group>"; };
 		6DEEC8AE231F646600F233C2 /* BaseShadowPanelView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseShadowPanelView.swift; sourceTree = "<group>"; };
 		6DEEC8B0231F683B00F233C2 /* BaseUITextView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseUITextView.swift; sourceTree = "<group>"; };
 		930300EB22D46F650015F021 /* BaseCircleLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseCircleLabel.swift; sourceTree = "<group>"; };
@@ -577,6 +581,8 @@
 				6D9E6736242A5E660025116E /* BasePanelButtonView.swift */,
 				6D9E6738242A5E980025116E /* BaseScrollViewController.swift */,
 				6D7FA660242AFCCD006899B6 /* BaseStackPanelView.swift */,
+				6DE8F2E72441F66A00646BF3 /* BaseNewSegmentedControl.swift */,
+				6DE8F2E92441F6A000646BF3 /* BasePaddingGenericView.swift */,
 			);
 			path = BaseUIView;
 			sourceTree = "<group>";
@@ -798,6 +804,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				936E0AC92273E92500FCD2B5 /* TextTableHeaderFooterViewCell.swift in Sources */,
+				6DE8F2EA2441F6A000646BF3 /* BasePaddingGenericView.swift in Sources */,
 				6D5BF33922FAB0920066DE78 /* LableSubLabelView.swift in Sources */,
 				933A92B0227755DD008ECCC4 /* RowTableView.swift in Sources */,
 				6D11041A2328E24700DC7E4A /* LogTrackingTableViewController.swift in Sources */,
@@ -868,6 +875,7 @@
 				93C05A102261BF1B00E27EDB /* BaseUIStackView.swift in Sources */,
 				93C99514225F6DFB0081FA81 /* UIApplication+Config.swift in Sources */,
 				6DEEC8B1231F683B00F233C2 /* BaseUITextView.swift in Sources */,
+				6DE8F2E82441F66A00646BF3 /* BaseNewSegmentedControl.swift in Sources */,
 				6D59D7CA235EA4A70007AA25 /* BaseShadowTableViewCell.swift in Sources */,
 				936091CB225B29F3007D8F6B /* ValueConfig.swift in Sources */,
 				93083CB62281662C00957B4D /* Device.swift in Sources */,

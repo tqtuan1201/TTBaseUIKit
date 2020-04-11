@@ -128,6 +128,7 @@ extension UIView {
         
         let animation = CABasicAnimation(keyPath: "locations")
         animation.fromValue = startLocations
+        animation.isRemovedOnCompletion = false
         animation.toValue = endLocations
         animation.duration = movingAnimationDuration
         animation.timingFunction = CAMediaTimingFunction(name: CAMediaTimingFunctionName.easeInEaseOut)
@@ -136,6 +137,7 @@ extension UIView {
         let animationGroup = CAAnimationGroup()
         animationGroup.duration = movingAnimationDuration + delayBetweenAnimationLoops
         animationGroup.animations = [animation]
+        animationGroup.isRemovedOnCompletion = false
         animationGroup.repeatCount = .infinity
         gradientLayer.add(animationGroup, forKey: animation.keyPath)
         return gradientLayer
@@ -148,9 +150,10 @@ extension UIView {
         self.layer.addSublayer(UIView.getGradientSkeletonLayer())
         let views = self.subviewsRecursive()
         for view in views {
-            //view.backgroundColor = TTView.viewBgSkeleton
             if let lb = view as? TTBaseUILabel {lb.onAddSkeletonMark()}
-            if let img = view as? TTBaseUIImageView {img.setAnimalForSkeletonView()}
+            if let btn = view as? TTBaseUIButton {btn.onAddSkeletonMark()}
+            if let img = view as? TTBaseUIImageView {img.onAddSkeletonMark()}
+            if let web = view as? TTBaseWKWebView {web.onAddSkeletonMark()}
         }
     }
     
@@ -162,11 +165,12 @@ extension UIView {
                 //view.backgroundColor = view.viewDefBgColor
             } else if let lb = view as? TTBaseUILabel {
                 lb.onRemoveSkeletonMark()
+            }  else if let btn = view as? TTBaseUIButton {
+                btn.onRemoveSkeletonMark()
             } else if let img = view as? TTBaseUIImageView {
-               img.backgroundColor = img.viewDefBgColor
-              img.setRollBackViewForSkeletonAnimal()
-            } else {
-                //view.backgroundColor = UIColor.clear
+                img.onRemoveSkeletonMark()
+            } else if let web = view as? TTBaseWKWebView {
+                web.onRemoveSkeletonMark()
             }
         }
     }

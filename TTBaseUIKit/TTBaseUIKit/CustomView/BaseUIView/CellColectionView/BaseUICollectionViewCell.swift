@@ -89,7 +89,8 @@ extension TTBaseUICollectionViewCell {
         let views = isSetAllSubView ? self.panel.subviewsRecursive(): self.panel.subviews
         for view in views {
             if let lb = view as? TTBaseUILabel {lb.onAddSkeletonMark()}
-            if let img = view as? TTBaseUIImageView {img.setAnimalForSkeletonView()}
+            if let btn = view as? TTBaseUIButton {btn.onAddSkeletonMark()}
+            if let img = view as? TTBaseUIImageView {img.onAddSkeletonMark()}
         }
     }
     
@@ -99,11 +100,13 @@ extension TTBaseUICollectionViewCell {
         let views = isSetAllSubView ? self.panel.subviewsRecursive(): self.panel.subviews
         for view in views {
             if let _ = view as? TTBaseUIView {
+                //view.backgroundColor = view.viewDefBgColor
             } else if let lb = view as? TTBaseUILabel {
                 lb.onRemoveSkeletonMark()
-            }  else if let img = view as? TTBaseUIImageView {
-                img.backgroundColor = img.viewDefBgColor
-                img.setRollBackViewForSkeletonAnimal()
+            }  else if let btn = view as? TTBaseUIButton {
+                btn.onRemoveSkeletonMark()
+            } else if let img = view as? TTBaseUIImageView {
+                img.onRemoveSkeletonMark()
             }
         }
     }
