@@ -71,6 +71,11 @@ open class TTCoverVerticalViewController: UIViewController {
             self?.coverPresentationController?.containerViewDidLayoutSubviews()
         }
     }
+    
+    open override func viewDidLoad() {
+        super.viewDidLoad()
+        TTBaseFunc.shared.printLog(object: NSStringFromClass(self.classForCoder))
+    }
 }
 
 fileprivate extension TTCoverVerticalViewController {
@@ -152,6 +157,7 @@ extension TTCoverVerticalViewController {
     public func onStopSkeletonAnimation(isSetAllSubView:Bool = true) {
         if (self.skeletonLayer?.isHidden ?? false) == true { return }
         self.skeletonLayer?.isHidden = true
+        self.skeletonLayer?.removeFromSuperlayer()
         let views = isSetAllSubView ? self.view.subviewsRecursive(): self.view.subviews
         for view in views {
             if let _ = view as? TTBaseUIView {

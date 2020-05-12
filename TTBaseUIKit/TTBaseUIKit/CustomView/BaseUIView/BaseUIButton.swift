@@ -108,6 +108,7 @@ extension TTBaseUIButton {
         self.isUserInteractionEnabled = true
         self.backgroundColor = UIColor.white
         self.setBorder(with: TTSize.H_BORDER, color: TTView.buttonBorderColor, coner: TTSize.CORNER_BUTTON)
+        self.setTextColor(color: TTView.buttonBorderColor)
     }
     
     @discardableResult public func setWarringType() -> TTBaseUIButton {
@@ -218,7 +219,7 @@ extension TTBaseUIButton {
     
     public func onAddSkeletonMark() {
         if self.viewWithTag(CONSTANT.TAG_VIEW.BUTTON_SKELETON.rawValue) != nil { return }
-        self.addSubview(self.skeletonMarkView)
+        self.skeletonMarkView = TTBaseSkeletonMarkView()
         self.skeletonMarkView.tag = CONSTANT.TAG_VIEW.BUTTON_SKELETON.rawValue
         self.addSubview(self.skeletonMarkView)
         self.skeletonMarkView.setFullContraints(constant: 0)

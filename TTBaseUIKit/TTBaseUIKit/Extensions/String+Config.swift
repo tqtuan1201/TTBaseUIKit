@@ -36,6 +36,15 @@ extension String {
         guard let decodedData = NSData(base64Encoded:self , options: .ignoreUnknownCharacters) else { return nil }
         return String(data: decodedData as Data, encoding: .utf8)
     }
+    
+    ///
+    /// This func return date
+    ///
+    public func toDate(withStringFormat format:String) -> Date? {
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = format
+        return dateFormatter.date(from: self)
+    }
 
     ///
     /// This func return date

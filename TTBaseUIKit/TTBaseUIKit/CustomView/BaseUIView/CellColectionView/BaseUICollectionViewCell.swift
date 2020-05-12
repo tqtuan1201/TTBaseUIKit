@@ -97,6 +97,7 @@ extension TTBaseUICollectionViewCell {
     public func onStopSkeletonAnimation(isSetAllSubView:Bool = true) {
         if (self.skeletonLayer?.isHidden ?? false) == true { return }
         self.skeletonLayer?.isHidden = true
+        self.skeletonLayer?.removeFromSuperlayer()
         let views = isSetAllSubView ? self.panel.subviewsRecursive(): self.panel.subviews
         for view in views {
             if let _ = view as? TTBaseUIView {

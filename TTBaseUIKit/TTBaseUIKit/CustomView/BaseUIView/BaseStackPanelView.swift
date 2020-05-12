@@ -11,7 +11,7 @@ import UIKit
 
 open class TTBaseStackPanelView :TTBaseUIView {
     
-    public var pading:(CGFloat,CGFloat,CGFloat,CGFloat) { return   (TTSize.P_CONS_DEF, TTSize.P_CONS_DEF, TTSize.P_CONS_DEF, TTSize.P_CONS_DEF) }
+    open var pading:(CGFloat,CGFloat,CGFloat,CGFloat) { return   (TTSize.P_CONS_DEF, TTSize.P_CONS_DEF, TTSize.P_CONS_DEF, TTSize.P_CONS_DEF) }
     public var baseStackView:TTBaseUIStackView = TTBaseUIStackView(axis: .horizontal, spacing: TTSize.P_CONS_DEF, alignment: .fill)
     
     open var bgPanelColor:UIColor { get { return UIColor.white}}

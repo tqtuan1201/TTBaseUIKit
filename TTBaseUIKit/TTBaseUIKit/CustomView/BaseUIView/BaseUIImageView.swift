@@ -116,8 +116,11 @@ extension TTBaseUIImageView {
 extension TTBaseUIImageView {
     public func onAddSkeletonMark() {
         if self.viewWithTag(CONSTANT.TAG_VIEW.IMAGE_SKELETON.rawValue) != nil { return }
-        self.addSubview(self.skeletonMarkView)
+        
+        self.skeletonMarkView = TTBaseSkeletonMarkView()
         self.skeletonMarkView.tag = CONSTANT.TAG_VIEW.IMAGE_SKELETON.rawValue
+        self.addSubview(self.skeletonMarkView)
+        
         self.skeletonMarkView.setFullContraints(constant: 0)
     }
     

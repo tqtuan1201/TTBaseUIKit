@@ -53,6 +53,8 @@ public struct CONSTANT {
         case YYYY_MM_DD_HH_MM_SS    = "yyyy-MM-dd HH:mm:ss"
         case YYYY_MM_DD_T_HH_MM_SS  = "yyyy-MM-dd'T'HH:mm:ss"
         case YYYY_MM_DD_T_HH_MM_SS_Z = "yyyy-MM-dd'T'HH:mm:ssZ"
+        case YYYY_MM_DD_T_HH_MM_SSSSSS_Z = "yyyy-MM-dd'T'HH:mm:ss.SSSSSSZ"
+        case YYYY_MM_DD_T_HH_MM_SSSS_Z = "yyyy-MM-dd'T'HH:mm:ss.SSSSZ"
         case HH_MM_DD_MM_YYYY       = "HH:mm dd/MM/yyyy"
         case YYYY_MM_DD_HH_MM       = "yyyy-MM-dd HH:mm"
         case HH_MM                  = "HH:mm"

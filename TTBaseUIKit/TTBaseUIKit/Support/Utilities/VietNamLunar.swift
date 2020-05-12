@@ -188,3 +188,15 @@ open class TTVietNamLunar {
     
     
 }
+
+
+extension TTVietNamLunar {
+    public static func convertSolar2LunarToDate(currentDate:Date, timeZone:Double = 7.0) -> Date? {
+        let numArrs:[Int] = TTVietNamLunar.convertSolar2Lunar(currentDate: currentDate, timeZone: timeZone)
+        if numArrs.isEmpty { return nil }
+        let lunarString:String = "\(String(format: "%02.0f", Double.init(numArrs[0])))/\(String(format: "%02.0f", Double.init(numArrs[1])))/\(numArrs[2])"
+        TTBaseFunc.shared.printLog(object: "CurrentDate: \(currentDate.dateString(withFormat: .DD_MM_YYYY)): -> Lunar: \(lunarString)")
+        return lunarString.toDate(withFormat: .DD_MM_YYYY)
+    }
+}
+

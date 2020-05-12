@@ -95,6 +95,35 @@ extension Date {
         return ( Calendar.current.date(byAdding: .month, value: -1, to: self.firstDayOfMonth()) ?? Date() )
     }
     
+    
+       public func dateString(withFormatString format:String, locateString:String = "vi_VN") -> String {
+           let dateFormatter = DateFormatter()
+           dateFormatter.amSymbol = "AM"
+           dateFormatter.pmSymbol = "PM"
+           dateFormatter.locale = Locale(identifier: locateString) //Locale(identifier: "en_US_POSIX")
+           dateFormatter.dateFormat = format
+           return dateFormatter.string(from: self)
+       }
+       
+       public func getDateByName() -> String {
+           if self.isMonday() {
+               return "T2"
+           } else if self.isTuesday() {
+               return "T3"
+           } else if self.isWednesday() {
+               return "T4"
+           } else if self.isThursday() {
+               return "T5"
+           } else if self.isFriday() {
+               return "T6"
+           } else if self.isSaturday() {
+               return "T7"
+           } else if  self.isSunday() {
+               return "CN"
+           }
+           return ""
+       }
+    
     public func dateString(withFormat format: CONSTANT.FORMAT_DATE) -> String {
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = format.rawValue

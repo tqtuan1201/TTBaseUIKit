@@ -55,6 +55,9 @@ open class TTBaseUITableViewController: TTBaseUIViewController<TTBaseUIView>, UI
         
         self.setupBaseView()
         self.setupBaseConstraint()
+        
+        TTBaseFunc.shared.printLog(object: NSStringFromClass(self.classForCoder))
+        
     }
 
     private func setupBaseView() {

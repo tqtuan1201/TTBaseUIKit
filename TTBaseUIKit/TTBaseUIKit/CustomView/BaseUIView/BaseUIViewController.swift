@@ -115,6 +115,7 @@ open class TTBaseUIViewController<BaseView:TTBaseUIView>: UIViewController, TTBa
         super.viewDidLoad()
         self.setupUI()
         self.setupConstraints()
+        TTBaseFunc.shared.printLog(object: NSStringFromClass(self.classForCoder))
     }
     
     open override func loadView() {
@@ -246,6 +247,7 @@ extension TTBaseUIViewController {
     public func onStopSkeletonAnimation(isSetAllSubView:Bool = true) {
         if (self.skeletonLayer?.isHidden ?? false) == true { return }
         self.skeletonLayer?.isHidden = true
+        self.skeletonLayer?.removeFromSuperlayer()
         let views = isSetAllSubView ? self.contentView.subviewsRecursive(): self.contentView.subviews
         for view in views {
             if let _ = view as? TTBaseUIView {

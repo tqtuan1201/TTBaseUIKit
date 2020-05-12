@@ -97,6 +97,23 @@ extension TTBaseUtil {
             "live.com", "yahoo.com"]
         return domains
     }
+    
+    
+      /// Push to go setting app
+      ///
+      public func goSettingApp() {
+          guard let urlApp = URL(string: UIApplication.openSettingsURLString) else { return }
+          UIApplication.shared.open(urlApp, options: [:], completionHandler: nil)
+      }
+      
+      
+      /// to make phone call
+      ///
+      public func makeCall(WithPhoneNumber phone:String) {
+          if let url = URL(string: "tel://\(phone)"), UIApplication.shared.canOpenURL(url) {
+              UIApplication.shared.open(url, options: [:], completionHandler: nil)
+          }
+      }
 }
 
 
