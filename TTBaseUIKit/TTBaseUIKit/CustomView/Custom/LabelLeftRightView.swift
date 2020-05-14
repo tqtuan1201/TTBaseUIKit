@@ -39,11 +39,19 @@ open class TTLabelLeftRightView: TTBaseUIView {
     }
     
     required public init?(coder aDecoder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
+        super.init()
+        self.leftLabel = TTBaseUILabel(withType: TTBaseUILabel.TYPE.TITLE, text: "Left label", align: .left)
+        self.rightLabel = TTBaseUILabel(withType: TTBaseUILabel.TYPE.TITLE, text: "Right label", align: .right)
+        self.isHuggingRight = true
+        self.setupUI()
     }
     
     required public init() {
-        fatalError("init() has not been implemented")
+        super.init()
+        self.leftLabel = TTBaseUILabel(withType: TTBaseUILabel.TYPE.TITLE, text: "Left label", align: .left)
+        self.rightLabel = TTBaseUILabel(withType: TTBaseUILabel.TYPE.TITLE, text: "Right label", align: .right)
+        self.isHuggingRight = true
+        self.setupUI()
     }
     
     fileprivate func setupUI() {
