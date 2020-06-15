@@ -17,6 +17,7 @@ open class BaseSquarePinsView: TTBaseUIView {
     
     fileprivate var pinString:String = "" {
         didSet {
+            self.didChangValue?(pinString)
             self.handleInputPIN()
             if self.pinString.count == self.numberOfPIN { self.didCompleted?(pinString) }
         }
@@ -29,6 +30,7 @@ open class BaseSquarePinsView: TTBaseUIView {
     public let hiddenTextField:TTBaseUITextField = TTBaseUITextField(withPlaceholder: "", pading: 10, type: .NO_BORDER, isSetHiddenKeyboardAccessoryView: false)
     
     public var didCompleted:( (_ otpString:String) -> ())?
+    public var didChangValue:( (_ otpString:String) -> ())?
     
     override open func updateBaseUIView() {
         super.updateBaseUIView()
@@ -69,7 +71,7 @@ open class BaseSquarePinsView: TTBaseUIView {
             }
         }
         
-        self.setHidden(withLineColor: TTView.lineDefColor)
+        self.setHidden()
     }
 }
 
@@ -85,14 +87,14 @@ extension BaseSquarePinsView {
             if self.isShow {
                 lb.setShow()
             } else {
-                lb.setHidden(withLineColor: TTView.labelBgDef)
+                lb.setHidden(withCircleColor: TTView.labelBgDef)
             }
         }
         if  count < self.numberOfPIN {
             for i in count ..< self.numberOfPIN {
                 guard let lb = self.layer.value(forKey: "Index_\(i)") as? TTBaseSquarePinView else { return }
                 lb.setLine()
-                lb.lineView.setBgColor(TTView.lineDefColor)
+                lb.lineView.setBgColor(TTView.linePINDefColor)
             }
         }
     }
@@ -101,6 +103,7 @@ extension BaseSquarePinsView {
 
 //MARK:// For Public funcs
 extension BaseSquarePinsView {
+    
     public func setPIN(withText PIN:String) {
         self.pinString = PIN
         self.hiddenTextField.setText(text: PIN)
@@ -110,19 +113,27 @@ extension BaseSquarePinsView {
         self.isShow = true
         for i in 0 ..< self.numberOfPIN {
             guard let lb = self.layer.value(forKey: "Index_\(i)") as? TTBaseSquarePinView else { return }
-            lb.lineView.isHidden = true
             lb.pinLabel.isHidden = false
-            lb.lineView.setBgColor(TTView.lineDefColor)
+            lb.lineView.isHidden = true
+            lb.circleView.isHidden = true
         }
     }
     
-    public func setHidden(withLineColor color:UIColor = TTBaseUIKitConfig.getViewConfig().labelBgDef) {
+    public func setHidden() {
         self.isShow = false
-        for i in 0 ..< self.numberOfPIN {
-            guard let lb = self.layer.value(forKey: "Index_\(i)") as? TTBaseSquarePinView else { return }
-            lb.lineView.isHidden = false
-            lb.pinLabel.isHidden = true
-            lb.lineView.setBgColor(color)
+        if self.pinString.isEmpty {
+            for i in 0 ..< self.numberOfPIN {
+                guard let lb = self.layer.value(forKey: "Index_\(i)") as? TTBaseSquarePinView else { return }
+                lb.circleView.isHidden = true
+                lb.pinLabel.isHidden = true
+                lb.lineView.isHidden = false
+            }
+        } else {
+            self.handleInputPIN()
         }
     }
+    
 }
+
+
+

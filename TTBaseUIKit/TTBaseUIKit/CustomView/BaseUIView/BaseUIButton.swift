@@ -20,6 +20,8 @@ open class TTBaseUIButton: UIButton, ViewDrawer, TextDrawer {
    
     public lazy var skeletonMarkView:TTBaseSkeletonMarkView = TTBaseSkeletonMarkView()
     
+    fileprivate let indicatorView: UIActivityIndicatorView = UIActivityIndicatorView()
+    
     public enum TYPE {
         case NO_BG_COLOR
         case DEFAULT
@@ -81,6 +83,15 @@ open class TTBaseUIButton: UIButton, ViewDrawer, TextDrawer {
     private func setupUI() {
         self.translatesAutoresizingMaskIntoConstraints = false
         self.contentEdgeInsets = UIEdgeInsets(top: TTSize.P_CONS_DEF, left: TTSize.P_CONS_DEF, bottom: TTSize.P_CONS_DEF, right: TTSize.P_CONS_DEF)
+        
+        self.indicatorView.translatesAutoresizingMaskIntoConstraints = false
+        self.indicatorView.style = UIActivityIndicatorView.Style.white
+        self.indicatorView.isUserInteractionEnabled = false
+        self.indicatorView.alpha = 0
+        self.addSubview(self.indicatorView)
+        self.indicatorView.setWidthAnchor(constant: 12.0).setHeightAnchor(constant: 12.0)
+        self.indicatorView.setFullCenterAnchor(constant: 0)
+        
         self.drawView()
         self.drawButton()
     }
@@ -234,3 +245,27 @@ extension TTBaseUIButton {
     }
     
 }
+
+//MARK:// Loading
+extension TTBaseUIButton {
+    
+    public func onStartLoadingAnimation(withStyle style:UIActivityIndicatorView.Style = .white) {
+        self.indicatorView.style = style
+        self.indicatorView.startAnimating()
+        UIView.animate(withDuration: 0.4) {
+            self.titleLabel?.alpha = 0
+            self.setNonEnable()
+            self.indicatorView.alpha = 1
+        }
+    }
+    
+    public func onStopLoadingAnimation() {
+        self.indicatorView.stopAnimating()
+        UIView.animate(withDuration: 0.4) {
+            self.titleLabel?.alpha = 1
+            self.setEnable()
+            self.indicatorView.alpha = 0
+        }
+    }
+}
+

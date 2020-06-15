@@ -59,7 +59,9 @@ open class ViewConfig {
     public var segBgLine: UIColor = UIColor.white
     public var segLineBottomBg: UIColor = UIColor.getColorFromHex.init(netHex: 0xC41F53)
     
-    public var lineDefColor: UIColor =  UIColor.getColorFromHex.init(netHex: 0xe5e5e5)
+    public var lineDefColor: UIColor =  UIColor.getColorFromHex.init(netHex: 0x1C82AD)
+    public var linePINDefColor: UIColor =  UIColor.getColorFromHex.init(netHex: 0x1C82AD)
+    public var linePINInputDefColor: UIColor =  UIColor.getColorFromHex.init(netHex: 0xe5e5e5)
     public var lineActiveColor: UIColor =  UIColor.getColorFromHex.init(netHex: 0xC41F53)
     
     public var iconColor: UIColor =  UIColor.getColorFromHex.init(netHex: 0x777777)

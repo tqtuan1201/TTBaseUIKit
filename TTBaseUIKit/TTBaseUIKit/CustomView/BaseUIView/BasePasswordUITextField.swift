@@ -15,7 +15,7 @@ open class TTBasePasswordUITextField:TTBaseUITextField {
     open var iconRightColor:UIColor { get { return TTView.iconRightTextFieldColor}}
     open var padingIcon:CGFloat { get { return 0}}
     
-    public let panelIcon:UIView = UIView()
+    public let panelIcon:TTBaseUIView = TTBaseUIView()
     public let eyeIconImageView:TTBaseUIImageFontView = TTBaseUIImageFontView.init(withFontIconLightSize: .eye,sizeIcon: CGSize(width: 30, height: 30), colorIcon: TTView.iconRightTextFieldColor)
     
     open override func updateUI() {
@@ -31,6 +31,7 @@ extension TTBasePasswordUITextField {
     
     fileprivate func setupBaseUIView() {
         self.isSecureTextEntry = true
+        self.panelIcon.translatesAutoresizingMaskIntoConstraints = true
         self.eyeIconImageView.translatesAutoresizingMaskIntoConstraints = true
         self.panelIcon.addSubview(self.eyeIconImageView)
         
@@ -45,7 +46,9 @@ extension TTBasePasswordUITextField {
     }
     
     fileprivate func setupTapHandle() {
-        self.eyeIconImageView.setActiveOnTouchHandle().onTouchHandler = { [weak self ] imageView in guard let strongSelf = self else { return }
+        self.isUserInteractionEnabled = true
+        self.panelIcon.isUserInteractionEnabled = true
+        self.panelIcon.setTouchHandler().onTouchHandler = { [weak self ] imageView in guard let strongSelf = self else { return }
             if strongSelf.isSecureTextEntry {
                 strongSelf.isSecureTextEntry = false
             } else {
