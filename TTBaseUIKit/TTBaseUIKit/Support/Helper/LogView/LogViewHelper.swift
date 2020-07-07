@@ -36,8 +36,10 @@ extension LogViewHelper {
     }
     
     public func add(withLog log:LogViewModel) {
-        if self.viewModel.logs.count >= 70 { self.viewModel.logs = [] }
-        self.viewModel.logs.append(log)
+        DispatchQueue.global(qos: .background).sync {
+            if self.viewModel.logs.count >= 70 { self.viewModel.logs = [] }
+            self.viewModel.logs.append(log)
+        }
     }
     
     public  func resetLogs() {
