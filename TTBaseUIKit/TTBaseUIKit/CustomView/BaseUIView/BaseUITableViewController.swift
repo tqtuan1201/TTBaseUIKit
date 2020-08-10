@@ -64,13 +64,19 @@ open class TTBaseUITableViewController: TTBaseUIViewController<TTBaseUIView>, UI
         
         self.tableView.separatorStyle           = .none
         
-        //self.tableView.estimatedRowHeight       = estimatedRowHeight
-        //self.tableView.rowHeight = UITableView.automaticDimension
-        //self.tableView.sectionHeaderHeight = UITableView.automaticDimension
-        //self.tableView.sectionFooterHeight = UITableView.automaticDimension
-        
-        //self.tableView.estimatedSectionHeaderHeight = sectionHeaderHeight
-        //self.tableView.estimatedSectionFooterHeight = sectionFooterHeight
+        if #available(iOS 11, *) {
+            // iOS 11 (or newer) ObjC code
+        } else {
+            // iOS 10 or older code
+            self.tableView.estimatedRowHeight       = estimatedRowHeight
+            self.tableView.rowHeight = UITableView.automaticDimension
+            self.tableView.sectionHeaderHeight = UITableView.automaticDimension
+            self.tableView.sectionFooterHeight = UITableView.automaticDimension
+    
+            self.tableView.estimatedSectionHeaderHeight = sectionHeaderHeight
+            self.tableView.estimatedSectionFooterHeight = sectionFooterHeight
+        }
+
         
         self.tableView.backgroundColor = self.bgTableView
         
