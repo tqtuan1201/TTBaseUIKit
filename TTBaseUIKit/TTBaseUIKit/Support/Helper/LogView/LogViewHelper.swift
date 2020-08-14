@@ -14,6 +14,8 @@ open class LogViewHelper {
     fileprivate var viewModel:LogTrackingViewModel = LogTrackingViewModel()
     
     public static let share = LogViewHelper()
+    private let concurrentQueue = DispatchQueue(label: "ConcurrentQueue", attributes: .concurrent, target: nil)
+    
     private  init(){}
     
     public var didTouchLogButtonHandle:( () -> ())?
@@ -32,11 +34,15 @@ open class LogViewHelper {
 extension LogViewHelper {
     
     public func getLogs() -> [LogViewModel] {
-        return self.viewModel.logs.reversed()
+        var logs: [LogViewModel] = []
+        self.concurrentQueue.sync {  // reading always has to be sync!
+          logs = self.viewModel.logs.reversed()
+        }
+        return logs
     }
     
     public func add(withLog log:LogViewModel) {
-        DispatchQueue.global(qos: .background).sync {
+        self.concurrentQueue.async(flags: .barrier) {
             if self.viewModel.logs.count >= 70 { self.viewModel.logs = [] }
             self.viewModel.logs.append(log)
         }

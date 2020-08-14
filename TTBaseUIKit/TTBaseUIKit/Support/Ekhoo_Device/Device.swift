@@ -173,10 +173,6 @@ open class Device {
         return UIScreen.main.scale > 1.0
     }
 
-    static public func isPad() -> Bool {
-        return type() == .iPad
-    }
-    
     static public func isPhone() -> Bool {
         return type() == .iPhone
     }
@@ -189,7 +185,7 @@ open class Device {
         return type() == .simulator
     }
     
-    static public func isCheckIpadBySystem() -> Bool {
+    static public func isPad() -> Bool {
         return UIDevice.current.userInterfaceIdiom == .pad
     }
     
