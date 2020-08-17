@@ -29,13 +29,17 @@ open class TTBaseUITextField: UITextField   {
         case ONLY_BOTTOM
     }
     
+    public var iconImageView:TTBaseUIImageFontView? = nil
+    
     public var onTextEditChangedHandler:((_ textField:TTBaseUITextField,_ textString:String) -> Void)?
     public var onDismissKeyboard:(() -> Void)?
     public var onTouchIconHandler:((_ textField:TTBaseUITextField) -> Void)?
     
+    open var paddingIcon:CGFloat { get { return TTSize.P_CONS_DEF }}
     open func updateUI() { }
     
     public var onTouchHandler:((_ textField:TTBaseUITextField) -> Void)?
+    public var onTouchReturnKeyHandler:((_ textField:TTBaseUITextField,_ type:UIReturnKeyType) -> Void)?
     
     fileprivate var type:TYPE = .DEFAULT
     
@@ -59,8 +63,9 @@ open class TTBaseUITextField: UITextField   {
         return bounds.insetBy(dx: self.textpading, dy: self.textpading)
     }
     
-    public convenience init(withPlaceholder text:String, pading:CGFloat = 5, type:TYPE = .DEFAULT, isSetHiddenKeyboardAccessoryView:Bool = true) {
+    public convenience init(withPlaceholder text:String, pading:CGFloat = 5, type:TYPE = .DEFAULT, isSetHiddenKeyboardAccessoryView:Bool = true, returnKeyType:UIReturnKeyType = .default) {
         self.init(frame: .zero)
+        self.returnKeyType = returnKeyType
         self.type = type
         self.textpading = pading
         self.placeholder = text
@@ -213,14 +218,18 @@ extension TTBaseUITextField {
     
     public func setIcon(icon:AwesomePro.Light, isRight:Bool, size:CGSize = CGSize.init(width: TTBaseUIKitConfig.getSizeConfig().H_ICON / 2, height:TTBaseUIKitConfig.getSizeConfig().H_ICON / 2), iconColor:UIColor = TTBaseUIKitConfig.getViewConfig().iconColor) {
         let panelIcon:UIView = UIView()
-        let eyeIconImageView:TTBaseUIImageFontView = TTBaseUIImageFontView.init(withFontIconLightSize: icon,sizeIcon: CGSize(width: 30, height: 30), colorIcon: iconColor)
+        self.iconImageView = TTBaseUIImageFontView.init(withFontIconLightSize: icon,sizeIcon: CGSize(width: 30, height: 30), colorIcon: iconColor)
         
-        eyeIconImageView.translatesAutoresizingMaskIntoConstraints = true
-        panelIcon.addSubview(eyeIconImageView)
+        self.iconImageView!.translatesAutoresizingMaskIntoConstraints = true
+        panelIcon.addSubview(self.iconImageView!)
         
-        panelIcon.frame = CGRect.init(x: 0, y: 0, width: size.width, height: size.height)
-        eyeIconImageView.frame = CGRect.init(x: 0, y: 0, width: size.width, height: size.height)
-        eyeIconImageView.tintColor = iconColor
+        panelIcon.frame = CGRect.init(x: 0, y: 0, width: size.width + self.paddingIcon, height: size.height)
+        if isRight {
+            self.iconImageView!.frame = CGRect.init(x: 0, y: 0, width: size.width, height: size.height)
+        } else {
+            self.iconImageView!.frame = CGRect.init(x: self.paddingIcon, y: 0, width: size.width, height: size.height)
+        }
+        self.iconImageView!.tintColor = iconColor
         
         if isRight {
             self.rightView = panelIcon
@@ -231,7 +240,7 @@ extension TTBaseUITextField {
             self.leftViewMode = .always
             self.leftView?.translatesAutoresizingMaskIntoConstraints = true
         }
-        eyeIconImageView.setActiveOnTouchHandle().onTouchHandler = { [weak self ] imageView in guard let strongSelf = self else { return }
+        self.iconImageView!.setActiveOnTouchHandle().onTouchHandler = { [weak self ] imageView in guard let strongSelf = self else { return }
             strongSelf.onTouchIconHandler?(strongSelf)
         }
     }
@@ -239,6 +248,13 @@ extension TTBaseUITextField {
 
 // For real time format text
 extension TTBaseUITextField : UITextFieldDelegate {
+    
+    public func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+         // your Action According to your textfield
+        self.onTouchReturnKeyHandler?(self, textField.returnKeyType)
+        return true
+    }
+    
     public func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
         if self.isForceUpperCase {
             let firstLowercaseCharRange = string.rangeOfCharacter(from: NSCharacterSet.lowercaseLetters)

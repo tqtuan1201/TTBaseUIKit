@@ -63,9 +63,11 @@ open class TTBaseUILabel : UILabel, ViewDrawer, TextDrawer {
         break
         case .SUB_TITLE:
             self.setFontSize(size: TTBaseUIKitConfig.getFontConfig().SUB_TITLE_H).done()
+            self.setTextColor(color: TTBaseUIKitConfig.getViewConfig().textSubTitleColor)
         break
         case .SUB_SUB_TILE:
             self.setFontSize(size: TTBaseUIKitConfig.getFontConfig().SUB_SUB_TITLE_H).done()
+            self.setTextColor(color: TTBaseUIKitConfig.getViewConfig().textSubTitleColor)
         break
         default: break
         }
