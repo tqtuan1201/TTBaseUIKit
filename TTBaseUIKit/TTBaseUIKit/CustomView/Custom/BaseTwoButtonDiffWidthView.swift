@@ -63,6 +63,7 @@ extension TTBaseTwoButtonDiffWidthView :TTViewCodable {
         self.rightButton.setTopAnchor(constant: self.padding).setBottomAnchor(constant: self.padding)
             .setTrailingAnchor(constant: self.padding)
         
+        print("self.multiplierWidth: \(self.multiplierWidth)")
         self.leftButton.widthAnchor.constraint(equalTo: self.rightButton.widthAnchor, multiplier: self.multiplierWidth).isActive = true
         self.setHeightAnchor(constant: self.heightPanel)
         

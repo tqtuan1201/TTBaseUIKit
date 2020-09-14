@@ -125,8 +125,34 @@ open class TTBaseShadowPanelView: TTBaseUIView {
     }
     
     open override func updateBaseUIView() {
-        super.updateBaseUIView()
         self.addSubview(self.panelShadowView)
         self.panelShadowView.setFullContraints(lead: self.shadowHeight * 1.5, trail: self.shadowHeight * 1.5, top: 0, bottom: self.shadowHeight * 2)
+    }
+}
+
+
+open class TTBaseShadowPaddingPanelView: TTBaseUIView {
+    
+    open var bgShadown:UIColor { get { return UIColor.darkGray.withAlphaComponent(0.4) }}
+    open var textColor:UIColor {get { return TTView.textDefColor } }
+    open var bgPanel:UIColor { get { return .white } }
+    open var shadowPadding:UIEdgeInsets { get { return .init(top: 0.0, left: TTSize.P_CONS_DEF, bottom: TTSize.P_CONS_DEF * 1.5, right: TTSize.P_CONS_DEF) } }
+    
+    public var panelShadowView:TTBaseUIView = TTBaseUIView()
+    
+    override open func layoutSubviews() {
+        super.layoutSubviews()
+        if self.layer.shadowPath == nil {
+            self.layer.backgroundColor = UIColor.clear.cgColor
+            self.layer.shadowColor = self.bgShadown.cgColor
+            self.layer.shadowOffset = CGSize(width: 0, height: self.shadowPadding.bottom / 2 )
+            self.layer.shadowOpacity = 0.4
+            self.layer.shadowRadius = 7.0
+        }
+    }
+    
+    open override func updateBaseUIView() {
+        self.addSubview(self.panelShadowView)
+        self.panelShadowView.setFullContraints(lead: self.shadowPadding.left, trail: self.shadowPadding.right, top: self.shadowPadding.top, bottom: self.shadowPadding.bottom)
     }
 }

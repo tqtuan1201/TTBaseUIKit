@@ -34,7 +34,7 @@ open class TTBaseUISegmentedControl: UISegmentedControl {
         case LINE_BOTTOM
     }
     
-    fileprivate lazy var underlineView = UIView()
+    public lazy var underlineView = UIView()
     fileprivate lazy var type:TYPE = .DEFAULT
     
     public var onTouchHandler:((_ seg:TTBaseUISegmentedControl, _ indexSelected:Int) -> Void)?
@@ -128,17 +128,22 @@ extension TTBaseUISegmentedControl {
         self.underlineView.frame = CGRect(x: 0, y: TTSize.H_SEG - self.lineBottomHeight, width: widthLine, height: self.lineBottomHeight)
         self.underlineView.backgroundColor = self.lineBottomColor
     }
-    
-    func changeUnderlinePosition() {
-        let underlineFinalXPosition = (self.bounds.width / CGFloat(self.numberOfSegments)) * CGFloat(selectedSegmentIndex)
-        UIView.animate(withDuration: 0.2, animations: { [weak self] in guard let strongSelf = self else { return }
-            strongSelf.underlineView.frame.origin.x = underlineFinalXPosition
-        })
-    }
 }
 
 // MARK: For public base funcs
 extension TTBaseUISegmentedControl {
+    
+    public func changeUnderlinePosition() {
+        DispatchQueue.main.async {
+            let widthLine:CGFloat = UIScreen.main.bounds.width / CGFloat(self.numberOfSegments)
+            self.underlineView.frame.size.width = widthLine
+            let underlineFinalXPosition = (self.bounds.width / CGFloat(self.numberOfSegments)) * CGFloat(self.selectedSegmentIndex)
+            UIView.animate(withDuration: 0.4, animations: { [weak self] in guard let strongSelf = self else { return }
+                strongSelf.underlineView.frame.origin.x = underlineFinalXPosition
+            })
+        }
+    }
+    
     public func setSelectedIndex(with index:Int) {
         self.selectedSegmentIndex = index
         if self.type == .LINE_BOTTOM { self.changeUnderlinePosition() }

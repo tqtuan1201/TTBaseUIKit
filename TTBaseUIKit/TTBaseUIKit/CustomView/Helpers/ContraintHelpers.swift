@@ -18,7 +18,7 @@ extension UIView {
             superView.constraintWithIdentifier(identifierAnchor)?.constant = constant
         } else {
             var leadingAnchor:NSLayoutConstraint
-            if #available(iOS 11.0, *) {
+            if #available(iOS 11.0, *), isApplySafeArea {
                 leadingAnchor = self.leadingAnchor.constraint(equalTo: superView.safeAreaLayoutGuide.leadingAnchor, constant: constant)
             } else {
                 leadingAnchor = self.leadingAnchor.constraint(equalTo: superView.leadingAnchor, constant: constant)
