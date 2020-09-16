@@ -62,7 +62,6 @@ public class TTBaseNotificationViewConfig {
         case BOTTOM_ABOVE_TAB
     }
     
-    
     public var buttonColor:UIColor = UIColor.white
     
     public var type:TYPE = .NOTIFICATION_VIEW
@@ -71,7 +70,7 @@ public class TTBaseNotificationViewConfig {
     public var contentViewType:VIEW_TYPE = .ICON_TEXT
     public var sizeFrame:SIZE_FRAME = .FIXED
     public var positionType:POSITION = .TOP
-    public var touchType:TOUCH_TYPE = .NONE
+    public var touchType:TOUCH_TYPE = .SWIPE
     
     public var padding:(CGFloat,CGFloat,CGFloat,CGFloat) = (TTSize.P_CONS_DEF,TTSize.P_CONS_DEF,TTSize.P_CONS_DEF,TTSize.P_CONS_DEF)
     public var paddingTopAnimal:CGFloat = TTBaseUIKitConfig.getSizeConfig().H_STATUS + TTBaseUIKitConfig.getSizeConfig().P_CONS_DEF
@@ -129,17 +128,28 @@ extension TTBaseNotificationViewConfig {
         self.titleString = title
         self.subString = subTitle
     }
-}
-
-//MARK:// For Touch handle
-extension TTBaseNotificationViewConfig {
     
-    fileprivate func setHiddenNotificationView() {
+    public func onHidden() {
+        DispatchQueue.main.async {
+            UIView.animate(withDuration: 0.4, delay: 0.1, options: UIView.AnimationOptions.transitionCurlUp, animations: {
+                self.currentNotifiView.transform = CGAffineTransform(translationX: 0, y:  -300)
+            }, completion: { (isComplete) in
+                if self.isHiddenStatusBar { if let statusBar: UIView = UIApplication.shared.value(forKey: "statusBar") as? UIView { statusBar.isHidden = false } }
+                self.setHiddenNotificationView()
+            })
+        }
+    }
+    
+    public func setHiddenNotificationView() {
         UIView.animate(withDuration: 0.8) {
             self.currentNotifiView.removeFromSuperview()
             self.contentView?.alpha = 0; self.contentView?.removeFromSuperview()
         }
     }
+}
+
+//MARK:// For Touch handle
+extension TTBaseNotificationViewConfig {
     
     fileprivate func setTargets() {
         switch self.touchType {
@@ -150,6 +160,10 @@ extension TTBaseNotificationViewConfig {
             }
             break
         case .NOTIFI_VIEW:
+            
+            self.currentNotifiView.titleLabel.isUserInteractionEnabled = false
+            self.currentNotifiView.subLabel.isUserInteractionEnabled = false
+            
             self.currentNotifiView.setTouchHandler().onTouchHandler = { _ in
                 self.onTouchNotifiViewHandler?()
             }
@@ -160,14 +174,14 @@ extension TTBaseNotificationViewConfig {
             }
             break
         case .SWIPE:
+            
+            self.currentNotifiView.titleLabel.isUserInteractionEnabled = false
+            self.currentNotifiView.subLabel.isUserInteractionEnabled = false
+            self.currentNotifiView.buttonRight.isUserInteractionEnabled = false
+            
             self.currentNotifiView.setSwipeHandler(with: .up).onTouchHandler = { _ in
                 TTBaseFunc.shared.printLog(object: "self.currentNotifiView.onSetUpSwipe().onSwipeHandler")
-                UIView.animate(withDuration: 0.4, delay: 0.1, options: UIView.AnimationOptions.transitionCurlUp, animations: {
-                    self.currentNotifiView.transform = CGAffineTransform(translationX: 0, y:  -300)
-                }, completion: { (isComplete) in
-                    if self.isHiddenStatusBar { if let statusBar: UIView = UIApplication.shared.value(forKey: "statusBar") as? UIView { statusBar.isHidden = false } }
-                    self.setHiddenNotificationView()
-                })
+                self.onHidden()
             }
             break
         case .NONE:
@@ -229,15 +243,20 @@ extension TTBaseNotificationViewConfig{
         UIView.animate(withDuration: 0.6, delay: 0.1, options: .allowUserInteraction, animations: {
             if self.isHiddenStatusBar { if let statusBar: UIView = UIApplication.shared.value(forKey: "statusBar") as? UIView { statusBar.isHidden = true } }
             self.currentNotifiView.transform = CGAffineTransform(translationX: 0, y:  transformHeight)
+            self.currentNotifiView.clipsToBounds = true
+            self.currentNotifiView.isUserInteractionEnabled = true
+            self.currentNotifiView.layer.zPosition = CONSTANT.POSITION_VIEW.NOTIFICATION_VIEW.rawValue
             self.contentView?.alpha = 1
         }) { (isComplete) in
             if self.timeToShow != 0 {
-                UIView.animate(withDuration: 0.4, delay: self.timeToShow, options: UIView.AnimationOptions.allowUserInteraction, animations: {
-                    self.currentNotifiView.transform = CGAffineTransform(translationX: 0, y:  -transformHeight)
-                }, completion: { (isComplete) in
-                    if self.isHiddenStatusBar { if let statusBar: UIView = UIApplication.shared.value(forKey: "statusBar") as? UIView { statusBar.isHidden = false } }
-                    self.setHiddenNotificationView()
-                })
+                DispatchQueue.main.asyncAfter(deadline: .now() + self.timeToShow) {
+                    UIView.animate(withDuration: 0.4, delay: 0.4, options: UIView.AnimationOptions.allowUserInteraction, animations: {
+                        self.currentNotifiView.transform = CGAffineTransform(translationX: 0, y:  -transformHeight)
+                    }, completion: { (isComplete) in
+                        if self.isHiddenStatusBar { if let statusBar: UIView = UIApplication.shared.value(forKey: "statusBar") as? UIView { statusBar.isHidden = false } }
+                        self.setHiddenNotificationView()
+                    })
+                }
             }
         }
     }

@@ -12,6 +12,12 @@
 		6D11041A2328E24700DC7E4A /* LogTrackingTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6D1104192328E24700DC7E4A /* LogTrackingTableViewController.swift */; };
 		6D11041C2328E26200DC7E4A /* LogTrackingWebViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6D11041B2328E26200DC7E4A /* LogTrackingWebViewController.swift */; };
 		6D11041E2328E9B900DC7E4A /* img.log.png in Resources */ = {isa = PBXBuildFile; fileRef = 6D11041D2328E9B900DC7E4A /* img.log.png */; };
+		6D193B902511EA72008BF2EC /* BaseTitlePanelView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6D193B8F2511EA72008BF2EC /* BaseTitlePanelView.swift */; };
+		6D193B922511EACE008BF2EC /* BaseLinePinsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6D193B912511EACE008BF2EC /* BaseLinePinsView.swift */; };
+		6D193B942511EB1F008BF2EC /* BaseLinePinView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6D193B932511EB1F008BF2EC /* BaseLinePinView.swift */; };
+		6D193B962511EB59008BF2EC /* TextLeftRightTableHeaderFooterViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6D193B952511EB59008BF2EC /* TextLeftRightTableHeaderFooterViewCell.swift */; };
+		6D193B982511EB8E008BF2EC /* BaseStackShadowPanelView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6D193B972511EB8E008BF2EC /* BaseStackShadowPanelView.swift */; };
+		6D193B9A2511EBBD008BF2EC /* BaseTwoStackButtonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6D193B992511EBBD008BF2EC /* BaseTwoStackButtonView.swift */; };
 		6D4953F723FA529D00277D77 /* BaseTextSubtextHorTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6D4953F623FA529D00277D77 /* BaseTextSubtextHorTableViewCell.swift */; };
 		6D59D7C8235EA4060007AA25 /* TTBaseShadowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6D59D7C7235EA4060007AA25 /* TTBaseShadowView.swift */; };
 		6D59D7CA235EA4A70007AA25 /* BaseShadowTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6D59D7C9235EA4A70007AA25 /* BaseShadowTableViewCell.swift */; };
@@ -152,6 +158,12 @@
 		6D1104192328E24700DC7E4A /* LogTrackingTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogTrackingTableViewController.swift; sourceTree = "<group>"; };
 		6D11041B2328E26200DC7E4A /* LogTrackingWebViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogTrackingWebViewController.swift; sourceTree = "<group>"; };
 		6D11041D2328E9B900DC7E4A /* img.log.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = img.log.png; sourceTree = "<group>"; };
+		6D193B8F2511EA72008BF2EC /* BaseTitlePanelView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseTitlePanelView.swift; sourceTree = "<group>"; };
+		6D193B912511EACE008BF2EC /* BaseLinePinsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseLinePinsView.swift; sourceTree = "<group>"; };
+		6D193B932511EB1F008BF2EC /* BaseLinePinView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseLinePinView.swift; sourceTree = "<group>"; };
+		6D193B952511EB59008BF2EC /* TextLeftRightTableHeaderFooterViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextLeftRightTableHeaderFooterViewCell.swift; sourceTree = "<group>"; };
+		6D193B972511EB8E008BF2EC /* BaseStackShadowPanelView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseStackShadowPanelView.swift; sourceTree = "<group>"; };
+		6D193B992511EBBD008BF2EC /* BaseTwoStackButtonView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseTwoStackButtonView.swift; sourceTree = "<group>"; };
 		6D4953F623FA529D00277D77 /* BaseTextSubtextHorTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseTextSubtextHorTableViewCell.swift; sourceTree = "<group>"; };
 		6D59D7C7235EA4060007AA25 /* TTBaseShadowView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TTBaseShadowView.swift; sourceTree = "<group>"; };
 		6D59D7C9235EA4A70007AA25 /* BaseShadowTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseShadowTableViewCell.swift; sourceTree = "<group>"; };
@@ -518,6 +530,7 @@
 				936E0AC82273E92500FCD2B5 /* TextTableHeaderFooterViewCell.swift */,
 				938F527422E7FAF100E80FFB /* TextSubTextTableHeaderFooterViewCell.swift */,
 				6DAC63DF2305497D005FDDEA /* LineTableHeaderFooterViewCell.swift */,
+				6D193B952511EB59008BF2EC /* TextLeftRightTableHeaderFooterViewCell.swift */,
 			);
 			path = CellHeaderFooterTableView;
 			sourceTree = "<group>";
@@ -583,6 +596,11 @@
 				6D7FA660242AFCCD006899B6 /* BaseStackPanelView.swift */,
 				6DE8F2E72441F66A00646BF3 /* BaseNewSegmentedControl.swift */,
 				6DE8F2E92441F6A000646BF3 /* BasePaddingGenericView.swift */,
+				6D193B8F2511EA72008BF2EC /* BaseTitlePanelView.swift */,
+				6D193B912511EACE008BF2EC /* BaseLinePinsView.swift */,
+				6D193B932511EB1F008BF2EC /* BaseLinePinView.swift */,
+				6D193B972511EB8E008BF2EC /* BaseStackShadowPanelView.swift */,
+				6D193B992511EBBD008BF2EC /* BaseTwoStackButtonView.swift */,
 			);
 			path = BaseUIView;
 			sourceTree = "<group>";
@@ -814,6 +832,7 @@
 				936822EC228EC10900BDD0DB /* BaseNotificationViewConfig.swift in Sources */,
 				6DAC63E2230549F6005FDDEA /* Validation.swift in Sources */,
 				935F690D22802EDB00A38FDA /* BaseWKWebView.swift in Sources */,
+				6D193B9A2511EBBD008BF2EC /* BaseTwoStackButtonView.swift in Sources */,
 				9358C832226895E200D2D10F /* BaseUICollectionViewCell.swift in Sources */,
 				6DAB3BDB2413286300571DE9 /* BaseTwoButtonDiffWidthView.swift in Sources */,
 				93768AA32258E6330033DDBB /* UIColor+Config.swift in Sources */,
@@ -825,6 +844,7 @@
 				936822EA228EBFFE00BDD0DB /* BaseNotificationView.swift in Sources */,
 				93073FBF22643D36009AF63F /* String+Config.swift in Sources */,
 				938162E022929CB0007B71A7 /* BasePopupViewController.swift in Sources */,
+				6D193B902511EA72008BF2EC /* BaseTitlePanelView.swift in Sources */,
 				6DEEC8AF231F646600F233C2 /* BaseShadowPanelView.swift in Sources */,
 				93C99512225F6D170081FA81 /* BaseUITextField.swift in Sources */,
 				930300F022D46FD30015F021 /* BaseButtonBadge.swift in Sources */,
@@ -872,6 +892,7 @@
 				6DD17E0F23EFD559007B49A6 /* BaseIconCircleView.swift in Sources */,
 				93D8510622CCAA0E00663B5A /* BaseMonthYearPicker.swift in Sources */,
 				9358C830226895B500D2D10F /* UITableView+UICollectionView.swift in Sources */,
+				6D193B942511EB1F008BF2EC /* BaseLinePinView.swift in Sources */,
 				93C05A102261BF1B00E27EDB /* BaseUIStackView.swift in Sources */,
 				93C99514225F6DFB0081FA81 /* UIApplication+Config.swift in Sources */,
 				6DEEC8B1231F683B00F233C2 /* BaseUITextView.swift in Sources */,
@@ -879,12 +900,14 @@
 				6D59D7CA235EA4A70007AA25 /* BaseShadowTableViewCell.swift in Sources */,
 				936091CB225B29F3007D8F6B /* ValueConfig.swift in Sources */,
 				93083CB62281662C00957B4D /* Device.swift in Sources */,
+				6D193B922511EACE008BF2EC /* BaseLinePinsView.swift in Sources */,
 				938162E222929CED007B71A7 /* PopupViewController.swift in Sources */,
 				93A17A3C2273005B005CCD33 /* BaseUITableViewHeaderFooterView.swift in Sources */,
 				6DAC63E423054BE5005FDDEA /* SlideImageCollectionViewCell.swift in Sources */,
 				93768A982258CFFD0033DDBB /* Configuration.swift in Sources */,
 				6D11041C2328E26200DC7E4A /* LogTrackingWebViewController.swift in Sources */,
 				9330657C22C9C78B0077D17E /* ButtonsPanelStackView.swift in Sources */,
+				6D193B982511EB8E008BF2EC /* BaseStackShadowPanelView.swift in Sources */,
 				9389D11C227A025A00D6319E /* BaseUICricleView.swift in Sources */,
 				9310AE972269C4C500003C38 /* TextSubtextIconTableViewCell.swift in Sources */,
 				93C0D29F2274699300E5889C /* IconTextSubtextTableViewCell.swift in Sources */,
@@ -912,6 +935,7 @@
 				93CB1C58228013BB00A0CA54 /* BaseUISearchViewController.swift in Sources */,
 				936091C9225B297C007D8F6B /* TTBaseFunc.swift in Sources */,
 				6D59D7CC235EA50C0007AA25 /* BaseShadowCollectionViewCell.swift in Sources */,
+				6D193B962511EB59008BF2EC /* TextLeftRightTableHeaderFooterViewCell.swift in Sources */,
 				936091D3225B3E64007D8F6B /* BaseUILabel.swift in Sources */,
 				93768A9E2258DE080033DDBB /* SizeConfig.swift in Sources */,
 				93706FC52293EFC6008D8CCC /* Date+Config.swift in Sources */,
