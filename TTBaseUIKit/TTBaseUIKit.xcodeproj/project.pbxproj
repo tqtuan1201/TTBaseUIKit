@@ -152,7 +152,6 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		1AA3F41FB12F5BD90C552F1C /* Pods_TTBaseUIKit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_TTBaseUIKit.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		6D1104152328E1B700DC7E4A /* LogViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogViewModel.swift; sourceTree = "<group>"; };
 		6D1104172328E1F400DC7E4A /* LogViewHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogViewHelper.swift; sourceTree = "<group>"; };
 		6D1104192328E24700DC7E4A /* LogTrackingTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogTrackingTableViewController.swift; sourceTree = "<group>"; };
@@ -297,8 +296,6 @@
 		93D6BE802263F3E200906781 /* LineView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LineView.swift; sourceTree = "<group>"; };
 		93D6BE8422640CEA00906781 /* img.hideKeyboard.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = img.hideKeyboard.png; sourceTree = "<group>"; };
 		93D8510522CCAA0E00663B5A /* BaseMonthYearPicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseMonthYearPicker.swift; sourceTree = "<group>"; };
-		A502B4E02981E1CF011C877A /* Pods-TTBaseUIKit.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TTBaseUIKit.debug.xcconfig"; path = "Target Support Files/Pods-TTBaseUIKit/Pods-TTBaseUIKit.debug.xcconfig"; sourceTree = "<group>"; };
-		D8F56DFEF67A8199D51B7CC9 /* Pods-TTBaseUIKit.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TTBaseUIKit.release.xcconfig"; path = "Target Support Files/Pods-TTBaseUIKit/Pods-TTBaseUIKit.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -362,8 +359,6 @@
 			children = (
 				931B5C3E2257730F009B01A3 /* TTBaseUIKit */,
 				931B5C3D2257730F009B01A3 /* Products */,
-				C1E82363976BF3558CA8E560 /* Pods */,
-				CC31F72015A7682FF3394AB8 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -688,23 +683,6 @@
 			path = Support;
 			sourceTree = "<group>";
 		};
-		C1E82363976BF3558CA8E560 /* Pods */ = {
-			isa = PBXGroup;
-			children = (
-				A502B4E02981E1CF011C877A /* Pods-TTBaseUIKit.debug.xcconfig */,
-				D8F56DFEF67A8199D51B7CC9 /* Pods-TTBaseUIKit.release.xcconfig */,
-			);
-			path = Pods;
-			sourceTree = "<group>";
-		};
-		CC31F72015A7682FF3394AB8 /* Frameworks */ = {
-			isa = PBXGroup;
-			children = (
-				1AA3F41FB12F5BD90C552F1C /* Pods_TTBaseUIKit.framework */,
-			);
-			name = Frameworks;
-			sourceTree = "<group>";
-		};
 /* End PBXGroup section */
 
 /* Begin PBXHeadersBuildPhase section */
@@ -723,7 +701,6 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 931B5C442257730F009B01A3 /* Build configuration list for PBXNativeTarget "TTBaseUIKit" */;
 			buildPhases = (
-				AC6F5AA12187F4EBB43C418D /* [CP] Check Pods Manifest.lock */,
 				931B5C372257730E009B01A3 /* Headers */,
 				931B5C382257730E009B01A3 /* Sources */,
 				931B5C392257730E009B01A3 /* Frameworks */,
@@ -790,31 +767,6 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
-
-/* Begin PBXShellScriptBuildPhase section */
-		AC6F5AA12187F4EBB43C418D /* [CP] Check Pods Manifest.lock */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-			);
-			inputPaths = (
-				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
-				"${PODS_ROOT}/Manifest.lock",
-			);
-			name = "[CP] Check Pods Manifest.lock";
-			outputFileListPaths = (
-			);
-			outputPaths = (
-				"$(DERIVED_FILE_DIR)/Pods-TTBaseUIKit-checkManifestLockResult.txt",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
-			showEnvVarsInLog = 0;
-		};
-/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		931B5C382257730E009B01A3 /* Sources */ = {
@@ -1081,7 +1033,6 @@
 		};
 		931B5C452257730F009B01A3 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = A502B4E02981E1CF011C877A /* Pods-TTBaseUIKit.debug.xcconfig */;
 			buildSettings = {
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "";
@@ -1112,7 +1063,6 @@
 		};
 		931B5C462257730F009B01A3 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = D8F56DFEF67A8199D51B7CC9 /* Pods-TTBaseUIKit.release.xcconfig */;
 			buildSettings = {
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "";
