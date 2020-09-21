@@ -1,0 +1,13 @@
+{
+  'version': 0,
+  'case-sensitive': 'false',
+  'roots': [{
+    'type': 'directory',
+    'name': "/Users/tuantruongquang/Library/Developer/Xcode/DerivedData/TTBaseUIKit-airmtiyrybcguzfpzqxuqhahgpem/Build/Products/Release-iphonesimulator/TTBaseUIKit.framework/Modules"
+    'contents': [{
+      'type': 'file',
+      'name': "module.modulemap",
+      'external-contents': "/Users/Shared/STORE/S.JOB/J.PROJECT/P.BUILD_LIB/TTBaseUIKit/TTBaseUIKit/build/TTBaseUIKit.build/Release-iphonesimulator/TTBaseUIKit.build/unextended-module.modulemap",
+    }]
+  }]
+}

@@ -6,6 +6,21 @@
 	objectVersion = 50;
 	objects = {
 
+/* Begin PBXAggregateTarget section */
+		6D14DA982516F1F9002BB5F5 /* TTBaseUIKit-Universal */ = {
+			isa = PBXAggregateTarget;
+			buildConfigurationList = 6D14DA9B2516F1F9002BB5F5 /* Build configuration list for PBXAggregateTarget "TTBaseUIKit-Universal" */;
+			buildPhases = (
+				6D14DA9C2516F242002BB5F5 /* ShellScript */,
+			);
+			dependencies = (
+				6D14DA9E2516F25D002BB5F5 /* PBXTargetDependency */,
+			);
+			name = "TTBaseUIKit-Universal";
+			productName = "TTBaseUIKit-Universal";
+		};
+/* End PBXAggregateTarget section */
+
 /* Begin PBXBuildFile section */
 		6D1104162328E1B700DC7E4A /* LogViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6D1104152328E1B700DC7E4A /* LogViewModel.swift */; };
 		6D1104182328E1F400DC7E4A /* LogViewHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6D1104172328E1F400DC7E4A /* LogViewHelper.swift */; };
@@ -150,6 +165,16 @@
 		93D6BE8522640CEA00906781 /* img.hideKeyboard.png in Resources */ = {isa = PBXBuildFile; fileRef = 93D6BE8422640CEA00906781 /* img.hideKeyboard.png */; };
 		93D8510622CCAA0E00663B5A /* BaseMonthYearPicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93D8510522CCAA0E00663B5A /* BaseMonthYearPicker.swift */; };
 /* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		6D14DA9D2516F25D002BB5F5 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 931B5C332257730E009B01A3 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 931B5C3B2257730E009B01A3;
+			remoteInfo = TTBaseUIKit;
+		};
+/* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
 		6D1104152328E1B700DC7E4A /* LogViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogViewModel.swift; sourceTree = "<group>"; };
@@ -724,6 +749,9 @@
 				LastUpgradeCheck = 1020;
 				ORGANIZATIONNAME = "Truong Quang Tuan";
 				TargetAttributes = {
+					6D14DA982516F1F9002BB5F5 = {
+						CreatedOnToolsVersion = 11.7;
+					};
 					931B5C3B2257730E009B01A3 = {
 						CreatedOnToolsVersion = 10.2;
 						LastSwiftMigration = 1020;
@@ -743,6 +771,7 @@
 			projectRoot = "";
 			targets = (
 				931B5C3B2257730E009B01A3 /* TTBaseUIKit */,
+				6D14DA982516F1F9002BB5F5 /* TTBaseUIKit-Universal */,
 			);
 		};
 /* End PBXProject section */
@@ -767,6 +796,26 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		6D14DA9C2516F242002BB5F5 /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "echo \"project\"\n#open \"${PROJECT_DIR}\"\nif [ \"true\" == ${ALREADYINVOKED:-false} ]\nthen\necho \"RECURSION: Detected, stopping\"\nelse\nexport ALREADYINVOKED=\"true\"\n\nUNIVERSAL_OUTPUTFOLDER=${BUILD_DIR}/${CONFIGURATION}-iosuniversal\n\n# make sure the output directory exists\nmkdir -p \"${UNIVERSAL_OUTPUTFOLDER}\"\n\n# Step 1. Build Device and Simulator versions\necho \"iphone\"\nxcodebuild -target \"${TARGET_NAME}\" ONLY_ACTIVE_ARCH=NO -configuration ${CONFIGURATION} -sdk iphoneos  BUILD_DIR=\"${BUILD_DIR}\" BUILD_ROOT=\"${BUILD_ROOT}\" clean build\necho \"iphonesim\"\nxcodebuild -target \"${TARGET_NAME}\" -configuration ${CONFIGURATION} -sdk iphonesimulator ONLY_ACTIVE_ARCH=NO BUILD_DIR=\"${BUILD_DIR}\" BUILD_ROOT=\"${BUILD_ROOT}\" clean build\n\n## Step 2. Copy the framework structure (from iphoneos build) to the universal folder\necho \"universal\"\ncp -R \"${BUILD_DIR}/${CONFIGURATION}-iphoneos/${PROJECT_NAME}.framework\" \"${UNIVERSAL_OUTPUTFOLDER}/\"\n\n# Step 3. Copy Swift modules from iphonesimulator build (if it exists) to the copied framework directory\necho \"iphone simulator path\"\nSIMULATOR_SWIFT_MODULES_DIR=\"${BUILD_DIR}/${CONFIGURATION}-iphonesimulator/${PROJECT_NAME}.framework/Modules/${PROJECT_NAME}.swiftmodule/.\"\nif [ -d \"${SIMULATOR_SWIFT_MODULES_DIR}\" ]; then\ncp -R \"${SIMULATOR_SWIFT_MODULES_DIR}\" \"${UNIVERSAL_OUTPUTFOLDER}/${PROJECT_NAME}.framework/Modules/${PROJECT_NAME}.swiftmodule\"\nfi\n\n# Step 4. Create universal binary file using lipo and place the combined executable in the copied framework directory\necho \"lipo create\"\nlipo -create -output \"${UNIVERSAL_OUTPUTFOLDER}/${PROJECT_NAME}.framework/${PROJECT_NAME}\" \"${BUILD_DIR}/${CONFIGURATION}-iphonesimulator/${PROJECT_NAME}.framework/${PROJECT_NAME}\" \"${BUILD_DIR}/${CONFIGURATION}-iphoneos/${PROJECT_NAME}.framework/${PROJECT_NAME}\"\n\necho \"end\"\nfi\n";
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		931B5C382257730E009B01A3 /* Sources */ = {
@@ -908,7 +957,43 @@
 		};
 /* End PBXSourcesBuildPhase section */
 
+/* Begin PBXTargetDependency section */
+		6D14DA9E2516F25D002BB5F5 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 931B5C3B2257730E009B01A3 /* TTBaseUIKit */;
+			targetProxy = 6D14DA9D2516F25D002BB5F5 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
 /* Begin XCBuildConfiguration section */
+		6D14DA992516F1F9002BB5F5 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ARCHS = "$(ARCHS_STANDARD)";
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = NWP32GXP5M;
+				EXCLUDED_ARCHS = "$(ARCHS_STANDARD)";
+				"EXCLUDED_ARCHS[sdk=iphonesimulator*]" = arm64;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
+				ONLY_ACTIVE_ARCH = YES;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Debug;
+		};
+		6D14DA9A2516F1F9002BB5F5 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ARCHS = "$(ARCHS_STANDARD)";
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = NWP32GXP5M;
+				EXCLUDED_ARCHS = "$(ARCHS_STANDARD)";
+				"EXCLUDED_ARCHS[sdk=iphonesimulator*]" = arm64;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
+				ONLY_ACTIVE_ARCH = YES;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Release;
+		};
 		931B5C422257730F009B01A3 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -1093,6 +1178,15 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		6D14DA9B2516F1F9002BB5F5 /* Build configuration list for PBXAggregateTarget "TTBaseUIKit-Universal" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				6D14DA992516F1F9002BB5F5 /* Debug */,
+				6D14DA9A2516F1F9002BB5F5 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
 		931B5C362257730E009B01A3 /* Build configuration list for PBXProject "TTBaseUIKit" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (

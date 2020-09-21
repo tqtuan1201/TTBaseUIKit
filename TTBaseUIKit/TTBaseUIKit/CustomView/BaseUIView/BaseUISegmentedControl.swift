@@ -48,6 +48,7 @@ open class TTBaseUISegmentedControl: UISegmentedControl {
             self.addUnderlineForSelectedSegment()
             self.updateUIByStyle()
         }
+        self.setupUI()
         self.updateUI()
     }
     
