@@ -15,6 +15,7 @@ open class TTPopupViewController: TTBasePopupViewController {
     fileprivate lazy var subString:String = ""
     
     open var paddingButton:CGFloat { get { return TTSize.P_CONS_DEF * 2 } }
+    open var paddingTopText:CGFloat { get { return TTSize.P_CONS_DEF * 2 } }
     
     public lazy var HEIGHT_BUTTON:CGFloat = TTSize.H_BUTTON
     
@@ -119,16 +120,16 @@ extension TTPopupViewController : TTViewCodable {
         self.panelView.centerYAnchor.constraint(equalTo: self.view.centerYAnchor, constant: 1).isActive = true
         
         
-        self.titleLabel.setVerticalContentHuggingPriority().setTopAnchor(constant: P_CONS_DEF * 2).setLeadingAnchor(constant: P_CONS_DEF * 4).setTrailingAnchor(constant: P_CONS_DEF * 4).done()
+        self.titleLabel.setVerticalContentHuggingPriority().setTopAnchor(constant: self.paddingTopText).setLeadingAnchor(constant: P_CONS_DEF * 4).setTrailingAnchor(constant: P_CONS_DEF * 4).done()
         
-        self.subTitle.setVerticalContentHuggingPriority().setTopAnchorWithAboveView(nextToView: self.titleLabel, constant: P_CONS_DEF * 2).done()
+        self.subTitle.setVerticalContentHuggingPriority().setTopAnchorWithAboveView(nextToView: self.titleLabel, constant: self.paddingTopText).done()
         self.subTitle.setLeadingAnchor(constant: P_CONS_DEF * 2).setTrailingAnchor(constant: P_CONS_DEF * 2).done()
         let lessThanOrEqualToConstant =  self.subTitle.heightAnchor.constraint(lessThanOrEqualToConstant: TTSize.H_CELL * 4)
         lessThanOrEqualToConstant.priority = .defaultHigh
         lessThanOrEqualToConstant.isActive = true
         
         
-        self.panelButtonView.setTopAnchorWithAboveView(nextToView: self.subTitle, constant: P_CONS_DEF * 1.5).setHeightAnchor(constant: self.HEIGHT_BUTTON).done()
+        self.panelButtonView.setTopAnchorWithAboveView(nextToView: self.subTitle, constant: self.paddingTopText).setHeightAnchor(constant: self.HEIGHT_BUTTON).done()
         self.panelButtonView.setLeadingAnchor(constant: self.paddingButton).setTrailingAnchor(constant: self.paddingButton).setBottomAnchor(constant: P_CONS_DEF * 2).done()
     }
 }

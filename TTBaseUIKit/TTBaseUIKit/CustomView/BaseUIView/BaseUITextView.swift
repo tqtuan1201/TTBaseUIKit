@@ -19,7 +19,7 @@ open class TTBaseUITextView: UITextView   {
     
     open var maxNumberOfLines:Int { get { return 4 } }
     open var paddingTextUIEdgeInsets:UIEdgeInsets { get { return UIEdgeInsets.init(top: TTSize.P_CONS_DEF, left: TTSize.P_CONS_DEF, bottom: TTSize.P_CONS_DEF, right: TTSize.P_CONS_DEF)} }
-    open var paddingContentInset:UIEdgeInsets { get { return UIEdgeInsets.init(top: TTSize.P_CONS_DEF, left: TTSize.P_CONS_DEF, bottom: TTSize.P_CONS_DEF, right: TTSize.P_CONS_DEF)} }
+    open var paddingContentInset:UIEdgeInsets { get { return UIEdgeInsets.init(top: TTSize.P_CONS_DEF, left: 0, bottom: TTSize.P_CONS_DEF, right: TTSize.P_CONS_DEF)} }
     
     public enum TYPE {
         case DEFAULT
