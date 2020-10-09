@@ -284,9 +284,7 @@ extension Date {
     }
     
     public func isDateSameDay(_ date: Date) -> Bool {
-        
-        return (self.day() == date.day()) && (self.month() == self.month() && (self.year() == date.year()))
-        
+        return self.compareByDate(date: date) == .orderedSame
     }
     
     public func yearsFrom(_ date: Date) -> Int {

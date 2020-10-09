@@ -34,7 +34,7 @@ open class TTLabelTextFieldView : TTBaseUIView {
     open var isAnimationLine:Bool { get { return true}}
 
     public let titleLabel:TTBaseUILabel = TTBaseUILabel()
-    public var inputTextField:TTBaseUITextField = TTBaseUITextField(withPlaceholder: "Please input text", type: .NO_PADING)
+    public var inputTextField:TTBaseUITextField = TTBaseUITextField(withPlaceholder: "Please input text", type: .NO_PADING, isSetHiddenKeyboardAccessoryView: true)
     public let lineView:TTLineView = TTLineView()
 
     fileprivate var isPasswordTextField:Bool  = false

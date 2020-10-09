@@ -40,18 +40,20 @@ extension String {
     ///
     /// This func return date
     ///
-    public func toDate(withStringFormat format:String) -> Date? {
+    public func toDate(withStringFormat format:String, locate:Locale? = nil) -> Date? {
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = format
+        if let _locate = locate {dateFormatter.locale = _locate}
         return dateFormatter.date(from: self)
     }
 
     ///
     /// This func return date
     ///
-    public func toDate(withFormat format: CONSTANT.FORMAT_DATE) -> Date? {
+    public func toDate(withFormat format: CONSTANT.FORMAT_DATE, locate:Locale? = nil) -> Date? {
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = format.rawValue
+        if let _locate = locate {dateFormatter.locale = _locate}
         return dateFormatter.date(from: self)
     }
     

@@ -107,7 +107,11 @@ open class TTBaseUITextField: UITextField   {
     }
     
     @objc fileprivate func dismissKeyboard(_ sennder: UIButton) {
-        self.onDismissKeyboard?(); UIApplication.topViewController()?.dismissKeyboard()
+        self.onDismissKeyboard?()
+        DispatchQueue.main.async {
+            UIApplication.topViewController()?.dismissKeyboard()
+            self.findViewController()?.dismissKeyboard()
+        }
     }
     
     @discardableResult public func setTouchHandler() -> TTBaseUITextField {

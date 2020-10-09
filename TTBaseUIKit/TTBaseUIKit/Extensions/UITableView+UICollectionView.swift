@@ -219,6 +219,17 @@ extension UITableView {
         
     }
     
+    
+    public func setActive() {
+        self.isUserInteractionEnabled = true
+        self.isScrollEnabled = true
+    }
+    
+    public func setNonActive() {
+        self.isUserInteractionEnabled = false
+        self.isScrollEnabled = false
+    }
+    
 }
 
 /// Extend to easier allow for identifier to be set without much work

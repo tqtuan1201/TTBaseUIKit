@@ -175,6 +175,27 @@ extension UIView {
         }
     }
     
+    public func addSubviews(views: [UIView]) {
+        views.forEach { (view) in
+            view.translatesAutoresizingMaskIntoConstraints = false
+            self.addSubview(view)
+        }
+    }
+    
+    
+    public func setSquareSize(with size:CGFloat) {
+        self.setWidthAnchor(constant: size).setHeightAnchor(constant: size)
+    }
+    
+    public func findViewController() -> UIViewController? {
+        if let nextResponder = self.next as? UIViewController {
+            return nextResponder
+        } else if let nextResponder = self.next as? UIView {
+            return nextResponder.findViewController()
+        } else {
+            return nil
+        }
+    }
     
 //    public func startSkeletonAnimating() {
 //        if (self.layer.sublayers?.filter({$0.name == "SkeletonAnimating"}).isEmpty ?? false) {
@@ -188,4 +209,25 @@ extension UIView {
 //        self.layer.sublayers?.filter({$0.name == "SkeletonAnimating"}).forEach({$0.removeFromSuperlayer()})
 //    }
 
+}
+
+//MARK:// UIStackView
+extension UIStackView {
+    public func addArrangeSubviews(views: [UIView]) {
+        views.forEach { (view) in
+            self.addArrangedSubview(view)
+        }
+    }
+}
+
+//MARK:// UILabel
+extension UILabel {
+    public func calculateMaxLines() -> Int {
+        let maxSize = CGSize(width: frame.size.width, height: CGFloat(Float.infinity))
+        let charSize = font.lineHeight
+        let text = (self.text ?? "") as NSString
+        let textSize = text.boundingRect(with: maxSize, options: .usesLineFragmentOrigin, attributes: [NSAttributedString.Key.font: font ?? TTFont.getFont()], context: nil)
+        let linesRoundedUp = Int(ceil(textSize.height/charSize))
+        return linesRoundedUp
+    }
 }
