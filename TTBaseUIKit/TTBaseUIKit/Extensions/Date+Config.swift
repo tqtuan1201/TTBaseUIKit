@@ -124,12 +124,13 @@ extension Date {
            return ""
        }
     
-    public func dateString(withFormat format: CONSTANT.FORMAT_DATE) -> String {
+    public func dateString(withFormat format: CONSTANT.FORMAT_DATE, locateString:String = "vi_VN") -> String {
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = format.rawValue
         dateFormatter.amSymbol = "AM"
         dateFormatter.pmSymbol = "PM"
-        dateFormatter.locale = Locale(identifier: "en_US_POSIX")
+        
+        dateFormatter.locale = Locale(identifier: locateString) //Locale(identifier: "en_US_POSIX")
         return dateFormatter.string(from: self)
     }
     

@@ -42,7 +42,11 @@ extension UIView {
 
     public func setConerRadius(with radius:CGFloat) {
         self.layer.cornerRadius = radius
-        self.clipsToBounds = true
+        if radius == 0.0 {
+            self.clipsToBounds = false
+        } else {
+            self.clipsToBounds = true
+        }
     }
     
     public func roundCorners(corners: UIRectCorner, radius: CGFloat = TTBaseUIKitConfig.getSizeConfig().CORNER_RADIUS) {

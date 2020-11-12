@@ -30,6 +30,12 @@ public enum DeviceVersion: String {
     case iPhone11Pro
     case iPhone11Pro_Max
     
+    case iPhone_SE_2nd_Generation
+    case iPhone_12_mini
+    case iPhone_12
+    case iPhone_12_Pro
+    case iPhone_12_Pro_Max
+    
     /*** iPad ***/
     case iPad1
     case iPad2
@@ -53,6 +59,7 @@ public enum DeviceVersion: String {
     case iPadPro12_9Inch2
     case iPadPro11_0Inch
     case iPadPro12_9Inch3
+    case iPadPro12_9Inch4
     
     /*** iPod ***/
     case iPodTouch1Gen
@@ -68,3 +75,5 @@ public enum DeviceVersion: String {
     /*** unknown ***/
     case unknown
 }
+
+

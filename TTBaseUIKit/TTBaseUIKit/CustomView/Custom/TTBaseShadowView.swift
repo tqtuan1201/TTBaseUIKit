@@ -39,6 +39,7 @@ extension TTBaseShadowView {
 
     public func setupBaseShadowView() {
         self.addSubview(self.newPanelView)
+        self.newPanelView.setConerDef()
         self.newPanelView.setFullContraints(lead: self.paddingNewPanel.0, trail: self.paddingNewPanel.2, top: self.paddingNewPanel.1, bottom: self.paddingNewPanel.3)
     }
 }

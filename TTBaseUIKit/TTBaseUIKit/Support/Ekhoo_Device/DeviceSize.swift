@@ -12,16 +12,20 @@ public enum DeviceSize: Int, Comparable {
     case screen3_5Inch
     /// iPhone 5, 5s, 5c, SE, iPod Touch 5-6th gen.
     case screen4Inch
-    /// iPhone 6, 6s, 7, 8
+    /// iPhone 6, 6s, 7, 8, iPhoneSE2
     case screen4_7Inch
+    /// iPhone mini 2020
+    case screen5_4Inch
     /// iPhone 6+, 6s+, 7+, 8+
     case screen5_5Inch
     /// iPhone X, Xs, 11 Pro
     case screen5_8Inch
-    /// iPhone Xr, 11
+    /// iPhone Xr, 11, iPhone12, iPhone12Pro
     case screen6_1Inch
     /// iPhone Xs Max, 11 Pro Max
     case screen6_5Inch
+    /// iPhone12ProMax
+    case screen6_7Inch
     /// iPad Mini
     case screen7_9Inch
     /// iPad
