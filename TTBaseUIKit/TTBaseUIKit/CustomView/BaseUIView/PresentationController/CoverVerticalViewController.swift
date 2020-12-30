@@ -17,14 +17,18 @@ open class TTCoverVerticalViewController: UIViewController {
     open var isAddDownSwipe:Bool = true
     open var heightDissmissView:CGFloat = TTSize.H_DISSMISS_PRESENTVIEW
     open var timeAnimationChangeFrame:TimeInterval { get { return 0.2 } }
+    open var isGetKeyboardHeight:Bool { get { return false } }
     
     public var skeletonLayer:CALayer?
     public var panelView:TTBaseUIView = TTBaseUIView()
     public var bottomSafeAreaView:TTBaseUIView = TTBaseUIView()
     public var dissmissView:TTDismissView = TTDismissView()
     public var coverPresentationController:TTCoverVerticalPresentationController?
+    public lazy var frameKeyBoard:CGRect = .zero
     
     public var onDissmissViewHandler:(() -> Void)?
+    public var onHandleKeyboardWillShow:((_ size:CGRect) -> ())?
+    public var onHandleKeyboardWillHide:(() -> ())?
     
     open func updateBaseUI() { }
     
@@ -35,12 +39,14 @@ open class TTCoverVerticalViewController: UIViewController {
     
     public override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
         super.init(nibName: nil, bundle: nil)
+        self.setKeyboardObserver()
         self.setupBaseUIView()
         self.updateBaseUI()
     }
     
     public init() {
         super.init(nibName: nil, bundle: nil)
+        self.setKeyboardObserver()
         self.setupBaseUIView()
         self.updateBaseUI()
         if self.isAddDownSwipe { self.onSetDownSwipe()}
@@ -48,6 +54,7 @@ open class TTCoverVerticalViewController: UIViewController {
     
     public init(padding:(CGFloat,CGFloat,CGFloat,CGFloat), bgView:UIColor, bgSafeView:UIColor) {
         super.init(nibName: nil, bundle: nil)
+        self.setKeyboardObserver()
         self.padding = padding
         self.bgView = bgView
         self.bgSafeView = bgSafeView
@@ -58,6 +65,12 @@ open class TTCoverVerticalViewController: UIViewController {
     public required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
+    
+    deinit {
+        self.onRemoveKeyboardObserver()
+        TTBaseFunc.shared.printLog(with: "Release memory for ", object: TTBaseUIViewController.description())
+    }
+    
     
     public func setBgColor(with panel:UIColor, safe:UIColor) {
         self.bgView = panel
@@ -129,7 +142,34 @@ extension TTCoverVerticalViewController: UIViewControllerTransitioningDelegate {
     
 }
 
+//MARK:// For keyboard handle
+extension TTCoverVerticalViewController {
+    fileprivate func onRemoveKeyboardObserver() {
+        //Removing notifies on keyboard appearing
+        if !self.isGetKeyboardHeight { return }
+        NotificationCenter.default.removeObserver(self, name: UIResponder.keyboardWillShowNotification, object: nil)
+        NotificationCenter.default.removeObserver(self, name: UIResponder.keyboardWillHideNotification, object: nil)
+    }
+    
+    fileprivate func setKeyboardObserver() {
+        if !self.isGetKeyboardHeight { return }
+        NotificationCenter.default.addObserver(self, selector: #selector(self.keyboardWillShow), name: UIResponder.keyboardWillShowNotification, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(self.keyboardWillHide), name: UIResponder.keyboardWillHideNotification, object: nil)
+    }
 
+     @objc fileprivate func keyboardWillShow(notification: Notification) {
+        if let keyboardSize = (notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue {
+            self.frameKeyBoard = keyboardSize
+            self.viewDidLayoutSubviews()
+            self.onHandleKeyboardWillShow?(keyboardSize)
+        }
+    }
+    
+    @objc fileprivate func keyboardWillHide(notification: Notification) {
+        self.frameKeyBoard = .zero
+        self.onHandleKeyboardWillHide?()
+    }
+}
 
 //MARK:// Skeleton animations
 extension TTCoverVerticalViewController {

@@ -24,7 +24,7 @@ open class TTBaseUISegmentedControl: UISegmentedControl {
     
     open var lineBottomHeight:CGFloat { get { return TTSize.H_SEG_LINE }}
     open var lineBottomColor:UIColor { get { return TTView.segLineBottomBg }}
-    open var textLineBottomColor:UIColor { get { return UIColor.darkText }}
+    open var textLineBottomColor:UIColor { get { return TTView.segTextLineBottomBg }}
     open var paddingLine:(CGFloat,CGFloat,CGFloat,CGFloat) { get { return (0,0,0,0)}}
     open var conerRadio:CGFloat { get { return TTSize.CORNER_RADIUS }}
     open var fontSize:CGFloat { get { return TTFont.getHeaderSize() } }

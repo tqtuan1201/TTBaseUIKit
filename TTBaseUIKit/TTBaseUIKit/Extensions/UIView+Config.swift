@@ -111,7 +111,7 @@ extension UIView {
         return subviews + subviews.flatMap { $0.subviewsRecursive() }
     }
     
-    public static func getGradientSkeletonLayer() -> CALayer {
+    public static func getGradientSkeletonLayer(heightDef:CGFloat = TTBaseUIKitConfig.getSizeConfig().H_CELL, widthDef:CGFloat = TTBaseUIKitConfig.getSizeConfig().W ) -> CALayer {
         
         let startLocations : [NSNumber] = [-1.0,-0.5, 0.0]
         let endLocations : [NSNumber] = [1.0,1.5, 2.0]
@@ -123,7 +123,7 @@ extension UIView {
         
         let gradientLayer = CAGradientLayer()
         gradientLayer.zPosition = CONSTANT.POSITION_VIEW.SKELETON_LAYER.rawValue
-        gradientLayer.frame = CGRect.init(x: -4, y: 0, width: TTSize.W + 8, height: TTSize.H_CELL)
+        gradientLayer.frame = CGRect.init(x: -4, y: 0, width: widthDef + 8, height: heightDef)
         gradientLayer.startPoint = CGPoint(x: 0.0, y: 1.0)
         gradientLayer.endPoint = CGPoint(x: 1.0, y: 1.0)
         gradientLayer.colors = [ gradientBackgroundColor, gradientMovingColor, gradientBackgroundColor ]
@@ -147,11 +147,10 @@ extension UIView {
         return gradientLayer
     }
     
-    
-    public func onStartSkeletonCustomViewAnimation() {
+    public func onStartSkeletonCustomViewAnimation(withDef height:CGFloat = TTBaseUIKitConfig.getSizeConfig().H_CELL, width:CGFloat = TTBaseUIKitConfig.getSizeConfig().W) {
         if !(self.layer.sublayers?.filter({$0.name == "SkeletonAnimating"}) ?? []).isEmpty { return }
         self.clipsToBounds = true
-        self.layer.addSublayer(UIView.getGradientSkeletonLayer())
+        self.layer.addSublayer(UIView.getGradientSkeletonLayer(heightDef: height, widthDef: width))
         let views = self.subviewsRecursive()
         for view in views {
             if let lb = view as? TTBaseUILabel {lb.onAddSkeletonMark()}

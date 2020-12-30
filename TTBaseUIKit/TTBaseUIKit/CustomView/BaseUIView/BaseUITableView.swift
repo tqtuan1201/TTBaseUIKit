@@ -43,7 +43,19 @@ open class TTBaseUITableView: UITableView {
         if isSetContentInset { // App will be caculator from safeAreaLayout, not topAnchor View
             self.contentInset = UIEdgeInsets(top: TTSize.H_NAV, left: 0, bottom: TTSize.P_CONS_DEF, right: 0)
         }
-
+        
+        if #available(iOS 11, *) {
+            // iOS 11 (or newer) ObjC code
+        } else {
+            // iOS 10 or older code
+            self.estimatedRowHeight       = estimatedRowHeight
+            self.rowHeight = UITableView.automaticDimension
+            self.sectionHeaderHeight = UITableView.automaticDimension
+            self.sectionFooterHeight = UITableView.automaticDimension
+    
+            self.estimatedSectionHeaderHeight = sectionHeaderHeight
+            self.estimatedSectionFooterHeight = sectionFooterHeight
+        }
     }
 }
 
