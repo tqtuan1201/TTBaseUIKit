@@ -132,9 +132,9 @@ extension UIViewController {
         }
     }
     
-    public func presentDef(vc:UIViewController, type:UIModalPresentationStyle = .fullScreen, isAnimation:Bool = true) {
+    public func presentDef(vc:UIViewController, type:UIModalPresentationStyle = .fullScreen, transitionStyle:UIModalTransitionStyle = .crossDissolve, isAnimation:Bool = true) {
         vc.modalPresentationStyle = type
-        vc.modalTransitionStyle   = .crossDissolve
+        vc.modalTransitionStyle   = transitionStyle
         self.present(vc, animated: isAnimation, completion: nil)
     }
     

@@ -201,4 +201,9 @@ open class Device {
         return UIDevice.current.userInterfaceIdiom == .pad
     }
     
+    static public func isIphone12Mini() -> Bool {
+        let w: Double = Double(UIScreen.main.bounds.width)
+        let h: Double = Double(UIScreen.main.bounds.height)
+        return  w == 375.0 && h == 812.0
+    }
 }

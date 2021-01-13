@@ -185,7 +185,6 @@ extension UIView {
         }
     }
     
-    
     public func setSquareSize(with size:CGFloat) {
         self.setWidthAnchor(constant: size).setHeightAnchor(constant: size)
     }
@@ -197,6 +196,42 @@ extension UIView {
             return nextResponder.findViewController()
         } else {
             return nil
+        }
+    }
+    
+    public func setMapBaseAnimation(withPadding padding:CGFloat, time:TimeInterval = 20.0) {
+        UIView.animate(withDuration: time, delay: 0, options: [.repeat, .autoreverse, .preferredFramesPerSecond60, .overrideInheritedDuration], animations: { [weak self] in
+            let arrBg:[CGAffineTransform] = [CGAffineTransform(translationX: padding, y: 0),CGAffineTransform(translationX: padding, y: 0)]
+            self?.transform = arrBg[Int(arc4random_uniform(UInt32(arrBg.count)))]
+        }, completion: nil)
+    }
+    
+    /// Detect position waring view
+    ///
+    /// - Parameter duration: This is time for play animation when detect view
+    public func onDetectPositionForValidation(withDuration dur:Double = 3.0) {
+        DispatchQueue.main.async { [weak self] in guard let strongSelf = self else { return }
+            
+            strongSelf.shakeAnimation(x: 1, y: 1, duration: 1.0)
+            let warningView:TTBaseUIView = TTBaseUIView()
+            warningView.setConerDef()
+            warningView.isUserInteractionEnabled = false
+            warningView.backgroundColor = TTBaseUIKitConfig.getViewConfig().labelBgWar.withAlphaComponent(0.5)
+            warningView.alpha = 0
+            warningView.tag = CONSTANT.TAG_VIEW.WARNING_VIEW.rawValue
+            
+            if strongSelf.viewWithTag(CONSTANT.TAG_VIEW.WARNING_VIEW.rawValue) == nil {
+                strongSelf.addSubview(warningView); warningView.setFullContraints(constant: 0)
+                UIView.animate(withDuration: dur, animations: {
+                    warningView.alpha = 1
+                }) { (true) in
+                    UIView.animate(withDuration: dur - 1.0, animations: {
+                        warningView.alpha = 0
+                    }) { (true) in
+                        warningView.removeFromSuperview()
+                    }
+                }
+            }
         }
     }
     

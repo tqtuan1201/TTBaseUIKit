@@ -129,7 +129,7 @@ open class TTBaseUITextField: UITextField   {
 // For base Function
 extension TTBaseUITextField {
     
-    func setHiddenKeyboardAccessoryView() -> TTBaseUITextField {
+    @discardableResult public func setHiddenKeyboardAccessoryView() -> TTBaseUITextField {
         let panelView:UIView = UIView(frame: CGRect(x: 0, y: 0, width: TTBaseUIKitConfig.getSizeConfig().W, height: 34))
         panelView.backgroundColor = TTView.viewBgAccessoryViewColor
         

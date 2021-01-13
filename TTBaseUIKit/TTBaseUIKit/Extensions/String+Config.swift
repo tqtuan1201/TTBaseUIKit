@@ -190,6 +190,18 @@ extension String {
         }
     }
     
+    public func removeWhitespace() -> String {
+        return self.replace(" ", replacement: "")
+    }
+    
+    public func replace(_ string:String, replacement:String) -> String {
+        return self.replacingOccurrences(of: string, with: replacement, options: NSString.CompareOptions.literal, range: nil)
+    }
+    
+    public static func randomString(length: Int) -> String {
+        let letters = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789"
+        return String((0..<length).map{ _ in letters.randomElement()! })
+    }
 }
 
 //MARK:// For validation string

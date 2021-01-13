@@ -191,12 +191,26 @@ open class TTVietNamLunar {
 
 
 extension TTVietNamLunar {
+    
+    //Maybe wrong, eg: lunar day = 29/02/2021 -> cannot convert to date by toDate()
     public static func convertSolar2LunarToDate(currentDate:Date, timeZone:Double = 7.0) -> Date? {
+        return self.convertSolar2LunarToString(currentDate: currentDate, timeZone: timeZone)?.toDate(withFormat: .DD_MM_YYYY)
+    }
+    
+    public static func convertSolar2LunarToString(currentDate:Date, timeZone:Double = 7.0) -> String? {
         let numArrs:[Int] = TTVietNamLunar.convertSolar2Lunar(currentDate: currentDate, timeZone: timeZone)
         if numArrs.isEmpty { return nil }
         let lunarString:String = "\(String(format: "%02.0f", Double.init(numArrs[0])))/\(String(format: "%02.0f", Double.init(numArrs[1])))/\(numArrs[2])"
         TTBaseFunc.shared.printLog(object: "CurrentDate: \(currentDate.dateString(withFormat: .DD_MM_YYYY)): -> Lunar: \(lunarString)")
-        return lunarString.toDate(withFormat: .DD_MM_YYYY)
+        return lunarString
+    }
+    
+    public static func convertSolar2LunarToDisplay(currentDate:Date, timeZone:Double = 7.0) -> String? {
+        let numArrs:[Int] = TTVietNamLunar.convertSolar2Lunar(currentDate: currentDate, timeZone: timeZone)
+        if numArrs.isEmpty { return nil }
+        let lunarString:String = "\(String(format: "%02.0f", Double.init(numArrs[0])))/\(String(format: "%02.0f", Double.init(numArrs[1])))"
+        TTBaseFunc.shared.printLog(object: "CurrentDate: \(currentDate.dateString(withFormat: .DD_MM_YYYY)): -> Lunar: \(lunarString)")
+        return lunarString
     }
 }
 
