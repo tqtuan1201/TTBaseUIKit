@@ -16,7 +16,9 @@ open class TTBaseUITextView: UITextView   {
     fileprivate let lineHeight:CGFloat = 1.5
     fileprivate var lineColor:UIColor = TTBaseUIKitConfig.getViewConfig().lineDefColor
     fileprivate var isSetHiddenKeyboardAccessoryView:Bool = true
-    
+
+    fileprivate lazy var maxLenght:Int?  = nil
+
     open var maxNumberOfLines:Int { get { return 4 } }
     open var paddingTextUIEdgeInsets:UIEdgeInsets { get { return UIEdgeInsets.init(top: TTSize.P_CONS_DEF, left: TTSize.P_CONS_DEF, bottom: TTSize.P_CONS_DEF, right: TTSize.P_CONS_DEF)} }
     open var paddingContentInset:UIEdgeInsets { get { return UIEdgeInsets.init(top: TTSize.P_CONS_DEF, left: 0, bottom: TTSize.P_CONS_DEF, right: TTSize.P_CONS_DEF)} }
@@ -28,6 +30,7 @@ open class TTBaseUITextView: UITextView   {
     
     public var onTextEditChangedHandler:((_ textView:TTBaseUITextView,_ textString:String) -> Void)?
     public var onDismissKeyboard:(() -> Void)?
+    public var onDidMaxLeightHandle:(() -> Void)?
     public var onTouchIconHandler:((_ textView:TTBaseUITextView) -> Void)?
     
     open func updateUI() { }
@@ -71,6 +74,7 @@ open class TTBaseUITextView: UITextView   {
         if self.isSetHiddenKeyboardAccessoryView {
             self.setHiddenKeyboardAccessoryView().done()
         }
+
     }
     
     fileprivate func setKeyBoardStyle(type:UIKeyboardType) {
@@ -83,8 +87,24 @@ open class TTBaseUITextView: UITextView   {
 }
 
 extension TTBaseUITextView : UITextViewDelegate {
+    
     public func textViewDidChange(_ textView: UITextView) {
         self.onTextEditChangedHandler?(self, textView.text)
+    }
+    
+    public func textView(_ textView: UITextView, shouldChangeTextIn range: NSRange, replacementText text: String) -> Bool {
+        
+        if let maxLenght = self.maxLenght {
+            let newText = (textView.text as NSString).replacingCharacters(in: range, with: text)
+            if newText.count > maxLenght {
+                self.onDidMaxLeightHandle?()
+                return false
+            } else {
+                return true
+            }
+        } else {
+            return true
+        }
     }
 }
 // For base Function
@@ -169,6 +189,10 @@ extension TTBaseUITextView {
            self.textContainer.maximumNumberOfLines = line
            self.isScrollEnabled = false
     }
+    
+    public func setMaxLenght(max:Int) {
+        self.maxLenght = max
+    }
 }
 
 // For real time format text
@@ -180,7 +204,3 @@ extension TTBaseUITextView {
     
 }
 
-// MARK:// For format currency
-extension TTBaseUITextView {
-    
-}

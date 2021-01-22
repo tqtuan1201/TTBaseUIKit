@@ -105,9 +105,10 @@ extension UIView {
         return self
     }
     
-    public func setFullCenterAnchor(_ view:UIView? = nil, isUpdate:Bool = false, constant:CGFloat) {
-        guard let  superView = (view == nil) ? self.superview : view else { return }
+    @discardableResult public func setFullCenterAnchor(_ view:UIView? = nil, isUpdate:Bool = false, constant:CGFloat) -> UIView {
+        guard let  superView = (view == nil) ? self.superview : view else { return self }
         self.setCenterXAnchor(superView, isUpdate: isUpdate, constant: constant).setcenterYAnchor(superView, isUpdate: isUpdate, constant: constant).done()
+        return self
     }
     
     @discardableResult public func setWidthAnchor(_ isUpdate:Bool = false, constant:CGFloat, priority:UILayoutPriority? = nil) -> UIView {
@@ -141,16 +142,18 @@ extension UIView {
 
 extension UIView {
 
-    public func setFullContraints(view:UIView? = nil, constant:CGFloat) {
-        guard let  superView = (view == nil) ? self.superview : view else { return }
+    @discardableResult public func setFullContraints(view:UIView? = nil, constant:CGFloat) -> UIView {
+        guard let  superView = (view == nil) ? self.superview : view else { return self }
         self.setLeadingAnchor(superView, constant: constant).setTrailingAnchor(superView, constant: constant)
             .setTopAnchor(superView, constant: constant).setBottomAnchor(superView, constant: constant).done()
+        return self
     }
 
-    public func setFullContraints(view:UIView? = nil, lead:CGFloat, trail:CGFloat, top:CGFloat, bottom:CGFloat) {
-        guard let  superView = (view == nil) ? self.superview : view else { return }
+    @discardableResult public func setFullContraints(view:UIView? = nil, lead:CGFloat, trail:CGFloat, top:CGFloat, bottom:CGFloat) -> UIView {
+        guard let  superView = (view == nil) ? self.superview : view else { return self }
         self.setLeadingAnchor(superView, constant: lead).setTrailingAnchor(superView, constant: trail)
             .setTopAnchor(superView, constant: top).setBottomAnchor(superView, constant: bottom).done()
+        return self
     }
     
     
