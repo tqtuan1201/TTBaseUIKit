@@ -33,6 +33,7 @@ public struct CONSTANT {
         case IMAGE_SKELETON = -115
         case WKWEB_VIEW_SKELETON = -116
         case WARNING_VIEW = -117
+        case LOADING_DESCRIPTIONVIEW = -118
         
         case BG_UISTACKVIEW = 100
         case NOTIFICATION_VIEW = 101

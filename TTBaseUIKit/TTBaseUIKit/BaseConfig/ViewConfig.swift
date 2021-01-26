@@ -26,6 +26,7 @@ open class ViewConfig {
     public var viewBgAccessoryViewColor: UIColor = UIColor.white.withAlphaComponent(0.8)
     public var viewBgNavColor: UIColor = UIColor.getColorFromHex.init(netHex: 0x00A79E)
     public var viewBgLoadingColor: UIColor = UIColor.getColorFromHex.init(netHex: 0x1C82AD)
+    public var viewTextLoadingColor: UIColor = UIColor.getColorFromHex.init(netHex: 0x1C82AD)
     public var viewDefColor: UIColor = UIColor.white
     public var viewDisableColor: UIColor = UIColor.getColorFromHex.init(netHex: 0xc5c5c5)
     public var viewBgColor: UIColor = UIColor.getColorFromHex.init(netHex: 0xDBDBDB)

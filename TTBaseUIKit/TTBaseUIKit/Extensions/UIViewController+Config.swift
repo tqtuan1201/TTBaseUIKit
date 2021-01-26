@@ -25,7 +25,7 @@ extension UIViewController {
         }
     }
     
-    public func showLoadingView(type:CONSTANT.LOADING_TYPE, padding:CGFloat = 0) {
+    public func showLoadingView(type:CONSTANT.LOADING_TYPE, padding:CGFloat = 0, description:String = "") {
         DispatchQueue.main.async { [weak self] in guard let strongSelf = self else { return }
             if strongSelf.view.viewWithTag(CONSTANT.TAG_VIEW.LOADING.rawValue) != nil { return }
             switch type {
@@ -33,6 +33,12 @@ extension UIViewController {
                 let panel:TTBaseUIView = strongSelf.createCenterLoadingView()
                 strongSelf.view.addSubview(panel)
                 panel.setFullContraints(constant: 0)
+                
+                if let descriptLabel:TTBaseUILabel = strongSelf.view.viewWithTag(TTBaseUIKit.CONSTANT.TAG_VIEW.LOADING_DESCRIPTIONVIEW.rawValue) as? TTBaseUILabel {
+                    descriptLabel.setText(text: description)
+                    descriptLabel.isHidden = description.isEmpty
+                }
+                
                 break
             case .NAV_BUTTOM:
                 var paddingTop:CGFloat = 0
@@ -91,6 +97,16 @@ extension UIViewController {
         panelInd.addSubview(actInd)
         
         panelLoadingView.addSubview(panelInd)
+        
+        let descriptLabel:TTBaseUILabel = TTBaseUILabel(withType: .TITLE, text: description, align: .center)
+        descriptLabel.tag = CONSTANT.TAG_VIEW.LOADING_DESCRIPTIONVIEW.rawValue
+        descriptLabel.setTextColor(color: TTView.viewTextLoadingColor)
+        descriptLabel.isHidden = true
+        
+        panelLoadingView.addSubview(descriptLabel)
+        descriptLabel.setVerticalContentHuggingPriority()
+            .setLeadingAnchor(constant: TTSize.getPaddingView()).setTrailingAnchor(constant: TTSize.getPaddingView())
+            .setTopAnchorWithAboveView(nextToView: panelInd, constant: TTSize.P_CONS_DEF * 2)
         
         self.view.addSubview(panelLoadingView)
         
