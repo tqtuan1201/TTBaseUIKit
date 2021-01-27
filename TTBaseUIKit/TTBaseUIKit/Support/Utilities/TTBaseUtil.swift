@@ -116,4 +116,69 @@ extension TTBaseUtil {
       }
 }
 
+//MARK:// For show message for dev
+extension TTBaseUtil {
+    
+    /// to show messageView for DEV
+    ///
+    public func onShowMessageByDEVMODE(des:String) {
+        DispatchQueue.main.async {
+            
+            let messageString:String = "[DEV MODE] \n\(des)"
+            
+            if let window = UIApplication.shared.keyWindow {
+                let messLabel:TTBaseInsetLabel = TTBaseInsetLabel(withType: .SUB_TITLE, text: messageString, align: .left)
+                messLabel.layer.zPosition = 999999
+                messLabel.setTextColor(color: .white)
+                messLabel.setMutilLine(numberOfLine: 0, textAlignment: .left, mode: .byTruncatingHead)
+                
+                messLabel.setBgColor(UIColor.black.withAlphaComponent(0.9))
+                messLabel.setConerDef()
+                messLabel.isUserInteractionEnabled = true
+                
+                messLabel.setTouchHandler().onTouchHandler = { _ in
+                    DispatchQueue.main.async {
+                        messLabel.removeFromSuperview()
+                    }
+                }
+                
+                window.addSubview(messLabel)
+                
+                messLabel.setVerticalContentHuggingPriority()
+                    .setTopAnchor(constant: TTSize.H_STATUS)
+                    .setWidthAnchor(constant: TTSize.W - TTSize.P_CONS_DEF)
+                    .setCenterXAnchor(constant: 0)
+                
+                DispatchQueue.main.asyncAfter(deadline: .now() + 10.0) {
+                    messLabel.removeFromSuperview()
+                }
+            }
+        }
+    }
+}
 
+//MARK:// For send bot message to telegram app
+extension TTBaseUtil {
+    
+    /// to send message via bot telegram
+    ///
+    public func sendLogByBot(withGroupID id:String, token:String, message:String) {
+
+        let json: [String: Any] = ["chat_id": "-\(id)", "text": "123"]
+
+        guard let jsonData = try? JSONSerialization.data(withJSONObject: json) else { return }
+        guard let url = URL(string: "https://api.telegram.org/bot\(token)/sendMessage") else { return }
+        
+        var request = URLRequest(url: url)
+        request.httpMethod = "POST"
+        request.addValue("application/json", forHTTPHeaderField: "Content-Type")
+        request.httpBody = jsonData
+
+        let task = URLSession.shared.dataTask(with: request) { data, response, error in
+            guard let data = data, error == nil else { TTBaseFunc.shared.printLog(object: error?.localizedDescription ?? "No data"); return }
+            let responseJSON = try? JSONSerialization.jsonObject(with: data, options: [])
+            if let responseJSON = responseJSON as? [String: Any] { TTBaseFunc.shared.printLog(object: "Tele response: \(responseJSON)") }
+        }
+        task.resume()
+    }
+}

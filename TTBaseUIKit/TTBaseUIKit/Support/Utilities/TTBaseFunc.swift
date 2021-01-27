@@ -21,7 +21,7 @@ extension TTBaseFunc {
     func printLog(with lineDes:String = "", object:Any) {
         if Config.isPrintLog {
             if !lineDes.isEmpty {print(lineDes + "\n")}
-            print(object)
+            print("::TTBASEUIKIT: \(object)")
         }
     }
     
