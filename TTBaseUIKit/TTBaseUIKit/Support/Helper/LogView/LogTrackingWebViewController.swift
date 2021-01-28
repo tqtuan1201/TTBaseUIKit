@@ -8,7 +8,7 @@
 
 import Foundation
 
-class  LogTrackingTableViewCell :  TTTextSubtextIconTableViewCell {
+class LogTrackingTableViewCell : TTTextSubtextIconTableViewCell {
     override var sizeImages: (CGFloat, CGFloat) { return ( 0,0 )}
     
     override var numberOfLineTitle: Int { return 100}
@@ -16,8 +16,8 @@ class  LogTrackingTableViewCell :  TTTextSubtextIconTableViewCell {
     
     override func updateUI() {
         super.updateUI()
-        self.titleLabel.setTextColor(color: TTView.labelBgDef)
-        self.subLabel.setTextColor(color: TTView.labelBgWar)
+        self.titleLabel.setTextColor(color: TTView.labelBgDef).setFontSize(size: TTFont.SUB_TITLE_H)
+        self.subLabel.setTextColor(color: TTView.labelBgWar).setFontSize(size: TTFont.SUB_TITLE_H)
     }
 }
 

@@ -22,6 +22,8 @@ open class LogTrackingTableViewController: TTBaseUITableViewController {
     
     let webView:TTBaseWKWebView =  TTBaseWKWebView()
     
+    public var didTouchTitleLabelHandle:( (_ request:String) -> ())?
+    public var didTouchSubLabelHandle:( (_ response:String) -> ())?
     
     override open func viewDidLoad() {
         super.viewDidLoad()
@@ -97,13 +99,20 @@ extension LogTrackingTableViewController: UITableViewDataSource {
         let log = self.logs[indexPath.section]
         cell.titleLabel.setText(text: log.request)
         cell.subLabel.setText(text: log.response)
+        
+        cell.titleLabel.setTouchHandler().onTouchHandler = { _ in
+            UIPasteboard.general.string = log.request
+            self.didTouchTitleLabelHandle?(log.request)
+            self.present(LogTrackingWebViewController(), animated: true, completion: nil)
+        }
+        
+        cell.subLabel.setTouchHandler().onTouchHandler = { _ in
+            UIPasteboard.general.string = log.response
+            self.didTouchSubLabelHandle?(log.response)
+            self.present(LogTrackingWebViewController(), animated: true, completion: nil)
+        }
+        
         return cell
-    }
-    
-    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let log = self.logs[indexPath.section]
-        UIPasteboard.general.string = log.response
-        self.present(LogTrackingWebViewController(), animated: true, completion: nil)
     }
     
 }

@@ -164,7 +164,7 @@ extension TTBaseUtil {
     ///
     public func sendLogByBot(withGroupID id:String, token:String, message:String) {
 
-        let json: [String: Any] = ["chat_id": "-\(id)", "text": "123"]
+        let json: [String: Any] = ["chat_id": "-\(id)", "text": message]
 
         guard let jsonData = try? JSONSerialization.data(withJSONObject: json) else { return }
         guard let url = URL(string: "https://api.telegram.org/bot\(token)/sendMessage") else { return }

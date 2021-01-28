@@ -22,6 +22,9 @@ open class LogViewHelper {
     public var didTouchReportlHandle:( () -> ())?
     public var didTouchSettinglHandle:( () -> ())?
     
+    public var didSendCurrentRequest:( (_ request:String) -> ())?
+    public var didSendCurrentResponse:( (_ response:String) -> ())?
+    
     public func config(withDes des:String, isStartAppToShow:Bool) -> LogViewHelper {
         self.viewModel.displayString =  des
         self.viewModel.isStartAppToShow =  isStartAppToShow
@@ -51,6 +54,7 @@ extension LogViewHelper {
     public  func resetLogs() {
         self.viewModel.logs = []
     }
+    
     
 }
 
@@ -94,7 +98,15 @@ extension LogViewHelper {
                         strongSelf.didTouchLogButtonHandle?()
                         strongSelf.viewModel.isShow = false
                         DispatchQueue.main.async {
-                            UIApplication.topViewController()?.presentDef(vc: LogTrackingTableViewController(), type: .overFullScreen)
+                            let logVC:LogTrackingTableViewController = LogTrackingTableViewController()
+                            UIApplication.topViewController()?.presentDef(vc: logVC, type: .overFullScreen)
+                            logVC.didTouchTitleLabelHandle = { request in
+                                strongSelf.didSendCurrentRequest?(request)
+                            }
+                            
+                            logVC.didTouchSubLabelHandle = { response in
+                                strongSelf.didSendCurrentResponse?(response)
+                            }
                         }
                     })
                 }
