@@ -33,10 +33,7 @@ open class TTBasePopupViewController : TTBaseUIViewController<DarkBaseUIView> {
         self.view.backgroundColor = UIColor.darkGray.withAlphaComponent(0.85)
         UIView.animate(withDuration: 0.4) { self.view.alpha = 1 }
     }
-    required public init?(coder aDecoder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
-    
+     
 }
 
 extension TTBasePopupViewController {

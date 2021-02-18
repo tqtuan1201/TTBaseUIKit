@@ -73,7 +73,25 @@ open class TTBaseUIViewController<BaseView:TTBaseUIView>: UIViewController, TTBa
         self.updateBaseUI()
     }
     
-    required public init?(coder aDecoder: NSCoder) { fatalError("init(coder:) has not been implemented") }
+    @available(*, unavailable,
+      message: "Loading this view controller from a nib is unsupported in favor of initializer dependency injection."
+    )
+    
+    public override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
+        super.init(nibName: nil, bundle: nil)
+        self.setKeyboardObserver()
+        self.updateBaseUI()
+    }
+
+    @available(*, unavailable,
+      message: "Loading this view controller from a nib is unsupported in favor of initializer dependency injection."
+    )
+    
+    public required init?(coder aDecoder: NSCoder) {
+        super.init(nibName: nil, bundle: nil)
+        self.setKeyboardObserver()
+        self.updateBaseUI()
+    }
     
     deinit {
         self.onRemoveKeyboardObserver()

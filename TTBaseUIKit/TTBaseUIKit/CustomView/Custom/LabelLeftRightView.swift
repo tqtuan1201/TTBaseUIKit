@@ -38,14 +38,6 @@ open class TTLabelLeftRightView: TTBaseUIView {
         self.setupUI()
     }
     
-    required public init?(coder aDecoder: NSCoder) {
-        super.init()
-        self.leftLabel = TTBaseUILabel(withType: TTBaseUILabel.TYPE.TITLE, text: "Left label", align: .left)
-        self.rightLabel = TTBaseUILabel(withType: TTBaseUILabel.TYPE.TITLE, text: "Right label", align: .right)
-        self.isHuggingRight = true
-        self.setupUI()
-    }
-    
     required public init() {
         super.init()
         self.leftLabel = TTBaseUILabel(withType: TTBaseUILabel.TYPE.TITLE, text: "Left label", align: .left)

@@ -35,8 +35,11 @@ open class TTBaseUIView: UIView, ViewDrawer {
         super.layoutSubviews()
     }
     
+    @available(*, unavailable,
+      message: "Loading this view from a nib is unsupported in favor of initializer dependency injection."
+    )
     public required init?(coder aDecoder: NSCoder) {
-        super.init(coder: aDecoder)
+        super.init(frame: .zero)
         self.viewDefCornerRadius = 0
         self.setupUI()
         self.updateBaseUIView()

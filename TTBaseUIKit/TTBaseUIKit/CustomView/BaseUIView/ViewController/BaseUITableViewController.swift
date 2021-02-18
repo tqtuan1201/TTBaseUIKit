@@ -25,8 +25,6 @@ open class TTBaseUITableViewController: TTBaseUIViewController<TTBaseUIView>, UI
     public var tableView:TTBaseUITableView = TTBaseUITableView(frame: .zero, style: .grouped)
     public lazy var refreshControl = UIRefreshControl()
     
-    
-    
     public var didPullToRequestDataHandle:( () -> ())?
     
     public override init() {
@@ -40,10 +38,6 @@ open class TTBaseUITableViewController: TTBaseUIViewController<TTBaseUIView>, UI
             self.tableView.setContentInset(inset: UIEdgeInsets(top: TTSize.H_NAV, left: 0, bottom: TTSize.P_CONS_DEF, right: 0))
         }
         self.setPullToRequest()
-    }
-    
-    required public init?(coder aDecoder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
     }
     
     deinit {

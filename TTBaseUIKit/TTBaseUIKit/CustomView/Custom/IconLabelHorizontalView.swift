@@ -49,12 +49,6 @@ open class TTIconLabelHorizontalView: TTBaseUIView {
         self.updateUI()
     }
     
-    required public init?(coder aDecoder: NSCoder) {
-        super.init()
-        self.setupBaseUIView()
-        self.updateUI()
-    }
-    
 }
 
 extension TTIconLabelHorizontalView {

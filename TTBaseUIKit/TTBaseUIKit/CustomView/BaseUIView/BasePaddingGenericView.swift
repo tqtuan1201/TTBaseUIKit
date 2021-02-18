@@ -37,12 +37,6 @@ open class TTBasePaddingGenericView<BaseView:UIView>: TTBaseUIView {
         self.setupConstraints()
     }
     
-    public required init?(coder aDecoder: NSCoder) {
-        super.init()
-        self.setupCustomView()
-        self.setupConstraints()
-    }
-    
 }
 
 extension TTBasePaddingGenericView {

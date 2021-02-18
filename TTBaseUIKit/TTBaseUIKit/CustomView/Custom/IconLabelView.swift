@@ -70,11 +70,6 @@ open class TTIconLabelView : TTBaseUIView {
         self.setupBaseUIView()
     }
     
-    public required init?(coder aDecoder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
-    
-    
     public func setData(icon:AwesomePro.Light, text:String) {
         self.iconImageView.setIConImage(with: icon.rawValue).done()
         self.textLabel.setText(text: text)

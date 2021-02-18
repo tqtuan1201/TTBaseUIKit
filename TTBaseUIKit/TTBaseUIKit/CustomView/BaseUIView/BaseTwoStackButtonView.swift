@@ -35,10 +35,6 @@ open class TTBaseTwoStackButtonView: TTBaseUIView {
         self.stackView = TTBaseUIStackView(axis: .horizontal, spacing: self.paddingButton, alignment: .fill, distributionValue: .fillEqually)
     }
     
-    required public init?(coder aDecoder: NSCoder) {
-        super.init()
-    }
-    
     open override func updateBaseUIView() {
         super.updateBaseUIView()
         self.setupBaseUIView()

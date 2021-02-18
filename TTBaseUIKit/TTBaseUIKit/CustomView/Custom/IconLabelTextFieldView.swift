@@ -57,13 +57,6 @@ open class TTIconLabelTextFieldView : TTBaseUIView {
         self.setupBaseConstraints()
     }
     
-    required public init?(coder aDecoder: NSCoder) {
-        super.init(coder: aDecoder)
-        self.setConerRadius(with: panelConer)
-        self.setupBaseUIView()
-        self.setupBaseConstraints()
-    }
-    
     fileprivate func setupBaseUIView() {
         self.iconLeftImageView.paddingContentImage = self.paddingIconLeftImage
         self.iconLeftImageView.setIconColor(self.iconColor).done()

@@ -38,11 +38,6 @@ open class TTBaseSearchView : TTBaseUIView {
         self.setupViewCodable(with: [self.icon, self.textField])
     }
     
-    required public init?(coder aDecoder: NSCoder) {
-        super.init()
-        self.setupViewCodable(with: [self.icon, self.textField])
-    }
-    
 }
 
 extension TTBaseSearchView :TTViewCodable {

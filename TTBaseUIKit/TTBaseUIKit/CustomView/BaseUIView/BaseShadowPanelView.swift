@@ -30,8 +30,7 @@ open class TTBaseShadowButtonView: TTBaseUIView {
     }
     
     required public init() { fatalError("init() has not been implemented") }
-    required public init?(coder aDecoder: NSCoder) { fatalError("init(coder:) has not been implemented") }
-    
+
     override open func layoutSubviews() {
         super.layoutSubviews()
         
@@ -79,8 +78,6 @@ open class TTBaseShadowContentView<T: UIView>: TTBaseUIView {
         self.bgShadown = bgShadown
         super.init()
     }
-    
-    public required init?(coder aDecoder: NSCoder) { super.init() }
     
     public required init() { super.init() }
     

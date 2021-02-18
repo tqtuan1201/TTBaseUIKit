@@ -90,6 +90,7 @@ public class SizeConfig {
 // MARK: FOR BASE FUNC
 extension SizeConfig {
 
+    public func getPaddingDef() -> CGFloat { return self.P_CONS_DEF * 2 }
     public func getPaddingView() -> CGFloat { return self.P }
     public func getCellHight() -> CGFloat { return self.H_CELL }
     public func getCollHeight() -> CGFloat { return self.H_CELL_COLECT }

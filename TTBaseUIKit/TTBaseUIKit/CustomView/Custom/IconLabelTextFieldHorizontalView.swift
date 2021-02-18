@@ -49,10 +49,6 @@ open class TTIconLabelTextFieldHorizontalView : TTBaseUIView {
         self.setupBaseUIView()
     }
     
-    required public init?(coder aDecoder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
-    
     required public init() {
         fatalError("init() has not been implemented")
     }

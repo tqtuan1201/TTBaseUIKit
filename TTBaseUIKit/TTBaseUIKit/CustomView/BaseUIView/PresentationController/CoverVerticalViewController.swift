@@ -37,13 +37,6 @@ open class TTCoverVerticalViewController: UIViewController {
         if self.skeletonLayer != nil {self.skeletonLayer?.frame = CGRect.init(x: -4, y: 0, width: self.view.frame.width + 8, height: self.view.frame.height)}
     }
     
-    public override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
-        super.init(nibName: nil, bundle: nil)
-        self.setKeyboardObserver()
-        self.setupBaseUIView()
-        self.updateBaseUI()
-    }
-    
     public init() {
         super.init(nibName: nil, bundle: nil)
         self.setKeyboardObserver()
@@ -62,8 +55,26 @@ open class TTCoverVerticalViewController: UIViewController {
         if self.isAddDownSwipe { self.onSetDownSwipe()}
     }
     
+    @available(*, unavailable,
+      message: "Loading this view controller from a nib is unsupported in favor of initializer dependency injection."
+    )
+    public override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
+        super.init(nibName: nil, bundle: nil)
+        self.setKeyboardObserver()
+        self.setupBaseUIView()
+        self.updateBaseUI()
+        if self.isAddDownSwipe { self.onSetDownSwipe()}
+    }
+
+    @available(*, unavailable,
+      message: "Loading this view controller from a nib is unsupported in favor of initializer dependency injection."
+    )
     public required init?(coder aDecoder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
+        super.init(nibName: nil, bundle: nil)
+        self.setKeyboardObserver()
+        self.setupBaseUIView()
+        self.updateBaseUI()
+        if self.isAddDownSwipe { self.onSetDownSwipe()}
     }
     
     deinit {

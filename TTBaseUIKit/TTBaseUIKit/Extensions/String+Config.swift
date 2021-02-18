@@ -93,6 +93,13 @@ extension String {
         return String(self[startIndex...endIndex])
     }
     
+    //return
+    public func reFormatDateByRemoveTimeZ() -> String {
+        let newFormat:String =  self.subStringToIndex(".")
+        TTBaseFunc.shared.printLog(object: "reFormatDateByRemoveTimeZ oldFormat: \(self)")
+        TTBaseFunc.shared.printLog(object: "reFormatDateByRemoveTimeZ newFormat: \(newFormat)")
+        return newFormat
+    }
 }
 
 // MARK: For static func

@@ -22,6 +22,9 @@
 /* End PBXAggregateTarget section */
 
 /* Begin PBXBuildFile section */
+		6D04678B25DE5FD300A4E941 /* CLLocationCoordinate2D+Config.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6D04678A25DE5FD300A4E941 /* CLLocationCoordinate2D+Config.swift */; };
+		6D04678F25DE604600A4E941 /* BaseMessagePopupViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6D04678E25DE604600A4E941 /* BaseMessagePopupViewController.swift */; };
+		6D04679725DE64F300A4E941 /* BaseScrollHorizontalUIStackView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6D04679625DE64F300A4E941 /* BaseScrollHorizontalUIStackView.swift */; };
 		6D1104162328E1B700DC7E4A /* LogViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6D1104152328E1B700DC7E4A /* LogViewModel.swift */; };
 		6D1104182328E1F400DC7E4A /* LogViewHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6D1104172328E1F400DC7E4A /* LogViewHelper.swift */; };
 		6D11041A2328E24700DC7E4A /* LogTrackingTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6D1104192328E24700DC7E4A /* LogTrackingTableViewController.swift */; };
@@ -178,6 +181,9 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		6D04678A25DE5FD300A4E941 /* CLLocationCoordinate2D+Config.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CLLocationCoordinate2D+Config.swift"; sourceTree = "<group>"; };
+		6D04678E25DE604600A4E941 /* BaseMessagePopupViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseMessagePopupViewController.swift; sourceTree = "<group>"; };
+		6D04679625DE64F300A4E941 /* BaseScrollHorizontalUIStackView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseScrollHorizontalUIStackView.swift; sourceTree = "<group>"; };
 		6D1104152328E1B700DC7E4A /* LogViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogViewModel.swift; sourceTree = "<group>"; };
 		6D1104172328E1F400DC7E4A /* LogViewHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogViewHelper.swift; sourceTree = "<group>"; };
 		6D1104192328E24700DC7E4A /* LogTrackingTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogTrackingTableViewController.swift; sourceTree = "<group>"; };
@@ -336,6 +342,19 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		6D04679225DE605200A4E941 /* ViewController */ = {
+			isa = PBXGroup;
+			children = (
+				6D9E6738242A5E980025116E /* BaseScrollViewController.swift */,
+				93CB1C57228013BB00A0CA54 /* BaseUISearchViewController.swift */,
+				93C99519225F754A0081FA81 /* BaseUIViewController.swift */,
+				9320F19F2269733E003B8628 /* BaseUITableViewController.swift */,
+				9358C8392268AA6800D2D10F /* BaseUICollectionViewController.swift */,
+				6D04678E25DE604600A4E941 /* BaseMessagePopupViewController.swift */,
+			);
+			path = ViewController;
+			sourceTree = "<group>";
+		};
 		6D1104122328E18500DC7E4A /* Helper */ = {
 			isa = PBXGroup;
 			children = (
@@ -532,6 +551,7 @@
 				9358C82F226895B500D2D10F /* UITableView+UICollectionView.swift */,
 				93706FC42293EFC6008D8CCC /* Date+Config.swift */,
 				6D183541253049B900C127C2 /* UIScrollView+Config.swift */,
+				6D04678A25DE5FD300A4E941 /* CLLocationCoordinate2D+Config.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -561,6 +581,7 @@
 		93C05A0B2261B59C00E27EDB /* BaseUIView */ = {
 			isa = PBXGroup;
 			children = (
+				6D04679225DE605200A4E941 /* ViewController */,
 				6D5BF33C22FAB1250066DE78 /* Calendar */,
 				9364AC77229FC99800239535 /* PresentationController */,
 				93706FC12293ED0E008D8CCC /* DatePicker */,
@@ -584,18 +605,14 @@
 				93C9950F225F66E10081FA81 /* BaseUIButton.swift */,
 				93C99511225F6D170081FA81 /* BaseUITextField.swift */,
 				93892BE2227B2069006098DA /* BasePasswordUITextField.swift */,
-				93C99519225F754A0081FA81 /* BaseUIViewController.swift */,
-				9358C8392268AA6800D2D10F /* BaseUICollectionViewController.swift */,
 				93C9951B225F75D70081FA81 /* BaseUINavigationView.swift */,
 				93C05A0F2261BF1B00E27EDB /* BaseUIStackView.swift */,
 				930F364822C5C4E400CB9A70 /* BasePanelViewUIStackView.swift */,
 				93165643228918BC006C7101 /* BaseScrollUIStackView.swift */,
 				9358C833226899BE00D2D10F /* BaseUICollectionView.swift */,
-				9320F19F2269733E003B8628 /* BaseUITableViewController.swift */,
 				9320F1A122697372003B8628 /* BaseUITableView.swift */,
 				93B6A098226B56030045C107 /* BaseUISegmentedControl.swift */,
 				93C0D2A42274738B00E5889C /* BaseHeaderView.swift */,
-				93CB1C57228013BB00A0CA54 /* BaseUISearchViewController.swift */,
 				935F690C22802EDB00A38FDA /* BaseWKWebView.swift */,
 				93083CB222815E6500957B4D /* BaseUISearchBar.swift */,
 				9316564822897711006C7101 /* BaseUIProgressView.swift */,
@@ -615,7 +632,6 @@
 				6DD17E1023EFD5F2007B49A6 /* BaseLabelIconHorizontalView.swift */,
 				6D9E6732242A5D050025116E /* BaseSearchView.swift */,
 				6D9E6736242A5E660025116E /* BasePanelButtonView.swift */,
-				6D9E6738242A5E980025116E /* BaseScrollViewController.swift */,
 				6D7FA660242AFCCD006899B6 /* BaseStackPanelView.swift */,
 				6DE8F2E72441F66A00646BF3 /* BaseNewSegmentedControl.swift */,
 				6DE8F2E92441F6A000646BF3 /* BasePaddingGenericView.swift */,
@@ -624,6 +640,7 @@
 				6D193B932511EB1F008BF2EC /* BaseLinePinView.swift */,
 				6D193B972511EB8E008BF2EC /* BaseStackShadowPanelView.swift */,
 				6D193B992511EBBD008BF2EC /* BaseTwoStackButtonView.swift */,
+				6D04679625DE64F300A4E941 /* BaseScrollHorizontalUIStackView.swift */,
 			);
 			path = BaseUIView;
 			sourceTree = "<group>";
@@ -860,8 +877,10 @@
 				6D9E6739242A5E980025116E /* BaseScrollViewController.swift in Sources */,
 				93BC8ABE22A0D50E005B47EF /* BaseInsetLabel.swift in Sources */,
 				93D6BE7F22637FB400906781 /* LabelTextFieldView.swift in Sources */,
+				6D04679725DE64F300A4E941 /* BaseScrollHorizontalUIStackView.swift in Sources */,
 				933A92BA2277762F008ECCC4 /* UIImageCircleView.swift in Sources */,
 				93C99518225F716A0081FA81 /* General+Config.swift in Sources */,
+				6D04678B25DE5FD300A4E941 /* CLLocationCoordinate2D+Config.swift in Sources */,
 				6D7ADBB023ED66DB0022D291 /* BaseSquarePinView.swift in Sources */,
 				93D6BE812263F3E200906781 /* LineView.swift in Sources */,
 				93B6A099226B56030045C107 /* BaseUISegmentedControl.swift in Sources */,
@@ -935,6 +954,7 @@
 				9358C834226899BE00D2D10F /* BaseUICollectionView.swift in Sources */,
 				939EA88B2276E2AA008DDCBC /* ButtonPanelView.swift in Sources */,
 				93C0D2A52274738B00E5889C /* BaseHeaderView.swift in Sources */,
+				6D04678F25DE604600A4E941 /* BaseMessagePopupViewController.swift in Sources */,
 				6D59D7CE235EA7480007AA25 /* TwoButtomView.swift in Sources */,
 				93C99510225F66E10081FA81 /* BaseUIButton.swift in Sources */,
 				93CB1C58228013BB00A0CA54 /* BaseUISearchViewController.swift in Sources */,

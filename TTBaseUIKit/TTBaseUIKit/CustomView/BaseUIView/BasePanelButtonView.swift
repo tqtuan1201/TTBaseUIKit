@@ -32,13 +32,6 @@ open class TTBasePanelButtonView :TTBaseUIView {
         self.updateBasePanelButtonView()
     }
 
-    
-    required public init?(coder aDecoder: NSCoder) {
-        super.init()
-        self.setupBaseUIView()
-        self.updateBasePanelButtonView()
-    }
-    
     required public init() {
         super.init()
         self.setupBaseUIView()
