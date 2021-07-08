@@ -98,8 +98,9 @@ open class TTBaseUILabel : UILabel, ViewDrawer, TextDrawer {
 
 extension TTBaseUILabel {
     
-    public func setText(withText text:String, align:NSTextAlignment, color:UIColor, fontSize:CGFloat) {
-        self.setFontSize(size: fontSize).setText(text: text).setAlign(align: align).setTextColor(color: color).done()
+    @discardableResult public func setText(withText text:String, align:NSTextAlignment, color:UIColor, fontSize:CGFloat) -> TTBaseUILabel {
+        self.setFontSize(size: fontSize).setText(text: text).setAlign(align: align).setTextColor(color: color)
+        return self
     }
     
     @discardableResult public func setText(text:String, isBold:Bool = false) -> TTBaseUILabel {

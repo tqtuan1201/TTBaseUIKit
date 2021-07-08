@@ -11,6 +11,10 @@ import UIKit
 
 extension UIView {
     
+    @discardableResult public func setSquareSize(with size:CGFloat) -> UIView {
+        self.setWidthAnchor(constant: size).setHeightAnchor(constant: size)
+    }
+    
     @discardableResult public func setLeadingAnchor(_ view:UIView? = nil, isUpdate:Bool = false, constant:CGFloat, isApplySafeArea:Bool = false, priority:UILayoutPriority? = nil) -> UIView {
         let identifierAnchor:String = "TTBase.Contraint.setLeadingAnchor"
         guard let  superView = (view == nil) ? self.superview : view else { return self }

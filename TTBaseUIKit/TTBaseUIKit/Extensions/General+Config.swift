@@ -254,7 +254,26 @@ extension CALayer {
 //MARK:// NSMutableAttributedString
 extension NSMutableAttributedString {
     
+    @discardableResult public func addBoldStypeForExistText(_ text: String, textColor:UIColor, systemFontsize:CGFloat)  -> NSMutableAttributedString {
+        
+        guard let substringRange = self.string.range(of: text) else { return self}
+        let nsRange = NSRange(substringRange, in: self.string)
+        let attrs: [NSAttributedString.Key: Any] = [.font: UIFont.systemFont(ofSize: systemFontsize, weight: .bold), .foregroundColor : textColor]
+        self.addAttributes(attrs, range: nsRange)
+        return self
+    }
     
+    @discardableResult public func addStrikethroughStypeForExistText(_ text: String, textColor:UIColor, systemFontsize:CGFloat)  -> NSMutableAttributedString{
+        
+        guard let substringRange = self.string.range(of: text) else { return self}
+        let nsRange = NSRange(substringRange, in: self.string)
+        
+        var attrs: [NSAttributedString.Key: Any] = [.strikethroughStyle: NSNumber(integerLiteral: NSUnderlineStyle.single.rawValue)]
+        attrs[.font] = UIFont.systemFont(ofSize: systemFontsize)
+        attrs[.foregroundColor] = textColor
+        self.addAttributes(attrs, range: nsRange)
+        return self
+    }
     
     @discardableResult public func textStyle(withText text: String, textColor:UIColor, font:UIFont) -> NSMutableAttributedString {
         let attrs: [NSAttributedString.Key: Any] = [.font: font, .foregroundColor : textColor]

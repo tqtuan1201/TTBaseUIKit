@@ -185,10 +185,6 @@ extension UIView {
         }
     }
     
-    public func setSquareSize(with size:CGFloat) {
-        self.setWidthAnchor(constant: size).setHeightAnchor(constant: size)
-    }
-    
     public func findViewController() -> UIViewController? {
         if let nextResponder = self.next as? UIViewController {
             return nextResponder

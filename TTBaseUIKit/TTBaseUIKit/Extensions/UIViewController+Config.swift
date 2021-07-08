@@ -183,3 +183,66 @@ extension UIViewController : MFMessageComposeViewControllerDelegate {
         controller.dismiss(animated: true, completion: nil)
     }
 }
+
+
+//Nav Coord
+extension UIViewController {
+
+    public func push(_ vc: UIViewController, animated: Bool = true) {
+        self.navigationController?.pushViewController(vc, animated: animated)
+    }
+
+    public func pop(animated: Bool = true) {
+        self.navigationController?.popViewController(animated: animated)
+    }
+    
+    public func close(animated: Bool = true) {
+        self.runOnMainThread {
+            if let nav = self.navigationController {
+                nav.popViewController(animated: animated)
+            } else {
+                self.onDismiss()
+            }
+        }
+    }
+    
+    public func closeAll(animated: Bool = true,_ completion: @escaping (() -> Void)) {
+        self.runOnMainThread {
+            if let nav = self.navigationController {
+                nav.popToRootViewController(animated: true)
+                completion()
+            } else {
+                self.dismissAll(animated: animated) {
+                    completion()
+                }
+            }
+        }
+    }
+
+    public func dismiss(animated: Bool) {
+        self.dismiss(animated: animated, completion: nil)
+    }
+
+    public func dismiss(animated: Bool, _completion: @escaping (() -> Void)) {
+        self.dismiss(animated: animated, completion: _completion)
+    }
+
+    public var supportedInterfaceOrientations: UIInterfaceOrientationMask {
+        return .portrait
+    }
+    
+    public var preferredInterfaceOrientationForPresentation: UIInterfaceOrientation {
+        return .portrait
+    }
+
+    public func runOnMainThread(completion: @escaping (() -> Void)) {
+        DispatchQueue.main.async { completion() }
+    }
+    
+    public func runOnBackgroundThread( bg:DispatchQoS.QoSClass = .background, completion: @escaping (() -> Void)) {
+        DispatchQueue.global(qos: bg).async {
+            completion()
+        }
+    }
+    
+}

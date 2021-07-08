@@ -49,6 +49,8 @@
 		6D7ADBB223ED67300022D291 /* BaseSquarePinsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6D7ADBB123ED67300022D291 /* BaseSquarePinsView.swift */; };
 		6D7ADBB423ED677D0022D291 /* BaseLabelTextViewByVerticalView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6D7ADBB323ED677D0022D291 /* BaseLabelTextViewByVerticalView.swift */; };
 		6D7FA661242AFCCD006899B6 /* BaseStackPanelView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6D7FA660242AFCCD006899B6 /* BaseStackPanelView.swift */; };
+		6D8E0AFB2696B15D0071FF42 /* BaseLableWithButtonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6D8E0AFA2696B15D0071FF42 /* BaseLableWithButtonView.swift */; };
+		6D8E0AFD2696B1BA0071FF42 /* TextValidation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6D8E0AFC2696B1BA0071FF42 /* TextValidation.swift */; };
 		6D9E6733242A5D050025116E /* BaseSearchView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6D9E6732242A5D050025116E /* BaseSearchView.swift */; };
 		6D9E6735242A5D950025116E /* PanelScrollView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6D9E6734242A5D950025116E /* PanelScrollView.swift */; };
 		6D9E6737242A5E660025116E /* BasePanelButtonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6D9E6736242A5E660025116E /* BasePanelButtonView.swift */; };
@@ -208,6 +210,8 @@
 		6D7ADBB123ED67300022D291 /* BaseSquarePinsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseSquarePinsView.swift; sourceTree = "<group>"; };
 		6D7ADBB323ED677D0022D291 /* BaseLabelTextViewByVerticalView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseLabelTextViewByVerticalView.swift; sourceTree = "<group>"; };
 		6D7FA660242AFCCD006899B6 /* BaseStackPanelView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseStackPanelView.swift; sourceTree = "<group>"; };
+		6D8E0AFA2696B15D0071FF42 /* BaseLableWithButtonView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseLableWithButtonView.swift; sourceTree = "<group>"; };
+		6D8E0AFC2696B1BA0071FF42 /* TextValidation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextValidation.swift; sourceTree = "<group>"; };
 		6D9E6732242A5D050025116E /* BaseSearchView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseSearchView.swift; sourceTree = "<group>"; };
 		6D9E6734242A5D950025116E /* PanelScrollView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PanelScrollView.swift; sourceTree = "<group>"; };
 		6D9E6736242A5E660025116E /* BasePanelButtonView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BasePanelButtonView.swift; sourceTree = "<group>"; };
@@ -493,6 +497,7 @@
 				93C8B7C922680D92000858F6 /* TTBaseUtil.swift */,
 				938FAFD122EED5FE0048AD1B /* VietNamLunar.swift */,
 				6DAC63E1230549F6005FDDEA /* Validation.swift */,
+				6D8E0AFC2696B1BA0071FF42 /* TextValidation.swift */,
 			);
 			path = Utilities;
 			sourceTree = "<group>";
@@ -641,6 +646,7 @@
 				6D193B972511EB8E008BF2EC /* BaseStackShadowPanelView.swift */,
 				6D193B992511EBBD008BF2EC /* BaseTwoStackButtonView.swift */,
 				6D04679625DE64F300A4E941 /* BaseScrollHorizontalUIStackView.swift */,
+				6D8E0AFA2696B15D0071FF42 /* BaseLableWithButtonView.swift */,
 			);
 			path = BaseUIView;
 			sourceTree = "<group>";
@@ -889,6 +895,7 @@
 				6DAC63E72305592A005FDDEA /* IconLabelHorizontalView.swift in Sources */,
 				6D9E6737242A5E660025116E /* BasePanelButtonView.swift in Sources */,
 				93D2D360225AF2BA00D2811F /* BaseConfigRepresentable.swift in Sources */,
+				6D8E0AFD2696B1BA0071FF42 /* TextValidation.swift in Sources */,
 				93C9951A225F754A0081FA81 /* BaseUIViewController.swift in Sources */,
 				93073FC32264416A009AF63F /* TTLanguageManager.swift in Sources */,
 				930F364722C5C41100CB9A70 /* IconLabelTextFieldHorizontalView.swift in Sources */,
@@ -975,6 +982,7 @@
 				9320F19E2269728C003B8628 /* TextIconTableViewCell.swift in Sources */,
 				93083CBA2281667300957B4D /* DeviceType.swift in Sources */,
 				938F527522E7FAF100E80FFB /* TextSubTextTableHeaderFooterViewCell.swift in Sources */,
+				6D8E0AFB2696B15D0071FF42 /* BaseLableWithButtonView.swift in Sources */,
 				9389D11A2279E8D100D6319E /* UIImageFontCircleView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

@@ -100,6 +100,26 @@ extension String {
         TTBaseFunc.shared.printLog(object: "reFormatDateByRemoveTimeZ newFormat: \(newFormat)")
         return newFormat
     }
+    
+    public func index(from: Int) -> Index {
+        return self.index(startIndex, offsetBy: from)
+    }
+
+    public func substring(from: Int) -> String {
+        let fromIndex = index(from: from)
+        return String(self[fromIndex...])
+    }
+
+    public func substring(to: Int) -> String {
+        let toIndex = index(from: to)
+        return String(self[..<toIndex])
+    }
+
+    public func substring(with r: Range<Int>) -> String {
+        let startIndex = index(from: r.lowerBound)
+        let endIndex = index(from: r.upperBound)
+        return String(self[startIndex..<endIndex])
+    }
 }
 
 // MARK: For static func
@@ -124,6 +144,54 @@ extension String {
     }
     
     
+    public func convertHtmlToAttributedStringWithCSS(font: UIFont? , csscolor: String , lineheight: Int, csstextalign: String) -> NSAttributedString? {
+        guard let font = font else { return nil }
+        let modifiedString = "<style>body{font-family: '\(font.fontName)'; font-size:\(font.pointSize)px; color: \(csscolor); line-height: \(lineheight)px; text-align: \(csstextalign); }</style>\(self)";
+        guard let data = modifiedString.data(using: .utf8) else {
+            return nil
+        }
+        do {
+            return try NSAttributedString(data: data, options: [.documentType: NSAttributedString.DocumentType.html, .characterEncoding: String.Encoding.utf8.rawValue], documentAttributes: nil)
+        }
+        catch {
+            print(error)
+            return nil
+        }
+    }
+    
+    public func htmlAttributedStringByAppleStyle(withFontSize size:CGFloat, color:UIColor, font:String = "-apple-system") -> NSAttributedString? {
+        let htmlTemplate = """
+        <!doctype html>
+        <html>
+          <head>
+            <style>
+              body {
+                font-family: \(font);
+                font-size: \(size)px;
+                color: \(color.hexString ?? "");
+              }
+            </style>
+          </head>
+          <body>
+            \(self)
+          </body>
+        </html>
+        """
+        
+        guard let data = htmlTemplate.data(using: String.Encoding.utf16, allowLossyConversion: false) else {
+            return nil
+        }
+        
+        guard let attributedString = try? NSMutableAttributedString(
+            data: data,
+            options: [.documentType: NSAttributedString.DocumentType.html],
+            documentAttributes: nil
+        ) else {
+            return nil
+        }
+        
+        return attributedString
+    }
     
     public func htmlAttributedString() -> NSAttributedString? {
         guard let data = self.data(using: String.Encoding.utf16, allowLossyConversion: false) else { return nil }
