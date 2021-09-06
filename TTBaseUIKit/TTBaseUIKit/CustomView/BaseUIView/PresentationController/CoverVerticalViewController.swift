@@ -114,6 +114,7 @@ fileprivate extension TTCoverVerticalViewController {
     @objc func handleSwipes(_ sender:UISwipeGestureRecognizer) {
         if sender.direction == .down {
             self.dismiss(animated: true) { [weak self] in guard let strongSelf = self else { return }
+                strongSelf.coverPresentationController = nil
                 strongSelf.onDissmissViewHandler?()
             }
         }
@@ -146,6 +147,7 @@ extension TTCoverVerticalViewController: UIViewControllerTransitioningDelegate {
     public func presentationController(forPresented presented: UIViewController, presenting: UIViewController?, source: UIViewController) -> UIPresentationController? {
         self.coverPresentationController = TTCoverVerticalPresentationController(presentedViewController: presented, presenting: presenting)
         self.coverPresentationController?.onTouchDimmingViewHandler = { [weak self] in guard let strongSelf = self else { return }
+            strongSelf.coverPresentationController = nil
             strongSelf.onDissmissViewHandler?()
         }
         return self.coverPresentationController
