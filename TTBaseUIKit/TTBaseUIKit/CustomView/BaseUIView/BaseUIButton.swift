@@ -94,32 +94,46 @@ open class TTBaseUIButton: UIButton, ViewDrawer, TextDrawer {
         
         self.drawView()
         self.drawButton()
+        self.setTitleColorHightLightedStyle()
     }
     
     @objc private func onTouch(_ sender:UIButton) {
         self.onTouchHandler?(self)
         self.shakeAnimation(x: 1, y: 1, duration: 0.7)
     }
+    
 }
 
 extension TTBaseUIButton {
     
-    public func setDefaultType() {
+    @discardableResult public func setDefaultType() -> TTBaseUIButton {
         self.isUserInteractionEnabled = true
         self.backgroundColor = viewDefBgColor
+        return self
     }
+    
+    @discardableResult public func setTitleColorHightLightedStyle(color:UIColor? = nil ) -> TTBaseUIButton {
+        let testColor:UIColor = color ?? self.titleLabel?.textColor ?? UIColor.white
+        self.setTitleColor(testColor, for: .normal)
+        self.setTitleColor(testColor.withAlphaComponent(0.3), for: .highlighted)
+        self.setTitleColor(testColor.withAlphaComponent(0.3), for: .selected)
+        return self
+    }
+    
 
-    public func setNoBgType() {
+    @discardableResult public func setNoBgType() -> TTBaseUIButton {
         self.isUserInteractionEnabled = true
         self.backgroundColor = UIColor.clear
         self.setTextColor(color: TTView.textDefColor)
+        return self
     }
 
-    public func setBorderType() {
+    @discardableResult public func setBorderType() -> TTBaseUIButton {
         self.isUserInteractionEnabled = true
         self.backgroundColor = UIColor.white
         self.setBorder(with: TTSize.H_BORDER, color: TTView.buttonBorderColor, coner: TTSize.CORNER_BUTTON)
         self.setTextColor(color: TTView.buttonBorderColor)
+        return self
     }
     
     @discardableResult public func setWarringType() -> TTBaseUIButton {
@@ -176,6 +190,7 @@ extension TTBaseUIButton {
     
     @discardableResult public func setTextColor(color:UIColor) -> TTBaseUIButton {
         self.setTitleColor(color, for: UIControl.State.normal)
+        self.setTitleColorHightLightedStyle(color: color)
         return self
     }
     

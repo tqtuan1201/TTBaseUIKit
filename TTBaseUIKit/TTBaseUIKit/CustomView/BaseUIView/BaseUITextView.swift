@@ -82,9 +82,23 @@ open class TTBaseUITextView: UITextView   {
         self.keyboardType = type
     }
     
-    @objc fileprivate func dismissKeyboard(_ sennder: UIButton) {
-        self.onDismissKeyboard?(); UIApplication.topViewController()?.dismissKeyboard()
+    fileprivate func onDisMissKeyboardHandle() {
+        self.onDismissKeyboard?()
+        DispatchQueue.main.async {
+            UIApplication.topViewController()?.dismissKeyboard()
+            self.findViewController()?.dismissKeyboard()
+        }
     }
+    
+    @objc fileprivate func dismissKeyboard(_ sennder: UIButton) {
+        self.onDisMissKeyboardHandle()
+    }
+    
+    
+    @objc private func onTouchPanelView(_ sender:UITapGestureRecognizer) {
+        self.onDisMissKeyboardHandle()
+    }
+    
 }
 
 extension TTBaseUITextView : UITextViewDelegate {
@@ -113,23 +127,41 @@ extension TTBaseUITextView : UITextViewDelegate {
 // For base Function
 extension TTBaseUITextView {
     
-    func setHiddenKeyboardAccessoryView() -> TTBaseUITextView {
+    @discardableResult public func setHiddenKeyboardAccessoryView() -> TTBaseUITextView {
         let panelView:UIView = UIView(frame: CGRect(x: 0, y: 0, width: TTBaseUIKitConfig.getSizeConfig().W, height: 34))
         panelView.backgroundColor = TTView.viewBgAccessoryViewColor
+        panelView.isUserInteractionEnabled = true
+        panelView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(self.onTouchPanelView(_:))))
         
-        let hiddenButton:UIButton = UIButton(frame: CGRect.init(x: TTBaseUIKitConfig.getSizeConfig().W - 35, y: 2, width: 35, height: 32))
-        hiddenButton.addTarget(self, action: #selector(self.dismissKeyboard(_:)), for: .touchUpInside)
-        hiddenButton.contentEdgeInsets = UIEdgeInsets(top: 4, left: 4, bottom: 4, right: 4)
-        hiddenButton.backgroundColor = UIColor.white
-        hiddenButton.tintColor = TTBaseUIKitConfig.getViewConfig().buttonBgDef
-        hiddenButton.setImage(UIImage(fromTTBaseUIKit: "img.hideKeyboard.png")?.withRenderingMode(.alwaysTemplate), for: .normal)
-        hiddenButton.layer.cornerRadius    = 4
-        hiddenButton.clipsToBounds = false
-        
-        panelView.addSubview(hiddenButton)
+        //Icon
+        if TTBaseUIKitConfig.getStyleConfig().dismissKeyboardType == .ICON {
+            let hiddenButton:UIButton = UIButton(frame: CGRect.init(x: TTBaseUIKitConfig.getSizeConfig().W - 35, y: 2, width: 35, height: 32))
+            hiddenButton.addTarget(self, action: #selector(self.dismissKeyboard(_:)), for: .touchUpInside)
+            hiddenButton.contentEdgeInsets = UIEdgeInsets(top: 4, left: 4, bottom: 4, right: 4)
+            hiddenButton.backgroundColor = UIColor.white
+            hiddenButton.tintColor = TTBaseUIKitConfig.getViewConfig().buttonBgDef
+            hiddenButton.setImage(UIImage(fromTTBaseUIKit: "img.hideKeyboard.png")?.withRenderingMode(.alwaysTemplate), for: .normal)
+            hiddenButton.layer.cornerRadius    = 4
+            hiddenButton.clipsToBounds = false
+            
+            panelView.addSubview(hiddenButton)
+        //Text
+        } else {
+            let hiddenButton:UIButton = UIButton(frame: CGRect.init(x: TTBaseUIKitConfig.getSizeConfig().W - 100, y: 2, width: 100, height: 32))
+            hiddenButton.addTarget(self, action: #selector(self.dismissKeyboard(_:)), for: .touchUpInside)
+            hiddenButton.contentEdgeInsets = UIEdgeInsets(top: 4, left: 4, bottom: 4, right: TTBaseUIKitConfig.getSizeConfig().P_CONS_DEF)
+            hiddenButton.backgroundColor = UIColor.white
+            hiddenButton.setTitleColor(TTBaseUIKitConfig.getViewConfig().buttonBgDef, for: UIControl.State.normal)
+            hiddenButton.setTitle("TTBaseUIkit.Text.HiddenKeyboard".localize(withBundle: Bundle.main), for: .normal)
+            hiddenButton.contentHorizontalAlignment = .right
+            hiddenButton.layer.cornerRadius    = 4
+            hiddenButton.clipsToBounds = false
+            
+            panelView.addSubview(hiddenButton)
+        }
         
         self.inputAccessoryView = panelView
-        
+
         return self
     }
     

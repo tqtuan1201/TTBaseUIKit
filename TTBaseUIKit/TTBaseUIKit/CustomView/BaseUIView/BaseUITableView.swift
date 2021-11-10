@@ -39,7 +39,7 @@ open class TTBaseUITableView: UITableView {
         self.showsHorizontalScrollIndicator = self.isShowScrollIndicator
         self.backgroundColor = self.bgColor
         self.translatesAutoresizingMaskIntoConstraints = false
-        
+        self.keyboardDismissMode = TTBaseUIKitConfig.getStyleConfig().dismissKeyboardScrollViewType
         if isSetContentInset { // App will be caculator from safeAreaLayout, not topAnchor View
             self.contentInset = UIEdgeInsets(top: TTSize.H_NAV, left: 0, bottom: TTSize.P_CONS_DEF, right: 0)
         }

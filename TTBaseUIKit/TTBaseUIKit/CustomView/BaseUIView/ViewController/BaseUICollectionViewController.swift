@@ -11,6 +11,7 @@ import Foundation
 open class TTBaseUICollectionViewController<BaseView:TTBaseUIView>: UICollectionViewController {
 
     open override func viewDidLoad() {
-        
+        super.viewDidLoad()
+
     }
 }

@@ -166,6 +166,11 @@ open class TTBaseUIViewController<BaseView:TTBaseUIView>: UIViewController, TTBa
         
     }
     
+    open override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        super.touchesBegan(touches, with: event)
+        if TTBaseUIKitConfig.getStyleConfig().isDismissKeyboardByTouchAnywhere { self.dismissKeyboard() }
+    }
+    
     private func setupEffectForView() {
         if self.isEffectView {
             self.panelEffectView.alpha = 0.8

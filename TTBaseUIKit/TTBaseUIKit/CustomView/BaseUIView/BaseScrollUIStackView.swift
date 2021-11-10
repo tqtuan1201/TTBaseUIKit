@@ -36,6 +36,7 @@ open class TTBaseScrollUIStackView :UIScrollView {
         self.showsVerticalScrollIndicator = false
         self.showsHorizontalScrollIndicator = false
         self.translatesAutoresizingMaskIntoConstraints = false
+        self.keyboardDismissMode = TTBaseUIKitConfig.getStyleConfig().dismissKeyboardScrollViewType
         self.addSubview(baseStackView)
         if isSetWidthContraint { self.baseStackView.widthAnchor.constraint(equalTo: self.widthAnchor, multiplier: 1).isActive = true }
         self.baseStackView.setLeadingAnchor(constant: self.pading.0).setTopAnchor(constant: self.pading.1).setTrailingAnchor(self, constant: self.pading.2, priority: .defaultHigh).setBottomAnchor(constant: pading.3).done()
