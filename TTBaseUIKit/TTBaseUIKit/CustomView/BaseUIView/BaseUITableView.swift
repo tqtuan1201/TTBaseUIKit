@@ -33,6 +33,16 @@ open class TTBaseUITableView: UITableView {
         fatalError("init(coder:) has not been implemented")
     }
     
+    open override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        super.touchesBegan(touches, with: event)
+        if TTBaseUIKitConfig.getStyleConfig().isDismissKeyboardByTouchAnyBaseScrollView {
+            DispatchQueue.main.async {
+                self.findViewController()?.dismissKeyboard()
+                UIApplication.topViewController()?.dismissKeyboard()
+            }
+        }
+    }
+    
     fileprivate func setupBaseUI() {
 
         self.showsVerticalScrollIndicator = self.isShowScrollIndicator

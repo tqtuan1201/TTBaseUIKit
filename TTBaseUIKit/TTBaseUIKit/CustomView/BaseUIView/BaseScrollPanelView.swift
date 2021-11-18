@@ -19,6 +19,16 @@ open class TTBaseScrollPanelView :UIScrollView {
     
     open func updateBaseUIView() { }
     
+    open override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        super.touchesBegan(touches, with: event)
+        if TTBaseUIKitConfig.getStyleConfig().isDismissKeyboardByTouchAnyBaseScrollView {
+            DispatchQueue.main.async {
+                self.findViewController()?.dismissKeyboard()
+                UIApplication.topViewController()?.dismissKeyboard()
+            }
+        }
+    }
+    
     public init() {
         super.init(frame: .zero)
         self.setupBaseUIView()

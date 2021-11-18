@@ -31,6 +31,16 @@ open class TTBaseUIView: UIView, ViewDrawer {
         self.init(); self.setCorner(withCornerRadius: radio)
     }
     
+    open override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        super.touchesBegan(touches, with: event)
+        if TTBaseUIKitConfig.getStyleConfig().isDismissKeyboardByTouchAnyBaseUIView {
+            DispatchQueue.main.async {
+                self.findViewController()?.dismissKeyboard()
+                UIApplication.topViewController()?.dismissKeyboard()
+            }
+        }
+    }
+    
     open override func layoutSubviews() {
         super.layoutSubviews()
     }
@@ -38,6 +48,7 @@ open class TTBaseUIView: UIView, ViewDrawer {
     @available(*, unavailable,
       message: "Loading this view from a nib is unsupported in favor of initializer dependency injection."
     )
+    
     public required init?(coder aDecoder: NSCoder) {
         super.init(frame: .zero)
         self.viewDefCornerRadius = 0

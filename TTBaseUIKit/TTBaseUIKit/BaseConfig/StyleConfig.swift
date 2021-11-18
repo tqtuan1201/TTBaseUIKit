@@ -18,6 +18,8 @@ open class StyleConfig {
 
     
     public var isDismissKeyboardByTouchAnywhere:Bool = false
+    public var isDismissKeyboardByTouchAnyBaseUIView:Bool = false
+    public var isDismissKeyboardByTouchAnyBaseScrollView:Bool = false
     public var dismissKeyboardType:DismissKeyboardType = DismissKeyboardType.ICON
     public var dismissKeyboardScrollViewType:UIScrollView.KeyboardDismissMode = .none
     

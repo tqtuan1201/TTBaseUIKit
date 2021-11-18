@@ -16,6 +16,16 @@ open class TTBaseScrollUIStackView :UIScrollView {
     
     open var isSetWidthContraint:Bool { get { return true } }
     
+    open override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        super.touchesBegan(touches, with: event)
+        if TTBaseUIKitConfig.getStyleConfig().isDismissKeyboardByTouchAnyBaseScrollView {
+            DispatchQueue.main.async {
+                self.findViewController()?.dismissKeyboard()
+                UIApplication.topViewController()?.dismissKeyboard()
+            }
+        }
+    }
+    
     override init(frame: CGRect) {
         super.init(frame: .zero)
     }

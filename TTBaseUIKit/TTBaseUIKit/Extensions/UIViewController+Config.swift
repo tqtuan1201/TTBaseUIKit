@@ -124,6 +124,8 @@ extension UIViewController {
     public func dismissKeyboard() {
         DispatchQueue.main.async {
             self.view.endEditing(true)
+            self.view.findViewController()?.view.endEditing(true)
+            UIApplication.topViewController()?.view.endEditing(true)
         }
     }
     

@@ -10,6 +10,11 @@ import Foundation
 
 open class TTBaseUICollectionViewController<BaseView:TTBaseUIView>: UICollectionViewController {
 
+    open override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        super.touchesBegan(touches, with: event)
+        if TTBaseUIKitConfig.getStyleConfig().isDismissKeyboardByTouchAnywhere { self.dismissKeyboard() }
+    }
+    
     open override func viewDidLoad() {
         super.viewDidLoad()
 
