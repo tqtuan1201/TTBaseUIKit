@@ -25,8 +25,9 @@ open class LogViewHelper {
     public var didSendCurrentRequest:( (_ request:String) -> ())?
     public var didSendCurrentResponse:( (_ response:String) -> ())?
     
-    public func config(withDes des:String, isStartAppToShow:Bool) -> LogViewHelper {
+    public func config(withDes des:String, isStartAppToShow:Bool, passCode:String) -> LogViewHelper {
         self.viewModel.displayString =  des
+        self.viewModel.passCode =  passCode
         self.viewModel.isStartAppToShow =  isStartAppToShow
         return self
     }
@@ -80,9 +81,24 @@ extension LogViewHelper {
                 let showLogVC = OptionLogPresentViewController(with: "IS DEV MODE", subTitle: strongSelf.viewModel.displayString)
                 if !strongSelf.viewModel.isShow {
                     strongSelf.viewModel.isShow = true
-                    UIApplication.topViewController()?.present(showLogVC, animated: true, completion: {
-                        strongSelf.viewModel.isShow = true
-                    })
+                    
+                    let ac = UIAlertController(title: "[DEV MODE] CHANGE SETTING APP\nInput passcode", message: nil, preferredStyle: .alert)
+                    ac.addTextField()
+
+                    let submitAction = UIAlertAction(title: "Submit", style: .default) { [unowned ac] _ in
+                        guard let answer = ac.textFields?[0] else { return }
+                        if answer.text?.uppercased() == strongSelf.viewModel.passCode.uppercased() {
+                            
+                            UIApplication.topViewController()?.present(showLogVC, animated: true, completion: {
+                                strongSelf.viewModel.isShow = true
+                            })
+                            
+                        }
+                        // do something interesting with "answer" here
+                    }
+                    ac.addAction(submitAction)
+                    UIApplication.topViewController()?.present(ac, animated: true, completion: nil)
+                
                 }
                 
                 showLogVC.didLoad? = { [weak self] in guard let strongSelf = self else { return }

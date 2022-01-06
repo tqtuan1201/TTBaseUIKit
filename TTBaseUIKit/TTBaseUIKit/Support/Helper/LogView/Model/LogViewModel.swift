@@ -34,7 +34,7 @@ class LogTrackingViewModel {
     var isShow:Bool = false
     var displayString:String = "View log by json or report bugs"
     var logs:[LogViewModel] = []
-
+    var passCode:String = ""
     init() { }
 }
 
