@@ -36,6 +36,11 @@ open class TTBaseNetworkSpeedTest : NSObject {
     public init(withUrl urlString:String) {
         self.testURL = urlString
     }
+
+    
+    public init(witTimeLoop timeLoop:Double) {
+        self.timeLoop = timeLoop
+    }
     
     public override init() {
     }

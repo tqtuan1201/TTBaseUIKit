@@ -137,9 +137,9 @@ extension UIImage {
     }
     
     public static func fontAwesomeIconWithName(nameString: String, size: CGSize, iconColor: UIColor, backgroundColor: UIColor = UIColor.clear) -> UIImage? {
-        if #available(macOS 11, *) {
+        #if targetEnvironment(macCatalyst)
             return nil
-        } else {
+        #else
             let paragraph = NSMutableParagraphStyle()
             paragraph.alignment = NSTextAlignment.center
             
@@ -156,7 +156,7 @@ extension UIImage {
             let image = UIGraphicsGetImageFromCurrentImageContext()
             UIGraphicsEndImageContext()
             return image
-        }
+        #endif
     }
     
     public convenience init?(fromTTBaseUIKit name:String) {
