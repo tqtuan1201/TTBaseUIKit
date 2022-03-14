@@ -110,11 +110,16 @@ open class TTBaseUITableViewController: TTBaseUIViewController<TTBaseUIView>, UI
 extension TTBaseUITableViewController {
     
     fileprivate func setPullToRequest() {
-        if !self.isPullToRequest { return }
-        self.refreshControl.tintColor = TTView.refreshViewColor
-        self.refreshControl.layer.zPosition = 120
-        self.tableView.refreshControl = self.refreshControl
-        self.refreshControl.addTarget(self, action: #selector(refreshData(_:)), for: .valueChanged)
+        
+        if #available(macOS 11, *) {
+            TTBaseFunc.shared.printLog(object: "::TTBaseUITableViewController Skip set refreshControl on macos")
+        } else {
+            if !self.isPullToRequest { return }
+            self.refreshControl.tintColor = TTView.refreshViewColor
+            self.refreshControl.layer.zPosition = 120
+            self.tableView.refreshControl = self.refreshControl
+            self.refreshControl.addTarget(self, action: #selector(refreshData(_:)), for: .valueChanged)
+        }
     }
     
     @objc fileprivate func refreshData(_ sender: Any) {

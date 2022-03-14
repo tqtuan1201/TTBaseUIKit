@@ -38,6 +38,7 @@
 		6D193B982511EB8E008BF2EC /* BaseStackShadowPanelView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6D193B972511EB8E008BF2EC /* BaseStackShadowPanelView.swift */; };
 		6D193B9A2511EBBD008BF2EC /* BaseTwoStackButtonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6D193B992511EBBD008BF2EC /* BaseTwoStackButtonView.swift */; };
 		6D2A604D272BAE4600CCDD0F /* BaseStackScrollViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6D2A604C272BAE4600CCDD0F /* BaseStackScrollViewController.swift */; };
+		6D384F8C27DF2E640093DA4F /* TTBaseNetworkSpeedTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6D384F8B27DF2E640093DA4F /* TTBaseNetworkSpeedTest.swift */; };
 		6D4953F723FA529D00277D77 /* BaseTextSubtextHorTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6D4953F623FA529D00277D77 /* BaseTextSubtextHorTableViewCell.swift */; };
 		6D4CE91B271D7C3F00D9802B /* BaseTextViewWithPlaceHolderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6D4CE91A271D7C3F00D9802B /* BaseTextViewWithPlaceHolderView.swift */; };
 		6D59D7C8235EA4060007AA25 /* TTBaseShadowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6D59D7C7235EA4060007AA25 /* TTBaseShadowView.swift */; };
@@ -202,6 +203,7 @@
 		6D193B972511EB8E008BF2EC /* BaseStackShadowPanelView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseStackShadowPanelView.swift; sourceTree = "<group>"; };
 		6D193B992511EBBD008BF2EC /* BaseTwoStackButtonView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseTwoStackButtonView.swift; sourceTree = "<group>"; };
 		6D2A604C272BAE4600CCDD0F /* BaseStackScrollViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseStackScrollViewController.swift; sourceTree = "<group>"; };
+		6D384F8B27DF2E640093DA4F /* TTBaseNetworkSpeedTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TTBaseNetworkSpeedTest.swift; sourceTree = "<group>"; };
 		6D4953F623FA529D00277D77 /* BaseTextSubtextHorTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseTextSubtextHorTableViewCell.swift; sourceTree = "<group>"; };
 		6D4CE91A271D7C3F00D9802B /* BaseTextViewWithPlaceHolderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseTextViewWithPlaceHolderView.swift; sourceTree = "<group>"; };
 		6D59D7C7235EA4060007AA25 /* TTBaseShadowView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TTBaseShadowView.swift; sourceTree = "<group>"; };
@@ -505,6 +507,7 @@
 				938FAFD122EED5FE0048AD1B /* VietNamLunar.swift */,
 				6DAC63E1230549F6005FDDEA /* Validation.swift */,
 				6D8E0AFC2696B1BA0071FF42 /* TextValidation.swift */,
+				6D384F8B27DF2E640093DA4F /* TTBaseNetworkSpeedTest.swift */,
 			);
 			path = Utilities;
 			sourceTree = "<group>";
@@ -866,6 +869,7 @@
 				936091D1225B31AC007D8F6B /* UIView+Config.swift in Sources */,
 				6D183542253049B900C127C2 /* UIScrollView+Config.swift in Sources */,
 				6D5BF33B22FAB0E00066DE78 /* UIImageFontPaddingView.swift in Sources */,
+				6D384F8C27DF2E640093DA4F /* TTBaseNetworkSpeedTest.swift in Sources */,
 				936822EC228EC10900BDD0DB /* BaseNotificationViewConfig.swift in Sources */,
 				6DAC63E2230549F6005FDDEA /* Validation.swift in Sources */,
 				935F690D22802EDB00A38FDA /* BaseWKWebView.swift in Sources */,
@@ -1175,6 +1179,7 @@
 				INFOPLIST_FILE = TTBaseUIKit/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
+				"IPHONEOS_DEPLOYMENT_TARGET[sdk=macosx*]" = 14.2;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -1186,7 +1191,7 @@
 				SKIP_INSTALL = YES;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = "1,2,6";
 			};
 			name = Debug;
 		};
@@ -1205,6 +1210,7 @@
 				INFOPLIST_FILE = TTBaseUIKit/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
+				"IPHONEOS_DEPLOYMENT_TARGET[sdk=macosx*]" = 14.2;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -1215,7 +1221,7 @@
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
 				SKIP_INSTALL = YES;
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = "1,2,6";
 			};
 			name = Release;
 		};

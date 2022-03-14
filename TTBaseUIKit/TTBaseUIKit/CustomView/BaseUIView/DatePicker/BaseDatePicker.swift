@@ -39,6 +39,7 @@ open class TTBaseDatePicker: TTBasePopupViewController {
         self.selectedDate = selectedDate
         self.mode = mode
         self.textColor = textColor
+        self.setupViewCodable(with: [])
     }
     
     required public init?(coder aDecoder: NSCoder) {
@@ -47,7 +48,6 @@ open class TTBaseDatePicker: TTBasePopupViewController {
     
     open override func viewDidLoad() {
         super.viewDidLoad()
-        DispatchQueue.main.async { self.setupViewCodable(with: []) }
     }
     
     @objc fileprivate func datePickerValueChanged(_ sender: UIDatePicker){
@@ -98,7 +98,9 @@ extension TTBaseDatePicker: TTViewCodable {
         self.timePicker.backgroundColor = UIColor.clear
         self.timePicker.datePickerMode = self.mode
         self.timePicker.setValue(self.textColor, forKey: "textColor")
-        
+        if #available(iOS 13.4, *) {
+            self.timePicker.preferredDatePickerStyle = UIDatePickerStyle.wheels
+        }
     }
     
     public func setupData() {

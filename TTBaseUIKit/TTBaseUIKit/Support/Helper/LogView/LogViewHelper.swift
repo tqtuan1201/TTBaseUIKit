@@ -14,6 +14,7 @@ open class LogViewHelper {
     fileprivate var viewModel:LogTrackingViewModel = LogTrackingViewModel()
     
     public static let share = LogViewHelper()
+    
     private let concurrentQueue = DispatchQueue(label: "ConcurrentQueue", attributes: .concurrent, target: nil)
     
     private  init(){}
@@ -82,23 +83,29 @@ extension LogViewHelper {
                 if !strongSelf.viewModel.isShow {
                     strongSelf.viewModel.isShow = true
                     
-                    let ac = UIAlertController(title: "[DEV MODE] CHANGE SETTING APP\nInput passcode", message: nil, preferredStyle: .alert)
-                    ac.addTextField()
+                    //isSkipCheckPass
+                    if strongSelf.viewModel.isSkipCheckPass {
+                        UIApplication.topViewController()?.present(showLogVC, animated: true, completion: {
+                            strongSelf.viewModel.isShow = true
+                        })
+                    // Check input pass
+                    } else {
+                        let ac = UIAlertController(title: "[DEV MODE] CHANGE SETTING APP\nInput passcode", message: nil, preferredStyle: .alert)
+                        ac.addTextField()
 
-                    let submitAction = UIAlertAction(title: "Submit", style: .default) { [unowned ac] _ in
-                        guard let answer = ac.textFields?[0] else { return }
-                        if answer.text?.uppercased() == strongSelf.viewModel.passCode.uppercased() {
-                            
-                            UIApplication.topViewController()?.present(showLogVC, animated: true, completion: {
-                                strongSelf.viewModel.isShow = true
-                            })
-                            
+                        let submitAction = UIAlertAction(title: "Submit", style: .default) { [unowned ac] _ in
+                            guard let answer = ac.textFields?[0] else { return }
+                            if answer.text?.uppercased() == strongSelf.viewModel.passCode.uppercased() {
+                                strongSelf.viewModel.isSkipCheckPass = true
+                                UIApplication.topViewController()?.present(showLogVC, animated: true, completion: {
+                                    strongSelf.viewModel.isShow = true
+                                })
+                                
+                            }
                         }
-                        // do something interesting with "answer" here
+                        ac.addAction(submitAction)
+                        UIApplication.topViewController()?.present(ac, animated: true, completion: nil)
                     }
-                    ac.addAction(submitAction)
-                    UIApplication.topViewController()?.present(ac, animated: true, completion: nil)
-                
                 }
                 
                 showLogVC.didLoad? = { [weak self] in guard let strongSelf = self else { return }

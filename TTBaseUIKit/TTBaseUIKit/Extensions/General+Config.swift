@@ -137,20 +137,26 @@ extension UIImage {
     }
     
     public static func fontAwesomeIconWithName(nameString: String, size: CGSize, iconColor: UIColor, backgroundColor: UIColor = UIColor.clear) -> UIImage? {
-        let paragraph = NSMutableParagraphStyle()
-        paragraph.alignment = NSTextAlignment.center
-        
-        // Taken from FontAwesome.io's Fixed Width Icon CSS
-        let fontAspectRatio: CGFloat = 1.28571429
-        
-        let fontSize = min(size.width / fontAspectRatio, size.height)
-        
-        let attributedString = NSAttributedString(string: nameString, attributes: [NSAttributedString.Key.font: UIFont.getFontIcon(ProWithSize: fontSize), NSAttributedString.Key.foregroundColor: iconColor, NSAttributedString.Key.backgroundColor: backgroundColor, NSAttributedString.Key.paragraphStyle: paragraph])
-        UIGraphicsBeginImageContextWithOptions(size, false , 0.0)
-        attributedString.draw(in: CGRect(x: 0, y: (size.height - fontSize) / 2, width: size.width, height: fontSize))
-        let image = UIGraphicsGetImageFromCurrentImageContext()
-        UIGraphicsEndImageContext()
-        return image
+        if #available(macOS 11, *) {
+            return nil
+        } else {
+            let paragraph = NSMutableParagraphStyle()
+            paragraph.alignment = NSTextAlignment.center
+            
+            if nameString.contains("") { return nil }
+            // Taken from FontAwesome.io's Fixed Width Icon CSS
+            let fontAspectRatio: CGFloat = 1.28571429
+            
+            let fontSize = min(size.width / fontAspectRatio, size.height)
+            let fontName:UIFont = UIFont.getFontIcon(ProWithSize: fontSize)
+            
+            let attributedString = NSAttributedString(string: nameString, attributes: [NSAttributedString.Key.font: fontName, NSAttributedString.Key.foregroundColor: iconColor, NSAttributedString.Key.backgroundColor: backgroundColor, NSAttributedString.Key.paragraphStyle: paragraph])
+            UIGraphicsBeginImageContextWithOptions(size, false , 0.0)
+            attributedString.draw(in: CGRect(x: 0, y: (size.height - fontSize) / 2, width: size.width, height: fontSize))
+            let image = UIGraphicsGetImageFromCurrentImageContext()
+            UIGraphicsEndImageContext()
+            return image
+        }
     }
     
     public convenience init?(fromTTBaseUIKit name:String) {
