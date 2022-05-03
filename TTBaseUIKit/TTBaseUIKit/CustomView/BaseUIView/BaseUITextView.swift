@@ -30,7 +30,7 @@ open class TTBaseUITextView: UITextView   {
     
     public var onTextEditChangedHandler:((_ textView:TTBaseUITextView,_ textString:String) -> Void)?
     public var onDismissKeyboard:(() -> Void)?
-    public var onDidMaxLeightHandle:(() -> Void)?
+    public var onDidMaxLeightHandle:((_ text:String) -> Void)?
     public var onTouchIconHandler:((_ textView:TTBaseUITextView) -> Void)?
     public var onTouchReturnKeyHandler:((_ textView:TTBaseUITextView,_ type:UIReturnKeyType) -> Void)?
     
@@ -109,12 +109,12 @@ extension TTBaseUITextView : UITextViewDelegate {
     
     public func textView(_ textView: UITextView, shouldChangeTextIn range: NSRange, replacementText text: String) -> Bool {
         
-        if text == "\n" { self.onTouchReturnKeyHandler?(self, self.returnKeyType)}
+        if text == "\n" { self.onTouchReturnKeyHandler?(self, self.returnKeyType); return false}
         
         if let maxLenght = self.maxLenght {
             let newText = (textView.text as NSString).replacingCharacters(in: range, with: text)
             if newText.count > maxLenght {
-                self.onDidMaxLeightHandle?()
+                self.onDidMaxLeightHandle?(newText)
                 return false
             } else {
                 return true
