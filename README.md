@@ -1,7 +1,9 @@
 # TTBaseUIKit
 
-Build your project with programmatically UI
+Build your project with programmatically UI. You can see more details in here:
+[TTBaseUIKit - Framework to Build UI Programmatically](https://tqtuan1201.github.io/posts/ttbaseuikit-ui-framework/)
 
+Add the following line to your Podfile:
 [![Version](https://img.shields.io/cocoapods/v/TTBaseUIKit.svg?style=flat)](http://cocoadocs.org/docsets/TTBaseUIKit)
 [![License](https://img.shields.io/cocoapods/l/TTBaseUIKit.svg?style=flat)](http://cocoadocs.org/docsets/TTBaseUIKit)
 [![Platform](https://img.shields.io/cocoapods/p/TTBaseUIKit.svg?style=flat)](http://cocoadocs.org/docsets/TTBaseUIKit)
