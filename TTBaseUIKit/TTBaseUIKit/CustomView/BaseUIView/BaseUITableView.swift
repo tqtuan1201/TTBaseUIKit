@@ -66,6 +66,12 @@ open class TTBaseUITableView: UITableView {
             self.estimatedSectionHeaderHeight = sectionHeaderHeight
             self.estimatedSectionFooterHeight = sectionFooterHeight
         }
+        
+        if #available(iOS 15.0, *) {
+            self.sectionHeaderTopPadding = 0.0
+        } else {
+            // Fallback on earlier versions
+        }
     }
 }
 

@@ -71,6 +71,11 @@ open class TTBaseUITableViewController: TTBaseUIViewController<TTBaseUIView>, UI
             self.tableView.estimatedSectionFooterHeight = sectionFooterHeight
         }
 
+        if #available(iOS 15.0, *) {
+            self.tableView.sectionHeaderTopPadding = 0.0
+        } else {
+            // Fallback on earlier versions
+        }
         
         self.tableView.backgroundColor = self.bgTableView
         
