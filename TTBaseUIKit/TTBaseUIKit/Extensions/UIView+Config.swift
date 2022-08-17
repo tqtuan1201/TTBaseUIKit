@@ -11,16 +11,26 @@ import UIKit
 
 extension UIView {
     
-    
-    
-    public func setConerDef() {
-        self.setConerRadius(with: TTSize.CORNER_RADIUS)
+    @discardableResult public func roundCornersNew(corners: UIRectCorner, radius: CGFloat = 8.0) -> UIView {
+        if self.layer.sublayers?.filter({$0.name == "ROUNDCORNERSNEW"}).count ?? -1  > 0 { return self}
+        let path = UIBezierPath(roundedRect: bounds, byRoundingCorners: corners, cornerRadii: CGSize(width: radius, height: radius))
+        let mask = CAShapeLayer()
+        mask.name = "ROUNDCORNERSNEW"
+        mask.path = path.cgPath
+        layer.mask = mask
+        return self
     }
     
-    public func setBorder(with width:CGFloat, color:UIColor, coner:CGFloat) {
+    @discardableResult public func setConerDef() -> UIView {
+        self.setConerRadius(with: TTSize.CORNER_RADIUS)
+        return self
+    }
+    
+    @discardableResult public func setBorder(with width:CGFloat, color:UIColor, coner:CGFloat) -> UIView {
         self.layer.borderWidth = width
         self.layer.borderColor = color.cgColor
         self.setConerRadius(with: coner)
+        return self
     }
     
     public func setDashedLine(strokeColor: UIColor, lineWidth: CGFloat) {
@@ -40,13 +50,14 @@ extension UIView {
         completion?()
     }
 
-    public func setConerRadius(with radius:CGFloat) {
+    @discardableResult public func setConerRadius(with radius:CGFloat) -> UIView {
         self.layer.cornerRadius = radius
         if radius == 0.0 {
             self.clipsToBounds = false
         } else {
             self.clipsToBounds = true
         }
+        return self
     }
     
     public func roundCorners(corners: UIRectCorner, radius: CGFloat = TTBaseUIKitConfig.getSizeConfig().CORNER_RADIUS) {

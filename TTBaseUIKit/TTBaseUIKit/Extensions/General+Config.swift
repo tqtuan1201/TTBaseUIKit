@@ -260,6 +260,15 @@ extension CALayer {
 //MARK:// NSMutableAttributedString
 extension NSMutableAttributedString {
     
+    @discardableResult public func addStypeForExistText(_ text: String, textColor:UIColor, systemFontsize:CGFloat, weight: UIFont.Weight)  -> NSMutableAttributedString {
+        
+        guard let substringRange = self.string.range(of: text) else { return self}
+        let nsRange = NSRange(substringRange, in: self.string)
+        let attrs: [NSAttributedString.Key: Any] = [.font: UIFont.systemFont(ofSize: systemFontsize, weight: weight), .foregroundColor : textColor]
+        self.addAttributes(attrs, range: nsRange)
+        return self
+    }
+    
     @discardableResult public func addBoldStypeForExistText(_ text: String, textColor:UIColor, systemFontsize:CGFloat)  -> NSMutableAttributedString {
         
         guard let substringRange = self.string.range(of: text) else { return self}
@@ -315,4 +324,12 @@ extension NSMutableAttributedString {
         return self
     }
     
+}
+
+//MARK: Data
+extension Data {
+    @discardableResult public func getTokenByString() -> String {
+        let token = self.map { String(format: "%02.2hhx", $0) }.joined()
+        return token
+    }
 }

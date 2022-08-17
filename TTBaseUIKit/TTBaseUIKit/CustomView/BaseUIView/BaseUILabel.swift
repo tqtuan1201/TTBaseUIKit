@@ -136,6 +136,25 @@ extension TTBaseUILabel {
         return self
     }
     
+    @discardableResult public func setRegular()  -> TTBaseUILabel {
+        self.font = UIFont.systemFont(ofSize: self.font.pointSize, weight: .regular)
+        return self
+    }
+    @discardableResult public func setRemiBold()  -> TTBaseUILabel {
+        self.font = UIFont.systemFont(ofSize: self.font.pointSize, weight: .semibold)
+        return self
+    }
+    
+    @discardableResult public func setFont(byWeight weight: UIFont.Weight)  -> TTBaseUILabel {
+        self.font = UIFont.systemFont(ofSize: self.font.pointSize, weight: weight)
+        return self
+    }
+    
+    @discardableResult public func setItalic()  -> TTBaseUILabel {
+        self.font = UIFont.italicSystemFont(ofSize: self.font.pointSize)
+        return self
+    }
+    
 }
 
 // MARK: For setText
