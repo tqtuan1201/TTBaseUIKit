@@ -334,7 +334,7 @@
 		OBJ_96 /* DismissView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DismissView.swift; sourceTree = "<group>"; };
 		OBJ_98 /* BaseNotificationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseNotificationView.swift; sourceTree = "<group>"; };
 		OBJ_99 /* BaseNotificationViewConfig.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseNotificationViewConfig.swift; sourceTree = "<group>"; };
-		"ttbaseuikit::TTBaseUIKit::Product" /* TTBaseUIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = TTBaseUIKit.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		"ttbaseuikit::TTBaseUIKit::Product" /* TTBaseUIKit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = TTBaseUIKit.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		"ttbaseuikit::TTBaseUIKitTests::Product" /* TTBaseUIKitTests.xctest */ = {isa = PBXFileReference; lastKnownFileType = file; path = TTBaseUIKitTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -647,7 +647,7 @@
 			path = BaseUIView;
 			sourceTree = "<group>";
 		};
-		OBJ_5 /*  */ = {
+		OBJ_5 = {
 			isa = PBXGroup;
 			children = (
 				OBJ_6 /* Package.swift */,
@@ -659,7 +659,6 @@
 				OBJ_183 /* README.md */,
 				OBJ_184 /* Podfile */,
 			);
-			name = "";
 			sourceTree = "<group>";
 		};
 		OBJ_7 /* Sources */ = {
@@ -807,7 +806,7 @@
 			knownRegions = (
 				en,
 			);
-			mainGroup = OBJ_5 /*  */;
+			mainGroup = OBJ_5;
 			productRefGroup = OBJ_178 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -1012,7 +1011,7 @@
 					"$(PLATFORM_DIR)/Developer/Library/Frameworks",
 				);
 				HEADER_SEARCH_PATHS = "$(inherited)";
-				INFOPLIST_FILE = TTBaseUIKit.xcodeproj/TTBaseUIKit_Info.plist;
+				INFOPLIST_FILE = "$(SRCROOT)/Sources/TTBaseUIKit/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) $(TOOLCHAIN_DIR)/usr/lib/swift/macosx";
 				MACOSX_DEPLOYMENT_TARGET = 10.10;
@@ -1042,7 +1041,7 @@
 					"$(PLATFORM_DIR)/Developer/Library/Frameworks",
 				);
 				HEADER_SEARCH_PATHS = "$(inherited)";
-				INFOPLIST_FILE = TTBaseUIKit.xcodeproj/TTBaseUIKit_Info.plist;
+				INFOPLIST_FILE = "$(SRCROOT)/Sources/TTBaseUIKit/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) $(TOOLCHAIN_DIR)/usr/lib/swift/macosx";
 				MACOSX_DEPLOYMENT_TARGET = 10.10;
