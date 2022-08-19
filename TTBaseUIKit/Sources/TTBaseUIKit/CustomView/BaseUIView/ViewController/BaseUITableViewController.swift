@@ -122,8 +122,13 @@ extension TTBaseUITableViewController {
             if !self.isPullToRequest { return }
             self.refreshControl.tintColor = TTView.refreshViewColor
             self.refreshControl.layer.zPosition = 120
-            self.tableView.refreshControl = self.refreshControl
+            
             self.refreshControl.addTarget(self, action: #selector(refreshData(_:)), for: .valueChanged)
+            if #available(iOS 10.0, *) {
+                self.tableView.refreshControl = self.refreshControl
+            } else {
+                TTBaseFunc.shared.printLog(object: "::TTBaseUITableViewController  skip to set self.tableView.refreshControl !")
+            }
         #endif
     }
     

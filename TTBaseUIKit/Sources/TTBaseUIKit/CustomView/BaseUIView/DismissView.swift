@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import UIKit
 
 open class TTDismissView: TTBaseUIView {
     fileprivate var width:CGFloat = TTSize.W_DISSMISS_LINESPACE_PRESENTVIEW

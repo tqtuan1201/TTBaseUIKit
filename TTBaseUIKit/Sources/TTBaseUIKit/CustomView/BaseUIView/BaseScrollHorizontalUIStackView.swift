@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import UIKit
 
 open class TTBaseScrollHorizontalUIStackView :UIScrollView {
     public var pading:(CGFloat,CGFloat,CGFloat,CGFloat) = (0,0,0,0)

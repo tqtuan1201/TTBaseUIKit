@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import UIKit
 
 class LogTrackingTableViewCell : TTTextSubtextIconTableViewCell {
     override var sizeImages: (CGFloat, CGFloat) { return ( 0,0 )}

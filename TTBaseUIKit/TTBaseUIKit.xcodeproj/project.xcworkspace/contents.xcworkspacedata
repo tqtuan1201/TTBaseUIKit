@@ -2,6 +2,6 @@
 <Workspace
    version = "1.0">
    <FileRef
-      location = "self:TTBaseUIKit.xcodeproj">
+      location = "self:">
    </FileRef>
 </Workspace>

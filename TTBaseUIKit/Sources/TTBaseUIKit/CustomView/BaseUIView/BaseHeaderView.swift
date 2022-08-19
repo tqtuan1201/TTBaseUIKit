@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import UIKit
 
 open class TTBaseHeaderView: TTBaseUIView {
     open var bgColor:UIColor { get { return UIColor.white }}

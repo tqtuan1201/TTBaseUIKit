@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import UIKit
 
 public protocol NetworkSpeedProviderDelegate: AnyObject {
     func callWhileSpeedChange(networkStatus: NetworkStatus, megabytesPerSecond: CGFloat)
