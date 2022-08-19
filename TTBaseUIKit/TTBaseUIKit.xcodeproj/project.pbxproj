@@ -1,1253 +1,2135 @@
 // !$*UTF8*$!
 {
-	archiveVersion = 1;
-	classes = {
-	};
-	objectVersion = 46;
-	objects = {
-
-/* Begin PBXAggregateTarget section */
-		"ttbaseuikit::TTBaseUIKitPackageTests::ProductTarget" /* TTBaseUIKitPackageTests */ = {
-			isa = PBXAggregateTarget;
-			buildConfigurationList = OBJ_339 /* Build configuration list for PBXAggregateTarget "TTBaseUIKitPackageTests" */;
-			buildPhases = (
-			);
-			dependencies = (
-				OBJ_342 /* PBXTargetDependency */,
-			);
-			name = TTBaseUIKitPackageTests;
-			productName = TTBaseUIKitPackageTests;
-		};
-/* End PBXAggregateTarget section */
-
-/* Begin PBXBuildFile section */
-		OBJ_190 /* BaseConfigRepresentable.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_12 /* BaseConfigRepresentable.swift */; };
-		OBJ_191 /* Configuration.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_13 /* Configuration.swift */; };
-		OBJ_192 /* Constant.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_14 /* Constant.swift */; };
-		OBJ_193 /* FontConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_15 /* FontConfig.swift */; };
-		OBJ_194 /* SizeConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_16 /* SizeConfig.swift */; };
-		OBJ_195 /* StyleConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_17 /* StyleConfig.swift */; };
-		OBJ_196 /* ValueConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_18 /* ValueConfig.swift */; };
-		OBJ_197 /* ViewConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_19 /* ViewConfig.swift */; };
-		OBJ_198 /* Coordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_21 /* Coordinator.swift */; };
-		OBJ_199 /* BaBaseGradientUIImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_24 /* BaBaseGradientUIImageView.swift */; };
-		OBJ_200 /* BaseBadgeInsetLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_25 /* BaseBadgeInsetLabel.swift */; };
-		OBJ_201 /* BaseButtonBadge.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_26 /* BaseButtonBadge.swift */; };
-		OBJ_202 /* BaseCircleLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_27 /* BaseCircleLabel.swift */; };
-		OBJ_203 /* BaseCustomViewRepresentable.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_28 /* BaseCustomViewRepresentable.swift */; };
-		OBJ_204 /* BaseDropdownCustomView.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_29 /* BaseDropdownCustomView.swift */; };
-		OBJ_205 /* BaseHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_30 /* BaseHeaderView.swift */; };
-		OBJ_206 /* BaseIconCircleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_31 /* BaseIconCircleView.swift */; };
-		OBJ_207 /* BaseInsetLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_32 /* BaseInsetLabel.swift */; };
-		OBJ_208 /* BaseLabelIconHorizontalView.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_33 /* BaseLabelIconHorizontalView.swift */; };
-		OBJ_209 /* BaseLabelTextViewByVerticalView.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_34 /* BaseLabelTextViewByVerticalView.swift */; };
-		OBJ_210 /* BaseLableWithButtonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_35 /* BaseLableWithButtonView.swift */; };
-		OBJ_211 /* BaseLinePinView.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_36 /* BaseLinePinView.swift */; };
-		OBJ_212 /* BaseLinePinsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_37 /* BaseLinePinsView.swift */; };
-		OBJ_213 /* BaseNewSegmentedControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_38 /* BaseNewSegmentedControl.swift */; };
-		OBJ_214 /* BasePaddingGenericView.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_39 /* BasePaddingGenericView.swift */; };
-		OBJ_215 /* BasePanelButtonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_40 /* BasePanelButtonView.swift */; };
-		OBJ_216 /* BasePanelViewUIStackView.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_41 /* BasePanelViewUIStackView.swift */; };
-		OBJ_217 /* BasePasswordUITextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_42 /* BasePasswordUITextField.swift */; };
-		OBJ_218 /* BaseRadioButtonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_43 /* BaseRadioButtonView.swift */; };
-		OBJ_219 /* BaseScrollHorizontalUIStackView.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_44 /* BaseScrollHorizontalUIStackView.swift */; };
-		OBJ_220 /* BaseScrollPanelView.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_45 /* BaseScrollPanelView.swift */; };
-		OBJ_221 /* BaseScrollUIStackView.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_46 /* BaseScrollUIStackView.swift */; };
-		OBJ_222 /* BaseSearchView.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_47 /* BaseSearchView.swift */; };
-		OBJ_223 /* BaseShadowPanelView.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_48 /* BaseShadowPanelView.swift */; };
-		OBJ_224 /* BaseSkeletonMarkView.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_49 /* BaseSkeletonMarkView.swift */; };
-		OBJ_225 /* BaseSquarePinView.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_50 /* BaseSquarePinView.swift */; };
-		OBJ_226 /* BaseSquarePinsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_51 /* BaseSquarePinsView.swift */; };
-		OBJ_227 /* BaseStackPanelView.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_52 /* BaseStackPanelView.swift */; };
-		OBJ_228 /* BaseStackShadowPanelView.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_53 /* BaseStackShadowPanelView.swift */; };
-		OBJ_229 /* BaseTextViewWithPlaceHolderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_54 /* BaseTextViewWithPlaceHolderView.swift */; };
-		OBJ_230 /* BaseTitlePanelView.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_55 /* BaseTitlePanelView.swift */; };
-		OBJ_231 /* BaseTwoStackButtonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_56 /* BaseTwoStackButtonView.swift */; };
-		OBJ_232 /* BaseUIButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_57 /* BaseUIButton.swift */; };
-		OBJ_233 /* BaseUICollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_58 /* BaseUICollectionView.swift */; };
-		OBJ_234 /* BaseUICricleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_59 /* BaseUICricleView.swift */; };
-		OBJ_235 /* BaseUIImageFontView.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_60 /* BaseUIImageFontView.swift */; };
-		OBJ_236 /* BaseUIImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_61 /* BaseUIImageView.swift */; };
-		OBJ_237 /* BaseUILabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_62 /* BaseUILabel.swift */; };
-		OBJ_238 /* BaseUINavigationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_63 /* BaseUINavigationView.swift */; };
-		OBJ_239 /* BaseUIProgressView.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_64 /* BaseUIProgressView.swift */; };
-		OBJ_240 /* BaseUISearchBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_65 /* BaseUISearchBar.swift */; };
-		OBJ_241 /* BaseUISegmentedControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_66 /* BaseUISegmentedControl.swift */; };
-		OBJ_242 /* BaseUIStackView.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_67 /* BaseUIStackView.swift */; };
-		OBJ_243 /* BaseUITableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_68 /* BaseUITableView.swift */; };
-		OBJ_244 /* BaseUITextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_69 /* BaseUITextField.swift */; };
-		OBJ_245 /* BaseUITextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_70 /* BaseUITextView.swift */; };
-		OBJ_246 /* BaseUIView.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_71 /* BaseUIView.swift */; };
-		OBJ_247 /* BaseWKWebView.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_72 /* BaseWKWebView.swift */; };
-		OBJ_248 /* ButtonsPanelStackView.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_73 /* ButtonsPanelStackView.swift */; };
-		OBJ_249 /* BaseShadowCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_75 /* BaseShadowCollectionViewCell.swift */; };
-		OBJ_250 /* BaseUICollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_76 /* BaseUICollectionViewCell.swift */; };
-		OBJ_251 /* SlideImageCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_77 /* SlideImageCollectionViewCell.swift */; };
-		OBJ_252 /* BaseUITableViewHeaderFooterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_79 /* BaseUITableViewHeaderFooterView.swift */; };
-		OBJ_253 /* LineTableHeaderFooterViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_80 /* LineTableHeaderFooterViewCell.swift */; };
-		OBJ_254 /* SpaceTableHeaderViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_81 /* SpaceTableHeaderViewCell.swift */; };
-		OBJ_255 /* TextLeftRightTableHeaderFooterViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_82 /* TextLeftRightTableHeaderFooterViewCell.swift */; };
-		OBJ_256 /* TextSubTextTableHeaderFooterViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_83 /* TextSubTextTableHeaderFooterViewCell.swift */; };
-		OBJ_257 /* TextTableHeaderFooterViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_84 /* TextTableHeaderFooterViewCell.swift */; };
-		OBJ_258 /* BaseShadowTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_86 /* BaseShadowTableViewCell.swift */; };
-		OBJ_259 /* BaseTextSubtextHorTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_87 /* BaseTextSubtextHorTableViewCell.swift */; };
-		OBJ_260 /* BaseUITableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_88 /* BaseUITableViewCell.swift */; };
-		OBJ_261 /* IconTextSubtextTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_89 /* IconTextSubtextTableViewCell.swift */; };
-		OBJ_262 /* IconTextSubtextTextSubTextRightTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_90 /* IconTextSubtextTextSubTextRightTableViewCell.swift */; };
-		OBJ_263 /* TextIconTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_91 /* TextIconTableViewCell.swift */; };
-		OBJ_264 /* TextSubtextIconTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_92 /* TextSubtextIconTableViewCell.swift */; };
-		OBJ_265 /* BaseDatePicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_94 /* BaseDatePicker.swift */; };
-		OBJ_266 /* BaseMonthYearPicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_95 /* BaseMonthYearPicker.swift */; };
-		OBJ_267 /* DismissView.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_96 /* DismissView.swift */; };
-		OBJ_268 /* BaseNotificationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_98 /* BaseNotificationView.swift */; };
-		OBJ_269 /* BaseNotificationViewConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_99 /* BaseNotificationViewConfig.swift */; };
-		OBJ_270 /* BasePopupViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_101 /* BasePopupViewController.swift */; };
-		OBJ_271 /* PopupViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_102 /* PopupViewController.swift */; };
-		OBJ_272 /* BasePresentationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_104 /* BasePresentationController.swift */; };
-		OBJ_273 /* CoverVerticalPresentationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_105 /* CoverVerticalPresentationController.swift */; };
-		OBJ_274 /* CoverVerticalViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_106 /* CoverVerticalViewController.swift */; };
-		OBJ_275 /* UIImageCircleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_107 /* UIImageCircleView.swift */; };
-		OBJ_276 /* UIImageFontCircleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_108 /* UIImageFontCircleView.swift */; };
-		OBJ_277 /* UIImageFontPaddingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_109 /* UIImageFontPaddingView.swift */; };
-		OBJ_278 /* BaseMessagePopupViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_111 /* BaseMessagePopupViewController.swift */; };
-		OBJ_279 /* BaseScrollViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_112 /* BaseScrollViewController.swift */; };
-		OBJ_280 /* BaseStackScrollViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_113 /* BaseStackScrollViewController.swift */; };
-		OBJ_281 /* BaseUICollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_114 /* BaseUICollectionViewController.swift */; };
-		OBJ_282 /* BaseUISearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_115 /* BaseUISearchViewController.swift */; };
-		OBJ_283 /* BaseUITableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_116 /* BaseUITableViewController.swift */; };
-		OBJ_284 /* BaseUIViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_117 /* BaseUIViewController.swift */; };
-		OBJ_285 /* BaseTwoButtonDiffWidthView.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_119 /* BaseTwoButtonDiffWidthView.swift */; };
-		OBJ_286 /* ButtonPanelView.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_120 /* ButtonPanelView.swift */; };
-		OBJ_287 /* IconLabelHorizontalView.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_121 /* IconLabelHorizontalView.swift */; };
-		OBJ_288 /* IconLabelTextFieldHorizontalView.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_122 /* IconLabelTextFieldHorizontalView.swift */; };
-		OBJ_289 /* IconLabelTextFieldView.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_123 /* IconLabelTextFieldView.swift */; };
-		OBJ_290 /* IconLabelView.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_124 /* IconLabelView.swift */; };
-		OBJ_291 /* LabelLeftRightView.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_125 /* LabelLeftRightView.swift */; };
-		OBJ_292 /* LabelTextFieldView.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_126 /* LabelTextFieldView.swift */; };
-		OBJ_293 /* LableSubLabelView.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_127 /* LableSubLabelView.swift */; };
-		OBJ_294 /* LineView.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_128 /* LineView.swift */; };
-		OBJ_295 /* PanelScrollView.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_129 /* PanelScrollView.swift */; };
-		OBJ_296 /* RowTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_130 /* RowTableView.swift */; };
-		OBJ_297 /* TTBaseShadowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_131 /* TTBaseShadowView.swift */; };
-		OBJ_298 /* TwoButtomView.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_132 /* TwoButtomView.swift */; };
-		OBJ_299 /* ContraintHelpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_134 /* ContraintHelpers.swift */; };
-		OBJ_300 /* ViewCodable.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_136 /* ViewCodable.swift */; };
-		OBJ_301 /* CLLocationCoordinate2D+Config.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_138 /* CLLocationCoordinate2D+Config.swift */; };
-		OBJ_302 /* Date+Config.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_139 /* Date+Config.swift */; };
-		OBJ_303 /* General+Config.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_140 /* General+Config.swift */; };
-		OBJ_304 /* String+Config.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_141 /* String+Config.swift */; };
-		OBJ_305 /* UIApplication+Config.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_142 /* UIApplication+Config.swift */; };
-		OBJ_306 /* UIColor+Config.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_143 /* UIColor+Config.swift */; };
-		OBJ_307 /* UIScrollView+Config.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_144 /* UIScrollView+Config.swift */; };
-		OBJ_308 /* UITableView+UICollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_145 /* UITableView+UICollectionView.swift */; };
-		OBJ_309 /* UIView+Config.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_146 /* UIView+Config.swift */; };
-		OBJ_310 /* UIViewController+Config.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_147 /* UIViewController+Config.swift */; };
-		OBJ_311 /* Service.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_148 /* Service.swift */; };
-		OBJ_312 /* AwesomePro.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_150 /* AwesomePro.swift */; };
-		OBJ_313 /* Device.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_152 /* Device.swift */; };
-		OBJ_314 /* DeviceSize.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_153 /* DeviceSize.swift */; };
-		OBJ_315 /* DeviceType.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_154 /* DeviceType.swift */; };
-		OBJ_316 /* DeviceVersion.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_155 /* DeviceVersion.swift */; };
-		OBJ_317 /* LogTrackingTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_158 /* LogTrackingTableViewController.swift */; };
-		OBJ_318 /* LogTrackingWebViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_159 /* LogTrackingWebViewController.swift */; };
-		OBJ_319 /* LogViewHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_160 /* LogViewHelper.swift */; };
-		OBJ_320 /* LogViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_162 /* LogViewModel.swift */; };
-		OBJ_321 /* ListCellTestTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_164 /* ListCellTestTableViewController.swift */; };
-		OBJ_322 /* GlobalFunctions.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_166 /* GlobalFunctions.swift */; };
-		OBJ_323 /* TTBaseFunc.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_167 /* TTBaseFunc.swift */; };
-		OBJ_324 /* TTBaseNetworkSpeedTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_168 /* TTBaseNetworkSpeedTest.swift */; };
-		OBJ_325 /* TTBaseUIKitSetting.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_169 /* TTBaseUIKitSetting.swift */; };
-		OBJ_326 /* TTBaseUtil.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_170 /* TTBaseUtil.swift */; };
-		OBJ_327 /* TTLanguageManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_171 /* TTLanguageManager.swift */; };
-		OBJ_328 /* TextValidation.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_172 /* TextValidation.swift */; };
-		OBJ_329 /* Validation.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_173 /* Validation.swift */; };
-		OBJ_330 /* VietNamLunar.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_174 /* VietNamLunar.swift */; };
-		OBJ_337 /* Package.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_6 /* Package.swift */; };
-		OBJ_348 /* TTBaseUIKitTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_177 /* TTBaseUIKitTests.swift */; };
-		OBJ_350 /* TTBaseUIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = "ttbaseuikit::TTBaseUIKit::Product" /* TTBaseUIKit.framework */; };
-/* End PBXBuildFile section */
-
-/* Begin PBXContainerItemProxy section */
-		6D19184228AF72F400108258 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = OBJ_1 /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = "ttbaseuikit::TTBaseUIKit";
-			remoteInfo = TTBaseUIKit;
-		};
-		6D19184328AF72F400108258 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = OBJ_1 /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = "ttbaseuikit::TTBaseUIKitTests";
-			remoteInfo = TTBaseUIKitTests;
-		};
-/* End PBXContainerItemProxy section */
-
-/* Begin PBXFileReference section */
-		OBJ_10 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		OBJ_101 /* BasePopupViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BasePopupViewController.swift; sourceTree = "<group>"; };
-		OBJ_102 /* PopupViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopupViewController.swift; sourceTree = "<group>"; };
-		OBJ_104 /* BasePresentationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BasePresentationController.swift; sourceTree = "<group>"; };
-		OBJ_105 /* CoverVerticalPresentationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoverVerticalPresentationController.swift; sourceTree = "<group>"; };
-		OBJ_106 /* CoverVerticalViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoverVerticalViewController.swift; sourceTree = "<group>"; };
-		OBJ_107 /* UIImageCircleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIImageCircleView.swift; sourceTree = "<group>"; };
-		OBJ_108 /* UIImageFontCircleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIImageFontCircleView.swift; sourceTree = "<group>"; };
-		OBJ_109 /* UIImageFontPaddingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIImageFontPaddingView.swift; sourceTree = "<group>"; };
-		OBJ_111 /* BaseMessagePopupViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseMessagePopupViewController.swift; sourceTree = "<group>"; };
-		OBJ_112 /* BaseScrollViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseScrollViewController.swift; sourceTree = "<group>"; };
-		OBJ_113 /* BaseStackScrollViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseStackScrollViewController.swift; sourceTree = "<group>"; };
-		OBJ_114 /* BaseUICollectionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseUICollectionViewController.swift; sourceTree = "<group>"; };
-		OBJ_115 /* BaseUISearchViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseUISearchViewController.swift; sourceTree = "<group>"; };
-		OBJ_116 /* BaseUITableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseUITableViewController.swift; sourceTree = "<group>"; };
-		OBJ_117 /* BaseUIViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseUIViewController.swift; sourceTree = "<group>"; };
-		OBJ_119 /* BaseTwoButtonDiffWidthView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseTwoButtonDiffWidthView.swift; sourceTree = "<group>"; };
-		OBJ_12 /* BaseConfigRepresentable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseConfigRepresentable.swift; sourceTree = "<group>"; };
-		OBJ_120 /* ButtonPanelView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ButtonPanelView.swift; sourceTree = "<group>"; };
-		OBJ_121 /* IconLabelHorizontalView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IconLabelHorizontalView.swift; sourceTree = "<group>"; };
-		OBJ_122 /* IconLabelTextFieldHorizontalView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IconLabelTextFieldHorizontalView.swift; sourceTree = "<group>"; };
-		OBJ_123 /* IconLabelTextFieldView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IconLabelTextFieldView.swift; sourceTree = "<group>"; };
-		OBJ_124 /* IconLabelView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IconLabelView.swift; sourceTree = "<group>"; };
-		OBJ_125 /* LabelLeftRightView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LabelLeftRightView.swift; sourceTree = "<group>"; };
-		OBJ_126 /* LabelTextFieldView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LabelTextFieldView.swift; sourceTree = "<group>"; };
-		OBJ_127 /* LableSubLabelView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LableSubLabelView.swift; sourceTree = "<group>"; };
-		OBJ_128 /* LineView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LineView.swift; sourceTree = "<group>"; };
-		OBJ_129 /* PanelScrollView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PanelScrollView.swift; sourceTree = "<group>"; };
-		OBJ_13 /* Configuration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Configuration.swift; sourceTree = "<group>"; };
-		OBJ_130 /* RowTableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RowTableView.swift; sourceTree = "<group>"; };
-		OBJ_131 /* TTBaseShadowView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TTBaseShadowView.swift; sourceTree = "<group>"; };
-		OBJ_132 /* TwoButtomView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TwoButtomView.swift; sourceTree = "<group>"; };
-		OBJ_134 /* ContraintHelpers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContraintHelpers.swift; sourceTree = "<group>"; };
-		OBJ_136 /* ViewCodable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewCodable.swift; sourceTree = "<group>"; };
-		OBJ_138 /* CLLocationCoordinate2D+Config.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CLLocationCoordinate2D+Config.swift"; sourceTree = "<group>"; };
-		OBJ_139 /* Date+Config.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Date+Config.swift"; sourceTree = "<group>"; };
-		OBJ_14 /* Constant.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constant.swift; sourceTree = "<group>"; };
-		OBJ_140 /* General+Config.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "General+Config.swift"; sourceTree = "<group>"; };
-		OBJ_141 /* String+Config.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+Config.swift"; sourceTree = "<group>"; };
-		OBJ_142 /* UIApplication+Config.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIApplication+Config.swift"; sourceTree = "<group>"; };
-		OBJ_143 /* UIColor+Config.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor+Config.swift"; sourceTree = "<group>"; };
-		OBJ_144 /* UIScrollView+Config.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIScrollView+Config.swift"; sourceTree = "<group>"; };
-		OBJ_145 /* UITableView+UICollectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITableView+UICollectionView.swift"; sourceTree = "<group>"; };
-		OBJ_146 /* UIView+Config.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+Config.swift"; sourceTree = "<group>"; };
-		OBJ_147 /* UIViewController+Config.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+Config.swift"; sourceTree = "<group>"; };
-		OBJ_148 /* Service.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Service.swift; sourceTree = "<group>"; };
-		OBJ_15 /* FontConfig.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FontConfig.swift; sourceTree = "<group>"; };
-		OBJ_150 /* AwesomePro.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AwesomePro.swift; sourceTree = "<group>"; };
-		OBJ_152 /* Device.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Device.swift; sourceTree = "<group>"; };
-		OBJ_153 /* DeviceSize.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeviceSize.swift; sourceTree = "<group>"; };
-		OBJ_154 /* DeviceType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeviceType.swift; sourceTree = "<group>"; };
-		OBJ_155 /* DeviceVersion.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeviceVersion.swift; sourceTree = "<group>"; };
-		OBJ_158 /* LogTrackingTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogTrackingTableViewController.swift; sourceTree = "<group>"; };
-		OBJ_159 /* LogTrackingWebViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogTrackingWebViewController.swift; sourceTree = "<group>"; };
-		OBJ_16 /* SizeConfig.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SizeConfig.swift; sourceTree = "<group>"; };
-		OBJ_160 /* LogViewHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogViewHelper.swift; sourceTree = "<group>"; };
-		OBJ_162 /* LogViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogViewModel.swift; sourceTree = "<group>"; };
-		OBJ_164 /* ListCellTestTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListCellTestTableViewController.swift; sourceTree = "<group>"; };
-		OBJ_166 /* GlobalFunctions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GlobalFunctions.swift; sourceTree = "<group>"; };
-		OBJ_167 /* TTBaseFunc.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TTBaseFunc.swift; sourceTree = "<group>"; };
-		OBJ_168 /* TTBaseNetworkSpeedTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TTBaseNetworkSpeedTest.swift; sourceTree = "<group>"; };
-		OBJ_169 /* TTBaseUIKitSetting.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TTBaseUIKitSetting.swift; sourceTree = "<group>"; };
-		OBJ_17 /* StyleConfig.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StyleConfig.swift; sourceTree = "<group>"; };
-		OBJ_170 /* TTBaseUtil.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TTBaseUtil.swift; sourceTree = "<group>"; };
-		OBJ_171 /* TTLanguageManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TTLanguageManager.swift; sourceTree = "<group>"; };
-		OBJ_172 /* TextValidation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextValidation.swift; sourceTree = "<group>"; };
-		OBJ_173 /* Validation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Validation.swift; sourceTree = "<group>"; };
-		OBJ_174 /* VietNamLunar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VietNamLunar.swift; sourceTree = "<group>"; };
-		OBJ_177 /* TTBaseUIKitTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TTBaseUIKitTests.swift; sourceTree = "<group>"; };
-		OBJ_18 /* ValueConfig.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ValueConfig.swift; sourceTree = "<group>"; };
-		OBJ_181 /* build */ = {isa = PBXFileReference; lastKnownFileType = folder; path = build; sourceTree = SOURCE_ROOT; };
-		OBJ_182 /* TTBaseUIKit.podspec */ = {isa = PBXFileReference; lastKnownFileType = text; path = TTBaseUIKit.podspec; sourceTree = "<group>"; };
-		OBJ_183 /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
-		OBJ_184 /* Podfile */ = {isa = PBXFileReference; lastKnownFileType = text; path = Podfile; sourceTree = "<group>"; };
-		OBJ_19 /* ViewConfig.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewConfig.swift; sourceTree = "<group>"; };
-		OBJ_21 /* Coordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Coordinator.swift; sourceTree = "<group>"; };
-		OBJ_24 /* BaBaseGradientUIImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaBaseGradientUIImageView.swift; sourceTree = "<group>"; };
-		OBJ_25 /* BaseBadgeInsetLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseBadgeInsetLabel.swift; sourceTree = "<group>"; };
-		OBJ_26 /* BaseButtonBadge.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseButtonBadge.swift; sourceTree = "<group>"; };
-		OBJ_27 /* BaseCircleLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseCircleLabel.swift; sourceTree = "<group>"; };
-		OBJ_28 /* BaseCustomViewRepresentable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseCustomViewRepresentable.swift; sourceTree = "<group>"; };
-		OBJ_29 /* BaseDropdownCustomView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseDropdownCustomView.swift; sourceTree = "<group>"; };
-		OBJ_30 /* BaseHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseHeaderView.swift; sourceTree = "<group>"; };
-		OBJ_31 /* BaseIconCircleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseIconCircleView.swift; sourceTree = "<group>"; };
-		OBJ_32 /* BaseInsetLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseInsetLabel.swift; sourceTree = "<group>"; };
-		OBJ_33 /* BaseLabelIconHorizontalView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseLabelIconHorizontalView.swift; sourceTree = "<group>"; };
-		OBJ_34 /* BaseLabelTextViewByVerticalView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseLabelTextViewByVerticalView.swift; sourceTree = "<group>"; };
-		OBJ_35 /* BaseLableWithButtonView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseLableWithButtonView.swift; sourceTree = "<group>"; };
-		OBJ_36 /* BaseLinePinView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseLinePinView.swift; sourceTree = "<group>"; };
-		OBJ_37 /* BaseLinePinsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseLinePinsView.swift; sourceTree = "<group>"; };
-		OBJ_38 /* BaseNewSegmentedControl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseNewSegmentedControl.swift; sourceTree = "<group>"; };
-		OBJ_39 /* BasePaddingGenericView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BasePaddingGenericView.swift; sourceTree = "<group>"; };
-		OBJ_40 /* BasePanelButtonView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BasePanelButtonView.swift; sourceTree = "<group>"; };
-		OBJ_41 /* BasePanelViewUIStackView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BasePanelViewUIStackView.swift; sourceTree = "<group>"; };
-		OBJ_42 /* BasePasswordUITextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BasePasswordUITextField.swift; sourceTree = "<group>"; };
-		OBJ_43 /* BaseRadioButtonView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseRadioButtonView.swift; sourceTree = "<group>"; };
-		OBJ_44 /* BaseScrollHorizontalUIStackView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseScrollHorizontalUIStackView.swift; sourceTree = "<group>"; };
-		OBJ_45 /* BaseScrollPanelView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseScrollPanelView.swift; sourceTree = "<group>"; };
-		OBJ_46 /* BaseScrollUIStackView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseScrollUIStackView.swift; sourceTree = "<group>"; };
-		OBJ_47 /* BaseSearchView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseSearchView.swift; sourceTree = "<group>"; };
-		OBJ_48 /* BaseShadowPanelView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseShadowPanelView.swift; sourceTree = "<group>"; };
-		OBJ_49 /* BaseSkeletonMarkView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseSkeletonMarkView.swift; sourceTree = "<group>"; };
-		OBJ_50 /* BaseSquarePinView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseSquarePinView.swift; sourceTree = "<group>"; };
-		OBJ_51 /* BaseSquarePinsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseSquarePinsView.swift; sourceTree = "<group>"; };
-		OBJ_52 /* BaseStackPanelView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseStackPanelView.swift; sourceTree = "<group>"; };
-		OBJ_53 /* BaseStackShadowPanelView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseStackShadowPanelView.swift; sourceTree = "<group>"; };
-		OBJ_54 /* BaseTextViewWithPlaceHolderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseTextViewWithPlaceHolderView.swift; sourceTree = "<group>"; };
-		OBJ_55 /* BaseTitlePanelView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseTitlePanelView.swift; sourceTree = "<group>"; };
-		OBJ_56 /* BaseTwoStackButtonView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseTwoStackButtonView.swift; sourceTree = "<group>"; };
-		OBJ_57 /* BaseUIButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseUIButton.swift; sourceTree = "<group>"; };
-		OBJ_58 /* BaseUICollectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseUICollectionView.swift; sourceTree = "<group>"; };
-		OBJ_59 /* BaseUICricleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseUICricleView.swift; sourceTree = "<group>"; };
-		OBJ_6 /* Package.swift */ = {isa = PBXFileReference; explicitFileType = sourcecode.swift; path = Package.swift; sourceTree = "<group>"; };
-		OBJ_60 /* BaseUIImageFontView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseUIImageFontView.swift; sourceTree = "<group>"; };
-		OBJ_61 /* BaseUIImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseUIImageView.swift; sourceTree = "<group>"; };
-		OBJ_62 /* BaseUILabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseUILabel.swift; sourceTree = "<group>"; };
-		OBJ_63 /* BaseUINavigationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseUINavigationView.swift; sourceTree = "<group>"; };
-		OBJ_64 /* BaseUIProgressView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseUIProgressView.swift; sourceTree = "<group>"; };
-		OBJ_65 /* BaseUISearchBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseUISearchBar.swift; sourceTree = "<group>"; };
-		OBJ_66 /* BaseUISegmentedControl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseUISegmentedControl.swift; sourceTree = "<group>"; };
-		OBJ_67 /* BaseUIStackView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseUIStackView.swift; sourceTree = "<group>"; };
-		OBJ_68 /* BaseUITableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseUITableView.swift; sourceTree = "<group>"; };
-		OBJ_69 /* BaseUITextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseUITextField.swift; sourceTree = "<group>"; };
-		OBJ_70 /* BaseUITextView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseUITextView.swift; sourceTree = "<group>"; };
-		OBJ_71 /* BaseUIView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseUIView.swift; sourceTree = "<group>"; };
-		OBJ_72 /* BaseWKWebView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseWKWebView.swift; sourceTree = "<group>"; };
-		OBJ_73 /* ButtonsPanelStackView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ButtonsPanelStackView.swift; sourceTree = "<group>"; };
-		OBJ_75 /* BaseShadowCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseShadowCollectionViewCell.swift; sourceTree = "<group>"; };
-		OBJ_76 /* BaseUICollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseUICollectionViewCell.swift; sourceTree = "<group>"; };
-		OBJ_77 /* SlideImageCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SlideImageCollectionViewCell.swift; sourceTree = "<group>"; };
-		OBJ_79 /* BaseUITableViewHeaderFooterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseUITableViewHeaderFooterView.swift; sourceTree = "<group>"; };
-		OBJ_80 /* LineTableHeaderFooterViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LineTableHeaderFooterViewCell.swift; sourceTree = "<group>"; };
-		OBJ_81 /* SpaceTableHeaderViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpaceTableHeaderViewCell.swift; sourceTree = "<group>"; };
-		OBJ_82 /* TextLeftRightTableHeaderFooterViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextLeftRightTableHeaderFooterViewCell.swift; sourceTree = "<group>"; };
-		OBJ_83 /* TextSubTextTableHeaderFooterViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextSubTextTableHeaderFooterViewCell.swift; sourceTree = "<group>"; };
-		OBJ_84 /* TextTableHeaderFooterViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextTableHeaderFooterViewCell.swift; sourceTree = "<group>"; };
-		OBJ_86 /* BaseShadowTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseShadowTableViewCell.swift; sourceTree = "<group>"; };
-		OBJ_87 /* BaseTextSubtextHorTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseTextSubtextHorTableViewCell.swift; sourceTree = "<group>"; };
-		OBJ_88 /* BaseUITableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseUITableViewCell.swift; sourceTree = "<group>"; };
-		OBJ_89 /* IconTextSubtextTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IconTextSubtextTableViewCell.swift; sourceTree = "<group>"; };
-		OBJ_9 /* TTBaseUIKit.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TTBaseUIKit.h; sourceTree = "<group>"; };
-		OBJ_90 /* IconTextSubtextTextSubTextRightTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IconTextSubtextTextSubTextRightTableViewCell.swift; sourceTree = "<group>"; };
-		OBJ_91 /* TextIconTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextIconTableViewCell.swift; sourceTree = "<group>"; };
-		OBJ_92 /* TextSubtextIconTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextSubtextIconTableViewCell.swift; sourceTree = "<group>"; };
-		OBJ_94 /* BaseDatePicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseDatePicker.swift; sourceTree = "<group>"; };
-		OBJ_95 /* BaseMonthYearPicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseMonthYearPicker.swift; sourceTree = "<group>"; };
-		OBJ_96 /* DismissView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DismissView.swift; sourceTree = "<group>"; };
-		OBJ_98 /* BaseNotificationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseNotificationView.swift; sourceTree = "<group>"; };
-		OBJ_99 /* BaseNotificationViewConfig.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseNotificationViewConfig.swift; sourceTree = "<group>"; };
-		"ttbaseuikit::TTBaseUIKit::Product" /* TTBaseUIKit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = TTBaseUIKit.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		"ttbaseuikit::TTBaseUIKitTests::Product" /* TTBaseUIKitTests.xctest */ = {isa = PBXFileReference; lastKnownFileType = file; path = TTBaseUIKitTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-/* End PBXFileReference section */
-
-/* Begin PBXFrameworksBuildPhase section */
-		OBJ_331 /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 0;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		OBJ_349 /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 0;
-			files = (
-				OBJ_350 /* TTBaseUIKit.framework in Frameworks */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-/* End PBXFrameworksBuildPhase section */
-
-/* Begin PBXGroup section */
-		OBJ_100 /* PopupView */ = {
-			isa = PBXGroup;
-			children = (
-				OBJ_101 /* BasePopupViewController.swift */,
-				OBJ_102 /* PopupViewController.swift */,
-			);
-			path = PopupView;
-			sourceTree = "<group>";
-		};
-		OBJ_103 /* PresentationController */ = {
-			isa = PBXGroup;
-			children = (
-				OBJ_104 /* BasePresentationController.swift */,
-				OBJ_105 /* CoverVerticalPresentationController.swift */,
-				OBJ_106 /* CoverVerticalViewController.swift */,
-			);
-			path = PresentationController;
-			sourceTree = "<group>";
-		};
-		OBJ_11 /* BaseConfig */ = {
-			isa = PBXGroup;
-			children = (
-				OBJ_12 /* BaseConfigRepresentable.swift */,
-				OBJ_13 /* Configuration.swift */,
-				OBJ_14 /* Constant.swift */,
-				OBJ_15 /* FontConfig.swift */,
-				OBJ_16 /* SizeConfig.swift */,
-				OBJ_17 /* StyleConfig.swift */,
-				OBJ_18 /* ValueConfig.swift */,
-				OBJ_19 /* ViewConfig.swift */,
-			);
-			path = BaseConfig;
-			sourceTree = "<group>";
-		};
-		OBJ_110 /* ViewController */ = {
-			isa = PBXGroup;
-			children = (
-				OBJ_111 /* BaseMessagePopupViewController.swift */,
-				OBJ_112 /* BaseScrollViewController.swift */,
-				OBJ_113 /* BaseStackScrollViewController.swift */,
-				OBJ_114 /* BaseUICollectionViewController.swift */,
-				OBJ_115 /* BaseUISearchViewController.swift */,
-				OBJ_116 /* BaseUITableViewController.swift */,
-				OBJ_117 /* BaseUIViewController.swift */,
-			);
-			path = ViewController;
-			sourceTree = "<group>";
-		};
-		OBJ_118 /* Custom */ = {
-			isa = PBXGroup;
-			children = (
-				OBJ_119 /* BaseTwoButtonDiffWidthView.swift */,
-				OBJ_120 /* ButtonPanelView.swift */,
-				OBJ_121 /* IconLabelHorizontalView.swift */,
-				OBJ_122 /* IconLabelTextFieldHorizontalView.swift */,
-				OBJ_123 /* IconLabelTextFieldView.swift */,
-				OBJ_124 /* IconLabelView.swift */,
-				OBJ_125 /* LabelLeftRightView.swift */,
-				OBJ_126 /* LabelTextFieldView.swift */,
-				OBJ_127 /* LableSubLabelView.swift */,
-				OBJ_128 /* LineView.swift */,
-				OBJ_129 /* PanelScrollView.swift */,
-				OBJ_130 /* RowTableView.swift */,
-				OBJ_131 /* TTBaseShadowView.swift */,
-				OBJ_132 /* TwoButtomView.swift */,
-			);
-			path = Custom;
-			sourceTree = "<group>";
-		};
-		OBJ_133 /* Helpers */ = {
-			isa = PBXGroup;
-			children = (
-				OBJ_134 /* ContraintHelpers.swift */,
-			);
-			path = Helpers;
-			sourceTree = "<group>";
-		};
-		OBJ_135 /* ViewCodable */ = {
-			isa = PBXGroup;
-			children = (
-				OBJ_136 /* ViewCodable.swift */,
-			);
-			path = ViewCodable;
-			sourceTree = "<group>";
-		};
-		OBJ_137 /* Extensions */ = {
-			isa = PBXGroup;
-			children = (
-				OBJ_138 /* CLLocationCoordinate2D+Config.swift */,
-				OBJ_139 /* Date+Config.swift */,
-				OBJ_140 /* General+Config.swift */,
-				OBJ_141 /* String+Config.swift */,
-				OBJ_142 /* UIApplication+Config.swift */,
-				OBJ_143 /* UIColor+Config.swift */,
-				OBJ_144 /* UIScrollView+Config.swift */,
-				OBJ_145 /* UITableView+UICollectionView.swift */,
-				OBJ_146 /* UIView+Config.swift */,
-				OBJ_147 /* UIViewController+Config.swift */,
-			);
-			path = Extensions;
-			sourceTree = "<group>";
-		};
-		OBJ_149 /* Support */ = {
-			isa = PBXGroup;
-			children = (
-				OBJ_150 /* AwesomePro.swift */,
-				OBJ_151 /* Ekhoo_Device */,
-				OBJ_156 /* Helper */,
-				OBJ_163 /* Test */,
-				OBJ_165 /* Utilities */,
-			);
-			path = Support;
-			sourceTree = "<group>";
-		};
-		OBJ_151 /* Ekhoo_Device */ = {
-			isa = PBXGroup;
-			children = (
-				OBJ_152 /* Device.swift */,
-				OBJ_153 /* DeviceSize.swift */,
-				OBJ_154 /* DeviceType.swift */,
-				OBJ_155 /* DeviceVersion.swift */,
-			);
-			path = Ekhoo_Device;
-			sourceTree = "<group>";
-		};
-		OBJ_156 /* Helper */ = {
-			isa = PBXGroup;
-			children = (
-				OBJ_157 /* LogView */,
-			);
-			path = Helper;
-			sourceTree = "<group>";
-		};
-		OBJ_157 /* LogView */ = {
-			isa = PBXGroup;
-			children = (
-				OBJ_158 /* LogTrackingTableViewController.swift */,
-				OBJ_159 /* LogTrackingWebViewController.swift */,
-				OBJ_160 /* LogViewHelper.swift */,
-				OBJ_161 /* Model */,
-			);
-			path = LogView;
-			sourceTree = "<group>";
-		};
-		OBJ_161 /* Model */ = {
-			isa = PBXGroup;
-			children = (
-				OBJ_162 /* LogViewModel.swift */,
-			);
-			path = Model;
-			sourceTree = "<group>";
-		};
-		OBJ_163 /* Test */ = {
-			isa = PBXGroup;
-			children = (
-				OBJ_164 /* ListCellTestTableViewController.swift */,
-			);
-			path = Test;
-			sourceTree = "<group>";
-		};
-		OBJ_165 /* Utilities */ = {
-			isa = PBXGroup;
-			children = (
-				OBJ_166 /* GlobalFunctions.swift */,
-				OBJ_167 /* TTBaseFunc.swift */,
-				OBJ_168 /* TTBaseNetworkSpeedTest.swift */,
-				OBJ_169 /* TTBaseUIKitSetting.swift */,
-				OBJ_170 /* TTBaseUtil.swift */,
-				OBJ_171 /* TTLanguageManager.swift */,
-				OBJ_172 /* TextValidation.swift */,
-				OBJ_173 /* Validation.swift */,
-				OBJ_174 /* VietNamLunar.swift */,
-			);
-			path = Utilities;
-			sourceTree = "<group>";
-		};
-		OBJ_175 /* Tests */ = {
-			isa = PBXGroup;
-			children = (
-				OBJ_176 /* TTBaseUIKitTests */,
-			);
-			name = Tests;
-			sourceTree = SOURCE_ROOT;
-		};
-		OBJ_176 /* TTBaseUIKitTests */ = {
-			isa = PBXGroup;
-			children = (
-				OBJ_177 /* TTBaseUIKitTests.swift */,
-			);
-			name = TTBaseUIKitTests;
-			path = Tests/TTBaseUIKitTests;
-			sourceTree = SOURCE_ROOT;
-		};
-		OBJ_178 /* Products */ = {
-			isa = PBXGroup;
-			children = (
-				"ttbaseuikit::TTBaseUIKit::Product" /* TTBaseUIKit.framework */,
-				"ttbaseuikit::TTBaseUIKitTests::Product" /* TTBaseUIKitTests.xctest */,
-			);
-			name = Products;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-		OBJ_20 /* Coordinators */ = {
-			isa = PBXGroup;
-			children = (
-				OBJ_21 /* Coordinator.swift */,
-			);
-			path = Coordinators;
-			sourceTree = "<group>";
-		};
-		OBJ_22 /* CustomView */ = {
-			isa = PBXGroup;
-			children = (
-				OBJ_23 /* BaseUIView */,
-				OBJ_118 /* Custom */,
-				OBJ_133 /* Helpers */,
-				OBJ_135 /* ViewCodable */,
-			);
-			path = CustomView;
-			sourceTree = "<group>";
-		};
-		OBJ_23 /* BaseUIView */ = {
-			isa = PBXGroup;
-			children = (
-				OBJ_24 /* BaBaseGradientUIImageView.swift */,
-				OBJ_25 /* BaseBadgeInsetLabel.swift */,
-				OBJ_26 /* BaseButtonBadge.swift */,
-				OBJ_27 /* BaseCircleLabel.swift */,
-				OBJ_28 /* BaseCustomViewRepresentable.swift */,
-				OBJ_29 /* BaseDropdownCustomView.swift */,
-				OBJ_30 /* BaseHeaderView.swift */,
-				OBJ_31 /* BaseIconCircleView.swift */,
-				OBJ_32 /* BaseInsetLabel.swift */,
-				OBJ_33 /* BaseLabelIconHorizontalView.swift */,
-				OBJ_34 /* BaseLabelTextViewByVerticalView.swift */,
-				OBJ_35 /* BaseLableWithButtonView.swift */,
-				OBJ_36 /* BaseLinePinView.swift */,
-				OBJ_37 /* BaseLinePinsView.swift */,
-				OBJ_38 /* BaseNewSegmentedControl.swift */,
-				OBJ_39 /* BasePaddingGenericView.swift */,
-				OBJ_40 /* BasePanelButtonView.swift */,
-				OBJ_41 /* BasePanelViewUIStackView.swift */,
-				OBJ_42 /* BasePasswordUITextField.swift */,
-				OBJ_43 /* BaseRadioButtonView.swift */,
-				OBJ_44 /* BaseScrollHorizontalUIStackView.swift */,
-				OBJ_45 /* BaseScrollPanelView.swift */,
-				OBJ_46 /* BaseScrollUIStackView.swift */,
-				OBJ_47 /* BaseSearchView.swift */,
-				OBJ_48 /* BaseShadowPanelView.swift */,
-				OBJ_49 /* BaseSkeletonMarkView.swift */,
-				OBJ_50 /* BaseSquarePinView.swift */,
-				OBJ_51 /* BaseSquarePinsView.swift */,
-				OBJ_52 /* BaseStackPanelView.swift */,
-				OBJ_53 /* BaseStackShadowPanelView.swift */,
-				OBJ_54 /* BaseTextViewWithPlaceHolderView.swift */,
-				OBJ_55 /* BaseTitlePanelView.swift */,
-				OBJ_56 /* BaseTwoStackButtonView.swift */,
-				OBJ_57 /* BaseUIButton.swift */,
-				OBJ_58 /* BaseUICollectionView.swift */,
-				OBJ_59 /* BaseUICricleView.swift */,
-				OBJ_60 /* BaseUIImageFontView.swift */,
-				OBJ_61 /* BaseUIImageView.swift */,
-				OBJ_62 /* BaseUILabel.swift */,
-				OBJ_63 /* BaseUINavigationView.swift */,
-				OBJ_64 /* BaseUIProgressView.swift */,
-				OBJ_65 /* BaseUISearchBar.swift */,
-				OBJ_66 /* BaseUISegmentedControl.swift */,
-				OBJ_67 /* BaseUIStackView.swift */,
-				OBJ_68 /* BaseUITableView.swift */,
-				OBJ_69 /* BaseUITextField.swift */,
-				OBJ_70 /* BaseUITextView.swift */,
-				OBJ_71 /* BaseUIView.swift */,
-				OBJ_72 /* BaseWKWebView.swift */,
-				OBJ_73 /* ButtonsPanelStackView.swift */,
-				OBJ_74 /* CellColectionView */,
-				OBJ_78 /* CellHeaderFooterTableView */,
-				OBJ_85 /* CellTableView */,
-				OBJ_93 /* DatePicker */,
-				OBJ_96 /* DismissView.swift */,
-				OBJ_97 /* NotificationView */,
-				OBJ_100 /* PopupView */,
-				OBJ_103 /* PresentationController */,
-				OBJ_107 /* UIImageCircleView.swift */,
-				OBJ_108 /* UIImageFontCircleView.swift */,
-				OBJ_109 /* UIImageFontPaddingView.swift */,
-				OBJ_110 /* ViewController */,
-			);
-			path = BaseUIView;
-			sourceTree = "<group>";
-		};
-		OBJ_5 = {
-			isa = PBXGroup;
-			children = (
-				OBJ_6 /* Package.swift */,
-				OBJ_7 /* Sources */,
-				OBJ_175 /* Tests */,
-				OBJ_178 /* Products */,
-				OBJ_181 /* build */,
-				OBJ_182 /* TTBaseUIKit.podspec */,
-				OBJ_183 /* README.md */,
-				OBJ_184 /* Podfile */,
-			);
-			sourceTree = "<group>";
-		};
-		OBJ_7 /* Sources */ = {
-			isa = PBXGroup;
-			children = (
-				OBJ_8 /* TTBaseUIKit */,
-			);
-			name = Sources;
-			sourceTree = SOURCE_ROOT;
-		};
-		OBJ_74 /* CellColectionView */ = {
-			isa = PBXGroup;
-			children = (
-				OBJ_75 /* BaseShadowCollectionViewCell.swift */,
-				OBJ_76 /* BaseUICollectionViewCell.swift */,
-				OBJ_77 /* SlideImageCollectionViewCell.swift */,
-			);
-			path = CellColectionView;
-			sourceTree = "<group>";
-		};
-		OBJ_78 /* CellHeaderFooterTableView */ = {
-			isa = PBXGroup;
-			children = (
-				OBJ_79 /* BaseUITableViewHeaderFooterView.swift */,
-				OBJ_80 /* LineTableHeaderFooterViewCell.swift */,
-				OBJ_81 /* SpaceTableHeaderViewCell.swift */,
-				OBJ_82 /* TextLeftRightTableHeaderFooterViewCell.swift */,
-				OBJ_83 /* TextSubTextTableHeaderFooterViewCell.swift */,
-				OBJ_84 /* TextTableHeaderFooterViewCell.swift */,
-			);
-			path = CellHeaderFooterTableView;
-			sourceTree = "<group>";
-		};
-		OBJ_8 /* TTBaseUIKit */ = {
-			isa = PBXGroup;
-			children = (
-				OBJ_9 /* TTBaseUIKit.h */,
-				OBJ_10 /* Info.plist */,
-				OBJ_11 /* BaseConfig */,
-				OBJ_20 /* Coordinators */,
-				OBJ_22 /* CustomView */,
-				OBJ_137 /* Extensions */,
-				OBJ_148 /* Service.swift */,
-				OBJ_149 /* Support */,
-			);
-			name = TTBaseUIKit;
-			path = Sources/TTBaseUIKit;
-			sourceTree = SOURCE_ROOT;
-		};
-		OBJ_85 /* CellTableView */ = {
-			isa = PBXGroup;
-			children = (
-				OBJ_86 /* BaseShadowTableViewCell.swift */,
-				OBJ_87 /* BaseTextSubtextHorTableViewCell.swift */,
-				OBJ_88 /* BaseUITableViewCell.swift */,
-				OBJ_89 /* IconTextSubtextTableViewCell.swift */,
-				OBJ_90 /* IconTextSubtextTextSubTextRightTableViewCell.swift */,
-				OBJ_91 /* TextIconTableViewCell.swift */,
-				OBJ_92 /* TextSubtextIconTableViewCell.swift */,
-			);
-			path = CellTableView;
-			sourceTree = "<group>";
-		};
-		OBJ_93 /* DatePicker */ = {
-			isa = PBXGroup;
-			children = (
-				OBJ_94 /* BaseDatePicker.swift */,
-				OBJ_95 /* BaseMonthYearPicker.swift */,
-			);
-			path = DatePicker;
-			sourceTree = "<group>";
-		};
-		OBJ_97 /* NotificationView */ = {
-			isa = PBXGroup;
-			children = (
-				OBJ_98 /* BaseNotificationView.swift */,
-				OBJ_99 /* BaseNotificationViewConfig.swift */,
-			);
-			path = NotificationView;
-			sourceTree = "<group>";
-		};
-/* End PBXGroup section */
-
-/* Begin PBXNativeTarget section */
-		"ttbaseuikit::SwiftPMPackageDescription" /* TTBaseUIKitPackageDescription */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = OBJ_333 /* Build configuration list for PBXNativeTarget "TTBaseUIKitPackageDescription" */;
-			buildPhases = (
-				OBJ_336 /* Sources */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-			);
-			name = TTBaseUIKitPackageDescription;
-			productName = TTBaseUIKitPackageDescription;
-			productType = "com.apple.product-type.framework";
-		};
-		"ttbaseuikit::TTBaseUIKit" /* TTBaseUIKit */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = OBJ_186 /* Build configuration list for PBXNativeTarget "TTBaseUIKit" */;
-			buildPhases = (
-				OBJ_189 /* Sources */,
-				OBJ_331 /* Frameworks */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-			);
-			name = TTBaseUIKit;
-			productName = TTBaseUIKit;
-			productReference = "ttbaseuikit::TTBaseUIKit::Product" /* TTBaseUIKit.framework */;
-			productType = "com.apple.product-type.framework";
-		};
-		"ttbaseuikit::TTBaseUIKitTests" /* TTBaseUIKitTests */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = OBJ_344 /* Build configuration list for PBXNativeTarget "TTBaseUIKitTests" */;
-			buildPhases = (
-				OBJ_347 /* Sources */,
-				OBJ_349 /* Frameworks */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-				OBJ_351 /* PBXTargetDependency */,
-			);
-			name = TTBaseUIKitTests;
-			productName = TTBaseUIKitTests;
-			productReference = "ttbaseuikit::TTBaseUIKitTests::Product" /* TTBaseUIKitTests.xctest */;
-			productType = "com.apple.product-type.bundle.unit-test";
-		};
-/* End PBXNativeTarget section */
-
-/* Begin PBXProject section */
-		OBJ_1 /* Project object */ = {
-			isa = PBXProject;
-			attributes = {
-				LastSwiftMigration = 9999;
-				LastUpgradeCheck = 9999;
-			};
-			buildConfigurationList = OBJ_2 /* Build configuration list for PBXProject "TTBaseUIKit" */;
-			compatibilityVersion = "Xcode 3.2";
-			developmentRegion = en;
-			hasScannedForEncodings = 0;
-			knownRegions = (
-				en,
-			);
-			mainGroup = OBJ_5;
-			productRefGroup = OBJ_178 /* Products */;
-			projectDirPath = "";
-			projectRoot = "";
-			targets = (
-				"ttbaseuikit::TTBaseUIKit" /* TTBaseUIKit */,
-				"ttbaseuikit::SwiftPMPackageDescription" /* TTBaseUIKitPackageDescription */,
-				"ttbaseuikit::TTBaseUIKitPackageTests::ProductTarget" /* TTBaseUIKitPackageTests */,
-				"ttbaseuikit::TTBaseUIKitTests" /* TTBaseUIKitTests */,
-			);
-		};
-/* End PBXProject section */
-
-/* Begin PBXSourcesBuildPhase section */
-		OBJ_189 /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 0;
-			files = (
-				OBJ_190 /* BaseConfigRepresentable.swift in Sources */,
-				OBJ_191 /* Configuration.swift in Sources */,
-				OBJ_192 /* Constant.swift in Sources */,
-				OBJ_193 /* FontConfig.swift in Sources */,
-				OBJ_194 /* SizeConfig.swift in Sources */,
-				OBJ_195 /* StyleConfig.swift in Sources */,
-				OBJ_196 /* ValueConfig.swift in Sources */,
-				OBJ_197 /* ViewConfig.swift in Sources */,
-				OBJ_198 /* Coordinator.swift in Sources */,
-				OBJ_199 /* BaBaseGradientUIImageView.swift in Sources */,
-				OBJ_200 /* BaseBadgeInsetLabel.swift in Sources */,
-				OBJ_201 /* BaseButtonBadge.swift in Sources */,
-				OBJ_202 /* BaseCircleLabel.swift in Sources */,
-				OBJ_203 /* BaseCustomViewRepresentable.swift in Sources */,
-				OBJ_204 /* BaseDropdownCustomView.swift in Sources */,
-				OBJ_205 /* BaseHeaderView.swift in Sources */,
-				OBJ_206 /* BaseIconCircleView.swift in Sources */,
-				OBJ_207 /* BaseInsetLabel.swift in Sources */,
-				OBJ_208 /* BaseLabelIconHorizontalView.swift in Sources */,
-				OBJ_209 /* BaseLabelTextViewByVerticalView.swift in Sources */,
-				OBJ_210 /* BaseLableWithButtonView.swift in Sources */,
-				OBJ_211 /* BaseLinePinView.swift in Sources */,
-				OBJ_212 /* BaseLinePinsView.swift in Sources */,
-				OBJ_213 /* BaseNewSegmentedControl.swift in Sources */,
-				OBJ_214 /* BasePaddingGenericView.swift in Sources */,
-				OBJ_215 /* BasePanelButtonView.swift in Sources */,
-				OBJ_216 /* BasePanelViewUIStackView.swift in Sources */,
-				OBJ_217 /* BasePasswordUITextField.swift in Sources */,
-				OBJ_218 /* BaseRadioButtonView.swift in Sources */,
-				OBJ_219 /* BaseScrollHorizontalUIStackView.swift in Sources */,
-				OBJ_220 /* BaseScrollPanelView.swift in Sources */,
-				OBJ_221 /* BaseScrollUIStackView.swift in Sources */,
-				OBJ_222 /* BaseSearchView.swift in Sources */,
-				OBJ_223 /* BaseShadowPanelView.swift in Sources */,
-				OBJ_224 /* BaseSkeletonMarkView.swift in Sources */,
-				OBJ_225 /* BaseSquarePinView.swift in Sources */,
-				OBJ_226 /* BaseSquarePinsView.swift in Sources */,
-				OBJ_227 /* BaseStackPanelView.swift in Sources */,
-				OBJ_228 /* BaseStackShadowPanelView.swift in Sources */,
-				OBJ_229 /* BaseTextViewWithPlaceHolderView.swift in Sources */,
-				OBJ_230 /* BaseTitlePanelView.swift in Sources */,
-				OBJ_231 /* BaseTwoStackButtonView.swift in Sources */,
-				OBJ_232 /* BaseUIButton.swift in Sources */,
-				OBJ_233 /* BaseUICollectionView.swift in Sources */,
-				OBJ_234 /* BaseUICricleView.swift in Sources */,
-				OBJ_235 /* BaseUIImageFontView.swift in Sources */,
-				OBJ_236 /* BaseUIImageView.swift in Sources */,
-				OBJ_237 /* BaseUILabel.swift in Sources */,
-				OBJ_238 /* BaseUINavigationView.swift in Sources */,
-				OBJ_239 /* BaseUIProgressView.swift in Sources */,
-				OBJ_240 /* BaseUISearchBar.swift in Sources */,
-				OBJ_241 /* BaseUISegmentedControl.swift in Sources */,
-				OBJ_242 /* BaseUIStackView.swift in Sources */,
-				OBJ_243 /* BaseUITableView.swift in Sources */,
-				OBJ_244 /* BaseUITextField.swift in Sources */,
-				OBJ_245 /* BaseUITextView.swift in Sources */,
-				OBJ_246 /* BaseUIView.swift in Sources */,
-				OBJ_247 /* BaseWKWebView.swift in Sources */,
-				OBJ_248 /* ButtonsPanelStackView.swift in Sources */,
-				OBJ_249 /* BaseShadowCollectionViewCell.swift in Sources */,
-				OBJ_250 /* BaseUICollectionViewCell.swift in Sources */,
-				OBJ_251 /* SlideImageCollectionViewCell.swift in Sources */,
-				OBJ_252 /* BaseUITableViewHeaderFooterView.swift in Sources */,
-				OBJ_253 /* LineTableHeaderFooterViewCell.swift in Sources */,
-				OBJ_254 /* SpaceTableHeaderViewCell.swift in Sources */,
-				OBJ_255 /* TextLeftRightTableHeaderFooterViewCell.swift in Sources */,
-				OBJ_256 /* TextSubTextTableHeaderFooterViewCell.swift in Sources */,
-				OBJ_257 /* TextTableHeaderFooterViewCell.swift in Sources */,
-				OBJ_258 /* BaseShadowTableViewCell.swift in Sources */,
-				OBJ_259 /* BaseTextSubtextHorTableViewCell.swift in Sources */,
-				OBJ_260 /* BaseUITableViewCell.swift in Sources */,
-				OBJ_261 /* IconTextSubtextTableViewCell.swift in Sources */,
-				OBJ_262 /* IconTextSubtextTextSubTextRightTableViewCell.swift in Sources */,
-				OBJ_263 /* TextIconTableViewCell.swift in Sources */,
-				OBJ_264 /* TextSubtextIconTableViewCell.swift in Sources */,
-				OBJ_265 /* BaseDatePicker.swift in Sources */,
-				OBJ_266 /* BaseMonthYearPicker.swift in Sources */,
-				OBJ_267 /* DismissView.swift in Sources */,
-				OBJ_268 /* BaseNotificationView.swift in Sources */,
-				OBJ_269 /* BaseNotificationViewConfig.swift in Sources */,
-				OBJ_270 /* BasePopupViewController.swift in Sources */,
-				OBJ_271 /* PopupViewController.swift in Sources */,
-				OBJ_272 /* BasePresentationController.swift in Sources */,
-				OBJ_273 /* CoverVerticalPresentationController.swift in Sources */,
-				OBJ_274 /* CoverVerticalViewController.swift in Sources */,
-				OBJ_275 /* UIImageCircleView.swift in Sources */,
-				OBJ_276 /* UIImageFontCircleView.swift in Sources */,
-				OBJ_277 /* UIImageFontPaddingView.swift in Sources */,
-				OBJ_278 /* BaseMessagePopupViewController.swift in Sources */,
-				OBJ_279 /* BaseScrollViewController.swift in Sources */,
-				OBJ_280 /* BaseStackScrollViewController.swift in Sources */,
-				OBJ_281 /* BaseUICollectionViewController.swift in Sources */,
-				OBJ_282 /* BaseUISearchViewController.swift in Sources */,
-				OBJ_283 /* BaseUITableViewController.swift in Sources */,
-				OBJ_284 /* BaseUIViewController.swift in Sources */,
-				OBJ_285 /* BaseTwoButtonDiffWidthView.swift in Sources */,
-				OBJ_286 /* ButtonPanelView.swift in Sources */,
-				OBJ_287 /* IconLabelHorizontalView.swift in Sources */,
-				OBJ_288 /* IconLabelTextFieldHorizontalView.swift in Sources */,
-				OBJ_289 /* IconLabelTextFieldView.swift in Sources */,
-				OBJ_290 /* IconLabelView.swift in Sources */,
-				OBJ_291 /* LabelLeftRightView.swift in Sources */,
-				OBJ_292 /* LabelTextFieldView.swift in Sources */,
-				OBJ_293 /* LableSubLabelView.swift in Sources */,
-				OBJ_294 /* LineView.swift in Sources */,
-				OBJ_295 /* PanelScrollView.swift in Sources */,
-				OBJ_296 /* RowTableView.swift in Sources */,
-				OBJ_297 /* TTBaseShadowView.swift in Sources */,
-				OBJ_298 /* TwoButtomView.swift in Sources */,
-				OBJ_299 /* ContraintHelpers.swift in Sources */,
-				OBJ_300 /* ViewCodable.swift in Sources */,
-				OBJ_301 /* CLLocationCoordinate2D+Config.swift in Sources */,
-				OBJ_302 /* Date+Config.swift in Sources */,
-				OBJ_303 /* General+Config.swift in Sources */,
-				OBJ_304 /* String+Config.swift in Sources */,
-				OBJ_305 /* UIApplication+Config.swift in Sources */,
-				OBJ_306 /* UIColor+Config.swift in Sources */,
-				OBJ_307 /* UIScrollView+Config.swift in Sources */,
-				OBJ_308 /* UITableView+UICollectionView.swift in Sources */,
-				OBJ_309 /* UIView+Config.swift in Sources */,
-				OBJ_310 /* UIViewController+Config.swift in Sources */,
-				OBJ_311 /* Service.swift in Sources */,
-				OBJ_312 /* AwesomePro.swift in Sources */,
-				OBJ_313 /* Device.swift in Sources */,
-				OBJ_314 /* DeviceSize.swift in Sources */,
-				OBJ_315 /* DeviceType.swift in Sources */,
-				OBJ_316 /* DeviceVersion.swift in Sources */,
-				OBJ_317 /* LogTrackingTableViewController.swift in Sources */,
-				OBJ_318 /* LogTrackingWebViewController.swift in Sources */,
-				OBJ_319 /* LogViewHelper.swift in Sources */,
-				OBJ_320 /* LogViewModel.swift in Sources */,
-				OBJ_321 /* ListCellTestTableViewController.swift in Sources */,
-				OBJ_322 /* GlobalFunctions.swift in Sources */,
-				OBJ_323 /* TTBaseFunc.swift in Sources */,
-				OBJ_324 /* TTBaseNetworkSpeedTest.swift in Sources */,
-				OBJ_325 /* TTBaseUIKitSetting.swift in Sources */,
-				OBJ_326 /* TTBaseUtil.swift in Sources */,
-				OBJ_327 /* TTLanguageManager.swift in Sources */,
-				OBJ_328 /* TextValidation.swift in Sources */,
-				OBJ_329 /* Validation.swift in Sources */,
-				OBJ_330 /* VietNamLunar.swift in Sources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		OBJ_336 /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 0;
-			files = (
-				OBJ_337 /* Package.swift in Sources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		OBJ_347 /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 0;
-			files = (
-				OBJ_348 /* TTBaseUIKitTests.swift in Sources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-/* End PBXSourcesBuildPhase section */
-
-/* Begin PBXTargetDependency section */
-		OBJ_342 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = "ttbaseuikit::TTBaseUIKitTests" /* TTBaseUIKitTests */;
-			targetProxy = 6D19184328AF72F400108258 /* PBXContainerItemProxy */;
-		};
-		OBJ_351 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = "ttbaseuikit::TTBaseUIKit" /* TTBaseUIKit */;
-			targetProxy = 6D19184228AF72F400108258 /* PBXContainerItemProxy */;
-		};
-/* End PBXTargetDependency section */
-
-/* Begin XCBuildConfiguration section */
-		OBJ_187 /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				CURRENT_PROJECT_VERSION = 1;
-				DRIVERKIT_DEPLOYMENT_TARGET = 19.0;
-				ENABLE_TESTABILITY = YES;
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(inherited)",
-					"$(PLATFORM_DIR)/Developer/Library/Frameworks",
-				);
-				HEADER_SEARCH_PATHS = "$(inherited)";
-				INFOPLIST_FILE = "$(SRCROOT)/Sources/TTBaseUIKit/Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) $(TOOLCHAIN_DIR)/usr/lib/swift/macosx";
-				MACOSX_DEPLOYMENT_TARGET = 10.10;
-				OTHER_CFLAGS = "$(inherited)";
-				OTHER_LDFLAGS = "$(inherited)";
-				OTHER_SWIFT_FLAGS = "$(inherited)";
-				PRODUCT_BUNDLE_IDENTIFIER = TTBaseUIKit;
-				PRODUCT_MODULE_NAME = "$(TARGET_NAME:c99extidentifier)";
-				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
-				SKIP_INSTALL = YES;
-				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "$(inherited)";
-				SWIFT_VERSION = 5.0;
-				TARGET_NAME = TTBaseUIKit;
-				TVOS_DEPLOYMENT_TARGET = 9.0;
-				WATCHOS_DEPLOYMENT_TARGET = 2.0;
-			};
-			name = Debug;
-		};
-		OBJ_188 /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				CURRENT_PROJECT_VERSION = 1;
-				DRIVERKIT_DEPLOYMENT_TARGET = 19.0;
-				ENABLE_TESTABILITY = YES;
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(inherited)",
-					"$(PLATFORM_DIR)/Developer/Library/Frameworks",
-				);
-				HEADER_SEARCH_PATHS = "$(inherited)";
-				INFOPLIST_FILE = "$(SRCROOT)/Sources/TTBaseUIKit/Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) $(TOOLCHAIN_DIR)/usr/lib/swift/macosx";
-				MACOSX_DEPLOYMENT_TARGET = 10.10;
-				OTHER_CFLAGS = "$(inherited)";
-				OTHER_LDFLAGS = "$(inherited)";
-				OTHER_SWIFT_FLAGS = "$(inherited)";
-				PRODUCT_BUNDLE_IDENTIFIER = TTBaseUIKit;
-				PRODUCT_MODULE_NAME = "$(TARGET_NAME:c99extidentifier)";
-				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
-				SKIP_INSTALL = YES;
-				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "$(inherited)";
-				SWIFT_VERSION = 5.0;
-				TARGET_NAME = TTBaseUIKit;
-				TVOS_DEPLOYMENT_TARGET = 9.0;
-				WATCHOS_DEPLOYMENT_TARGET = 2.0;
-			};
-			name = Release;
-		};
-		OBJ_3 /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				CLANG_ENABLE_OBJC_ARC = YES;
-				COMBINE_HIDPI_IMAGES = YES;
-				COPY_PHASE_STRIP = NO;
-				DEBUG_INFORMATION_FORMAT = dwarf;
-				DYLIB_INSTALL_NAME_BASE = "@rpath";
-				ENABLE_NS_ASSERTIONS = YES;
-				GCC_OPTIMIZATION_LEVEL = 0;
-				GCC_PREPROCESSOR_DEFINITIONS = (
-					"$(inherited)",
-					"SWIFT_PACKAGE=1",
-					"DEBUG=1",
-				);
-				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
-				MACOSX_DEPLOYMENT_TARGET = 10.10;
-				ONLY_ACTIVE_ARCH = YES;
-				OTHER_SWIFT_FLAGS = "$(inherited) -DXcode";
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SDKROOT = macosx;
-				SUPPORTED_PLATFORMS = "$(AVAILABLE_PLATFORMS)";
-				SUPPORTS_MACCATALYST = YES;
-				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "$(inherited) SWIFT_PACKAGE DEBUG";
-				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
-				USE_HEADERMAP = NO;
-			};
-			name = Debug;
-		};
-		OBJ_334 /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				LD = /usr/bin/true;
-				OTHER_SWIFT_FLAGS = "-swift-version 5 -I $(TOOLCHAIN_DIR)/usr/lib/swift/pm/ManifestAPI -sdk /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX12.3.sdk -package-description-version 5.6.0";
-				SWIFT_VERSION = 5.0;
-			};
-			name = Debug;
-		};
-		OBJ_335 /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				LD = /usr/bin/true;
-				OTHER_SWIFT_FLAGS = "-swift-version 5 -I $(TOOLCHAIN_DIR)/usr/lib/swift/pm/ManifestAPI -sdk /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX12.3.sdk -package-description-version 5.6.0";
-				SWIFT_VERSION = 5.0;
-			};
-			name = Release;
-		};
-		OBJ_340 /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-			};
-			name = Debug;
-		};
-		OBJ_341 /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-			};
-			name = Release;
-		};
-		OBJ_345 /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				CLANG_ENABLE_MODULES = YES;
-				CURRENT_PROJECT_VERSION = 1;
-				DRIVERKIT_DEPLOYMENT_TARGET = 19.0;
-				EMBEDDED_CONTENT_CONTAINS_SWIFT = YES;
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(inherited)",
-					"$(PLATFORM_DIR)/Developer/Library/Frameworks",
-				);
-				HEADER_SEARCH_PATHS = "$(inherited)";
-				INFOPLIST_FILE = TTBaseUIKit.xcodeproj/TTBaseUIKitTests_Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @loader_path/../Frameworks @loader_path/Frameworks";
-				MACOSX_DEPLOYMENT_TARGET = 11.0;
-				OTHER_CFLAGS = "$(inherited)";
-				OTHER_LDFLAGS = "$(inherited)";
-				OTHER_SWIFT_FLAGS = "$(inherited)";
-				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "$(inherited)";
-				SWIFT_VERSION = 5.0;
-				TARGET_NAME = TTBaseUIKitTests;
-				TVOS_DEPLOYMENT_TARGET = 14.0;
-				WATCHOS_DEPLOYMENT_TARGET = 7.0;
-			};
-			name = Debug;
-		};
-		OBJ_346 /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				CLANG_ENABLE_MODULES = YES;
-				CURRENT_PROJECT_VERSION = 1;
-				DRIVERKIT_DEPLOYMENT_TARGET = 19.0;
-				EMBEDDED_CONTENT_CONTAINS_SWIFT = YES;
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(inherited)",
-					"$(PLATFORM_DIR)/Developer/Library/Frameworks",
-				);
-				HEADER_SEARCH_PATHS = "$(inherited)";
-				INFOPLIST_FILE = TTBaseUIKit.xcodeproj/TTBaseUIKitTests_Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @loader_path/../Frameworks @loader_path/Frameworks";
-				MACOSX_DEPLOYMENT_TARGET = 11.0;
-				OTHER_CFLAGS = "$(inherited)";
-				OTHER_LDFLAGS = "$(inherited)";
-				OTHER_SWIFT_FLAGS = "$(inherited)";
-				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "$(inherited)";
-				SWIFT_VERSION = 5.0;
-				TARGET_NAME = TTBaseUIKitTests;
-				TVOS_DEPLOYMENT_TARGET = 14.0;
-				WATCHOS_DEPLOYMENT_TARGET = 7.0;
-			};
-			name = Release;
-		};
-		OBJ_4 /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				CLANG_ENABLE_OBJC_ARC = YES;
-				COMBINE_HIDPI_IMAGES = YES;
-				COPY_PHASE_STRIP = YES;
-				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
-				DYLIB_INSTALL_NAME_BASE = "@rpath";
-				GCC_OPTIMIZATION_LEVEL = s;
-				GCC_PREPROCESSOR_DEFINITIONS = (
-					"$(inherited)",
-					"SWIFT_PACKAGE=1",
-				);
-				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
-				MACOSX_DEPLOYMENT_TARGET = 10.10;
-				OTHER_SWIFT_FLAGS = "$(inherited) -DXcode";
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SDKROOT = macosx;
-				SUPPORTED_PLATFORMS = "$(AVAILABLE_PLATFORMS)";
-				SUPPORTS_MACCATALYST = YES;
-				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "$(inherited) SWIFT_PACKAGE";
-				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
-				USE_HEADERMAP = NO;
-			};
-			name = Release;
-		};
-/* End XCBuildConfiguration section */
-
-/* Begin XCConfigurationList section */
-		OBJ_186 /* Build configuration list for PBXNativeTarget "TTBaseUIKit" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				OBJ_187 /* Debug */,
-				OBJ_188 /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
-		OBJ_2 /* Build configuration list for PBXProject "TTBaseUIKit" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				OBJ_3 /* Debug */,
-				OBJ_4 /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
-		OBJ_333 /* Build configuration list for PBXNativeTarget "TTBaseUIKitPackageDescription" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				OBJ_334 /* Debug */,
-				OBJ_335 /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
-		OBJ_339 /* Build configuration list for PBXAggregateTarget "TTBaseUIKitPackageTests" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				OBJ_340 /* Debug */,
-				OBJ_341 /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
-		OBJ_344 /* Build configuration list for PBXNativeTarget "TTBaseUIKitTests" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				OBJ_345 /* Debug */,
-				OBJ_346 /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
-/* End XCConfigurationList section */
-	};
-	rootObject = OBJ_1 /* Project object */;
+   archiveVersion = "1";
+   objectVersion = "46";
+   objects = {
+      "OBJ_1" = {
+         isa = "PBXProject";
+         attributes = {
+            LastSwiftMigration = "9999";
+            LastUpgradeCheck = "9999";
+         };
+         buildConfigurationList = "OBJ_2";
+         compatibilityVersion = "Xcode 3.2";
+         developmentRegion = "en";
+         hasScannedForEncodings = "0";
+         knownRegions = (
+            "en"
+         );
+         mainGroup = "OBJ_5";
+         productRefGroup = "OBJ_175";
+         projectDirPath = ".";
+         targets = (
+            "ttbaseuikit::TTBaseUIKit",
+            "ttbaseuikit::SwiftPMPackageDescription"
+         );
+      };
+      "OBJ_10" = {
+         isa = "PBXGroup";
+         children = (
+            "OBJ_11",
+            "OBJ_12",
+            "OBJ_13",
+            "OBJ_14",
+            "OBJ_15",
+            "OBJ_16",
+            "OBJ_17",
+            "OBJ_18"
+         );
+         name = "BaseConfig";
+         path = "BaseConfig";
+         sourceTree = "<group>";
+      };
+      "OBJ_100" = {
+         isa = "PBXFileReference";
+         path = "BasePopupViewController.swift";
+         sourceTree = "<group>";
+      };
+      "OBJ_101" = {
+         isa = "PBXFileReference";
+         path = "PopupViewController.swift";
+         sourceTree = "<group>";
+      };
+      "OBJ_102" = {
+         isa = "PBXGroup";
+         children = (
+            "OBJ_103",
+            "OBJ_104",
+            "OBJ_105"
+         );
+         name = "PresentationController";
+         path = "PresentationController";
+         sourceTree = "<group>";
+      };
+      "OBJ_103" = {
+         isa = "PBXFileReference";
+         path = "BasePresentationController.swift";
+         sourceTree = "<group>";
+      };
+      "OBJ_104" = {
+         isa = "PBXFileReference";
+         path = "CoverVerticalPresentationController.swift";
+         sourceTree = "<group>";
+      };
+      "OBJ_105" = {
+         isa = "PBXFileReference";
+         path = "CoverVerticalViewController.swift";
+         sourceTree = "<group>";
+      };
+      "OBJ_106" = {
+         isa = "PBXFileReference";
+         path = "UIImageCircleView.swift";
+         sourceTree = "<group>";
+      };
+      "OBJ_107" = {
+         isa = "PBXFileReference";
+         path = "UIImageFontCircleView.swift";
+         sourceTree = "<group>";
+      };
+      "OBJ_108" = {
+         isa = "PBXFileReference";
+         path = "UIImageFontPaddingView.swift";
+         sourceTree = "<group>";
+      };
+      "OBJ_109" = {
+         isa = "PBXGroup";
+         children = (
+            "OBJ_110",
+            "OBJ_111",
+            "OBJ_112",
+            "OBJ_113",
+            "OBJ_114",
+            "OBJ_115",
+            "OBJ_116"
+         );
+         name = "ViewController";
+         path = "ViewController";
+         sourceTree = "<group>";
+      };
+      "OBJ_11" = {
+         isa = "PBXFileReference";
+         path = "BaseConfigRepresentable.swift";
+         sourceTree = "<group>";
+      };
+      "OBJ_110" = {
+         isa = "PBXFileReference";
+         path = "BaseMessagePopupViewController.swift";
+         sourceTree = "<group>";
+      };
+      "OBJ_111" = {
+         isa = "PBXFileReference";
+         path = "BaseScrollViewController.swift";
+         sourceTree = "<group>";
+      };
+      "OBJ_112" = {
+         isa = "PBXFileReference";
+         path = "BaseStackScrollViewController.swift";
+         sourceTree = "<group>";
+      };
+      "OBJ_113" = {
+         isa = "PBXFileReference";
+         path = "BaseUICollectionViewController.swift";
+         sourceTree = "<group>";
+      };
+      "OBJ_114" = {
+         isa = "PBXFileReference";
+         path = "BaseUISearchViewController.swift";
+         sourceTree = "<group>";
+      };
+      "OBJ_115" = {
+         isa = "PBXFileReference";
+         path = "BaseUITableViewController.swift";
+         sourceTree = "<group>";
+      };
+      "OBJ_116" = {
+         isa = "PBXFileReference";
+         path = "BaseUIViewController.swift";
+         sourceTree = "<group>";
+      };
+      "OBJ_117" = {
+         isa = "PBXGroup";
+         children = (
+            "OBJ_118",
+            "OBJ_119",
+            "OBJ_120",
+            "OBJ_121",
+            "OBJ_122",
+            "OBJ_123",
+            "OBJ_124",
+            "OBJ_125",
+            "OBJ_126",
+            "OBJ_127",
+            "OBJ_128",
+            "OBJ_129",
+            "OBJ_130",
+            "OBJ_131"
+         );
+         name = "Custom";
+         path = "Custom";
+         sourceTree = "<group>";
+      };
+      "OBJ_118" = {
+         isa = "PBXFileReference";
+         path = "BaseTwoButtonDiffWidthView.swift";
+         sourceTree = "<group>";
+      };
+      "OBJ_119" = {
+         isa = "PBXFileReference";
+         path = "ButtonPanelView.swift";
+         sourceTree = "<group>";
+      };
+      "OBJ_12" = {
+         isa = "PBXFileReference";
+         path = "Configuration.swift";
+         sourceTree = "<group>";
+      };
+      "OBJ_120" = {
+         isa = "PBXFileReference";
+         path = "IconLabelHorizontalView.swift";
+         sourceTree = "<group>";
+      };
+      "OBJ_121" = {
+         isa = "PBXFileReference";
+         path = "IconLabelTextFieldHorizontalView.swift";
+         sourceTree = "<group>";
+      };
+      "OBJ_122" = {
+         isa = "PBXFileReference";
+         path = "IconLabelTextFieldView.swift";
+         sourceTree = "<group>";
+      };
+      "OBJ_123" = {
+         isa = "PBXFileReference";
+         path = "IconLabelView.swift";
+         sourceTree = "<group>";
+      };
+      "OBJ_124" = {
+         isa = "PBXFileReference";
+         path = "LabelLeftRightView.swift";
+         sourceTree = "<group>";
+      };
+      "OBJ_125" = {
+         isa = "PBXFileReference";
+         path = "LabelTextFieldView.swift";
+         sourceTree = "<group>";
+      };
+      "OBJ_126" = {
+         isa = "PBXFileReference";
+         path = "LableSubLabelView.swift";
+         sourceTree = "<group>";
+      };
+      "OBJ_127" = {
+         isa = "PBXFileReference";
+         path = "LineView.swift";
+         sourceTree = "<group>";
+      };
+      "OBJ_128" = {
+         isa = "PBXFileReference";
+         path = "PanelScrollView.swift";
+         sourceTree = "<group>";
+      };
+      "OBJ_129" = {
+         isa = "PBXFileReference";
+         path = "RowTableView.swift";
+         sourceTree = "<group>";
+      };
+      "OBJ_13" = {
+         isa = "PBXFileReference";
+         path = "Constant.swift";
+         sourceTree = "<group>";
+      };
+      "OBJ_130" = {
+         isa = "PBXFileReference";
+         path = "TTBaseShadowView.swift";
+         sourceTree = "<group>";
+      };
+      "OBJ_131" = {
+         isa = "PBXFileReference";
+         path = "TwoButtomView.swift";
+         sourceTree = "<group>";
+      };
+      "OBJ_132" = {
+         isa = "PBXGroup";
+         children = (
+            "OBJ_133"
+         );
+         name = "Helpers";
+         path = "Helpers";
+         sourceTree = "<group>";
+      };
+      "OBJ_133" = {
+         isa = "PBXFileReference";
+         path = "ContraintHelpers.swift";
+         sourceTree = "<group>";
+      };
+      "OBJ_134" = {
+         isa = "PBXGroup";
+         children = (
+            "OBJ_135"
+         );
+         name = "ViewCodable";
+         path = "ViewCodable";
+         sourceTree = "<group>";
+      };
+      "OBJ_135" = {
+         isa = "PBXFileReference";
+         path = "ViewCodable.swift";
+         sourceTree = "<group>";
+      };
+      "OBJ_136" = {
+         isa = "PBXGroup";
+         children = (
+            "OBJ_137",
+            "OBJ_138",
+            "OBJ_139",
+            "OBJ_140",
+            "OBJ_141",
+            "OBJ_142",
+            "OBJ_143",
+            "OBJ_144",
+            "OBJ_145",
+            "OBJ_146"
+         );
+         name = "Extensions";
+         path = "Extensions";
+         sourceTree = "<group>";
+      };
+      "OBJ_137" = {
+         isa = "PBXFileReference";
+         path = "CLLocationCoordinate2D+Config.swift";
+         sourceTree = "<group>";
+      };
+      "OBJ_138" = {
+         isa = "PBXFileReference";
+         path = "Date+Config.swift";
+         sourceTree = "<group>";
+      };
+      "OBJ_139" = {
+         isa = "PBXFileReference";
+         path = "General+Config.swift";
+         sourceTree = "<group>";
+      };
+      "OBJ_14" = {
+         isa = "PBXFileReference";
+         path = "FontConfig.swift";
+         sourceTree = "<group>";
+      };
+      "OBJ_140" = {
+         isa = "PBXFileReference";
+         path = "String+Config.swift";
+         sourceTree = "<group>";
+      };
+      "OBJ_141" = {
+         isa = "PBXFileReference";
+         path = "UIApplication+Config.swift";
+         sourceTree = "<group>";
+      };
+      "OBJ_142" = {
+         isa = "PBXFileReference";
+         path = "UIColor+Config.swift";
+         sourceTree = "<group>";
+      };
+      "OBJ_143" = {
+         isa = "PBXFileReference";
+         path = "UIScrollView+Config.swift";
+         sourceTree = "<group>";
+      };
+      "OBJ_144" = {
+         isa = "PBXFileReference";
+         path = "UITableView+UICollectionView.swift";
+         sourceTree = "<group>";
+      };
+      "OBJ_145" = {
+         isa = "PBXFileReference";
+         path = "UIView+Config.swift";
+         sourceTree = "<group>";
+      };
+      "OBJ_146" = {
+         isa = "PBXFileReference";
+         path = "UIViewController+Config.swift";
+         sourceTree = "<group>";
+      };
+      "OBJ_147" = {
+         isa = "PBXFileReference";
+         path = "Service.swift";
+         sourceTree = "<group>";
+      };
+      "OBJ_148" = {
+         isa = "PBXGroup";
+         children = (
+            "OBJ_149",
+            "OBJ_150",
+            "OBJ_155",
+            "OBJ_162",
+            "OBJ_164"
+         );
+         name = "Support";
+         path = "Support";
+         sourceTree = "<group>";
+      };
+      "OBJ_149" = {
+         isa = "PBXFileReference";
+         path = "AwesomePro.swift";
+         sourceTree = "<group>";
+      };
+      "OBJ_15" = {
+         isa = "PBXFileReference";
+         path = "SizeConfig.swift";
+         sourceTree = "<group>";
+      };
+      "OBJ_150" = {
+         isa = "PBXGroup";
+         children = (
+            "OBJ_151",
+            "OBJ_152",
+            "OBJ_153",
+            "OBJ_154"
+         );
+         name = "Ekhoo_Device";
+         path = "Ekhoo_Device";
+         sourceTree = "<group>";
+      };
+      "OBJ_151" = {
+         isa = "PBXFileReference";
+         path = "Device.swift";
+         sourceTree = "<group>";
+      };
+      "OBJ_152" = {
+         isa = "PBXFileReference";
+         path = "DeviceSize.swift";
+         sourceTree = "<group>";
+      };
+      "OBJ_153" = {
+         isa = "PBXFileReference";
+         path = "DeviceType.swift";
+         sourceTree = "<group>";
+      };
+      "OBJ_154" = {
+         isa = "PBXFileReference";
+         path = "DeviceVersion.swift";
+         sourceTree = "<group>";
+      };
+      "OBJ_155" = {
+         isa = "PBXGroup";
+         children = (
+            "OBJ_156"
+         );
+         name = "Helper";
+         path = "Helper";
+         sourceTree = "<group>";
+      };
+      "OBJ_156" = {
+         isa = "PBXGroup";
+         children = (
+            "OBJ_157",
+            "OBJ_158",
+            "OBJ_159",
+            "OBJ_160"
+         );
+         name = "LogView";
+         path = "LogView";
+         sourceTree = "<group>";
+      };
+      "OBJ_157" = {
+         isa = "PBXFileReference";
+         path = "LogTrackingTableViewController.swift";
+         sourceTree = "<group>";
+      };
+      "OBJ_158" = {
+         isa = "PBXFileReference";
+         path = "LogTrackingWebViewController.swift";
+         sourceTree = "<group>";
+      };
+      "OBJ_159" = {
+         isa = "PBXFileReference";
+         path = "LogViewHelper.swift";
+         sourceTree = "<group>";
+      };
+      "OBJ_16" = {
+         isa = "PBXFileReference";
+         path = "StyleConfig.swift";
+         sourceTree = "<group>";
+      };
+      "OBJ_160" = {
+         isa = "PBXGroup";
+         children = (
+            "OBJ_161"
+         );
+         name = "Model";
+         path = "Model";
+         sourceTree = "<group>";
+      };
+      "OBJ_161" = {
+         isa = "PBXFileReference";
+         path = "LogViewModel.swift";
+         sourceTree = "<group>";
+      };
+      "OBJ_162" = {
+         isa = "PBXGroup";
+         children = (
+            "OBJ_163"
+         );
+         name = "Test";
+         path = "Test";
+         sourceTree = "<group>";
+      };
+      "OBJ_163" = {
+         isa = "PBXFileReference";
+         path = "ListCellTestTableViewController.swift";
+         sourceTree = "<group>";
+      };
+      "OBJ_164" = {
+         isa = "PBXGroup";
+         children = (
+            "OBJ_165",
+            "OBJ_166",
+            "OBJ_167",
+            "OBJ_168",
+            "OBJ_169",
+            "OBJ_170",
+            "OBJ_171",
+            "OBJ_172",
+            "OBJ_173"
+         );
+         name = "Utilities";
+         path = "Utilities";
+         sourceTree = "<group>";
+      };
+      "OBJ_165" = {
+         isa = "PBXFileReference";
+         path = "GlobalFunctions.swift";
+         sourceTree = "<group>";
+      };
+      "OBJ_166" = {
+         isa = "PBXFileReference";
+         path = "TTBaseFunc.swift";
+         sourceTree = "<group>";
+      };
+      "OBJ_167" = {
+         isa = "PBXFileReference";
+         path = "TTBaseNetworkSpeedTest.swift";
+         sourceTree = "<group>";
+      };
+      "OBJ_168" = {
+         isa = "PBXFileReference";
+         path = "TTBaseUIKitSetting.swift";
+         sourceTree = "<group>";
+      };
+      "OBJ_169" = {
+         isa = "PBXFileReference";
+         path = "TTBaseUtil.swift";
+         sourceTree = "<group>";
+      };
+      "OBJ_17" = {
+         isa = "PBXFileReference";
+         path = "ValueConfig.swift";
+         sourceTree = "<group>";
+      };
+      "OBJ_170" = {
+         isa = "PBXFileReference";
+         path = "TTLanguageManager.swift";
+         sourceTree = "<group>";
+      };
+      "OBJ_171" = {
+         isa = "PBXFileReference";
+         path = "TextValidation.swift";
+         sourceTree = "<group>";
+      };
+      "OBJ_172" = {
+         isa = "PBXFileReference";
+         path = "Validation.swift";
+         sourceTree = "<group>";
+      };
+      "OBJ_173" = {
+         isa = "PBXFileReference";
+         path = "VietNamLunar.swift";
+         sourceTree = "<group>";
+      };
+      "OBJ_174" = {
+         isa = "PBXGroup";
+         children = (
+         );
+         name = "Tests";
+         path = "";
+         sourceTree = "SOURCE_ROOT";
+      };
+      "OBJ_175" = {
+         isa = "PBXGroup";
+         children = (
+            "ttbaseuikit::TTBaseUIKit::Product"
+         );
+         name = "Products";
+         path = "";
+         sourceTree = "BUILT_PRODUCTS_DIR";
+      };
+      "OBJ_177" = {
+         isa = "PBXFileReference";
+         path = "build";
+         sourceTree = "SOURCE_ROOT";
+      };
+      "OBJ_178" = {
+         isa = "PBXFileReference";
+         path = "TTBaseUIKit.podspec";
+         sourceTree = "<group>";
+      };
+      "OBJ_179" = {
+         isa = "PBXFileReference";
+         path = "README.md";
+         sourceTree = "<group>";
+      };
+      "OBJ_18" = {
+         isa = "PBXFileReference";
+         path = "ViewConfig.swift";
+         sourceTree = "<group>";
+      };
+      "OBJ_180" = {
+         isa = "PBXFileReference";
+         path = "Podfile";
+         sourceTree = "<group>";
+      };
+      "OBJ_182" = {
+         isa = "XCConfigurationList";
+         buildConfigurations = (
+            "OBJ_183",
+            "OBJ_184"
+         );
+         defaultConfigurationIsVisible = "0";
+         defaultConfigurationName = "Release";
+      };
+      "OBJ_183" = {
+         isa = "XCBuildConfiguration";
+         buildSettings = {
+            CURRENT_PROJECT_VERSION = "1";
+            DRIVERKIT_DEPLOYMENT_TARGET = "19.0";
+            ENABLE_TESTABILITY = "YES";
+            FRAMEWORK_SEARCH_PATHS = (
+               "$(inherited)",
+               "$(PLATFORM_DIR)/Developer/Library/Frameworks"
+            );
+            HEADER_SEARCH_PATHS = (
+               "$(inherited)"
+            );
+            INFOPLIST_FILE = "TTBaseUIKit.xcodeproj/TTBaseUIKit_Info.plist";
+            IPHONEOS_DEPLOYMENT_TARGET = "9.0";
+            LD_RUNPATH_SEARCH_PATHS = (
+               "$(inherited)",
+               "$(TOOLCHAIN_DIR)/usr/lib/swift/macosx"
+            );
+            MACOSX_DEPLOYMENT_TARGET = "10.10";
+            OTHER_CFLAGS = (
+               "$(inherited)"
+            );
+            OTHER_LDFLAGS = (
+               "$(inherited)"
+            );
+            OTHER_SWIFT_FLAGS = (
+               "$(inherited)"
+            );
+            PRODUCT_BUNDLE_IDENTIFIER = "TTBaseUIKit";
+            PRODUCT_MODULE_NAME = "$(TARGET_NAME:c99extidentifier)";
+            PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
+            SKIP_INSTALL = "YES";
+            SWIFT_ACTIVE_COMPILATION_CONDITIONS = (
+               "$(inherited)"
+            );
+            SWIFT_VERSION = "5.0";
+            TARGET_NAME = "TTBaseUIKit";
+            TVOS_DEPLOYMENT_TARGET = "9.0";
+            WATCHOS_DEPLOYMENT_TARGET = "2.0";
+         };
+         name = "Debug";
+      };
+      "OBJ_184" = {
+         isa = "XCBuildConfiguration";
+         buildSettings = {
+            CURRENT_PROJECT_VERSION = "1";
+            DRIVERKIT_DEPLOYMENT_TARGET = "19.0";
+            ENABLE_TESTABILITY = "YES";
+            FRAMEWORK_SEARCH_PATHS = (
+               "$(inherited)",
+               "$(PLATFORM_DIR)/Developer/Library/Frameworks"
+            );
+            HEADER_SEARCH_PATHS = (
+               "$(inherited)"
+            );
+            INFOPLIST_FILE = "TTBaseUIKit.xcodeproj/TTBaseUIKit_Info.plist";
+            IPHONEOS_DEPLOYMENT_TARGET = "9.0";
+            LD_RUNPATH_SEARCH_PATHS = (
+               "$(inherited)",
+               "$(TOOLCHAIN_DIR)/usr/lib/swift/macosx"
+            );
+            MACOSX_DEPLOYMENT_TARGET = "10.10";
+            OTHER_CFLAGS = (
+               "$(inherited)"
+            );
+            OTHER_LDFLAGS = (
+               "$(inherited)"
+            );
+            OTHER_SWIFT_FLAGS = (
+               "$(inherited)"
+            );
+            PRODUCT_BUNDLE_IDENTIFIER = "TTBaseUIKit";
+            PRODUCT_MODULE_NAME = "$(TARGET_NAME:c99extidentifier)";
+            PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
+            SKIP_INSTALL = "YES";
+            SWIFT_ACTIVE_COMPILATION_CONDITIONS = (
+               "$(inherited)"
+            );
+            SWIFT_VERSION = "5.0";
+            TARGET_NAME = "TTBaseUIKit";
+            TVOS_DEPLOYMENT_TARGET = "9.0";
+            WATCHOS_DEPLOYMENT_TARGET = "2.0";
+         };
+         name = "Release";
+      };
+      "OBJ_185" = {
+         isa = "PBXSourcesBuildPhase";
+         files = (
+            "OBJ_186",
+            "OBJ_187",
+            "OBJ_188",
+            "OBJ_189",
+            "OBJ_190",
+            "OBJ_191",
+            "OBJ_192",
+            "OBJ_193",
+            "OBJ_194",
+            "OBJ_195",
+            "OBJ_196",
+            "OBJ_197",
+            "OBJ_198",
+            "OBJ_199",
+            "OBJ_200",
+            "OBJ_201",
+            "OBJ_202",
+            "OBJ_203",
+            "OBJ_204",
+            "OBJ_205",
+            "OBJ_206",
+            "OBJ_207",
+            "OBJ_208",
+            "OBJ_209",
+            "OBJ_210",
+            "OBJ_211",
+            "OBJ_212",
+            "OBJ_213",
+            "OBJ_214",
+            "OBJ_215",
+            "OBJ_216",
+            "OBJ_217",
+            "OBJ_218",
+            "OBJ_219",
+            "OBJ_220",
+            "OBJ_221",
+            "OBJ_222",
+            "OBJ_223",
+            "OBJ_224",
+            "OBJ_225",
+            "OBJ_226",
+            "OBJ_227",
+            "OBJ_228",
+            "OBJ_229",
+            "OBJ_230",
+            "OBJ_231",
+            "OBJ_232",
+            "OBJ_233",
+            "OBJ_234",
+            "OBJ_235",
+            "OBJ_236",
+            "OBJ_237",
+            "OBJ_238",
+            "OBJ_239",
+            "OBJ_240",
+            "OBJ_241",
+            "OBJ_242",
+            "OBJ_243",
+            "OBJ_244",
+            "OBJ_245",
+            "OBJ_246",
+            "OBJ_247",
+            "OBJ_248",
+            "OBJ_249",
+            "OBJ_250",
+            "OBJ_251",
+            "OBJ_252",
+            "OBJ_253",
+            "OBJ_254",
+            "OBJ_255",
+            "OBJ_256",
+            "OBJ_257",
+            "OBJ_258",
+            "OBJ_259",
+            "OBJ_260",
+            "OBJ_261",
+            "OBJ_262",
+            "OBJ_263",
+            "OBJ_264",
+            "OBJ_265",
+            "OBJ_266",
+            "OBJ_267",
+            "OBJ_268",
+            "OBJ_269",
+            "OBJ_270",
+            "OBJ_271",
+            "OBJ_272",
+            "OBJ_273",
+            "OBJ_274",
+            "OBJ_275",
+            "OBJ_276",
+            "OBJ_277",
+            "OBJ_278",
+            "OBJ_279",
+            "OBJ_280",
+            "OBJ_281",
+            "OBJ_282",
+            "OBJ_283",
+            "OBJ_284",
+            "OBJ_285",
+            "OBJ_286",
+            "OBJ_287",
+            "OBJ_288",
+            "OBJ_289",
+            "OBJ_290",
+            "OBJ_291",
+            "OBJ_292",
+            "OBJ_293",
+            "OBJ_294",
+            "OBJ_295",
+            "OBJ_296",
+            "OBJ_297",
+            "OBJ_298",
+            "OBJ_299",
+            "OBJ_300",
+            "OBJ_301",
+            "OBJ_302",
+            "OBJ_303",
+            "OBJ_304",
+            "OBJ_305",
+            "OBJ_306",
+            "OBJ_307",
+            "OBJ_308",
+            "OBJ_309",
+            "OBJ_310",
+            "OBJ_311",
+            "OBJ_312",
+            "OBJ_313",
+            "OBJ_314",
+            "OBJ_315",
+            "OBJ_316",
+            "OBJ_317",
+            "OBJ_318",
+            "OBJ_319",
+            "OBJ_320",
+            "OBJ_321",
+            "OBJ_322",
+            "OBJ_323",
+            "OBJ_324",
+            "OBJ_325",
+            "OBJ_326"
+         );
+      };
+      "OBJ_186" = {
+         isa = "PBXBuildFile";
+         fileRef = "OBJ_11";
+      };
+      "OBJ_187" = {
+         isa = "PBXBuildFile";
+         fileRef = "OBJ_12";
+      };
+      "OBJ_188" = {
+         isa = "PBXBuildFile";
+         fileRef = "OBJ_13";
+      };
+      "OBJ_189" = {
+         isa = "PBXBuildFile";
+         fileRef = "OBJ_14";
+      };
+      "OBJ_19" = {
+         isa = "PBXGroup";
+         children = (
+            "OBJ_20"
+         );
+         name = "Coordinators";
+         path = "Coordinators";
+         sourceTree = "<group>";
+      };
+      "OBJ_190" = {
+         isa = "PBXBuildFile";
+         fileRef = "OBJ_15";
+      };
+      "OBJ_191" = {
+         isa = "PBXBuildFile";
+         fileRef = "OBJ_16";
+      };
+      "OBJ_192" = {
+         isa = "PBXBuildFile";
+         fileRef = "OBJ_17";
+      };
+      "OBJ_193" = {
+         isa = "PBXBuildFile";
+         fileRef = "OBJ_18";
+      };
+      "OBJ_194" = {
+         isa = "PBXBuildFile";
+         fileRef = "OBJ_20";
+      };
+      "OBJ_195" = {
+         isa = "PBXBuildFile";
+         fileRef = "OBJ_23";
+      };
+      "OBJ_196" = {
+         isa = "PBXBuildFile";
+         fileRef = "OBJ_24";
+      };
+      "OBJ_197" = {
+         isa = "PBXBuildFile";
+         fileRef = "OBJ_25";
+      };
+      "OBJ_198" = {
+         isa = "PBXBuildFile";
+         fileRef = "OBJ_26";
+      };
+      "OBJ_199" = {
+         isa = "PBXBuildFile";
+         fileRef = "OBJ_27";
+      };
+      "OBJ_2" = {
+         isa = "XCConfigurationList";
+         buildConfigurations = (
+            "OBJ_3",
+            "OBJ_4"
+         );
+         defaultConfigurationIsVisible = "0";
+         defaultConfigurationName = "Release";
+      };
+      "OBJ_20" = {
+         isa = "PBXFileReference";
+         path = "Coordinator.swift";
+         sourceTree = "<group>";
+      };
+      "OBJ_200" = {
+         isa = "PBXBuildFile";
+         fileRef = "OBJ_28";
+      };
+      "OBJ_201" = {
+         isa = "PBXBuildFile";
+         fileRef = "OBJ_29";
+      };
+      "OBJ_202" = {
+         isa = "PBXBuildFile";
+         fileRef = "OBJ_30";
+      };
+      "OBJ_203" = {
+         isa = "PBXBuildFile";
+         fileRef = "OBJ_31";
+      };
+      "OBJ_204" = {
+         isa = "PBXBuildFile";
+         fileRef = "OBJ_32";
+      };
+      "OBJ_205" = {
+         isa = "PBXBuildFile";
+         fileRef = "OBJ_33";
+      };
+      "OBJ_206" = {
+         isa = "PBXBuildFile";
+         fileRef = "OBJ_34";
+      };
+      "OBJ_207" = {
+         isa = "PBXBuildFile";
+         fileRef = "OBJ_35";
+      };
+      "OBJ_208" = {
+         isa = "PBXBuildFile";
+         fileRef = "OBJ_36";
+      };
+      "OBJ_209" = {
+         isa = "PBXBuildFile";
+         fileRef = "OBJ_37";
+      };
+      "OBJ_21" = {
+         isa = "PBXGroup";
+         children = (
+            "OBJ_22",
+            "OBJ_117",
+            "OBJ_132",
+            "OBJ_134"
+         );
+         name = "CustomView";
+         path = "CustomView";
+         sourceTree = "<group>";
+      };
+      "OBJ_210" = {
+         isa = "PBXBuildFile";
+         fileRef = "OBJ_38";
+      };
+      "OBJ_211" = {
+         isa = "PBXBuildFile";
+         fileRef = "OBJ_39";
+      };
+      "OBJ_212" = {
+         isa = "PBXBuildFile";
+         fileRef = "OBJ_40";
+      };
+      "OBJ_213" = {
+         isa = "PBXBuildFile";
+         fileRef = "OBJ_41";
+      };
+      "OBJ_214" = {
+         isa = "PBXBuildFile";
+         fileRef = "OBJ_42";
+      };
+      "OBJ_215" = {
+         isa = "PBXBuildFile";
+         fileRef = "OBJ_43";
+      };
+      "OBJ_216" = {
+         isa = "PBXBuildFile";
+         fileRef = "OBJ_44";
+      };
+      "OBJ_217" = {
+         isa = "PBXBuildFile";
+         fileRef = "OBJ_45";
+      };
+      "OBJ_218" = {
+         isa = "PBXBuildFile";
+         fileRef = "OBJ_46";
+      };
+      "OBJ_219" = {
+         isa = "PBXBuildFile";
+         fileRef = "OBJ_47";
+      };
+      "OBJ_22" = {
+         isa = "PBXGroup";
+         children = (
+            "OBJ_23",
+            "OBJ_24",
+            "OBJ_25",
+            "OBJ_26",
+            "OBJ_27",
+            "OBJ_28",
+            "OBJ_29",
+            "OBJ_30",
+            "OBJ_31",
+            "OBJ_32",
+            "OBJ_33",
+            "OBJ_34",
+            "OBJ_35",
+            "OBJ_36",
+            "OBJ_37",
+            "OBJ_38",
+            "OBJ_39",
+            "OBJ_40",
+            "OBJ_41",
+            "OBJ_42",
+            "OBJ_43",
+            "OBJ_44",
+            "OBJ_45",
+            "OBJ_46",
+            "OBJ_47",
+            "OBJ_48",
+            "OBJ_49",
+            "OBJ_50",
+            "OBJ_51",
+            "OBJ_52",
+            "OBJ_53",
+            "OBJ_54",
+            "OBJ_55",
+            "OBJ_56",
+            "OBJ_57",
+            "OBJ_58",
+            "OBJ_59",
+            "OBJ_60",
+            "OBJ_61",
+            "OBJ_62",
+            "OBJ_63",
+            "OBJ_64",
+            "OBJ_65",
+            "OBJ_66",
+            "OBJ_67",
+            "OBJ_68",
+            "OBJ_69",
+            "OBJ_70",
+            "OBJ_71",
+            "OBJ_72",
+            "OBJ_73",
+            "OBJ_77",
+            "OBJ_84",
+            "OBJ_92",
+            "OBJ_95",
+            "OBJ_96",
+            "OBJ_99",
+            "OBJ_102",
+            "OBJ_106",
+            "OBJ_107",
+            "OBJ_108",
+            "OBJ_109"
+         );
+         name = "BaseUIView";
+         path = "BaseUIView";
+         sourceTree = "<group>";
+      };
+      "OBJ_220" = {
+         isa = "PBXBuildFile";
+         fileRef = "OBJ_48";
+      };
+      "OBJ_221" = {
+         isa = "PBXBuildFile";
+         fileRef = "OBJ_49";
+      };
+      "OBJ_222" = {
+         isa = "PBXBuildFile";
+         fileRef = "OBJ_50";
+      };
+      "OBJ_223" = {
+         isa = "PBXBuildFile";
+         fileRef = "OBJ_51";
+      };
+      "OBJ_224" = {
+         isa = "PBXBuildFile";
+         fileRef = "OBJ_52";
+      };
+      "OBJ_225" = {
+         isa = "PBXBuildFile";
+         fileRef = "OBJ_53";
+      };
+      "OBJ_226" = {
+         isa = "PBXBuildFile";
+         fileRef = "OBJ_54";
+      };
+      "OBJ_227" = {
+         isa = "PBXBuildFile";
+         fileRef = "OBJ_55";
+      };
+      "OBJ_228" = {
+         isa = "PBXBuildFile";
+         fileRef = "OBJ_56";
+      };
+      "OBJ_229" = {
+         isa = "PBXBuildFile";
+         fileRef = "OBJ_57";
+      };
+      "OBJ_23" = {
+         isa = "PBXFileReference";
+         path = "BaBaseGradientUIImageView.swift";
+         sourceTree = "<group>";
+      };
+      "OBJ_230" = {
+         isa = "PBXBuildFile";
+         fileRef = "OBJ_58";
+      };
+      "OBJ_231" = {
+         isa = "PBXBuildFile";
+         fileRef = "OBJ_59";
+      };
+      "OBJ_232" = {
+         isa = "PBXBuildFile";
+         fileRef = "OBJ_60";
+      };
+      "OBJ_233" = {
+         isa = "PBXBuildFile";
+         fileRef = "OBJ_61";
+      };
+      "OBJ_234" = {
+         isa = "PBXBuildFile";
+         fileRef = "OBJ_62";
+      };
+      "OBJ_235" = {
+         isa = "PBXBuildFile";
+         fileRef = "OBJ_63";
+      };
+      "OBJ_236" = {
+         isa = "PBXBuildFile";
+         fileRef = "OBJ_64";
+      };
+      "OBJ_237" = {
+         isa = "PBXBuildFile";
+         fileRef = "OBJ_65";
+      };
+      "OBJ_238" = {
+         isa = "PBXBuildFile";
+         fileRef = "OBJ_66";
+      };
+      "OBJ_239" = {
+         isa = "PBXBuildFile";
+         fileRef = "OBJ_67";
+      };
+      "OBJ_24" = {
+         isa = "PBXFileReference";
+         path = "BaseBadgeInsetLabel.swift";
+         sourceTree = "<group>";
+      };
+      "OBJ_240" = {
+         isa = "PBXBuildFile";
+         fileRef = "OBJ_68";
+      };
+      "OBJ_241" = {
+         isa = "PBXBuildFile";
+         fileRef = "OBJ_69";
+      };
+      "OBJ_242" = {
+         isa = "PBXBuildFile";
+         fileRef = "OBJ_70";
+      };
+      "OBJ_243" = {
+         isa = "PBXBuildFile";
+         fileRef = "OBJ_71";
+      };
+      "OBJ_244" = {
+         isa = "PBXBuildFile";
+         fileRef = "OBJ_72";
+      };
+      "OBJ_245" = {
+         isa = "PBXBuildFile";
+         fileRef = "OBJ_74";
+      };
+      "OBJ_246" = {
+         isa = "PBXBuildFile";
+         fileRef = "OBJ_75";
+      };
+      "OBJ_247" = {
+         isa = "PBXBuildFile";
+         fileRef = "OBJ_76";
+      };
+      "OBJ_248" = {
+         isa = "PBXBuildFile";
+         fileRef = "OBJ_78";
+      };
+      "OBJ_249" = {
+         isa = "PBXBuildFile";
+         fileRef = "OBJ_79";
+      };
+      "OBJ_25" = {
+         isa = "PBXFileReference";
+         path = "BaseButtonBadge.swift";
+         sourceTree = "<group>";
+      };
+      "OBJ_250" = {
+         isa = "PBXBuildFile";
+         fileRef = "OBJ_80";
+      };
+      "OBJ_251" = {
+         isa = "PBXBuildFile";
+         fileRef = "OBJ_81";
+      };
+      "OBJ_252" = {
+         isa = "PBXBuildFile";
+         fileRef = "OBJ_82";
+      };
+      "OBJ_253" = {
+         isa = "PBXBuildFile";
+         fileRef = "OBJ_83";
+      };
+      "OBJ_254" = {
+         isa = "PBXBuildFile";
+         fileRef = "OBJ_85";
+      };
+      "OBJ_255" = {
+         isa = "PBXBuildFile";
+         fileRef = "OBJ_86";
+      };
+      "OBJ_256" = {
+         isa = "PBXBuildFile";
+         fileRef = "OBJ_87";
+      };
+      "OBJ_257" = {
+         isa = "PBXBuildFile";
+         fileRef = "OBJ_88";
+      };
+      "OBJ_258" = {
+         isa = "PBXBuildFile";
+         fileRef = "OBJ_89";
+      };
+      "OBJ_259" = {
+         isa = "PBXBuildFile";
+         fileRef = "OBJ_90";
+      };
+      "OBJ_26" = {
+         isa = "PBXFileReference";
+         path = "BaseCircleLabel.swift";
+         sourceTree = "<group>";
+      };
+      "OBJ_260" = {
+         isa = "PBXBuildFile";
+         fileRef = "OBJ_91";
+      };
+      "OBJ_261" = {
+         isa = "PBXBuildFile";
+         fileRef = "OBJ_93";
+      };
+      "OBJ_262" = {
+         isa = "PBXBuildFile";
+         fileRef = "OBJ_94";
+      };
+      "OBJ_263" = {
+         isa = "PBXBuildFile";
+         fileRef = "OBJ_95";
+      };
+      "OBJ_264" = {
+         isa = "PBXBuildFile";
+         fileRef = "OBJ_97";
+      };
+      "OBJ_265" = {
+         isa = "PBXBuildFile";
+         fileRef = "OBJ_98";
+      };
+      "OBJ_266" = {
+         isa = "PBXBuildFile";
+         fileRef = "OBJ_100";
+      };
+      "OBJ_267" = {
+         isa = "PBXBuildFile";
+         fileRef = "OBJ_101";
+      };
+      "OBJ_268" = {
+         isa = "PBXBuildFile";
+         fileRef = "OBJ_103";
+      };
+      "OBJ_269" = {
+         isa = "PBXBuildFile";
+         fileRef = "OBJ_104";
+      };
+      "OBJ_27" = {
+         isa = "PBXFileReference";
+         path = "BaseCustomViewRepresentable.swift";
+         sourceTree = "<group>";
+      };
+      "OBJ_270" = {
+         isa = "PBXBuildFile";
+         fileRef = "OBJ_105";
+      };
+      "OBJ_271" = {
+         isa = "PBXBuildFile";
+         fileRef = "OBJ_106";
+      };
+      "OBJ_272" = {
+         isa = "PBXBuildFile";
+         fileRef = "OBJ_107";
+      };
+      "OBJ_273" = {
+         isa = "PBXBuildFile";
+         fileRef = "OBJ_108";
+      };
+      "OBJ_274" = {
+         isa = "PBXBuildFile";
+         fileRef = "OBJ_110";
+      };
+      "OBJ_275" = {
+         isa = "PBXBuildFile";
+         fileRef = "OBJ_111";
+      };
+      "OBJ_276" = {
+         isa = "PBXBuildFile";
+         fileRef = "OBJ_112";
+      };
+      "OBJ_277" = {
+         isa = "PBXBuildFile";
+         fileRef = "OBJ_113";
+      };
+      "OBJ_278" = {
+         isa = "PBXBuildFile";
+         fileRef = "OBJ_114";
+      };
+      "OBJ_279" = {
+         isa = "PBXBuildFile";
+         fileRef = "OBJ_115";
+      };
+      "OBJ_28" = {
+         isa = "PBXFileReference";
+         path = "BaseDropdownCustomView.swift";
+         sourceTree = "<group>";
+      };
+      "OBJ_280" = {
+         isa = "PBXBuildFile";
+         fileRef = "OBJ_116";
+      };
+      "OBJ_281" = {
+         isa = "PBXBuildFile";
+         fileRef = "OBJ_118";
+      };
+      "OBJ_282" = {
+         isa = "PBXBuildFile";
+         fileRef = "OBJ_119";
+      };
+      "OBJ_283" = {
+         isa = "PBXBuildFile";
+         fileRef = "OBJ_120";
+      };
+      "OBJ_284" = {
+         isa = "PBXBuildFile";
+         fileRef = "OBJ_121";
+      };
+      "OBJ_285" = {
+         isa = "PBXBuildFile";
+         fileRef = "OBJ_122";
+      };
+      "OBJ_286" = {
+         isa = "PBXBuildFile";
+         fileRef = "OBJ_123";
+      };
+      "OBJ_287" = {
+         isa = "PBXBuildFile";
+         fileRef = "OBJ_124";
+      };
+      "OBJ_288" = {
+         isa = "PBXBuildFile";
+         fileRef = "OBJ_125";
+      };
+      "OBJ_289" = {
+         isa = "PBXBuildFile";
+         fileRef = "OBJ_126";
+      };
+      "OBJ_29" = {
+         isa = "PBXFileReference";
+         path = "BaseHeaderView.swift";
+         sourceTree = "<group>";
+      };
+      "OBJ_290" = {
+         isa = "PBXBuildFile";
+         fileRef = "OBJ_127";
+      };
+      "OBJ_291" = {
+         isa = "PBXBuildFile";
+         fileRef = "OBJ_128";
+      };
+      "OBJ_292" = {
+         isa = "PBXBuildFile";
+         fileRef = "OBJ_129";
+      };
+      "OBJ_293" = {
+         isa = "PBXBuildFile";
+         fileRef = "OBJ_130";
+      };
+      "OBJ_294" = {
+         isa = "PBXBuildFile";
+         fileRef = "OBJ_131";
+      };
+      "OBJ_295" = {
+         isa = "PBXBuildFile";
+         fileRef = "OBJ_133";
+      };
+      "OBJ_296" = {
+         isa = "PBXBuildFile";
+         fileRef = "OBJ_135";
+      };
+      "OBJ_297" = {
+         isa = "PBXBuildFile";
+         fileRef = "OBJ_137";
+      };
+      "OBJ_298" = {
+         isa = "PBXBuildFile";
+         fileRef = "OBJ_138";
+      };
+      "OBJ_299" = {
+         isa = "PBXBuildFile";
+         fileRef = "OBJ_139";
+      };
+      "OBJ_3" = {
+         isa = "XCBuildConfiguration";
+         buildSettings = {
+            CLANG_ENABLE_OBJC_ARC = "YES";
+            COMBINE_HIDPI_IMAGES = "YES";
+            COPY_PHASE_STRIP = "NO";
+            DEBUG_INFORMATION_FORMAT = "dwarf";
+            DYLIB_INSTALL_NAME_BASE = "@rpath";
+            ENABLE_NS_ASSERTIONS = "YES";
+            GCC_OPTIMIZATION_LEVEL = "0";
+            GCC_PREPROCESSOR_DEFINITIONS = (
+               "$(inherited)",
+               "SWIFT_PACKAGE=1",
+               "DEBUG=1"
+            );
+            MACOSX_DEPLOYMENT_TARGET = "10.10";
+            ONLY_ACTIVE_ARCH = "YES";
+            OTHER_SWIFT_FLAGS = (
+               "$(inherited)",
+               "-DXcode"
+            );
+            PRODUCT_NAME = "$(TARGET_NAME)";
+            SDKROOT = "macosx";
+            SUPPORTED_PLATFORMS = (
+               "$(AVAILABLE_PLATFORMS)"
+            );
+            SUPPORTS_MACCATALYST = "YES";
+            SWIFT_ACTIVE_COMPILATION_CONDITIONS = (
+               "$(inherited)",
+               "SWIFT_PACKAGE",
+               "DEBUG"
+            );
+            SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+            USE_HEADERMAP = "NO";
+         };
+         name = "Debug";
+      };
+      "OBJ_30" = {
+         isa = "PBXFileReference";
+         path = "BaseIconCircleView.swift";
+         sourceTree = "<group>";
+      };
+      "OBJ_300" = {
+         isa = "PBXBuildFile";
+         fileRef = "OBJ_140";
+      };
+      "OBJ_301" = {
+         isa = "PBXBuildFile";
+         fileRef = "OBJ_141";
+      };
+      "OBJ_302" = {
+         isa = "PBXBuildFile";
+         fileRef = "OBJ_142";
+      };
+      "OBJ_303" = {
+         isa = "PBXBuildFile";
+         fileRef = "OBJ_143";
+      };
+      "OBJ_304" = {
+         isa = "PBXBuildFile";
+         fileRef = "OBJ_144";
+      };
+      "OBJ_305" = {
+         isa = "PBXBuildFile";
+         fileRef = "OBJ_145";
+      };
+      "OBJ_306" = {
+         isa = "PBXBuildFile";
+         fileRef = "OBJ_146";
+      };
+      "OBJ_307" = {
+         isa = "PBXBuildFile";
+         fileRef = "OBJ_147";
+      };
+      "OBJ_308" = {
+         isa = "PBXBuildFile";
+         fileRef = "OBJ_149";
+      };
+      "OBJ_309" = {
+         isa = "PBXBuildFile";
+         fileRef = "OBJ_151";
+      };
+      "OBJ_31" = {
+         isa = "PBXFileReference";
+         path = "BaseInsetLabel.swift";
+         sourceTree = "<group>";
+      };
+      "OBJ_310" = {
+         isa = "PBXBuildFile";
+         fileRef = "OBJ_152";
+      };
+      "OBJ_311" = {
+         isa = "PBXBuildFile";
+         fileRef = "OBJ_153";
+      };
+      "OBJ_312" = {
+         isa = "PBXBuildFile";
+         fileRef = "OBJ_154";
+      };
+      "OBJ_313" = {
+         isa = "PBXBuildFile";
+         fileRef = "OBJ_157";
+      };
+      "OBJ_314" = {
+         isa = "PBXBuildFile";
+         fileRef = "OBJ_158";
+      };
+      "OBJ_315" = {
+         isa = "PBXBuildFile";
+         fileRef = "OBJ_159";
+      };
+      "OBJ_316" = {
+         isa = "PBXBuildFile";
+         fileRef = "OBJ_161";
+      };
+      "OBJ_317" = {
+         isa = "PBXBuildFile";
+         fileRef = "OBJ_163";
+      };
+      "OBJ_318" = {
+         isa = "PBXBuildFile";
+         fileRef = "OBJ_165";
+      };
+      "OBJ_319" = {
+         isa = "PBXBuildFile";
+         fileRef = "OBJ_166";
+      };
+      "OBJ_32" = {
+         isa = "PBXFileReference";
+         path = "BaseLabelIconHorizontalView.swift";
+         sourceTree = "<group>";
+      };
+      "OBJ_320" = {
+         isa = "PBXBuildFile";
+         fileRef = "OBJ_167";
+      };
+      "OBJ_321" = {
+         isa = "PBXBuildFile";
+         fileRef = "OBJ_168";
+      };
+      "OBJ_322" = {
+         isa = "PBXBuildFile";
+         fileRef = "OBJ_169";
+      };
+      "OBJ_323" = {
+         isa = "PBXBuildFile";
+         fileRef = "OBJ_170";
+      };
+      "OBJ_324" = {
+         isa = "PBXBuildFile";
+         fileRef = "OBJ_171";
+      };
+      "OBJ_325" = {
+         isa = "PBXBuildFile";
+         fileRef = "OBJ_172";
+      };
+      "OBJ_326" = {
+         isa = "PBXBuildFile";
+         fileRef = "OBJ_173";
+      };
+      "OBJ_327" = {
+         isa = "PBXFrameworksBuildPhase";
+         files = (
+         );
+      };
+      "OBJ_329" = {
+         isa = "XCConfigurationList";
+         buildConfigurations = (
+            "OBJ_330",
+            "OBJ_331"
+         );
+         defaultConfigurationIsVisible = "0";
+         defaultConfigurationName = "Release";
+      };
+      "OBJ_33" = {
+         isa = "PBXFileReference";
+         path = "BaseLabelTextViewByVerticalView.swift";
+         sourceTree = "<group>";
+      };
+      "OBJ_330" = {
+         isa = "XCBuildConfiguration";
+         buildSettings = {
+            LD = "/usr/bin/true";
+            OTHER_SWIFT_FLAGS = (
+               "-swift-version",
+               "5",
+               "-I",
+               "$(TOOLCHAIN_DIR)/usr/lib/swift/pm/ManifestAPI",
+               "-sdk",
+               "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX12.3.sdk",
+               "-package-description-version",
+               "5.6.0"
+            );
+            SWIFT_VERSION = "5.0";
+         };
+         name = "Debug";
+      };
+      "OBJ_331" = {
+         isa = "XCBuildConfiguration";
+         buildSettings = {
+            LD = "/usr/bin/true";
+            OTHER_SWIFT_FLAGS = (
+               "-swift-version",
+               "5",
+               "-I",
+               "$(TOOLCHAIN_DIR)/usr/lib/swift/pm/ManifestAPI",
+               "-sdk",
+               "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX12.3.sdk",
+               "-package-description-version",
+               "5.6.0"
+            );
+            SWIFT_VERSION = "5.0";
+         };
+         name = "Release";
+      };
+      "OBJ_332" = {
+         isa = "PBXSourcesBuildPhase";
+         files = (
+            "OBJ_333"
+         );
+      };
+      "OBJ_333" = {
+         isa = "PBXBuildFile";
+         fileRef = "OBJ_6";
+      };
+      "OBJ_34" = {
+         isa = "PBXFileReference";
+         path = "BaseLableWithButtonView.swift";
+         sourceTree = "<group>";
+      };
+      "OBJ_35" = {
+         isa = "PBXFileReference";
+         path = "BaseLinePinView.swift";
+         sourceTree = "<group>";
+      };
+      "OBJ_36" = {
+         isa = "PBXFileReference";
+         path = "BaseLinePinsView.swift";
+         sourceTree = "<group>";
+      };
+      "OBJ_37" = {
+         isa = "PBXFileReference";
+         path = "BaseNewSegmentedControl.swift";
+         sourceTree = "<group>";
+      };
+      "OBJ_38" = {
+         isa = "PBXFileReference";
+         path = "BasePaddingGenericView.swift";
+         sourceTree = "<group>";
+      };
+      "OBJ_39" = {
+         isa = "PBXFileReference";
+         path = "BasePanelButtonView.swift";
+         sourceTree = "<group>";
+      };
+      "OBJ_4" = {
+         isa = "XCBuildConfiguration";
+         buildSettings = {
+            CLANG_ENABLE_OBJC_ARC = "YES";
+            COMBINE_HIDPI_IMAGES = "YES";
+            COPY_PHASE_STRIP = "YES";
+            DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+            DYLIB_INSTALL_NAME_BASE = "@rpath";
+            GCC_OPTIMIZATION_LEVEL = "s";
+            GCC_PREPROCESSOR_DEFINITIONS = (
+               "$(inherited)",
+               "SWIFT_PACKAGE=1"
+            );
+            MACOSX_DEPLOYMENT_TARGET = "10.10";
+            OTHER_SWIFT_FLAGS = (
+               "$(inherited)",
+               "-DXcode"
+            );
+            PRODUCT_NAME = "$(TARGET_NAME)";
+            SDKROOT = "macosx";
+            SUPPORTED_PLATFORMS = (
+               "$(AVAILABLE_PLATFORMS)"
+            );
+            SUPPORTS_MACCATALYST = "YES";
+            SWIFT_ACTIVE_COMPILATION_CONDITIONS = (
+               "$(inherited)",
+               "SWIFT_PACKAGE"
+            );
+            SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
+            USE_HEADERMAP = "NO";
+         };
+         name = "Release";
+      };
+      "OBJ_40" = {
+         isa = "PBXFileReference";
+         path = "BasePanelViewUIStackView.swift";
+         sourceTree = "<group>";
+      };
+      "OBJ_41" = {
+         isa = "PBXFileReference";
+         path = "BasePasswordUITextField.swift";
+         sourceTree = "<group>";
+      };
+      "OBJ_42" = {
+         isa = "PBXFileReference";
+         path = "BaseRadioButtonView.swift";
+         sourceTree = "<group>";
+      };
+      "OBJ_43" = {
+         isa = "PBXFileReference";
+         path = "BaseScrollHorizontalUIStackView.swift";
+         sourceTree = "<group>";
+      };
+      "OBJ_44" = {
+         isa = "PBXFileReference";
+         path = "BaseScrollPanelView.swift";
+         sourceTree = "<group>";
+      };
+      "OBJ_45" = {
+         isa = "PBXFileReference";
+         path = "BaseScrollUIStackView.swift";
+         sourceTree = "<group>";
+      };
+      "OBJ_46" = {
+         isa = "PBXFileReference";
+         path = "BaseSearchView.swift";
+         sourceTree = "<group>";
+      };
+      "OBJ_47" = {
+         isa = "PBXFileReference";
+         path = "BaseShadowPanelView.swift";
+         sourceTree = "<group>";
+      };
+      "OBJ_48" = {
+         isa = "PBXFileReference";
+         path = "BaseSkeletonMarkView.swift";
+         sourceTree = "<group>";
+      };
+      "OBJ_49" = {
+         isa = "PBXFileReference";
+         path = "BaseSquarePinView.swift";
+         sourceTree = "<group>";
+      };
+      "OBJ_5" = {
+         isa = "PBXGroup";
+         children = (
+            "OBJ_6",
+            "OBJ_7",
+            "OBJ_174",
+            "OBJ_175",
+            "OBJ_177",
+            "OBJ_178",
+            "OBJ_179",
+            "OBJ_180"
+         );
+         path = "";
+         sourceTree = "<group>";
+      };
+      "OBJ_50" = {
+         isa = "PBXFileReference";
+         path = "BaseSquarePinsView.swift";
+         sourceTree = "<group>";
+      };
+      "OBJ_51" = {
+         isa = "PBXFileReference";
+         path = "BaseStackPanelView.swift";
+         sourceTree = "<group>";
+      };
+      "OBJ_52" = {
+         isa = "PBXFileReference";
+         path = "BaseStackShadowPanelView.swift";
+         sourceTree = "<group>";
+      };
+      "OBJ_53" = {
+         isa = "PBXFileReference";
+         path = "BaseTextViewWithPlaceHolderView.swift";
+         sourceTree = "<group>";
+      };
+      "OBJ_54" = {
+         isa = "PBXFileReference";
+         path = "BaseTitlePanelView.swift";
+         sourceTree = "<group>";
+      };
+      "OBJ_55" = {
+         isa = "PBXFileReference";
+         path = "BaseTwoStackButtonView.swift";
+         sourceTree = "<group>";
+      };
+      "OBJ_56" = {
+         isa = "PBXFileReference";
+         path = "BaseUIButton.swift";
+         sourceTree = "<group>";
+      };
+      "OBJ_57" = {
+         isa = "PBXFileReference";
+         path = "BaseUICollectionView.swift";
+         sourceTree = "<group>";
+      };
+      "OBJ_58" = {
+         isa = "PBXFileReference";
+         path = "BaseUICricleView.swift";
+         sourceTree = "<group>";
+      };
+      "OBJ_59" = {
+         isa = "PBXFileReference";
+         path = "BaseUIImageFontView.swift";
+         sourceTree = "<group>";
+      };
+      "OBJ_6" = {
+         isa = "PBXFileReference";
+         explicitFileType = "sourcecode.swift";
+         path = "Package.swift";
+         sourceTree = "<group>";
+      };
+      "OBJ_60" = {
+         isa = "PBXFileReference";
+         path = "BaseUIImageView.swift";
+         sourceTree = "<group>";
+      };
+      "OBJ_61" = {
+         isa = "PBXFileReference";
+         path = "BaseUILabel.swift";
+         sourceTree = "<group>";
+      };
+      "OBJ_62" = {
+         isa = "PBXFileReference";
+         path = "BaseUINavigationView.swift";
+         sourceTree = "<group>";
+      };
+      "OBJ_63" = {
+         isa = "PBXFileReference";
+         path = "BaseUIProgressView.swift";
+         sourceTree = "<group>";
+      };
+      "OBJ_64" = {
+         isa = "PBXFileReference";
+         path = "BaseUISearchBar.swift";
+         sourceTree = "<group>";
+      };
+      "OBJ_65" = {
+         isa = "PBXFileReference";
+         path = "BaseUISegmentedControl.swift";
+         sourceTree = "<group>";
+      };
+      "OBJ_66" = {
+         isa = "PBXFileReference";
+         path = "BaseUIStackView.swift";
+         sourceTree = "<group>";
+      };
+      "OBJ_67" = {
+         isa = "PBXFileReference";
+         path = "BaseUITableView.swift";
+         sourceTree = "<group>";
+      };
+      "OBJ_68" = {
+         isa = "PBXFileReference";
+         path = "BaseUITextField.swift";
+         sourceTree = "<group>";
+      };
+      "OBJ_69" = {
+         isa = "PBXFileReference";
+         path = "BaseUITextView.swift";
+         sourceTree = "<group>";
+      };
+      "OBJ_7" = {
+         isa = "PBXGroup";
+         children = (
+            "OBJ_8",
+            "OBJ_9",
+            "OBJ_10",
+            "OBJ_19",
+            "OBJ_21",
+            "OBJ_136",
+            "OBJ_147",
+            "OBJ_148"
+         );
+         name = "Sources";
+         path = "Sources";
+         sourceTree = "SOURCE_ROOT";
+      };
+      "OBJ_70" = {
+         isa = "PBXFileReference";
+         path = "BaseUIView.swift";
+         sourceTree = "<group>";
+      };
+      "OBJ_71" = {
+         isa = "PBXFileReference";
+         path = "BaseWKWebView.swift";
+         sourceTree = "<group>";
+      };
+      "OBJ_72" = {
+         isa = "PBXFileReference";
+         path = "ButtonsPanelStackView.swift";
+         sourceTree = "<group>";
+      };
+      "OBJ_73" = {
+         isa = "PBXGroup";
+         children = (
+            "OBJ_74",
+            "OBJ_75",
+            "OBJ_76"
+         );
+         name = "CellColectionView";
+         path = "CellColectionView";
+         sourceTree = "<group>";
+      };
+      "OBJ_74" = {
+         isa = "PBXFileReference";
+         path = "BaseShadowCollectionViewCell.swift";
+         sourceTree = "<group>";
+      };
+      "OBJ_75" = {
+         isa = "PBXFileReference";
+         path = "BaseUICollectionViewCell.swift";
+         sourceTree = "<group>";
+      };
+      "OBJ_76" = {
+         isa = "PBXFileReference";
+         path = "SlideImageCollectionViewCell.swift";
+         sourceTree = "<group>";
+      };
+      "OBJ_77" = {
+         isa = "PBXGroup";
+         children = (
+            "OBJ_78",
+            "OBJ_79",
+            "OBJ_80",
+            "OBJ_81",
+            "OBJ_82",
+            "OBJ_83"
+         );
+         name = "CellHeaderFooterTableView";
+         path = "CellHeaderFooterTableView";
+         sourceTree = "<group>";
+      };
+      "OBJ_78" = {
+         isa = "PBXFileReference";
+         path = "BaseUITableViewHeaderFooterView.swift";
+         sourceTree = "<group>";
+      };
+      "OBJ_79" = {
+         isa = "PBXFileReference";
+         path = "LineTableHeaderFooterViewCell.swift";
+         sourceTree = "<group>";
+      };
+      "OBJ_8" = {
+         isa = "PBXFileReference";
+         path = "TTBaseUIKit.h";
+         sourceTree = "<group>";
+      };
+      "OBJ_80" = {
+         isa = "PBXFileReference";
+         path = "SpaceTableHeaderViewCell.swift";
+         sourceTree = "<group>";
+      };
+      "OBJ_81" = {
+         isa = "PBXFileReference";
+         path = "TextLeftRightTableHeaderFooterViewCell.swift";
+         sourceTree = "<group>";
+      };
+      "OBJ_82" = {
+         isa = "PBXFileReference";
+         path = "TextSubTextTableHeaderFooterViewCell.swift";
+         sourceTree = "<group>";
+      };
+      "OBJ_83" = {
+         isa = "PBXFileReference";
+         path = "TextTableHeaderFooterViewCell.swift";
+         sourceTree = "<group>";
+      };
+      "OBJ_84" = {
+         isa = "PBXGroup";
+         children = (
+            "OBJ_85",
+            "OBJ_86",
+            "OBJ_87",
+            "OBJ_88",
+            "OBJ_89",
+            "OBJ_90",
+            "OBJ_91"
+         );
+         name = "CellTableView";
+         path = "CellTableView";
+         sourceTree = "<group>";
+      };
+      "OBJ_85" = {
+         isa = "PBXFileReference";
+         path = "BaseShadowTableViewCell.swift";
+         sourceTree = "<group>";
+      };
+      "OBJ_86" = {
+         isa = "PBXFileReference";
+         path = "BaseTextSubtextHorTableViewCell.swift";
+         sourceTree = "<group>";
+      };
+      "OBJ_87" = {
+         isa = "PBXFileReference";
+         path = "BaseUITableViewCell.swift";
+         sourceTree = "<group>";
+      };
+      "OBJ_88" = {
+         isa = "PBXFileReference";
+         path = "IconTextSubtextTableViewCell.swift";
+         sourceTree = "<group>";
+      };
+      "OBJ_89" = {
+         isa = "PBXFileReference";
+         path = "IconTextSubtextTextSubTextRightTableViewCell.swift";
+         sourceTree = "<group>";
+      };
+      "OBJ_9" = {
+         isa = "PBXFileReference";
+         path = "Info.plist";
+         sourceTree = "<group>";
+      };
+      "OBJ_90" = {
+         isa = "PBXFileReference";
+         path = "TextIconTableViewCell.swift";
+         sourceTree = "<group>";
+      };
+      "OBJ_91" = {
+         isa = "PBXFileReference";
+         path = "TextSubtextIconTableViewCell.swift";
+         sourceTree = "<group>";
+      };
+      "OBJ_92" = {
+         isa = "PBXGroup";
+         children = (
+            "OBJ_93",
+            "OBJ_94"
+         );
+         name = "DatePicker";
+         path = "DatePicker";
+         sourceTree = "<group>";
+      };
+      "OBJ_93" = {
+         isa = "PBXFileReference";
+         path = "BaseDatePicker.swift";
+         sourceTree = "<group>";
+      };
+      "OBJ_94" = {
+         isa = "PBXFileReference";
+         path = "BaseMonthYearPicker.swift";
+         sourceTree = "<group>";
+      };
+      "OBJ_95" = {
+         isa = "PBXFileReference";
+         path = "DismissView.swift";
+         sourceTree = "<group>";
+      };
+      "OBJ_96" = {
+         isa = "PBXGroup";
+         children = (
+            "OBJ_97",
+            "OBJ_98"
+         );
+         name = "NotificationView";
+         path = "NotificationView";
+         sourceTree = "<group>";
+      };
+      "OBJ_97" = {
+         isa = "PBXFileReference";
+         path = "BaseNotificationView.swift";
+         sourceTree = "<group>";
+      };
+      "OBJ_98" = {
+         isa = "PBXFileReference";
+         path = "BaseNotificationViewConfig.swift";
+         sourceTree = "<group>";
+      };
+      "OBJ_99" = {
+         isa = "PBXGroup";
+         children = (
+            "OBJ_100",
+            "OBJ_101"
+         );
+         name = "PopupView";
+         path = "PopupView";
+         sourceTree = "<group>";
+      };
+      "ttbaseuikit::SwiftPMPackageDescription" = {
+         isa = "PBXNativeTarget";
+         buildConfigurationList = "OBJ_329";
+         buildPhases = (
+            "OBJ_332"
+         );
+         dependencies = (
+         );
+         name = "TTBaseUIKitPackageDescription";
+         productName = "TTBaseUIKitPackageDescription";
+         productType = "com.apple.product-type.framework";
+      };
+      "ttbaseuikit::TTBaseUIKit" = {
+         isa = "PBXNativeTarget";
+         buildConfigurationList = "OBJ_182";
+         buildPhases = (
+            "OBJ_185",
+            "OBJ_327"
+         );
+         dependencies = (
+         );
+         name = "TTBaseUIKit";
+         productName = "TTBaseUIKit";
+         productReference = "ttbaseuikit::TTBaseUIKit::Product";
+         productType = "com.apple.product-type.framework";
+      };
+      "ttbaseuikit::TTBaseUIKit::Product" = {
+         isa = "PBXFileReference";
+         path = "TTBaseUIKit.framework";
+         sourceTree = "BUILT_PRODUCTS_DIR";
+      };
+   };
+   rootObject = "OBJ_1";
 }
