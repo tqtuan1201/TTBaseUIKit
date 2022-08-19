@@ -1,0 +1,224 @@
+version: "Apple Swift version 5.6.1 (swiftlang-5.6.0.323.66 clang-1316.0.20.12)"
+options: "541d44efb766fda55173f20c22bb6a7390ab2fbdd6a5c4711386407e9b750feb"
+build_start_time: [1660904015, 685796022]
+build_end_time: [1660904018, 532075881]
+inputs:
+  "/Users/Shared/STORE/S.JOB/J.PROJECT/P.BUILD_LIB/TTBaseUIKit/TTBaseUIKit/TTBaseUIKit/BaseConfig/BaseConfigRepresentable.swift": !dirty [1660902273, 569480419]
+  "/Users/Shared/STORE/S.JOB/J.PROJECT/P.BUILD_LIB/TTBaseUIKit/TTBaseUIKit/TTBaseUIKit/BaseConfig/Configuration.swift": !dirty [1660895616, 232645988]
+  "/Users/Shared/STORE/S.JOB/J.PROJECT/P.BUILD_LIB/TTBaseUIKit/TTBaseUIKit/TTBaseUIKit/BaseConfig/Constant.swift": !dirty [1660902273, 570063114]
+  "/Users/Shared/STORE/S.JOB/J.PROJECT/P.BUILD_LIB/TTBaseUIKit/TTBaseUIKit/TTBaseUIKit/BaseConfig/FontConfig.swift": !dirty [1660902273, 570575237]
+  "/Users/Shared/STORE/S.JOB/J.PROJECT/P.BUILD_LIB/TTBaseUIKit/TTBaseUIKit/TTBaseUIKit/BaseConfig/SizeConfig.swift": !dirty [1660902273, 570926189]
+  "/Users/Shared/STORE/S.JOB/J.PROJECT/P.BUILD_LIB/TTBaseUIKit/TTBaseUIKit/TTBaseUIKit/BaseConfig/StyleConfig.swift": !dirty [1660902273, 571237325]
+  "/Users/Shared/STORE/S.JOB/J.PROJECT/P.BUILD_LIB/TTBaseUIKit/TTBaseUIKit/TTBaseUIKit/BaseConfig/ValueConfig.swift": !dirty [1660895616, 233939647]
+  "/Users/Shared/STORE/S.JOB/J.PROJECT/P.BUILD_LIB/TTBaseUIKit/TTBaseUIKit/TTBaseUIKit/BaseConfig/ViewConfig.swift": !dirty [1660902273, 571470737]
+  "/Users/Shared/STORE/S.JOB/J.PROJECT/P.BUILD_LIB/TTBaseUIKit/TTBaseUIKit/TTBaseUIKit/Coordinators/Coordinator.swift": !dirty [1660895616, 234332084]
+  ? "/Users/Shared/STORE/S.JOB/J.PROJECT/P.BUILD_LIB/TTBaseUIKit/TTBaseUIKit/TTBaseUIKit/CustomView/BaseUIView/BaBaseGradientUIImageView.swift"
+  : !dirty [1660902273, 571739435]
+  ? "/Users/Shared/STORE/S.JOB/J.PROJECT/P.BUILD_LIB/TTBaseUIKit/TTBaseUIKit/TTBaseUIKit/CustomView/BaseUIView/BaseBadgeInsetLabel.swift"
+  : !dirty [1660902273, 572094440]
+  "/Users/Shared/STORE/S.JOB/J.PROJECT/P.BUILD_LIB/TTBaseUIKit/TTBaseUIKit/TTBaseUIKit/CustomView/BaseUIView/BaseButtonBadge.swift": !dirty [1660895616, 235279321]
+  "/Users/Shared/STORE/S.JOB/J.PROJECT/P.BUILD_LIB/TTBaseUIKit/TTBaseUIKit/TTBaseUIKit/CustomView/BaseUIView/BaseCircleLabel.swift": !dirty [1660895616, 235780239]
+  ? "/Users/Shared/STORE/S.JOB/J.PROJECT/P.BUILD_LIB/TTBaseUIKit/TTBaseUIKit/TTBaseUIKit/CustomView/BaseUIView/BaseCustomViewRepresentable.swift"
+  : !dirty [1660895616, 236305236]
+  ? "/Users/Shared/STORE/S.JOB/J.PROJECT/P.BUILD_LIB/TTBaseUIKit/TTBaseUIKit/TTBaseUIKit/CustomView/BaseUIView/BaseDropdownCustomView.swift"
+  : !dirty [1660895616, 236820220]
+  "/Users/Shared/STORE/S.JOB/J.PROJECT/P.BUILD_LIB/TTBaseUIKit/TTBaseUIKit/TTBaseUIKit/CustomView/BaseUIView/BaseHeaderView.swift": !dirty [1660895616, 237151145]
+  ? "/Users/Shared/STORE/S.JOB/J.PROJECT/P.BUILD_LIB/TTBaseUIKit/TTBaseUIKit/TTBaseUIKit/CustomView/BaseUIView/BaseIconCircleView.swift"
+  : !dirty [1660895616, 237465858]
+  "/Users/Shared/STORE/S.JOB/J.PROJECT/P.BUILD_LIB/TTBaseUIKit/TTBaseUIKit/TTBaseUIKit/CustomView/BaseUIView/BaseInsetLabel.swift": !dirty [1660895616, 237792491]
+  ? "/Users/Shared/STORE/S.JOB/J.PROJECT/P.BUILD_LIB/TTBaseUIKit/TTBaseUIKit/TTBaseUIKit/CustomView/BaseUIView/BaseLabelIconHorizontalView.swift"
+  : !dirty [1660895616, 237973451]
+  ? "/Users/Shared/STORE/S.JOB/J.PROJECT/P.BUILD_LIB/TTBaseUIKit/TTBaseUIKit/TTBaseUIKit/CustomView/BaseUIView/BaseLabelTextViewByVerticalView.swift"
+  : !dirty [1660895616, 238153934]
+  ? "/Users/Shared/STORE/S.JOB/J.PROJECT/P.BUILD_LIB/TTBaseUIKit/TTBaseUIKit/TTBaseUIKit/CustomView/BaseUIView/BaseLableWithButtonView.swift"
+  : !dirty [1660895616, 238349914]
+  "/Users/Shared/STORE/S.JOB/J.PROJECT/P.BUILD_LIB/TTBaseUIKit/TTBaseUIKit/TTBaseUIKit/CustomView/BaseUIView/BaseLinePinView.swift": !dirty [1660895616, 238592624]
+  "/Users/Shared/STORE/S.JOB/J.PROJECT/P.BUILD_LIB/TTBaseUIKit/TTBaseUIKit/TTBaseUIKit/CustomView/BaseUIView/BaseLinePinsView.swift": !dirty [1660895616, 238821744]
+  ? "/Users/Shared/STORE/S.JOB/J.PROJECT/P.BUILD_LIB/TTBaseUIKit/TTBaseUIKit/TTBaseUIKit/CustomView/BaseUIView/BaseNewSegmentedControl.swift"
+  : !dirty [1660895616, 239008426]
+  ? "/Users/Shared/STORE/S.JOB/J.PROJECT/P.BUILD_LIB/TTBaseUIKit/TTBaseUIKit/TTBaseUIKit/CustomView/BaseUIView/BasePaddingGenericView.swift"
+  : !dirty [1660895616, 239179611]
+  ? "/Users/Shared/STORE/S.JOB/J.PROJECT/P.BUILD_LIB/TTBaseUIKit/TTBaseUIKit/TTBaseUIKit/CustomView/BaseUIView/BasePanelButtonView.swift"
+  : !dirty [1660895616, 239361524]
+  ? "/Users/Shared/STORE/S.JOB/J.PROJECT/P.BUILD_LIB/TTBaseUIKit/TTBaseUIKit/TTBaseUIKit/CustomView/BaseUIView/BasePanelViewUIStackView.swift"
+  : !dirty [1660895616, 239613056]
+  ? "/Users/Shared/STORE/S.JOB/J.PROJECT/P.BUILD_LIB/TTBaseUIKit/TTBaseUIKit/TTBaseUIKit/CustomView/BaseUIView/BasePasswordUITextField.swift"
+  : !dirty [1660895616, 239812612]
+  ? "/Users/Shared/STORE/S.JOB/J.PROJECT/P.BUILD_LIB/TTBaseUIKit/TTBaseUIKit/TTBaseUIKit/CustomView/BaseUIView/BaseRadioButtonView.swift"
+  : !dirty [1660895616, 240094184]
+  ? "/Users/Shared/STORE/S.JOB/J.PROJECT/P.BUILD_LIB/TTBaseUIKit/TTBaseUIKit/TTBaseUIKit/CustomView/BaseUIView/BaseScrollHorizontalUIStackView.swift"
+  : !dirty [1660895616, 240431308]
+  ? "/Users/Shared/STORE/S.JOB/J.PROJECT/P.BUILD_LIB/TTBaseUIKit/TTBaseUIKit/TTBaseUIKit/CustomView/BaseUIView/BaseScrollPanelView.swift"
+  : !dirty [1660895616, 240731239]
+  ? "/Users/Shared/STORE/S.JOB/J.PROJECT/P.BUILD_LIB/TTBaseUIKit/TTBaseUIKit/TTBaseUIKit/CustomView/BaseUIView/BaseScrollUIStackView.swift"
+  : !dirty [1660895616, 241304636]
+  "/Users/Shared/STORE/S.JOB/J.PROJECT/P.BUILD_LIB/TTBaseUIKit/TTBaseUIKit/TTBaseUIKit/CustomView/BaseUIView/BaseSearchView.swift": !dirty [1660895616, 241747617]
+  ? "/Users/Shared/STORE/S.JOB/J.PROJECT/P.BUILD_LIB/TTBaseUIKit/TTBaseUIKit/TTBaseUIKit/CustomView/BaseUIView/BaseShadowPanelView.swift"
+  : !dirty [1660895616, 242089271]
+  ? "/Users/Shared/STORE/S.JOB/J.PROJECT/P.BUILD_LIB/TTBaseUIKit/TTBaseUIKit/TTBaseUIKit/CustomView/BaseUIView/BaseSkeletonMarkView.swift"
+  : !dirty [1660895616, 242556095]
+  ? "/Users/Shared/STORE/S.JOB/J.PROJECT/P.BUILD_LIB/TTBaseUIKit/TTBaseUIKit/TTBaseUIKit/CustomView/BaseUIView/BaseSquarePinView.swift"
+  : !dirty [1660895616, 242790222]
+  ? "/Users/Shared/STORE/S.JOB/J.PROJECT/P.BUILD_LIB/TTBaseUIKit/TTBaseUIKit/TTBaseUIKit/CustomView/BaseUIView/BaseSquarePinsView.swift"
+  : !dirty [1660895616, 243145465]
+  ? "/Users/Shared/STORE/S.JOB/J.PROJECT/P.BUILD_LIB/TTBaseUIKit/TTBaseUIKit/TTBaseUIKit/CustomView/BaseUIView/BaseStackPanelView.swift"
+  : !dirty [1660895616, 243479251]
+  ? "/Users/Shared/STORE/S.JOB/J.PROJECT/P.BUILD_LIB/TTBaseUIKit/TTBaseUIKit/TTBaseUIKit/CustomView/BaseUIView/BaseStackShadowPanelView.swift"
+  : !dirty [1660895616, 243782520]
+  ? "/Users/Shared/STORE/S.JOB/J.PROJECT/P.BUILD_LIB/TTBaseUIKit/TTBaseUIKit/TTBaseUIKit/CustomView/BaseUIView/BaseTextViewWithPlaceHolderView.swift"
+  : !dirty [1660895616, 244125127]
+  ? "/Users/Shared/STORE/S.JOB/J.PROJECT/P.BUILD_LIB/TTBaseUIKit/TTBaseUIKit/TTBaseUIKit/CustomView/BaseUIView/BaseTitlePanelView.swift"
+  : !dirty [1660895616, 244435548]
+  ? "/Users/Shared/STORE/S.JOB/J.PROJECT/P.BUILD_LIB/TTBaseUIKit/TTBaseUIKit/TTBaseUIKit/CustomView/BaseUIView/BaseTwoStackButtonView.swift"
+  : !dirty [1660895616, 244689941]
+  "/Users/Shared/STORE/S.JOB/J.PROJECT/P.BUILD_LIB/TTBaseUIKit/TTBaseUIKit/TTBaseUIKit/CustomView/BaseUIView/BaseUIButton.swift": !dirty [1660895616, 245006561]
+  ? "/Users/Shared/STORE/S.JOB/J.PROJECT/P.BUILD_LIB/TTBaseUIKit/TTBaseUIKit/TTBaseUIKit/CustomView/BaseUIView/BaseUICollectionView.swift"
+  : !dirty [1660895616, 245252609]
+  "/Users/Shared/STORE/S.JOB/J.PROJECT/P.BUILD_LIB/TTBaseUIKit/TTBaseUIKit/TTBaseUIKit/CustomView/BaseUIView/BaseUICricleView.swift": !dirty [1660895616, 245524883]
+  ? "/Users/Shared/STORE/S.JOB/J.PROJECT/P.BUILD_LIB/TTBaseUIKit/TTBaseUIKit/TTBaseUIKit/CustomView/BaseUIView/BaseUIImageFontView.swift"
+  : !dirty [1660895616, 245778083]
+  "/Users/Shared/STORE/S.JOB/J.PROJECT/P.BUILD_LIB/TTBaseUIKit/TTBaseUIKit/TTBaseUIKit/CustomView/BaseUIView/BaseUIImageView.swift": !dirty [1660895616, 246154308]
+  "/Users/Shared/STORE/S.JOB/J.PROJECT/P.BUILD_LIB/TTBaseUIKit/TTBaseUIKit/TTBaseUIKit/CustomView/BaseUIView/BaseUILabel.swift": !dirty [1660895616, 246570587]
+  ? "/Users/Shared/STORE/S.JOB/J.PROJECT/P.BUILD_LIB/TTBaseUIKit/TTBaseUIKit/TTBaseUIKit/CustomView/BaseUIView/BaseUINavigationView.swift"
+  : !dirty [1660895616, 246904850]
+  ? "/Users/Shared/STORE/S.JOB/J.PROJECT/P.BUILD_LIB/TTBaseUIKit/TTBaseUIKit/TTBaseUIKit/CustomView/BaseUIView/BaseUIProgressView.swift"
+  : !dirty [1660895616, 247241258]
+  "/Users/Shared/STORE/S.JOB/J.PROJECT/P.BUILD_LIB/TTBaseUIKit/TTBaseUIKit/TTBaseUIKit/CustomView/BaseUIView/BaseUISearchBar.swift": !dirty [1660895616, 247631549]
+  ? "/Users/Shared/STORE/S.JOB/J.PROJECT/P.BUILD_LIB/TTBaseUIKit/TTBaseUIKit/TTBaseUIKit/CustomView/BaseUIView/BaseUISegmentedControl.swift"
+  : !dirty [1660895616, 248001813]
+  "/Users/Shared/STORE/S.JOB/J.PROJECT/P.BUILD_LIB/TTBaseUIKit/TTBaseUIKit/TTBaseUIKit/CustomView/BaseUIView/BaseUIStackView.swift": !dirty [1660895616, 248370647]
+  "/Users/Shared/STORE/S.JOB/J.PROJECT/P.BUILD_LIB/TTBaseUIKit/TTBaseUIKit/TTBaseUIKit/CustomView/BaseUIView/BaseUITableView.swift": !dirty [1660895616, 248716592]
+  "/Users/Shared/STORE/S.JOB/J.PROJECT/P.BUILD_LIB/TTBaseUIKit/TTBaseUIKit/TTBaseUIKit/CustomView/BaseUIView/BaseUITextField.swift": !dirty [1660895616, 249151706]
+  "/Users/Shared/STORE/S.JOB/J.PROJECT/P.BUILD_LIB/TTBaseUIKit/TTBaseUIKit/TTBaseUIKit/CustomView/BaseUIView/BaseUITextView.swift": !dirty [1660895616, 249606609]
+  "/Users/Shared/STORE/S.JOB/J.PROJECT/P.BUILD_LIB/TTBaseUIKit/TTBaseUIKit/TTBaseUIKit/CustomView/BaseUIView/BaseUIView.swift": !dirty [1660895616, 249937534]
+  "/Users/Shared/STORE/S.JOB/J.PROJECT/P.BUILD_LIB/TTBaseUIKit/TTBaseUIKit/TTBaseUIKit/CustomView/BaseUIView/BaseWKWebView.swift": !dirty [1660902459, 108602046]
+  ? "/Users/Shared/STORE/S.JOB/J.PROJECT/P.BUILD_LIB/TTBaseUIKit/TTBaseUIKit/TTBaseUIKit/CustomView/BaseUIView/ButtonsPanelStackView.swift"
+  : !dirty [1660895616, 250660419]
+  ? "/Users/Shared/STORE/S.JOB/J.PROJECT/P.BUILD_LIB/TTBaseUIKit/TTBaseUIKit/TTBaseUIKit/CustomView/BaseUIView/CellColectionView/BaseShadowCollectionViewCell.swift"
+  : !dirty [1660895616, 251087188]
+  ? "/Users/Shared/STORE/S.JOB/J.PROJECT/P.BUILD_LIB/TTBaseUIKit/TTBaseUIKit/TTBaseUIKit/CustomView/BaseUIView/CellColectionView/BaseUICollectionViewCell.swift"
+  : !dirty [1660895616, 251415967]
+  ? "/Users/Shared/STORE/S.JOB/J.PROJECT/P.BUILD_LIB/TTBaseUIKit/TTBaseUIKit/TTBaseUIKit/CustomView/BaseUIView/CellColectionView/SlideImageCollectionViewCell.swift"
+  : !dirty [1660895616, 251844882]
+  ? "/Users/Shared/STORE/S.JOB/J.PROJECT/P.BUILD_LIB/TTBaseUIKit/TTBaseUIKit/TTBaseUIKit/CustomView/BaseUIView/CellHeaderFooterTableView/BaseUITableViewHeaderFooterView.swift"
+  : !dirty [1660895616, 252353668]
+  ? "/Users/Shared/STORE/S.JOB/J.PROJECT/P.BUILD_LIB/TTBaseUIKit/TTBaseUIKit/TTBaseUIKit/CustomView/BaseUIView/CellHeaderFooterTableView/LineTableHeaderFooterViewCell.swift"
+  : !dirty [1660895616, 252686500]
+  ? "/Users/Shared/STORE/S.JOB/J.PROJECT/P.BUILD_LIB/TTBaseUIKit/TTBaseUIKit/TTBaseUIKit/CustomView/BaseUIView/CellHeaderFooterTableView/SpaceTableHeaderViewCell.swift"
+  : !dirty [1660895616, 253001213]
+  ? "/Users/Shared/STORE/S.JOB/J.PROJECT/P.BUILD_LIB/TTBaseUIKit/TTBaseUIKit/TTBaseUIKit/CustomView/BaseUIView/CellHeaderFooterTableView/TextLeftRightTableHeaderFooterViewCell.swift"
+  : !dirty [1660895616, 253381729]
+  ? "/Users/Shared/STORE/S.JOB/J.PROJECT/P.BUILD_LIB/TTBaseUIKit/TTBaseUIKit/TTBaseUIKit/CustomView/BaseUIView/CellHeaderFooterTableView/TextSubTextTableHeaderFooterViewCell.swift"
+  : !dirty [1660895616, 253846168]
+  ? "/Users/Shared/STORE/S.JOB/J.PROJECT/P.BUILD_LIB/TTBaseUIKit/TTBaseUIKit/TTBaseUIKit/CustomView/BaseUIView/CellHeaderFooterTableView/TextTableHeaderFooterViewCell.swift"
+  : !dirty [1660895616, 254176616]
+  ? "/Users/Shared/STORE/S.JOB/J.PROJECT/P.BUILD_LIB/TTBaseUIKit/TTBaseUIKit/TTBaseUIKit/CustomView/BaseUIView/CellTableView/BaseShadowTableViewCell.swift"
+  : !dirty [1660895616, 254596710]
+  ? "/Users/Shared/STORE/S.JOB/J.PROJECT/P.BUILD_LIB/TTBaseUIKit/TTBaseUIKit/TTBaseUIKit/CustomView/BaseUIView/CellTableView/BaseTextSubtextHorTableViewCell.swift"
+  : !dirty [1660895616, 254938125]
+  ? "/Users/Shared/STORE/S.JOB/J.PROJECT/P.BUILD_LIB/TTBaseUIKit/TTBaseUIKit/TTBaseUIKit/CustomView/BaseUIView/CellTableView/BaseUITableViewCell.swift"
+  : !dirty [1660895616, 255304336]
+  ? "/Users/Shared/STORE/S.JOB/J.PROJECT/P.BUILD_LIB/TTBaseUIKit/TTBaseUIKit/TTBaseUIKit/CustomView/BaseUIView/CellTableView/IconTextSubtextTableViewCell.swift"
+  : !dirty [1660895616, 255623817]
+  ? "/Users/Shared/STORE/S.JOB/J.PROJECT/P.BUILD_LIB/TTBaseUIKit/TTBaseUIKit/TTBaseUIKit/CustomView/BaseUIView/CellTableView/IconTextSubtextTextSubTextRightTableViewCell.swift"
+  : !dirty [1660895616, 255950927]
+  ? "/Users/Shared/STORE/S.JOB/J.PROJECT/P.BUILD_LIB/TTBaseUIKit/TTBaseUIKit/TTBaseUIKit/CustomView/BaseUIView/CellTableView/TextIconTableViewCell.swift"
+  : !dirty [1660895616, 256274938]
+  ? "/Users/Shared/STORE/S.JOB/J.PROJECT/P.BUILD_LIB/TTBaseUIKit/TTBaseUIKit/TTBaseUIKit/CustomView/BaseUIView/CellTableView/TextSubtextIconTableViewCell.swift"
+  : !dirty [1660895616, 256599426]
+  ? "/Users/Shared/STORE/S.JOB/J.PROJECT/P.BUILD_LIB/TTBaseUIKit/TTBaseUIKit/TTBaseUIKit/CustomView/BaseUIView/DatePicker/BaseDatePicker.swift"
+  : !dirty [1660895616, 257049560]
+  ? "/Users/Shared/STORE/S.JOB/J.PROJECT/P.BUILD_LIB/TTBaseUIKit/TTBaseUIKit/TTBaseUIKit/CustomView/BaseUIView/DatePicker/BaseMonthYearPicker.swift"
+  : !dirty [1660895616, 257395267]
+  "/Users/Shared/STORE/S.JOB/J.PROJECT/P.BUILD_LIB/TTBaseUIKit/TTBaseUIKit/TTBaseUIKit/CustomView/BaseUIView/DismissView.swift": !dirty [1660895616, 257735490]
+  ? "/Users/Shared/STORE/S.JOB/J.PROJECT/P.BUILD_LIB/TTBaseUIKit/TTBaseUIKit/TTBaseUIKit/CustomView/BaseUIView/NotificationView/BaseNotificationView.swift"
+  : !dirty [1660895616, 258144378]
+  ? "/Users/Shared/STORE/S.JOB/J.PROJECT/P.BUILD_LIB/TTBaseUIKit/TTBaseUIKit/TTBaseUIKit/CustomView/BaseUIView/NotificationView/BaseNotificationViewConfig.swift"
+  : !dirty [1660895616, 258519649]
+  ? "/Users/Shared/STORE/S.JOB/J.PROJECT/P.BUILD_LIB/TTBaseUIKit/TTBaseUIKit/TTBaseUIKit/CustomView/BaseUIView/PopupView/BasePopupViewController.swift"
+  : !dirty [1660895616, 259064674]
+  ? "/Users/Shared/STORE/S.JOB/J.PROJECT/P.BUILD_LIB/TTBaseUIKit/TTBaseUIKit/TTBaseUIKit/CustomView/BaseUIView/PopupView/PopupViewController.swift"
+  : !dirty [1660895616, 259301900]
+  ? "/Users/Shared/STORE/S.JOB/J.PROJECT/P.BUILD_LIB/TTBaseUIKit/TTBaseUIKit/TTBaseUIKit/CustomView/BaseUIView/PresentationController/BasePresentationController.swift"
+  : !dirty [1660895616, 259832620]
+  ? "/Users/Shared/STORE/S.JOB/J.PROJECT/P.BUILD_LIB/TTBaseUIKit/TTBaseUIKit/TTBaseUIKit/CustomView/BaseUIView/PresentationController/CoverVerticalPresentationController.swift"
+  : !dirty [1660895616, 260128021]
+  ? "/Users/Shared/STORE/S.JOB/J.PROJECT/P.BUILD_LIB/TTBaseUIKit/TTBaseUIKit/TTBaseUIKit/CustomView/BaseUIView/PresentationController/CoverVerticalViewController.swift"
+  : !dirty [1660895616, 260528564]
+  ? "/Users/Shared/STORE/S.JOB/J.PROJECT/P.BUILD_LIB/TTBaseUIKit/TTBaseUIKit/TTBaseUIKit/CustomView/BaseUIView/UIImageCircleView.swift"
+  : !dirty [1660895616, 260860919]
+  ? "/Users/Shared/STORE/S.JOB/J.PROJECT/P.BUILD_LIB/TTBaseUIKit/TTBaseUIKit/TTBaseUIKit/CustomView/BaseUIView/UIImageFontCircleView.swift"
+  : !dirty [1660895616, 261222839]
+  ? "/Users/Shared/STORE/S.JOB/J.PROJECT/P.BUILD_LIB/TTBaseUIKit/TTBaseUIKit/TTBaseUIKit/CustomView/BaseUIView/UIImageFontPaddingView.swift"
+  : !dirty [1660895616, 261464595]
+  ? "/Users/Shared/STORE/S.JOB/J.PROJECT/P.BUILD_LIB/TTBaseUIKit/TTBaseUIKit/TTBaseUIKit/CustomView/BaseUIView/ViewController/BaseMessagePopupViewController.swift"
+  : !dirty [1660895616, 261817216]
+  ? "/Users/Shared/STORE/S.JOB/J.PROJECT/P.BUILD_LIB/TTBaseUIKit/TTBaseUIKit/TTBaseUIKit/CustomView/BaseUIView/ViewController/BaseScrollViewController.swift"
+  : !dirty [1660895616, 262062072]
+  ? "/Users/Shared/STORE/S.JOB/J.PROJECT/P.BUILD_LIB/TTBaseUIKit/TTBaseUIKit/TTBaseUIKit/CustomView/BaseUIView/ViewController/BaseStackScrollViewController.swift"
+  : !dirty [1660895616, 262360334]
+  ? "/Users/Shared/STORE/S.JOB/J.PROJECT/P.BUILD_LIB/TTBaseUIKit/TTBaseUIKit/TTBaseUIKit/CustomView/BaseUIView/ViewController/BaseUICollectionViewController.swift"
+  : !dirty [1660895616, 262768983]
+  ? "/Users/Shared/STORE/S.JOB/J.PROJECT/P.BUILD_LIB/TTBaseUIKit/TTBaseUIKit/TTBaseUIKit/CustomView/BaseUIView/ViewController/BaseUISearchViewController.swift"
+  : !dirty [1660895616, 262979984]
+  ? "/Users/Shared/STORE/S.JOB/J.PROJECT/P.BUILD_LIB/TTBaseUIKit/TTBaseUIKit/TTBaseUIKit/CustomView/BaseUIView/ViewController/BaseUITableViewController.swift"
+  : !dirty [1660895616, 263383865]
+  ? "/Users/Shared/STORE/S.JOB/J.PROJECT/P.BUILD_LIB/TTBaseUIKit/TTBaseUIKit/TTBaseUIKit/CustomView/BaseUIView/ViewController/BaseUIViewController.swift"
+  : !dirty [1660895616, 263692855]
+  ? "/Users/Shared/STORE/S.JOB/J.PROJECT/P.BUILD_LIB/TTBaseUIKit/TTBaseUIKit/TTBaseUIKit/CustomView/Custom/BaseTwoButtonDiffWidthView.swift"
+  : !dirty [1660895616, 264151334]
+  "/Users/Shared/STORE/S.JOB/J.PROJECT/P.BUILD_LIB/TTBaseUIKit/TTBaseUIKit/TTBaseUIKit/CustomView/Custom/ButtonPanelView.swift": !dirty [1660895616, 264521121]
+  ? "/Users/Shared/STORE/S.JOB/J.PROJECT/P.BUILD_LIB/TTBaseUIKit/TTBaseUIKit/TTBaseUIKit/CustomView/Custom/IconLabelHorizontalView.swift"
+  : !dirty [1660895616, 264831066]
+  ? "/Users/Shared/STORE/S.JOB/J.PROJECT/P.BUILD_LIB/TTBaseUIKit/TTBaseUIKit/TTBaseUIKit/CustomView/Custom/IconLabelTextFieldHorizontalView.swift"
+  : !dirty [1660895616, 265146255]
+  ? "/Users/Shared/STORE/S.JOB/J.PROJECT/P.BUILD_LIB/TTBaseUIKit/TTBaseUIKit/TTBaseUIKit/CustomView/Custom/IconLabelTextFieldView.swift"
+  : !dirty [1660895616, 265460968]
+  "/Users/Shared/STORE/S.JOB/J.PROJECT/P.BUILD_LIB/TTBaseUIKit/TTBaseUIKit/TTBaseUIKit/CustomView/Custom/IconLabelView.swift": !dirty [1660895616, 265779495]
+  "/Users/Shared/STORE/S.JOB/J.PROJECT/P.BUILD_LIB/TTBaseUIKit/TTBaseUIKit/TTBaseUIKit/CustomView/Custom/LabelLeftRightView.swift": !dirty [1660895616, 266099452]
+  "/Users/Shared/STORE/S.JOB/J.PROJECT/P.BUILD_LIB/TTBaseUIKit/TTBaseUIKit/TTBaseUIKit/CustomView/Custom/LabelTextFieldView.swift": !dirty [1660895616, 266464471]
+  "/Users/Shared/STORE/S.JOB/J.PROJECT/P.BUILD_LIB/TTBaseUIKit/TTBaseUIKit/TTBaseUIKit/CustomView/Custom/LableSubLabelView.swift": !dirty [1660895616, 266782760]
+  "/Users/Shared/STORE/S.JOB/J.PROJECT/P.BUILD_LIB/TTBaseUIKit/TTBaseUIKit/TTBaseUIKit/CustomView/Custom/LineView.swift": !dirty [1660895616, 267066955]
+  "/Users/Shared/STORE/S.JOB/J.PROJECT/P.BUILD_LIB/TTBaseUIKit/TTBaseUIKit/TTBaseUIKit/CustomView/Custom/PanelScrollView.swift": !dirty [1660895616, 267372608]
+  "/Users/Shared/STORE/S.JOB/J.PROJECT/P.BUILD_LIB/TTBaseUIKit/TTBaseUIKit/TTBaseUIKit/CustomView/Custom/RowTableView.swift": !dirty [1660895616, 267725944]
+  "/Users/Shared/STORE/S.JOB/J.PROJECT/P.BUILD_LIB/TTBaseUIKit/TTBaseUIKit/TTBaseUIKit/CustomView/Custom/TTBaseShadowView.swift": !dirty [1660895616, 268043518]
+  "/Users/Shared/STORE/S.JOB/J.PROJECT/P.BUILD_LIB/TTBaseUIKit/TTBaseUIKit/TTBaseUIKit/CustomView/Custom/TwoButtomView.swift": !dirty [1660895616, 268349885]
+  "/Users/Shared/STORE/S.JOB/J.PROJECT/P.BUILD_LIB/TTBaseUIKit/TTBaseUIKit/TTBaseUIKit/CustomView/Helpers/ContraintHelpers.swift": !dirty [1660895616, 268836975]
+  "/Users/Shared/STORE/S.JOB/J.PROJECT/P.BUILD_LIB/TTBaseUIKit/TTBaseUIKit/TTBaseUIKit/CustomView/ViewCodable/ViewCodable.swift": !dirty [1660895616, 269227027]
+  ? "/Users/Shared/STORE/S.JOB/J.PROJECT/P.BUILD_LIB/TTBaseUIKit/TTBaseUIKit/TTBaseUIKit/Extensions/CLLocationCoordinate2D+Config.swift"
+  : !dirty [1660895616, 269515514]
+  "/Users/Shared/STORE/S.JOB/J.PROJECT/P.BUILD_LIB/TTBaseUIKit/TTBaseUIKit/TTBaseUIKit/Extensions/Date+Config.swift": !dirty [1660895616, 269753456]
+  "/Users/Shared/STORE/S.JOB/J.PROJECT/P.BUILD_LIB/TTBaseUIKit/TTBaseUIKit/TTBaseUIKit/Extensions/General+Config.swift": !dirty [1660895616, 270094871]
+  "/Users/Shared/STORE/S.JOB/J.PROJECT/P.BUILD_LIB/TTBaseUIKit/TTBaseUIKit/TTBaseUIKit/Extensions/String+Config.swift": !dirty [1660895616, 270455598]
+  "/Users/Shared/STORE/S.JOB/J.PROJECT/P.BUILD_LIB/TTBaseUIKit/TTBaseUIKit/TTBaseUIKit/Extensions/UIApplication+Config.swift": !dirty [1660895616, 270820140]
+  "/Users/Shared/STORE/S.JOB/J.PROJECT/P.BUILD_LIB/TTBaseUIKit/TTBaseUIKit/TTBaseUIKit/Extensions/UIColor+Config.swift": !dirty [1660895616, 271019697]
+  "/Users/Shared/STORE/S.JOB/J.PROJECT/P.BUILD_LIB/TTBaseUIKit/TTBaseUIKit/TTBaseUIKit/Extensions/UIScrollView+Config.swift": !dirty [1660895616, 271204471]
+  ? "/Users/Shared/STORE/S.JOB/J.PROJECT/P.BUILD_LIB/TTBaseUIKit/TTBaseUIKit/TTBaseUIKit/Extensions/UITableView+UICollectionView.swift"
+  : !dirty [1660895616, 271462917]
+  "/Users/Shared/STORE/S.JOB/J.PROJECT/P.BUILD_LIB/TTBaseUIKit/TTBaseUIKit/TTBaseUIKit/Extensions/UIView+Config.swift": !dirty [1660895616, 271779537]
+  "/Users/Shared/STORE/S.JOB/J.PROJECT/P.BUILD_LIB/TTBaseUIKit/TTBaseUIKit/TTBaseUIKit/Extensions/UIViewController+Config.swift": !dirty [1660902459, 108944892]
+  "/Users/Shared/STORE/S.JOB/J.PROJECT/P.BUILD_LIB/TTBaseUIKit/TTBaseUIKit/TTBaseUIKit/Service.swift": !dirty [1660902273, 572453498]
+  "/Users/Shared/STORE/S.JOB/J.PROJECT/P.BUILD_LIB/TTBaseUIKit/TTBaseUIKit/TTBaseUIKit/Support/AwesomePro.swift": !dirty [1660895616, 274023056]
+  "/Users/Shared/STORE/S.JOB/J.PROJECT/P.BUILD_LIB/TTBaseUIKit/TTBaseUIKit/TTBaseUIKit/Support/Ekhoo_Device/Device.swift": !dirty [1660895616, 274543285]
+  "/Users/Shared/STORE/S.JOB/J.PROJECT/P.BUILD_LIB/TTBaseUIKit/TTBaseUIKit/TTBaseUIKit/Support/Ekhoo_Device/DeviceSize.swift": !dirty [1660895616, 274849891]
+  "/Users/Shared/STORE/S.JOB/J.PROJECT/P.BUILD_LIB/TTBaseUIKit/TTBaseUIKit/TTBaseUIKit/Support/Ekhoo_Device/DeviceType.swift": !dirty [1660895616, 275124549]
+  "/Users/Shared/STORE/S.JOB/J.PROJECT/P.BUILD_LIB/TTBaseUIKit/TTBaseUIKit/TTBaseUIKit/Support/Ekhoo_Device/DeviceVersion.swift": !dirty [1660895616, 275388717]
+  ? "/Users/Shared/STORE/S.JOB/J.PROJECT/P.BUILD_LIB/TTBaseUIKit/TTBaseUIKit/TTBaseUIKit/Support/Helper/LogView/LogTrackingTableViewController.swift"
+  : !dirty [1660895616, 278763771]
+  ? "/Users/Shared/STORE/S.JOB/J.PROJECT/P.BUILD_LIB/TTBaseUIKit/TTBaseUIKit/TTBaseUIKit/Support/Helper/LogView/LogTrackingWebViewController.swift"
+  : !dirty [1660895616, 279191493]
+  "/Users/Shared/STORE/S.JOB/J.PROJECT/P.BUILD_LIB/TTBaseUIKit/TTBaseUIKit/TTBaseUIKit/Support/Helper/LogView/LogViewHelper.swift": !dirty [1660895616, 279644250]
+  ? "/Users/Shared/STORE/S.JOB/J.PROJECT/P.BUILD_LIB/TTBaseUIKit/TTBaseUIKit/TTBaseUIKit/Support/Helper/LogView/Model/LogViewModel.swift"
+  : !dirty [1660895616, 280184745]
+  ? "/Users/Shared/STORE/S.JOB/J.PROJECT/P.BUILD_LIB/TTBaseUIKit/TTBaseUIKit/TTBaseUIKit/Support/Test/ListCellTestTableViewController.swift"
+  : !dirty [1660895616, 289921283]
+  "/Users/Shared/STORE/S.JOB/J.PROJECT/P.BUILD_LIB/TTBaseUIKit/TTBaseUIKit/TTBaseUIKit/Support/Utilities/GlobalFunctions.swift": !dirty [1660895616, 290299892]
+  "/Users/Shared/STORE/S.JOB/J.PROJECT/P.BUILD_LIB/TTBaseUIKit/TTBaseUIKit/TTBaseUIKit/Support/Utilities/TTBaseFunc.swift": !dirty [1660895616, 290569305]
+  ? "/Users/Shared/STORE/S.JOB/J.PROJECT/P.BUILD_LIB/TTBaseUIKit/TTBaseUIKit/TTBaseUIKit/Support/Utilities/TTBaseNetworkSpeedTest.swift"
+  : !dirty [1660895616, 290911197]
+  "/Users/Shared/STORE/S.JOB/J.PROJECT/P.BUILD_LIB/TTBaseUIKit/TTBaseUIKit/TTBaseUIKit/Support/Utilities/TTBaseUIKitSetting.swift": !dirty [1660895616, 291201353]
+  "/Users/Shared/STORE/S.JOB/J.PROJECT/P.BUILD_LIB/TTBaseUIKit/TTBaseUIKit/TTBaseUIKit/Support/Utilities/TTBaseUtil.swift": !dirty [1660902459, 109201192]
+  "/Users/Shared/STORE/S.JOB/J.PROJECT/P.BUILD_LIB/TTBaseUIKit/TTBaseUIKit/TTBaseUIKit/Support/Utilities/TTLanguageManager.swift": !dirty [1660895616, 291851043]
+  "/Users/Shared/STORE/S.JOB/J.PROJECT/P.BUILD_LIB/TTBaseUIKit/TTBaseUIKit/TTBaseUIKit/Support/Utilities/TextValidation.swift": !dirty [1660895616, 292129278]
+  "/Users/Shared/STORE/S.JOB/J.PROJECT/P.BUILD_LIB/TTBaseUIKit/TTBaseUIKit/TTBaseUIKit/Support/Utilities/Validation.swift": !dirty [1660895616, 292436122]
+  "/Users/Shared/STORE/S.JOB/J.PROJECT/P.BUILD_LIB/TTBaseUIKit/TTBaseUIKit/TTBaseUIKit/Support/Utilities/VietNamLunar.swift": !dirty [1660895616, 292771577]
