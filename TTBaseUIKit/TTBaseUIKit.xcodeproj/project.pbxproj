@@ -276,7 +276,7 @@
 		9358C8392268AA6800D2D10F /* BaseUICollectionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseUICollectionViewController.swift; sourceTree = "<group>"; };
 		935F24C6226B423000B93AA2 /* img.icon.down.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = img.icon.down.png; sourceTree = "<group>"; };
 		935F690C22802EDB00A38FDA /* BaseWKWebView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseWKWebView.swift; sourceTree = "<group>"; };
-		935F690F228030B300A38FDA /* empty.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; name = empty.gif; path = "../../../../../../../P.CONTACT/ContactPlus[XC]/UpdateContact/Images/empty.gif"; sourceTree = "<group>"; };
+		935F690F228030B300A38FDA /* empty.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = empty.gif; sourceTree = "<group>"; };
 		936091C8225B297C007D8F6B /* TTBaseFunc.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TTBaseFunc.swift; sourceTree = "<group>"; };
 		936091CA225B29F3007D8F6B /* ValueConfig.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ValueConfig.swift; sourceTree = "<group>"; };
 		936091CC225B2DD5007D8F6B /* BaseCustomViewRepresentable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseCustomViewRepresentable.swift; sourceTree = "<group>"; };
