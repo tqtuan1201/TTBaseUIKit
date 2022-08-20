@@ -70,6 +70,7 @@
 		6DD17E1123EFD5F2007B49A6 /* BaseLabelIconHorizontalView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6DD17E1023EFD5F2007B49A6 /* BaseLabelIconHorizontalView.swift */; };
 		6DE8F2E82441F66A00646BF3 /* BaseNewSegmentedControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6DE8F2E72441F66A00646BF3 /* BaseNewSegmentedControl.swift */; };
 		6DE8F2EA2441F6A000646BF3 /* BasePaddingGenericView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6DE8F2E92441F6A000646BF3 /* BasePaddingGenericView.swift */; };
+		6DE92B8428B08CAD006453F0 /* TTBaseUIKit.podspec in Resources */ = {isa = PBXBuildFile; fileRef = 6DE92B8328B08CAD006453F0 /* TTBaseUIKit.podspec */; };
 		6DEEC8AF231F646600F233C2 /* BaseShadowPanelView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6DEEC8AE231F646600F233C2 /* BaseShadowPanelView.swift */; };
 		6DEEC8B1231F683B00F233C2 /* BaseUITextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6DEEC8B0231F683B00F233C2 /* BaseUITextView.swift */; };
 		930300EC22D46F650015F021 /* BaseCircleLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 930300EB22D46F650015F021 /* BaseCircleLabel.swift */; };
@@ -236,6 +237,7 @@
 		6DD17E1023EFD5F2007B49A6 /* BaseLabelIconHorizontalView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseLabelIconHorizontalView.swift; sourceTree = "<group>"; };
 		6DE8F2E72441F66A00646BF3 /* BaseNewSegmentedControl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseNewSegmentedControl.swift; sourceTree = "<group>"; };
 		6DE8F2E92441F6A000646BF3 /* BasePaddingGenericView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BasePaddingGenericView.swift; sourceTree = "<group>"; };
+		6DE92B8328B08CAD006453F0 /* TTBaseUIKit.podspec */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = TTBaseUIKit.podspec; sourceTree = "<group>"; };
 		6DEEC8AE231F646600F233C2 /* BaseShadowPanelView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseShadowPanelView.swift; sourceTree = "<group>"; };
 		6DEEC8B0231F683B00F233C2 /* BaseUITextView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseUITextView.swift; sourceTree = "<group>"; };
 		930300EB22D46F650015F021 /* BaseCircleLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseCircleLabel.swift; sourceTree = "<group>"; };
@@ -418,6 +420,7 @@
 		931B5C322257730E009B01A3 = {
 			isa = PBXGroup;
 			children = (
+				6DE92B8328B08CAD006453F0 /* TTBaseUIKit.podspec */,
 				931B5C3E2257730F009B01A3 /* TTBaseUIKit */,
 				931B5C3D2257730F009B01A3 /* Products */,
 			);
@@ -822,6 +825,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				6DE92B8428B08CAD006453F0 /* TTBaseUIKit.podspec in Resources */,
 				9389D1102279BDA200D6319E /* fa-light-300.ttf in Resources */,
 				939EA8822276B0D5008DDCBC /* img.logo.Def.png in Resources */,
 				93D6BE8522640CEA00906781 /* img.hideKeyboard.png in Resources */,
