@@ -215,6 +215,7 @@
 		6D5BF33622FAAFA90066DE78 /* BaBaseGradientUIImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaBaseGradientUIImageView.swift; sourceTree = "<group>"; };
 		6D5BF33822FAB0920066DE78 /* LableSubLabelView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LableSubLabelView.swift; sourceTree = "<group>"; };
 		6D5BF33A22FAB0E00066DE78 /* UIImageFontPaddingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIImageFontPaddingView.swift; sourceTree = "<group>"; };
+		6D75CD0128B20CCB008EFFFB /* Package.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Package.swift; sourceTree = "<group>"; };
 		6D7ADBAF23ED66DB0022D291 /* BaseSquarePinView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseSquarePinView.swift; sourceTree = "<group>"; };
 		6D7ADBB123ED67300022D291 /* BaseSquarePinsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseSquarePinsView.swift; sourceTree = "<group>"; };
 		6D7ADBB323ED677D0022D291 /* BaseLabelTextViewByVerticalView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseLabelTextViewByVerticalView.swift; sourceTree = "<group>"; };
@@ -420,6 +421,7 @@
 		931B5C322257730E009B01A3 = {
 			isa = PBXGroup;
 			children = (
+				6D75CD0128B20CCB008EFFFB /* Package.swift */,
 				6DE92B8328B08CAD006453F0 /* TTBaseUIKit.podspec */,
 				931B5C3E2257730F009B01A3 /* TTBaseUIKit */,
 				931B5C3D2257730F009B01A3 /* Products */,
