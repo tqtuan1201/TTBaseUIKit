@@ -22,7 +22,16 @@ Add the following line to your Podfile:
 
 1. File > Swift Packages > Add Package Dependency
 2. Add https://github.com/tqtuan1201/TTBaseUIKit.git
-3. Select "Up to Next Major" with "1.3.32"
+3. Select "Up to Next Major" with "1.4.0"
+
+Once you have your Swift package set up, adding Alamofire as a dependency is as easy as adding it to the `dependencies` value of your `Package.swift`.
+
+```
+dependencies: [
+    .package(url: "https://github.com/tqtuan1201/TTBaseUIKit.git", .upToNextMajor(from: "1.4.0"))
+]
+```
+
 If you encounter any problem or have a question on adding the package to an Xcode project, I suggest reading the Adding Package Dependencies to Your App guide article from Apple.
 
 ### CocoaPods
@@ -87,17 +96,17 @@ self.window!.makeKeyAndVisible()
 
 Apply config by:
 
-{{< notice info >}}
-
-TTBaseUIKitConfig.withDefaultConfig(withFontConfig: font, frameSize: size, view: view)?.start(withViewLog: true)
-
-{{< /notice >}}
+> TTBaseUIKitConfig.withDefaultConfig(withFontConfig: font, frameSize: size, view: view)?.start(withViewLog: true)
 
 # Usage
 
 `TTBaseUIKit` dramatically simplifies writing to build UI programmatically. Let's take a quick look at some examples, using `TTBaseUIKit` from Swift.
 
-{{< figure src="https://github.com/tqtuan1201/TTBaseUIKit/raw/master/Images/1.gif" alt="image" caption="TTBaseUIKit Framework" class="medium" >}}
+```
+<p align="center">
+  <img src="./Images/1.gif"  style="width:50%; height:50%" />
+</p>
+```
 
 ## Interface Customization
 
@@ -112,7 +121,11 @@ noti.notifiType = .SUCCESS
 noti.onShow()
 ```
 
-{{< figure src="/images/image-20220713113301616.png" alt="image" caption="Show message" class="small" >}}
+```
+<p align="center">
+  <img src="./Images/2.gif"  style="width:50%; height:50%" />
+</p>
+```
 
 ### Show Popup
 
@@ -360,15 +373,23 @@ During my work, I have updated and used this framework in many projects. All my 
 
 - 12Bay iOS App
 
-  {{< figure src="/images/image-20220714103844009.png" alt="image" caption="12Bay iOS App" class="medium" >}}
+  
+
+  <p align="center">
+    <img src="https://tqtuan1201.github.io/images/image-20220714103844009.png"  style="width:50%; height:50%" />
+  </p>
 
 - 12Bay MacOS app
 
-  {{< figure src="/images/image-20220714104020426.png" alt="image" caption="12Bay MacOS app" class="medium" >}}
+  <p align="center">
+    <img src="https://tqtuan1201.github.io/images/image-20220714104020426.png"  style="width:50%; height:50%" />
+  </p>
 
 - Aihealth iOS app
 
-{{< figure src="/images/image-20220714104542214.png" alt="image" caption="Aihealth iOS app" class="medium" >}}
+<p align="center">
+  <img src="https://tqtuan1201.github.io/images/image-20220714104542214.png"  style="width:50%; height:50%" />
+</p>
 
 You can see all my projects here: [Link](https://tqtuan1201.github.io/portfolio/)
 
