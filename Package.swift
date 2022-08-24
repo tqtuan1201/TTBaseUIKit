@@ -23,7 +23,13 @@ let package = Package(
         // Targets can depend on other targets in this package, and on products in packages this package depends on.
         .target(
             name: "TTBaseUIKit",
-            dependencies: []),
+            dependencies: [],
+            exclude: ["Info.plist"],
+        resources: [
+            .process("Support/Resources/Fonts"),
+            .process("Support/Resources/Images"),
+        ]
+        ),
         .testTarget(
             name: "TTBaseUIKitTests",
             dependencies: ["TTBaseUIKit"]),

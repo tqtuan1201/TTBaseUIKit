@@ -12,7 +12,7 @@ import UIKit
 
 public final class Fonts {
     
-    static func podFont(name: String, size: CGFloat) -> UIFont {
+    static func podFont(name: String, size: CGFloat) -> UIFont? {
         //Why do extra work if its available.
         if let font = UIFont(name: name, size: size) {return font}
         
@@ -27,30 +27,40 @@ public final class Fonts {
         // If this framework is added using CocoaPods, resources is placed under a subdirectory
         if let url = bundle.url(forResource: name, withExtension: "ttf", subdirectory: "TTBaseUIKit.bundle") {
             urlBundle = url
+            TTBaseFunc.shared.printLog(object: "::Fonts podFont applied by CocoaPods TTBaseUIKit.bundle")
         }
         
         if let url = bundle.url(forResource: name, withExtension: "ttf", subdirectory: "Frameworks/TTBaseUIKit.framework") {
             urlBundle = url
+            TTBaseFunc.shared.printLog(object: "::Fonts podFont applied by CocoaPods Frameworks/TTBaseUIKit.framework")
+        }
+        if let urlPackage =  Bundle.module.url(forResource: name, withExtension: "ttf") {
+            urlBundle = urlPackage
+            TTBaseFunc.shared.printLog(object: "::Fonts podFont applied by urlPackage Bundle.module.url")
         }
         
+        TTBaseFunc.shared.printLog(object: "::Fonts podFont urlBundle: \(String(describing: urlBundle))")
         
-        guard let url = urlBundle else { return UIFont() }
-        guard let data = NSData(contentsOf: url) else { return UIFont() }
-        guard let provider = CGDataProvider(data: data) else { return UIFont() } //convert the data into a provider
-        guard let cgFont = CGFont(provider) else { return UIFont() }//convert provider to cgfont
+        guard let url = urlBundle else { return nil }
+        guard let data = NSData(contentsOf: url) else { return nil }
+        guard let provider = CGDataProvider(data: data) else { return nil } //convert the data into a provider
+        guard let cgFont = CGFont(provider) else { return nil }//convert provider to cgfont
         let fontName = cgFont.postScriptName as String?  ?? ""//crashes if can't get name
         CTFontManagerRegisterGraphicsFont(cgFont, nil) //Registers the font, like the plist
-        return UIFont(name: fontName, size: size) ?? UIFont()
+        
+        TTBaseFunc.shared.printLog(object: "::Fonts podFont fontName: \(fontName)")
+        
+        return UIFont(name: fontName, size: size)
     }
 }
 
 
 extension UIFont {
     
-    public static func getFontIcon(ProWithSize size:CGFloat) -> UIFont {
+    public static func getFontIcon(ProWithSize size:CGFloat) -> UIFont? {
         return Fonts.podFont(name: Config.Value.fontImageNamePro, size: size)
     }
-    public static func getFontIcon(FreeWithSize size:CGFloat) -> UIFont {
+    public static func getFontIcon(FreeWithSize size:CGFloat) -> UIFont? {
         return Fonts.podFont(name: Config.Value.fontImageNameFree, size: size)
     }
 }
@@ -137,6 +147,8 @@ extension UIImage {
     }
     
     public static func fontAwesomeIconWithName(nameString: String, size: CGSize, iconColor: UIColor, backgroundColor: UIColor = UIColor.clear) -> UIImage? {
+        
+        TTBaseFunc.shared.printLog(object: "::fontAwesomeIconWithName nameString: \(nameString)")
         #if targetEnvironment(macCatalyst)
             return nil
         #else
@@ -148,8 +160,10 @@ extension UIImage {
             let fontAspectRatio: CGFloat = 1.28571429
             
             let fontSize = min(size.width / fontAspectRatio, size.height)
-            let fontName:UIFont = UIFont.getFontIcon(ProWithSize: fontSize)
-            
+        guard let fontName:UIFont = UIFont.getFontIcon(ProWithSize: fontSize) else { return nil}
+        
+            TTBaseFunc.shared.printLog(object: "::fontAwesomeIconWithName fontName:UIFont: \(fontName)")
+        
             let attributedString = NSAttributedString(string: nameString, attributes: [NSAttributedString.Key.font: fontName, NSAttributedString.Key.foregroundColor: iconColor, NSAttributedString.Key.backgroundColor: backgroundColor, NSAttributedString.Key.paragraphStyle: paragraph])
             UIGraphicsBeginImageContextWithOptions(size, false , 0.0)
             attributedString.draw(in: CGRect(x: 0, y: (size.height - fontSize) / 2, width: size.width, height: fontSize))

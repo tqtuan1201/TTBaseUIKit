@@ -22,6 +22,11 @@
 			<key>primary</key>
 			<true/>
 		</dict>
+		<key>TTBaseUIKit_TTBaseUIKit</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
 	</dict>
 </dict>
 </plist>
