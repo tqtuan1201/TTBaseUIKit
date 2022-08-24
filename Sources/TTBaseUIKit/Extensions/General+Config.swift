@@ -9,7 +9,6 @@
 import Foundation
 import UIKit
 
-
 public final class Fonts {
     
     static func podFont(name: String, size: CGFloat) -> UIFont? {
@@ -34,7 +33,7 @@ public final class Fonts {
             urlBundle = url
             TTBaseFunc.shared.printLog(object: "::Fonts podFont applied by CocoaPods Frameworks/TTBaseUIKit.framework")
         }
-        if let urlPackage =  Bundle.module.url(forResource: name, withExtension: "ttf") {
+        if let urlPackage =  Foundation.Bundle.module.url(forResource: name, withExtension: "ttf") {
             urlBundle = urlPackage
             TTBaseFunc.shared.printLog(object: "::Fonts podFont applied by urlPackage Bundle.module.url")
         }
