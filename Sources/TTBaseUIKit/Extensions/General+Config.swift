@@ -33,11 +33,14 @@ public final class Fonts {
             urlBundle = url
             TTBaseFunc.shared.printLog(object: "::Fonts podFont applied by CocoaPods Frameworks/TTBaseUIKit.framework")
         }
-        if let urlPackage =  Foundation.Bundle.module.url(forResource: name, withExtension: "ttf") {
-            urlBundle = urlPackage
-            TTBaseFunc.shared.printLog(object: "::Fonts podFont applied by urlPackage Bundle.module.url")
-        }
         
+        #if SWIFT_PACKAGE
+            if let urlPackage =  Foundation.Bundle.module.url(forResource: name, withExtension: "ttf") {
+                urlBundle = urlPackage
+                TTBaseFunc.shared.printLog(object: "::Fonts podFont applied by urlPackage Bundle.module.url")
+            }
+        #endif
+    
         TTBaseFunc.shared.printLog(object: "::Fonts podFont urlBundle: \(String(describing: urlBundle))")
         
         guard let url = urlBundle else { return nil }
