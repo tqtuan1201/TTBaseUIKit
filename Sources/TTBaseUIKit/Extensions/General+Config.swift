@@ -6,8 +6,8 @@
 //  Copyright © 2019 Truong Quang Tuan. All rights reserved.
 //
 
-import Foundation
 import UIKit
+import Foundation
 
 public final class Fonts {
     
@@ -35,12 +35,12 @@ public final class Fonts {
         }
         
         #if SWIFT_PACKAGE
-            if let urlPackage =  Foundation.Bundle.module.url(forResource: name, withExtension: "ttf") {
-                urlBundle = urlPackage
-                TTBaseFunc.shared.printLog(object: "::Fonts podFont applied by urlPackage Bundle.module.url")
-            }
+        if let urlPackage =  Bundle.module.url(forResource: name, withExtension: "ttf") {
+            urlBundle = urlPackage
+            TTBaseFunc.shared.printLog(object: "::Fonts podFont applied by urlPackage Bundle.module.url")
+        }
         #endif
-    
+        
         TTBaseFunc.shared.printLog(object: "::Fonts podFont urlBundle: \(String(describing: urlBundle))")
         
         guard let url = urlBundle else { return nil }

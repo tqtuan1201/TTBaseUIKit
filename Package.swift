@@ -27,7 +27,7 @@ let package = Package(
             dependencies: [],
             exclude: ["Info.plist"],
         resources: [
-            .copy("Support/Resources"),
+            //.copy("Support/Resources"),
             .process("Support/Resources/Fonts"),
             .process("Support/Resources/Images"),
         ]
