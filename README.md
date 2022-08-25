@@ -1,3 +1,4 @@
+
 # TTBaseUIKit
 
 Build your project with programmatically UI. You can see more details in here:
@@ -9,26 +10,29 @@ Add the following line to your Podfile:
 [![Platform](https://img.shields.io/cocoapods/p/TTBaseUIKit.svg?style=flat)](http://cocoadocs.org/docsets/TTBaseUIKit)
 [![Carthage compatible](https://img.shields.io/badge/Carthage-compatible-4BC51D.svg?style=flat)](https://github.com/Carthage/Carthage)
 
-<p align="center">
-  <img src="./Images/bg.png" />
+<p align="center" width:100%>
+  <img src="https://tqtuan1201.github.io/images/image-20220825131924203.png"  style="width:50%; height:50%" />
 </p>
+
 ---
 
 ## Installation
-
----
 
 ### Swift Package Manager
 
 1. File > Swift Packages > Add Package Dependency
 2. Add https://github.com/tqtuan1201/TTBaseUIKit.git
-3. Select "Up to Next Major" with "1.4.0"
+3. Select "Up to Next Major" with "1.5.0"
 
 Once you have your Swift package set up, adding Alamofire as a dependency is as easy as adding it to the `dependencies` value of your `Package.swift`.
 
 ```
 dependencies: [
-    .package(url: "https://github.com/tqtuan1201/TTBaseUIKit.git", .upToNextMajor(from: "1.4.0"))
+    .package(url: "https://github.com/tqtuan1201/TTBaseUIKit.git", .upToNextMajor(from: "1.5.0"))
+]
+or 
+dependencies: [
+    .package(url: "https://github.com/tqtuan1201/TTBaseUIKit.git", branch: "master"),
 ]
 ```
 
@@ -102,11 +106,9 @@ Apply config by:
 
 `TTBaseUIKit` dramatically simplifies writing to build UI programmatically. Let's take a quick look at some examples, using `TTBaseUIKit` from Swift.
 
-```
 <p align="center">
   <img src="./Images/1.gif"  style="width:50%; height:50%" />
 </p>
-```
 
 ## Interface Customization
 
@@ -121,11 +123,9 @@ noti.notifiType = .SUCCESS
 noti.onShow()
 ```
 
-```
 <p align="center">
   <img src="./Images/2.gif"  style="width:50%; height:50%" />
 </p>
-```
 
 ### Show Popup
 
