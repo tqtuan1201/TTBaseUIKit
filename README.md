@@ -1,6 +1,10 @@
 
 # TTBaseUIKit
 
+<p align="center">
+  <img src="https://tqtuan1201.github.io/images/image-20220825131924203.png"  style="width:100%; height:50%" />
+</p>
+
 Build your project with programmatically UI. You can see more details in here:
 [TTBaseUIKit - Framework to Build UI Programmatically](https://tqtuan1201.github.io/posts/ttbaseuikit-ui-framework/)
 
@@ -9,10 +13,6 @@ Add the following line to your Podfile:
 [![License](https://img.shields.io/cocoapods/l/TTBaseUIKit.svg?style=flat)](http://cocoadocs.org/docsets/TTBaseUIKit)
 [![Platform](https://img.shields.io/cocoapods/p/TTBaseUIKit.svg?style=flat)](http://cocoadocs.org/docsets/TTBaseUIKit)
 [![Carthage compatible](https://img.shields.io/badge/Carthage-compatible-4BC51D.svg?style=flat)](https://github.com/Carthage/Carthage)
-
-<p align="center" width:100%>
-  <img src="https://tqtuan1201.github.io/images/image-20220825131924203.png"  style="width:50%; height:50%" />
-</p>
 
 ---
 
