@@ -334,4 +334,8 @@ extension String {
         return self
     }
     
+    public func numberOfOccurrencesOf(string: String) -> Int {
+        return self.components(separatedBy:string).count - 1
+    }
+    
 }

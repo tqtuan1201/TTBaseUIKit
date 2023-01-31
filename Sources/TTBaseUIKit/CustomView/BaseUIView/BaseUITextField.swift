@@ -12,7 +12,8 @@ import UIKit
 open class TTBaseUITextField: UITextField   {
     
     fileprivate var textDefColor:UIColor = TTBaseUIKitConfig.getViewConfig().textDefColor
-    fileprivate var textpading:CGFloat = 5.0
+    fileprivate var textpading = UIEdgeInsets(top: 5.0, left: 5.0, bottom: 5.0, right: 5.0)
+
     fileprivate let lineHeight:CGFloat = 1.5
     fileprivate var lineColor:UIColor = TTBaseUIKitConfig.getViewConfig().lineDefColor
     fileprivate var isActiveFillEmail:Bool = false
@@ -55,19 +56,22 @@ open class TTBaseUITextField: UITextField   {
         self.updateUI()
     }
     
+
     open override func textRect(forBounds bounds: CGRect) -> CGRect {
-        return bounds.insetBy(dx: self.textpading, dy: self.textpading)
+        let rect = super.textRect(forBounds: bounds)
+        return rect.inset(by: self.textpading)
     }
-    
+
     open override func editingRect(forBounds bounds: CGRect) -> CGRect {
-        return bounds.insetBy(dx: self.textpading, dy: self.textpading)
+        let rect = super.editingRect(forBounds: bounds)
+        return rect.inset(by: self.textpading)
     }
     
-    public convenience init(withPlaceholder text:String, pading:CGFloat = 5, type:TYPE = .DEFAULT, isSetHiddenKeyboardAccessoryView:Bool = true, returnKeyType:UIReturnKeyType = .default) {
+    public convenience init(withPlaceholder text:String, pading:CGFloat = 5.0, type:TYPE = .DEFAULT, isSetHiddenKeyboardAccessoryView:Bool = true, returnKeyType:UIReturnKeyType = .default) {
         self.init(frame: .zero)
         self.returnKeyType = returnKeyType
         self.type = type
-        self.textpading = pading
+        self.textpading = UIEdgeInsets.init(top: pading, left: pading, bottom: pading, right: pading)
         self.placeholder = text
         if isSetHiddenKeyboardAccessoryView { self.setHiddenKeyboardAccessoryView().done()}
         switch type {
@@ -80,7 +84,29 @@ open class TTBaseUITextField: UITextField   {
             self.borderStyle = .none
             break
         case .NO_PADING:
-            self.textpading = 0
+            self.textpading = UIEdgeInsets.init(top: 0.0, left: 0.0, bottom: 0.0, right: 0.0)
+        break
+        }
+    }
+    
+    public convenience init(withPlaceholder text:String, textPadding:UIEdgeInsets, type:TYPE = .DEFAULT, isSetHiddenKeyboardAccessoryView:Bool = true, returnKeyType:UIReturnKeyType = .default) {
+        self.init(frame: .zero)
+        self.returnKeyType = returnKeyType
+        self.type = type
+        self.textpading = textPadding
+        self.placeholder = text
+        if isSetHiddenKeyboardAccessoryView { self.setHiddenKeyboardAccessoryView().done()}
+        switch type {
+        case .DEFAULT:
+            break
+        case .NO_BORDER:
+            self.setNoBorder().done()
+            break
+        case .ONLY_BOTTOM:
+            self.borderStyle = .none
+            break
+        case .NO_PADING:
+            self.textpading = UIEdgeInsets.init(top: 0.0, left: 0.0, bottom: 0.0, right: 0.0)
         break
         }
     }

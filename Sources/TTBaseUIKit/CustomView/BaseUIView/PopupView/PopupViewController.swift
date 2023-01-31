@@ -73,18 +73,18 @@ extension TTPopupViewController : TTViewCodable {
         }
     }
     
-    open func setupStyles() {
+    public func setupStyles() {
         self.titleLabel.setMutilLine(numberOfLine: 2, textAlignment: .center).done()
         self.subTitle.setMutilLine(numberOfLine: 0, textAlignment: .center).done()
     }
     
     
-    open func setupData() {
+    public func setupData() {
         self.titleLabel.setText(text: self.titleString).done()
         self.subTitle.setText(text: self.subString).done()
     }
     
-    open func setupCustomView() {
+    public func setupCustomView() {
         
         if self.buttons.isEmpty {
             self.panelButtonView.addArrangedSubview(self.cancelButton)
@@ -109,7 +109,7 @@ extension TTPopupViewController : TTViewCodable {
         }
     }
     
-    open func setupConstraints() {
+    public func setupConstraints() {
         if Device.isPad() {
             self.panelView.widthAnchor.constraint(equalTo: self.view.widthAnchor, multiplier: 0.6).isActive = true
         } else {

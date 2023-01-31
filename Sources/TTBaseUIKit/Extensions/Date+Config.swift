@@ -8,7 +8,33 @@
 
 import Foundation
 
+extension Calendar {
+    //Number of 24 hours days, not including a start date
+    public func numberOfDaysBetween(_ from: Date, and to: Date) -> Int {
+        let numberOfDays = dateComponents([.day], from: from, to: to)
+        
+        return numberOfDays.day!
+    }
+    
+    //Number of 24 hours days, including a start date
+    public func numberOf24DaysBetween(_ from: Date, and to: Date) -> Int {
+        let numberOfDays = dateComponents([.day], from: from, to: to)
+        
+        return numberOfDays.day! + 1
+    }
+}
+
 extension Date {
+    
+    public func interval(ofComponent comp: Calendar.Component, fromDate date: Date) -> Int {
+
+        let currentCalendar = Calendar.current
+
+        guard let start = currentCalendar.ordinality(of: comp, in: .era, for: date) else { return 0 }
+        guard let end = currentCalendar.ordinality(of: comp, in: .era, for: self) else { return 0 }
+
+        return end - start
+    }
     
     public func isFirstDateOfMonth() -> Bool {
         return self.firstDayOfMonth().compareByDate(date: self) == .orderedSame

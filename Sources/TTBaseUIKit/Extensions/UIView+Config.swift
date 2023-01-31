@@ -11,6 +11,13 @@ import UIKit
 
 extension UIView {
     
+    @discardableResult public func setTransformRotation(toDegrees angleInDegrees: CGFloat) -> UIView {
+        let angleInRadians = angleInDegrees / 180.0 * CGFloat.pi
+        let rotation = self.transform.rotated(by: angleInRadians)
+        self.transform = rotation
+        return self
+    }
+    
     @discardableResult public func roundCornersNew(corners: UIRectCorner, radius: CGFloat = 8.0) -> UIView {
         if self.layer.sublayers?.filter({$0.name == "ROUNDCORNERSNEW"}).count ?? -1  > 0 { return self}
         let path = UIBezierPath(roundedRect: bounds, byRoundingCorners: corners, cornerRadii: CGSize(width: radius, height: radius))

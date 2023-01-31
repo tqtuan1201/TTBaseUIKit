@@ -10,7 +10,7 @@ import Foundation
 import UIKit
 
 /// Easier way to create cell identifier
-public protocol ReusableView: class {
+public protocol ReusableView: AnyObject {
     /// Get identifier from class
     static var defaultReuseIdentifier: String { get }
 }

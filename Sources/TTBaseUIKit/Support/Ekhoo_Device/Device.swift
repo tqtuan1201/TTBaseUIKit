@@ -126,7 +126,7 @@ open class Device {
             return .screen5_4Inch
         case 812:
             return .screen5_8Inch
-        case 844:
+        case 844, 852:
             return .screen6_1Inch
         case 896:
             switch version() {
@@ -135,7 +135,7 @@ open class Device {
             default:
                 return .screen6_1Inch
             }
-        case 926:
+        case 926, 932:
             return .screen6_7Inch
         case 1024:
             switch version() {
@@ -205,5 +205,17 @@ open class Device {
         let w: Double = Double(UIScreen.main.bounds.width)
         let h: Double = Double(UIScreen.main.bounds.height)
         return  w == 375.0 && h == 812.0
+    }
+    
+    static public func isIphone14Pro() -> Bool {
+        let w: Double = Double(UIScreen.main.bounds.width)
+        let h: Double = Double(UIScreen.main.bounds.height)
+        return  w == 393.0 && h == 852.0
+    }
+    
+    static public func isIphone4ProMax() -> Bool {
+        let w: Double = Double(UIScreen.main.bounds.width)
+        let h: Double = Double(UIScreen.main.bounds.height)
+        return  w == 430.0 && h == 932.0
     }
 }

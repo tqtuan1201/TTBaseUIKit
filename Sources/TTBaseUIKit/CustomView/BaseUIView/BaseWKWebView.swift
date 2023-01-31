@@ -91,4 +91,32 @@ extension WKWebView {
         let headerString = "<header><meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no'></header>"
         loadHTMLString(headerString + content, baseURL: baseURL)
     }
+    
+    
+    /// load HTML String same font like the UIWebview
+    ///
+    //// - Parameters:
+    ///   - content: HTML content which we need to load in the webview.
+    ///   - baseURL: Content base url. It is optional.
+    public func loadHTMLStringWithMagicByAppleStyle(content:String, color:UIColor, size:CGFloat, font:String = "-apple-system", baseURL:URL? = nil){
+        let htmlTemplate = """
+        <!doctype html>
+        <html>
+          <head>
+           <meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no'>
+            <style>
+              body {
+                font-family: \(font);
+                font-size: \(size)px;
+                color: \(color.hexString ?? "");
+              }
+            </style>
+          </head>
+          <body>
+            \(content)
+          </body>
+        </html>
+        """
+        loadHTMLString(htmlTemplate, baseURL: baseURL)
+    }
 }
