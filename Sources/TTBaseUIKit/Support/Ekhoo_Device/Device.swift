@@ -9,7 +9,7 @@
 import UIKit
 
 open class Device {
-    static fileprivate func getVersionCode() -> String {
+    static public func getVersionCode() -> String {
         var systemInfo = utsname()
         uname(&systemInfo)
         
@@ -18,38 +18,46 @@ open class Device {
         return versionCode
     }
     
-    static fileprivate func getVersion(code: String) -> DeviceVersion {
+    static public func getVersion(code: String) -> DeviceVersion {
         switch code {
-        /*** iPhone ***/
-        case "iPhone3,1", "iPhone3,2", "iPhone3,3":     return .iPhone4
-        case "iPhone4,1", "iPhone4,2", "iPhone4,3":     return .iPhone4S
-        case "iPhone5,1", "iPhone5,2":                 return .iPhone5
-        case "iPhone5,3", "iPhone5,4":                 return .iPhone5C
-        case "iPhone6,1", "iPhone6,2":                 return .iPhone5S
-        case "iPhone7,2":                            return .iPhone6
-        case "iPhone7,1":                            return .iPhone6Plus
-        case "iPhone8,1":                            return .iPhone6S
-        case "iPhone8,2":                            return .iPhone6SPlus
-        case "iPhone8,3", "iPhone8,4":                 return .iPhoneSE
-        case "iPhone9,1", "iPhone9,3":                 return .iPhone7
-        case "iPhone9,2", "iPhone9,4":                 return .iPhone7Plus
-        case "iPhone10,1", "iPhone10,4":               return .iPhone8
-        case "iPhone10,2", "iPhone10,5":               return .iPhone8Plus
-        case "iPhone10,3", "iPhone10,6":               return .iPhoneX
-        case "iPhone11,2":                           return .iPhoneXS
-        case "iPhone11,4", "iPhone11,6":               return .iPhoneXS_Max
-        case "iPhone11,8":                           return .iPhoneXR
-        case "iPhone12,1":                return .iPhone11
-        case "iPhone12,3":                return .iPhone11Pro
-        case "iPhone12,5":                return .iPhone11Pro_Max
+            /*** iPhone ***/
+        case "iPhone3,1", "iPhone3,2", "iPhone3,3": return .iPhone4
+        case "iPhone4,1": return .iPhone4S
+        case "iPhone5,1", "iPhone5,2": return .iPhone5
+        case "iPhone5,3", "iPhone5,4": return .iPhone5C
+        case "iPhone6,1", "iPhone6,2": return .iPhone5S
+        case "iPhone7,2": return .iPhone6
+        case "iPhone7,1": return .iPhone6Plus
+        case "iPhone8,1": return .iPhone6S
+        case "iPhone8,2": return .iPhone6SPlus
+        case "iPhone9,1", "iPhone9,3": return .iPhone7
+        case "iPhone9,2", "iPhone9,4": return .iPhone7Plus
+        case "iPhone8,4": return .iPhoneSE
+        case "iPhone10,1", "iPhone10,4": return .iPhone8
+        case "iPhone10,2", "iPhone10,5": return .iPhone8Plus
+        case "iPhone10,3", "iPhone10,6": return .iPhoneX
+        case "iPhone11,2": return .iPhoneXS
+        case "iPhone11,4", "iPhone11,6": return .iPhoneXS_Max
+        case "iPhone11,8": return .iPhoneXR
+        case "iPhone12,1": return .iPhone11
+        case "iPhone12,3": return .iPhone11Pro
+        case "iPhone12,5": return .iPhone11Pro_Max
+        case "iPhone12,8": return .iPhone_SE_2nd_Generation
+        case "iPhone13,2": return .iPhone_12
+        case "iPhone13,1": return .iPhone_12_mini
+        case "iPhone13,3": return .iPhone_12_Pro
+        case "iPhone13,4": return .iPhone_12_Pro_Max
+        case "iPhone14,5": return .iPhone13
+        case "iPhone14,4": return .iPhone13Mini
+        case "iPhone14,2": return .iPhone13Pro
+        case "iPhone14,3": return .iPhone13ProMax
+        case "iPhone14,6": return .iPhoneSE3
+        case "iPhone14,7": return .iPhone14
+        case "iPhone14,8": return .iPhone14Plus
+        case "iPhone15,2": return .iPhone14Pro
+        case "iPhone15,3": return .iPhone14ProMax
             
-        case "iPhone12,8":  return .iPhone_SE_2nd_Generation
-        case "iPhone13,1":  return .iPhone_12_mini
-        case "iPhone13,2":  return .iPhone_12
-        case "iPhone13,3":  return .iPhone_12_Pro
-        case "iPhone13,4":  return .iPhone_12_Pro_Max
-            
-        /*** iPad ***/
+            /*** iPad ***/
         case "iPad1,1", "iPad1,2":                    return .iPad1
         case "iPad2,1", "iPad2,2", "iPad2,3", "iPad2,4": return .iPad2
         case "iPad3,1", "iPad3,2", "iPad3,3":           return .iPad3
@@ -64,7 +72,7 @@ open class Device {
         case "iPad4,7", "iPad4,8", "iPad4,9":           return .iPadMini3
         case "iPad5,1", "iPad5,2":                     return .iPadMini4
             
-        /*** iPadPro ***/
+            /*** iPadPro ***/
         case "iPad6,3", "iPad6,4":                       return .iPadPro9_7Inch
         case "iPad6,7", "iPad6,8":                       return .iPadPro12_9Inch
         case "iPad7,1", "iPad7,2":                       return .iPadPro12_9Inch2
@@ -73,7 +81,7 @@ open class Device {
         case "iPad8,5", "iPad8,6", "iPad8,7", "iPad8,8": return .iPadPro12_9Inch3
         case "iPad8,11", "iPad8,12":                    return .iPadPro12_9Inch4
             
-        /*** iPod ***/
+            /*** iPod ***/
         case "iPod1,1":                                  return .iPodTouch1Gen
         case "iPod2,1":                                  return .iPodTouch2Gen
         case "iPod3,1":                                  return .iPodTouch3Gen
@@ -81,14 +89,14 @@ open class Device {
         case "iPod5,1":                                  return .iPodTouch5Gen
         case "iPod7,1":                                  return .iPodTouch6Gen
             
-        /*** Simulator ***/
+            /*** Simulator ***/
         case "i386", "x86_64":                           return .simulator
             
         default:                                         return .unknown
         }
     }
     
-    static fileprivate func getType(code: String) -> DeviceType {
+    static public func getType(code: String) -> DeviceType {
         let versionCode = getVersionCode()
         
         if versionCode.contains("iPhone") {

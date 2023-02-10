@@ -79,9 +79,9 @@ open class TTBaseMonthYearPicker: TTBasePopupViewController {
         case .YEAR(let year):
             self.selectedMonthYear.1 = year
             if let indexYear = indexs.1 { DispatchQueue.main.async { self.timePicker.selectRow(indexYear, inComponent: 0, animated: true)}}
-        case .MONTH_YEAR(let monthYear):
-            self.selectedMonthYear.0 = monthYear.0
-            self.selectedMonthYear.1 = monthYear.1
+        case .MONTH_YEAR(let month,let year):
+            self.selectedMonthYear.0 = month
+            self.selectedMonthYear.1 = year
             if let indexMonth = indexs.0 { DispatchQueue.main.async { self.timePicker.selectRow(indexMonth, inComponent: 0, animated: true)}}
             if let indexYear = indexs.1 { DispatchQueue.main.async { self.timePicker.selectRow(indexYear, inComponent: 1, animated: true)}}
         }
@@ -93,8 +93,8 @@ open class TTBaseMonthYearPicker: TTBasePopupViewController {
             return (self.getIndexForMonth(withMonth: month), nil)
         case .YEAR(let year):
             return (self.getIndexForMonth(withMonth: year), nil)
-        case .MONTH_YEAR(let monthYear):
-            return (self.getIndexForMonth(withMonth: monthYear.0), self.getIndexForYear(withMonth: monthYear.1))
+        case .MONTH_YEAR(let month,let year):
+            return (self.getIndexForMonth(withMonth: month), self.getIndexForYear(withMonth: year))
         }
     }
     
@@ -258,18 +258,18 @@ extension TTBaseMonthYearPicker : UIPickerViewDelegate, UIPickerViewDataSource {
                 }
             }
             return nil
-        case .MONTH_YEAR(let monthYear):
+        case .MONTH_YEAR(let month,let year):
             if component == 0 {
                 if self.months.indices.contains(row) {
                     let monthString = self.months[row]
                     let monthDisplayString =  self.getDisplayMonth(with: monthString)
-                    let color = (monthString == monthYear.0) ? self.textSelectedColor : self.textColor
+                    let color = (monthString == month) ? self.textSelectedColor : self.textColor
                     return NSAttributedString(string: monthDisplayString, attributes: [NSAttributedString.Key.font:self.font,NSAttributedString.Key.foregroundColor:color])
                 }
             } else if component == 1 {
                 if self.years.indices.contains(row) {
                     let yearString =  self.years[row]
-                    let color = (yearString == monthYear.1) ? self.textSelectedColor : self.textColor
+                    let color = (yearString == year) ? self.textSelectedColor : self.textColor
                     return NSAttributedString(string: yearString, attributes: [NSAttributedString.Key.font:self.font,NSAttributedString.Key.foregroundColor:color])
                 }
             }

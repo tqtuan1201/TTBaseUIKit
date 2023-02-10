@@ -35,6 +35,15 @@ public enum DeviceVersion: String {
     case iPhone_12
     case iPhone_12_Pro
     case iPhone_12_Pro_Max
+    case iPhone13
+    case iPhone13Mini
+    case iPhone13Pro
+    case iPhone13ProMax
+    case iPhoneSE3
+    case iPhone14
+    case iPhone14Plus
+    case iPhone14Pro
+    case iPhone14ProMax
     
     /*** iPad ***/
     case iPad1
