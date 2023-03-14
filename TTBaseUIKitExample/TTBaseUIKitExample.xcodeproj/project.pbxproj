@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		02DA4C4EC350795A91D8E79A /* Pods_TTBaseUIKitExample.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A75DC4974845A56EF7D3FF41 /* Pods_TTBaseUIKitExample.framework */; };
+		6D90040C299A1196004280F5 /* BaseView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6D90040B299A1196004280F5 /* BaseView.swift */; };
 		930F2A6022AA75100001A511 /* Element.swift in Sources */ = {isa = PBXBuildFile; fileRef = 930F2A5F22AA75100001A511 /* Element.swift */; };
 		934B1FFC22ABB6F000140EF7 /* CellTypeTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 934B1FFB22ABB6F000140EF7 /* CellTypeTableViewController.swift */; };
 		934B1FFE22ABBAB400140EF7 /* ShowMessageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 934B1FFD22ABBAB400140EF7 /* ShowMessageViewController.swift */; };
@@ -30,6 +31,7 @@
 
 /* Begin PBXFileReference section */
 		490EA940706F141AFD6943F7 /* Pods-TTBaseUIKitExample.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TTBaseUIKitExample.release.xcconfig"; path = "Target Support Files/Pods-TTBaseUIKitExample/Pods-TTBaseUIKitExample.release.xcconfig"; sourceTree = "<group>"; };
+		6D90040B299A1196004280F5 /* BaseView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseView.swift; sourceTree = "<group>"; };
 		930F2A5F22AA75100001A511 /* Element.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Element.swift; sourceTree = "<group>"; };
 		934B1FFB22ABB6F000140EF7 /* CellTypeTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CellTypeTableViewController.swift; sourceTree = "<group>"; };
 		934B1FFD22ABBAB400140EF7 /* ShowMessageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShowMessageViewController.swift; sourceTree = "<group>"; };
@@ -113,6 +115,7 @@
 				9371FA6022AF8923005549E0 /* CoverPresentViewController.swift */,
 				9371FA6222AF89F6005549E0 /* DatePickerViewController.swift */,
 				9371FA6422AF8A89005549E0 /* EmptyTableViewController.swift */,
+				6D90040B299A1196004280F5 /* BaseView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -281,6 +284,7 @@
 				93BC0C3A22AA60C800E61D3C /* BaseUITableViewController.swift in Sources */,
 				93BC0C3C22AA611400E61D3C /* ListCellTestTableViewController.swift in Sources */,
 				934B1FFE22ABBAB400140EF7 /* ShowMessageViewController.swift in Sources */,
+				6D90040C299A1196004280F5 /* BaseView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

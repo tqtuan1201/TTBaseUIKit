@@ -23,7 +23,7 @@ struct MenuFuction {
         menus.append(MenuFuction(name: "PRESENT_VC", des:"Cover vertical animation transition"))
         menus.append(MenuFuction(name: "DATE_PICKER", des: "Choose date time from popup"))
         menus.append(MenuFuction(name: "EMPTY_TABLE", des: "Set background for uitableview when empty data"))
-        
+        menus.append(MenuFuction(name: "TEST_VIEW", des: "View all base views"))
         return menus
     }
 }
@@ -141,8 +141,8 @@ extension MenuViewController: UITableViewDataSource {
         } else if menu.name == "EMPTY_TABLE" {
             let emptyVC = EmptyTableViewController()
             self.navigationController?.pushViewController(emptyVC, animated: true)
-        } else if menu.name == "" {
-            
+        } else if menu.name == "TEST_VIEW" {
+            self.navigationController?.pushViewController(TestViewController(), animated: true)
         } else if menu.name == "" {
             
         }

@@ -15,7 +15,7 @@ class TestViewController: UIViewController {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
         
-        self.view.backgroundColor = XView.viewBgColor
+        self.view.backgroundColor = UIColor.white
         
         //let iconCircle:IconCircleView = IconCircleView()
         //iconCircle.setWidthAnchor(constant: 100).setHeightAnchor(constant: 100).done()
@@ -23,7 +23,6 @@ class TestViewController: UIViewController {
         //let searchFlight:IconFunc = IconFunc()
         //self.view.addSubview(searchFlight)
         //searchFlight.setcenterYAnchor(constant: 0).setCenterXAnchor(constant: 0).done()
-
         
         let searchFlight:IconFunc = IconFunc()
         searchFlight.titleLabel.setText(text: "Flight")
@@ -51,37 +50,37 @@ class TestViewController: UIViewController {
         panelView.addArrangedSubview(searchFlight2)
         panelView.addArrangedSubview(searchFlight3)
     
-        self.view.addSubview(panelView)
         
-    
-        panelView.setLeadingAnchor(constant: XSize.P_CONS_DEF).setTrailingAnchor(constant: XSize.P_CONS_DEF).setcenterYAnchor(constant: 0).done()
+//        /let testView:TTBaseMessageShawdowView = TTBaseMessageShawdowView(byType: .SUCCESS, message: "Bla bal abala a asndjs sdns sdnsd sdnsd ")
+        //self.view.addSubview(testView)
+        //testView.setLeadingAnchor(constant: XSize.P_CONS_DEF).setTrailingAnchor(constant: XSize.P_CONS_DEF).setcenterYAnchor(constant: 0).done()
         
-        
-        let concurrentQueue = DispatchQueue(label: "concurrentQueue", qos: .default, attributes: .concurrent)
-        concurrentQueue.async {
-            for _ in 1...3 {
-                print("concurrentQueue 1")
-            }
-        }
-        
-        concurrentQueue.async {
-            for _ in 1...3 {
-                print("concurrentQueue 2")
-            }
-        }
-        
-        let serialQueue = DispatchQueue(label: "serialQueue")
-        serialQueue.async {
-            for _ in 1...10000 {
-                print("serialQueue 1")
-            }
-        }
-        
-        serialQueue.async {
-            for _ in 1...3 {
-                print("serialQueue 2")
-            }
-        }
+//
+//        let concurrentQueue = DispatchQueue(label: "concurrentQueue", qos: .default, attributes: .concurrent)
+//        concurrentQueue.async {
+//            for _ in 1...3 {
+//                print("concurrentQueue 1")
+//            }
+//        }
+//
+//        concurrentQueue.async {
+//            for _ in 1...3 {
+//                print("concurrentQueue 2")
+//            }
+//        }
+//
+//        let serialQueue = DispatchQueue(label: "serialQueue")
+//        serialQueue.async {
+//            for _ in 1...10000 {
+//                print("serialQueue 1")
+//            }
+//        }
+//
+//        serialQueue.async {
+//            for _ in 1...3 {
+//                print("serialQueue 2")
+//            }
+//        }
 
         
     }
