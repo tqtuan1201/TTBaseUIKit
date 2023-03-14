@@ -6,8 +6,7 @@ import PackageDescription
 let package = Package(
     name: "TTBaseUIKit",
     platforms: [
-        .iOS(.v10),
-        .macCatalyst(.v13)
+        .macOS(.v10_15), .iOS(.v14), .tvOS(.v14), .watchOS(.v8)
     ],
     products: [
         // Products define the executables and libraries a package produces, and make them visible to other packages.
