@@ -16,7 +16,7 @@ open class TTBaseUIImageView: UIImageView, ViewDrawer {
     
     public var paddingContentImage: CGFloat = 0
     public lazy var skeletonMarkView:TTBaseSkeletonMarkView = TTBaseSkeletonMarkView()
-    fileprivate lazy var skeletonImg:UIImage = UIImage(fromTTBaseUIKit: Config.Value.noImageName) ?? UIImage()
+    fileprivate lazy var skeletonImg:UIImage = UIImage.getFromTTBaseUIKitPM(byName: Config.Value.noImageName) ?? UIImage()
     
     open func updateUI() { }
     
@@ -78,7 +78,7 @@ open class TTBaseUIImageView: UIImageView, ViewDrawer {
     private func setupUI() {
         
         self.drawView()
-        self.image =  UIImage(fromTTBaseUIKit: Config.Value.noImageName)
+        self.image =  UIImage.getFromTTBaseUIKitPM(byName: Config.Value.noImageName)
         self.contentMode = .scaleAspectFill
         self.clipsToBounds = true
     }
@@ -92,7 +92,7 @@ open class TTBaseUIImageView: UIImageView, ViewDrawer {
     }
     
     func setImageFromTTBaseUIKit(name:String) {
-        guard let image = UIImage.init(fromTTBaseUIKit: name) else { return }
+        guard let image = UIImage.getFromTTBaseUIKitPM(byName: name) else { return }
         self.image =  image
         self.image?.accessibilityIdentifier = name
     }
@@ -104,7 +104,7 @@ open class TTBaseUIImageView: UIImageView, ViewDrawer {
 extension TTBaseUIImageView {
     public func setAnimalForSkeletonView() {
         if let img = self.image { self.skeletonImg = img }
-        self.image =  UIImage(fromTTBaseUIKit: Config.Value.noImageName)
+        self.image =  UIImage.getFromTTBaseUIKitPM(byName: Config.Value.noImageName)
     }
     
     public func setRollBackViewForSkeletonAnimal() {

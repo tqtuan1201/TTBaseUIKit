@@ -21,7 +21,7 @@ extension TTBaseUtil {
     /// Get no image default
     ///
     public class func getNoImageDef() -> UIImage? {
-        return UIImage(fromTTBaseUIKit: Config.Value.noImageName)
+        return UIImage.getFromTTBaseUIKitPM(byName: Config.Value.noImageName)
     }
     
     /// Check connect network

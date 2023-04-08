@@ -182,7 +182,7 @@ extension TTBaseUITextField {
             hiddenButton.tintColor = TTBaseUIKitConfig.getViewConfig().buttonBgDef
             hiddenButton.layer.cornerRadius    = 4
             hiddenButton.clipsToBounds = false
-            if let defImage = UIImage(fromTTBaseUIKit: "img.hideKeyboard.png") {
+            if let defImage = UIImage.getFromTTBaseUIKitPM(byName: "img.hideKeyboard.png") {
                 hiddenButton.setImage(defImage.withRenderingMode(.alwaysTemplate), for: .normal)
             } else {
                 hiddenButton.tintColor = UIColor.white
@@ -197,7 +197,7 @@ extension TTBaseUITextField {
             panelButtonView.backgroundColor = TTBaseUIKitConfig.getViewConfig().viewBgDissmissKeyboardColor
             panelButtonView.setConerDef()
             let iconView:UIImageView = UIImageView.init(frame: CGRect.init(x: 8, y: 5, width: 20, height: 20))
-            iconView.image = UIImage(fromTTBaseUIKit: "img.hideKeyboard.png")
+            iconView.image = UIImage.getFromTTBaseUIKitPM(byName: "img.hideKeyboard.png")
             iconView.contentMode = .scaleAspectFit
             iconView.image =  iconView.image?.tinted(with: TTBaseUIKitConfig.getViewConfig().buttonBgDef)
             let text:UILabel = UILabel(frame: .init(x: 35, y: 5, width: wPanel - 40, height: 20))

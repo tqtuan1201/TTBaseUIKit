@@ -140,7 +140,7 @@ extension TTBaseUITextView {
             hiddenButton.contentEdgeInsets = UIEdgeInsets(top: 4, left: 4, bottom: 4, right: 4)
             hiddenButton.backgroundColor = UIColor.white
             hiddenButton.tintColor = TTBaseUIKitConfig.getViewConfig().buttonBgDef
-            hiddenButton.setImage(UIImage(fromTTBaseUIKit: "img.hideKeyboard.png")?.withRenderingMode(.alwaysTemplate), for: .normal)
+            hiddenButton.setImage(UIImage.getFromTTBaseUIKitPM(byName: "img.hideKeyboard.png")?.withRenderingMode(.alwaysTemplate), for: .normal)
             hiddenButton.layer.cornerRadius    = 4
             hiddenButton.clipsToBounds = false
             

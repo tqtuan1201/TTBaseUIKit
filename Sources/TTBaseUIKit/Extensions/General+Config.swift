@@ -175,31 +175,50 @@ extension UIImage {
         #endif
     }
     
-    public convenience init?(fromTTBaseUIKit name:String) {
-         let url = Bundle(for: Fonts.self).url(forResource: name, withExtension: "", subdirectory: "TTBaseUIKit.bundle")
-         self.init(named: url?.path ?? "")
-         self.accessibilityIdentifier = name
+    
+    public static func getFromTTBaseUIKitPM(byName name:String) -> UIImage? {
+        //Cocapod way
+        if let byCocapodWay:UIImage = UIImage(fromTTBaseUIKit: name) {
+            return byCocapodWay
+        //Try another way
+        } else {
+            let image = UIImage(named: name, in: Bundle.module, compatibleWith: nil)
+            return image
+        }
     }
     
+    public convenience init?(fromTTBaseUIKit name:String) {
+        if let url = Bundle(for: Fonts.self).url(forResource: name, withExtension: "", subdirectory: "TTBaseUIKit.bundle") {
+            self.init(named: url.path)
+            self.accessibilityIdentifier = name
+        } else if let urlPackage =  Bundle.module.url(forResource: name, withExtension: "") {
+            self.init(named: urlPackage.path )
+            self.accessibilityIdentifier = name
+        } else {
+            self.init(named: "img.NoImage.png")
+        }
+    }
+    
+    
     public static func noImage() -> UIImage? {
-        let image = UIImage(fromTTBaseUIKit: Config.Value.noImageName)
+        let image = UIImage.getFromTTBaseUIKitPM(byName: Config.Value.noImageName)
         image?.accessibilityIdentifier = Config.Value.noImageName
         return image
     }
     
     public static func logoDef() -> UIImage? {
-        let image = UIImage(fromTTBaseUIKit: Config.Value.logoDefName)
+        let image = UIImage.getFromTTBaseUIKitPM(byName: Config.Value.logoDefName)
         image?.accessibilityIdentifier = Config.Value.logoDefName
         return image
     }
     
     public static func noImageOption1() -> UIImage? {
-        let image = UIImage(fromTTBaseUIKit: "img.NoImage1.png")
+        let image = UIImage.getFromTTBaseUIKitPM(byName: "img.NoImage1.png")
         image?.accessibilityIdentifier = "img.NoImage1.png"
         return image
     }
     public static func noImageOption2() -> UIImage? {
-        let image = UIImage(fromTTBaseUIKit: "img.NoImage2.png")
+        let image = UIImage.getFromTTBaseUIKitPM(byName: "img.NoImage2.png")
         image?.accessibilityIdentifier = "img.NoImage2.png"
         return image
     }
@@ -227,9 +246,12 @@ extension UIImage {
 }
 
 extension UIImageView {
+    
+    
+    
     public static func viewNoImage() -> UIImageView {
         let imageView:UIImageView = UIImageView()
-        imageView.image = UIImage(fromTTBaseUIKit: Config.Value.noImageName)
+        imageView.image = UIImage.getFromTTBaseUIKitPM(byName: Config.Value.noImageName)
         imageView.contentMode = .scaleAspectFill
         imageView.clipsToBounds = true
         imageView.translatesAutoresizingMaskIntoConstraints = false
