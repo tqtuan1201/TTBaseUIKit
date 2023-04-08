@@ -7,7 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		02DA4C4EC350795A91D8E79A /* Pods_TTBaseUIKitExample.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A75DC4974845A56EF7D3FF41 /* Pods_TTBaseUIKitExample.framework */; };
 		6D90040C299A1196004280F5 /* BaseView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6D90040B299A1196004280F5 /* BaseView.swift */; };
 		930F2A6022AA75100001A511 /* Element.swift in Sources */ = {isa = PBXBuildFile; fileRef = 930F2A5F22AA75100001A511 /* Element.swift */; };
 		934B1FFC22ABB6F000140EF7 /* CellTypeTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 934B1FFB22ABB6F000140EF7 /* CellTypeTableViewController.swift */; };
@@ -27,10 +26,13 @@
 		93F0FDCF22580B980037C427 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 93F0FDCD22580B980037C427 /* Main.storyboard */; };
 		93F0FDD122580B990037C427 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 93F0FDD022580B990037C427 /* Assets.xcassets */; };
 		93F0FDD422580B990037C427 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 93F0FDD222580B990037C427 /* LaunchScreen.storyboard */; };
+		CC74D6413ECAD90E8A4D5FF9 /* Pods_TTBaseUIKitExample.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 57E1B696959E281128A00770 /* Pods_TTBaseUIKitExample.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		490EA940706F141AFD6943F7 /* Pods-TTBaseUIKitExample.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TTBaseUIKitExample.release.xcconfig"; path = "Target Support Files/Pods-TTBaseUIKitExample/Pods-TTBaseUIKitExample.release.xcconfig"; sourceTree = "<group>"; };
+		11C33C7C1AC555F4E7954911 /* Pods-TTBaseUIKitExample.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TTBaseUIKitExample.debug.xcconfig"; path = "Target Support Files/Pods-TTBaseUIKitExample/Pods-TTBaseUIKitExample.debug.xcconfig"; sourceTree = "<group>"; };
+		49952C00EC4C7436D05ED717 /* Pods-TTBaseUIKitExample.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TTBaseUIKitExample.release.xcconfig"; path = "Target Support Files/Pods-TTBaseUIKitExample/Pods-TTBaseUIKitExample.release.xcconfig"; sourceTree = "<group>"; };
+		57E1B696959E281128A00770 /* Pods_TTBaseUIKitExample.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_TTBaseUIKitExample.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		6D90040B299A1196004280F5 /* BaseView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseView.swift; sourceTree = "<group>"; };
 		930F2A5F22AA75100001A511 /* Element.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Element.swift; sourceTree = "<group>"; };
 		934B1FFB22ABB6F000140EF7 /* CellTypeTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CellTypeTableViewController.swift; sourceTree = "<group>"; };
@@ -52,8 +54,6 @@
 		93F0FDD022580B990037C427 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		93F0FDD322580B990037C427 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		93F0FDD522580B990037C427 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		A75DC4974845A56EF7D3FF41 /* Pods_TTBaseUIKitExample.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_TTBaseUIKitExample.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		EB602716130CA8A1390B2687 /* Pods-TTBaseUIKitExample.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TTBaseUIKitExample.debug.xcconfig"; path = "Target Support Files/Pods-TTBaseUIKitExample/Pods-TTBaseUIKitExample.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -61,7 +61,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				02DA4C4EC350795A91D8E79A /* Pods_TTBaseUIKitExample.framework in Frameworks */,
+				CC74D6413ECAD90E8A4D5FF9 /* Pods_TTBaseUIKitExample.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -71,18 +71,10 @@
 		6A34018F88219E181DE14D80 /* Pods */ = {
 			isa = PBXGroup;
 			children = (
-				EB602716130CA8A1390B2687 /* Pods-TTBaseUIKitExample.debug.xcconfig */,
-				490EA940706F141AFD6943F7 /* Pods-TTBaseUIKitExample.release.xcconfig */,
+				11C33C7C1AC555F4E7954911 /* Pods-TTBaseUIKitExample.debug.xcconfig */,
+				49952C00EC4C7436D05ED717 /* Pods-TTBaseUIKitExample.release.xcconfig */,
 			);
 			path = Pods;
-			sourceTree = "<group>";
-		};
-		7990B8A23B098324764DD40F /* Frameworks */ = {
-			isa = PBXGroup;
-			children = (
-				A75DC4974845A56EF7D3FF41 /* Pods_TTBaseUIKitExample.framework */,
-			);
-			name = Frameworks;
 			sourceTree = "<group>";
 		};
 		930F2A5E22AA75050001A511 /* Test */ = {
@@ -126,7 +118,7 @@
 				93F0FDC822580B980037C427 /* TTBaseUIKitExample */,
 				93F0FDC722580B980037C427 /* Products */,
 				6A34018F88219E181DE14D80 /* Pods */,
-				7990B8A23B098324764DD40F /* Frameworks */,
+				DA3ABE07AAA46850CA9AD5CA /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -154,6 +146,14 @@
 			path = TTBaseUIKitExample;
 			sourceTree = "<group>";
 		};
+		DA3ABE07AAA46850CA9AD5CA /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				57E1B696959E281128A00770 /* Pods_TTBaseUIKitExample.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -161,11 +161,11 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 93F0FDD822580B990037C427 /* Build configuration list for PBXNativeTarget "TTBaseUIKitExample" */;
 			buildPhases = (
-				14594AE5BCCA7EA3878C6583 /* [CP] Check Pods Manifest.lock */,
+				D54EFA64F989C5517C822232 /* [CP] Check Pods Manifest.lock */,
 				93F0FDC222580B980037C427 /* Sources */,
 				93F0FDC322580B980037C427 /* Frameworks */,
 				93F0FDC422580B980037C427 /* Resources */,
-				4549B10D27F20CB4A5C07610 /* [CP] Embed Pods Frameworks */,
+				99C9AE056187ACC1447B4E1C /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -223,7 +223,24 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		14594AE5BCCA7EA3878C6583 /* [CP] Check Pods Manifest.lock */ = {
+		99C9AE056187ACC1447B4E1C /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-TTBaseUIKitExample/Pods-TTBaseUIKitExample-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-TTBaseUIKitExample/Pods-TTBaseUIKitExample-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-TTBaseUIKitExample/Pods-TTBaseUIKitExample-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		D54EFA64F989C5517C822232 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -243,23 +260,6 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
-			showEnvVarsInLog = 0;
-		};
-		4549B10D27F20CB4A5C07610 /* [CP] Embed Pods Frameworks */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-TTBaseUIKitExample/Pods-TTBaseUIKitExample-frameworks-${CONFIGURATION}-input-files.xcfilelist",
-			);
-			name = "[CP] Embed Pods Frameworks";
-			outputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-TTBaseUIKitExample/Pods-TTBaseUIKitExample-frameworks-${CONFIGURATION}-output-files.xcfilelist",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-TTBaseUIKitExample/Pods-TTBaseUIKitExample-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 /* End PBXShellScriptBuildPhase section */
@@ -428,7 +428,7 @@
 		};
 		93F0FDD922580B990037C427 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = EB602716130CA8A1390B2687 /* Pods-TTBaseUIKitExample.debug.xcconfig */;
+			baseConfigurationReference = 11C33C7C1AC555F4E7954911 /* Pods-TTBaseUIKitExample.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
@@ -448,7 +448,7 @@
 		};
 		93F0FDDA22580B990037C427 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 490EA940706F141AFD6943F7 /* Pods-TTBaseUIKitExample.release.xcconfig */;
+			baseConfigurationReference = 49952C00EC4C7436D05ED717 /* Pods-TTBaseUIKitExample.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;

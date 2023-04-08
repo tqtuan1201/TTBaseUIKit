@@ -22,8 +22,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         let size:SizeConfig = SizeConfig()
         let font:FontConfig = FontConfig()
-        
-        TTBaseUIKitConfig.withDefaultConfig(withFontConfig: font, frameSize: size, view: view)?.start(withViewLog: true)
+        let style:StyleConfig = StyleConfig()
+        style.dismissKeyboardType = .ICON_TEXT
+        TTBaseUIKitConfig.withDefaultConfig(withFontConfig: font, frameSize: size, view: view, style: style)?.start(withViewLog: true)
         
         
         self.window = UIWindow(frame: UIScreen.main.bounds)

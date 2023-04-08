@@ -9,8 +9,11 @@
 import UIKit
 import TTBaseUIKit
 
-class TestViewController: UIViewController {
+class TestViewController: BaseUIViewController {
 
+    override var navType: TTBaseUIViewController<DarkBaseUIView>.NAV_STYLE { return .STATUS_NAV}
+    override var lgNavType: BaseUINavigationView.TYPE { return .DETAIL}
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
@@ -50,6 +53,12 @@ class TestViewController: UIViewController {
         panelView.addArrangedSubview(searchFlight2)
         panelView.addArrangedSubview(searchFlight3)
     
+        let inputText:TTBaseUITextField = TTBaseUITextField(withPlaceholder: "sdsdsad", type: .DEFAULT, isSetHiddenKeyboardAccessoryView: true, returnKeyType: .continue)
+        
+        self.view.addSubview(inputText)
+        inputText.setLeadingAnchor(constant: 10).setTrailingAnchor(constant: 10)
+        inputText.setTopAnchor(constant: 200)
+        inputText.setHeightAnchor(constant: 50)
         
 //        /let testView:TTBaseMessageShawdowView = TTBaseMessageShawdowView(byType: .SUCCESS, message: "Bla bal abala a asndjs sdns sdnsd sdnsd ")
         //self.view.addSubview(testView)
