@@ -65,9 +65,9 @@ extension LogViewHelper {
     
     public func onShow() {
         DispatchQueue.main.async {
-            if let windown = UIApplication.shared.keyWindow {
-                    let longPressRecognizer = UILongPressGestureRecognizer(target: self, action: #selector(self.addAccountLongPressGesture(_:)))
-                    windown.addGestureRecognizer(longPressRecognizer)
+            if let windown = UIApplication.getKeyWindow() {
+                let longPressRecognizer = UILongPressGestureRecognizer(target: self, action: #selector(self.addAccountLongPressGesture(_:)))
+                windown.addGestureRecognizer(longPressRecognizer)
             }
         }
     }

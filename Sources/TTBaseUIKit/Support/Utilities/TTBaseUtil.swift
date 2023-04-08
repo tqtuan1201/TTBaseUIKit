@@ -126,7 +126,7 @@ extension TTBaseUtil {
             
             let messageString:String = "[DEV MODE] \n\(des)"
             
-            if let window = UIApplication.shared.keyWindow {
+            if let window = UIApplication.getKeyWindow() {
                 let messLabel:TTBaseInsetLabel = TTBaseInsetLabel(withType: .SUB_TITLE, text: messageString, align: .left)
                 messLabel.layer.zPosition = 999999
                 messLabel.setTextColor(color: .white)

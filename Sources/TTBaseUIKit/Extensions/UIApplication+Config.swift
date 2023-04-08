@@ -10,7 +10,7 @@ import Foundation
 import UIKit
 
 extension UIApplication {
-    public class func topViewController(controller: UIViewController? = UIApplication.shared.keyWindow?.rootViewController) -> UIViewController? {
+    public class func topViewController(controller: UIViewController? = UIApplication.getKeyWindow()?.rootViewController) -> UIViewController? {
         if let navigationController = controller as? UINavigationController {
             return topViewController(controller: navigationController.visibleViewController)
         }
@@ -24,5 +24,34 @@ extension UIApplication {
         }
         return controller
     }
+    
+    public class func getKeyWindow() -> UIWindow? {
+        if #available(iOS 13, *) {
+            if let windowScene = UIApplication.shared.connectedScenes.first as? UIWindowScene {
+                // Get the first window of the scene
+                if let window = windowScene.windows.first {
+                    // Use the window object
+                    return window
+                } else {
+                    return UIApplication.shared.windows.first { $0.isKeyWindow }
+                }
+            } else {
+                return UIApplication.shared.windows.first { $0.isKeyWindow }
+            }
+        } else {
+            return UIApplication.shared.keyWindow
+        }
+    }
+    
+    public class func getStatusBarFrame() -> CGFloat {
+        
+        if #available(iOS 13.0, *) {
+            let statusBarHeight = UIApplication.getKeyWindow()?.windowScene?.statusBarManager?.statusBarFrame.height ?? 20
+            return statusBarHeight
+        } else {
+            return UIApplication.shared.statusBarFrame.height
+        }
+    }
+    
 }
 

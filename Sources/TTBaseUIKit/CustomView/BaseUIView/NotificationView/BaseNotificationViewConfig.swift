@@ -77,7 +77,7 @@ public class TTBaseNotificationViewConfig {
     
     public var timeToShow:TimeInterval = 4
     public var isHiddenStatusBar:Bool = false
-    private var currentWindown:UIWindow? = UIApplication.shared.keyWindow
+    private var currentWindown:UIWindow? = UIApplication.getKeyWindow()
     private var currentVC:UIViewController?
     
     private var contentView:TTBaseUIView?
