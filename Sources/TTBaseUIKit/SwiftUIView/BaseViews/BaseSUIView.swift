@@ -12,7 +12,7 @@ public struct TTBaseSUIView<Content: View>: View {
     public var viewDefBgColor: Color = Color(TTBaseUIKitConfig.getViewConfig().viewDefColor)
     public var viewDefCornerRadius: CGFloat = TTBaseUIKitConfig.getSizeConfig().CORNER_RADIUS
     
-    public let content: () -> Content
+    public let content: (() -> Content)
     
     public init(withCornerRadius radio:CGFloat, @ViewBuilder content: @escaping () -> Content) {
         self.viewDefCornerRadius = radio
@@ -24,28 +24,29 @@ public struct TTBaseSUIView<Content: View>: View {
     }
     
     public var body: some View {
-        content()
+        self.content()
         .background(self.viewDefBgColor)
         .cornerRadius(self.viewDefCornerRadius)
     }
 }
 
-//MARK: PreviewProvider
-/*
-struct ContentView1212: View {
+//MARK: Previews
+ fileprivate struct DemoBaseSUIView: View {
     var body: some View {
-        TTBaseSUIView(withCornerRadius: 20) {
+        TTBaseSUIView(content: {
             VStack {
-                Image(systemName: "star")
-                Text("This is the content of MyCustomView")
+                Label("sdsd", image: "ds")
+                Text("Here is")
+                Text("TTBaseSUIView")
             }
-        }
+        })
+        .padding()
+        .background(Color.gray)
     }
 }
 
-struct ViewBuilder_Previews: PreviewProvider {
+struct DemoBaseSUIView_Previews: PreviewProvider {
     static var previews: some View {
-        ContentView1212()
+        DemoBaseSUIView()
     }
 }
-*/

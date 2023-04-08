@@ -85,7 +85,7 @@ open class TTBaseUIButton: UIButton, ViewDrawer, TextDrawer {
         self.contentEdgeInsets = UIEdgeInsets(top: TTSize.P_CONS_DEF, left: TTSize.P_CONS_DEF, bottom: TTSize.P_CONS_DEF, right: TTSize.P_CONS_DEF)
         
         self.indicatorView.translatesAutoresizingMaskIntoConstraints = false
-        self.indicatorView.style = UIActivityIndicatorView.Style.white
+        self.indicatorView.style = UIActivityIndicatorView.Style.medium
         self.indicatorView.isUserInteractionEnabled = false
         self.indicatorView.alpha = 0
         self.addSubview(self.indicatorView)
@@ -264,7 +264,7 @@ extension TTBaseUIButton {
 //MARK:// Loading
 extension TTBaseUIButton {
     
-    public func onStartLoadingAnimation(withStyle style:UIActivityIndicatorView.Style = .white) {
+    public func onStartLoadingAnimation(withStyle style:UIActivityIndicatorView.Style = UIActivityIndicatorView.Style.medium) {
         self.indicatorView.style = style
         self.indicatorView.startAnimating()
         UIView.animate(withDuration: 0.4) {
