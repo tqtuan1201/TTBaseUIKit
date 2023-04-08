@@ -36,7 +36,7 @@ open class TTBaseUIButton: UIButton, ViewDrawer, TextDrawer {
     open func updateBaseUIButtonView() { }
     public var onTouchHandler:((_ button:TTBaseUIButton) -> Void)?
     
-    public convenience init(textString text:String = "", type:TYPE = .DEFAULT, isSetSize:Bool = false) {
+    public convenience init(textString text:String = "", type:TYPE = .DEFAULT, isSetSize:Bool = false, isSetHeight:Bool = false) {
         self.init(frame: .zero)
         self.type = type
         switch type {
@@ -59,7 +59,14 @@ open class TTBaseUIButton: UIButton, ViewDrawer, TextDrawer {
         }
         
         self.setText(text: text).done()
-        if isSetSize { self.setWidthAnchor(constant: TTBaseUIKitConfig.getSizeConfig().W_BUTTON).setHeightAnchor(constant: TTBaseUIKitConfig.getSizeConfig().H_BUTTON).done() }
+        
+        //Height def
+        if isSetHeight {
+            self.setHeightAnchor(constant: TTBaseUIKitConfig.getSizeConfig().H_BUTTON)
+        //Height & width def
+        } else {
+            if isSetSize { self.setWidthAnchor(constant: TTBaseUIKitConfig.getSizeConfig().W_BUTTON).setHeightAnchor(constant: TTBaseUIKitConfig.getSizeConfig().H_BUTTON).done() }
+        }
     }
     
     public override init(frame: CGRect) {

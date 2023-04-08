@@ -56,6 +56,9 @@ public class SizeConfig {
     public var W_BUTTON:CGFloat = UIScreen.main.bounds.width / 2
     public var W_TEXT_RIGHTVIEW:CGFloat = UIScreen.main.bounds.width / 6
     public var W_TEXT_LEFTVIEW:CGFloat = UIScreen.main.bounds.width / 6
+    public var W_ICONTEXT_DISSMISS_KEYBOARD:CGFloat = 90.0
+    
+    public var LINE_SPACING:CGFloat = 4.0
     
     public var P_CONS_DEF:CGFloat = 8.0
     public var P_CONS_LEFT_H:CGFloat = 8.0

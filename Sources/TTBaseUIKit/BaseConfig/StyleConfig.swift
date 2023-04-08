@@ -12,6 +12,7 @@ import UIKit
 public enum DismissKeyboardType {
     case ICON
     case TEXT
+    case ICON_TEXT
 }
 
 open class StyleConfig {
