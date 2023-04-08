@@ -41,6 +41,7 @@ open class ViewConfig {
     public var tableRowDev2BgColor: UIColor = UIColor.getColorFromHex.init(netHex: 0xEDEDED)
     
     public var viewBgCellColor: UIColor = UIColor.white
+    public var viewBgDissmissKeyboardColor: UIColor = UIColor.getColorFromHex.init(netHex: 0xDDDDDD)
     public var viewBgCellSelectedColor: UIColor = UIColor.getColorFromHex.init(netHex: 0xe8f2f6)
     
     public var labelBgDef: UIColor = UIColor.getColorFromHex.init(netHex: 0x1C82AD)

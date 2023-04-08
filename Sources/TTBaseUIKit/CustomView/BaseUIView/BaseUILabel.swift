@@ -155,7 +155,53 @@ extension TTBaseUILabel {
         return self
     }
     
+    
 }
+
+// MARK: For setText
+extension TTBaseUILabel {
+    
+    @discardableResult public func addStartRequirement(color:UIColor = .red) -> TTBaseUILabel {
+        guard let attributedText:NSAttributedString = self.attributedText  else { return self}
+        let currentAtt:NSMutableAttributedString = NSMutableAttributedString(attributedString: attributedText)
+        currentAtt.bold(" " + "*", textColor: UIColor.red, systemFontsize:  TTFont.TITLE_H)
+        self.setTextAttr(with: currentAtt)
+        return self
+    }
+    
+    @discardableResult public func setTextAttr(byText text:String, size:CGFloat = TTBaseUIKitConfig.getFontConfig().TITLE_H, color:UIColor = TTBaseUIKitConfig.getViewConfig().textDefColor) -> TTBaseUILabel {
+        let paragraphStyle = NSMutableParagraphStyle()
+        paragraphStyle.lineSpacing = TTSize.LINE_SPACING
+        let textAttr:NSMutableAttributedString = NSMutableAttributedString()
+        textAttr.normal(text, textColor: color, systemFontsize: size)
+        textAttr.addAttribute(NSAttributedString.Key.paragraphStyle, value:paragraphStyle, range:NSMakeRange(0, textAttr.length))
+        self.setTextAttr(with: textAttr)
+        return self
+    }
+    
+    @discardableResult public func setTextBoldAttr(byText text:String, size:CGFloat = TTBaseUIKitConfig.getFontConfig().TITLE_H, color:UIColor = TTBaseUIKit.ViewConfig().textDefColor) -> TTBaseUILabel {
+        let paragraphStyle = NSMutableParagraphStyle()
+        paragraphStyle.lineSpacing = TTSize.LINE_SPACING
+        let textAttr:NSMutableAttributedString = NSMutableAttributedString()
+        textAttr.bold(text, textColor: color, systemFontsize: size)
+        textAttr.addAttribute(NSAttributedString.Key.paragraphStyle, value:paragraphStyle, range:NSMakeRange(0, textAttr.length))
+        self.setTextAttr(with: textAttr)
+        return self
+    }
+    
+    
+    @discardableResult public func addLineAttrSpacing(space:CGFloat = TTBaseUIKitConfig.getSizeConfig().LINE_SPACING / 2) -> TTBaseUILabel {
+        guard let attributedText:NSAttributedString = self.attributedText  else { return self}
+        let currentAtt:NSMutableAttributedString = NSMutableAttributedString(attributedString: attributedText)
+        let paragraphStyle = NSMutableParagraphStyle()
+        paragraphStyle.lineSpacing = space
+        currentAtt.addAttribute(NSAttributedString.Key.paragraphStyle, value:paragraphStyle, range:NSMakeRange(0, currentAtt.length))
+        self.setTextAttr(with: currentAtt)
+        return self
+    }
+    
+}
+
 
 // MARK: For setText
 extension TTBaseUILabel {

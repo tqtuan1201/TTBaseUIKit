@@ -67,13 +67,14 @@ open class TTBaseUITextField: UITextField   {
         return rect.inset(by: self.textpading)
     }
     
-    public convenience init(withPlaceholder text:String, pading:CGFloat = 5.0, type:TYPE = .DEFAULT, isSetHiddenKeyboardAccessoryView:Bool = true, returnKeyType:UIReturnKeyType = .default) {
+    public convenience init(withPlaceholder text:String, pading:CGFloat = 5.0, type:TYPE = .DEFAULT, isSetHiddenKeyboardAccessoryView:Bool = true, returnKeyType:UIReturnKeyType = .default, isSetHeight:Bool = false) {
         self.init(frame: .zero)
         self.returnKeyType = returnKeyType
         self.type = type
         self.textpading = UIEdgeInsets.init(top: pading, left: pading, bottom: pading, right: pading)
         self.placeholder = text
         if isSetHiddenKeyboardAccessoryView { self.setHiddenKeyboardAccessoryView().done()}
+        if isSetHeight { self.setHeightAnchor(constant: TTSize.H_TEXTFIELD)}
         switch type {
         case .DEFAULT:
             break
@@ -89,13 +90,14 @@ open class TTBaseUITextField: UITextField   {
         }
     }
     
-    public convenience init(withPlaceholder text:String, textPadding:UIEdgeInsets, type:TYPE = .DEFAULT, isSetHiddenKeyboardAccessoryView:Bool = true, returnKeyType:UIReturnKeyType = .default) {
+    public convenience init(withPlaceholder text:String, textPadding:UIEdgeInsets, type:TYPE = .DEFAULT, isSetHiddenKeyboardAccessoryView:Bool = true, returnKeyType:UIReturnKeyType = .default, isSetHeight:Bool = false) {
         self.init(frame: .zero)
         self.returnKeyType = returnKeyType
         self.type = type
         self.textpading = textPadding
         self.placeholder = text
         if isSetHiddenKeyboardAccessoryView { self.setHiddenKeyboardAccessoryView().done()}
+        if isSetHeight { self.setHeightAnchor(constant: TTSize.H_TEXTFIELD)}
         switch type {
         case .DEFAULT:
             break
@@ -178,11 +180,36 @@ extension TTBaseUITextField {
             hiddenButton.contentEdgeInsets = UIEdgeInsets(top: 4, left: 4, bottom: 4, right: 4)
             hiddenButton.backgroundColor = UIColor.white
             hiddenButton.tintColor = TTBaseUIKitConfig.getViewConfig().buttonBgDef
-            hiddenButton.setImage(UIImage(fromTTBaseUIKit: "img.hideKeyboard.png")?.withRenderingMode(.alwaysTemplate), for: .normal)
             hiddenButton.layer.cornerRadius    = 4
             hiddenButton.clipsToBounds = false
-            
+            if let defImage = UIImage(fromTTBaseUIKit: "img.hideKeyboard.png") {
+                hiddenButton.setImage(defImage.withRenderingMode(.alwaysTemplate), for: .normal)
+            } else {
+                hiddenButton.tintColor = UIColor.white
+                hiddenButton.setTitleColor(TTBaseUIKitConfig.getViewConfig().buttonBgDef, for: UIControl.State.normal)
+                hiddenButton.setTitle("TTBaseUIkit.Text.HiddenKeyboard".localize(withBundle: Bundle.main), for: .normal)
+            }
             panelView.addSubview(hiddenButton)
+        //Icon text
+        } else if TTBaseUIKitConfig.getStyleConfig().dismissKeyboardType == .ICON_TEXT {
+            let wPanel:CGFloat = TTBaseUIKitConfig.getSizeConfig().W_ICONTEXT_DISSMISS_KEYBOARD
+            let panelButtonView:UIView = UIView(frame: .init(x: TTBaseUIKitConfig.getSizeConfig().W - wPanel - 2, y: 2, width: wPanel, height: 30))
+            panelButtonView.backgroundColor = TTBaseUIKitConfig.getViewConfig().viewBgDissmissKeyboardColor
+            panelButtonView.setConerDef()
+            let iconView:UIImageView = UIImageView.init(frame: CGRect.init(x: 8, y: 5, width: 20, height: 20))
+            iconView.image = UIImage(fromTTBaseUIKit: "img.hideKeyboard.png")
+            iconView.contentMode = .scaleAspectFit
+            iconView.image =  iconView.image?.tinted(with: TTBaseUIKitConfig.getViewConfig().buttonBgDef)
+            let text:UILabel = UILabel(frame: .init(x: 35, y: 5, width: wPanel - 40, height: 20))
+            text.font = UIFont.systemFont(ofSize: 14, weight: .semibold)
+            text.textAlignment = .center
+            text.text = "TTBaseUIkit.Text.HiddenKeyboard".localize(withBundle: Bundle.main)
+            text.textColor = TTBaseUIKitConfig.getViewConfig().buttonBgDef
+            
+            panelButtonView.addSubview(iconView)
+            panelButtonView.addSubview(text)
+           
+            panelView.addSubview(panelButtonView)
         //Text
         } else {
             let hiddenButton:UIButton = UIButton(frame: CGRect.init(x: TTBaseUIKitConfig.getSizeConfig().W - 100, y: 2, width: 100, height: 32))
