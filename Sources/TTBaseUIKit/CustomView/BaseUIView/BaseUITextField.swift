@@ -36,8 +36,12 @@ open class TTBaseUITextField: UITextField   {
     public var onDismissKeyboard:(() -> Void)?
     public var onTouchIconHandler:((_ textField:TTBaseUITextField) -> Void)?
     
+    
     open var paddingIcon:CGFloat { get { return TTSize.P_CONS_DEF }}
     open func updateUI() { }
+    
+    public var editingDidBeginHandle:((_ textField:TTBaseUITextField) -> Void)?
+    public var editingDidEndHandle:((_ textField:TTBaseUITextField) -> Void)?
     
     public var onTouchHandler:((_ textField:TTBaseUITextField) -> Void)?
     public var onTouchReturnKeyHandler:((_ textField:TTBaseUITextField,_ type:UIReturnKeyType) -> Void)?
@@ -128,6 +132,9 @@ open class TTBaseUITextField: UITextField   {
         self.borderStyle      = UITextField.BorderStyle.roundedRect
         self.addTarget(self, action: #selector(self.textEditChanged(_:)), for: .editingChanged)
         self.delegate = self
+        
+        self.addTarget(self, action: #selector(self.textFieldEditingDidBegin), for: .editingDidBegin)
+        self.addTarget(self, action: #selector(self.textFieldEditingDidEnd), for: .editingDidEnd)
     }
     
     fileprivate func setKeyBoardStyle(type:UIKeyboardType) {
@@ -166,6 +173,16 @@ open class TTBaseUITextField: UITextField   {
 
 // For base Function
 extension TTBaseUITextField {
+    
+    // Add a floating label to the view on becoming first responder
+    @objc func textFieldEditingDidBegin() {
+        self.editingDidBeginHandle?(self)
+    }
+    
+    @objc func textFieldEditingDidEnd() {
+        self.editingDidEndHandle?(self)
+    }
+        
     
     @discardableResult public func setHiddenKeyboardAccessoryView() -> TTBaseUITextField {
         let panelView:UIView = UIView(frame: CGRect(x: 0, y: 0, width: TTBaseUIKitConfig.getSizeConfig().W, height: 34))
