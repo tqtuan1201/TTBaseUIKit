@@ -34,6 +34,10 @@ open class TTBaseUITextView: UITextView   {
     public var onTouchIconHandler:((_ textView:TTBaseUITextView) -> Void)?
     public var onTouchReturnKeyHandler:((_ textView:TTBaseUITextView,_ type:UIReturnKeyType) -> Void)?
     
+    public var editingDidBeginHandle:((_ textField:TTBaseUITextView) -> Void)?
+    public var editingDidEndHandle:((_ textField:TTBaseUITextView) -> Void)?
+    
+    
     open func updateUI() { }
     
     
@@ -102,6 +106,16 @@ open class TTBaseUITextView: UITextView   {
 }
 
 extension TTBaseUITextView : UITextViewDelegate {
+    
+    public func textViewDidBeginEditing(_ textView: UITextView) {
+        TTBaseFunc.shared.printLog(object: "::TTBaseUITextView textViewDidBeginEditing")
+        self.editingDidBeginHandle?(self)
+    }
+       
+    public func textViewDidEndEditing(_ textView: UITextView) {
+        TTBaseFunc.shared.printLog(object: "::TTBaseUITextView textViewDidBeginEditing")
+        self.editingDidEndHandle?(self)
+    }
     
     public func textViewDidChange(_ textView: UITextView) {
         self.onTextEditChangedHandler?(self, textView.text)
