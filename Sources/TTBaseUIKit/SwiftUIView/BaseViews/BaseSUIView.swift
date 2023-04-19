@@ -1,8 +1,8 @@
 //
 //  TTBaseSUIView.swift
 //  
-//
 //  Created by Tuan Truong Quang on 3/14/23.
+//  Copyright © 2019 Truong Quang Tuan. All rights reserved.
 //
 
 import SwiftUI

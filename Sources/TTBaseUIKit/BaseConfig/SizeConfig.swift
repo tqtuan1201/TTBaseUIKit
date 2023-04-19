@@ -18,6 +18,7 @@ public class SizeConfig {
     
     
     public var RATIO:CGFloat = 2/3
+    public var CORNER_IMAGE:CGFloat = 20.0
     public var CORNER_RADIUS:CGFloat = 4.0
     public var CORNER_BUTTON:CGFloat = 4.0
 

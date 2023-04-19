@@ -11,7 +11,7 @@ import UIKit
 open class TTBaseUIImageView: UIImageView, ViewDrawer {
     
     var viewDefBgColor: UIColor = UIColor.clear
-    var viewDefCornerRadius: CGFloat = TTBaseUIKitConfig.getSizeConfig().CORNER_RADIUS
+    var viewDefCornerRadius: CGFloat = TTBaseUIKitConfig.getSizeConfig().CORNER_IMAGE
     
     
     public var paddingContentImage: CGFloat = 0
