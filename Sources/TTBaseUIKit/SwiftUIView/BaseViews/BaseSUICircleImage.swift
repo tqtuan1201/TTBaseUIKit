@@ -42,7 +42,7 @@ public struct TTBaseSUICircleImage: View {
     var body: some View {
         TTBaseSUIView(content: {
             VStack {
-                Text("TTBaseSUICircleImage 1")
+                Text("TTBaseSUICircleImage")
                 TTBaseSUICircleImage()
                     .frame(width: 200, height: 200, alignment: .center)
             }

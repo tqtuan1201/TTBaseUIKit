@@ -40,7 +40,7 @@ public struct TTBaseSUIImage: View {
     var body: some View {
         TTBaseSUIView(content: {
             VStack {
-                Text("dsdsd")
+                Text("TTBaseSUIImage")
                 TTBaseSUIImage()
                     .scaledToFill()
                     .frame(width: 200, height:200, alignment: .center)
