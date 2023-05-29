@@ -250,6 +250,10 @@ extension String {
         
     }
     
+    public  func getCompareTextOnly() -> String {
+        return self.lowercased().removeWhitespace().removeDiacriticsVN()
+    }
+    
     public func splitString(byStartString start:String) -> String {
         if let endIndex = self.range(of: start)?.upperBound {
             return String(self[endIndex ..< self.endIndex])
