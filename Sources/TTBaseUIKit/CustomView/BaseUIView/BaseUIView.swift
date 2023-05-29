@@ -87,9 +87,10 @@ extension TTBaseUIView {
         self.drawView()
     }
     
-    public func setBgColor(_ color:UIColor) {
+    @discardableResult public func setBgColor(_ color:UIColor) -> TTBaseUIView{
         self.viewDefBgColor = color
         self.backgroundColor = color
+        return self
     }
     
 }
