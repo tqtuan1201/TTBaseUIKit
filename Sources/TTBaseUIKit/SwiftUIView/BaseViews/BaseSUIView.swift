@@ -19,6 +19,14 @@ public struct TTBaseSUIView<Content: View>: View {
         self.content = content
     }
     
+    public init(withCornerRadius radio:CGFloat = TTBaseUIKitConfig.getSizeConfig().CORNER_RADIUS,
+                bg:Color = Color(TTBaseUIKitConfig.getViewConfig().viewDefColor),
+                @ViewBuilder content: @escaping () -> Content) {
+        self.viewDefCornerRadius = radio
+        self.viewDefBgColor = bg
+        self.content = content
+    }
+    
     public init(@ViewBuilder content: @escaping () -> Content) {
         self.content = content
     }

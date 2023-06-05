@@ -8,6 +8,26 @@
 
 import SwiftUI
 
+/*
+struct CustomText<Content: View>: View {
+    private let content: String
+    private let transform: (Text) -> Content
+    
+    init(_ content: String, transform: @escaping (Text) -> Content) {
+        self.content = content
+        self.transform = transform
+    }
+    
+    var body: some View {
+        // Apply whatever modifiers from environment, etc.
+        let current = Text(content)
+        /* ... */
+        
+        return transform(current)
+    }
+}
+*/
+
 public struct TTBaseSUIText: View {
     
     
@@ -21,10 +41,29 @@ public struct TTBaseSUIText: View {
     public var text:String = ""
     public var padding:CGFloat = 0.0
     
-    public init(withType type:TTBaseUILabel.TYPE, text:String, align:TextAlignment = .leading) {
+    public var isBold:Bool = false
+    public var isItalic:Bool = false
+      
+    public init(withType type:TTBaseUILabel.TYPE = .TITLE, text:String, align:TextAlignment = .leading, color:Color = Color(TTBaseUIKitConfig.getViewConfig().textDefColor)) {
         self.type = type
         self.align = align
         self.text = text
+        self.textDefColor = color
+    }
+    
+    public init(withBold type:TTBaseUILabel.TYPE = .TITLE, text:String, align:TextAlignment = .leading, color:Color = Color(TTBaseUIKitConfig.getViewConfig().textDefColor)) {
+        self.type = type
+        self.align = align
+        self.text = text
+        self.isBold = true
+        self.textDefColor = color
+    }
+    
+    public init(withItalic type:TTBaseUILabel.TYPE = .TITLE, text:String, align:TextAlignment = .leading, color:Color = Color(TTBaseUIKitConfig.getViewConfig().textDefColor)) {
+        self.type = type
+        self.align = align
+        self.isItalic = true
+        self.textDefColor = color
     }
     
     public var body: some View {
@@ -43,12 +82,20 @@ public struct TTBaseSUIText: View {
         case .NONE:
             currentText = Text(self.text).font(Font(self.fontDef.withSize(TTFont.TITLE_H)))
         }
-        return currentText.foregroundColor(self.textDefColor).multilineTextAlignment(self.align)
+        
+        if #available(iOS 16.0, *) {
+            return currentText.bold(self.isBold).italic(self.isItalic).foregroundColor(self.textDefColor).multilineTextAlignment(self.align)
+            // Fallback on earlier versions
+        } else {
+            if self.isBold { currentText = currentText.bold()}
+            if self.isItalic { currentText = currentText.italic()}
+            return currentText.foregroundColor(self.textDefColor).multilineTextAlignment(self.align)
+        }
     }
 }
 
 //MARK: Previews
- fileprivate struct DemoTTBaseSUIText: View {
+fileprivate struct DemoTTBaseSUIText: View {
     var body: some View {
         TTBaseSUIView(content: {
             VStack(alignment: .center, spacing: 0) {

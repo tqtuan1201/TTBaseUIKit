@@ -15,7 +15,6 @@ public struct TTBaseSUIImage: View {
 
     public var image:Image = Image(uiImage: UIImage(fromTTBaseUIKit: "img.NoImage2.png") ?? UIImage())
 
-    
     public init() {
     }
     
