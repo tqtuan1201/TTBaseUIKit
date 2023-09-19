@@ -46,12 +46,15 @@ extension UIApplication {
     public class func getStatusBarFrame() -> CGFloat {
         
         if #available(iOS 13.0, *) {
-            let statusBarHeight = UIApplication.getKeyWindow()?.windowScene?.statusBarManager?.statusBarFrame.height ?? 20
-            return statusBarHeight
+            let statusBarHeight = UIApplication.getKeyWindow()?.windowScene?.statusBarManager?.statusBarFrame.height
+            return statusBarHeight ?? UIApplication.shared.statusBarFrame.height
         } else {
             return UIApplication.shared.statusBarFrame.height
         }
     }
     
+    public static var safeAreaInsets: UIEdgeInsets  {
+        return UIApplication.getKeyWindow()?.safeAreaInsets ?? .zero
+    }
 }
 

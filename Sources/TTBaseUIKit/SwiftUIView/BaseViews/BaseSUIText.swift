@@ -44,6 +44,8 @@ public struct TTBaseSUIText: View {
     public var isBold:Bool = false
     public var isItalic:Bool = false
       
+    public var rawElement:Text = Text("TTBaseSUIText")
+    
     public init(withType type:TTBaseUILabel.TYPE = .TITLE, text:String, align:TextAlignment = .leading, color:Color = Color(TTBaseUIKitConfig.getViewConfig().textDefColor)) {
         self.type = type
         self.align = align
@@ -67,6 +69,18 @@ public struct TTBaseSUIText: View {
     }
     
     public var body: some View {
+        var currentText = self.setupBase()
+        if #available(iOS 16.0, *) {
+            return currentText.bold(self.isBold).italic(self.isItalic).foregroundColor(self.textDefColor).multilineTextAlignment(self.align)
+            // Fallback on earlier versions
+        } else {
+            if self.isBold { currentText = currentText.bold()}
+            if self.isItalic { currentText = currentText.italic()}
+            return currentText.foregroundColor(self.textDefColor).multilineTextAlignment(self.align)
+        }
+    }
+    
+    fileprivate func setupBase() -> Text {
         var currentText = Text(self.text).font(Font(self.fontDef.withSize(TTFont.TITLE_H)))
         switch self.type {
         case.HEADER_SUPER:
@@ -82,15 +96,11 @@ public struct TTBaseSUIText: View {
         case .NONE:
             currentText = Text(self.text).font(Font(self.fontDef.withSize(TTFont.TITLE_H)))
         }
-        
-        if #available(iOS 16.0, *) {
-            return currentText.bold(self.isBold).italic(self.isItalic).foregroundColor(self.textDefColor).multilineTextAlignment(self.align)
-            // Fallback on earlier versions
-        } else {
-            if self.isBold { currentText = currentText.bold()}
-            if self.isItalic { currentText = currentText.italic()}
-            return currentText.foregroundColor(self.textDefColor).multilineTextAlignment(self.align)
-        }
+        return currentText
+    }
+    
+    public func setBold() -> some View {
+        return self.setupBase().bold().foregroundColor(self.textDefColor).multilineTextAlignment(self.align)
     }
 }
 

@@ -30,7 +30,6 @@ public struct TTBaseSUIHStack<Content: View>: View {
     
     public var spacing:CGFloat = TTBaseUIKitConfig.getSizeConfig().P_CONS_DEF
     public var viewDefBgColor: Color = TTBaseUIKitConfig.getViewConfig().viewStackDefColor
-    public var viewDefCornerRadius: CGFloat = TTBaseUIKitConfig.getSizeConfig().CORNER_RADIUS
     public var align: VerticalAlignment = .center
      
     public var content: () -> Content
@@ -60,7 +59,12 @@ public struct TTBaseSUIHStack<Content: View>: View {
     public var body: some View {
         HStack(alignment: self.align, spacing: self.spacing, content: self.content)
         .background(self.viewDefBgColor)
-        .cornerRadius(self.viewDefCornerRadius)
+    }
+}
+
+extension TTBaseSUIHStack {
+    public func setCorner(radius:CGFloat) ->  some View {
+        return self.body.cornerRadius(radius)
     }
 }
 

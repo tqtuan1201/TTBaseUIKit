@@ -166,7 +166,7 @@ extension UIViewController {
 import Foundation
 import MessageUI
 import ContactsUI
-import AddressBookUI
+#if canImport(AddressBookUI)
 
 extension UIViewController : MFMessageComposeViewControllerDelegate {
     
@@ -248,3 +248,4 @@ extension UIViewController {
     }
     
 }
+#endif

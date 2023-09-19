@@ -19,6 +19,7 @@ open class ViewConfig {
     public var textSubTitleColor: UIColor =  UIColor.getColorFromHex.init(netHex: 0x555555)
     public var textDefColor: UIColor =  UIColor.getColorFromHex.init(netHex: 0x555555)
     public var textWarringColor: UIColor = UIColor.getColorFromHex.init(netHex: 0xC41F53)
+    public var textNavColor: Color = Color(UIColor.getColorFromHex.init(netHex: 0x555555))
     
     public var viewBgSkeleton: UIColor = UIColor.getColorFromHex.init(netHex: 0xe8e8e8)
     public var viewBgGradientSkeleton: UIColor = UIColor.white.withAlphaComponent(0.2)
@@ -29,7 +30,7 @@ open class ViewConfig {
     public var viewBgLoadingColor: UIColor = UIColor.getColorFromHex.init(netHex: 0x1C82AD)
     public var viewTextLoadingColor: UIColor = UIColor.getColorFromHex.init(netHex: 0x1C82AD)
     public var viewDefColor: UIColor = UIColor.white
-    public var viewStackDefColor: Color = .white
+    public var viewStackDefColor: Color = .clear
     
     public var viewDisableColor: UIColor = UIColor.getColorFromHex.init(netHex: 0xc5c5c5)
     public var viewBgColor: UIColor = UIColor.getColorFromHex.init(netHex: 0xDBDBDB)
@@ -86,4 +87,5 @@ open class ViewConfig {
     
     public init() {}
 }
+
 

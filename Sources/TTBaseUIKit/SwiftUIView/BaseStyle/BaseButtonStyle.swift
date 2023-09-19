@@ -19,6 +19,16 @@ import SwiftUI
 public protocol TTBaseButtonStyle: ButtonStyle {
     
 }
+
+public struct NonAnimationButtonStyle: TTBaseButtonStyle {
+    
+    public init() {}
+    
+    public func makeBody(configuration: Configuration) -> some View {
+        configuration.label
+    }
+}
+
 //
 /**
  DEFAULT Style
@@ -28,14 +38,33 @@ public struct DefaultButtonStyle: TTBaseButtonStyle {
     
     @State public var bgColor:Color = Color(TTBaseUIKitConfig.getViewConfig().buttonBgDef)
     
+    public init() {}
+    
     public func makeBody(configuration: Configuration) -> some View {
         configuration.label
             .padding()
             .frame(maxWidth: .infinity)
+            .frame(height: TTSize.H_BUTTON)
             .foregroundColor(configuration.isPressed ? Color.black.opacity(0.5) : Color.white)
             .background(configuration.isPressed ? self.bgColor.opacity(0.5) : self.bgColor)
     }
 }
+
+public struct DefaultColorButtonStyle: TTBaseButtonStyle {
+    
+    @State public var bgColor:Color = Color(TTBaseUIKitConfig.getViewConfig().buttonBgDef)
+    @State public var textColor:Color = Color.black
+    
+    public func makeBody(configuration: Configuration) -> some View {
+        configuration.label
+            .padding()
+            .frame(maxWidth: .infinity)
+            .frame(height: TTSize.H_BUTTON)
+            .foregroundColor(configuration.isPressed ? self.textColor.opacity(0.5) : self.textColor)
+            .background(configuration.isPressed ? self.bgColor.opacity(0.5) : self.bgColor)
+    }
+}
+
 
 //
 /**
@@ -46,10 +75,13 @@ public struct WarningButtonStyle: TTBaseButtonStyle {
     
     @State public var bgColor:Color = Color(TTBaseUIKitConfig.getViewConfig().buttonBgWar)
     
+    public init() {}
+    
     public func makeBody(configuration: Configuration) -> some View {
         configuration.label
             .padding()
             .frame(maxWidth: .infinity)
+            .frame(height: TTSize.H_BUTTON)
             .foregroundColor(configuration.isPressed ? Color.black.opacity(0.5) : Color.white)
             .background(configuration.isPressed ? self.bgColor.opacity(0.5) : self.bgColor)
     }
@@ -64,10 +96,13 @@ public struct DisableButtonStyle: TTBaseButtonStyle {
     
     @State public var bgColor:Color = Color(TTBaseUIKitConfig.getViewConfig().buttonBgDis)
     
+    public init() {}
+    
     public func makeBody(configuration: Configuration) -> some View {
         configuration.label
             .padding()
             .frame(maxWidth: .infinity)
+            .frame(height: TTSize.H_BUTTON)
             .foregroundColor(configuration.isPressed ? Color.red.opacity(0.8) : Color.white)
             .background(self.bgColor)
             .disabled(true)
@@ -83,10 +118,12 @@ public struct TransparentButtonStyle: TTBaseButtonStyle {
     
     @State public var bgColor:Color = Color.clear
     
+    public init() {}
+    
     public func makeBody(configuration: Configuration) -> some View {
         configuration.label
             .padding()
-            .frame(maxWidth: .infinity)
+            .frame(maxWidth: .infinity).frame(height: TTSize.H_BUTTON)
             .foregroundColor(configuration.isPressed ? Color(TTBaseUIKitConfig.getViewConfig().textDefColor).opacity(0.7) : Color(TTBaseUIKitConfig.getViewConfig().textDefColor))
             .background(self.bgColor)
     }
@@ -103,10 +140,12 @@ public struct BorderButtonStyle: TTBaseButtonStyle {
     @State public var borderColor: Color = Color(TTView.buttonBorderColor)
     @State public var borderWidth: CGFloat = TTSize.H_BORDER
     
+    public init() {}
+    
     public func makeBody(configuration: Configuration) -> some View {
         configuration.label
             .padding()
-            .frame(maxWidth: .infinity)
+            .frame(maxWidth: .infinity).frame(height: TTSize.H_BUTTON)
             .foregroundColor(configuration.isPressed ? Color(TTBaseUIKitConfig.getViewConfig().textDefColor).opacity(0.7) : Color(TTBaseUIKitConfig.getViewConfig().textDefColor))
             .background(configuration.isPressed ? self.bgColor.opacity(0.5) : self.bgColor)
             .overlay(

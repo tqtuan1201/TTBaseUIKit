@@ -53,6 +53,8 @@ public struct TTBaseSUIButton<Content: View>: View {
             SwiftUI.Button(action: self.action, label: self.label).buttonStyle(TransparentButtonStyle()).font(.system(size: self.fontSize)).cornerRadius(self.cornerRadius)
         case .BORDER:
             SwiftUI.Button(action: self.action, label: self.label).buttonStyle(BorderButtonStyle()).font(.system(size: self.fontSize)).cornerRadius(self.cornerRadius)
+        case .DEFAULT_COLOR(let color, let textColor):
+            SwiftUI.Button(action: self.action, label: self.label).buttonStyle(DefaultColorButtonStyle(bgColor: Color(color), textColor: Color(textColor))).font(.system(size: self.fontSize)).cornerRadius(self.cornerRadius)
         default:
             SwiftUI.Button(action: self.action, label: self.label).buttonStyle(DefaultButtonStyle()).font(.system(size: self.fontSize)).cornerRadius(self.cornerRadius)
         }
@@ -64,6 +66,7 @@ struct BaseSUIButtonView: View {
     var body: some View {
         VStack {
             TTBaseSUIButton(type: .DEFAULT, title: "DEFAULT")
+            TTBaseSUIButton(type: .DEFAULT_COLOR(color: .systemBlue, textColor: .red), title: "DEFAULT_COLOR")
             TTBaseSUIButton(type: .WARRING, title: "WARRING")
             TTBaseSUIButton(type: .DISABLE, title: "DISABLE")
             TTBaseSUIButton(type: .NO_BG_COLOR, title: "NO_BG_COLOR")

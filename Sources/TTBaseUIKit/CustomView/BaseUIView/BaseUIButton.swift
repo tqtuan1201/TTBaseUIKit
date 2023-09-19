@@ -29,6 +29,7 @@ open class TTBaseUIButton: UIButton, ViewDrawer, TextDrawer {
         case DISABLE
         case BORDER
         case WARRING
+        case DEFAULT_COLOR(color: UIColor, textColor:UIColor)
     }
     
     var type:TYPE = .DEFAULT
@@ -56,6 +57,10 @@ open class TTBaseUIButton: UIButton, ViewDrawer, TextDrawer {
             self.setNoBgType()
         case .BORDER:
             self.setBorderType()
+        case .DEFAULT_COLOR(let color, let textColor):
+            self.setDefaultType()
+            self.setBgColor(color: color)
+            self.setTextColor(color: color)
         }
         
         self.setText(text: text).done()

@@ -12,7 +12,8 @@ public struct TTBaseSUIImage: View {
     public var imageName: String = Config.Value.noImageName
     public var radius: CGFloat = TTBaseUIKitConfig.getSizeConfig().CORNER_IMAGE
     public var contentMode: ContentMode = .fill
-
+    public var imageColor: Color? = nil
+    
     public var image:Image = Image(uiImage: UIImage(fromTTBaseUIKit: "img.NoImage2.png") ?? UIImage())
 
     public init() {
@@ -27,10 +28,38 @@ public struct TTBaseSUIImage: View {
         self.radius = conner
     }
     
+    public init(withname name:String, color:Color) {
+        self.image = Image(name)
+        self.imageColor = color
+    }
+    
+    public init(withname name:String, color:Color, contentMode: ContentMode) {
+        self.contentMode = contentMode
+        self.image = Image(name)
+        self.imageColor = color
+    }
+    
+    public init(withname name:String, contentMode: ContentMode) {
+        self.contentMode = contentMode
+        self.image = Image(name)
+    }
+    
     public var body: some View {
-        self.image
-        .resizable()
-        .aspectRatio(contentMode: self.contentMode)
+        if let _imageColor = self.imageColor {
+            self.setIcon(color: _imageColor).aspectRatio(contentMode: self.contentMode)
+        } else {
+            self.image.resizable().aspectRatio(contentMode: self.contentMode)
+        }
+    }
+}
+
+extension TTBaseSUIImage {
+    public func getBaseImage() -> Image {
+        return self.image
+    }
+
+    public func setIcon(color: Color) -> some View {
+        return self.image.resizable().renderingMode(.template).foregroundColor(color)
     }
 }
 

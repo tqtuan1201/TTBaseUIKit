@@ -41,12 +41,11 @@ public struct TTBaseSUIView<Content: View>: View {
 //MARK: Previews
  fileprivate struct DemoBaseSUIView: View {
     var body: some View {
-        TTBaseSUIView(content: {
+        TTBaseSUIView(withCornerRadius: 4, bg: .red, content: {
             VStack {
-                Label("sdsd", image: "ds")
-                Text("Here is")
-                Text("TTBaseSUIView")
-            }
+                TTBaseSUIText(withType: .TITLE, text: "Here is", align: .center, color: .white)
+                TTBaseSUIText(withType: .HEADER, text: "TTBaseSUIView", align: .center, color: .white)
+            }.padding()
         })
         .padding()
         .background(Color.gray)
