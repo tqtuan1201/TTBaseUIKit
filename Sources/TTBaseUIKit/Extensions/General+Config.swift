@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import SwiftUI
 import Foundation
 
 public final class Fonts {
@@ -180,10 +181,16 @@ extension UIImage {
         //Cocapod way
         if let byCocapodWay:UIImage = UIImage(fromTTBaseUIKit: name) {
             return byCocapodWay
-        //Try another way
+            //Try another way
         } else {
-            let image = UIImage(named: name, in: Bundle.module, compatibleWith: nil)
-            return image
+            #if SWIFT_PACKAGE
+                TTBaseFunc.shared.printLog(object: "::getFromTTBaseUIKitPM by SWIFT_PACKAGE")
+                let image = UIImage(named: name, in: Bundle.module, compatibleWith: nil)
+                return image
+            #else
+                TTBaseFunc.shared.printLog(object: "[Warning!!!!]::getFromTTBaseUIKitPM by SWIFT_PACKAGE else => Need to update handle")
+                return nil
+            #endif
         }
     }
     
@@ -191,11 +198,19 @@ extension UIImage {
         if let url = Bundle(for: Fonts.self).url(forResource: name, withExtension: "", subdirectory: "TTBaseUIKit.bundle") {
             self.init(named: url.path)
             self.accessibilityIdentifier = name
-        } else if let urlPackage =  Bundle.module.url(forResource: name, withExtension: "") {
-            self.init(named: urlPackage.path )
-            self.accessibilityIdentifier = name
         } else {
-            self.init(named: "img.NoImage.png")
+            #if SWIFT_PACKAGE
+                TTBaseFunc.shared.printLog(object: "::public convenience init?(fromTTBaseUIKit name:String) by SWIFT_PACKAGE")
+                if let urlPackage =  Bundle.module.url(forResource: name, withExtension: "") {
+                    self.init(named: urlPackage.path )
+                    self.accessibilityIdentifier = name
+                } else {
+                    self.init(named: "img.NoImage.png")
+                }
+            #else
+                TTBaseFunc.shared.printLog(object: "::public convenience init?(fromTTBaseUIKit name:String) #else")
+                self.init(named: "img.NoImage.png")
+            #endif
         }
     }
     
