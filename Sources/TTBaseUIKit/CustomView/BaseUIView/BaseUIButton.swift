@@ -60,7 +60,7 @@ open class TTBaseUIButton: UIButton, ViewDrawer, TextDrawer {
         case .DEFAULT_COLOR(let color, let textColor):
             self.setDefaultType()
             self.setBgColor(color: color)
-            self.setTextColor(color: color)
+            self.setTextColor(color: textColor)
         }
         
         self.setText(text: text).done()
