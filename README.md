@@ -61,12 +61,6 @@ github "tqtuan1201/TTBaseUIKit"
 1. On your app's target, add the TTBaseUIKit framework:
    1. as an embedded binary on the General tab.
    1. as a target dependency on the Build Phases tab.
-  
-## Usage
-
-TTBaseUIKit dramatically simplifies writing to build UI programmatically. Let’s take a quick look at some examples, using TTBaseUIKit from Swift.
-
-![TTBaseUIKit](https://tqtuan1201.github.io/images/ttbaseuikit-demo.gif)
 
 ## Basic config settings
 
@@ -109,9 +103,7 @@ Apply config by:
 
 `TTBaseUIKit` dramatically simplifies writing to build UI programmatically. Let's take a quick look at some examples, using `TTBaseUIKit` from Swift.
 
-<p align="center">
-  <img src="./Images/1.gif"  style="width:50%; height:50%" />
-</p>
+![TTBaseUIKit](https://tqtuan1201.github.io/images/ttbaseuikit-demo.gif)
 
 ## Interface Customization
 
