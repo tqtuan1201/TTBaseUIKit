@@ -61,9 +61,12 @@ github "tqtuan1201/TTBaseUIKit"
 1. On your app's target, add the TTBaseUIKit framework:
    1. as an embedded binary on the General tab.
    1. as a target dependency on the Build Phases tab.
-## Usage example
+  
+## Usage
 
-A few motivating and useful examples of how your product can be used. Spice this up with code blocks and potentially more screenshots.
+TTBaseUIKit dramatically simplifies writing to build UI programmatically. Let’s take a quick look at some examples, using TTBaseUIKit from Swift.
+
+![TTBaseUIKit](https://tqtuan1201.github.io/images/ttbaseuikit-demo.gif)
 
 ## Basic config settings
 
@@ -94,9 +97,9 @@ self.window!.makeKeyAndVisible()
 
 ```
 
-- With `ViewConfig`, you can customize the most of colors for `Button`, `Label`, `Background colors`, ect. You can see all the config here: [ViewConfig](https://github.com/tqtuan1201/TTBaseUIKit/blob/master/TTBaseUIKit/TTBaseUIKit/BaseConfig/ViewConfig.swift)
-- With `SizeConfig`, you can customize the most of size for `Button`, `Label`, `Navigation`, `Conner radius`, `Icon`, `Textfield`, ect. You can see all the config here: [SizeConfig](https://github.com/tqtuan1201/TTBaseUIKit/blob/master/TTBaseUIKit/TTBaseUIKit/BaseConfig/SizeConfig.swift)
-- With `SizeConfig`, you can customize the most of font size for `Title`, `SubTitle`, `Header`, ect. You can see all the config here: [FontConfig](https://github.com/tqtuan1201/TTBaseUIKit/blob/master/TTBaseUIKit/TTBaseUIKit/BaseConfig/FontConfig.swift)
+- With `ViewConfig`, you can customize the most of colors for `Button`, `Label`, `Background colors`, ect. You can see all the config here: [ViewConfig](https://github.com/tqtuan1201/TTBaseUIKit/blob/master/Sources/TTBaseUIKit/BaseConfig/ViewConfig.swift)
+- With `SizeConfig`, you can customize the most of size for `Button`, `Label`, `Navigation`, `Conner radius`, `Icon`, `Textfield`, ect. You can see all the config here: [SizeConfig](https://github.com/tqtuan1201/TTBaseUIKit/blob/master/Sources/TTBaseUIKit/BaseConfig/SizeConfig.swift)
+- With `FontConfig`, you can customize the most of font size for `Title`, `SubTitle`, `Header`, ect. You can see all the config here: [FontConfig](https://github.com/tqtuan1201/TTBaseUIKit/blob/master/Sources/TTBaseUIKit/BaseConfig/FontConfig.swift)
 
 Apply config by:
 
@@ -144,7 +147,7 @@ yourVC.tableView.setStaticBgNoData(title: "NO DATA", des: "Contrary to popular b
 
 ## ViewCodable
 
- This is a `protocol` use to easily organize UI handling code. You can see all configs here: [ViewCodable](https://github.com/tqtuan1201/TTBaseUIKit/blob/master/TTBaseUIKit/TTBaseUIKit/CustomView/ViewCodable/ViewCodable.swift)
+ This is a `protocol` use to easily organize UI handling code. You can see all configs here: [ViewCodable](https://github.com/tqtuan1201/TTBaseUIKit/blob/master/Sources/TTBaseUIKit/CustomView/ViewCodable/ViewCodable.swift)
 
 - ```swift
   func setupViewCodable(with views : [UIView])
