@@ -107,21 +107,21 @@ open class TTBaseUITextView: UITextView   {
 
 extension TTBaseUITextView : UITextViewDelegate {
     
-    public func textViewDidBeginEditing(_ textView: UITextView) {
+    open func textViewDidBeginEditing(_ textView: UITextView) {
         TTBaseFunc.shared.printLog(object: "::TTBaseUITextView textViewDidBeginEditing")
         self.editingDidBeginHandle?(self)
     }
        
-    public func textViewDidEndEditing(_ textView: UITextView) {
+    open func textViewDidEndEditing(_ textView: UITextView) {
         TTBaseFunc.shared.printLog(object: "::TTBaseUITextView textViewDidBeginEditing")
         self.editingDidEndHandle?(self)
     }
     
-    public func textViewDidChange(_ textView: UITextView) {
+    open func textViewDidChange(_ textView: UITextView) {
         self.onTextEditChangedHandler?(self, textView.text)
     }
     
-    public func textView(_ textView: UITextView, shouldChangeTextIn range: NSRange, replacementText text: String) -> Bool {
+    open func textView(_ textView: UITextView, shouldChangeTextIn range: NSRange, replacementText text: String) -> Bool {
         
         if text == "\n" { self.onTouchReturnKeyHandler?(self, self.returnKeyType); return false}
         
