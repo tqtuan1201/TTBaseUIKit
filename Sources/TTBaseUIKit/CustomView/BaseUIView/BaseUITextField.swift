@@ -425,3 +425,32 @@ extension TTBaseUITextField {
     }
     
 }
+
+extension TTBaseUITextField {
+    
+    @discardableResult public func setNextKeyboardAccessoryView(touchHandle:( () -> ())? = nil) -> TTBaseUITextField {
+        let panelView:UIView = UIView(frame: CGRect(x: 0, y: 0, width: TTBaseUIKitConfig.getSizeConfig().W, height: 50))
+        panelView.backgroundColor = self.keyboardAppearance.getBg()
+        panelView.isUserInteractionEnabled = true
+        //panelView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(self.onTouchPanelView(_:))))
+        let hiddenButton:TTBaseUIButton = TTBaseUIButton(frame: CGRect.init(x: TTBaseUIKitConfig.getSizeConfig().W - (90 + TTSize.P_CONS_DEF), y: 5, width: 90, height: 40))
+        hiddenButton.translatesAutoresizingMaskIntoConstraints = true
+        hiddenButton.backgroundColor = TTView.buttonBgDef
+        hiddenButton.setTitleColor(UIColor.white, for: UIControl.State.normal)
+        hiddenButton.setTitle("TTBaseUIkit.TTBaseUITextField.NextKeyboardAccessoryView".localize(withBundle: Bundle.main), for: .normal)
+        hiddenButton.titleLabel?.font = .systemFont(ofSize: TTFont.TITLE_H, weight: .semibold)
+        hiddenButton.titleLabel?.textAlignment = .center
+        hiddenButton.contentHorizontalAlignment = .center
+        hiddenButton.clipsToBounds = false
+        hiddenButton.setBorder(with: 1, color: TTView.buttonBgDef, coner: 6.0)
+        panelView.addSubview(hiddenButton)
+        panelView.addBorder(withRectEdge: .top, borderColor: TTView.lineDefColor, borderHeight: 1)
+        self.inputAccessoryView = panelView
+        
+        hiddenButton.onTouchHandler = { _ in
+            touchHandle?()
+        }
+        return self
+    }
+    
+}

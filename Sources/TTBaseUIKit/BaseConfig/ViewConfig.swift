@@ -30,7 +30,8 @@ open class ViewConfig {
     public var viewBgLoadingColor: UIColor = UIColor.getColorFromHex.init(netHex: 0x1C82AD)
     public var viewTextLoadingColor: UIColor = UIColor.getColorFromHex.init(netHex: 0x1C82AD)
     public var viewDefColor: UIColor = UIColor.white
-    public var viewStackDefColor: Color = .clear
+    public var viewStackDefBgColor: Color = .clear
+    public var viewScrollDefBgColor: Color = .clear
     
     public var viewDisableColor: UIColor = UIColor.getColorFromHex.init(netHex: 0xc5c5c5)
     public var viewBgColor: UIColor = UIColor.getColorFromHex.init(netHex: 0xDBDBDB)

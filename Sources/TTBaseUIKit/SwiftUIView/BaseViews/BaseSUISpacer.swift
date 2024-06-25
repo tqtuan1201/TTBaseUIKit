@@ -11,7 +11,7 @@ public struct TTBaseSUISpacer: View {
     
     public var maxWidth:CGFloat? = nil
     public var maxHeight:CGFloat? = nil
-    public var viewDefBgColor: Color = TTBaseUIKitConfig.getViewConfig().viewStackDefColor
+    public var viewDefBgColor: Color = TTBaseUIKitConfig.getViewConfig().viewStackDefBgColor
     public var viewDefCornerRadius: CGFloat = 0
 
     public init() {

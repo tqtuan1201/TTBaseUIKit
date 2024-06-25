@@ -29,7 +29,7 @@ return transform(current)
 public struct TTBaseSUIHStack<Content: View>: View {
     
     public var spacing:CGFloat = TTBaseUIKitConfig.getSizeConfig().P_CONS_DEF
-    public var viewDefBgColor: Color = TTBaseUIKitConfig.getViewConfig().viewStackDefColor
+    public var viewDefBgColor: Color = TTBaseUIKitConfig.getViewConfig().viewStackDefBgColor
     public var align: VerticalAlignment = .center
      
     public var content: () -> Content

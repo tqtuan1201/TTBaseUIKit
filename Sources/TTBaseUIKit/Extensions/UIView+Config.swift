@@ -283,3 +283,11 @@ extension UILabel {
         return linesRoundedUp
     }
 }
+
+extension UIKeyboardAppearance {
+    /// The color to use for the background.
+    public func getBg() -> UIColor {
+        if self == .dark { return  UIColor(white: 0.30, alpha: 1) }
+        return UIColor(hue: 0.67, saturation: 0, brightness: 0.97, alpha: 1)
+    }
+}

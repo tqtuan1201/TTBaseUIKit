@@ -9,7 +9,7 @@ import SwiftUI
 
 public struct TTBaseSUIZStack<Content: View>: View {
     
-    public var viewDefBgColor: Color = TTBaseUIKitConfig.getViewConfig().viewStackDefColor
+    public var viewDefBgColor: Color = TTBaseUIKitConfig.getViewConfig().viewStackDefBgColor
     public var viewDefCornerRadius: CGFloat = TTBaseUIKitConfig.getSizeConfig().CORNER_RADIUS
     public var align: Alignment = .center
      

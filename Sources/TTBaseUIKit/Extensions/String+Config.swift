@@ -343,3 +343,9 @@ extension String {
     }
     
 }
+
+public extension String {
+    func trimming() -> String {
+        return self.trimmingCharacters(in: .whitespacesAndNewlines)
+    }
+}

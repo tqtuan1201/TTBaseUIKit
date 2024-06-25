@@ -10,7 +10,7 @@ import SwiftUI
 public struct TTBaseSUIVStack<Content: View>: View {
     
     public var spacing:CGFloat = TTBaseUIKitConfig.getSizeConfig().P_CONS_DEF
-    public var viewDefBgColor: Color = TTBaseUIKitConfig.getViewConfig().viewStackDefColor
+    public var viewDefBgColor: Color = TTBaseUIKitConfig.getViewConfig().viewStackDefBgColor
     public var align: HorizontalAlignment = .leading
     public var viewDefCornerRadius: CGFloat = 0
     
