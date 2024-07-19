@@ -1,8 +1,15 @@
 
-# TTBaseUIKit
+# TTBaseUIKit - Framework to Build UI Programmatically
+With TTBaseUIKit, you can build apps in the fastest and most efficient way. The current release of TTBaseUIKit supports all versions of iOS and OS X since the introduction of Auto Layout on each platform, in Swift language with a single codebase.
 
 <p align="center">
   <img src="https://tqtuan1201.github.io/images/image-20220825131924203.png"  style="width:100%; height:50%" />
+</p>
+
+TTBaseUIKit has integrated SwiftUI
+
+<p align="center">
+  <img src="https://tqtuan1201.github.io/images/image-20230531165403411.png"  style="width:100%; height:50%" />
 </p>
 
 Build your project with programmatically UI. You can see more details in here:
@@ -358,6 +365,16 @@ extension BaseUITableViewController : BaseUINavigationViewDelegate{
 
 `TTBaseUIKit` provides common handling functions for `String`, `Date`, `Json`, `Device`, `Language`, `VietNamLunar `, `Validation`, `NetworkSpeedTest`
 
+## TTBaseUIKit has integrated SwiftUI
+With SwiftUI, Apple offers developers a unified UI framework for building user interfaces on all types of Apple devices.
+
+**TTBaseSUISpacer**
+
+In SwiftUI, the Spacer view is primarily used for layout and spacing purposes, and it doesn’t have direct properties to change background color or set corner radius. However, we can create a customizing class to add some commonly used functions.
+  <p align="center">
+    <img src="https://tqtuan1201.github.io/images/image-2023101344757062 PM.png"  style="width:50%; height:50%" />
+  </p>
+  
 ## Example Apps
 
 For more examples and usage, please refer to example project  [`TTBaseUIKitExample`](https://github.com/tqtuan1201/TTBaseUIKit/tree/master/TTBaseUIKitExample)
@@ -385,6 +402,25 @@ During my work, I have updated and used this framework in many projects. All my 
 <p align="center">
   <img src="https://tqtuan1201.github.io/images/image-20220714104542214.png"  style="width:50%; height:50%" />
 </p>
+
+- TMS Mobile App
+
+<p align="center">
+  <img src="https://tqtuan1201.github.io/images/image-20230717143822644.png"  style="width:50%; height:50%" />
+</p>
+
+- AiDoctor
+
+<p align="center">
+  <img src="https://tqtuan1201.github.io/images/image-20220627161510919.png"  style="width:50%; height:50%" />
+</p>
+
+- WECARE 247
+
+<p align="center">
+  <img src="https://tqtuan1201.github.io/images/image-20220711142551360.png"  style="width:50%; height:50%" />
+</p>
+
 
 You can see all my projects here: [Link](https://tqtuan1201.github.io/portfolio/)
 
