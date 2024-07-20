@@ -1,6 +1,9 @@
 
-# TTBaseUIKit - Framework to Build UI Programmatically
-With TTBaseUIKit, you can build apps in the fastest and most efficient way. The current release of TTBaseUIKit supports all versions of iOS and OS X since the introduction of Auto Layout on each platform, in Swift language with a single codebase.
+# TTBaseUIKit (Base Project - A framework to quickly create iOS project via base views)
+
+
+TTBaseUIKit is a framework that helps you build iOS applications in the fastest and most efficient way, by providing base views written in both UIKit Programmatically and SwiftUI. The current release of TTBaseUIKit supports all versions of iOS and OS X since the introduction of Auto Layout on each platform, in Swift language with a single codebase.
+
 
 <p align="center">
   <img src="https://tqtuan1201.github.io/images/image-20220825131924203.png"  style="width:100%; height:50%" />
