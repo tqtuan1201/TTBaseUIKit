@@ -4,8 +4,9 @@
 
 TTBaseUIKit is a framework that helps you build iOS applications in the fastest and most efficient way, by providing base views written in both UIKit Programmatically and SwiftUI. The current release of TTBaseUIKit supports all versions of iOS and OS X since the introduction of Auto Layout on each platform, in Swift language with a single codebase.
 </br>
+
 <p align="center">
-  <img src="https://tqtuan1201.github.io/images/TTBaseUIKit-Info-BG-1x.png"  style="width:100%; height:50%" />
+  <img src="https://tqtuan1201.github.io/images/ttbaseuikit_compress_1.gif"  style="width:100%; height:50%;" />
 </p>
 
 In this update, I have included a Base Project called TTBaseUIKitExample, which provides comprehensive examples of Base classes such as BaseUIViewController, BaseUITableViewController, BaseCollectionViewController, and more in UIKit, as well as BaseView, BaseButton, BaseText, BaseStack, and others in SwiftUI. The simplest and most straightforward way to understand this is to download the example and run it.
@@ -109,9 +110,13 @@ Apply config by:
 
 `TTBaseUIKit` dramatically simplifies writing to build UI programmatically. Let's take a quick look at some examples, using `TTBaseUIKit` from Swift.
 
-![TTBaseUIKit](https://tqtuan1201.github.io/images/ttbaseuikit-demo.gif)
+<p align="center">
+  <img src="https://tqtuan1201.github.io/images/TTBaseUIKit-Info-BG-1x.png"  style="width:100%; height:50%" />
+</p>
 
-![TTBaseUIKit New](https://tqtuan1201.github.io/images/TTBaseUIKit.gif)
+<p align="center">
+  <img src="https://tqtuan1201.github.io/images/ttbaseuikit_compress_2.gif"  style="width:100%; height:50%" />
+</p>
 
 ## Interface Customization
 
@@ -441,14 +446,17 @@ You can see all my projects here: [Link](https://tqtuan1201.github.io/portfolio/
 
 - Must **build app to see UI**, `SwiftUI ` solved that problem I was thinking about.
 
-## Meta
+# About
 
-Truong Quang Tuan – [@website](https://tqtuan1201.github.io/) – (truongquangtuanit@gmail.com)
+Truong Quang Tuan – [website](https://tqtuan1201.github.io/) –  (email: truongquangtuanit@gmail.com)
 
-Hi, I’m Tuan (short for Quang-Tuan Truong). I’m a mobile lead with years of professional experience building applications and leading teams in both large companies and small startups
+Hi, I’m Tuan (short for Quang-Tuan Truong). I’m a mobile lead with years of professional experience building applications and leading teams in both large companies and small startups.
 
-Feel free to get in touch if you have suggestions, issues, or anything else. You can reach me via email at truongquangtuanit@gmail.com or through my website: https://github.com/tqtuan1201
+Feel free to get in touch if you have suggestions, issues, or anything else. You can reach me via email at truongquangtuanit@gmail.com or through my website: https://tqtuan1201.github.io/
 
-## About my project
+# Meet My Team
+
+If you have a great idea but don’t know how to start? Don't worry, simply click on [Meet My Team](https://tqtuan1201.github.io/posts/job/cv/ourteam/) and we can discuss your project over a cup of coffee'
+
 We build high quality apps! [Get in touch](https://tqtuan1201.github.io/) if you need help with a project.
 
