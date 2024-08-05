@@ -9,19 +9,11 @@ TTBaseUIKit is a framework that helps you build iOS applications in the fastest 
   <img src="https://tqtuan1201.github.io/images/ttbaseuikit_compress_1.gif"  style="width:100%; height:50%;" />
 </p>
 
-In this update, I have included a Base Project called TTBaseUIKitExample, which provides comprehensive examples of Base classes such as BaseUIViewController, BaseUITableViewController, BaseCollectionViewController, and more in UIKit, as well as BaseView, BaseButton, BaseText, BaseStack, and others in SwiftUI. The simplest and most straightforward way to understand this is to download the example and run it.
-The simplest and easiest way is to download this example and run it. Hands-on practice is the easiest way to understand it well
+In this update, I have included a Base Project called TTBaseUIKitExample, which provides comprehensive examples of Base classes such as BaseUIViewController, BaseUITableViewController, BaseCollectionViewController, and more in UIKit, as well as BaseView, BaseButton, BaseText, BaseStack, and others in SwiftUI. The simplest and most straightforward way to understand this is to download the example and run it. Hands-on practice is the easiest way to understand it well.
 
 You can see more details in here:
 [TTBaseUIKit - TTBaseUIKitExample](https://tqtuan1201.github.io/posts/job/ios/swiftui/ttbaseuikit-integrated-with-swiftui/)
 
-Add the following line to your Podfile:
-[![Version](https://img.shields.io/cocoapods/v/TTBaseUIKit.svg?style=flat)](http://cocoadocs.org/docsets/TTBaseUIKit)
-[![License](https://img.shields.io/cocoapods/l/TTBaseUIKit.svg?style=flat)](http://cocoadocs.org/docsets/TTBaseUIKit)
-[![Platform](https://img.shields.io/cocoapods/p/TTBaseUIKit.svg?style=flat)](http://cocoadocs.org/docsets/TTBaseUIKit)
-[![Carthage compatible](https://img.shields.io/badge/Carthage-compatible-4BC51D.svg?style=flat)](https://github.com/Carthage/Carthage)
-
----
 
 ## Installation
 
