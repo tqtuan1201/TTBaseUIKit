@@ -131,6 +131,7 @@ extension BaseUINavigationView : TTViewCodable {
         }
         self.rightButton.onTouchHandler = { [weak self] button in guard let strongSelf = self else { return }
             strongSelf.delegate?.navDidTouchUpRightButton?(withNavView: strongSelf)
+            UIApplication.topViewController()?.showNoticeView(body: "Right button")
         }
         self.filterButton.onTouchHandler = { [weak self] button in guard let strongSelf = self else { return }
             strongSelf.delegate?.navDidTouchUpRightFilterButton?(withNavView: strongSelf)

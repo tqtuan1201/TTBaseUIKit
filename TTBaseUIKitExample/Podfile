@@ -1,9 +1,8 @@
 # Uncomment the next line to define a global platform for your project
 
-platform :ios, '10.0'
+platform :ios, '14.0'
 
 target 'TTBaseUIKitExample' do
   use_frameworks!
-      pod 'TTBaseUIKit', :path => '/Users/Shared/STORE/S.JOB/J.PROJECT/P.BUILD_LIB/TTBaseUIKit/'
-      #pod 'TTBaseUIKit'
+      pod 'TTBaseUIKit'
 end

@@ -21,11 +21,12 @@ class CellTypeTableViewController: TTListCellTestTableViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.setBgNav(withStatusColor: XView.viewBgNavColor, navColor: XView.viewBgNavColor)
+        self.navBar.setTitle(title: "Base Table View Cells".uppercased())
     }
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(true)
-        self.navigationController?.title = "CELL LIST"
     }
 }
 

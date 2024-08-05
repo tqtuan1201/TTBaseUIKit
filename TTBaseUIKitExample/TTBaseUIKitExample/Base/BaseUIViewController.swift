@@ -16,7 +16,6 @@ class BaseUIViewController: TTBaseUIViewController<DarkBaseUIView> {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(true)
-        self.updateForNav()
     }
     
     public override init() {
@@ -54,12 +53,6 @@ extension BaseUIViewController {
     
     fileprivate func setDelegate() {
         if let lgNav = self.navBar as? BaseUINavigationView { lgNav.delegate = self }
-    }
-    
-    fileprivate func updateForNav() {
-        if let lgNav = self.navBar as? BaseUINavigationView {
-            lgNav.setTitle(title: "TTBASEUIVIEW_KIT")
-        }
     }
 }
 

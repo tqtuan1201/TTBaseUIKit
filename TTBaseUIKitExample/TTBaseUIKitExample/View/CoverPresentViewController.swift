@@ -12,16 +12,23 @@ import TTBaseUIKit
 class CoverPresentViewController: TTCoverVerticalViewController {
 
     let label:TTBaseUILabel  = TTBaseUILabel(withType: .TITLE, text: "CHILD VC", align: .center)
-
+    fileprivate let bodyView:TTBaseShadowView = TTBaseShadowView()
+    fileprivate let messageLabel:TTBaseUILabel = TTBaseUILabel.init(withType: .HEADER, text: "Demo\nCoverPresentViewController", align: .center)
+    
+    
     override func updateBaseUI() {
         super.updateBaseUI()
-
-        self.view.addSubview(self.label)
-        self.label.setFullContraints(constant: 0)
-        self.label.setHeightAnchor(constant: 200)
-
-        self.label.backgroundColor = UIColor.yellow.withAlphaComponent(0.2)
-
+        self.messageLabel.setMutilLine(numberOfLine: 0, textAlignment: .center, mode: .byTruncatingTail)
+        self.panelView.backgroundColor = XView.viewBgColor
+        
+        self.panelView.addSubview(self.bodyView)
+        self.bodyView.addSubview(self.messageLabel)
+        self.bodyView.setLeadingAnchor(constant: XSize.P_CONS_DEF * 3).setTrailingAnchor(constant: XSize.P_CONS_DEF * 3)
+            .setTopAnchor(constant: XSize.P_CONS_DEF * 4).setBottomAnchor(constant: XSize.P_CONS_DEF * 4)
+        
+        self.messageLabel.setFullContraints(constant: XSize.P_CONS_DEF)
+        
+        self.view.setHeightAnchor(constant: XSize.H / 2)
     }
 
 }

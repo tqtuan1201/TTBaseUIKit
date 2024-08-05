@@ -16,6 +16,11 @@ class BaseUITableViewController: TTBaseUITableViewController {
     var lgNavType:BaseUINavigationView.TYPE { get { return .DEFAULT}}
     var backType:BaseUINavigationView.NAV_BACK = .BACK_POP
     
+    override init() {
+        super.init()
+        self.tableView = TTBaseUITableView(frame: CGRect.init(x: 0, y: 0, width: TTSize.W, height: TTSize.H), style: .plain)
+    }
+    
     override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
         super.viewWillTransition(to: size, with: coordinator)
         DispatchQueue.main.async { [weak self] in guard let strongSelf = self else { return }
