@@ -3,20 +3,16 @@
 
 
 TTBaseUIKit is a framework that helps you build iOS applications in the fastest and most efficient way, by providing base views written in both UIKit Programmatically and SwiftUI. The current release of TTBaseUIKit supports all versions of iOS and OS X since the introduction of Auto Layout on each platform, in Swift language with a single codebase.
-
-
+</br>
 <p align="center">
-  <img src="https://tqtuan1201.github.io/images/image-20220825131924203.png"  style="width:100%; height:50%" />
+  <img src="https://tqtuan1201.github.io/images/TTBaseUIKit-Info-BG-1x.png"  style="width:100%; height:50%" />
 </p>
 
-TTBaseUIKit has integrated SwiftUI
+In this update, I have included a Base Project called TTBaseUIKitExample, which provides comprehensive examples of Base classes such as BaseUIViewController, BaseUITableViewController, BaseCollectionViewController, and more in UIKit, as well as BaseView, BaseButton, BaseText, BaseStack, and others in SwiftUI. The simplest and most straightforward way to understand this is to download the example and run it.
+The simplest and easiest way is to download this example and run it. Hands-on practice is the easiest way to understand it well
 
-<p align="center">
-  <img src="https://tqtuan1201.github.io/images/image-20230531165403411.png"  style="width:100%; height:50%" />
-</p>
-
-Build your project with programmatically UI. You can see more details in here:
-[TTBaseUIKit - Framework to Build UI Programmatically](https://tqtuan1201.github.io/posts/ttbaseuikit-ui-framework/)
+You can see more details in here:
+[TTBaseUIKit - TTBaseUIKitExample](https://tqtuan1201.github.io/posts/job/ios/swiftui/ttbaseuikit-integrated-with-swiftui/)
 
 Add the following line to your Podfile:
 [![Version](https://img.shields.io/cocoapods/v/TTBaseUIKit.svg?style=flat)](http://cocoadocs.org/docsets/TTBaseUIKit)
@@ -32,13 +28,13 @@ Add the following line to your Podfile:
 
 1. File > Swift Packages > Add Package Dependency
 2. Add https://github.com/tqtuan1201/TTBaseUIKit.git
-3. Select "Up to Next Major" with "1.5.0"
+3. Select "Up to Next Major" with "2.1.0" or higher
 
 Once you have your Swift package set up, adding Alamofire as a dependency is as easy as adding it to the `dependencies` value of your `Package.swift`.
 
 ```
 dependencies: [
-    .package(url: "https://github.com/tqtuan1201/TTBaseUIKit.git", .upToNextMajor(from: "1.5.0"))
+    .package(url: "https://github.com/tqtuan1201/TTBaseUIKit.git", .upToNextMajor(from: "2.1.0"))
 ]
 or 
 dependencies: [
@@ -114,6 +110,8 @@ Apply config by:
 `TTBaseUIKit` dramatically simplifies writing to build UI programmatically. Let's take a quick look at some examples, using `TTBaseUIKit` from Swift.
 
 ![TTBaseUIKit](https://tqtuan1201.github.io/images/ttbaseuikit-demo.gif)
+
+![TTBaseUIKit New](https://tqtuan1201.github.io/images/TTBaseUIKit.gif)
 
 ## Interface Customization
 
@@ -369,6 +367,11 @@ extension BaseUITableViewController : BaseUINavigationViewDelegate{
 `TTBaseUIKit` provides common handling functions for `String`, `Date`, `Json`, `Device`, `Language`, `VietNamLunar `, `Validation`, `NetworkSpeedTest`
 
 ## TTBaseUIKit has integrated SwiftUI
+
+<p align="center">
+  <img src="https://tqtuan1201.github.io/images/image-20230531165403411.png"  style="width:100%; height:50%" />
+</p>
+
 With SwiftUI, Apple offers developers a unified UI framework for building user interfaces on all types of Apple devices.
 
 **TTBaseSUISpacer**
@@ -378,10 +381,11 @@ In SwiftUI, the Spacer view is primarily used for layout and spacing purposes, a
     <img src="https://tqtuan1201.github.io/images/image-2023101344757062 PM.png"  style="width:50%; height:50%" />
   </p>
   
-## Example Apps
+# Example Apps
 
 For more examples and usage, please refer to example project  [`TTBaseUIKitExample`](https://github.com/tqtuan1201/TTBaseUIKit/tree/master/TTBaseUIKitExample)
 
+TTBaseUIKitExample, which provides comprehensive examples of Base classes such as BaseUIViewController, BaseUITableViewController, BaseCollectionViewController, and more in UIKit, as well as BaseView, BaseButton, BaseText, BaseStack, and others in SwiftUI. The simplest and most straightforward way to understand this is to download the example and run it.
 # Installed Applications
 
 During my work, I have updated and used this framework in many projects. All my project using `UI programmatically` instead of using `Storyboard`. Here are some screenshoots of the apps:
@@ -437,20 +441,14 @@ You can see all my projects here: [Link](https://tqtuan1201.github.io/portfolio/
 
 - Must **build app to see UI**, `SwiftUI ` solved that problem I was thinking about.
 
-_For more examples and usage, please refer to example project [TTBaseUIKitExample]_
-
 ## Meta
 
-Truong Quang Tuan – [@website/gmail](https://tqtuan1201.github.io/) – truongquangtuanit@gmail.com
+Truong Quang Tuan – [@website](https://tqtuan1201.github.io/) – (truongquangtuanit@gmail.com)
 
-Distributed under the XYZ license. See ``LICENSE`` for more information.
+Hi, I’m Tuan (short for Quang-Tuan Truong). I’m a mobile lead with years of professional experience building applications and leading teams in both large companies and small startups
 
-[https://github.com/tqtuan1201/TTBaseUIKit](https://github.com/tqtuan1201/)
-
+Feel free to get in touch if you have suggestions, issues, or anything else. You can reach me via email at truongquangtuanit@gmail.com or through my website: https://github.com/tqtuan1201
 
 ## About my project
 We build high quality apps! [Get in touch](https://tqtuan1201.github.io/) if you need help with a project.
 
-## License
-
-TTBaseUIKit is distributed under the MIT license. [See LICENSE](./LICENSE.md) for details.
