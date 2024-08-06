@@ -6,7 +6,7 @@ TTBaseUIKit is a framework that helps you build iOS applications in the fastest 
 </br>
 
 <p align="center">
-  <img src="https://tqtuan1201.github.io/images/ttbaseuikit_compress_1.gif"  style="width:100%; height:50%;" />
+  <img src="https://tqtuan1201.github.io/images/ttbaseuikit_compress_2.gif"  style="width:100%; height:50%" />
 </p>
 
 In this update, I have included a Base Project called TTBaseUIKitExample, which provides comprehensive examples of Base classes such as BaseUIViewController, BaseUITableViewController, BaseCollectionViewController, and more in UIKit, as well as BaseView, BaseButton, BaseText, BaseStack, and others in SwiftUI. The simplest and most straightforward way to understand this is to download the example and run it. Hands-on practice is the easiest way to understand it well.
@@ -107,7 +107,7 @@ Apply config by:
 </p>
 
 <p align="center">
-  <img src="https://tqtuan1201.github.io/images/ttbaseuikit_compress_2.gif"  style="width:100%; height:50%" />
+  <img src="https://tqtuan1201.github.io/images/ttbaseuikit_compress_1.gif"  style="width:100%; height:50%;" />
 </p>
 
 ## Interface Customization
