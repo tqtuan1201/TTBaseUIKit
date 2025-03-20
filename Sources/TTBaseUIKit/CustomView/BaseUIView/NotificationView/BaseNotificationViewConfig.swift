@@ -98,19 +98,29 @@ public class TTBaseNotificationViewConfig {
     
     public func onShow() {
         
-        switch self.presentationType {
-        case .WINDOW:
-            self.onShowWindown()
-            break
-        case .UIVIEWCONTROLER:
-            self.onShowViewController()
-            break
+        DispatchQueue.main.async {
+            guard let window = UIApplication.getKeyWindow() else { return }
+            if let currentNoti = window.viewWithTag(TTBaseUIKit.CONSTANT.TAG_VIEW.NOTIFICATION_VIEW.rawValue) {
+                UIView.animate(withDuration: 0.04) { currentNoti.alpha = 0 }
+                DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) { currentNoti.removeFromSuperview() }
+            }
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) {
+                switch self.presentationType {
+                case .WINDOW:
+                    self.onShowWindown()
+                    break
+                case .UIVIEWCONTROLER:
+                    self.onShowViewController()
+                    break
+                }
+                
+                self.setText()
+                self.setTargets()
+                DispatchQueue.main.async { self.addAnimations() }
+            }
         }
         
-        self.setText()
-        self.setTargets()
-        DispatchQueue.main.async { self.addAnimations() }
-    
+        
     }
     
     public var getCurrentNotifi:TTBaseNotificationView { get { return self.currentNotifiView } }

@@ -61,6 +61,14 @@ public extension View {
         return self.background(def)
     }
     
+    func size(width:CGFloat)  -> some View {
+        return self.frame(width: width)
+    }
+    
+    func size(height:CGFloat)  -> some View {
+        return self.frame(height: height)
+    }
+    
     func size(width:CGFloat, height:CGFloat)  -> some View {
         return self.frame(width: width, height: height)
     }

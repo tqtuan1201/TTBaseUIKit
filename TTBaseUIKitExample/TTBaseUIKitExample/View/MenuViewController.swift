@@ -15,6 +15,7 @@ struct MenuFuction {
         case THEME
         case BASE_TABLE_VIEW_EMPTY
         case BASE_COLLECTIONVIEW
+        case BASE_CUSTOM_FLOWLAYOUT_COLLECTIONVIEW
         case BASE_CALENDAR
         case BASE_TABLE_VIEW_CELL
         case BASE_VIEWCONTROLLER
@@ -54,6 +55,8 @@ struct MenuFuction {
         case .BASE_TABLE_VIEW_EMPTY:
             return "layout"
         case .BASE_COLLECTIONVIEW:
+            return "layout"
+        case .BASE_CUSTOM_FLOWLAYOUT_COLLECTIONVIEW:
             return "layout"
         case .BASE_TABLE_VIEW_CELL:
             return "row"
@@ -115,6 +118,7 @@ struct MenuFuction {
         menus.append(MenuFuction(type: .BASE_VIEWCONTROLLER,name: "Base View Controller", des: "Base View Controller is to promote code reuse and maintainability by centralizing common functionality"))
         menus.append(MenuFuction(type: .BASE_TABLE_VIEW_CONTROLLER,name: "Base Table Controller", des: "Base Table Controller is to promote code reuse and maintainability by centralizing common functionality"))
         menus.append(MenuFuction(type: .BASE_COLLECTIONVIEW,name: "Base Collection View Controller", des: "Base Collection View Controller is to promote code reuse and maintainability by centralizing common functionality"))
+        menus.append(MenuFuction(type: .BASE_CUSTOM_FLOWLAYOUT_COLLECTIONVIEW,name: "Base Custom Collection View Controller", des: "Automatic cell height in a UICollectionView using a custom UICollectionViewFlowLayout"))
         menus.append(MenuFuction(type: .BASE_PRESENT_VC,name: "Base Cover Present Controller", des:"Base Cover Present Controller is to promote code reuse and maintainability by centralizing common functionality"))
         menus.append(MenuFuction(type: .BASE_AUTO_LAYOUT,name: "Base Auto Layout", des:"TTBaseUIKit to make easy Auto Layout. This framework provides some functions to setup and update constraints."))
         menus.append(MenuFuction(type: .BASE_ADVANCE_AUTO_LAYOUT,name: "Constraints Setup Sample", des:"TTBaseUIKit to make easy Auto Layout. This framework provides some functions to setup and update constraints."))
@@ -414,6 +418,10 @@ extension MenuViewController {
             break
         case .BASE_COLLECTIONVIEW:
             let baseCollectionVC = BaseColllectionViewViewController()
+            self.navigationController?.pushViewController(baseCollectionVC, animated: true)
+            break
+        case .BASE_CUSTOM_FLOWLAYOUT_COLLECTIONVIEW:
+            let baseCollectionVC = BaseCustomFlowLayoutColllectionViewController()
             self.navigationController?.pushViewController(baseCollectionVC, animated: true)
             break
         case .BASE_AUTO_LAYOUT:
