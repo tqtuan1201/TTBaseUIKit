@@ -129,10 +129,22 @@ public extension View {
     }
     
     
-    @ViewBuilder func skeleton(active: Bool = true, isShimmering:Bool = true) -> some View {
+    @ViewBuilder func skeleton(active: Bool = true, isShimmering:Bool = true, isLight:Bool = true) -> some View {
         if active {
             if isShimmering {
-                self.redacted(reason: .placeholder).shimmering(active: active)
+                self.redacted(reason: .placeholder).shimmering(active: active, gradient: isLight ? Shimmer.defaultLightViewGradient : Shimmer.defaultGradient)
+            } else {
+                self.redacted(reason: .placeholder)
+            }
+        } else {
+            self.unredacted()
+        }
+    }
+    
+    @ViewBuilder func skeleton(active: Bool = true, isShimmering:Bool = true, animation: Animation = Shimmer.defaultAnimation, gradient: Gradient = Shimmer.defaultGradient, bandSize:CGFloat = 0.28) -> some View {
+        if active {
+            if isShimmering {
+                self.redacted(reason: .placeholder).shimmering(active: active, animation: animation, gradient: gradient, bandSize: bandSize)
             } else {
                 self.redacted(reason: .placeholder)
             }
@@ -143,11 +155,3 @@ public extension View {
     
 }
 
-//
-//  File.swift
-//  
-//
-//  Created by TuanTruong on 18/11/2023.
-//
-
-import Foundation

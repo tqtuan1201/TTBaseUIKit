@@ -63,7 +63,7 @@ public struct TTBaseSUIHStack<Content: View>: View {
 }
 
 extension TTBaseSUIHStack {
-    public func setCorner(radius:CGFloat) ->  some View {
+    public func setCorner(radius:CGFloat = TTSize.CORNER_RADIUS) ->  some View {
         return self.body.cornerRadius(radius)
     }
 }

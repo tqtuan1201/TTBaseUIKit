@@ -11,7 +11,6 @@ import UIKit
 import SwiftUI
 
 open class ViewConfig {
-
     
     public var refreshViewColor: UIColor = UIColor.getColorFromHex.init(netHex: 0x1C82AD)
     public var textHeaderColor: UIColor = UIColor.getColorFromHex.init(netHex: 0x3c3c3c)
@@ -85,6 +84,9 @@ open class ViewConfig {
     
     public var dismissPresentBgview: UIColor = UIColor.white
     public var dismissPresentLineBgview: UIColor = UIColor.getColorFromHex.init(netHex: 0xc5c5c5)
+    
+    
+    public var viewPanelShadowColor = Color.black.opacity(0.14)
     
     public init() {}
 }

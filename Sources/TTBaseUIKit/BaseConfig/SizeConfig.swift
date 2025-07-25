@@ -72,6 +72,16 @@ public class SizeConfig {
     public var NOTIFI_HEIGHT:CGFloat = 80.0
     public var NOTIFI_ICON_HEIGHT:CGFloat = 45.0
     
+    
+    // MARK: - Design-system spacing scale
+    //New to merge UIKit + SwiftUI
+    public lazy var P_XS:CGFloat = self.P_CONS_DEF / 2
+    public lazy var P_S:CGFloat = self.P_CONS_DEF
+    public lazy var P_M:CGFloat = self.P_CONS_DEF * 1.5
+    public lazy var P_L:CGFloat = self.P_CONS_DEF * 2
+    public lazy var P_XL:CGFloat = self.P_CONS_DEF * 2.5
+    
+    
     public init() {}
     
     public convenience init(with paddingH:CGFloat, cellH:CGFloat, cellCollH:CGFloat, connerRadio:CGFloat, heightIcon:CGFloat) {

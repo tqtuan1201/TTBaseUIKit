@@ -25,6 +25,10 @@ extension Calendar {
 }
 
 extension Date {
+
+    public func toVietNamLunar() -> String {
+        return TTVietNamLunar.convertSolar2LunarToDisplay(currentDate: self) ?? "N/A"
+    }
     
     public func interval(ofComponent comp: Calendar.Component, fromDate date: Date) -> Int {
 

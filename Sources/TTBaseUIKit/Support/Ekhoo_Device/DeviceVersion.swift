@@ -8,6 +8,9 @@
 
 public enum DeviceVersion: String {
     /*** iPhone ***/
+    case iPhone2G
+    case iPhone3G
+    case iPhone3GS
     case iPhone4
     case iPhone4S
     case iPhone5
@@ -29,22 +32,30 @@ public enum DeviceVersion: String {
     case iPhone11
     case iPhone11Pro
     case iPhone11Pro_Max
-    
-    case iPhone_SE_2nd_Generation
-    case iPhone_12_mini
-    case iPhone_12
-    case iPhone_12_Pro
-    case iPhone_12_Pro_Max
-    case iPhone13
+    case iPhoneSE2
+    case iPhone12Mini
+    case iPhone12
+    case iPhone12Pro
+    case iPhone12Pro_Max
     case iPhone13Mini
+    case iPhone13
     case iPhone13Pro
-    case iPhone13ProMax
+    case iPhone13Pro_Max
     case iPhoneSE3
     case iPhone14
     case iPhone14Plus
     case iPhone14Pro
-    case iPhone14ProMax
-    
+    case iPhone14Pro_Max
+    case iPhone15
+    case iPhone15Plus
+    case iPhone15Pro
+    case iPhone15Pro_Max
+    case iPhone16
+    case iPhone16Plus
+    case iPhone16Pro
+    case iPhone16Pro_Max
+    case iPhone16e
+
     /*** iPad ***/
     case iPad1
     case iPad2
@@ -53,13 +64,26 @@ public enum DeviceVersion: String {
     case iPad5
     case iPad6
     case iPad7
+    case iPad8
+    case iPad9
+    case iPad10
+    case iPadA16
     case iPadAir
     case iPadAir2
     case iPadAir3
+    case iPadAir4
+    case iPadAir5
     case iPadMini
     case iPadMini2
     case iPadMini3
     case iPadMini4
+    case iPadMini5
+    case iPadMini6
+    case iPadMini7
+    case iPadAirM2_11Inch
+    case iPadAirM2_13Inch
+    case iPadAirM3_11Inch
+    case iPadAirM3_13Inch
 
     /*** iPadPro ***/
     case iPadPro9_7Inch
@@ -68,8 +92,15 @@ public enum DeviceVersion: String {
     case iPadPro12_9Inch2
     case iPadPro11_0Inch
     case iPadPro12_9Inch3
+    case iPadPro11_0Inch2
+    case iPadPro11_0Inch3
+    case iPadPro11_0Inch4
     case iPadPro12_9Inch4
-    
+    case iPadPro12_9Inch5
+    case iPadPro12_9Inch6
+    case iPadProM4_11Inch
+    case iPadProM4_13Inch
+
     /*** iPod ***/
     case iPodTouch1Gen
     case iPodTouch2Gen
@@ -77,12 +108,11 @@ public enum DeviceVersion: String {
     case iPodTouch4Gen
     case iPodTouch5Gen
     case iPodTouch6Gen
-    
+    case iPodTouch7Gen
+
     /*** simulator ***/
     case simulator
-    
+
     /*** unknown ***/
     case unknown
 }
-
-

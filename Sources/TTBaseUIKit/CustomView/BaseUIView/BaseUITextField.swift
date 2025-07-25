@@ -351,13 +351,13 @@ extension TTBaseUITextField {
 // For real time format text
 extension TTBaseUITextField : UITextFieldDelegate {
     
-    public func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+    open func textFieldShouldReturn(_ textField: UITextField) -> Bool {
          // your Action According to your textfield
         self.onTouchReturnKeyHandler?(self, textField.returnKeyType)
         return true
     }
     
-    public func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
+    open func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
         if self.isForceUpperCase {
             let firstLowercaseCharRange = string.rangeOfCharacter(from: NSCharacterSet.lowercaseLetters)
             if let _ = firstLowercaseCharRange {
