@@ -33,7 +33,7 @@ class LogTrackingViewModel {
     var isSkipCheckPass:Bool = false
     var isStartAppToShow:Bool = true
     var isShow:Bool = false
-    var displayString:String = "View log by json or report bugs"
+    var displayString:String = "Easily inspect layouts, monitor logs, and simulate environments while building your app"
     var logs:[LogViewModel] = []
     var passCode:String = ""
     init() { }

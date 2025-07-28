@@ -10,7 +10,7 @@ import Foundation
 import UIKit
 
 extension UIView {
-    
+   
     @discardableResult public func setTransformRotation(toDegrees angleInDegrees: CGFloat) -> UIView {
         let angleInRadians = angleInDegrees / 180.0 * CGFloat.pi
         let rotation = self.transform.rotated(by: angleInRadians)
@@ -218,6 +218,25 @@ extension UIView {
             let arrBg:[CGAffineTransform] = [CGAffineTransform(translationX: padding, y: 0),CGAffineTransform(translationX: padding, y: 0)]
             self?.transform = arrBg[Int(arc4random_uniform(UInt32(arrBg.count)))]
         }, completion: nil)
+    }
+    
+
+    public func runOnMainThreadCheckThreadIfNeed(completion: @escaping (() -> Void)) {
+        if Thread.isMainThread {
+            completion()
+        } else {
+            DispatchQueue.main.async { completion() }
+        }
+    }
+    
+    public func runOnMainThread(completion: @escaping (() -> Void)) {
+        DispatchQueue.main.async { completion() }
+    }
+    
+    public func runOnMainThread(delay time:Double = 0.4,  completion: @escaping (() -> Void)) {
+        DispatchQueue.main.asyncAfter(deadline: .now() + time) {
+            completion()
+        }
     }
     
     /// Detect position waring view

@@ -12,6 +12,49 @@ import UIKit
 //MARK:// For custom loading view
 extension UIViewController {
     
+    public func onShowNoticeView(title:String = "TTBaseUIkit.Text.NotificationTitle".localize(withBundle: Bundle.main), body:String, style:TTBaseNotificationViewConfig.NOTIFICATION_TYPE = .SUCCESS, time:Double = 3.0) {
+        self.runOnMainThread {
+            guard let window = UIApplication.shared.keyWindow else { return }
+            let noti:TTBaseNotificationViewConfig = TTBaseNotificationViewConfig(with: window)
+            noti.setText(with: title, subTitle: body)
+            noti.durationType = .TIME(seconds: time)
+            noti.type = .NOTIFICATION_VIEW
+            noti.notifiType = style
+            noti.onShow()
+        }
+    }
+    
+    public func runOnMainThreadCheckThreadIfNeed(completion: @escaping (() -> Void)) {
+        if Thread.isMainThread {
+            completion()
+        } else {
+            DispatchQueue.main.async { completion() }
+        }
+    }
+    
+    public func runOnMainThread(completion: @escaping (() -> Void)) {
+        DispatchQueue.main.async { completion() }
+    }
+    
+    public func runOnMainThread(delay time:Double = 0.4,  completion: @escaping (() -> Void)) {
+        DispatchQueue.main.asyncAfter(deadline: .now() + time) {
+            completion()
+        }
+    }
+    
+    
+    public func runOnBackgroundThread( bg:DispatchQoS.QoSClass = .background, completion: @escaping (() -> Void)) {
+        DispatchQueue.global(qos: bg).async {
+            completion()
+        }
+    }
+    
+    public func runOnBackgroundThread(delay time:Double = 0.4,  bg:DispatchQoS.QoSClass = .background, completion: @escaping (() -> Void)) {
+        DispatchQueue.global(qos: bg).asyncAfter(deadline: .now() + time) {
+            completion()
+        }
+    }
+    
     
     public func dismissAll(animated: Bool, completion: (() -> Void)? = nil) {
         if let optionalWindow = UIApplication.shared.delegate?.window, let window = optionalWindow, let rootViewController = window.rootViewController, let presentedViewController = rootViewController.presentedViewController  {
@@ -235,16 +278,6 @@ extension UIViewController {
     
     public var preferredInterfaceOrientationForPresentation: UIInterfaceOrientation {
         return .portrait
-    }
-
-    public func runOnMainThread(completion: @escaping (() -> Void)) {
-        DispatchQueue.main.async { completion() }
-    }
-    
-    public func runOnBackgroundThread( bg:DispatchQoS.QoSClass = .background, completion: @escaping (() -> Void)) {
-        DispatchQueue.global(qos: bg).async {
-            completion()
-        }
     }
     
 }

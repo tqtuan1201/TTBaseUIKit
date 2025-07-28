@@ -16,7 +16,7 @@ open class LogTrackingTableViewController: TTBaseUITableViewController {
     override open var navType: TTBaseUIViewController<TTBaseUIView>.NAV_STYLE { get { return .NO_VIEW}}
     
     fileprivate let backButton:TTBaseUIButton = TTBaseUIButton(textString: "BACK", type: .DEFAULT, isSetSize: false)
-    fileprivate let titleLabel:TTBaseUILabel =  TTBaseUILabel(withType: .TITLE, text: "VIEW LOG FOR TEST", align: .left)
+    fileprivate let titleLabel:TTBaseUILabel =  TTBaseUILabel(withType: .TITLE, text: "Everything you need for real-time UI inspection, logging, and network analysis", align: .left)
     fileprivate let panelView:TTBaseUIView = TTBaseUIView()
     
     
