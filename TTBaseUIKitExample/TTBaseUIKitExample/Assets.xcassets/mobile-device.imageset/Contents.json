@@ -1,0 +1,12 @@
+{
+  "images" : [
+    {
+      "filename" : "mobile-device.png",
+      "idiom" : "universal"
+    }
+  ],
+  "info" : {
+    "author" : "xcode",
+    "version" : 1
+  }
+}

@@ -1,0 +1,15 @@
+{
+  "originHash" : "6338be72606f51d5a0754e323bc4662c0caa69914bede88aedfbd0f2565e1b2d",
+  "pins" : [
+    {
+      "identity" : "ttbaseuikit",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/tqtuan1201/TTBaseUIKit.git",
+      "state" : {
+        "branch" : "master",
+        "revision" : "3703675aada050fc01c8e48581e6c2e5b62587d5"
+      }
+    }
+  ],
+  "version" : 3
+}

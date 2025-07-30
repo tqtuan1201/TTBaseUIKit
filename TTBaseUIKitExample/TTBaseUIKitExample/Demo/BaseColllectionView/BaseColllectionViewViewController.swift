@@ -121,6 +121,7 @@ extension BaseColllectionViewViewController: UICollectionViewDelegateFlowLayout,
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell:DemoBaseUICollectionViewCell = collectionView.dequeueReusableCell(forIndexPath: indexPath)
         cell.nameLabel.setText(text: self.viewModel.items[indexPath.row])
+        cell.image.setImage(with: ["bg_01", "bg_02", "bg_03"].randomElement() ?? "bg_01")
         cell.priveLabel.setText(text: ["TTBaseUIKit","TTBaseUIKit UIKit","TTBaseUIKit SwiftUI"].randomElement() ?? "TTBaseUIKit")
         return cell
     }

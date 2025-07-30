@@ -7,7 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		3EBCD2935D897CEE9E73E6EA /* Pods_TTBaseUIKitExample.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1DAFBF8936138D12F5AD96D6 /* Pods_TTBaseUIKitExample.framework */; };
 		6D90040C299A1196004280F5 /* BaseView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6D90040B299A1196004280F5 /* BaseView.swift */; };
 		930F2A6022AA75100001A511 /* Element.swift in Sources */ = {isa = PBXBuildFile; fileRef = 930F2A5F22AA75100001A511 /* Element.swift */; };
 		934B1FFC22ABB6F000140EF7 /* CellTypeTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 934B1FFB22ABB6F000140EF7 /* CellTypeTableViewController.swift */; };
@@ -46,6 +45,7 @@
 		BC2452F22C5C9B5900D3FEC5 /* BaseSwiftUIButtonDemo.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC2452F12C5C9B5900D3FEC5 /* BaseSwiftUIButtonDemo.swift */; };
 		BC2452F42C5C9CF700D3FEC5 /* BaseSwiftUITextDemo.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC2452F32C5C9CF700D3FEC5 /* BaseSwiftUITextDemo.swift */; };
 		BC78A9AE2C525308008E0BA4 /* WebViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC78A9AD2C525308008E0BA4 /* WebViewController.swift */; };
+		BC8166A32E378C9A000D6708 /* TTBaseUIKit in Frameworks */ = {isa = PBXBuildFile; productRef = BC8166A22E378C9A000D6708 /* TTBaseUIKit */; };
 		BCA2808B2C59FC3D00472024 /* BaseComponentsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCA280882C59FC3D00472024 /* BaseComponentsViewModel.swift */; };
 		BCA2808C2C59FC3D00472024 /* BaseComponentsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCA2808A2C59FC3D00472024 /* BaseComponentsViewController.swift */; };
 		BCA2808E2C5A1FF300472024 /* DemoCustomView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCA2808D2C5A1FF300472024 /* DemoCustomView.swift */; };
@@ -57,6 +57,8 @@
 		BCCD6BB42C5E04DF00DA9164 /* BaseSwiftUIStackDemo.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCCD6BB32C5E04DF00DA9164 /* BaseSwiftUIStackDemo.swift */; };
 		BCCD6BB62C5E069700DA9164 /* BaseSwiftUISpacerDemo.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCCD6BB52C5E069700DA9164 /* BaseSwiftUISpacerDemo.swift */; };
 		BCCD6BB82C5E072F00DA9164 /* BaseSwiftUIDividerDemo.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCCD6BB72C5E072F00DA9164 /* BaseSwiftUIDividerDemo.swift */; };
+		BCCF1A4B2E3A0EA2001BF6A3 /* TTBaseUIKit in Frameworks */ = {isa = PBXBuildFile; productRef = BCCF1A4A2E3A0EA2001BF6A3 /* TTBaseUIKit */; };
+		BCCF1A4E2E3A1346001BF6A3 /* TTBaseUIKit in Frameworks */ = {isa = PBXBuildFile; productRef = BCCF1A4D2E3A1346001BF6A3 /* TTBaseUIKit */; };
 		BCD8B24D2D895CA5000A53CF /* BaseCustomFlowLayoutColllectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCD8B24C2D895CA5000A53CF /* BaseCustomFlowLayoutColllectionViewController.swift */; };
 		BCD8B24F2D895D57000A53CF /* BaseCustomUICollectionFlowLayoutViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCD8B24E2D895D57000A53CF /* BaseCustomUICollectionFlowLayoutViewCell.swift */; };
 		BCF1F3512C58FD7C0062610C /* TTBaseUIKit+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCF1F3502C58FD7C0062610C /* TTBaseUIKit+Extension.swift */; };
@@ -69,9 +71,6 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		12C591B1D28BAD7844B95DAF /* Pods-TTBaseUIKitExample.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TTBaseUIKitExample.release.xcconfig"; path = "Target Support Files/Pods-TTBaseUIKitExample/Pods-TTBaseUIKitExample.release.xcconfig"; sourceTree = "<group>"; };
-		1DAFBF8936138D12F5AD96D6 /* Pods_TTBaseUIKitExample.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_TTBaseUIKitExample.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		2165050AD72AAAD145735036 /* Pods-TTBaseUIKitExample.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TTBaseUIKitExample.debug.xcconfig"; path = "Target Support Files/Pods-TTBaseUIKitExample/Pods-TTBaseUIKitExample.debug.xcconfig"; sourceTree = "<group>"; };
 		6D90040B299A1196004280F5 /* BaseView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseView.swift; sourceTree = "<group>"; };
 		930F2A5F22AA75100001A511 /* Element.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Element.swift; sourceTree = "<group>"; };
 		934B1FFB22ABB6F000140EF7 /* CellTypeTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CellTypeTableViewController.swift; sourceTree = "<group>"; };
@@ -123,6 +122,7 @@
 		BCCD6BB32C5E04DF00DA9164 /* BaseSwiftUIStackDemo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseSwiftUIStackDemo.swift; sourceTree = "<group>"; };
 		BCCD6BB52C5E069700DA9164 /* BaseSwiftUISpacerDemo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseSwiftUISpacerDemo.swift; sourceTree = "<group>"; };
 		BCCD6BB72C5E072F00DA9164 /* BaseSwiftUIDividerDemo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseSwiftUIDividerDemo.swift; sourceTree = "<group>"; };
+		BCCF19FD2E39CD71001BF6A3 /* TTBaseBridge.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TTBaseBridge.h; sourceTree = "<group>"; };
 		BCD8B24C2D895CA5000A53CF /* BaseCustomFlowLayoutColllectionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseCustomFlowLayoutColllectionViewController.swift; sourceTree = "<group>"; };
 		BCD8B24E2D895D57000A53CF /* BaseCustomUICollectionFlowLayoutViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseCustomUICollectionFlowLayoutViewCell.swift; sourceTree = "<group>"; };
 		BCF1F3502C58FD7C0062610C /* TTBaseUIKit+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "TTBaseUIKit+Extension.swift"; sourceTree = "<group>"; };
@@ -139,30 +139,15 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				3EBCD2935D897CEE9E73E6EA /* Pods_TTBaseUIKitExample.framework in Frameworks */,
+				BCCF1A4E2E3A1346001BF6A3 /* TTBaseUIKit in Frameworks */,
+				BCCF1A4B2E3A0EA2001BF6A3 /* TTBaseUIKit in Frameworks */,
+				BC8166A32E378C9A000D6708 /* TTBaseUIKit in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		67EFC6AA26471B4869252A7B /* Frameworks */ = {
-			isa = PBXGroup;
-			children = (
-				1DAFBF8936138D12F5AD96D6 /* Pods_TTBaseUIKitExample.framework */,
-			);
-			name = Frameworks;
-			sourceTree = "<group>";
-		};
-		6A34018F88219E181DE14D80 /* Pods */ = {
-			isa = PBXGroup;
-			children = (
-				2165050AD72AAAD145735036 /* Pods-TTBaseUIKitExample.debug.xcconfig */,
-				12C591B1D28BAD7844B95DAF /* Pods-TTBaseUIKitExample.release.xcconfig */,
-			);
-			path = Pods;
-			sourceTree = "<group>";
-		};
 		930F2A5E22AA75050001A511 /* Test */ = {
 			isa = PBXGroup;
 			children = (
@@ -208,8 +193,6 @@
 			children = (
 				93F0FDC822580B980037C427 /* TTBaseUIKitExample */,
 				93F0FDC722580B980037C427 /* Products */,
-				6A34018F88219E181DE14D80 /* Pods */,
-				67EFC6AA26471B4869252A7B /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -236,6 +219,7 @@
 				93F0FDD022580B990037C427 /* Assets.xcassets */,
 				93F0FDD222580B990037C427 /* LaunchScreen.storyboard */,
 				93F0FDD522580B990037C427 /* Info.plist */,
+				BCCF19FD2E39CD71001BF6A3 /* TTBaseBridge.h */,
 			);
 			path = TTBaseUIKitExample;
 			sourceTree = "<group>";
@@ -502,11 +486,9 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 93F0FDD822580B990037C427 /* Build configuration list for PBXNativeTarget "TTBaseUIKitExample" */;
 			buildPhases = (
-				990147F1F2B1F9D991E21616 /* [CP] Check Pods Manifest.lock */,
 				93F0FDC222580B980037C427 /* Sources */,
 				93F0FDC322580B980037C427 /* Frameworks */,
 				93F0FDC422580B980037C427 /* Resources */,
-				1193AE655C33AFB4463D727D /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -541,6 +523,9 @@
 				Base,
 			);
 			mainGroup = 93F0FDBD22580B980037C427;
+			packageReferences = (
+				BCCF1A4C2E3A1346001BF6A3 /* XCRemoteSwiftPackageReference "TTBaseUIKit" */,
+			);
 			productRefGroup = 93F0FDC722580B980037C427 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -562,48 +547,6 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
-
-/* Begin PBXShellScriptBuildPhase section */
-		1193AE655C33AFB4463D727D /* [CP] Embed Pods Frameworks */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-TTBaseUIKitExample/Pods-TTBaseUIKitExample-frameworks-${CONFIGURATION}-input-files.xcfilelist",
-			);
-			name = "[CP] Embed Pods Frameworks";
-			outputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-TTBaseUIKitExample/Pods-TTBaseUIKitExample-frameworks-${CONFIGURATION}-output-files.xcfilelist",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-TTBaseUIKitExample/Pods-TTBaseUIKitExample-frameworks.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		990147F1F2B1F9D991E21616 /* [CP] Check Pods Manifest.lock */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-			);
-			inputPaths = (
-				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
-				"${PODS_ROOT}/Manifest.lock",
-			);
-			name = "[CP] Check Pods Manifest.lock";
-			outputFileListPaths = (
-			);
-			outputPaths = (
-				"$(DERIVED_FILE_DIR)/Pods-TTBaseUIKitExample-checkManifestLockResult.txt",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
-			showEnvVarsInLog = 0;
-		};
-/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		93F0FDC222580B980037C427 /* Sources */ = {
@@ -747,6 +690,7 @@
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OBJC_BRIDGING_HEADER = TTBaseUIKitExample/TTBaseBridge.h;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 			};
 			name = Debug;
@@ -801,6 +745,7 @@
 				MTL_FAST_MATH = YES;
 				SDKROOT = iphoneos;
 				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_OBJC_BRIDGING_HEADER = TTBaseUIKitExample/TTBaseBridge.h;
 				SWIFT_OPTIMIZATION_LEVEL = "-O";
 				VALIDATE_PRODUCT = YES;
 			};
@@ -808,7 +753,6 @@
 		};
 		93F0FDD922580B990037C427 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 2165050AD72AAAD145735036 /* Pods-TTBaseUIKitExample.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
@@ -831,7 +775,6 @@
 		};
 		93F0FDDA22580B990037C427 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 12C591B1D28BAD7844B95DAF /* Pods-TTBaseUIKitExample.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
@@ -874,6 +817,42 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		BC8166A12E378C9A000D6708 /* XCRemoteSwiftPackageReference "TTBaseUIKit" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/tqtuan1201/TTBaseUIKit.git";
+			requirement = {
+				branch = master;
+				kind = branch;
+			};
+		};
+		BCCF1A4C2E3A1346001BF6A3 /* XCRemoteSwiftPackageReference "TTBaseUIKit" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/tqtuan1201/TTBaseUIKit.git";
+			requirement = {
+				branch = master;
+				kind = branch;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		BC8166A22E378C9A000D6708 /* TTBaseUIKit */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = BC8166A12E378C9A000D6708 /* XCRemoteSwiftPackageReference "TTBaseUIKit" */;
+			productName = TTBaseUIKit;
+		};
+		BCCF1A4A2E3A0EA2001BF6A3 /* TTBaseUIKit */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = TTBaseUIKit;
+		};
+		BCCF1A4D2E3A1346001BF6A3 /* TTBaseUIKit */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = BCCF1A4C2E3A1346001BF6A3 /* XCRemoteSwiftPackageReference "TTBaseUIKit" */;
+			productName = TTBaseUIKit;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 93F0FDBE22580B980037C427 /* Project object */;
 }

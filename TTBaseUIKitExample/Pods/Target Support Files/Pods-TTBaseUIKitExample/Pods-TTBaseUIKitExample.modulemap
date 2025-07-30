@@ -1,6 +1,0 @@
-framework module Pods_TTBaseUIKitExample {
-  umbrella header "Pods-TTBaseUIKitExample-umbrella.h"
-
-  export *
-  module * { export * }
-}

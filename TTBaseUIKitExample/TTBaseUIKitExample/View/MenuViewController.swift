@@ -41,6 +41,9 @@ struct MenuFuction {
         case BASE_SWIFTUI_DIVIDER
         
         case BASE_FUNCS
+        case DEBUG_UI
+        case JAILBREAK_CHECKER
+        
     }
     
     let type:TYPE
@@ -102,6 +105,12 @@ struct MenuFuction {
             return "row"
         case .BASE_SWIFTUI_DIVIDER:
             return "row"
+            
+        case .DEBUG_UI:
+            return "debugging"
+            
+        case .JAILBREAK_CHECKER:
+            return "mobile-device"
         }
     }
     
@@ -154,6 +163,11 @@ struct MenuFuction {
     static func getFuncUtil() -> [MenuFuction] {
         var menus:[MenuFuction] = []
         menus.append(MenuFuction(type: .BASE_FUNCS, name: "Useful functions", des: "TTBaseUIKit provides common handling functions for String, Date, Json, Device, Language, VietNamLunar , Validation, NetworkSpeedTest"))
+        
+        menus.append(MenuFuction(type: .DEBUG_UI, name: "Smart UI Debugging for iOS", des: "A powerful developer tool to inspect, trace, and debug UI components in both UIKit and SwiftUI — directly on-device or in the simulator."))
+        
+        menus.append(MenuFuction(type: .JAILBREAK_CHECKER, name: "JailbreakGuard – Secure Device Integrity Checker", des: "Prevent unauthorized access with fast and reliable jailbreak detection built for iOS apps"))
+        
         return menus
     }
     
@@ -319,7 +333,7 @@ extension MenuViewController: UITableViewDataSource {
             self.onPushToSwiftUIKit(menu: _item)
             break
         case .FUNC_UTIL:
-            self.showMessagePopup(mess: "TTBaseUIKit provides common handling functions for String, Date, Json, Device, Language, VietNamLunar , Validation, NetworkSpeedTest") { }
+            self.onPushToUtilFuncs(menu: _item)
             break
         case .MORE:
             let webVC:WebViewController = WebViewController.init(navTitle: "HI, I'M TUAN TRUONG", urlString: "https://tqtuan1201.github.io/tags/ttbaseuikit/")
@@ -328,6 +342,48 @@ extension MenuViewController: UITableViewDataSource {
         }
     }
     
+}
+
+
+//MARK:// Util funcs
+extension MenuViewController {
+    
+    func onPushToUtilFuncs(menu:MenuFuction) {
+        switch menu.type {
+        case .BASE_FUNCS:
+            self.showMessagePopup(mess: "TTBaseUIKit provides common handling functions for String, Date, Json, Device, Language, VietNamLunar , Validation, NetworkSpeedTest") { }
+            break
+            
+        case .DEBUG_UI:
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) {
+                self.showMessagePopup(mess: "Long touch to show Dev Mode View, Tap three times to activate UI debugging,\nSet a passcode if you need authentication") {
+                    LogViewHelper.share.config(withDes: "TTBaseDebugKit provides developers with powerful in-app tools for inspecting UI, tracking logs, and simulating environments—making debugging faster, easier, and more efficient", isStartAppToShow: false, passCode: "").onStartAndPresentVC()
+                }
+            }
+            break
+            
+        case .JAILBREAK_CHECKER:
+            let result = TTBaseJailbreakDetector.shared.detectJailbreak()
+            print("MenuViewController JAILBREAK_CHECKER result: \(result)")
+            self.showAlert("Jailbreak_checker result: \(result)")
+            switch result {
+            case .Jailbreak:
+                print("==> Jailbreak")
+            break
+            case .MacCatalyst:
+                print("==> MacCatalyst")
+            break
+            case .Simulator:
+                print("==> Simulator")
+            break
+            case .Pass:
+                print("==> Pass")
+            break
+            }
+            break
+        default: break
+        }
+    }
 }
 
 //MARK:// SwiftUI
