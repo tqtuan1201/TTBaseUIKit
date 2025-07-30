@@ -21,7 +21,7 @@ class TTBaseOptionLogPresentViewController: TTCoverVerticalViewController {
     
     init(with title:String, subTitle:String) {
         super.init()
-        self.label.setText(text: title)
+        self.label.setBold().setText(text: "📐 TTBaseDebugKit©\n\(title)")
         self.subLabel.setText(text: subTitle)
     }
     
@@ -50,6 +50,7 @@ class TTBaseOptionLogPresentViewController: TTCoverVerticalViewController {
             .setLeadingAnchor(constant: 8).setTrailingAnchor(constant: 8)
             .setTopAnchor(constant: 10)
         
+        self.subLabel.setMutilLine(numberOfLine: 0, textAlignment: .left, mode: .byTruncatingTail)
         self.subLabel.setVerticalContentHuggingPriority()
             .setLeadingAnchor(constant: 8).setTrailingAnchor(constant: 8)
             .setTopAnchorWithAboveView(nextToView: self.label, constant: 10)
