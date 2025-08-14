@@ -14,7 +14,6 @@ In this update, I have included a Base Project called TTBaseUIKitExample, which 
 You can see more details in here:
 [TTBaseUIKit - TTBaseUIKitExample](https://tqtuan1201.github.io/posts/job/ios/swiftui/ttbaseuikit-integrated-with-swiftui/)
 
-
 ## Installation
 
 ### Swift Package Manager
@@ -108,6 +107,44 @@ Apply config by:
 
 <p align="center">
   <img src="https://tqtuan1201.github.io/images/ttbaseuikit_compress_1.gif"  style="width:100%; height:50%;" />
+</p>
+
+## UI Debugging
+<p align="center">
+    <img src="https://tqtuan1201.github.io/images/image-20250801104328615%e2%80%afAM.png"  style="width:100%; height90%" />
+</p>
+
+You can see more details in here:  [TTBaseDebugKit](https://tqtuan1201.github.io/posts/job/ios/ttbaseuikit/debuguikit/)
+
+With the UI debug tool now integrated into `TTBaseUIKit`, building an iOS app from <mark>a base project is easier than ever</mark>. This tool especially helps developers
+
+- Visualize layout boundaries and hierarchies
+- Test views quickly with mock data
+- Reduce time spent checking constraints manually
+
+This update `TTBaseDebugUIKit` aims to speed up development and reduce friction when building or testing user interfaces — whether you’re using **UIKit** or **SwiftUI**.
+
+
+```swift
+ LogViewHelper.share.config(withDes: "Description for Developers", isStartAppToShow: false, passCode: "").onShow()
+```
+
+- `passCode` if you want to secure the debug section, <mark>just set a password</mark>
+- `onShow` Allows you to activate the debug feature on any screen in the app. <mark>To open it, just long-press on the screen</mark>
+
+Or to make it easier, you can download the sample project and run it. [TTBaseUIKitExample](https://github.com/tqtuan1201/TTBaseUIKit/tree/master/TTBaseUIKitExample).
+
+<p align="center">
+    <img src="https://tqtuan1201.github.io/images/image-2025073133012120 PM.png"  style="width:50%; height:50%" />
+  </p>
+
+- `SHOW LOG API RESPONSE` Displays all request and response data when calling APIs, making it easier for developers and testers to test, debug the app.
+- `DEBUG UI LAYOUT` <mark>TRIPLE TAP THE SCREEN</mark> To enable UI debug mode, just tap 3 times on any screen you want to check.
+- `CAPTURE THE SCREEN` Capture the current screen and add notes to save or send to a tester or developer.
+- `SETTING DEV`: You can add any settings you want, such as changing the app's development environment, and more, ...
+
+<p align="center">
+  <img src="https://tqtuan1201.github.io/images/TTBaseUIKit-DebugKit.gif"  style="width:100%; height:50%" />
 </p>
 
 ## Interface Customization
@@ -345,8 +382,6 @@ extension BaseUITableViewController : BaseUINavigationViewDelegate{
 }
 
 ```
-
-
 
 ## Auto Layout
 
