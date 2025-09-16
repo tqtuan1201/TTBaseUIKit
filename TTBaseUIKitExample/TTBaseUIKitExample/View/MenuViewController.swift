@@ -357,7 +357,7 @@ extension MenuViewController {
         case .DEBUG_UI:
             DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) {
                 self.showMessagePopup(mess: "Long touch to show Dev Mode View, Tap three times to activate UI debugging,\nSet a passcode if you need authentication") {
-                    LogViewHelper.share.config(withDes: "TTBaseDebugKit provides developers with powerful in-app tools for inspecting UI, tracking logs, and simulating environments—making debugging faster, easier, and more efficient", isStartAppToShow: false, passCode: "").onStartAndPresentVC()
+                    LogViewHelper.share.config(withDes: "TTBaseDebugKit provides developers with powerful in-app tools for inspecting UI, tracking logs, and simulating environments—making debugging faster, easier, and more efficient", isStartAppToShow: false, passCode: "").onShow()
                 }
             }
             break

@@ -34,14 +34,14 @@ public struct TTBaseSUIImage: View {
     }
     
     public init(withname name:String, color:Color, contentMode: ContentMode) {
-        self.contentMode = contentMode
         self.image = Image(name)
         self.imageColor = color
+        self.contentMode = contentMode
     }
     
     public init(withname name:String, contentMode: ContentMode) {
-        self.contentMode = contentMode
         self.image = Image(name)
+        self.contentMode = contentMode
     }
     
     public var body: some View {

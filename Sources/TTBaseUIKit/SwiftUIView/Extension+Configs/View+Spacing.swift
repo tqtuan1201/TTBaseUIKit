@@ -25,13 +25,13 @@ public extension View {
     
     // MARK: Horizontal
     @inlinable
-    func pHorizontal(_ size:CGFloat = TTSize.P_S) -> some View {
+    func pHorizontal(_ size:CGFloat? = nil) -> some View {
         self.padding(.horizontal, size)
     }
 
     // MARK: Vertical
     @inlinable
-    func pVertical(_ size:CGFloat = TTSize.P_S) -> some View {
+    func pVertical(_ size:CGFloat?) -> some View {
         self.padding(.vertical, size)
     }
 
