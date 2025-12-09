@@ -30,6 +30,8 @@ struct MenuFuction {
         case BASE_TEST
         case BASE_COMPONENTS
         
+        case ANIMATION_SKELETON_UIKIT
+        case ANIMATION_SKELETON_SWIFTUI
         
         case BASE_SWIFTUI_VIEW
         case BASE_SWIFTUI_BUTTON
@@ -39,6 +41,8 @@ struct MenuFuction {
         case BASE_SWIFTUI_SPACER
         case BASE_SWIFTUI_SCROLL_STACK
         case BASE_SWIFTUI_DIVIDER
+        
+        case BASE_SWIFTUI_NEW_VERSION
         
         case BASE_FUNCS
         case DEBUG_UI
@@ -111,6 +115,8 @@ struct MenuFuction {
             
         case .JAILBREAK_CHECKER:
             return "mobile-device"
+        default:
+            return "row"
         }
     }
     
@@ -137,6 +143,9 @@ struct MenuFuction {
         menus.append(MenuFuction(type: .BASE_POPUP,name: "POPUP_VIEW", des: "show popup alter view"))
         menus.append(MenuFuction(type: .BASE_PICKER,name: "DATE_PICKER", des: "Choose date time from popup"))
         menus.append(MenuFuction(type: .BASE_TABLE_VIEW_EMPTY,name: "EMPTY_TABLE", des: "Set background for uitableview when empty data"))
+        
+        menus.append(MenuFuction(type: .ANIMATION_SKELETON_UIKIT,name: "SKELETON UIKIT", des: "Play skeleton animation in UIKit world"))
+        
         return menus
     }
     
@@ -150,6 +159,10 @@ struct MenuFuction {
         menus.append(MenuFuction(type: .BASE_SWIFTUI_SCROLL_STACK, name: "Base SwiftUI Scroll + Stack", des: "Let's look at some illustrations of custom SwiftUI views"))
         menus.append(MenuFuction(type: .BASE_SWIFTUI_SPACER, name: "Base SwiftUI Spacer", des: "Let's look at some illustrations of custom SwiftUI views"))
         menus.append(MenuFuction(type: .BASE_SWIFTUI_DIVIDER, name: "Base SwiftUI Divider", des: "Let's look at some illustrations of custom SwiftUI views"))
+        
+        menus.append(MenuFuction(type: .ANIMATION_SKELETON_SWIFTUI,name: "SKELETON SWIFTUI", des: "Play skeleton animation in SwiftUI world"))
+        
+        menus.append(MenuFuction(type: .BASE_SWIFTUI_NEW_VERSION, name: "Modern Update Alert", des: "Learn how to design a smooth, elegant SwiftUI alert for new app versions."))
         return menus
     }
     
@@ -241,12 +254,12 @@ class IconTextSubtextTableViewCell: TTIconTextSubtextTableViewCell {
 class MenuViewController: BaseUITableViewController {
     
     override var navType: TTBaseUIViewController<TTBaseUIView>.NAV_STYLE { get { return .STATUS_NAV}}
-    
+    override var paddingHeader: (CGFloat, CGFloat, CGFloat, CGFloat, CGFloat) { return (0,0,0,0,TTSize.W/1.2)}
     fileprivate let data:[DataModel] = DataModel.createAll()
     fileprivate var fromDate:Date = Date()
     fileprivate var toDate:Date = Date().dateByAddingDays(2)
     fileprivate let headerView = DemoHeaderView()
-    
+
     override func viewDidLoad() {
         super.viewDidLoad()
         self.setupUI()
@@ -431,6 +444,16 @@ extension MenuViewController {
             let hotVC = view.embeddedInHostingController()
             self.push(hotVC)
             break
+        case .BASE_SWIFTUI_NEW_VERSION:
+            let view = BaseSwiftUINewVersionDemo()
+            let hotVC = view.embeddedInHostingController()
+            self.push(hotVC)
+            break
+        case .ANIMATION_SKELETON_SWIFTUI:
+            let view = BaseSwiftUISkeletonScrollStackDemo()
+            let hotVC = view.embeddedInHostingController()
+            self.navigationController?.pushViewController(hotVC, animated: true)
+            break
         default: break
         }
     }
@@ -467,6 +490,10 @@ extension MenuViewController {
         case .BASE_TABLE_VIEW_EMPTY:
             let emptyVC = EmptyTableViewController()
             self.navigationController?.pushViewController(emptyVC, animated: true)
+            break
+        case .ANIMATION_SKELETON_UIKIT:
+            let skeletonUIKitVC = SkeletonTableViewController()
+            self.navigationController?.pushViewController(skeletonUIKitVC, animated: true)
             break
         case .BASE_COMPONENTS:
             let baseComponents = BaseComponentsViewController()
@@ -538,6 +565,16 @@ extension UIViewController {
     func showMessagePopup(mess:String, completeHandle:( () -> ())?) {
         self.showPopupConfirm(withText: "Message", subTitle: mess, leftButton: nil, rightButton: "OK") {
             completeHandle?()
+        }
+    }
+}
+
+import SwiftUI
+struct MenuViewController_Previews: PreviewProvider {
+    static var previews: some View {
+        TTBaseUIViewControllerPreview {
+            let vc = MenuViewController()
+            return UINavigationController.init(rootViewController: vc)
         }
     }
 }

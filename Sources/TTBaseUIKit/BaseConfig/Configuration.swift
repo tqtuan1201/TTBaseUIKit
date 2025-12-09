@@ -23,6 +23,10 @@ public class TTBaseUIKitConfig {
     public var viewDefault:ViewConfig = ViewConfig()
     /// Default style
     public var styleDefault:StyleConfig = StyleConfig()
+   
+    /// Default style
+    public var paramDefault:ParamConfig = ParamConfig()
+    
     
     static var shared: TTBaseUIKitConfig?
     
@@ -45,6 +49,15 @@ public class TTBaseUIKitConfig {
         
     }
     
+    convenience init(font:FontConfig, frameSize:SizeConfig, view:ViewConfig, style:StyleConfig, params:ParamConfig) {
+        self.init()
+        self.fontDefault = font
+        self.sizeDefault = frameSize
+        self.viewDefault = view
+        self.styleDefault = style
+        self.paramDefault = params
+    }
+    
     public static func getViewConfig() -> ViewConfig {
         return (shared?.viewDefault ?? ViewConfig())
     }
@@ -59,6 +72,10 @@ public class TTBaseUIKitConfig {
     
     public static func getStyleConfig() -> StyleConfig {
         return (shared?.styleDefault ?? StyleConfig())
+    }
+    
+    public static func getParamConfig() -> ParamConfig {
+        return (shared?.paramDefault ?? ParamConfig())
     }
 }
 
@@ -104,6 +121,11 @@ extension TTBaseUIKitConfig {
     
     public class func withDefaultConfig(withFontConfig font:FontConfig, frameSize:SizeConfig, view:ViewConfig, style:StyleConfig) -> TTBaseUIKitConfig? {
         self.shared = TTBaseUIKitConfig.init(font: font, frameSize: frameSize, view: view, style: style)
+        return self.shared
+    }
+    
+    public class func withDefaultConfig(withFontConfig font:FontConfig, frameSize:SizeConfig, view:ViewConfig, style:StyleConfig, params:ParamConfig) -> TTBaseUIKitConfig? {
+        self.shared = TTBaseUIKitConfig.init(font: font, frameSize: frameSize, view: view, style: style, params: params)
         return self.shared
     }
     

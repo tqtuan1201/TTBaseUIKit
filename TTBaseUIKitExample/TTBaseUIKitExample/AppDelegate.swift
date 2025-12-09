@@ -63,7 +63,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         let styleConfig:StyleConfig = StyleConfig()
         styleConfig.dismissKeyboardType = .TEXT
         
-        TTBaseUIKitConfig.withDefaultConfig(withFontConfig: fontConfig, frameSize: sizeConfig, view: view, style: styleConfig)?.start(withViewLog: true)
+        let paramsConfig:ParamConfig = ParamConfig()
+        paramsConfig.forceUpdateNewVersion = false
+        
+        
+        TTBaseUIKitConfig.withDefaultConfig(withFontConfig: fontConfig, frameSize: sizeConfig, view: view, style: styleConfig, params: paramsConfig)?.start(withViewLog: true)
         
         
         self.window = UIWindow(frame: UIScreen.main.bounds)

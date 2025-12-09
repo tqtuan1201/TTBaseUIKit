@@ -9,7 +9,10 @@
 import UIKit
 
 
+
 extension UIColor {
+    
+    
     public class getColorFromHex: UIColor {
         public convenience init(red: Int, green: Int, blue: Int) {
             assert(red >= 0 && red <= 255, "Invalid red component")
@@ -19,7 +22,10 @@ extension UIColor {
             self.init(red: CGFloat(red) / 255.0, green: CGFloat(green) / 255.0, blue: CGFloat(blue) / 255.0, alpha: 1.0)
         }
         public convenience init(netHex:Int) {
-            self.init(red:(netHex >> 16) & 0xff, green:(netHex >> 8) & 0xff, blue:netHex & 0xff)
+            let r = (netHex >> 16) & 0xFF
+            let g = (netHex >> 8) & 0xFF
+            let b = netHex & 0xFF
+            self.init(red: r, green: g, blue: b, alpha: 1)
         }
         
     }
@@ -27,7 +33,7 @@ extension UIColor {
     public static var random: UIColor {
         return UIColor(red: .random(), green: .random(), blue: .random(), alpha: 1.0)
     }
- 
+    
     public var hexString:String? {
         if let components = self.cgColor.components {
             let r = components[0]
@@ -40,16 +46,32 @@ extension UIColor {
     
     
     convenience public init(hexFromString:String, alpha:CGFloat = 1.0) {
-        
-        var cString:String = hexFromString.trimmingCharacters(in: .whitespacesAndNewlines).uppercased()
-        if (cString.hasPrefix("#")) { cString.remove(at: cString.startIndex) }
-        
-        var hexInt: UInt64 = 0
-        Scanner(string: hexFromString).scanHexInt64(&hexInt)
-        let red = CGFloat((hexInt & 0xFF0000) >> 16) / 255.0
-        let green = CGFloat((hexInt & 0x00FF00) >> 8) / 255.0
-        let blue = CGFloat(hexInt & 0x0000FF) / 255.0
-        self.init(red: red, green: green, blue: blue, alpha: alpha)
+        self.init(hexV2: hexFromString)
+    }
+    
+    /// Create a color directly from a hex string (e.g. "#FBBF00" or "FBBF00")
+    convenience init(hexV2: String) {
+        let hexString = hexV2.trimmingCharacters(in: CharacterSet.alphanumerics.inverted)
+        var int: UInt64 = 0
+        Scanner(string: hexString).scanHexInt64(&int)
+        let r, g, b: UInt64
+        switch hexString.count {
+        case 3: // short RGB, e.g. FFF
+            (r, g, b) = (
+                (int >> 8) * 17,
+                (int >> 4 & 0xF) * 17,
+                (int & 0xF) * 17
+            )
+        case 6: // full RGB, e.g. FFFFFF
+            (r, g, b) = (
+                int >> 16,
+                int >> 8 & 0xFF,
+                int & 0xFF
+            )
+        default:
+            (r, g, b) = (0, 0, 0)
+        }
+        self.init(red: Int(r), green: Int(g), blue: Int(b))
     }
     
     convenience public init(red: Int, green: Int, blue: Int, alpha: Int = 1) {

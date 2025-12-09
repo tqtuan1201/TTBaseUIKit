@@ -11,10 +11,10 @@ import SwiftUI
 
 public extension View {
     
-    func embeddedInHostingController(isHiddenTabbar:Bool = true) -> TTBaseHostingController<some View> {
+    func embeddedInHostingController(isHiddenTabbar:Bool = true, statusBarStyle: UIStatusBarStyle = .darkContent) -> TTBaseHostingController<some View> {
         let provider = ViewControllerProvider()
         let hostingAccessingView = environmentObject(provider)
-        let hostingController = TTBaseHostingController(shouldShowNavigationBar: false, isSetHiddenTabar: isHiddenTabbar, rootView: hostingAccessingView)
+        let hostingController = TTBaseHostingController(shouldShowNavigationBar: false, isSetHiddenTabar: isHiddenTabbar, statusBarStyle: statusBarStyle, rootView: hostingAccessingView)
         provider.viewController = hostingController
         return hostingController
     }
@@ -35,6 +35,12 @@ public extension ViewControllerProvider  {
 open class TTBaseHostingController <Content>: UIHostingController<AnyView> where Content : View {
     
     fileprivate var isSetHiddenTabar:Bool = true
+    
+    var statusBarStyle: UIStatusBarStyle = .lightContent
+
+    open override var preferredStatusBarStyle: UIStatusBarStyle {
+        return self.statusBarStyle
+    }
     
     override open func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(true)
@@ -57,8 +63,9 @@ open class TTBaseHostingController <Content>: UIHostingController<AnyView> where
         if self.isSetHiddenTabar { self.tabBarController?.tabBar.isHidden = false ; self.hidesBottomBarWhenPushed = false }
     }
     
-    public init(shouldShowNavigationBar: Bool, isSetHiddenTabar:Bool = true, rootView: Content) {
+    public init(shouldShowNavigationBar: Bool, isSetHiddenTabar:Bool = true, statusBarStyle:UIStatusBarStyle, rootView: Content) {
         self.isSetHiddenTabar = isSetHiddenTabar
+        self.statusBarStyle = statusBarStyle
         super.init(rootView: AnyView(rootView.navigationBarHidden(!shouldShowNavigationBar)))
     }
     

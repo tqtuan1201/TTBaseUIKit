@@ -44,6 +44,13 @@ public struct TTBaseSUIImage: View {
         self.contentMode = contentMode
     }
     
+    public init(withSystemName name:String, iconColor:Color, contentMode: ContentMode = .fit) {
+        self.image = Image(systemName: name)
+        self.contentMode = contentMode
+        self.imageColor = iconColor
+    }
+    
+    
     public var body: some View {
         if let _imageColor = self.imageColor {
             self.setIcon(color: _imageColor).aspectRatio(contentMode: self.contentMode)

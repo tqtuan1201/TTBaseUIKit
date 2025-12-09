@@ -70,6 +70,7 @@ public struct TTBaseSUIText: View {
     
     public var body: some View {
         var currentText = self.setupBase()
+        currentText.lineLimit(nil)
         if #available(iOS 16.0, *) {
             return currentText.bold(self.isBold).italic(self.isItalic).foregroundColor(self.textDefColor).multilineTextAlignment(self.align)
             // Fallback on earlier versions

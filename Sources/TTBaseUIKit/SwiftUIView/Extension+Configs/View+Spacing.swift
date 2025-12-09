@@ -34,6 +34,19 @@ public extension View {
     func pVertical(_ size:CGFloat?) -> some View {
         self.padding(.vertical, size)
     }
+    
+    
+    func fixedByHorizontal() -> some View {
+        self.fixedSize(horizontal: true, vertical: false)
+    }
+    
+    func fixedByVertical() -> some View {
+        self.fixedSize(horizontal: false, vertical: true)
+    }
+    
+    func fixedByAutoSize() -> some View {
+        self.fixedSize(horizontal: true, vertical: true)
+    }
 
     // MARK: Single edge
     @inlinable func pTop(_ size:CGFloat = TTSize.P_S) -> some View { padding(.top,      size) }

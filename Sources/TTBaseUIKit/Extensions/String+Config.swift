@@ -11,6 +11,38 @@ import UIKit
 
 extension String {
     
+    
+    /// Check if a given string is a valid, reachable URL
+    public func isValidURL() -> Bool {
+        
+        guard let url = URL(string: self) else { return false }
+        
+        // Make sure it has http or https scheme
+        guard let scheme = url.scheme?.lowercased(), ["http", "https"].contains(scheme) else { return false }
+        
+        return true
+    }
+    
+    public func localizationExists(withBundle bundle:Bundle, _ key: String, tableName: String? = nil) -> Bool {
+        
+        guard let bundle = bundle.path(forResource: TTLanguageManager.shared.currentLanguage.rawValue, ofType: "lproj") else {
+            return false
+        }
+        
+        guard let langBundle = Bundle(path: bundle) else { return false}
+
+        let value = NSLocalizedString(key, tableName: tableName, bundle: langBundle , value: "__MISSING__", comment: "")
+        return value != "__MISSING__"
+    }
+    
+    public func localize(withBundle bundle:Bundle = Bundle.main, def:String) -> String {
+        if self.localizationExists(withBundle: bundle, self) {
+            return self.localize(withBundle: bundle)
+        } else {
+            return def
+        }
+    }
+    
     ///
     /// This func get string in Localizable.strings file
     /// ForExample: "App.Login" -> VI: DangNhap, EN:Login
@@ -19,8 +51,8 @@ extension String {
             return NSLocalizedString(self, comment: "")
         }
         
-        let langBundle = Bundle(path: bundle)
-        return NSLocalizedString(self, tableName: nil, bundle: langBundle!, comment: "")
+        guard let langBundle = Bundle(path: bundle) else { return ""}
+        return NSLocalizedString(self, tableName: nil, bundle: langBundle, comment: "")
     }
     
     ///

@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 54;
+	objectVersion = 60;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -46,12 +46,16 @@
 		BC2452F42C5C9CF700D3FEC5 /* BaseSwiftUITextDemo.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC2452F32C5C9CF700D3FEC5 /* BaseSwiftUITextDemo.swift */; };
 		BC78A9AE2C525308008E0BA4 /* WebViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC78A9AD2C525308008E0BA4 /* WebViewController.swift */; };
 		BC8166A32E378C9A000D6708 /* TTBaseUIKit in Frameworks */ = {isa = PBXBuildFile; productRef = BC8166A22E378C9A000D6708 /* TTBaseUIKit */; };
+		BC8B92E12ED830DB005E7398 /* BaseSwiftUINewVersionDemo.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC8B92E02ED830DB005E7398 /* BaseSwiftUINewVersionDemo.swift */; };
+		BC9F522D2ED43D600089C15A /* SkeletonTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC9F522C2ED43D600089C15A /* SkeletonTableViewController.swift */; };
+		BC9F522F2ED440CA0089C15A /* BaseSwiftUISkeletonScrollStackDemo.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC9F522E2ED440CA0089C15A /* BaseSwiftUISkeletonScrollStackDemo.swift */; };
 		BCA2808B2C59FC3D00472024 /* BaseComponentsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCA280882C59FC3D00472024 /* BaseComponentsViewModel.swift */; };
 		BCA2808C2C59FC3D00472024 /* BaseComponentsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCA2808A2C59FC3D00472024 /* BaseComponentsViewController.swift */; };
 		BCA2808E2C5A1FF300472024 /* DemoCustomView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCA2808D2C5A1FF300472024 /* DemoCustomView.swift */; };
 		BCA2809A2C5A4ED600472024 /* BaseColllectionViewViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCA280962C5A4ED600472024 /* BaseColllectionViewViewController.swift */; };
 		BCA2809B2C5A4ED600472024 /* BaseColllectionViewViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCA280982C5A4ED600472024 /* BaseColllectionViewViewModel.swift */; };
 		BCA2809D2C5A4F9A00472024 /* HomeNewHealthProductsViewCollectionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCA2809C2C5A4F9A00472024 /* HomeNewHealthProductsViewCollectionCell.swift */; };
+		BCB90CDD2ED06AFD00125913 /* TTBaseUIKit in Frameworks */ = {isa = PBXBuildFile; productRef = BCB90CDC2ED06AFD00125913 /* TTBaseUIKit */; };
 		BCCD6BB02C5E020E00DA9164 /* BaseSwiftUIImageDemo.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCCD6BAF2C5E020E00DA9164 /* BaseSwiftUIImageDemo.swift */; };
 		BCCD6BB22C5E047500DA9164 /* BaseSwiftUIScrollStackDemo.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCCD6BB12C5E047500DA9164 /* BaseSwiftUIScrollStackDemo.swift */; };
 		BCCD6BB42C5E04DF00DA9164 /* BaseSwiftUIStackDemo.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCCD6BB32C5E04DF00DA9164 /* BaseSwiftUIStackDemo.swift */; };
@@ -111,6 +115,9 @@
 		BC2452F12C5C9B5900D3FEC5 /* BaseSwiftUIButtonDemo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseSwiftUIButtonDemo.swift; sourceTree = "<group>"; };
 		BC2452F32C5C9CF700D3FEC5 /* BaseSwiftUITextDemo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseSwiftUITextDemo.swift; sourceTree = "<group>"; };
 		BC78A9AD2C525308008E0BA4 /* WebViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebViewController.swift; sourceTree = "<group>"; };
+		BC8B92E02ED830DB005E7398 /* BaseSwiftUINewVersionDemo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseSwiftUINewVersionDemo.swift; sourceTree = "<group>"; };
+		BC9F522C2ED43D600089C15A /* SkeletonTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SkeletonTableViewController.swift; sourceTree = "<group>"; };
+		BC9F522E2ED440CA0089C15A /* BaseSwiftUISkeletonScrollStackDemo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseSwiftUISkeletonScrollStackDemo.swift; sourceTree = "<group>"; };
 		BCA280882C59FC3D00472024 /* BaseComponentsViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BaseComponentsViewModel.swift; sourceTree = "<group>"; };
 		BCA2808A2C59FC3D00472024 /* BaseComponentsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BaseComponentsViewController.swift; sourceTree = "<group>"; };
 		BCA2808D2C5A1FF300472024 /* DemoCustomView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DemoCustomView.swift; sourceTree = "<group>"; };
@@ -139,6 +146,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				BCB90CDD2ED06AFD00125913 /* TTBaseUIKit in Frameworks */,
 				BCCF1A4E2E3A1346001BF6A3 /* TTBaseUIKit in Frameworks */,
 				BCCF1A4B2E3A0EA2001BF6A3 /* TTBaseUIKit in Frameworks */,
 				BC8166A32E378C9A000D6708 /* TTBaseUIKit in Frameworks */,
@@ -184,6 +192,7 @@
 				9371FA6422AF8A89005549E0 /* EmptyTableViewController.swift */,
 				6D90040B299A1196004280F5 /* BaseView.swift */,
 				BC78A9AD2C525308008E0BA4 /* WebViewController.swift */,
+				BC9F522C2ED43D600089C15A /* SkeletonTableViewController.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -331,9 +340,11 @@
 				BC2452F32C5C9CF700D3FEC5 /* BaseSwiftUITextDemo.swift */,
 				BCCD6BAF2C5E020E00DA9164 /* BaseSwiftUIImageDemo.swift */,
 				BCCD6BB12C5E047500DA9164 /* BaseSwiftUIScrollStackDemo.swift */,
+				BC9F522E2ED440CA0089C15A /* BaseSwiftUISkeletonScrollStackDemo.swift */,
 				BCCD6BB32C5E04DF00DA9164 /* BaseSwiftUIStackDemo.swift */,
 				BCCD6BB52C5E069700DA9164 /* BaseSwiftUISpacerDemo.swift */,
 				BCCD6BB72C5E072F00DA9164 /* BaseSwiftUIDividerDemo.swift */,
+				BC8B92E02ED830DB005E7398 /* BaseSwiftUINewVersionDemo.swift */,
 			);
 			path = DemoSwiftUI;
 			sourceTree = "<group>";
@@ -524,7 +535,7 @@
 			);
 			mainGroup = 93F0FDBD22580B980037C427;
 			packageReferences = (
-				BCCF1A4C2E3A1346001BF6A3 /* XCRemoteSwiftPackageReference "TTBaseUIKit" */,
+				BCB90CDB2ED06AFD00125913 /* XCLocalSwiftPackageReference "../../TTBaseUIKit" */,
 			);
 			productRefGroup = 93F0FDC722580B980037C427 /* Products */;
 			projectDirPath = "";
@@ -554,6 +565,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				93BC0C3E22AA61EB00E61D3C /* BaseUINavigationView.swift in Sources */,
+				BC8B92E12ED830DB005E7398 /* BaseSwiftUINewVersionDemo.swift in Sources */,
 				93BC0C4022AA622B00E61D3C /* Util.swift in Sources */,
 				BC2452E92C5C7F0700D3FEC5 /* BaseIconLeftRightTitleView.swift in Sources */,
 				BC2452CB2C5BB1FE00D3FEC5 /* BaseSetupContraintsViewModel.swift in Sources */,
@@ -566,6 +578,7 @@
 				BC2452EB2C5C7FBC00D3FEC5 /* BasePopupViewController.swift in Sources */,
 				BCF1F36C2C58FF990062610C /* DemoViewModel.swift in Sources */,
 				BCF1F36F2C59002D0062610C /* ResponseModel.swift in Sources */,
+				BC9F522F2ED440CA0089C15A /* BaseSwiftUISkeletonScrollStackDemo.swift in Sources */,
 				93F0FDCC22580B980037C427 /* TestViewController.swift in Sources */,
 				BC2452E12C5C7EF200D3FEC5 /* CalendarPopupViewModel.swift in Sources */,
 				BC2452E42C5C7EF200D3FEC5 /* CalendarCollectionCellViewModel.swift in Sources */,
@@ -593,6 +606,7 @@
 				9371FA6122AF8923005549E0 /* CoverPresentViewController.swift in Sources */,
 				93F0FDCA22580B980037C427 /* AppDelegate.swift in Sources */,
 				93BC0C4422AA62DC00E61D3C /* BaseUIViewController.swift in Sources */,
+				BC9F522D2ED43D600089C15A /* SkeletonTableViewController.swift in Sources */,
 				BCCD6BB82C5E072F00DA9164 /* BaseSwiftUIDividerDemo.swift in Sources */,
 				93BC0C4722AA69E300E61D3C /* DemoHeaderView.swift in Sources */,
 				BCCD6BB02C5E020E00DA9164 /* BaseSwiftUIImageDemo.swift in Sources */,
@@ -818,6 +832,13 @@
 		};
 /* End XCConfigurationList section */
 
+/* Begin XCLocalSwiftPackageReference section */
+		BCB90CDB2ED06AFD00125913 /* XCLocalSwiftPackageReference "../../TTBaseUIKit" */ = {
+			isa = XCLocalSwiftPackageReference;
+			relativePath = ../../TTBaseUIKit;
+		};
+/* End XCLocalSwiftPackageReference section */
+
 /* Begin XCRemoteSwiftPackageReference section */
 		BC8166A12E378C9A000D6708 /* XCRemoteSwiftPackageReference "TTBaseUIKit" */ = {
 			isa = XCRemoteSwiftPackageReference;
@@ -841,6 +862,10 @@
 		BC8166A22E378C9A000D6708 /* TTBaseUIKit */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = BC8166A12E378C9A000D6708 /* XCRemoteSwiftPackageReference "TTBaseUIKit" */;
+			productName = TTBaseUIKit;
+		};
+		BCB90CDC2ED06AFD00125913 /* TTBaseUIKit */ = {
+			isa = XCSwiftPackageProductDependency;
 			productName = TTBaseUIKit;
 		};
 		BCCF1A4A2E3A0EA2001BF6A3 /* TTBaseUIKit */ = {
