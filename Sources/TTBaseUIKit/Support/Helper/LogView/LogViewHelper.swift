@@ -72,7 +72,7 @@ extension LogViewHelper {
                 
                 if isEnableDebugUI {
                     let tripleTap = UITapGestureRecognizer(target: self, action: #selector(self.handleWindowDoubleTap))
-                    tripleTap.numberOfTapsRequired = 4
+                    tripleTap.numberOfTapsRequired = 8
                     windown.addGestureRecognizer(tripleTap)
                 }
             }
