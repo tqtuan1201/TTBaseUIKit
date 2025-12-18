@@ -64,17 +64,17 @@ extension LogViewHelper {
 //MARK:// For Base View
 extension LogViewHelper {
     
-    public func onShow() {
+    public func onShow(isAutoEnableRunTTBaseDebugUIKit isEnableDebugUI:Bool = false) {
         DispatchQueue.main.async {
             if let windown = UIApplication.getKeyWindow() {
                 let longPressRecognizer = UILongPressGestureRecognizer(target: self, action: #selector(self.addAccountLongPressGesture(_:)))
                 windown.addGestureRecognizer(longPressRecognizer)
                 
-                
-                let tripleTap = UITapGestureRecognizer(target: self, action: #selector(self.handleWindowDoubleTap))
-                tripleTap.numberOfTapsRequired = 3
-                windown.addGestureRecognizer(tripleTap)
-                
+                if isEnableDebugUI {
+                    let tripleTap = UITapGestureRecognizer(target: self, action: #selector(self.handleWindowDoubleTap))
+                    tripleTap.numberOfTapsRequired = 4
+                    windown.addGestureRecognizer(tripleTap)
+                }
             }
         }
     }

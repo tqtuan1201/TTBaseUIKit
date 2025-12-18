@@ -563,18 +563,58 @@ extension MenuViewController {
 
 extension UIViewController {
     func showMessagePopup(mess:String, completeHandle:( () -> ())?) {
-        self.showPopupConfirm(withText: "Message", subTitle: mess, leftButton: nil, rightButton: "OK") {
+        self.showPopupConfirm(withText: "Message", subTitle: mess, leftButton: nil, rightButton: "OK", onTouchAgreeHandle:  {
             completeHandle?()
-        }
+        })
     }
 }
 
 import SwiftUI
+import TTBaseUIKit
+
 struct MenuViewController_Previews: PreviewProvider {
     static var previews: some View {
         TTBaseUIViewControllerPreview {
             let vc = MenuViewController()
             return UINavigationController.init(rootViewController: vc)
-        }
+        }.preferredColorScheme(.light)
     }
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
