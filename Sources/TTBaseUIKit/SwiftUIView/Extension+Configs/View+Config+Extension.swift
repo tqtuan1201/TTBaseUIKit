@@ -131,9 +131,9 @@ public extension View {
     @ViewBuilder func enableGlassEffect<Content>(cornerRadius:CGFloat? = nil, @ViewBuilder content: () -> Content, align:Alignment = .center) -> some View where Content : View {
         if #available(iOS 26.0, *) {
             if let _cornerRadius = cornerRadius {
-                self.corner(byDef: _cornerRadius).glassEffect(.clear, in: RoundedRectangle(cornerRadius:_cornerRadius))
+                self.corner(byDef: _cornerRadius).glassEffect(Glass.clear, in: RoundedRectangle(cornerRadius:_cornerRadius))
             } else {
-                self.glassEffect(.clear)
+                self.glassEffect(Glass.clear)
             }
         } else {
             if #available(iOS 15.0, *) {
