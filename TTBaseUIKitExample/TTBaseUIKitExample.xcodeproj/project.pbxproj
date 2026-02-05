@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 60;
+	objectVersion = 54;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -26,6 +26,7 @@
 		93F0FDCF22580B980037C427 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 93F0FDCD22580B980037C427 /* Main.storyboard */; };
 		93F0FDD122580B990037C427 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 93F0FDD022580B990037C427 /* Assets.xcassets */; };
 		93F0FDD422580B990037C427 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 93F0FDD222580B990037C427 /* LaunchScreen.storyboard */; };
+		BC13C7172F34920000E679E6 /* ContactVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC13C7162F34920000E679E6 /* ContactVC.swift */; };
 		BC2452CA2C5BB1FE00D3FEC5 /* BaseSetupContraintsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC2452C62C5BB1FE00D3FEC5 /* BaseSetupContraintsViewController.swift */; };
 		BC2452CB2C5BB1FE00D3FEC5 /* BaseSetupContraintsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC2452C82C5BB1FE00D3FEC5 /* BaseSetupContraintsViewModel.swift */; };
 		BC2452CD2C5BB5B200D3FEC5 /* AdvanceSetupContraintsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC2452CC2C5BB5B200D3FEC5 /* AdvanceSetupContraintsViewController.swift */; };
@@ -44,6 +45,8 @@
 		BC2452F02C5C92DA00D3FEC5 /* BaseSwiftUINavView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC2452EF2C5C92DA00D3FEC5 /* BaseSwiftUINavView.swift */; };
 		BC2452F22C5C9B5900D3FEC5 /* BaseSwiftUIButtonDemo.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC2452F12C5C9B5900D3FEC5 /* BaseSwiftUIButtonDemo.swift */; };
 		BC2452F42C5C9CF700D3FEC5 /* BaseSwiftUITextDemo.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC2452F32C5C9CF700D3FEC5 /* BaseSwiftUITextDemo.swift */; };
+		BC3EBAA72F31A873008C258B /* TTBaseUIKit in Frameworks */ = {isa = PBXBuildFile; productRef = BC3EBAA62F31A873008C258B /* TTBaseUIKit */; };
+		BC3EBAA92F31A8B5008C258B /* TabbarVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC3EBAA82F31A8B5008C258B /* TabbarVC.swift */; };
 		BC78A9AE2C525308008E0BA4 /* WebViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC78A9AD2C525308008E0BA4 /* WebViewController.swift */; };
 		BC8166A32E378C9A000D6708 /* TTBaseUIKit in Frameworks */ = {isa = PBXBuildFile; productRef = BC8166A22E378C9A000D6708 /* TTBaseUIKit */; };
 		BC8B92E12ED830DB005E7398 /* BaseSwiftUINewVersionDemo.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC8B92E02ED830DB005E7398 /* BaseSwiftUINewVersionDemo.swift */; };
@@ -96,6 +99,7 @@
 		93F0FDD022580B990037C427 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		93F0FDD322580B990037C427 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		93F0FDD522580B990037C427 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		BC13C7162F34920000E679E6 /* ContactVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContactVC.swift; sourceTree = "<group>"; };
 		BC2452C62C5BB1FE00D3FEC5 /* BaseSetupContraintsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BaseSetupContraintsViewController.swift; sourceTree = "<group>"; };
 		BC2452C82C5BB1FE00D3FEC5 /* BaseSetupContraintsViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BaseSetupContraintsViewModel.swift; sourceTree = "<group>"; };
 		BC2452CC2C5BB5B200D3FEC5 /* AdvanceSetupContraintsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdvanceSetupContraintsViewController.swift; sourceTree = "<group>"; };
@@ -114,6 +118,7 @@
 		BC2452EF2C5C92DA00D3FEC5 /* BaseSwiftUINavView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseSwiftUINavView.swift; sourceTree = "<group>"; };
 		BC2452F12C5C9B5900D3FEC5 /* BaseSwiftUIButtonDemo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseSwiftUIButtonDemo.swift; sourceTree = "<group>"; };
 		BC2452F32C5C9CF700D3FEC5 /* BaseSwiftUITextDemo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseSwiftUITextDemo.swift; sourceTree = "<group>"; };
+		BC3EBAA82F31A8B5008C258B /* TabbarVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabbarVC.swift; sourceTree = "<group>"; };
 		BC78A9AD2C525308008E0BA4 /* WebViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebViewController.swift; sourceTree = "<group>"; };
 		BC8B92E02ED830DB005E7398 /* BaseSwiftUINewVersionDemo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseSwiftUINewVersionDemo.swift; sourceTree = "<group>"; };
 		BC9F522C2ED43D600089C15A /* SkeletonTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SkeletonTableViewController.swift; sourceTree = "<group>"; };
@@ -149,6 +154,7 @@
 				BCB90CDD2ED06AFD00125913 /* TTBaseUIKit in Frameworks */,
 				BCCF1A4E2E3A1346001BF6A3 /* TTBaseUIKit in Frameworks */,
 				BCCF1A4B2E3A0EA2001BF6A3 /* TTBaseUIKit in Frameworks */,
+				BC3EBAA72F31A873008C258B /* TTBaseUIKit in Frameworks */,
 				BC8166A32E378C9A000D6708 /* TTBaseUIKit in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -193,6 +199,8 @@
 				6D90040B299A1196004280F5 /* BaseView.swift */,
 				BC78A9AD2C525308008E0BA4 /* WebViewController.swift */,
 				BC9F522C2ED43D600089C15A /* SkeletonTableViewController.swift */,
+				BC13C7162F34920000E679E6 /* ContactVC.swift */,
+				BC3EBAA82F31A8B5008C258B /* TabbarVC.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -535,7 +543,7 @@
 			);
 			mainGroup = 93F0FDBD22580B980037C427;
 			packageReferences = (
-				BCB90CDB2ED06AFD00125913 /* XCLocalSwiftPackageReference "../../TTBaseUIKit" */,
+				BC3EBAA52F31A873008C258B /* XCRemoteSwiftPackageReference "TTBaseUIKit" */,
 			);
 			productRefGroup = 93F0FDC722580B980037C427 /* Products */;
 			projectDirPath = "";
@@ -570,6 +578,7 @@
 				BC2452E92C5C7F0700D3FEC5 /* BaseIconLeftRightTitleView.swift in Sources */,
 				BC2452CB2C5BB1FE00D3FEC5 /* BaseSetupContraintsViewModel.swift in Sources */,
 				9371FA6322AF89F6005549E0 /* DatePickerViewController.swift in Sources */,
+				BC3EBAA92F31A8B5008C258B /* TabbarVC.swift in Sources */,
 				BC2452E72C5C7EF200D3FEC5 /* CalendarCollectionView.swift in Sources */,
 				BCA2809B2C5A4ED600472024 /* BaseColllectionViewViewModel.swift in Sources */,
 				BCA2808B2C59FC3D00472024 /* BaseComponentsViewModel.swift in Sources */,
@@ -602,6 +611,7 @@
 				BC2452CA2C5BB1FE00D3FEC5 /* BaseSetupContraintsViewController.swift in Sources */,
 				BC2452E22C5C7EF200D3FEC5 /* MonthView.swift in Sources */,
 				BC2452EE2C5C8F2600D3FEC5 /* SUIBaseViewDemo.swift in Sources */,
+				BC13C7172F34920000E679E6 /* ContactVC.swift in Sources */,
 				BC2452F22C5C9B5900D3FEC5 /* BaseSwiftUIButtonDemo.swift in Sources */,
 				9371FA6122AF8923005549E0 /* CoverPresentViewController.swift in Sources */,
 				93F0FDCA22580B980037C427 /* AppDelegate.swift in Sources */,
@@ -832,14 +842,15 @@
 		};
 /* End XCConfigurationList section */
 
-/* Begin XCLocalSwiftPackageReference section */
-		BCB90CDB2ED06AFD00125913 /* XCLocalSwiftPackageReference "../../TTBaseUIKit" */ = {
-			isa = XCLocalSwiftPackageReference;
-			relativePath = ../../TTBaseUIKit;
-		};
-/* End XCLocalSwiftPackageReference section */
-
 /* Begin XCRemoteSwiftPackageReference section */
+		BC3EBAA52F31A873008C258B /* XCRemoteSwiftPackageReference "TTBaseUIKit" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/tqtuan1201/TTBaseUIKit.git";
+			requirement = {
+				branch = master;
+				kind = branch;
+			};
+		};
 		BC8166A12E378C9A000D6708 /* XCRemoteSwiftPackageReference "TTBaseUIKit" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/tqtuan1201/TTBaseUIKit.git";
@@ -859,6 +870,11 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
+		BC3EBAA62F31A873008C258B /* TTBaseUIKit */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = BC3EBAA52F31A873008C258B /* XCRemoteSwiftPackageReference "TTBaseUIKit" */;
+			productName = TTBaseUIKit;
+		};
 		BC8166A22E378C9A000D6708 /* TTBaseUIKit */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = BC8166A12E378C9A000D6708 /* XCRemoteSwiftPackageReference "TTBaseUIKit" */;

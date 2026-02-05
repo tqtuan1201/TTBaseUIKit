@@ -18,12 +18,13 @@ class WebViewController: BaseUIViewController {
     private let loadingView: UIActivityIndicatorView = UIActivityIndicatorView(style: .gray)
     override var isSetHiddenTabar: Bool { return true }
     private var navTitle:String = "Web"
+    
+    private var urlString:String = ""
+    
     init(navTitle: String, urlString: String? = nil) {
-        super.init()
+        self.urlString = urlString ?? ""
         self.navTitle = navTitle
-        if let _urlString = urlString, let url = URL(string: _urlString) {
-            self.loadContent(url: url)
-        }
+        super.init()
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -50,6 +51,10 @@ class WebViewController: BaseUIViewController {
         self.loadingView.hidesWhenStopped = true
         self.webView.isHidden = true
         self.webView.navigationDelegate = self
+        
+        if let url = URL(string: self.urlString) {
+            self.loadContent(url: url)
+        }
     }
     
     override func navDidTouchUpBackButton(withNavView nav: BaseUINavigationView) {

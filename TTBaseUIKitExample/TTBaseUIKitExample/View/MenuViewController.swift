@@ -255,11 +255,28 @@ class MenuViewController: BaseUITableViewController {
     
     override var navType: TTBaseUIViewController<TTBaseUIView>.NAV_STYLE { get { return .STATUS_NAV}}
     override var paddingHeader: (CGFloat, CGFloat, CGFloat, CGFloat, CGFloat) { return (0,0,0,0,TTSize.W/1.2)}
+    override var isSetHiddenTabar: Bool { return false}
+    override var isForceSetBottomConstrainsByNonSafeArea: Bool { return true}
+    override var tableStyle: UITableView.Style { return .grouped}
+    
     fileprivate let data:[DataModel] = DataModel.createAll()
     fileprivate var fromDate:Date = Date()
     fileprivate var toDate:Date = Date().dateByAddingDays(2)
     fileprivate let headerView = DemoHeaderView()
 
+    
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(true)
+        
+        if #available(iOS 26.0, *) {
+            self.tabBarController?.tabBar.backgroundColor = UIColor.clear
+        } else {
+            self.tabBarController?.tabBar.backgroundColor = UIColor.white
+        }
+    }
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         self.setupUI()
@@ -274,9 +291,7 @@ class MenuViewController: BaseUITableViewController {
     }
     
     
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(true)
-    }
+
     
     private func setupUI(){
         
@@ -286,7 +301,8 @@ class MenuViewController: BaseUITableViewController {
         self.tableView.register(TTIconTextSubtextTableViewCell.self)
         self.tableView.register(TTEmptyTableHeaderViewCell.self)
         self.tableView.register(BaseTextTableHeaderFooterViewCell.self)
-        
+        self.tableView.resetContentInset()
+        self.tableView.contentInset.bottom = XSize.H_BOTTOM_SAFE_AREA_INSET + XSize.H_BUTTON
         self.tableView.dataSource = self
     }
 }
@@ -311,6 +327,10 @@ extension MenuViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
         let empty:TTEmptyTableHeaderViewCell = tableView.dequeueReusableHeaderFooterCell()
         return empty
+    }
+    
+    func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
+        return 1.0
     }
     
     func numberOfSections(in tableView: UITableView) -> Int {

@@ -67,9 +67,9 @@ extension DemoHeaderView : TTViewCodable {
         
         
         self.panelVIew.setTopAnchorWithAboveView(nextToView: self.profileImageView, constant: XSize.P_CONS_DEF)
-            .setLeadingAnchor(constant: PADDING_LABEL_TEXT).setTrailingAnchor(constant: PADDING_LABEL_TEXT, priority: .defaultHigh)
+            .setLeadingAnchor(constant: XSize.P_CONS_DEF / 2).setTrailingAnchor(constant: XSize.P_CONS_DEF / 2, priority: .defaultHigh)
         
-        self.titleLable.setVerticalContentHuggingPriority().setLeadingAnchor(constant: XSize.P_CONS_DEF).setTrailingAnchor(constant: XSize.P_CONS_DEF, priority: .defaultHigh)
+        self.titleLable.setVerticalContentHuggingPriority().setLeadingAnchor(constant: 2.0).setTrailingAnchor(constant: 2.0, priority: .defaultHigh)
             .setTopAnchor(constant: XSize.P_CONS_DEF)
         
         self.versionLable.setVerticalContentHuggingPriority().setLeadingAnchor(constant: XSize.P_CONS_DEF).setTrailingAnchor(constant: XSize.P_CONS_DEF, priority: .defaultHigh)

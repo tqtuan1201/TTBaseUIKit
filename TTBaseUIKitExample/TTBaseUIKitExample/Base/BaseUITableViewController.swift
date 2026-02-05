@@ -16,6 +16,17 @@ class BaseUITableViewController: TTBaseUITableViewController {
     var lgNavType:BaseUINavigationView.TYPE { get { return .DEFAULT}}
     var backType:BaseUINavigationView.NAV_BACK = .BACK_POP
     
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(true)
+        
+        if #available(iOS 26.0, *) {
+            self.tabBarController?.tabBar.backgroundColor = UIColor.clear
+        } else {
+            self.tabBarController?.tabBar.backgroundColor = UIColor.white
+        }
+    }
+    
     override init() {
         super.init()
         self.tableView = TTBaseUITableView(frame: CGRect.init(x: 0, y: 0, width: TTSize.W, height: TTSize.H), style: .plain)
