@@ -73,6 +73,9 @@ public class SizeConfig {
     public var NOTIFI_HEIGHT:CGFloat = 80.0
     public var NOTIFI_ICON_HEIGHT:CGFloat = 45.0
     
+    public var H_BOTTOM_SAFE_AREA_INSET:CGFloat {
+        return UIApplication.getKeyWindow()?.safeAreaInsets.bottom ?? 0
+    }
     
     // MARK: - Design-system spacing scale
     //New to merge UIKit + SwiftUI
@@ -114,5 +117,10 @@ extension SizeConfig {
     public func getConnerRadio() -> CGFloat { return self.CORNER_RADIUS }
     public func getHeightIcon() -> CGFloat { return self.H_ICON }
     public func getHeightNavWithStatus() -> CGFloat { return self.H_NAV + self.H_STATUS }
+    public func getBottomSafeArea() -> CGFloat {
+        let _size:CGFloat = TTSize.H_BOTTOM_SAFE_AREA_INSET
+        TTBaseFunc.shared.printLog(object: "TTSize.H_BOTTOM_SAFE_AREA_INSET: \(_size)")
+        return _size == 0.0 ? TTSize.H_BUTTON * 4.0 : _size
+    }
     
 }

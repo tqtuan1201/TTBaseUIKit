@@ -54,6 +54,7 @@ public struct TTBaseSUISpacer: View {
             .foregroundColor(self.viewDefBgColor)
             .frame(maxWidth: self.maxWidth, maxHeight: self.maxHeight)
             .cornerRadius(self.viewDefCornerRadius)
+            .layoutPriority(-1)
     }
     
 }

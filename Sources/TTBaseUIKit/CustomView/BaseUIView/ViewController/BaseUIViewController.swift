@@ -31,7 +31,7 @@ open class TTBaseUIViewController<BaseView:TTBaseUIView>: UIViewController, TTBa
     open var bgView:UIColor { get { return TTView.viewBgColor}}
     open var isEffectView:Bool { get { return true}}
     open var isGetKeyboardHeight:Bool { get { return false } }
-    open var isSetHiddenTabar:Bool { get { return false}}
+    open var isSetHiddenTabar:Bool { get { return true}}
     
     open var paddingStatus:(CGFloat,CGFloat,CGFloat,CGFloat) { get { return (0,0,0,0)}}
     open var paddingNav:(CGFloat,CGFloat,CGFloat,CGFloat) { get { return (0,0,0,0)}}
@@ -101,7 +101,6 @@ open class TTBaseUIViewController<BaseView:TTBaseUIView>: UIViewController, TTBa
     
     override open func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(true)
-        if self.isSetHiddenTabar { self.tabBarController?.tabBar.isHidden = false ; self.hidesBottomBarWhenPushed = false }
     }
     
     
@@ -112,7 +111,7 @@ open class TTBaseUIViewController<BaseView:TTBaseUIView>: UIViewController, TTBa
         self.navigationController?.navigationBar.isHidden = true
         self.navigationController?.isNavigationBarHidden = true
     
-        if self.isSetHiddenTabar { self.tabBarController?.tabBar.isHidden = true ; self.hidesBottomBarWhenPushed = true }
+        self.setupTabbar()
         
     }
     
@@ -122,6 +121,8 @@ open class TTBaseUIViewController<BaseView:TTBaseUIView>: UIViewController, TTBa
         self.navigationController?.hidesBarsOnSwipe = false
         self.navigationController?.navigationBar.isHidden = true
         self.navigationController?.isNavigationBarHidden = true
+        
+        self.setupTabbar()
     }
     
     override open func viewDidLayoutSubviews() {
@@ -133,8 +134,10 @@ open class TTBaseUIViewController<BaseView:TTBaseUIView>: UIViewController, TTBa
         super.viewDidLoad()
         self.setupUI()
         self.setupConstraints()
+        self.setupTabbar()
         TTBaseFunc.shared.printLog(object: NSStringFromClass(self.classForCoder))
     }
+    
     
     open override func loadView() {
         super.loadView()
@@ -142,6 +145,15 @@ open class TTBaseUIViewController<BaseView:TTBaseUIView>: UIViewController, TTBa
         self.view.translatesAutoresizingMaskIntoConstraints = true
     }
     
+    private func setupTabbar() {
+        if self.isSetHiddenTabar {
+            self.hidesBottomBarWhenPushed = true
+            self.tabBarController?.tabBar.isHidden = true
+        } else {
+            self.hidesBottomBarWhenPushed = false
+            self.tabBarController?.tabBar.isHidden = false
+        }
+    }
     
     private func setupUI() {
         self.view.backgroundColor = self.bgView

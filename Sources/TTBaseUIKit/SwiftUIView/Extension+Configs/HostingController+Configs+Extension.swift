@@ -47,7 +47,7 @@ open class TTBaseHostingController <Content>: UIHostingController<AnyView> where
         self.navigationController?.hidesBarsOnSwipe = false
         self.navigationController?.navigationBar.isHidden = true
         self.navigationController?.isNavigationBarHidden = true
-        if self.isSetHiddenTabar { self.tabBarController?.tabBar.isHidden = true ; self.hidesBottomBarWhenPushed = true }
+        self.setupTabbar()
     }
     
     
@@ -56,11 +56,22 @@ open class TTBaseHostingController <Content>: UIHostingController<AnyView> where
         self.navigationController?.hidesBarsOnSwipe = false
         self.navigationController?.navigationBar.isHidden = true
         self.navigationController?.isNavigationBarHidden = true
+        self.setupTabbar()
+    }
+
+    open override func viewDidLoad() {
+        super.viewDidLoad()
+        self.setupTabbar()
     }
     
-    override open func viewWillDisappear(_ animated: Bool) {
-        super.viewWillDisappear(true)
-        if self.isSetHiddenTabar { self.tabBarController?.tabBar.isHidden = false ; self.hidesBottomBarWhenPushed = false }
+    private func setupTabbar() {
+        if self.isSetHiddenTabar {
+            self.hidesBottomBarWhenPushed = true
+            self.tabBarController?.tabBar.isHidden = true
+        } else {
+            self.hidesBottomBarWhenPushed = false
+            self.tabBarController?.tabBar.isHidden = false
+        }
     }
     
     public init(shouldShowNavigationBar: Bool, isSetHiddenTabar:Bool = true, statusBarStyle:UIStatusBarStyle, rootView: Content) {

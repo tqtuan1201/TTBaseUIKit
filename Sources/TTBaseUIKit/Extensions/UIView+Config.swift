@@ -310,3 +310,55 @@ extension UIKeyboardAppearance {
         return UIColor(hue: 0.67, saturation: 0, brightness: 0.97, alpha: 1)
     }
 }
+
+
+//Liquid Glass for UIKit
+public extension UIView {
+    
+    /// Liquid Glass effect for UIKit (iOS 14+)
+    func applyLiquidGlassUIKit( cornerRadius: CGFloat = TTSize.CORNER_RADIUS * 2, blurStyle: UIBlurEffect.Style = .systemUltraThinMaterial, borderOpacity: CGFloat = 0.92, shadowOpacity: Float = 0.12 ) {
+        
+        self.backgroundColor = UIColor.clear
+        //self.subviewsRecursive().forEach { _v in _v.backgroundColor = UIColor.clear}
+        // Cleanup old glass
+        subviews
+            .filter { $0 is UIVisualEffectView }
+            .forEach { $0.removeFromSuperview() }
+        
+        layer.sublayers?
+            .filter { $0.name == "LiquidGlassBorder" }
+            .forEach { $0.removeFromSuperlayer() }
+        
+        backgroundColor = .clear
+        
+        // 1. Blur layer
+        let blurView = UIVisualEffectView(effect: UIBlurEffect(style: blurStyle))
+        blurView.frame = bounds
+        blurView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
+        blurView.isUserInteractionEnabled = false
+        blurView.layer.cornerRadius = cornerRadius
+        blurView.layer.masksToBounds = true
+        
+        insertSubview(blurView, at: 0)
+        
+        // 2. Glass highlight border
+        let borderLayer = CAShapeLayer()
+        borderLayer.name = "LiquidGlassBorder"
+        borderLayer.path = UIBezierPath(
+            roundedRect: bounds,
+            cornerRadius: cornerRadius
+        ).cgPath
+        borderLayer.strokeColor = UIColor.white.withAlphaComponent(borderOpacity).cgColor
+        borderLayer.fillColor = UIColor.clear.cgColor
+        borderLayer.lineWidth = 0.6
+        
+        layer.addSublayer(borderLayer)
+        
+        // 3. Depth shadow
+        layer.shadowColor = UIColor.black.cgColor
+        layer.shadowOpacity = shadowOpacity
+        layer.shadowRadius = 24
+        layer.shadowOffset = CGSize(width: 0, height: 8)
+        layer.masksToBounds = false
+    }
+}

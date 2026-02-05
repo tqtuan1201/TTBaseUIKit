@@ -13,31 +13,36 @@ public struct TTBaseSUIScroll<Content: View>: View {
     public var viewDefCornerRadius: CGFloat = 0.0
     public var align: Axis.Set = .vertical
     public var showIndicators: Bool = false
+    public var isEnablePullToRefresh: Bool = true
     
     public var content: () -> Content
     public var pullToRefresh: (() -> Void)? = nil
     
-    public init(@ViewBuilder content: @escaping () -> Content,  pullToRefresh:(() -> Void)? = nil) {
+    public init(@ViewBuilder content: @escaping () -> Content, isEnablePullToRefresh:Bool = true, pullToRefresh:(() -> Void)? = nil) {
         self.pullToRefresh = pullToRefresh
+        self.isEnablePullToRefresh = isEnablePullToRefresh
         self.content = content
     }
     
-    public init(alignment: Axis.Set, showIndicators:Bool = false, @ViewBuilder content: @escaping () -> Content, pullToRefresh:(() -> Void)? = nil) {
+    public init(alignment: Axis.Set, showIndicators:Bool = false, @ViewBuilder content: @escaping () -> Content, isEnablePullToRefresh:Bool = true, pullToRefresh:(() -> Void)? = nil) {
         self.pullToRefresh = pullToRefresh
+        self.isEnablePullToRefresh = isEnablePullToRefresh
         self.content = content
         self.align = alignment
         self.showIndicators = showIndicators
     }
     
-    public init(alignment: Axis.Set, bg:Color, @ViewBuilder content: @escaping () -> Content, pullToRefresh:(() -> Void)? = nil) {
+    public init(alignment: Axis.Set, bg:Color, @ViewBuilder content: @escaping () -> Content,isEnablePullToRefresh:Bool = true, pullToRefresh:(() -> Void)? = nil) {
         self.pullToRefresh = pullToRefresh
+        self.isEnablePullToRefresh = isEnablePullToRefresh
         self.content = content
         self.align = alignment
         self.viewDefBgColor = bg
     }
     
-    public init(alignment: Axis.Set, bg:Color, cornerRadius:CGFloat, showIndicators:Bool, @ViewBuilder content: @escaping () -> Content, pullToRefresh:(() -> Void)? = nil) {
+    public init(alignment: Axis.Set, bg:Color, cornerRadius:CGFloat, showIndicators:Bool, @ViewBuilder content: @escaping () -> Content,isEnablePullToRefresh:Bool = true, pullToRefresh:(() -> Void)? = nil) {
         self.pullToRefresh = pullToRefresh
+        self.isEnablePullToRefresh = isEnablePullToRefresh
         self.content = content
         self.align = alignment
         self.viewDefBgColor = bg
@@ -48,7 +53,8 @@ public struct TTBaseSUIScroll<Content: View>: View {
     public var body: some View {
         
         if #available(iOS 16.0, *) {
-            self.setupBase()
+            if self.isEnablePullToRefresh {
+                self.setupBase()
                 .scrollIndicators(self.showIndicators ? .visible : .hidden, axes: self.align)
                 .background(self.viewDefBgColor)
                 .cornerRadius(self.viewDefCornerRadius)
@@ -56,13 +62,23 @@ public struct TTBaseSUIScroll<Content: View>: View {
                     TTBaseFunc.shared.printLog(object: "TTBaseSUIScroll - refreshable for iOS 16")
                     self.pullToRefresh?()
                 }
+            } else {
+                self.setupBase()
+                .scrollIndicators(self.showIndicators ? .visible : .hidden, axes: self.align)
+                .background(self.viewDefBgColor)
+                .cornerRadius(self.viewDefCornerRadius)
+            }
+
         } else {
-            
             if #available(iOS 15.0, *) {
-                self.createBaseLowVersion()
-                .refreshable {
-                    TTBaseFunc.shared.printLog(object: "TTBaseSUIScroll - refreshable for iOS 15")
-                    self.pullToRefresh?()
+                if self.isEnablePullToRefresh {
+                    self.createBaseLowVersion()
+                    .refreshable {
+                        TTBaseFunc.shared.printLog(object: "TTBaseSUIScroll - refreshable for iOS 15")
+                        self.pullToRefresh?()
+                    }
+                } else {
+                    self.createBaseLowVersion()
                 }
             } else {
                 self.createBaseLowVersion()

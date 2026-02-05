@@ -13,6 +13,8 @@ open class TTBaseUITableViewController: TTBaseUIViewController<TTBaseUIView>, UI
 
     open var isPullToRequest:Bool { get { return false } }
     
+    open var isForceSetBottomConstrainsByNonSafeArea:Bool { get { return  false}}
+    
     open var bgTableView:UIColor { get { return  UIColor.clear}}
     open var tableStyle:UITableView.Style { get { return  UITableView.Style.grouped}}
     open var estimatedRowHeight:CGFloat { get { return  TTSize.H_CELL}}
@@ -105,10 +107,15 @@ open class TTBaseUITableViewController: TTBaseUIViewController<TTBaseUIView>, UI
         } else {
             self.tableView.trailingAnchor.constraint(equalTo: self.view.trailingAnchor, constant:  self.padding.2).isActive = true
         }
-        if #available(iOS 11, *) {
-            self.tableView.bottomAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.bottomAnchor, constant:  self.padding.3).isActive = true
+        
+        if self.isForceSetBottomConstrainsByNonSafeArea {
+            self.tableView.bottomAnchor.constraint(equalTo: self.view.bottomAnchor, constant:  self.padding.3).isActive = true
         } else {
-            self.tableView.bottomAnchor.constraint(equalTo: self.bottomLayoutGuide.topAnchor, constant:  self.padding.3).isActive = true
+            if #available(iOS 11, *) {
+                self.tableView.bottomAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.bottomAnchor, constant:  self.padding.3).isActive = true
+            } else {
+                self.tableView.bottomAnchor.constraint(equalTo: self.bottomLayoutGuide.topAnchor, constant:  self.padding.3).isActive = true
+            }
         }
         //'bottomLayoutGuide' was deprecated in iOS 11.0: Use  view.safeAreaLayoutGuide.bottomAnchor instead of bottomLayoutGuide.topAnchor
     }
