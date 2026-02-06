@@ -126,32 +126,7 @@ public extension View {
         )
         .onPreferenceChange(ViewFrameKey.self, perform: onChange)
     }
-    
-    
-    @ViewBuilder func enableGlassEffect<Content>(cornerRadius:CGFloat? = nil, @ViewBuilder content: () -> Content, align:Alignment = .center) -> some View where Content : View {      
-        #if compiler(>=6.2)
-                if #available(iOS 26.0, *) {
-                    if let _cornerRadius = cornerRadius {
-                        self.corner(byDef: _cornerRadius).glassEffect(Glass.clear, in: RoundedRectangle(cornerRadius:_cornerRadius))
-                    } else {
-                        self.glassEffect(Glass.clear)
-                    }
-                } else {
-                    if #available(iOS 15.0, *) {
-                        self.background(alignment: align, content: content)
-                    } else {
-                        self.background( content() )
-                    }
-                }
-        #else
-                if #available(iOS 15.0, *) {
-                    self.background(alignment: align, content: content)
-                } else {
-                    self.background( content() )
-                }
-        #endif
-    }
-    
+
     @ViewBuilder func skeleton(active: Bool = true, isShimmering:Bool = true, isLight:Bool = true) -> some View {
         if active {
             if isShimmering {
