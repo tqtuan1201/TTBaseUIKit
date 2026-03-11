@@ -47,12 +47,6 @@
 		BC2452F42C5C9CF700D3FEC5 /* BaseSwiftUITextDemo.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC2452F32C5C9CF700D3FEC5 /* BaseSwiftUITextDemo.swift */; };
 		BC3EBAA72F31A873008C258B /* TTBaseUIKit in Frameworks */ = {isa = PBXBuildFile; productRef = BC3EBAA62F31A873008C258B /* TTBaseUIKit */; };
 		BC3EBAA92F31A8B5008C258B /* TabbarVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC3EBAA82F31A8B5008C258B /* TabbarVC.swift */; };
-		BC4AE5B52F5E987400CA53E5 /* UIKIT_BUILD_CUSTOMVIEW_ONLY.md in Resources */ = {isa = PBXBuildFile; fileRef = BC4AE5B12F5E987400CA53E5 /* UIKIT_BUILD_CUSTOMVIEW_ONLY.md */; };
-		BC4AE5B62F5E987400CA53E5 /* SWIFTUI_BUILD_FUTURE_UI_ONLY.md in Resources */ = {isa = PBXBuildFile; fileRef = BC4AE5B02F5E987400CA53E5 /* SWIFTUI_BUILD_FUTURE_UI_ONLY.md */; };
-		BC4AE5B72F5E987400CA53E5 /* UIKIT_BUILD_FULL_NEW_FUTURE.md in Resources */ = {isa = PBXBuildFile; fileRef = BC4AE5B22F5E987400CA53E5 /* UIKIT_BUILD_FULL_NEW_FUTURE.md */; };
-		BC4AE5B82F5E987400CA53E5 /* SWIFTUI_BUILD_FULL_NEW_FUTURE.md in Resources */ = {isa = PBXBuildFile; fileRef = BC4AE5AF2F5E987400CA53E5 /* SWIFTUI_BUILD_FULL_NEW_FUTURE.md */; };
-		BC4AE5B92F5E987400CA53E5 /* SWIFTUI_BUILD_CUSTOMVIEW_UI_ONLY.md in Resources */ = {isa = PBXBuildFile; fileRef = BC4AE5AE2F5E987400CA53E5 /* SWIFTUI_BUILD_CUSTOMVIEW_UI_ONLY.md */; };
-		BC4AE5BA2F5E987400CA53E5 /* UIKIT_BUILD_FUTURE_UI_ONLY.md in Resources */ = {isa = PBXBuildFile; fileRef = BC4AE5B32F5E987400CA53E5 /* UIKIT_BUILD_FUTURE_UI_ONLY.md */; };
 		BC78A9AE2C525308008E0BA4 /* WebViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC78A9AD2C525308008E0BA4 /* WebViewController.swift */; };
 		BC8166A32E378C9A000D6708 /* TTBaseUIKit in Frameworks */ = {isa = PBXBuildFile; productRef = BC8166A22E378C9A000D6708 /* TTBaseUIKit */; };
 		BC8B92E12ED830DB005E7398 /* BaseSwiftUINewVersionDemo.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC8B92E02ED830DB005E7398 /* BaseSwiftUINewVersionDemo.swift */; };
@@ -125,12 +119,6 @@
 		BC2452F12C5C9B5900D3FEC5 /* BaseSwiftUIButtonDemo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseSwiftUIButtonDemo.swift; sourceTree = "<group>"; };
 		BC2452F32C5C9CF700D3FEC5 /* BaseSwiftUITextDemo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseSwiftUITextDemo.swift; sourceTree = "<group>"; };
 		BC3EBAA82F31A8B5008C258B /* TabbarVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabbarVC.swift; sourceTree = "<group>"; };
-		BC4AE5AE2F5E987400CA53E5 /* SWIFTUI_BUILD_CUSTOMVIEW_UI_ONLY.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = SWIFTUI_BUILD_CUSTOMVIEW_UI_ONLY.md; sourceTree = "<group>"; };
-		BC4AE5AF2F5E987400CA53E5 /* SWIFTUI_BUILD_FULL_NEW_FUTURE.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = SWIFTUI_BUILD_FULL_NEW_FUTURE.md; sourceTree = "<group>"; };
-		BC4AE5B02F5E987400CA53E5 /* SWIFTUI_BUILD_FUTURE_UI_ONLY.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = SWIFTUI_BUILD_FUTURE_UI_ONLY.md; sourceTree = "<group>"; };
-		BC4AE5B12F5E987400CA53E5 /* UIKIT_BUILD_CUSTOMVIEW_ONLY.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = UIKIT_BUILD_CUSTOMVIEW_ONLY.md; sourceTree = "<group>"; };
-		BC4AE5B22F5E987400CA53E5 /* UIKIT_BUILD_FULL_NEW_FUTURE.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = UIKIT_BUILD_FULL_NEW_FUTURE.md; sourceTree = "<group>"; };
-		BC4AE5B32F5E987400CA53E5 /* UIKIT_BUILD_FUTURE_UI_ONLY.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = UIKIT_BUILD_FUTURE_UI_ONLY.md; sourceTree = "<group>"; };
 		BC78A9AD2C525308008E0BA4 /* WebViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebViewController.swift; sourceTree = "<group>"; };
 		BC8B92E02ED830DB005E7398 /* BaseSwiftUINewVersionDemo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseSwiftUINewVersionDemo.swift; sourceTree = "<group>"; };
 		BC9F522C2ED43D600089C15A /* SkeletonTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SkeletonTableViewController.swift; sourceTree = "<group>"; };
@@ -200,6 +188,7 @@
 		93BC0C4522AA653700E61D3C /* View */ = {
 			isa = PBXGroup;
 			children = (
+				BC6657AB2F6036E300957717 /* Demo */,
 				93BC0C4122AA629500E61D3C /* MenuViewController.swift */,
 				93BC0C3B22AA611400E61D3C /* ListCellTestTableViewController.swift */,
 				93BC0C4622AA69E300E61D3C /* DemoHeaderView.swift */,
@@ -236,7 +225,6 @@
 		93F0FDC822580B980037C427 /* TTBaseUIKitExample */ = {
 			isa = PBXGroup;
 			children = (
-				BC4AE5B42F5E987400CA53E5 /* Plan-AiAgents */,
 				BCF1F36D2C5900210062610C /* Model */,
 				BC2452EC2C5C8BFC00D3FEC5 /* DemoSwiftUI */,
 				BCF1F3592C58FF420062610C /* Demo */,
@@ -370,17 +358,11 @@
 			path = DemoSwiftUI;
 			sourceTree = "<group>";
 		};
-		BC4AE5B42F5E987400CA53E5 /* Plan-AiAgents */ = {
+		BC6657AB2F6036E300957717 /* Demo */ = {
 			isa = PBXGroup;
 			children = (
-				BC4AE5AE2F5E987400CA53E5 /* SWIFTUI_BUILD_CUSTOMVIEW_UI_ONLY.md */,
-				BC4AE5AF2F5E987400CA53E5 /* SWIFTUI_BUILD_FULL_NEW_FUTURE.md */,
-				BC4AE5B02F5E987400CA53E5 /* SWIFTUI_BUILD_FUTURE_UI_ONLY.md */,
-				BC4AE5B12F5E987400CA53E5 /* UIKIT_BUILD_CUSTOMVIEW_ONLY.md */,
-				BC4AE5B22F5E987400CA53E5 /* UIKIT_BUILD_FULL_NEW_FUTURE.md */,
-				BC4AE5B32F5E987400CA53E5 /* UIKIT_BUILD_FUTURE_UI_ONLY.md */,
 			);
-			path = "Plan-AiAgents";
+			path = Demo;
 			sourceTree = "<group>";
 		};
 		BCA280802C59FC1E00472024 /* BaseComponents */ = {
@@ -588,12 +570,6 @@
 				93F0FDD422580B990037C427 /* LaunchScreen.storyboard in Resources */,
 				93F0FDD122580B990037C427 /* Assets.xcassets in Resources */,
 				93F0FDCF22580B980037C427 /* Main.storyboard in Resources */,
-				BC4AE5B52F5E987400CA53E5 /* UIKIT_BUILD_CUSTOMVIEW_ONLY.md in Resources */,
-				BC4AE5B62F5E987400CA53E5 /* SWIFTUI_BUILD_FUTURE_UI_ONLY.md in Resources */,
-				BC4AE5B72F5E987400CA53E5 /* UIKIT_BUILD_FULL_NEW_FUTURE.md in Resources */,
-				BC4AE5B82F5E987400CA53E5 /* SWIFTUI_BUILD_FULL_NEW_FUTURE.md in Resources */,
-				BC4AE5B92F5E987400CA53E5 /* SWIFTUI_BUILD_CUSTOMVIEW_UI_ONLY.md in Resources */,
-				BC4AE5BA2F5E987400CA53E5 /* UIKIT_BUILD_FUTURE_UI_ONLY.md in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
