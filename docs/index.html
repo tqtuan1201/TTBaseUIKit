@@ -1,0 +1,247 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <title>TTBaseUIKit Documentation</title>
+        <link rel="stylesheet" href="style.css" />
+    </head>
+    <body>
+        <header class="topbar">
+            <div class="brand">
+                <div class="brand-mark">TT</div>
+                <div>
+                    <h1>TTBaseUIKit</h1>
+                    <p>UIKit + SwiftUI component system for fast, consistent UI.</p>
+                </div>
+            </div>
+            <nav class="topnav">
+                <a href="#overview">Overview</a>
+                <a href="#why">Why TTBaseUIKit</a>
+                <a href="#install">Install</a>
+                <a href="#setup">Setup</a>
+                <a href="#implementation">Implementation</a>
+                <a href="#components">Components</a>
+            </nav>
+            <div class="top-actions">
+                <span id="componentCountTop" class="count-chip"></span>
+            </div>
+        </header>
+
+        <main>
+            <section class="hero" id="overview">
+                <div class="hero-copy">
+                    <p class="eyebrow">Component Library</p>
+                    <h2>Ship UI faster with a unified UIKit + SwiftUI foundation.</h2>
+                    <p class="lead">
+                        TTBaseUIKit provides a consistent component catalog, shared styling primitives, and
+                        production-ready building blocks for both UIKit and SwiftUI projects.
+                    </p>
+                    <div class="hero-actions">
+                        <button class="primary" data-framework="UIKit">Explore UIKit</button>
+                        <button class="secondary" data-framework="SwiftUI">Explore SwiftUI</button>
+                        <a class="ghost" href="#components">Open Component Browser</a>
+                    </div>
+                    <div class="hero-meta">
+                        <span id="componentCountHero"></span>
+                        <span>Dark-mode ready</span>
+                        <span>Docs optimized for teams</span>
+                    </div>
+                </div>
+                <div class="hero-panel">
+                    <div class="hero-card">
+                        <h3>What’s Included</h3>
+                        <ul>
+                            <li>UIKit base views, controls, table & collection cells</li>
+                            <li>SwiftUI base views, modifiers, utilities, styles</li>
+                            <li>Shared configuration system & design tokens</li>
+                        </ul>
+                    </div>
+                    <div class="hero-card accent">
+                        <h3>Best Practices</h3>
+                        <p>Clear naming, consistent layout, and reusable primitives that scale across screens.</p>
+                    </div>
+                </div>
+            </section>
+
+            <section class="section" id="why">
+                <div class="section-header">
+                    <h3>Why TTBaseUIKit</h3>
+                    <p>Designed to remove friction between UIKit and SwiftUI while keeping teams aligned.</p>
+                </div>
+                <div class="grid">
+                    <div class="card">
+                        <h4>One system for both UI stacks</h4>
+                        <p>Share consistent patterns across UIKit and SwiftUI without re-inventing components.</p>
+                    </div>
+                    <div class="card">
+                        <h4>Faster delivery, fewer regressions</h4>
+                        <p>Reusable base views and cells reduce duplicate work and keep UI predictable.</p>
+                    </div>
+                    <div class="card">
+                        <h4>Configurable design tokens</h4>
+                        <p>Centralized fonts, sizes, and styles through BaseConfig keep branding uniform.</p>
+                    </div>
+                </div>
+                <div class="callout">
+                    <h4>Documentation standards inspired by top design systems</h4>
+                    <p>
+                        TTBaseUIKit documentation follows proven guidance: include usage, code, and accessibility notes per component, and
+                        add dos and don’ts where behavior matters. These practices appear consistently across mature documentation systems.
+                    </p>
+                    <p class="note">Aligned with Carbon’s component templates and Atlassian’s design system guidance. citeturn0search11turn0search3</p>
+                </div>
+            </section>
+
+            <section class="section" id="install">
+                <div class="section-header">
+                    <h3>Installation</h3>
+                    <p>Use Swift Package Manager to integrate TTBaseUIKit into your project.</p>
+                </div>
+                <div class="grid">
+                    <div class="card">
+                        <h4>Swift Package Manager</h4>
+                        <pre><code>dependencies: [
+    .package(url: "https://github.com/your-org/TTBaseUIKit.git", from: "1.0.0")
+]</code></pre>
+                        <p>Add the package, then import TTBaseUIKit in your modules.</p>
+                    </div>
+                    <div class="card">
+                        <h4>Requirements</h4>
+                        <ul>
+                            <li>iOS 13+</li>
+                            <li>Swift 5.7+</li>
+                            <li>Xcode 15+</li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+
+            <section class="section" id="setup">
+                <div class="section-header">
+                    <h3>Setup & Configuration</h3>
+                    <p>Standardize the look and feel by centralizing design tokens.</p>
+                </div>
+                <div class="grid">
+                    <div class="card">
+                        <h4>BaseConfig</h4>
+                        <p>Use shared configs (FontConfig, SizeConfig, StyleConfig, ViewConfig) to align UI tokens.</p>
+                    </div>
+                    <div class="card">
+                        <h4>UIKit + SwiftUI alignment</h4>
+                        <p>Maintain consistent spacing and typography across the two UI stacks.</p>
+                    </div>
+                    <div class="card">
+                        <h4>Platform conventions</h4>
+                        <p>Keep iOS patterns aligned with Apple Human Interface Guidelines for familiarity. citeturn0search0</p>
+                    </div>
+                </div>
+            </section>
+
+            <section class="section" id="implementation">
+                <div class="section-header">
+                    <h3>Implementation Playbook</h3>
+                    <p>How teams can roll out TTBaseUIKit successfully.</p>
+                </div>
+                <div class="grid">
+                    <div class="card">
+                        <h4>1. Start with foundations</h4>
+                        <p>Document core styles, spacing, and tokens before expanding the component list.</p>
+                    </div>
+                    <div class="card">
+                        <h4>2. Build component pages</h4>
+                        <p>Include usage guidance, code examples, and accessibility notes for every component. citeturn0search11</p>
+                    </div>
+                    <div class="card">
+                        <h4>3. Add real examples</h4>
+                        <p>Use component stories and custom doc pages to keep usage practical and discoverable. citeturn0search1turn0search4</p>
+                    </div>
+                    <div class="card">
+                        <h4>4. Capture dos and don’ts</h4>
+                        <p>Highlight best practices and pitfalls with concise visual guidance. citeturn0search3</p>
+                    </div>
+                </div>
+            </section>
+
+            <section class="section" id="usage">
+                <div class="section-header">
+                    <h3>Usage</h3>
+                    <p>Quick examples for UIKit and SwiftUI.</p>
+                </div>
+                <div class="grid">
+                    <div class="card">
+                        <h4>UIKit Example</h4>
+                        <pre><code>import TTBaseUIKit
+
+let view = BaseUIView()
+view.translatesAutoresizingMaskIntoConstraints = false
+parentView.addSubview(view)</code></pre>
+                    </div>
+                    <div class="card">
+                        <h4>SwiftUI Example</h4>
+                        <pre><code>import TTBaseUIKit
+import SwiftUI
+
+struct DemoView: View {
+    var body: some View {
+        BaseSUIView()
+            .padding()
+    }
+}</code></pre>
+                    </div>
+                </div>
+            </section>
+
+            <section class="section" id="includes">
+                <div class="section-header">
+                    <h3>Installed Modules</h3>
+                    <p>Core areas that ship with TTBaseUIKit.</p>
+                </div>
+                <div class="grid">
+                    <div class="card compact">
+                        <h4>UIKit Base Views</h4>
+                        <p>Reusable views, cells, controllers, and layout utilities.</p>
+                    </div>
+                    <div class="card compact">
+                        <h4>SwiftUI Base Views</h4>
+                        <p>Base components, modifiers, and SwiftUI helpers.</p>
+                    </div>
+                    <div class="card compact">
+                        <h4>BaseConfig</h4>
+                        <p>Design tokens and configuration models for consistent styling.</p>
+                    </div>
+                    <div class="card compact">
+                        <h4>Coordinators</h4>
+                        <p>Navigation primitives for modular flow control.</p>
+                    </div>
+                </div>
+            </section>
+
+            <section class="section" id="components">
+                <div class="section-header">
+                    <h3>Component Browser</h3>
+                    <p>Search, filter, and inspect all UIKit and SwiftUI components.</p>
+                </div>
+                <div class="layout">
+                    <aside class="panel">
+                        <div class="search">
+                            <label for="searchInput">Search components</label>
+                            <input id="searchInput" type="search" placeholder="Search by name or category" />
+                        </div>
+                        <div class="segmented" id="frameworkTabs"></div>
+                        <div class="category-bar" id="categoryBar"></div>
+                        <div class="component-list" id="componentList"></div>
+                    </aside>
+
+                    <section class="panel" id="componentDetail"></section>
+                </div>
+            </section>
+        </main>
+
+        <footer class="footer">
+            <p>TTBaseUIKit Documentation · Generated for internal teams</p>
+        </footer>
+
+        <script src="app.js"></script>
+    </body>
+</html>
