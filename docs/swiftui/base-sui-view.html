@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TTBaseSUIView — SwiftUI Components — TTBaseUIKit</title>
+    <meta name="description" content="TTBaseSUIView: generic SwiftUI container view with configurable corner radius and background color from TTBaseUIKit config system. iOS 14+ compatible.">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>tailwind.config={darkMode:'class',theme:{extend:{colors:{primary:'#3b82f6'}}}}</script>
+    <link rel="stylesheet" href="../css/style.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/fuse.js@7.0.0"></script>
+</head>
+<body class="antialiased min-h-screen flex flex-col pt-16">
+    <script>window.TTBase='..';</script>
+    <div id="site-header"></div>
+    <div class="max-w-screen-2xl mx-auto flex-1 w-full flex">
+        <div id="site-sidebar"></div>
+        <main class="flex-1 min-w-0 py-10 px-4 sm:px-6 lg:px-8 xl:pr-24">
+            <div class="prose dark:prose-invert max-w-3xl mx-auto">
+                <nav class="text-sm text-slate-400 mb-4"><a href="index.html" style="color:#3b82f6;text-decoration:none;">SwiftUI</a> / TTBaseSUIView</nav>
+                <div class="flex items-center gap-3 mb-6">
+                    <h1 class="text-4xl font-extrabold m-0">TTBaseSUIView</h1>
+                    <span class="badge badge-purple">Core</span>
+                </div>
+                <p>A generic container view that wraps any SwiftUI content with configurable background color and corner radius from TTBaseUIKit's config system. The SwiftUI equivalent of <code>TTBaseUIView</code>. iOS 14+ compatible using <code>.cornerRadius()</code>.</p>
+
+                <hr>
+                <h2 id="declaration">📋 Declaration</h2>
+<pre><code class="language-swift">public struct TTBaseSUIView&lt;Content: View&gt;: View {
+    public var viewDefBgColor: Color          // From ViewConfig.viewDefColor
+    public var viewDefCornerRadius: CGFloat   // From SizeConfig.CORNER_RADIUS
+    public let content: (() -> Content)
+
+    public var body: some View {
+        self.content()
+            .background(self.viewDefBgColor)
+            .cornerRadius(self.viewDefCornerRadius) // iOS 14+ compatible
+    }
+}</code></pre>
+
+                <hr>
+                <h2 id="initializers">🔧 Initializers</h2>
+                <table class="api-table">
+                    <thead><tr><th>Initializer</th><th>Description</th></tr></thead>
+                    <tbody>
+                        <tr><td><code>init(content:)</code></td><td>Default config — corner + bg auto from <code>SizeConfig</code> / <code>ViewConfig</code></td></tr>
+                        <tr><td><code>init(withCornerRadius:content:)</code></td><td>Custom corner radius, default background</td></tr>
+                        <tr><td><code>init(withCornerRadius:bg:content:)</code></td><td>Custom corner radius + custom background color</td></tr>
+                    </tbody>
+                </table>
+
+                <hr>
+                <h2 id="usage">🚀 Usage</h2>
+
+                <h3>Basic Container</h3>
+<pre><code class="language-swift">TTBaseSUIView {
+    VStack {
+        Text("Hello, World!")
+        Text("Welcome to TTBaseUIKit")
+    }
+    .padding()
+}</code></pre>
+
+                <h3>Custom Background &amp; Corner Radius</h3>
+<pre><code class="language-swift">TTBaseSUIView(withCornerRadius: 16, bg: Color.blue) {
+    VStack {
+        TTBaseSUIText(withType: .TITLE, text: "Card Title", color: .white)
+        TTBaseSUIText(withType: .SUB_TITLE, text: "Card subtitle text", color: .white)
+    }
+    .padding()
+}</code></pre>
+
+                <h3>Card Pattern with Shadow</h3>
+<pre><code class="language-swift">TTBaseSUIView(withCornerRadius: 12, bg: Color(.systemBackground)) {
+    HStack(spacing: 12) {
+        Image(systemName: "star.fill")
+            .foregroundColor(.yellow)
+        VStack(alignment: .leading, spacing: 4) {
+            TTBaseSUIText(withBold: .TITLE, text: "Featured")
+            TTBaseSUIText(withType: .SUB_TITLE, text: "New content available")
+        }
+        Spacer()
+    }
+    .padding(16)
+}
+.shadow(color: .black.opacity(0.08), radius: 8, x: 0, y: 4)</code></pre>
+
+                <h3>List Row Container</h3>
+<pre><code class="language-swift">struct FlightRowView: View {
+    let flight: Flight
+
+    var body: some View {
+        TTBaseSUIView(withCornerRadius: 8, bg: Color(.secondarySystemBackground)) {
+            HStack {
+                VStack(alignment: .leading, spacing: 2) {
+                    TTBaseSUIText(withBold: .TITLE, text: flight.route)
+                    TTBaseSUIText(withType: .SUB_TITLE, text: flight.departureTime)
+                }
+                Spacer()
+                TTBaseSUIText(withBold: .HEADER, text: flight.price)
+                    .foregroundColor(.blue)
+            }
+            .padding(.horizontal, 12)
+            .padding(.vertical, 10)
+        }
+    }
+}</code></pre>
+
+                <h3>Full-Width Section Background</h3>
+<pre><code class="language-swift">// Using default config (reads from ViewConfig automatically)
+TTBaseSUIView {
+    VStack(spacing: 0) {
+        ForEach(items) { item in
+            ItemRowView(item: item)
+            Divider()
+        }
+    }
+}</code></pre>
+
+                <hr>
+                <h2 id="config">⚙️ Config Integration</h2>
+<pre><code class="language-swift">// TTBaseSUIView reads from the global config automatically:
+// viewDefBgColor  ← TTView.viewDefColor (from ViewConfig)
+// viewDefCornerRadius ← TTSize.CORNER_RADIUS (from SizeConfig)
+
+// Customize in AppDelegate:
+TTBaseUIKitConfig
+    .withDefaultConfig()
+    .withViewConfig(TTBaseUIKitViewConfig(viewDefColor: UIColor(hex: "#1C1C1E")))
+    .withSizeConfig(TTBaseUIKitSizeConfig(CORNER_RADIUS: 12))
+    .start()</code></pre>
+
+                <div class="info-box info">
+                    <strong>iOS 14+:</strong> <code>TTBaseSUIView</code> uses <code>.cornerRadius()</code> which is available on iOS 14+. No need for the iOS 17 <code>.clipShape(.rect(cornerRadius:))</code> API. This ensures compatibility with all supported deployment targets.
+                </div>
+
+                <div class="info-box tip">
+                    <strong>vs UIKit:</strong> <code>TTBaseSUIView</code> is the SwiftUI counterpart of <code>TTBaseUIView</code>. In mixed UIKit/SwiftUI apps (like 12Bay and WECARE 247), both types can be used side-by-side with consistent styling via the shared config system.
+                </div>
+
+                <div class="flex gap-4 mt-8">
+                    <a href="index.html" style="color:#3b82f6;text-decoration:none;">← All SwiftUI Components</a>
+                    <a href="base-sui-text.html" style="color:#3b82f6;text-decoration:none;">TTBaseSUIText →</a>
+                </div>
+            </div>
+        </main>
+    </div>
+    <div id="site-footer"></div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-swift.min.js"></script>
+    <script src="../js/main.js"></script>
+    <script src="../js/components.js"></script>
+    <script src="../js/search.js"></script>
+</body>
+</html>

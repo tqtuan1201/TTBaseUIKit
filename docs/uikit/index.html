@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>UIKit Components — TTBaseUIKit Documentation</title>
+    <meta name="description" content="Browse 72+ UIKit components: BaseUIView, BaseUILabel, BaseUIButton, ViewControllers, Layout helpers, and more.">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>tailwind.config = { darkMode: 'class', theme: { extend: { colors: { primary: '#3b82f6' } } } }</script>
+    <link rel="stylesheet" href="../css/style.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/fuse.js@7.0.0"></script>
+</head>
+<body class="antialiased min-h-screen flex flex-col pt-16">
+    <script>window.TTBase = '..';</script>
+    <div id="site-header"></div>
+
+    <div class="max-w-screen-2xl mx-auto flex-1 w-full flex">
+        <div id="site-sidebar"></div>
+
+        <main class="flex-1 min-w-0 py-10 px-4 sm:px-6 lg:px-8 xl:pr-12">
+            <div class="max-w-5xl mx-auto">
+                <!-- Header -->
+                <div class="flex items-center gap-3 mb-2">
+                    <h1 class="text-4xl font-extrabold tracking-tight text-slate-900 dark:text-white">UIKit Components</h1>
+                    <span class="badge badge-blue">72+ items</span>
+                </div>
+                <p class="text-lg text-slate-600 dark:text-slate-400 mb-8">Production-ready base classes for programmatic UIKit development. Clean memory management, layout hooks, and structured lifecycles.</p>
+
+                <!-- Category Filter -->
+                <div class="flex flex-wrap gap-2 mb-8" id="category-filter">
+                    <button class="category-badge active" data-cat="all">All</button>
+                    <button class="category-badge" data-cat="base-views">Base Views</button>
+                    <button class="category-badge" data-cat="layout">Layout</button>
+                    <button class="category-badge" data-cat="input">Input</button>
+                    <button class="category-badge" data-cat="display">Display</button>
+                    <button class="category-badge" data-cat="panels">Panels</button>
+                    <button class="category-badge" data-cat="viewcontrollers">ViewControllers</button>
+                    <button class="category-badge" data-cat="composite">Composite</button>
+                    <button class="category-badge" data-cat="utilities">Utilities</button>
+                </div>
+
+                <!-- Base Views -->
+                <h2 id="base-views" class="text-2xl font-bold text-slate-900 dark:text-white mb-4 mt-8 flex items-center gap-2">
+                    <span class="w-8 h-8 rounded-lg bg-gradient-to-br from-blue-400 to-blue-600 flex items-center justify-center text-white text-sm">🧱</span>
+                    Base Views
+                </h2>
+                <div class="component-grid mb-12" data-category="base-views">
+                    <a href="base-view.html" class="component-card"><h3>BaseUIView</h3><p>Base view with programmatic layout hooks, lifecycle, corner radius, shadow</p><span class="badge badge-blue mt-2">Core</span></a>
+                    <a href="base-label.html" class="component-card"><h3>BaseUILabel</h3><p>Enhanced UILabel with TTBaseUIKit styling, padding, and font config</p><span class="badge badge-blue mt-2">Core</span></a>
+                    <a href="base-button.html" class="component-card"><h3>BaseUIButton</h3><p>Customizable button with loading state, icon support, and style variants</p><span class="badge badge-blue mt-2">Core</span></a>
+                    <a href="base-textfield.html" class="component-card"><h3>BaseUITextField</h3><p>Text field with validation, icons, placeholder styling, and delegate hooks</p><span class="badge badge-blue mt-2">Core</span></a>
+                    <a href="base-textview.html" class="component-card"><h3>BaseUITextView</h3><p>Multi-line text view with placeholder and auto-sizing support</p><span class="badge badge-blue mt-2">Core</span></a>
+                    <a href="base-imageview.html" class="component-card"><h3>BaseUIImageView</h3><p>Image view with loading state, content mode, and gradient overlay</p><span class="badge badge-blue mt-2">Core</span></a>
+                    <a href="#" class="component-card"><h3>BaseUITableView</h3><p>Enhanced table view with skeleton loading and empty state support</p><span class="badge badge-blue mt-2">Core</span></a>
+                    <a href="#" class="component-card"><h3>BaseUICollectionView</h3><p>Collection view with flow layout and lifecycle management</p><span class="badge badge-blue mt-2">Core</span></a>
+                    <a href="#" class="component-card"><h3>BaseUISearchBar</h3><p>Pre-configured search bar with styling</p></a>
+                    <a href="#" class="component-card"><h3>BaseUISegmentedControl</h3><p>Custom segmented control with styling and selection handling</p></a>
+                    <a href="#" class="component-card"><h3>BaseUIProgressView</h3><p>Progress bar with custom styling</p></a>
+                    <a href="#" class="component-card"><h3>BaseUINavigationView</h3><p>Custom navigation bar replacement</p></a>
+                    <a href="#" class="component-card"><h3>BasePasswordUITextField</h3><p>Password field with show/hide toggle</p></a>
+                    <a href="#" class="component-card"><h3>BaseUIImageFontView</h3><p>Icon font image view (AwesomePro)</p></a>
+                    <a href="#" class="component-card"><h3>BaseWKWebView</h3><p>Web view with loading and error handling</p></a>
+                    <a href="#" class="component-card"><h3>BaseInsetLabel</h3><p>Label with custom content insets</p></a>
+                </div>
+
+                <!-- Layout -->
+                <h2 id="layout" class="text-2xl font-bold text-slate-900 dark:text-white mb-4 mt-8 flex items-center gap-2">
+                    <span class="w-8 h-8 rounded-lg bg-gradient-to-br from-green-400 to-emerald-600 flex items-center justify-center text-white text-sm">📐</span>
+                    Layout
+                </h2>
+                <div class="component-grid mb-12" data-category="layout">
+                    <a href="#" class="component-card"><h3>BaseUIStackView</h3><p>Pre-configured horizontal/vertical stack view</p></a>
+                    <a href="#" class="component-card"><h3>BaseScrollUIStackView</h3><p>Scrollable vertical stack view for dynamic content</p></a>
+                    <a href="#" class="component-card"><h3>BaseScrollHorizontalUIStackView</h3><p>Horizontal scrollable stack</p></a>
+                    <a href="#" class="component-card"><h3>BaseHeaderView</h3><p>Standard header section view</p></a>
+                    <a href="#" class="component-card"><h3>BasePaddingGenericView</h3><p>Generic view with configurable padding</p></a>
+                    <a href="#" class="component-card"><h3>ConstraintHelpers</h3><p>Auto Layout constraint helper functions</p><span class="badge badge-green mt-2">Utility</span></a>
+                </div>
+
+                <!-- Input -->
+                <h2 id="input" class="text-2xl font-bold text-slate-900 dark:text-white mb-4 mt-8 flex items-center gap-2">
+                    <span class="w-8 h-8 rounded-lg bg-gradient-to-br from-purple-400 to-purple-600 flex items-center justify-center text-white text-sm">✏️</span>
+                    Input
+                </h2>
+                <div class="component-grid mb-12" data-category="input">
+                    <a href="#" class="component-card"><h3>BaseSearchView</h3><p>Combined search bar + results component</p></a>
+                    <a href="#" class="component-card"><h3>BaseTextViewWithPlaceHolderView</h3><p>Text view with placeholder support</p></a>
+                    <a href="#" class="component-card"><h3>BaseDropdownCustomView</h3><p>Dropdown selector component</p></a>
+                    <a href="#" class="component-card"><h3>BaseRadioButtonView</h3><p>Radio button selection group</p></a>
+                    <a href="#" class="component-card"><h3>BaseLinePinView / PinsView</h3><p>Underline-style PIN entry (single/multi)</p></a>
+                    <a href="#" class="component-card"><h3>BaseSquarePinView / PinsView</h3><p>Square-style PIN entry (single/multi)</p></a>
+                </div>
+
+                <!-- Display -->
+                <h2 id="display" class="text-2xl font-bold text-slate-900 dark:text-white mb-4 mt-8 flex items-center gap-2">
+                    <span class="w-8 h-8 rounded-lg bg-gradient-to-br from-amber-400 to-orange-500 flex items-center justify-center text-white text-sm">👁</span>
+                    Display
+                </h2>
+                <div class="component-grid mb-12" data-category="display">
+                    <a href="#" class="component-card"><h3>CircleProgressView</h3><p>Circular progress indicator with animation</p></a>
+                    <a href="#" class="component-card"><h3>BaseIconCircleView</h3><p>Circular icon container</p></a>
+                    <a href="#" class="component-card"><h3>BaseCircleLabel</h3><p>Circular label for badges/counts</p></a>
+                    <a href="#" class="component-card"><h3>BaseBadgeInsetLabel</h3><p>Label with badge overlay</p></a>
+                    <a href="#" class="component-card"><h3>BaseButtonBadge</h3><p>Button with notification badge</p></a>
+                    <a href="#" class="component-card"><h3>BaseTriangleView</h3><p>Triangle shape view for indicators</p></a>
+                    <a href="#" class="component-card"><h3>BaseUICricleView</h3><p>Simple circle view</p></a>
+                    <a href="#" class="component-card"><h3>BaseSkeletonMarkView</h3><p>Skeleton loading placeholder</p></a>
+                    <a href="#" class="component-card"><h3>BaseBorderTrailView</h3><p>Animated border trail effect</p></a>
+                    <a href="#" class="component-card"><h3>BaseNewSegmentedControl</h3><p>Modern segmented control variant</p></a>
+                </div>
+
+                <!-- Panels -->
+                <h2 id="panels" class="text-2xl font-bold text-slate-900 dark:text-white mb-4 mt-8 flex items-center gap-2">
+                    <span class="w-8 h-8 rounded-lg bg-gradient-to-br from-cyan-400 to-teal-500 flex items-center justify-center text-white text-sm">🗂</span>
+                    Panels
+                </h2>
+                <div class="component-grid mb-12" data-category="panels">
+                    <a href="#" class="component-card"><h3>BaseShadowPanelView</h3><p>Panel with configurable shadow and corners</p></a>
+                    <a href="#" class="component-card"><h3>BasePanelButtonView</h3><p>Panel with integrated action button</p></a>
+                    <a href="#" class="component-card"><h3>BasePanelViewUIStackView</h3><p>Panel using stack view layout</p></a>
+                    <a href="#" class="component-card"><h3>BaseStackPanelView</h3><p>Stacked panel container</p></a>
+                    <a href="#" class="component-card"><h3>BaseStackShadowPanelView</h3><p>Shadow panel with stack layout</p></a>
+                    <a href="#" class="component-card"><h3>BaseTitlePanelView</h3><p>Panel with title header</p></a>
+                    <a href="#" class="component-card"><h3>BaseScrollPanelView</h3><p>Scrollable panel container</p></a>
+                </div>
+
+                <!-- ViewControllers -->
+                <h2 id="viewcontrollers" class="text-2xl font-bold text-slate-900 dark:text-white mb-4 mt-8 flex items-center gap-2">
+                    <span class="w-8 h-8 rounded-lg bg-gradient-to-br from-red-400 to-pink-500 flex items-center justify-center text-white text-sm">📱</span>
+                    ViewControllers & Popups
+                </h2>
+                <div class="component-grid mb-12" data-category="viewcontrollers">
+                    <a href="base-viewcontroller.html" class="component-card"><h3>TTBaseUIViewController</h3><p>Base VC with nav bar, status bar, and lifecycle</p><span class="badge badge-red mt-2">Essential</span></a>
+                    <a href="base-tableviewcontroller.html" class="component-card"><h3>TTBaseUITableViewController</h3><p>Table VC with refresh and pagination</p><span class="badge badge-red mt-2">Essential</span></a>
+                    <a href="#" class="component-card"><h3>TTBasePopupViewController</h3><p>Modal popup with customizable content</p></a>
+                    <a href="#" class="component-card"><h3>TTBaseNotificationView</h3><p>Toast/banner notification with swipe</p></a>
+                    <a href="#" class="component-card"><h3>DismissView</h3><p>Swipe-to-dismiss container</p></a>
+                    <a href="#" class="component-card"><h3>PresentationController</h3><p>Custom modal presentation controller</p></a>
+                </div>
+
+                <!-- Composite -->
+                <h2 id="composite" class="text-2xl font-bold text-slate-900 dark:text-white mb-4 mt-8 flex items-center gap-2">
+                    <span class="w-8 h-8 rounded-lg bg-gradient-to-br from-indigo-400 to-violet-600 flex items-center justify-center text-white text-sm">🧩</span>
+                    Composite Views
+                </h2>
+                <div class="component-grid mb-12" data-category="composite">
+                    <a href="#" class="component-card"><h3>BaseLabelIconHorizontalView</h3><p>Label + icon horizontal layout</p></a>
+                    <a href="#" class="component-card"><h3>BaseLableWithButtonView</h3><p>Label + button combination</p></a>
+                    <a href="#" class="component-card"><h3>BaseTwoStackButtonView</h3><p>Two-button action panel</p></a>
+                    <a href="#" class="component-card"><h3>IconLabelView</h3><p>Icon + label vertical layout</p></a>
+                    <a href="#" class="component-card"><h3>IconLabelHorizontalView</h3><p>Icon + label horizontal</p></a>
+                    <a href="#" class="component-card"><h3>LabelTextFieldView</h3><p>Label + text field combination</p></a>
+                    <a href="#" class="component-card"><h3>LabelLeftRightView</h3><p>Left-right label pair</p></a>
+                    <a href="#" class="component-card"><h3>RowTableView</h3><p>Pre-built table row layout</p></a>
+                    <a href="#" class="component-card"><h3>ButtonPanelView</h3><p>Button panel with styling</p></a>
+                    <a href="#" class="component-card"><h3>LineView</h3><p>Separator line component</p></a>
+                    <a href="#" class="component-card"><h3>TTBaseShadowView</h3><p>Shadow wrapper view</p></a>
+                </div>
+
+                <!-- Utilities -->
+                <h2 id="utilities" class="text-2xl font-bold text-slate-900 dark:text-white mb-4 mt-8 flex items-center gap-2">
+                    <span class="w-8 h-8 rounded-lg bg-gradient-to-br from-slate-400 to-slate-600 flex items-center justify-center text-white text-sm">🔧</span>
+                    Utilities & Protocols
+                </h2>
+                <div class="component-grid mb-12" data-category="utilities">
+                    <a href="#" class="component-card"><h3>ViewCodable Protocol</h3><p>Organize UI code with setupStyles(), setupData(), setupConstraints()</p><span class="badge badge-green mt-2">Protocol</span></a>
+                    <a href="#" class="component-card"><h3>BaseCustomViewRepresentable</h3><p>UIKit ↔ SwiftUI bridge</p><span class="badge badge-purple mt-2">Bridge</span></a>
+                    <a href="#" class="component-card"><h3>DatePicker</h3><p>Custom date picker component</p></a>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <div id="site-footer"></div>
+
+    <!-- Category filter script -->
+    <script>
+    document.addEventListener('DOMContentLoaded', () => {
+        const buttons = document.querySelectorAll('.category-badge');
+        buttons.forEach(btn => {
+            btn.addEventListener('click', () => {
+                buttons.forEach(b => b.classList.remove('active'));
+                btn.classList.add('active');
+                const cat = btn.dataset.cat;
+                document.querySelectorAll('.component-grid').forEach(grid => {
+                    if (cat === 'all') { grid.style.display = ''; grid.previousElementSibling.style.display = ''; }
+                    else if (grid.dataset.category === cat) { grid.style.display = ''; grid.previousElementSibling.style.display = ''; }
+                    else { grid.style.display = 'none'; grid.previousElementSibling.style.display = 'none'; }
+                });
+            });
+        });
+    });
+    </script>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-swift.min.js"></script>
+    <script src="../js/main.js"></script>
+    <script src="../js/components.js"></script>
+    <script src="../js/search.js"></script>
+</body>
+</html>

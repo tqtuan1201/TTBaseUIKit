@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TTBaseUIKit — Build iOS Apps Faster</title>
+    <meta name="description"
+        content="TTBaseUIKit is a modern iOS framework providing production-ready base views for UIKit and SwiftUI. Build iOS applications faster with 100+ pre-built components.">
+    <meta property="og:title" content="TTBaseUIKit Documentation">
+    <meta property="og:description"
+        content="Build iOS apps faster with 100+ production-ready components for UIKit & SwiftUI">
+    <meta property="og:type" content="website">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>tailwind.config = { darkMode: 'class', theme: { extend: { colors: { primary: '#3b82f6' } } } }</script>
+    <link rel="stylesheet" href="css/style.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/fuse.js@7.0.0"></script>
+</head>
+
+<body class="antialiased min-h-screen flex flex-col">
+    <script>window.TTBase = '';</script>
+    <div id="site-header"></div>
+
+    <!-- Hero -->
+    <main class="flex-grow pt-16">
+        <section class="hero-gradient relative overflow-hidden">
+            <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-20 lg:py-32 text-center relative z-10">
+                <!-- Badge -->
+                <div
+                    class="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-blue-50 dark:bg-blue-900/30 border border-blue-200 dark:border-blue-800 mb-8 animate-fade-in">
+                    <span class="w-2 h-2 rounded-full bg-green-400 animate-pulse"></span>
+                    <span class="text-sm font-medium text-blue-700 dark:text-blue-300">v2.1.0 • iOS 14+ • Swift 5</span>
+                </div>
+
+                <!-- Title -->
+                <h1
+                    class="text-5xl lg:text-7xl font-black tracking-tight text-slate-900 dark:text-white mb-6 animate-fade-in-up">
+                    Build iOS Apps<br>
+                    <span
+                        class="bg-gradient-to-r from-blue-500 via-cyan-400 to-blue-600 bg-clip-text text-transparent">Faster.</span>
+                </h1>
+
+                <p
+                    class="text-lg lg:text-xl text-slate-600 dark:text-slate-400 mb-10 max-w-2xl mx-auto leading-relaxed animate-fade-in-up delay-100">
+                    An ultra-modern enterprise foundation providing <strong>100+</strong> production-ready base views
+                    for both <strong>UIKit</strong> and <strong>SwiftUI</strong>. Built for speed, architecture, and AI
+                    Agent compatibility.
+                </p>
+
+                <!-- CTA -->
+                <div class="flex flex-col sm:flex-row gap-4 justify-center animate-fade-in-up delay-200">
+                    <a href="getting-started.html"
+                        class="px-8 py-4 bg-gradient-to-r from-blue-500 to-blue-600 hover:from-blue-600 hover:to-blue-700 text-white font-semibold rounded-full transition-all shadow-lg hover:shadow-xl hover:-translate-y-1 text-center">
+                        Get Started
+                    </a>
+                    <a href="ai-agents/index.html"
+                        class="px-8 py-4 bg-slate-900 dark:bg-slate-800 hover:bg-slate-800 dark:hover:bg-slate-700 text-white font-semibold rounded-full transition-all flex items-center justify-center gap-2 border border-slate-700">
+                        <span>✨ Explore Agent Skills</span>
+                    </a>
+                </div>
+
+                <!-- Stats -->
+                <div class="grid grid-cols-2 md:grid-cols-4 gap-6 mt-20 max-w-3xl mx-auto animate-fade-in-up delay-300">
+                    <div class="stat-card">
+                        <div class="stat-number">72+</div>
+                        <div class="stat-label">UIKit Components</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-number">51+</div>
+                        <div class="stat-label">SwiftUI Views</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-number">17</div>
+                        <div class="stat-label">AI Agents</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-number">36</div>
+                        <div class="stat-label">Shipped Apps</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Framework Cards -->
+        <section class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
+            <h2 class="text-3xl font-bold text-center text-slate-900 dark:text-white mb-4">Two Powerful Frameworks, One
+                Kit</h2>
+            <p class="text-center text-slate-500 dark:text-slate-400 mb-12 max-w-xl mx-auto">Choose your approach or use
+                both. TTBaseUIKit provides consistent architecture for programmatic UIKit and modern SwiftUI.</p>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                <a href="uikit/index.html" class="component-card group">
+                    <div class="flex items-center gap-3 mb-4">
+                        <span
+                            class="w-12 h-12 rounded-2xl bg-gradient-to-br from-orange-400 to-red-500 flex items-center justify-center text-2xl shadow-lg">🧱</span>
+                        <div>
+                            <h3
+                                class="text-xl font-bold dark:text-white m-0 group-hover:text-primary transition-colors">
+                                UIKit Foundation</h3>
+                            <span class="badge badge-blue">72+ Components</span>
+                        </div>
+                    </div>
+                    <p class="text-slate-500 dark:text-slate-400 text-sm">Production-ready Base Views, ViewControllers,
+                        Coordinators, programmatic Auto Layout helpers, Notification/Popup system, and more.</p>
+                    <div class="flex flex-wrap gap-2 mt-4">
+                        <span
+                            class="text-xs px-2 py-1 bg-slate-100 dark:bg-slate-800 text-slate-500 rounded-full">BaseUIView</span>
+                        <span
+                            class="text-xs px-2 py-1 bg-slate-100 dark:bg-slate-800 text-slate-500 rounded-full">BaseUILabel</span>
+                        <span
+                            class="text-xs px-2 py-1 bg-slate-100 dark:bg-slate-800 text-slate-500 rounded-full">BaseUIButton</span>
+                        <span
+                            class="text-xs px-2 py-1 bg-slate-100 dark:bg-slate-800 text-slate-500 rounded-full">ViewCodable</span>
+                        <span class="text-xs px-2 py-1 bg-slate-100 dark:bg-slate-800 text-slate-500 rounded-full">+68
+                            more</span>
+                    </div>
+                </a>
+
+                <a href="swiftui/index.html" class="component-card group">
+                    <div class="flex items-center gap-3 mb-4">
+                        <span
+                            class="w-12 h-12 rounded-2xl bg-gradient-to-br from-blue-400 to-purple-500 flex items-center justify-center text-2xl shadow-lg">🎨</span>
+                        <div>
+                            <h3
+                                class="text-xl font-bold dark:text-white m-0 group-hover:text-blue-400 transition-colors">
+                                SwiftUI Modernity</h3>
+                            <span class="badge badge-purple">51+ Items</span>
+                        </div>
+                    </div>
+                    <p class="text-slate-500 dark:text-slate-400 text-sm">SUIBaseView, advanced declarative layouts,
+                        view modifiers, shimmer animations, button styles — all targeting iOS 14+ for maximum
+                        compatibility.</p>
+                    <div class="flex flex-wrap gap-2 mt-4">
+                        <span
+                            class="text-xs px-2 py-1 bg-slate-100 dark:bg-slate-800 text-slate-500 rounded-full">BaseSUIView</span>
+                        <span
+                            class="text-xs px-2 py-1 bg-slate-100 dark:bg-slate-800 text-slate-500 rounded-full">BaseSUIText</span>
+                        <span
+                            class="text-xs px-2 py-1 bg-slate-100 dark:bg-slate-800 text-slate-500 rounded-full">Shimmer</span>
+                        <span
+                            class="text-xs px-2 py-1 bg-slate-100 dark:bg-slate-800 text-slate-500 rounded-full">View+Extensions</span>
+                        <span class="text-xs px-2 py-1 bg-slate-100 dark:bg-slate-800 text-slate-500 rounded-full">+47
+                            more</span>
+                    </div>
+                </a>
+            </div>
+        </section>
+
+        <!-- Features -->
+        <section class="bg-slate-50 dark:bg-slate-900/50 py-20">
+            <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+                <h2 class="text-3xl font-bold text-center text-slate-900 dark:text-white mb-4">Why TTBaseUIKit?</h2>
+                <p class="text-center text-slate-500 dark:text-slate-400 mb-12 max-w-xl mx-auto">Everything you need to
+                    ship faster without sacrificing architecture quality.</p>
+
+                <div class="feature-grid">
+                    <div class="glass-card p-6">
+                        <span class="text-3xl mb-3 block">⚡</span>
+                        <h3 class="font-bold text-lg dark:text-white mb-2">Rapid Development</h3>
+                        <p class="text-sm text-slate-500 dark:text-slate-400">Pre-built components eliminate
+                            boilerplate. Build production UI in hours, not days.</p>
+                    </div>
+                    <div class="glass-card p-6">
+                        <span class="text-3xl mb-3 block">🏗️</span>
+                        <h3 class="font-bold text-lg dark:text-white mb-2">Clean Architecture</h3>
+                        <p class="text-sm text-slate-500 dark:text-slate-400">ViewCodable protocol, Coordinator pattern,
+                            and structured lifecycle hooks enforce clean code.</p>
+                    </div>
+                    <div class="glass-card p-6">
+                        <span class="text-3xl mb-3 block">🎯</span>
+                        <h3 class="font-bold text-lg dark:text-white mb-2">iOS 14+ Compatible</h3>
+                        <p class="text-sm text-slate-500 dark:text-slate-400">Full compatibility from iOS 14 to latest.
+                            No deprecated API worries.</p>
+                    </div>
+                    <div class="glass-card p-6">
+                        <span class="text-3xl mb-3 block">🛠</span>
+                        <h3 class="font-bold text-lg dark:text-white mb-2">UI Debug Kit</h3>
+                        <p class="text-sm text-slate-500 dark:text-slate-400">Built-in debug tools: layout inspector,
+                            API response viewer, screen capture, and more.</p>
+                    </div>
+                    <div class="glass-card p-6">
+                        <span class="text-3xl mb-3 block">🤖</span>
+                        <h3 class="font-bold text-lg dark:text-white mb-2">AI Agent Ready</h3>
+                        <p class="text-sm text-slate-500 dark:text-slate-400">Pre-configured for Copilot, Claude Code,
+                            Xcode Agent Skills, Codex, and Gemini.</p>
+                    </div>
+                    <div class="glass-card p-6">
+                        <span class="text-3xl mb-3 block">🎨</span>
+                        <h3 class="font-bold text-lg dark:text-white mb-2">Configurable Themes</h3>
+                        <p class="text-sm text-slate-500 dark:text-slate-400">ViewConfig, SizeConfig, FontConfig —
+                            control every aspect of your app's appearance globally.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Quick Start Code -->
+        <section class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
+            <h2 class="text-3xl font-bold text-center text-slate-900 dark:text-white mb-4">Instant Setup</h2>
+            <p class="text-center text-slate-500 dark:text-slate-400 mb-10 max-w-xl mx-auto">Add TTBaseUIKit via SPM and
+                configure in your AppDelegate. You're ready in under 5 minutes.</p>
+
+            <div class="max-w-3xl mx-auto">
+                <pre><code class="language-swift">// 1. Add via Swift Package Manager
+// https://github.com/tqtuan1201/TTBaseUIKit.git
+
+// 2. Configure in AppDelegate
+import TTBaseUIKit
+
+let view = ViewConfig()
+view.viewBgNavColor = UIColor.blue
+view.buttonBgDef = UIColor.blue
+view.viewBgColor = UIColor.white
+
+let size = SizeConfig()
+size.H_BUTTON = 44.0
+
+let font = FontConfig()
+font.HEADER_H = 16
+font.TITLE_H = 14
+
+TTBaseUIKitConfig.withDefaultConfig(
+    withFontConfig: font,
+    frameSize: size,
+    view: view
+)?.start(withViewLog: true)</code></pre>
+            </div>
+        </section>
+
+        <!-- AI Agents CTA -->
+        <section class="py-20 bg-gradient-to-r from-slate-900 to-slate-800 text-white">
+            <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+                <h2 class="text-3xl font-bold mb-4">✨ AI-Powered Development</h2>
+                <p class="text-slate-300 mb-8 max-w-2xl mx-auto">TTBaseUIKit comes with 17 custom agents, 27 prompt
+                    templates, and 11 instruction files for AI coding assistants. Dramatically increase code generation
+                    accuracy.</p>
+                <div class="flex flex-wrap justify-center gap-4 mb-8">
+                    <span class="px-4 py-2 bg-white/10 rounded-full text-sm">GitHub Copilot</span>
+                    <span class="px-4 py-2 bg-white/10 rounded-full text-sm">Claude Code</span>
+                    <span class="px-4 py-2 bg-white/10 rounded-full text-sm">Xcode Agent Skills</span>
+                    <span class="px-4 py-2 bg-white/10 rounded-full text-sm">OpenAI Codex</span>
+                    <span class="px-4 py-2 bg-white/10 rounded-full text-sm">Google Gemini</span>
+                </div>
+                <a href="ai-agents/index.html"
+                    class="inline-flex items-center gap-2 px-8 py-4 bg-blue-500 hover:bg-blue-600 text-white font-semibold rounded-full transition-all shadow-lg hover:shadow-xl hover:-translate-y-1">
+                    Explore AI Agent Skills →
+                </a>
+            </div>
+        </section>
+
+        <!-- GIF Demo -->
+        <section class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-20 text-center">
+            <h2 class="text-3xl font-bold text-slate-900 dark:text-white mb-4">See It In Action</h2>
+            <p class="text-slate-500 dark:text-slate-400 mb-10">From base views to full screens — built entirely with
+                TTBaseUIKit.</p>
+            <div class="max-w-4xl mx-auto">
+                <img src="https://tqtuan1201.github.io/images/ttbaseuikit_compress_2.gif" alt="TTBaseUIKit Demo"
+                    class="rounded-2xl border border-slate-200 dark:border-slate-700 shadow-2xl w-full">
+            </div>
+        </section>
+    </main>
+
+    <div id="site-footer"></div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-swift.min.js"></script>
+    <script src="js/main.js"></script>
+    <script src="js/components.js"></script>
+    <script src="js/search.js"></script>
+</body>
+
+</html>

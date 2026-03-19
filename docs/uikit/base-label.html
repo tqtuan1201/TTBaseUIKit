@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TTBaseUILabel — UIKit Components — TTBaseUIKit</title>
+    <meta name="description" content="TTBaseUILabel: enhanced UILabel with TYPE enum (HEADER_SUPER, HEADER, TITLE, SUB_TITLE), skeleton loading, attributed text, multiline, touch handler, and chainable API.">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>tailwind.config={darkMode:'class',theme:{extend:{colors:{primary:'#3b82f6'}}}}</script>
+    <link rel="stylesheet" href="../css/style.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/fuse.js@7.0.0"></script>
+</head>
+<body class="antialiased min-h-screen flex flex-col pt-16">
+    <script>window.TTBase='..';</script>
+    <div id="site-header"></div>
+    <div class="max-w-screen-2xl mx-auto flex-1 w-full flex">
+        <div id="site-sidebar"></div>
+        <main class="flex-1 min-w-0 py-10 px-4 sm:px-6 lg:px-8 xl:pr-24">
+            <div class="prose dark:prose-invert max-w-3xl mx-auto">
+                <nav class="text-sm text-slate-400 mb-4"><a href="index.html" style="color:#3b82f6;text-decoration:none;">UIKit</a> / TTBaseUILabel</nav>
+                <div class="flex items-center gap-3 mb-6">
+                    <h1 class="text-4xl font-extrabold m-0">TTBaseUILabel</h1>
+                    <span class="badge badge-blue">Core</span>
+                </div>
+                <p>Enhanced <code>UILabel</code> with built-in font sizing via <code>TYPE</code> enum, skeleton loading, attributed text helpers, tap gesture support, and chainable API. Integrates seamlessly with TTBaseUIKit's <code>FontConfig</code> and <code>ViewConfig</code>.</p>
+
+                <hr>
+                <h2 id="declaration">📋 Declaration</h2>
+<pre><code class="language-swift">open class TTBaseUILabel: UILabel, ViewDrawer, TextDrawer {
+    public enum TYPE {
+        case HEADER_SUPER   // FontConfig.HEADER_SUPER_H (default: 24pt)
+        case HEADER         // FontConfig.HEADER_H (default: 18pt)
+        case TITLE          // FontConfig.TITLE_H (default: 14pt / 16pt on large screens)
+        case SUB_TITLE      // FontConfig.SUB_TITLE_H (default: 12pt / 14pt)
+        case SUB_SUB_TILE   // FontConfig.SUB_SUB_TITLE_H (default: 10pt / 12pt)
+        case NONE
+    }
+    open func updateUI() { }
+    public var onTouchHandler: ((_ label: TTBaseUILabel) -> Void)?
+}</code></pre>
+
+                <h2 id="font-types">🔤 Font Type Reference</h2>
+                <table class="api-table">
+                    <thead><tr><th>TYPE</th><th>FontConfig Key</th><th>Small Screen (≤5.8")</th><th>Large Screen (&gt;5.8")</th></tr></thead>
+                    <tbody>
+                        <tr><td><code>.HEADER_SUPER</code></td><td><code>HEADER_SUPER_H</code></td><td>24pt</td><td>24pt</td></tr>
+                        <tr><td><code>.HEADER</code></td><td><code>HEADER_H</code></td><td>18pt</td><td>18pt</td></tr>
+                        <tr><td><code>.TITLE</code></td><td><code>TITLE_H</code></td><td>14pt</td><td>16pt</td></tr>
+                        <tr><td><code>.SUB_TITLE</code></td><td><code>SUB_TITLE_H</code></td><td>12pt</td><td>14pt</td></tr>
+                        <tr><td><code>.SUB_SUB_TILE</code></td><td><code>SUB_SUB_TITLE_H</code></td><td>10pt</td><td>12pt</td></tr>
+                    </tbody>
+                </table>
+
+                <div class="info-box info">
+                    <strong>Font Customization:</strong> Override font sizes globally via <code>TTBaseUIKitConfig.withFontConfig(FontConfig(...))</code> in AppDelegate. All label types pick up the global config automatically.
+                </div>
+
+                <hr>
+                <h2 id="usage">🚀 Usage</h2>
+
+                <h3>Basic Label with Type</h3>
+<pre><code class="language-swift">// Header label with centered alignment
+let headerLabel = TTBaseUILabel(
+    withType: .HEADER,
+    text: "Welcome Back",
+    align: .center
+)
+
+// Subtitle label — uses subtler color automatically
+let subtitleLabel = TTBaseUILabel(
+    withType: .SUB_TITLE,
+    text: "Sign in to continue"
+)</code></pre>
+
+                <h3>Styling Chain API</h3>
+<pre><code class="language-swift">let priceLabel = TTBaseUILabel(withType: .TITLE)
+priceLabel
+    .setText(text: "$29.99")
+    .setBold()
+    .setTextColor(color: .systemGreen)
+    .setAlign(align: .right)
+    .done()</code></pre>
+
+                <h3>Multi-line Label</h3>
+<pre><code class="language-swift">let descLabel = TTBaseUILabel(withType: .TITLE, text: "Long description...")
+descLabel.setMutilLine(numberOfLine: 0, textAlignment: .left)
+    .setFontSize(size: 14)
+    .done()</code></pre>
+
+                <h3>Attributed Text</h3>
+<pre><code class="language-swift">let label = TTBaseUILabel(withType: .TITLE)
+label.setTextAttr(byText: "Hello World", size: 16, color: .black)
+label.addStartRequirement()       // Adds red asterisk "*" as prefix
+label.addLineAttrSpacing(space: 4) // Custom line spacing (NSParagraphStyle)</code></pre>
+
+                <h3>Skeleton Loading</h3>
+<pre><code class="language-swift">// Show placeholder while loading
+nameLabel.onAddSkeletonMark()
+
+// After data arrives
+nameLabel.setText(text: user.name)
+nameLabel.onRemoveSkeletonMark() // Fades out skeleton with animation</code></pre>
+
+                <h3>Touch Handling (Tappable Label)</h3>
+<pre><code class="language-swift">let linkLabel = TTBaseUILabel(withType: .TITLE, text: "Tap here")
+linkLabel.setTouchHandler()
+linkLabel.setTextColor(color: .systemBlue)
+linkLabel.onTouchHandler = { label in
+    print("Label tapped: \(label.text ?? "")")
+}</code></pre>
+
+                <h3>Required Field Marker</h3>
+<pre><code class="language-swift">// Shows "Email *" — the asterisk is red and added as an attributed prefix
+let emailLabel = TTBaseUILabel(withType: .SUB_TITLE, text: "Email")
+emailLabel.addStartRequirement(color: .systemRed)</code></pre>
+
+                <hr>
+                <h2 id="api">📖 API Reference</h2>
+                <table class="api-table">
+                    <thead><tr><th>Method</th><th>Returns</th><th>Description</th></tr></thead>
+                    <tbody>
+                        <tr><td><code>setText(text:isBold:)</code></td><td><code>TTBaseUILabel</code></td><td>Set text, optionally bold</td></tr>
+                        <tr><td><code>setBold()</code></td><td><code>TTBaseUILabel</code></td><td>Apply bold weight</td></tr>
+                        <tr><td><code>setRegular()</code></td><td><code>TTBaseUILabel</code></td><td>Apply regular weight</td></tr>
+                        <tr><td><code>setRemiBold()</code></td><td><code>TTBaseUILabel</code></td><td>Apply semibold weight</td></tr>
+                        <tr><td><code>setItalic()</code></td><td><code>TTBaseUILabel</code></td><td>Apply italic style</td></tr>
+                        <tr><td><code>setFont(byWeight:)</code></td><td><code>TTBaseUILabel</code></td><td>Set any <code>UIFont.Weight</code></td></tr>
+                        <tr><td><code>setAlign(align:)</code></td><td><code>TTBaseUILabel</code></td><td>Set text alignment</td></tr>
+                        <tr><td><code>setTextColor(color:)</code></td><td><code>TTBaseUILabel</code></td><td>Set text color</td></tr>
+                        <tr><td><code>setFontSize(size:)</code></td><td><code>TTBaseUILabel</code></td><td>Set font point size</td></tr>
+                        <tr><td><code>setBgColor(_:)</code></td><td><code>TTBaseUILabel</code></td><td>Set background color</td></tr>
+                        <tr><td><code>setMutilLine(numberOfLine:textAlignment:mode:)</code></td><td><code>TTBaseUILabel</code></td><td>Enable multiline (0 = unlimited)</td></tr>
+                        <tr><td><code>setTouchHandler()</code></td><td><code>TTBaseUILabel</code></td><td>Enable tap gesture recognizer</td></tr>
+                        <tr><td><code>setTextAttr(byText:size:color:)</code></td><td><code>TTBaseUILabel</code></td><td>Set NSAttributedString text</td></tr>
+                        <tr><td><code>addStartRequirement(color:)</code></td><td><code>TTBaseUILabel</code></td><td>Prefix label text with red asterisk (*)</td></tr>
+                        <tr><td><code>addLineAttrSpacing(space:)</code></td><td><code>TTBaseUILabel</code></td><td>Set line height spacing</td></tr>
+                        <tr><td><code>setFullContentHuggingPriority()</code></td><td><code>TTBaseUILabel</code></td><td>Set content hugging priority to required (1000)</td></tr>
+                        <tr><td><code>onAddSkeletonMark()</code></td><td><code>Void</code></td><td>Show animated skeleton placeholder</td></tr>
+                        <tr><td><code>onRemoveSkeletonMark()</code></td><td><code>Void</code></td><td>Animate skeleton removal</td></tr>
+                    </tbody>
+                </table>
+
+                <hr>
+                <h2 id="config">⚙️ Global Font Config</h2>
+<pre><code class="language-swift">// In AppDelegate — customize font sizes for all TTBaseUILabel instances
+TTBaseUIKitConfig
+    .withDefaultConfig()
+    .withFontConfig(
+        TTBaseUIKitFontConfig(
+            HEADER_SUPER_H: 26,
+            HEADER_H: 20,
+            TITLE_H: 15,
+            SUB_TITLE_H: 13,
+            SUB_SUB_TITLE_H: 11
+        )
+    )
+    .start()</code></pre>
+
+                <div class="info-box tip">
+                    <strong>Pro Tip:</strong> Use <code>setFullContentHuggingPriority()</code> to prevent label from stretching in HStack layouts. Combine with <code>setMutilLine(numberOfLine: 0)</code> for dynamic height text.
+                </div>
+
+                <div class="flex gap-4 mt-8">
+                    <a href="base-view.html" style="color:#3b82f6;text-decoration:none;">← TTBaseUIView</a>
+                    <a href="base-button.html" style="color:#3b82f6;text-decoration:none;">TTBaseUIButton →</a>
+                </div>
+            </div>
+        </main>
+    </div>
+    <div id="site-footer"></div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-swift.min.js"></script>
+    <script src="../js/main.js"></script>
+    <script src="../js/components.js"></script>
+    <script src="../js/search.js"></script>
+</body>
+</html>

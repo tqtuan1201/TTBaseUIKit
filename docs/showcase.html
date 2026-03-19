@@ -1,0 +1,813 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Apps Showcase — TTBaseUIKit Documentation</title>
+    <meta name="description"
+        content="Real-world iOS applications built with TTBaseUIKit: 12Bay, Aihealth, TMS Mobile, AiDoctor, WECARE 247, AiPharmacy, AiNurse, Contacts Plus and more. See TTBaseUIKit in production.">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>tailwind.config = { darkMode: 'class', theme: { extend: { colors: { primary: '#3b82f6' } } } }</script>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/showcase.css">
+    <script src="https://cdn.jsdelivr.net/npm/fuse.js@7.0.0"></script>
+</head>
+
+<body class="antialiased min-h-screen flex flex-col pt-16">
+    <script>window.TTBase = '';</script>
+    <div id="site-header"></div>
+
+    <div class="max-w-screen-2xl mx-auto flex-1 w-full flex">
+        <div id="site-sidebar"></div>
+
+        <main class="flex-1 min-w-0 py-10 px-4 sm:px-6 lg:px-8 xl:pr-12">
+            <div class="max-w-5xl mx-auto">
+
+                <!-- Page Header -->
+                <div class="showcase-hero">
+                    <div class="showcase-hero-badge">
+                        <span class="badge-dot"></span>
+                        <span>Production Apps</span>
+                    </div>
+                    <h1>🚀 Apps Showcase</h1>
+                    <p>Real-world production iOS applications built with TTBaseUIKit. These apps demonstrate the
+                        framework's power in complex commercial projects — from flight booking to AI healthcare.</p>
+                    <div class="showcase-stats-row">
+                        <div class="showcase-stat"><span class="showcase-stat-num">36+</span><span
+                                class="showcase-stat-lbl">Shipped Apps</span></div>
+                        <div class="showcase-stat"><span class="showcase-stat-num">5M+</span><span
+                                class="showcase-stat-lbl">Users Reached</span></div>
+                        <div class="showcase-stat"><span class="showcase-stat-num">11</span><span
+                                class="showcase-stat-lbl">Featured Below</span></div>
+                    </div>
+                </div>
+
+                <!-- Apps Grid -->
+                <div class="apps-grid">
+
+                    <!-- 12Bay iOS -->
+                    <article class="app-card">
+                        <div class="app-card-image-wrap">
+                            <img src="https://tqtuan1201.github.io/images/12bay-appstore.jpeg"
+                                alt="12Bay iOS App — Flight Booking built with TTBaseUIKit"
+                                onerror="this.onerror=null;this.src='https://placehold.co/600x320/1e293b/94a3b8?text=12Bay+iOS'">
+                            <div class="app-card-overlay">
+                                <div class="app-card-overlay-links">
+                                    <a href="https://apps.apple.com/us/developer/12bay-technology-company-limited/id1191396801"
+                                        target="_blank" rel="noopener" class="overlay-btn overlay-btn-appstore"
+                                        title="View on App Store">
+                                        <svg viewBox="0 0 24 24" fill="currentColor">
+                                            <path
+                                                d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.8-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z" />
+                                        </svg>
+                                        App Store
+                                    </a>
+                                    <a href="https://12bay.vn" target="_blank" rel="noopener"
+                                        class="overlay-btn overlay-btn-web" title="Visit Website">
+                                        🌐 Website
+                                    </a>
+                                </div>
+                            </div>
+                            <div class="app-card-type-badge">✈️ Travel</div>
+                        </div>
+                        <div class="app-card-body">
+                            <div class="app-card-header">
+                                <h3 class="app-card-title">12Bay iOS</h3>
+                                <div class="app-card-badges">
+                                    <span class="badge badge-blue">UIKit</span>
+                                    <span class="badge badge-purple">SwiftUI</span>
+                                    <span class="badge badge-green">Production</span>
+                                </div>
+                            </div>
+                            <p class="app-card-desc">Vietnam's leading flight-booking &amp; travel management platform.
+                                Ranked <strong>#20 in Travel on the App Store Vietnam</strong>. Features complex
+                                multi-step search wizard, interactive seat selection, payment gateway integration,
+                                real-time itinerary management, and WatchKit companion app — all powered by
+                                TTBaseUIKit's programmatic layout system. Co-founded by Tuan Truong using MVVM + VIPER
+                                architecture.</p>
+                            <div class="app-card-tech">
+                                <span class="tech-tag">Swift</span>
+                                <span class="tech-tag">MVVM</span>
+                                <span class="tech-tag">VIPER</span>
+                                <span class="tech-tag">RxSwift</span>
+                                <span class="tech-tag">WatchKit</span>
+                                <span class="tech-tag">macOS Catalyst</span>
+                            </div>
+                            <div class="app-card-features">
+                                <span>⚡ Real-time Search</span>
+                                <span>💺 Seat Selection</span>
+                                <span>💳 Payment Flow</span>
+                            </div>
+                            <div class="app-card-links">
+                                <a href="https://apps.apple.com/vn/app/12bay/id1533819030" target="_blank"
+                                    rel="noopener" class="app-link app-link-primary">
+                                    <svg viewBox="0 0 24 24" fill="currentColor" class="w-4 h-4">
+                                        <path
+                                            d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.8-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z" />
+                                    </svg>
+                                    App Store
+                                </a>
+                                <a href="https://12bay.vn/apps" target="_blank" rel="noopener"
+                                    class="app-link app-link-secondary">
+                                    Website →
+                                </a>
+                            </div>
+                        </div>
+                    </article>
+
+                    <!-- 12Bay MacOS -->
+                    <article class="app-card">
+                        <div class="app-card-image-wrap">
+                            <img src="https://tqtuan1201.github.io/images/12bay-appstore.jpeg"
+                                alt="12Bay macOS — Catalyst Desktop App"
+                                onerror="this.onerror=null;this.src='https://placehold.co/600x320/1e293b/94a3b8?text=12Bay+macOS'">
+                            <div class="app-card-overlay">
+                                <div class="app-card-overlay-links">
+                                    <a href="https://apps.apple.com/us/developer/12bay-technology-company-limited/id1191396801"
+                                        target="_blank" rel="noopener" class="overlay-btn overlay-btn-appstore"
+                                        title="View on Mac App Store">
+                                        <svg viewBox="0 0 24 24" fill="currentColor">
+                                            <path
+                                                d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.8-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z" />
+                                        </svg>
+                                        Mac App Store
+                                    </a>
+                                </div>
+                            </div>
+                            <div class="app-card-type-badge">🖥️ macOS</div>
+                        </div>
+                        <div class="app-card-body">
+                            <div class="app-card-header">
+                                <h3 class="app-card-title">12Bay macOS</h3>
+                                <div class="app-card-badges">
+                                    <span class="badge badge-blue">Catalyst</span>
+                                    <span class="badge badge-green">Production</span>
+                                </div>
+                            </div>
+                            <p class="app-card-desc">Desktop companion to the 12Bay iOS app, built using Mac Catalyst.
+                                Showcases how TTBaseUIKit's adaptive layout and ViewCodable architecture translates
+                                seamlessly from iPhone to full macOS desktop — same codebase, zero rewrites. Features
+                                flight management dashboard and agent booking tools.</p>
+                            <div class="app-card-tech">
+                                <span class="tech-tag">Swift</span>
+                                <span class="tech-tag">Mac Catalyst</span>
+                                <span class="tech-tag">Realm</span>
+                                <span class="tech-tag">Firebase</span>
+                            </div>
+                            <div class="app-card-features">
+                                <span>🔄 Mac Catalyst</span>
+                                <span>📊 Agent Dashboard</span>
+                                <span>🔗 Shared Codebase</span>
+                            </div>
+                            <div class="app-card-links">
+                                <a href="https://apps.apple.com/vn/app/12bay/id1533819030" target="_blank"
+                                    rel="noopener" class="app-link app-link-primary">
+                                    <svg viewBox="0 0 24 24" fill="currentColor" class="w-4 h-4">
+                                        <path
+                                            d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.8-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z" />
+                                    </svg>
+                                    Mac App Store
+                                </a>
+                                <a href="https://tqtuan1201.github.io/portfolio/" target="_blank" rel="noopener"
+                                    class="app-link app-link-secondary">
+                                    Portfolio →
+                                </a>
+                            </div>
+                        </div>
+                    </article>
+
+                    <!-- Aihealth -->
+                    <article class="app-card">
+                        <div class="app-card-image-wrap">
+                            <img src="https://tqtuan1201.github.io/images/image-20230717145904184.png"
+                                alt="Aihealth - Truedoc iOS — AI-powered health monitoring app"
+                                onerror="this.onerror=null;this.src='https://placehold.co/600x320/0f172a/94a3b8?text=Aihealth'">
+                            <div class="app-card-overlay">
+                                <div class="app-card-overlay-links">
+                                    <a href="https://truedoc.vn/" target="_blank" rel="noopener"
+                                        class="overlay-btn overlay-btn-web" title="Visit Site">
+                                        🌐 Website
+                                    </a>
+                                </div>
+                            </div>
+                            <div class="app-card-type-badge">🏥 Healthcare</div>
+                        </div>
+                        <div class="app-card-body">
+                            <div class="app-card-header">
+                                <h3 class="app-card-title">Aihealth - Truedoc</h3>
+                                <div class="app-card-badges">
+                                    <span class="badge badge-blue">UIKit</span>
+                                    <span class="badge badge-orange">Pre-Series A</span>
+                                    <span class="badge badge-green">Production</span>
+                                </div>
+                            </div>
+                            <p class="app-card-desc">AI-powered medical technology platform that builds a full lifetime
+                                health database for each user, connecting every person with their own doctors.
+                                AiHealth/Truedoc
+                                raised <strong>Pre-Series A from TNBA Vietnam Scout</strong> and SEA angels in 2021.
+                                Features health monitoring, proactive disease detection, AI diagnostics, medicine
+                                purchasing, appointment booking, and specialist connectivity. Built by Tuan Truong as
+                                <em>Mobile Lead</em>.
+                            </p>
+                            <div class="app-card-tech">
+                                <span class="tech-tag">Swift</span>
+                                <span class="tech-tag">MVVM</span>
+                                <span class="tech-tag">RxSwift</span>
+                                <span class="tech-tag">CI/CD</span>
+                                <span class="tech-tag">Fastlane</span>
+                                <span class="tech-tag">CallKit/VoIP</span>
+                            </div>
+                            <div class="app-card-features">
+                                <span>🤖 AI Diagnostics</span>
+                                <span>📈 Health Dashboards</span>
+                                <span>⌚ Doctor Connect</span>
+                            </div>
+                            <div class="app-card-links">
+                                <a href="https://aihealth.vn/" target="_blank" rel="noopener"
+                                    class="app-link app-link-primary">
+                                    🌐 Visit aihealth.vn
+                                </a>
+                                <a href="https://tqtuan1201.github.io/portfolio/" target="_blank" rel="noopener"
+                                    class="app-link app-link-secondary">
+                                    Portfolio →
+                                </a>
+                            </div>
+                        </div>
+                    </article>
+
+                    <!-- TMS Mobile -->
+                    <article class="app-card">
+                        <div class="app-card-image-wrap">
+                            <img src="https://tqtuan1201.github.io/images/image-20230717143822644.png"
+                                alt="TMS Mobile — Transportation Management System"
+                                onerror="this.onerror=null;this.src='https://placehold.co/600x320/0f172a/94a3b8?text=TMS+Mobile'">
+                            <div class="app-card-overlay">
+                                <div class="app-card-overlay-links">
+                                    <a href="https://vietful.vn/" target="_blank" rel="noopener"
+                                        class="overlay-btn overlay-btn-web">
+                                        🌐 Website
+                                    </a>
+                                </div>
+                            </div>
+                            <div class="app-card-type-badge">🚛 Logistics</div>
+                        </div>
+                        <div class="app-card-body">
+                            <div class="app-card-header">
+                                <h3 class="app-card-title">TMS Mobile App</h3>
+                                <div class="app-card-badges">
+                                    <span class="badge badge-blue">UIKit</span>
+                                    <span class="badge badge-green">Production</span>
+                                </div>
+                            </div>
+                            <p class="app-card-desc">Enterprise-grade transportation management system connecting TPL
+                                providers for retailers with real-time, end-to-end visibility of shipments. App allows
+                                users to track shipments, upload documents, and access dynamic route optimization. Tuan
+                                Truong led all mobile development as <em>Mobile Lead</em>, managing cross-functional
+                                teams and architecting both iOS and Android solutions.</p>
+                            <div class="app-card-tech">
+                                <span class="tech-tag">Swift</span>
+                                <span class="tech-tag">VIPER</span>
+                                <span class="tech-tag">RxSwift</span>
+                                <span class="tech-tag">CI/CD</span>
+                                <span class="tech-tag">GitLab</span>
+                            </div>
+                            <div class="app-card-features">
+                                <span>🗺️ Real-time GPS</span>
+                                <span>🚦 Route Optimizer</span>
+                                <span>🚚 Fleet Manager</span>
+                            </div>
+                            <div class="app-card-links">
+                                <a href="https://vietful.vn/" target="_blank" rel="noopener"
+                                    class="app-link app-link-primary">
+                                    🌐 Visit vietful.vn
+                                </a>
+                                <a href="https://tqtuan1201.github.io/portfolio/" target="_blank" rel="noopener"
+                                    class="app-link app-link-secondary">
+                                    Portfolio →
+                                </a>
+                            </div>
+                        </div>
+                    </article>
+
+                    <!-- AiDoctor -->
+                    <article class="app-card">
+                        <div class="app-card-image-wrap">
+                            <img src="https://tqtuan1201.github.io/images/image-20220627161510919.png"
+                                alt="AiDoctor — Telemedicine App for Doctors"
+                                onerror="this.onerror=null;this.src='https://placehold.co/600x320/0f172a/94a3b8?text=AiDoctor'">
+                            <div class="app-card-overlay">
+                                <div class="app-card-overlay-links">
+                                    <a href="https://apps.apple.com/us/app/ai-doctor/id1503503564" target="_blank"
+                                        rel="noopener" class="overlay-btn overlay-btn-appstore">
+                                        <svg viewBox="0 0 24 24" fill="currentColor">
+                                            <path
+                                                d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.8-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z" />
+                                        </svg>
+                                        App Store
+                                    </a>
+                                </div>
+                            </div>
+                            <div class="app-card-type-badge">⚕️ Telemedicine</div>
+                        </div>
+                        <div class="app-card-body">
+                            <div class="app-card-header">
+                                <h3 class="app-card-title">AiDoctor</h3>
+                                <div class="app-card-badges">
+                                    <span class="badge badge-blue">UIKit</span>
+                                    <span class="badge badge-green">Production</span>
+                                </div>
+                            </div>
+                            <p class="app-card-desc">Doctor-facing telemedicine app for the AiHealth ecosystem. Doctors
+                                can easily connect with, consult, and support patients through chat &amp; video call
+                                features, answer health questions, make recommendations, and check consultation
+                                appointment status. Demonstrates TTBaseUIKit's real-time communication and CallKit
+                                integration capabilities.</p>
+                            <div class="app-card-tech">
+                                <span class="tech-tag">Swift</span>
+                                <span class="tech-tag">MVVM</span>
+                                <span class="tech-tag">CallKit/VoIP</span>
+                                <span class="tech-tag">Stringee</span>
+                                <span class="tech-tag">CI/CD</span>
+                            </div>
+                            <div class="app-card-features">
+                                <span>📹 Video Consult</span>
+                                <span>💊 e-Prescription</span>
+                                <span>📋 Health Records</span>
+                            </div>
+                            <div class="app-card-links">
+                                <a href="https://apps.apple.com/us/app/ai-doctor/id1503503564" target="_blank"
+                                    rel="noopener" class="app-link app-link-primary">
+                                    <svg viewBox="0 0 24 24" fill="currentColor" class="w-4 h-4">
+                                        <path
+                                            d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.8-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z" />
+                                    </svg>
+                                    App Store
+                                </a>
+                                <a href="https://tqtuan1201.github.io/portfolio/" target="_blank" rel="noopener"
+                                    class="app-link app-link-secondary">
+                                    Portfolio →
+                                </a>
+                            </div>
+                        </div>
+                    </article>
+
+                    <!-- AiPharmacy -->
+                    <article class="app-card">
+                        <div class="app-card-image-wrap">
+                            <img src="https://tqtuan1201.github.io/images/image-20220711140459705.png"
+                                alt="AiPharmacy — Partner Pharmacy App"
+                                onerror="this.onerror=null;this.src='https://placehold.co/600x320/0f172a/94a3b8?text=AiPharmacy'">
+                            <div class="app-card-overlay">
+                                <div class="app-card-overlay-links">
+                                    <a href="https://apps.apple.com/us/app/ai-pharmacy/id1493152831" target="_blank"
+                                        rel="noopener" class="overlay-btn overlay-btn-appstore">
+                                        <svg viewBox="0 0 24 24" fill="currentColor">
+                                            <path
+                                                d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.8-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z" />
+                                        </svg>
+                                        App Store
+                                    </a>
+                                </div>
+                            </div>
+                            <div class="app-card-type-badge">💊 Pharmacy</div>
+                        </div>
+                        <div class="app-card-body">
+                            <div class="app-card-header">
+                                <h3 class="app-card-title">AiPharmacy</h3>
+                                <div class="app-card-badges">
+                                    <span class="badge badge-blue">UIKit</span>
+                                    <span class="badge badge-green">Production</span>
+                                </div>
+                            </div>
+                            <p class="app-card-desc">Partner pharmacy management app for the AiHealth ecosystem.
+                                Pharmacies can easily manage order information, track order status, and view monthly
+                                income statements. A lightweight but feature-complete business operations tool built
+                                with TTBaseUIKit's rapid development patterns.</p>
+                            <div class="app-card-tech">
+                                <span class="tech-tag">Swift</span>
+                                <span class="tech-tag">MVVM</span>
+                                <span class="tech-tag">Firebase</span>
+                                <span class="tech-tag">CI/CD</span>
+                            </div>
+                            <div class="app-card-features">
+                                <span>📦 Order Management</span>
+                                <span>📊 Income Reports</span>
+                                <span>🔔 Status Tracking</span>
+                            </div>
+                            <div class="app-card-links">
+                                <a href="https://apps.apple.com/us/app/ai-pharmacy/id1493152831" target="_blank"
+                                    rel="noopener" class="app-link app-link-primary">
+                                    <svg viewBox="0 0 24 24" fill="currentColor" class="w-4 h-4">
+                                        <path
+                                            d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.8-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z" />
+                                    </svg>
+                                    App Store
+                                </a>
+                                <a href="https://tqtuan1201.github.io/portfolio/" target="_blank" rel="noopener"
+                                    class="app-link app-link-secondary">
+                                    Portfolio →
+                                </a>
+                            </div>
+                        </div>
+                    </article>
+
+                    <!-- AiNurse -->
+                    <article class="app-card">
+                        <div class="app-card-image-wrap">
+                            <img src="https://tqtuan1201.github.io/images/image-20220711141457428.png"
+                                alt="AiNurse — Nurse Support & Appointment App"
+                                onerror="this.onerror=null;this.src='https://placehold.co/600x320/0f172a/94a3b8?text=AiNurse'">
+                            <div class="app-card-overlay">
+                                <div class="app-card-overlay-links">
+                                    <a href="https://apps.apple.com/us/app/ai-nurse/id1489538213" target="_blank"
+                                        rel="noopener" class="overlay-btn overlay-btn-appstore">
+                                        <svg viewBox="0 0 24 24" fill="currentColor">
+                                            <path
+                                                d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.8-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z" />
+                                        </svg>
+                                        App Store
+                                    </a>
+                                </div>
+                            </div>
+                            <div class="app-card-type-badge">🏥 Nursing</div>
+                        </div>
+                        <div class="app-card-body">
+                            <div class="app-card-header">
+                                <h3 class="app-card-title">AiNurse</h3>
+                                <div class="app-card-badges">
+                                    <span class="badge badge-blue">UIKit</span>
+                                    <span class="badge badge-green">Production</span>
+                                </div>
+                            </div>
+                            <p class="app-card-desc">Support tool app for nurses in the AiHealth ecosystem. Features new
+                                appointment statistics, directions &amp; customer contact support, appointment status
+                                checking, and income management optimization. Designed to streamline the daily workflow
+                                of healthcare professionals with TTBaseUIKit's efficient data-display components.</p>
+                            <div class="app-card-tech">
+                                <span class="tech-tag">Swift</span>
+                                <span class="tech-tag">MVVM</span>
+                                <span class="tech-tag">Firebase</span>
+                                <span class="tech-tag">CI/CD</span>
+                            </div>
+                            <div class="app-card-features">
+                                <span>📅 Daily Appointments</span>
+                                <span>📍 Navigation Support</span>
+                                <span>💰 Income Tracking</span>
+                            </div>
+                            <div class="app-card-links">
+                                <a href="https://apps.apple.com/us/app/ai-nurse/id1489538213" target="_blank"
+                                    rel="noopener" class="app-link app-link-primary">
+                                    <svg viewBox="0 0 24 24" fill="currentColor" class="w-4 h-4">
+                                        <path
+                                            d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.8-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z" />
+                                    </svg>
+                                    App Store
+                                </a>
+                                <a href="https://tqtuan1201.github.io/portfolio/" target="_blank" rel="noopener"
+                                    class="app-link app-link-secondary">
+                                    Portfolio →
+                                </a>
+                            </div>
+                        </div>
+                    </article>
+
+                    <!-- WECARE 247 -->
+                    <article class="app-card">
+                        <div class="app-card-image-wrap">
+                            <img src="https://tqtuan1201.github.io/images/image-20220711142551360.png"
+                                alt="WECARE 247 — 24/7 Care Management App"
+                                onerror="this.onerror=null;this.src='https://placehold.co/600x320/0f172a/94a3b8?text=WECARE+247'">
+                            <div class="app-card-overlay">
+                                <div class="app-card-overlay-links">
+                                    <a href="https://wecare247.com.vn/" target="_blank" rel="noopener"
+                                        class="overlay-btn overlay-btn-web">
+                                        🌐 Website
+                                    </a>
+                                </div>
+                            </div>
+                            <div class="app-card-type-badge">🫶 Care</div>
+                        </div>
+                        <div class="app-card-body">
+                            <div class="app-card-header">
+                                <h3 class="app-card-title">WECARE 247</h3>
+                                <div class="app-card-badges">
+                                    <span class="badge badge-blue">UIKit</span>
+                                    <span class="badge badge-purple">SwiftUI</span>
+                                    <span class="badge badge-green">Production</span>
+                                </div>
+                            </div>
+                            <p class="app-card-desc">Smart care management platform connecting customers who need health
+                                care support with professional Caregivers/Nurses. Easy service booking, full service
+                                detail viewing with evaluations, multi-party monitoring dashboards, SOS emergency
+                                alerts, and medication scheduling — built with both UIKit and SwiftUI components from
+                                TTBaseUIKit.</p>
+                            <div class="app-card-tech">
+                                <span class="tech-tag">Swift</span>
+                                <span class="tech-tag">MVVM</span>
+                                <span class="tech-tag">Firebase</span>
+                                <span class="tech-tag">SwiftUI</span>
+                            </div>
+                            <div class="app-card-features">
+                                <span>🆘 SOS Alerts</span>
+                                <span>💊 Med Scheduler</span>
+                                <span>👨‍👩‍👧 Family Connect</span>
+                            </div>
+                            <div class="app-card-links">
+                                <a href="https://wecare247.com.vn/" target="_blank" rel="noopener"
+                                    class="app-link app-link-primary">
+                                    🌐 Visit wecare247.com.vn
+                                </a>
+                                <a href="https://tqtuan1201.github.io/portfolio/" target="_blank" rel="noopener"
+                                    class="app-link app-link-secondary">
+                                    Portfolio →
+                                </a>
+                            </div>
+                        </div>
+                    </article>
+
+                    <!-- Phu Viec Nhanh - Customer -->
+                    <article class="app-card">
+                        <div class="app-card-image-wrap">
+                            <img src="https://tqtuan1201.github.io/images/image-20220711144357566.png"
+                                alt="Phụ Việc Nhanh - Customer App"
+                                onerror="this.onerror=null;this.src='https://placehold.co/600x320/0f172a/94a3b8?text=Phu+Viec+Nhanh'">
+                            <div class="app-card-overlay">
+                                <div class="app-card-overlay-links">
+                                    <a href="https://phuviecnhanh.vn/gioi-thieu/" target="_blank" rel="noopener"
+                                        class="overlay-btn overlay-btn-web">
+                                        🌐 Website
+                                    </a>
+                                </div>
+                            </div>
+                            <div class="app-card-type-badge">🏠 Home Services</div>
+                        </div>
+                        <div class="app-card-body">
+                            <div class="app-card-header">
+                                <h3 class="app-card-title">Phụ Việc Nhanh</h3>
+                                <div class="app-card-badges">
+                                    <span class="badge badge-blue">UIKit</span>
+                                    <span class="badge badge-gray">2020–2022</span>
+                                </div>
+                            </div>
+                            <p class="app-card-desc">Technology platform providing hourly domestic help &amp; home
+                                services for customers across Vietnam. Quick Assistant helps customers easily find
+                                seasonal employees, contributing to quickly solving staffing needs. Two companion apps
+                                (customer + staff partner) using the same TTBaseUIKit architecture. Built as Manager of
+                                iOS Applications.</p>
+                            <div class="app-card-tech">
+                                <span class="tech-tag">Swift</span>
+                                <span class="tech-tag">MVVM</span>
+                                <span class="tech-tag">Firebase</span>
+                                <span class="tech-tag">Realm</span>
+                                <span class="tech-tag">CI/CD</span>
+                            </div>
+                            <div class="app-card-features">
+                                <span>🔍 Find Services</span>
+                                <span>📅 Book Online</span>
+                                <span>⭐ Reviews</span>
+                            </div>
+                            <div class="app-card-links">
+                                <a href="https://phuviecnhanh.vn/gioi-thieu/" target="_blank" rel="noopener"
+                                    class="app-link app-link-primary">
+                                    🌐 Visit Site
+                                </a>
+                                <a href="https://tqtuan1201.github.io/portfolio/" target="_blank" rel="noopener"
+                                    class="app-link app-link-secondary">
+                                    Portfolio →
+                                </a>
+                            </div>
+                        </div>
+                    </article>
+
+                    <!-- Smart Warranty -->
+                    <article class="app-card">
+                        <div class="app-card-image-wrap">
+                            <img src="https://tqtuan1201.github.io/images/image-20230718113059405.png"
+                                alt="Smart Warranty — Warranty Management App"
+                                onerror="this.onerror=null;this.src='https://placehold.co/600x320/0f172a/94a3b8?text=Smart+Warranty'">
+                            <div class="app-card-overlay">
+                                <div class="app-card-overlay-links">
+                                    <a href="https://tqtuan1201.github.io/portfolio/" target="_blank" rel="noopener"
+                                        class="overlay-btn overlay-btn-web">
+                                        🌐 Portfolio
+                                    </a>
+                                </div>
+                            </div>
+                            <div class="app-card-type-badge">🛡️ Warranty</div>
+                        </div>
+                        <div class="app-card-body">
+                            <div class="app-card-header">
+                                <h3 class="app-card-title">Smart Warranty</h3>
+                                <div class="app-card-badges">
+                                    <span class="badge badge-blue">UIKit</span>
+                                    <span class="badge badge-green">Production</span>
+                                </div>
+                            </div>
+                            <p class="app-card-desc">Innovative warranty management app for consumers and businesses.
+                                Users can scan &amp; store warranty receipts, access a centralized warranty database,
+                                and receive smart alerts before warranties expire. Built with VIPER architecture using
+                                RxSwift, Fastlane CI/CD, and TTBaseUIKit for all UI components.</p>
+                            <div class="app-card-tech">
+                                <span class="tech-tag">Swift</span>
+                                <span class="tech-tag">VIPER</span>
+                                <span class="tech-tag">RxSwift</span>
+                                <span class="tech-tag">Realm</span>
+                                <span class="tech-tag">Fastlane</span>
+                            </div>
+                            <div class="app-card-features">
+                                <span>📱 Scan &amp; Store</span>
+                                <span>🔔 Expiry Alerts</span>
+                                <span>📁 Centralized DB</span>
+                            </div>
+                            <div class="app-card-links">
+                                <a href="https://tqtuan1201.github.io/portfolio/" target="_blank" rel="noopener"
+                                    class="app-link app-link-secondary">
+                                    View Portfolio →
+                                </a>
+                            </div>
+                        </div>
+                    </article>
+
+                    <!-- Contacts Plus -->
+                    <article class="app-card">
+                        <div class="app-card-image-wrap">
+                            <img src="https://tqtuan1201.github.io/images/image-20220711170829613.png"
+                                alt="Contacts Plus — Contact Manager for iPhone"
+                                onerror="this.onerror=null;this.src='https://placehold.co/600x320/0f172a/94a3b8?text=Contacts+Plus'">
+                            <div class="app-card-overlay">
+                                <div class="app-card-overlay-links">
+                                    <a href="https://apps.apple.com/us/app/pc-management/id1486419869" target="_blank"
+                                        rel="noopener" class="overlay-btn overlay-btn-appstore">
+                                        <svg viewBox="0 0 24 24" fill="currentColor">
+                                            <path
+                                                d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.8-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z" />
+                                        </svg>
+                                        App Store
+                                    </a>
+                                </div>
+                            </div>
+                            <div class="app-card-type-badge">👤 Productivity</div>
+                        </div>
+                        <div class="app-card-body">
+                            <div class="app-card-header">
+                                <h3 class="app-card-title">Contacts Plus</h3>
+                                <div class="app-card-badges">
+                                    <span class="badge badge-blue">UIKit</span>
+                                    <span class="badge badge-green">Production</span>
+                                </div>
+                            </div>
+                            <p class="app-card-desc">Free, fast &amp; beautiful contact manager for iPhone. The most
+                                convenient way to organize contacts of your address book into groups. Helps manage
+                                personal and professional contacts effectively. A personal project by Tuan Truong
+                                showcasing TTBaseUIKit's clean list UI and contact management patterns built since 2016.
+                            </p>
+                            <div class="app-card-tech">
+                                <span class="tech-tag">Swift</span>
+                                <span class="tech-tag">MVVM</span>
+                                <span class="tech-tag">RxSwift</span>
+                                <span class="tech-tag">Firebase</span>
+                            </div>
+                            <div class="app-card-features">
+                                <span>📇 Group Contacts</span>
+                                <span>🔍 Smart Search</span>
+                                <span>📱 Beautiful UI</span>
+                            </div>
+                            <div class="app-card-links">
+                                <a href="https://apps.apple.com/us/app/pc-management/id1486419869" target="_blank"
+                                    rel="noopener" class="app-link app-link-primary">
+                                    <svg viewBox="0 0 24 24" fill="currentColor" class="w-4 h-4">
+                                        <path
+                                            d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.8-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z" />
+                                    </svg>
+                                    App Store
+                                </a>
+                                <a href="https://tqtuan1201.github.io/portfolio/" target="_blank" rel="noopener"
+                                    class="app-link app-link-secondary">
+                                    Portfolio →
+                                </a>
+                            </div>
+                        </div>
+                    </article>
+
+                </div>
+
+                <!-- Framework in Action -->
+                <section class="mt-20">
+                    <div class="section-header">
+                        <h2>🎬 Framework in Action</h2>
+                        <p>See the built-in UI debugging tools, component showcase, and real-time layout inspection that
+                            ship with TTBaseUIKit.</p>
+                    </div>
+
+                    <div class="demo-grid">
+                        <div class="demo-item">
+                            <div class="demo-image-wrap">
+                                <img src="https://tqtuan1201.github.io/images/ttbaseuikit_compress_2.gif"
+                                    alt="TTBaseUIKit Component Showcase & Navigation Demo" class="demo-image">
+                            </div>
+                            <div class="demo-caption">
+                                <span class="demo-caption-icon">🧱</span>
+                                <div>
+                                    <strong>Component Showcase</strong>
+                                    <p>Full navigation flow &amp; component library demo across UIKit and SwiftUI</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="demo-item">
+                            <div class="demo-image-wrap">
+                                <img src="https://tqtuan1201.github.io/images/TTBaseUIKit-DebugKit.gif"
+                                    alt="TTBaseUIKit Built-in UI Debug Kit" class="demo-image">
+                            </div>
+                            <div class="demo-caption">
+                                <span class="demo-caption-icon">🛠️</span>
+                                <div>
+                                    <strong>Built-in UI Debug Kit</strong>
+                                    <p>Real-time layout inspector, API viewer, and screen capture tools</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Articles Section -->
+                <section class="mt-20">
+                    <div class="section-header">
+                        <h2>📰 Articles &amp; Write-ups</h2>
+                        <p>Learn how TTBaseUIKit was built and how teams use it in production from the author's blog.
+                        </p>
+                    </div>
+                    <div class="articles-grid">
+                        <a href="https://tqtuan1201.github.io/" target="_blank" rel="noopener" class="article-card">
+                            <div class="article-card-icon">✍️</div>
+                            <div class="article-card-body">
+                                <h4>Author's Blog &amp; Portfolio</h4>
+                                <p>Explore in-depth posts on iOS architecture, TTBaseUIKit internals, and production
+                                    development patterns — written by the framework author.</p>
+                                <span class="article-card-link">Read posts → tqtuan1201.github.io</span>
+                            </div>
+                        </a>
+                        <a href="https://github.com/tqtuan1201/TTBaseUIKit" target="_blank" rel="noopener"
+                            class="article-card">
+                            <div class="article-card-icon">⭐</div>
+                            <div class="article-card-body">
+                                <h4>GitHub Repository</h4>
+                                <p>Source code, release notes, issues, and the full commit history of TTBaseUIKit. Star
+                                    the repo to stay updated on new releases and features.</p>
+                                <span class="article-card-link">github.com/tqtuan1201/TTBaseUIKit →</span>
+                            </div>
+                        </a>
+                        <a href="https://tqtuan1201.github.io/posts/job/cv/ourteam/" target="_blank" rel="noopener"
+                            class="article-card">
+                            <div class="article-card-icon">👥</div>
+                            <div class="article-card-body">
+                                <h4>Meet the Team</h4>
+                                <p>The engineering team behind TTBaseUIKit and the production applications showcased
+                                    above. Learn about our tech stack, culture, and approach.</p>
+                                <span class="article-card-link">Meet our team →</span>
+                            </div>
+                        </a>
+                        <a href="https://tqtuan1201.github.io/posts/my-paper-disease-prediction/" target="_blank"
+                            rel="noopener" class="article-card">
+                            <div class="article-card-icon">🔬</div>
+                            <div class="article-card-body">
+                                <h4>Research Paper — ACIIDS 2022</h4>
+                                <p>Predictive Modelling of Diseases Based on a Network and Machine Learning Approach.
+                                    Published by the author at ACIIDS 2022 conference.</p>
+                                <span class="article-card-link">Read paper →</span>
+                            </div>
+                        </a>
+                    </div>
+                </section>
+
+                <!-- Submit App CTA -->
+                <div class="submit-cta mt-16">
+                    <div class="submit-cta-inner">
+                        <span class="submit-cta-emoji">🎉</span>
+                        <h2>Built Something with TTBaseUIKit?</h2>
+                        <p>We'd love to feature your app! Share your project with the community and inspire other iOS
+                            developers.</p>
+                        <div class="submit-cta-actions">
+                            <a href="https://github.com/tqtuan1201/TTBaseUIKit/issues/new?title=App+Showcase+Submission&labels=showcase"
+                                target="_blank" rel="noopener" class="cta-btn cta-btn-primary">
+                                Submit Your App →
+                            </a>
+                            <a href="https://tqtuan1201.github.io/portfolio/" target="_blank" rel="noopener"
+                                class="cta-btn cta-btn-secondary">
+                                View Full Portfolio
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </main>
+    </div>
+
+    <div id="site-footer"></div>
+    <script src="js/main.js"></script>
+    <script src="js/components.js"></script>
+    <script src="js/search.js"></script>
+</body>
+
+</html>

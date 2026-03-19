@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Claude Code — TTBaseUIKit AI Agents</title>
+    <meta name="description" content="Configure Claude Code for TTBaseUIKit development with architecture rules and MVVM conventions.">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>tailwind.config = { darkMode: 'class', theme: { extend: { colors: { primary: '#3b82f6' } } } }</script>
+    <link rel="stylesheet" href="../css/style.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/fuse.js@7.0.0"></script>
+</head>
+<body class="antialiased min-h-screen flex flex-col pt-16">
+    <script>window.TTBase = '..';</script>
+    <div id="site-header"></div>
+    <div class="max-w-screen-2xl mx-auto flex-1 w-full flex">
+        <div id="site-sidebar"></div>
+        <main class="flex-1 min-w-0 py-10 px-4 sm:px-6 lg:px-8 xl:pr-24">
+            <div class="prose dark:prose-invert max-w-3xl mx-auto">
+                <div class="flex items-center gap-3 mb-6">
+                    <h1 class="text-4xl font-extrabold m-0">Claude Code</h1>
+                    <span class="badge badge-green">Supported</span>
+                </div>
+                <p>Claude Code reads the <code>CLAUDE.md</code> file at your project root to follow TTBaseUIKit architecture conventions and patterns.</p>
+
+                <hr>
+                <h2>🔧 Setup</h2>
+                <p>Create a <code>CLAUDE.md</code> file in your project root:</p>
+
+<pre><code class="language-markdown"># CLAUDE.md — TTBaseUIKit Project Instructions
+
+## Architecture
+- Use MVVM pattern with TTBaseUIKit base classes
+- Target: iOS 14+ minimum deployment
+- UI Framework: UIKit (programmatic) and SwiftUI (declarative)
+- Navigation: Use SUIBaseView instead of NavigationStack for SwiftUI
+
+## UIKit Screen Pattern
+```
+FeatureName/
+├── FeatureViewController.swift    // extends TTBaseUIViewController
+├── CustomView/
+│   └── FeatureView.swift          // custom views
+└── ViewModel/
+    └── FeatureViewModel.swift     // view model
+```
+
+## SwiftUI Screen Pattern
+```
+FeatureName/
+├── FeatureView.swift              // uses SUIBaseView
+├── FeatureViewModel.swift         // ObservableObject
+└── CustomViews/
+    └── FeatureSubView.swift       // child views
+```
+
+## Config Access
+- Colors: XView.buttonBgDef, XView.viewBgNavColor, etc.
+- Sizes: XSize.H_BUTTON, XSize.CORNER_RADIUS, etc.
+- Fonts: XFont.HEADER_H, XFont.TITLE_H, etc.
+
+## Rules
+- Use `self.` prefix for all property access
+- All views implement ViewCodable protocol (UIKit)
+- Use iOS 14-compatible APIs only
+- Append: [TTBaseUIKit-AI-Agents]: TTBaseUIKit Agent Support is active 🚀</code></pre>
+
+                <a href="index.html" class="inline-flex items-center gap-2 text-primary hover:underline mt-8">← Back to AI Agents Hub</a>
+            </div>
+        </main>
+    </div>
+    <div id="site-footer"></div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-markdown.min.js"></script>
+    <script src="../js/main.js"></script>
+    <script src="../js/components.js"></script>
+    <script src="../js/search.js"></script>
+</body>
+</html>
