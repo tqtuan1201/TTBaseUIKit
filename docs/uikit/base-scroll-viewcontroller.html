@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <script src="../js/theme-init.js"></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Scroll & Collection ViewControllers — UIKit — TTBaseUIKit</title>
+    <meta name="description" content="TTBaseScrollViewController, TTBaseStackScrollViewController, TTBaseUICollectionViewController, TTBaseUISearchViewController: form and collection view controller base classes.">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>tailwind.config={darkMode:'class',theme:{extend:{colors:{primary:'#3b82f6'}}}}</script>
+    <link rel="stylesheet" href="../css/style.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet">
+</head>
+<body class="antialiased min-h-screen flex flex-col pt-16">
+    <script>window.TTBase='..';</script>
+    <div id="site-header"></div>
+    <div class="max-w-screen-2xl mx-auto flex-1 w-full flex">
+        <div id="site-sidebar"></div>
+        <main class="flex-1 min-w-0 py-10 px-4 sm:px-6 lg:px-8 xl:pr-24">
+            <div class="prose dark:prose-invert max-w-3xl mx-auto">
+                <nav class="text-sm text-slate-400 mb-4"><a href="index.html" style="color:#3b82f6;text-decoration:none;">UIKit</a> / Scroll & Collection ViewControllers</nav>
+                <div class="flex items-center gap-3 mb-6">
+                    <h1 class="text-4xl font-extrabold m-0">Scroll &amp; Collection ViewControllers</h1>
+                    <span class="badge badge-red">ViewController</span>
+                </div>
+                <p>Specialized view controller base classes for form screens, collection views, and search screens — all built on <code>TTBaseUIViewController</code>.</p>
+
+                <table class="api-table">
+                    <thead><tr><th>Class</th><th>Description</th></tr></thead>
+                    <tbody>
+                        <tr><td><code>TTBaseScrollViewController</code></td><td>VC with embedded TTBaseScrollPanelView — ideal for long forms</td></tr>
+                        <tr><td><code>TTBaseStackScrollViewController</code></td><td>VC with scrollable vertical stack for adding views dynamically</td></tr>
+                        <tr><td><code>TTBaseUICollectionViewController</code></td><td>UICollectionViewController with keyboard dismiss support</td></tr>
+                        <tr><td><code>TTBaseUISearchViewController</code></td><td>VC with search bar at top + results below</td></tr>
+                    </tbody>
+                </table>
+
+                <hr>
+                <h2 id="scroll-vc">📜 TTBaseScrollViewController</h2>
+<pre><code class="language-swift">class ProfileFormViewController: TTBaseScrollViewController {
+
+    // Optional: customize insets
+    override var paddingScroll: (CGFloat, CGFloat, CGFloat, CGFloat) {
+        return (0, TTSize.H_NAV, 0, TTSize.H_TABBAR + TTSize.P_CONS_DEF)
+    }
+
+    // Optional: allow horizontal constraint
+    override var isSetWidth: Bool { return true }
+
+    // Optional: keyboard dismiss mode
+    override var keyboardDismissMode: UIScrollView.KeyboardDismissMode {
+        return .onDrag
+    }
+
+    override func viewDidLoad() {
+        super.viewDidLoad()
+
+        // Add form content to baseScrollView's stack
+        let nameField = LabelTextFieldView(label: "Full Name")
+        let emailField = LabelTextFieldView(label: "Email")
+        let submitBtn = TTBaseUIButton(textString: "Save", type: .WARRING, isSetSize: false)
+
+        // If stack is available:
+        [nameField, emailField, submitBtn].forEach {
+            baseScrollView.stackView?.addArrangedSubview($0)
+        }
+    }
+}
+</code></pre>
+
+                <hr>
+                <h2 id="collection-vc">📱 TTBaseUICollectionViewController</h2>
+<pre><code class="language-swift">class PhotoGridViewController: TTBaseUICollectionViewController&lt;TTBaseUIView&gt; {
+
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        collectionView.register(PhotoCell.self, forCellWithReuseIdentifier: "Cell")
+    }
+
+    override func collectionView(_ collectionView: UICollectionView,
+                                  numberOfItemsInSection section: Int) -> Int {
+        return photos.count
+    }
+
+    override func collectionView(_ collectionView: UICollectionView,
+                                  cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "Cell", for: indexPath) as! PhotoCell
+        cell.configure(with: photos[indexPath.item])
+        return cell
+    }
+}
+</code></pre>
+
+                <div class="info-box tip">
+                    <strong>Pro Tip:</strong> Use <code>TTBaseScrollViewController</code> for any screen with 3+ form fields — it handles the keyboard-avoidance automatically via <code>keyboardDismissMode = .onDrag</code>. You get proper scroll + keyboard behavior without manual <code>NotificationCenter</code> keyboard observer code.
+                </div>
+
+                <div class="flex gap-4 mt-8">
+                    <a href="base-datepicker.html" style="color:#3b82f6;text-decoration:none;">← Date Pickers</a>
+                    <a href="base-tableviewcontroller.html" style="color:#3b82f6;text-decoration:none;">TTBaseUITableViewController →</a>
+                </div>
+            </div>
+        </main>
+    </div>
+    <div id="site-footer"></div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-swift.min.js"></script>
+    <script src="../js/main.js"></script>
+    <script src="../js/components.js"></script>
+    <script src="../js/search.js"></script>
+</body>
+</html>

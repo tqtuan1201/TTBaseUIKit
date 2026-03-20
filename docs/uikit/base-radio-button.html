@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <script src="../js/theme-init.js"></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TTBaseRadioButtonView — UIKit Components — TTBaseUIKit</title>
+    <meta name="description" content="TTBaseRadioButtonView: icon + label radio button with active/inactive states using AwesomePro icons and configurable colors.">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>tailwind.config={darkMode:'class',theme:{extend:{colors:{primary:'#3b82f6'}}}}</script>
+    <link rel="stylesheet" href="../css/style.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/fuse.js@7.0.0"></script>
+</head>
+<body class="antialiased min-h-screen flex flex-col pt-16">
+    <script>window.TTBase='..';</script>
+    <div id="site-header"></div>
+    <div class="max-w-screen-2xl mx-auto flex-1 w-full flex">
+        <div id="site-sidebar"></div>
+        <main class="flex-1 min-w-0 py-10 px-4 sm:px-6 lg:px-8 xl:pr-24">
+            <div class="prose dark:prose-invert max-w-3xl mx-auto">
+                <nav class="text-sm text-slate-400 mb-4"><a href="index.html" style="color:#3b82f6;text-decoration:none;">UIKit</a> / TTBaseRadioButtonView</nav>
+                <div class="flex items-center gap-3 mb-6">
+                    <h1 class="text-4xl font-extrabold m-0">TTBaseRadioButtonView</h1>
+                    <span class="badge badge-purple">Input</span>
+                </div>
+                <p>Icon + label radio button built on <code>TTIconLabelView</code>. Supports active/inactive states with configurable AwesomePro icons and colors. Default icons are <code>.checkCircle</code> (active) and <code>.circle</code> (inactive). Both icon and label color change together on state toggle.</p>
+
+                <hr>
+                <h2 id="usage">🚀 Usage</h2>
+
+                <h3>Simple Radio Button</h3>
+<pre><code class="language-swift">// Active by default
+let acceptOption = TTBaseRadioButtonView(isActive: true)
+acceptOption.setText(textString: "I agree to terms")
+
+// Inactive by default
+let rejectOption = TTBaseRadioButtonView(isActive: false)
+rejectOption.setText(textString: "I disagree")
+</code></pre>
+
+                <h3>Custom Colors</h3>
+<pre><code class="language-swift">let premiumOption = TTBaseRadioButtonView(
+    isActive: false,
+    activeColor: .systemPurple,
+    nonActiveColor: .systemGray
+)
+premiumOption.setText(textString: "Premium Plan")
+premiumOption.setOnTouchHandler { view in
+    premiumOption.setActive()
+    freeOption.setNonActive()
+}
+</code></pre>
+
+                <h3>Custom Icons (AwesomePro)</h3>
+<pre><code class="language-swift">let starOption = TTBaseRadioButtonView(
+    isActive: false,
+    activeIcon: .starFill,
+    activeColor: .systemYellow,
+    nonActiveIcon: .star,
+    nonActiveColor: .systemGray
+)
+starOption.setText(textString: "Star Plan")
+</code></pre>
+
+                <h3>Radio Group Pattern</h3>
+<pre><code class="language-swift">// Create mutually exclusive group
+let options: [(TTBaseRadioButtonView, String)] = [
+    (TTBaseRadioButtonView(isActive: true), "Weekly"),
+    (TTBaseRadioButtonView(isActive: false), "Monthly"),
+    (TTBaseRadioButtonView(isActive: false), "Yearly"),
+]
+
+options.enumerated().forEach { i, (btn, title) in
+    btn.setText(textString: title)
+    btn.setOnTouchHandler { _ in
+        options.forEach { $0.0.setNonActive() }  // deselect all
+        btn.setActive()                           // select tapped
+        selectedPlan = i
+    }
+    stackView.addArrangedSubview(btn)
+}
+</code></pre>
+
+                <hr>
+                <h2 id="api">📖 API Reference</h2>
+                <table class="api-table">
+                    <thead><tr><th>Method</th><th>Description</th></tr></thead>
+                    <tbody>
+                        <tr><td><code>setText(textString:)</code></td><td>Set the label text</td></tr>
+                        <tr><td><code>setActive()</code></td><td>Switch to active state (checkmark icon + activeColor)</td></tr>
+                        <tr><td><code>setNonActive()</code></td><td>Switch to inactive state (circle icon + nonActiveColor)</td></tr>
+                        <tr><td><code>iconImageView</code></td><td>Direct access to the AwesomePro icon image view</td></tr>
+                        <tr><td><code>textLabel</code></td><td>Direct access to the label (inherited from TTIconLabelView)</td></tr>
+                    </tbody>
+                </table>
+
+                <div class="info-box tip">
+                    <strong>Pro Tip:</strong> Call <code>setOnTouchHandler</code> (inherited from TTIconLabelView) to wire up a tap callback for each radio option. In the handler, deselect all others then call <code>setActive()</code> on the tapped button to simulate a radio group.
+                </div>
+
+                <div class="flex gap-4 mt-8">
+                    <a href="base-password-textfield.html" style="color:#3b82f6;text-decoration:none;">← Password TextField</a>
+                    <a href="base-badge.html" style="color:#3b82f6;text-decoration:none;">Badge Views →</a>
+                </div>
+            </div>
+        </main>
+    </div>
+    <div id="site-footer"></div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-swift.min.js"></script>
+    <script src="../js/main.js"></script>
+    <script src="../js/components.js"></script>
+    <script src="../js/search.js"></script>
+</body>
+</html>

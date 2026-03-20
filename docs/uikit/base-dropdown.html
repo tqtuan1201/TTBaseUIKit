@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <script src="../js/theme-init.js"></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TTDropdownCustomView — UIKit — TTBaseUIKit</title>
+    <meta name="description" content="TTDropdownCustomView: a label+chevron dropdown trigger. Two types: DEFAULT and PADDING. Tap to show custom picker.">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>tailwind.config={darkMode:'class',theme:{extend:{colors:{primary:'#3b82f6'}}}}</script>
+    <link rel="stylesheet" href="../css/style.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet">
+</head>
+<body class="antialiased min-h-screen flex flex-col pt-16">
+    <script>window.TTBase='..';</script>
+    <div id="site-header"></div>
+    <div class="max-w-screen-2xl mx-auto flex-1 w-full flex">
+        <div id="site-sidebar"></div>
+        <main class="flex-1 min-w-0 py-10 px-4 sm:px-6 lg:px-8 xl:pr-24">
+            <div class="prose dark:prose-invert max-w-3xl mx-auto">
+                <nav class="text-sm text-slate-400 mb-4"><a href="index.html" style="color:#3b82f6;text-decoration:none;">UIKit</a> / TTDropdownCustomView</nav>
+                <div class="flex items-center gap-3 mb-6">
+                    <h1 class="text-4xl font-extrabold m-0">TTDropdownCustomView</h1>
+                    <span class="badge badge-purple">Input</span>
+                </div>
+                <p>A tappable dropdown trigger view showing a label and a chevron/arrow icon. Presents a bottom border by default. Customize the displayed label, icon, padding, and colors. Pair with a picker/action sheet to complete the dropdown UX.</p>
+
+                <hr>
+                <h2 id="types">🎨 Types</h2>
+<pre><code class="language-swift">public enum TYPE {
+    case DEFAULT  // Standard padding
+    case PADDING  // Extra padding variant
+}</code></pre>
+
+                <hr>
+                <h2 id="usage">🚀 Usage</h2>
+<pre><code class="language-swift">// Basic dropdown trigger
+let dropdown = TTDropdownCustomView(
+    withTextToDisplay: "Select Category",
+    icon: "iconArrowDown"
+)
+
+// Handle tap → show picker
+dropdown.onTapHandler = { [weak self] in
+    self?.showCategoryPicker()
+}
+
+// Update label after selection
+func didSelectCategory(_ category: String) {
+    dropdown.textLabel.setText(text: category)
+}
+
+// Subclass to customize padding
+class CustomDropdown: TTDropdownCustomView {
+    override var padding: (CGFloat, CGFloat, CGFloat, CGFloat) {
+        return (20, 14, 20, 14)
+    }
+    override var bgColor: UIColor { .systemGroupedBackground }
+}
+
+// In form layout
+let genderDropdown = TTDropdownCustomView(
+    withTextToDisplay: "Select Gender",
+    icon: "chevron.down"
+)
+formStack.addArrangedSubview(genderDropdown)
+</code></pre>
+
+                <hr>
+                <h2 id="api">📖 API Reference</h2>
+                <table class="api-table">
+                    <thead><tr><th>Member</th><th>Type</th><th>Description</th></tr></thead>
+                    <tbody>
+                        <tr><td><code>textLabel</code></td><td><code>TTBaseUILabel</code></td><td>The display value label</td></tr>
+                        <tr><td><code>iconView</code></td><td><code>TTBaseUIImageView</code></td><td>Right-side arrow/chevron icon</td></tr>
+                        <tr><td><code>padding</code></td><td><code>(CGFloat, …)</code></td><td>Override: (lead, top, trail, bottom)</td></tr>
+                        <tr><td><code>iconSize</code></td><td><code>CGSize</code></td><td>Override icon dimensions</td></tr>
+                        <tr><td><code>bgColor</code></td><td><code>UIColor</code></td><td>Override background (default: white)</td></tr>
+                        <tr><td><code>borderColor</code></td><td><code>UIColor</code></td><td>Bottom line color</td></tr>
+                        <tr><td><code>heightDef</code></td><td><code>CGFloat</code></td><td>Minimum height (default: H_BUTTON + P_CONS_DEF)</td></tr>
+                    </tbody>
+                </table>
+
+                <div class="info-box tip">
+                    <strong>Pro Tip:</strong> <code>TTDropdownCustomView</code> is a visual trigger only — it doesn't include a picker. Add a <code>UITapGestureRecognizer</code> and present an <code>UIAlertController(style: .actionSheet)</code> or a custom bottom sheet (<code>TTBasePopupViewController</code>) on tap.
+                </div>
+
+                <div class="flex gap-4 mt-8">
+                    <a href="base-pin.html" style="color:#3b82f6;text-decoration:none;">← PIN Views</a>
+                    <a href="base-skeleton.html" style="color:#3b82f6;text-decoration:none;">Skeleton & Border Trail →</a>
+                </div>
+            </div>
+        </main>
+    </div>
+    <div id="site-footer"></div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-swift.min.js"></script>
+    <script src="../js/main.js"></script>
+    <script src="../js/components.js"></script>
+    <script src="../js/search.js"></script>
+</body>
+</html>

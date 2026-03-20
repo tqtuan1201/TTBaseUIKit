@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <script src="../js/theme-init.js"></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Popup ViewControllers — UIKit — TTBaseUIKit</title>
+    <meta name="description" content="TTBasePopupViewController, TTDismissView, TTBasePresentationController: modal overlays, swipe-dismiss handle, custom presentation controllers.">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>tailwind.config={darkMode:'class',theme:{extend:{colors:{primary:'#3b82f6'}}}}</script>
+    <link rel="stylesheet" href="../css/style.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet">
+</head>
+<body class="antialiased min-h-screen flex flex-col pt-16">
+    <script>window.TTBase='..';</script>
+    <div id="site-header"></div>
+    <div class="max-w-screen-2xl mx-auto flex-1 w-full flex">
+        <div id="site-sidebar"></div>
+        <main class="flex-1 min-w-0 py-10 px-4 sm:px-6 lg:px-8 xl:pr-24">
+            <div class="prose dark:prose-invert max-w-3xl mx-auto">
+                <nav class="text-sm text-slate-400 mb-4"><a href="index.html" style="color:#3b82f6;text-decoration:none;">UIKit</a> / Popup ViewControllers</nav>
+                <div class="flex items-center gap-3 mb-6">
+                    <h1 class="text-4xl font-extrabold m-0">Popup ViewControllers</h1>
+                    <span class="badge badge-red">ViewController</span>
+                </div>
+                <p>Modal overlay components: <code>TTBasePopupViewController</code> (dimmed overlay, tap-to-dismiss), <code>TTDismissView</code> (drag handle for sheets), and <code>TTBasePresentationController</code> / <code>CoverVerticalPresentationController</code> (custom presentation controls).</p>
+
+                <table class="api-table">
+                    <thead><tr><th>Class</th><th>Description</th></tr></thead>
+                    <tbody>
+                        <tr><td><code>TTBasePopupViewController</code></td><td>Modal VC with 85% dark overlay, fade animation, tap-to-dismiss</td></tr>
+                        <tr><td><code>TTDismissView</code></td><td>Drag handle indicator bar (bottom sheet style)</td></tr>
+                        <tr><td><code>TTBasePresentationController</code></td><td>Base custom UIPresentationController</td></tr>
+                        <tr><td><code>CoverVerticalPresentationController</code></td><td>Cover-from-bottom slide-up sheet</td></tr>
+                        <tr><td><code>CoverVerticalViewController</code></td><td>VC preset for cover-vertical presentation</td></tr>
+                    </tbody>
+                </table>
+
+                <hr>
+                <h2 id="popup-vc">📦 TTBasePopupViewController</h2>
+<pre><code class="language-swift">// Subclass for your custom popup
+class ConfirmationPopup: TTBasePopupViewController {
+
+    private let panel = TTBaseShadowPanelView()
+    private let titleLabel = TTBaseUILabel(withType: .TITLE, text: "Delete Item?", align: .center)
+    private let cancelBtn = TTBaseUIButton(textString: "Cancel", type: .DEFAULT, isSetSize: false)
+    private let confirmBtn = TTBaseUIButton(textString: "Delete", type: .WARRING, isSetSize: false)
+
+    var onConfirm: (() -> Void)?
+
+    init() {
+        super.init(isAllowTouchPanel: true) // tap outside to dismiss
+    }
+
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        setupPanel()
+    }
+
+    func setupPanel() {
+        view.addSubview(panel)
+        panel.panelShadowView.addSubview(titleLabel)
+        // ... add buttons
+        confirmBtn.onTouchHandler = { [weak self] _ in
+            self?.dismiss(animated: true)
+            self?.onConfirm?()
+        }
+    }
+}
+
+// Present it
+let popup = ConfirmationPopup()
+popup.onConfirm = { self.viewModel.deleteItem() }
+present(popup, animated: true)
+</code></pre>
+
+                <hr>
+                <h2 id="dismiss-view">↕️ TTDismissView (drag handle)</h2>
+<pre><code class="language-swift">// Add drag handle to bottom sheet
+class BottomSheet: TTBasePopupViewController {
+    private let dismissHandle = TTDismissView()
+
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        view.addSubview(dismissHandle)
+        dismissHandle.setLeadingAnchor(constant: 0)
+            .setTrailingAnchor(constant: 0)
+            .setTopAnchor(constant: 0)
+            .setHeightAnchor(constant: 24)
+
+        // Add pan gesture for swipe-down dismiss
+        let pan = UIPanGestureRecognizer(target: self, action: #selector(handlePan))
+        dismissHandle.addGestureRecognizer(pan)
+    }
+}
+</code></pre>
+
+                <hr>
+                <h2 id="api">📖 TTBasePopupViewController Properties</h2>
+                <table class="api-table">
+                    <thead><tr><th>Member</th><th>Type</th><th>Description</th></tr></thead>
+                    <tbody>
+                        <tr><td><code>init(isAllowTouchPanel:)</code></td><td>Init</td><td>Allow/block tap-outside-to-dismiss</td></tr>
+                        <tr><td><code>panelTouchView</code></td><td><code>TTBaseUIView</code></td><td>Transparent touchable dimming area</td></tr>
+                        <tr><td><code>navType</code></td><td><code>.NO_VIEW</code></td><td>No navigation bar by default</td></tr>
+                        <tr><td><code>modalPresentationStyle</code></td><td><code>.overCurrentContext</code></td><td>Shows over current screen</td></tr>
+                        <tr><td><code>modalTransitionStyle</code></td><td><code>.crossDissolve</code></td><td>Fade in/out animation</td></tr>
+                    </tbody>
+                </table>
+
+                <div class="info-box tip">
+                    <strong>Pro Tip:</strong> Set <code>isAllowTouchPanel: false</code> for critical popups (e.g., mandatory update, payment confirmation) where you want to force the user to interact with buttons before dismissing.
+                </div>
+
+                <div class="flex gap-4 mt-8">
+                    <a href="base-notification.html" style="color:#3b82f6;text-decoration:none;">← Notification View</a>
+                    <a href="base-datepicker.html" style="color:#3b82f6;text-decoration:none;">Date Picker →</a>
+                </div>
+            </div>
+        </main>
+    </div>
+    <div id="site-footer"></div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-swift.min.js"></script>
+    <script src="../js/main.js"></script>
+    <script src="../js/components.js"></script>
+    <script src="../js/search.js"></script>
+</body>
+</html>

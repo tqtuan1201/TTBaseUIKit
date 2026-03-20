@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <script src="../js/theme-init.js"></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TTBaseUIStackView — UIKit Components — TTBaseUIKit</title>
+    <meta name="description" content="TTBaseUIStackView, TTBaseScrollUIStackView, TTBaseScrollHorizontalUIStackView: pre-configured stack views with spacing, alignment, background color support, and keyboard dismiss.">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>tailwind.config={darkMode:'class',theme:{extend:{colors:{primary:'#3b82f6'}}}}</script>
+    <link rel="stylesheet" href="../css/style.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/fuse.js@7.0.0"></script>
+</head>
+<body class="antialiased min-h-screen flex flex-col pt-16">
+    <script>window.TTBase='..';</script>
+    <div id="site-header"></div>
+    <div class="max-w-screen-2xl mx-auto flex-1 w-full flex">
+        <div id="site-sidebar"></div>
+        <main class="flex-1 min-w-0 py-10 px-4 sm:px-6 lg:px-8 xl:pr-24">
+            <div class="prose dark:prose-invert max-w-3xl mx-auto">
+                <nav class="text-sm text-slate-400 mb-4"><a href="index.html" style="color:#3b82f6;text-decoration:none;">UIKit</a> / Stack Views</nav>
+                <div class="flex items-center gap-3 mb-6">
+                    <h1 class="text-4xl font-extrabold m-0">Stack Views</h1>
+                    <span class="badge badge-green">Layout</span>
+                </div>
+                <p>TTBaseUIKit provides three stack view variants built on <code>UIStackView</code> and <code>UIScrollView</code>: a base configurable stack, a vertical scrollable stack, and a horizontal scrollable stack. All support the kit's default spacing and keyboard dismiss behaviors.</p>
+
+                <hr>
+                <h2 id="classes">📦 Classes</h2>
+                <table class="api-table">
+                    <thead><tr><th>Class</th><th>Base</th><th>Direction</th><th>Use Case</th></tr></thead>
+                    <tbody>
+                        <tr><td><code>TTBaseUIStackView</code></td><td><code>UIStackView</code></td><td>Configurable</td><td>Inline arranged subviews, fixed layouts</td></tr>
+                        <tr><td><code>TTBaseScrollUIStackView</code></td><td><code>UIScrollView</code></td><td>Vertical</td><td>Dynamic content that may exceed screen height</td></tr>
+                        <tr><td><code>TTBaseScrollHorizontalUIStackView</code></td><td><code>UIScrollView</code></td><td>Horizontal</td><td>Tag chips, horizontal carousels, filter pills</td></tr>
+                    </tbody>
+                </table>
+
+                <hr>
+                <h2 id="usage">🚀 Usage</h2>
+
+                <h3>TTBaseUIStackView — Basic Arranged Views</h3>
+<pre><code class="language-swift">// Vertical stack with default spacing
+let vStack = TTBaseUIStackView(
+    axis: .vertical,
+    spacing: 16,
+    alignment: .fill
+)
+vStack.addArrangedSubview(titleLabel)
+vStack.addArrangedSubview(subtitleLabel)
+vStack.addArrangedSubview(actionButton)
+
+// Horizontal stack (e.g., icon + label row)
+let hStack = TTBaseUIStackView(
+    axis: .horizontal,
+    spacing: 8,
+    alignment: .center,
+    distributionValue: .fill
+)
+hStack.addArrangedSubview(iconView)
+hStack.addArrangedSubview(nameLabel)
+</code></pre>
+
+                <h3>Background Color on Stack View</h3>
+<pre><code class="language-swift">// UIStackView has no backgroundColor — use this helper instead
+let cardStack = TTBaseUIStackView(
+    axis: .vertical,
+    spacing: 12,
+    alignment: .fill
+)
+// Inserts a UIView subview with corner radius as background
+cardStack.setBackgroundColorByView(
+    color: UIColor.systemGray6,
+    conerRadius: 12
+)
+</code></pre>
+
+                <h3>TTBaseScrollUIStackView — Vertical Scrollable Form</h3>
+<pre><code class="language-swift">// Create the inner stack
+let innerStack = TTBaseUIStackView(
+    axis: .vertical,
+    spacing: TTSize.P_CONS_DEF,
+    alignment: .fill
+)
+innerStack.addArrangedSubview(nameField)
+innerStack.addArrangedSubview(emailField)
+innerStack.addArrangedSubview(passwordField)
+innerStack.addArrangedSubview(loginButton)
+
+// Wrap in scrollable container with padding
+let scrollStack = TTBaseScrollUIStackView(
+    with: innerStack,
+    padding: (16, 16, 16, 32)   // (leading, top, trailing, bottom)
+)
+view.addSubview(scrollStack)
+scrollStack.setFullContraints(constant: 0)
+</code></pre>
+
+                <h3>TTBaseScrollHorizontalUIStackView — Horizontal Chips</h3>
+<pre><code class="language-swift">let chipStack = TTBaseUIStackView(
+    axis: .horizontal,
+    spacing: 8,
+    alignment: .center,
+    distributionValue: .fill
+)
+categories.forEach { category in
+    let chip = CategoryChipView(title: category)
+    chipStack.addArrangedSubview(chip)
+}
+
+let scrollChips = TTBaseScrollHorizontalUIStackView(
+    with: chipStack,
+    padding: (16, 0, 16, 0)
+)
+scrollChips.setHeightAnchor(constant: 44)
+</code></pre>
+
+                <h3>Subclass to set defaults</h3>
+<pre><code class="language-swift">// Override computed properties instead of passing arguments
+class FormScrollView: TTBaseScrollUIStackView {
+    override var bgPanelColor: UIColor { .systemBackground }
+    override var isSetWidthContraint: Bool { true }
+}
+</code></pre>
+
+                <hr>
+                <h2 id="api">📖 API Reference</h2>
+
+                <h3>TTBaseUIStackView</h3>
+                <table class="api-table">
+                    <thead><tr><th>Property / Method</th><th>Type</th><th>Description</th></tr></thead>
+                    <tbody>
+                        <tr><td><code>axisContraint</code></td><td><code>NSLayoutConstraint.Axis</code></td><td>Stack axis (default: .vertical)</td></tr>
+                        <tr><td><code>spacingContraint</code></td><td><code>CGFloat</code></td><td>Spacing between views (default: P_CONS_DEF)</td></tr>
+                        <tr><td><code>alignmentContraint</code></td><td><code>UIStackView.Alignment</code></td><td>Alignment (default: .center)</td></tr>
+                        <tr><td><code>distributionValue</code></td><td><code>UIStackView.Distribution</code></td><td>Distribution (default: .equalSpacing)</td></tr>
+                        <tr><td><code>setBackgroundColorByView(color:conerRadius:)</code></td><td><code>Void</code></td><td>Add background UIView behind arranged subviews</td></tr>
+                    </tbody>
+                </table>
+
+                <h3>TTBaseScrollUIStackView / Horizontal</h3>
+                <table class="api-table">
+                    <thead><tr><th>Property</th><th>Type</th><th>Description</th></tr></thead>
+                    <tbody>
+                        <tr><td><code>baseStackView</code></td><td><code>TTBaseUIStackView</code></td><td>Inner stack view reference</td></tr>
+                        <tr><td><code>pading</code></td><td><code>(CGFloat,CGFloat,CGFloat,CGFloat)</code></td><td>Leading, Top, Trailing, Bottom padding</td></tr>
+                        <tr><td><code>bgPanelColor</code></td><td><code>UIColor</code></td><td>Background color (default: clear; override in subclass)</td></tr>
+                        <tr><td><code>isSetWidthContraint</code></td><td><code>Bool</code></td><td>Pin inner stack width to scroll width (true = no horizontal scroll)</td></tr>
+                    </tbody>
+                </table>
+
+                <div class="info-box tip">
+                    <strong>Pro Tip:</strong> <code>UIStackView</code> ignores <code>backgroundColor</code> — always use <code>setBackgroundColorByView(color:conerRadius:)</code> for panel-style backgrounds. It inserts a plain <code>UIView</code> at z-position 0 automatically.
+                </div>
+
+                <div class="flex gap-4 mt-8">
+                    <a href="base-segmentedcontrol.html" style="color:#3b82f6;text-decoration:none;">← TTBaseUISegmentedControl</a>
+                    <a href="base-progressview.html" style="color:#3b82f6;text-decoration:none;">TTBaseUIProgressView →</a>
+                </div>
+            </div>
+        </main>
+    </div>
+    <div id="site-footer"></div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-swift.min.js"></script>
+    <script src="../js/main.js"></script>
+    <script src="../js/components.js"></script>
+    <script src="../js/search.js"></script>
+</body>
+</html>

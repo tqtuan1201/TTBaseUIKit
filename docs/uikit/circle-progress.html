@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <script src="../js/theme-init.js"></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CircleProgressView — UIKit Components — TTBaseUIKit</title>
+    <meta name="description" content="CircleProgressView: fully customizable circular progress ring view with CADisplayLink-based smooth animation, IBDesignable support, rounded caps, clockwise/counter-clockwise, center image/color.">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>tailwind.config={darkMode:'class',theme:{extend:{colors:{primary:'#3b82f6'}}}}</script>
+    <link rel="stylesheet" href="../css/style.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/fuse.js@7.0.0"></script>
+</head>
+<body class="antialiased min-h-screen flex flex-col pt-16">
+    <script>window.TTBase='..';</script>
+    <div id="site-header"></div>
+    <div class="max-w-screen-2xl mx-auto flex-1 w-full flex">
+        <div id="site-sidebar"></div>
+        <main class="flex-1 min-w-0 py-10 px-4 sm:px-6 lg:px-8 xl:pr-24">
+            <div class="prose dark:prose-invert max-w-3xl mx-auto">
+                <nav class="text-sm text-slate-400 mb-4"><a href="index.html" style="color:#3b82f6;text-decoration:none;">UIKit</a> / CircleProgressView</nav>
+                <div class="flex items-center gap-3 mb-6">
+                    <h1 class="text-4xl font-extrabold m-0">CircleProgressView</h1>
+                    <span class="badge badge-amber">Display</span>
+                </div>
+                <p>IBDesignable circular progress ring drawn with CoreGraphics <code>UIBezierPath</code>. Uses <code>CADisplayLink</code> for smooth animated progress updates. Supports clockwise/counter-clockwise direction, rounded arc caps, track image overlay, custom center color/image, and a configurable border.</p>
+
+                <hr>
+                <h2 id="properties">🎨 Key Properties</h2>
+                <table class="api-table">
+                    <thead><tr><th>Property</th><th>Type</th><th>Default</th><th>Description</th></tr></thead>
+                    <tbody>
+                        <tr><td><code>progress</code></td><td><code>Double</code></td><td>0.0</td><td>Progress value 0.0 → 1.0</td></tr>
+                        <tr><td><code>trackWidth</code></td><td><code>CGFloat</code></td><td>10</td><td>Ring stroke width</td></tr>
+                        <tr><td><code>trackFillColor</code></td><td><code>UIColor</code></td><td>.blue</td><td>Progress arc fill color</td></tr>
+                        <tr><td><code>trackBackgroundColor</code></td><td><code>UIColor</code></td><td>.gray</td><td>Track (remaining) ring color</td></tr>
+                        <tr><td><code>centerFillColor</code></td><td><code>UIColor</code></td><td>.white</td><td>Inner circle fill color</td></tr>
+                        <tr><td><code>centerImage</code></td><td><code>UIImage?</code></td><td>nil</td><td>Image clipped inside inner circle</td></tr>
+                        <tr><td><code>trackImage</code></td><td><code>UIImage?</code></td><td>nil</td><td>Image used as progress arc fill (replaces trackFillColor)</td></tr>
+                        <tr><td><code>trackBorderColor</code></td><td><code>UIColor</code></td><td>.clear</td><td>Outer border stroke color</td></tr>
+                        <tr><td><code>trackBorderWidth</code></td><td><code>CGFloat</code></td><td>0</td><td>Outer border width</td></tr>
+                        <tr><td><code>roundedCap</code></td><td><code>Bool</code></td><td>false</td><td>Rounded arc endpoints</td></tr>
+                        <tr><td><code>clockwise</code></td><td><code>Bool</code></td><td>true</td><td>Arc direction</td></tr>
+                        <tr><td><code>refreshRate</code></td><td><code>Double</code></td><td>0.0</td><td>Custom CADisplayLink tick rate (0 = device display rate)</td></tr>
+                        <tr><td><code>contentView</code></td><td><code>UIView</code></td><td></td><td>Container for center subviews (add percentage label etc.)</td></tr>
+                    </tbody>
+                </table>
+
+                <hr>
+                <h2 id="usage">🚀 Usage</h2>
+
+                <h3>Basic Circular Progress</h3>
+<pre><code class="language-swift">let ringView = CircleProgressView(frame: CGRect(x: 0, y: 0, width: 120, height: 120))
+ringView.trackWidth = 12
+ringView.trackFillColor = .systemBlue
+ringView.trackBackgroundColor = .systemGray5
+ringView.centerFillColor = .white
+
+// Set without animation
+ringView.progress = 0.75
+
+// Set with smooth CADisplayLink animation
+ringView.setProgress(0.75, animated: true)
+</code></pre>
+
+                <h3>Percentage Label in Center</h3>
+<pre><code class="language-swift">let ringView = CircleProgressView(frame: CGRect(x: 0, y: 0, width: 120, height: 120))
+ringView.trackFillColor = .systemGreen
+ringView.trackWidth = 10
+ringView.centerFillColor = .white
+
+// Add label to the center contentView
+let percentLabel = UILabel()
+percentLabel.text = "75%"
+percentLabel.textAlignment = .center
+percentLabel.font = .boldSystemFont(ofSize: 22)
+percentLabel.textColor = .systemGreen
+percentLabel.translatesAutoresizingMaskIntoConstraints = false
+ringView.contentView.addSubview(percentLabel)
+// Center it
+percentLabel.centerXAnchor.constraint(equalTo: ringView.contentView.centerXAnchor).isActive = true
+percentLabel.centerYAnchor.constraint(equalTo: ringView.contentView.centerYAnchor).isActive = true
+
+ringView.setProgress(0.75, animated: true)
+</code></pre>
+
+                <h3>Animated Fill (Download/Upload Progress)</h3>
+<pre><code class="language-swift">let downloadRing = CircleProgressView(frame: .zero)
+downloadRing.trackWidth = 8
+downloadRing.trackFillColor = .systemBlue
+downloadRing.roundedCap = true
+downloadRing.setProgress(0, animated: false)
+
+// Update as download progresses
+downloadTask.progressHandler = { progress in
+    DispatchQueue.main.async {
+        downloadRing.setProgress(progress, animated: true)
+    }
+}
+</code></pre>
+
+                <h3>With Image in Center</h3>
+<pre><code class="language-swift">let avatarRing = CircleProgressView(frame: CGRect(x: 0, y: 0, width: 80, height: 80))
+avatarRing.trackWidth = 4
+avatarRing.trackFillColor = .systemOrange
+avatarRing.centerImage = UIImage(named: "avatar")
+avatarRing.setProgress(0.6, animated: true)
+</code></pre>
+
+                <hr>
+                <h2 id="api">📖 API</h2>
+                <table class="api-table">
+                    <thead><tr><th>Method</th><th>Description</th></tr></thead>
+                    <tbody>
+                        <tr><td><code>setProgress(_:animated:)</code></td><td>Set progress with optional CADisplayLink animation</td></tr>
+                        <tr><td><code>progress</code></td><td>Direct set (no animation)</td></tr>
+                    </tbody>
+                </table>
+
+                <div class="info-box tip">
+                    <strong>Pro Tip:</strong> Add <code>UILabel</code> or other views to <code>contentView</code> — it's automatically masked to the inner circle shape so your content is clipped correctly. Use <code>roundedCap = true</code> for a more polished look on thin rings.
+                </div>
+
+                <div class="flex gap-4 mt-8">
+                    <a href="base-badge.html" style="color:#3b82f6;text-decoration:none;">← Badge Views</a>
+                    <a href="base-triangle.html" style="color:#3b82f6;text-decoration:none;">BaseTriangleView →</a>
+                </div>
+            </div>
+        </main>
+    </div>
+    <div id="site-footer"></div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-swift.min.js"></script>
+    <script src="../js/main.js"></script>
+    <script src="../js/components.js"></script>
+    <script src="../js/search.js"></script>
+</body>
+</html>

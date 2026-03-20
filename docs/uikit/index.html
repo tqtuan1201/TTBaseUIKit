@@ -2,9 +2,10 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <script src="../js/theme-init.js"></script>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>UIKit Components — TTBaseUIKit Documentation</title>
-    <meta name="description" content="Browse 72+ UIKit components: BaseUIView, BaseUILabel, BaseUIButton, ViewControllers, Layout helpers, and more.">
+    <meta name="description" content="Browse 90+ UIKit components: BaseUIView, BaseUILabel, BaseUIButton, ViewControllers, Layout helpers, Cells, Panels, and more.">
     <script src="https://cdn.tailwindcss.com"></script>
     <script>tailwind.config = { darkMode: 'class', theme: { extend: { colors: { primary: '#3b82f6' } } } }</script>
     <link rel="stylesheet" href="../css/style.css">
@@ -23,7 +24,7 @@
                 <!-- Header -->
                 <div class="flex items-center gap-3 mb-2">
                     <h1 class="text-4xl font-extrabold tracking-tight text-slate-900 dark:text-white">UIKit Components</h1>
-                    <span class="badge badge-blue">72+ items</span>
+                    <span class="badge badge-blue">90+ items</span>
                 </div>
                 <p class="text-lg text-slate-600 dark:text-slate-400 mb-8">Production-ready base classes for programmatic UIKit development. Clean memory management, layout hooks, and structured lifecycles.</p>
 
@@ -52,16 +53,14 @@
                     <a href="base-textfield.html" class="component-card"><h3>BaseUITextField</h3><p>Text field with validation, icons, placeholder styling, and delegate hooks</p><span class="badge badge-blue mt-2">Core</span></a>
                     <a href="base-textview.html" class="component-card"><h3>BaseUITextView</h3><p>Multi-line text view with placeholder and auto-sizing support</p><span class="badge badge-blue mt-2">Core</span></a>
                     <a href="base-imageview.html" class="component-card"><h3>BaseUIImageView</h3><p>Image view with loading state, content mode, and gradient overlay</p><span class="badge badge-blue mt-2">Core</span></a>
-                    <a href="#" class="component-card"><h3>BaseUITableView</h3><p>Enhanced table view with skeleton loading and empty state support</p><span class="badge badge-blue mt-2">Core</span></a>
-                    <a href="#" class="component-card"><h3>BaseUICollectionView</h3><p>Collection view with flow layout and lifecycle management</p><span class="badge badge-blue mt-2">Core</span></a>
-                    <a href="#" class="component-card"><h3>BaseUISearchBar</h3><p>Pre-configured search bar with styling</p></a>
-                    <a href="#" class="component-card"><h3>BaseUISegmentedControl</h3><p>Custom segmented control with styling and selection handling</p></a>
-                    <a href="#" class="component-card"><h3>BaseUIProgressView</h3><p>Progress bar with custom styling</p></a>
-                    <a href="#" class="component-card"><h3>BaseUINavigationView</h3><p>Custom navigation bar replacement</p></a>
-                    <a href="#" class="component-card"><h3>BasePasswordUITextField</h3><p>Password field with show/hide toggle</p></a>
-                    <a href="#" class="component-card"><h3>BaseUIImageFontView</h3><p>Icon font image view (AwesomePro)</p></a>
-                    <a href="#" class="component-card"><h3>BaseWKWebView</h3><p>Web view with loading and error handling</p></a>
-                    <a href="#" class="component-card"><h3>BaseInsetLabel</h3><p>Label with custom content insets</p></a>
+                    <a href="base-tableview.html" class="component-card"><h3>BaseUITableView</h3><p>Enhanced table view with async reload, keyboard dismiss, and content inset management</p><span class="badge badge-blue mt-2">Core</span></a>
+                    <a href="base-collectionview.html" class="component-card"><h3>BaseUICollectionView</h3><p>Collection view with clear bg, scroll indicators, content inset, and async reload</p><span class="badge badge-blue mt-2">Core</span></a>
+                    <a href="base-searchbar.html" class="component-card"><h3>BaseUISearchBar</h3><p>UISearchBar subclass with styling + BaseSearchView (icon+textfield combo)</p></a>
+                    <a href="base-segmentedcontrol.html" class="component-card"><h3>BaseUISegmentedControl</h3><p>Custom segmented control: pill style and animated line-bottom tab style</p></a>
+                    <a href="base-progressview.html" class="component-card"><h3>BaseUIProgressView</h3><p>Auto-incrementing animated progress bar with onStart/onFinished API</p></a>
+                    <a href="base-password-textfield.html" class="component-card"><h3>BasePasswordUITextField</h3><p>Password field with built-in eye icon show/hide toggle</p></a>
+                    <a href="base-image-font.html" class="component-card"><h3>BaseUIImageFontView</h3><p>UIImageView that renders AwesomePro icon glyph as tintable bitmap</p></a>
+                    <a href="base-wkwebview.html" class="component-card"><h3>BaseWKWebView</h3><p>WKWebView with GIF support, skeleton overlay, and responsive HTML helpers</p></a>
                 </div>
 
                 <!-- Layout -->
@@ -70,12 +69,11 @@
                     Layout
                 </h2>
                 <div class="component-grid mb-12" data-category="layout">
-                    <a href="#" class="component-card"><h3>BaseUIStackView</h3><p>Pre-configured horizontal/vertical stack view</p></a>
-                    <a href="#" class="component-card"><h3>BaseScrollUIStackView</h3><p>Scrollable vertical stack view for dynamic content</p></a>
-                    <a href="#" class="component-card"><h3>BaseScrollHorizontalUIStackView</h3><p>Horizontal scrollable stack</p></a>
-                    <a href="#" class="component-card"><h3>BaseHeaderView</h3><p>Standard header section view</p></a>
-                    <a href="#" class="component-card"><h3>BasePaddingGenericView</h3><p>Generic view with configurable padding</p></a>
-                    <a href="#" class="component-card"><h3>ConstraintHelpers</h3><p>Auto Layout constraint helper functions</p><span class="badge badge-green mt-2">Utility</span></a>
+                    <a href="base-stackview.html" class="component-card"><h3>BaseUIStackView</h3><p>Pre-configured horizontal/vertical stack view with background color support</p></a>
+                    <a href="base-stackview.html" class="component-card"><h3>BaseScrollUIStackView</h3><p>Scrollable vertical stack view for dynamic content with keyboard dismiss</p></a>
+                    <a href="base-stackview.html" class="component-card"><h3>BaseScrollHorizontalUIStackView</h3><p>Horizontal scrollable stack for chips, filters, carousels</p></a>
+                    <a href="base-panels.html" class="component-card"><h3>BaseStackPanelView</h3><p>Panel with embedded vertical stack — add content to panelStackView</p></a>
+                    <a href="base-panels.html" class="component-card"><h3>BaseScrollPanelView</h3><p>Scrollable form panel with keyboard dismiss and safe area handling</p></a>
                 </div>
 
                 <!-- Input -->
@@ -84,12 +82,13 @@
                     Input
                 </h2>
                 <div class="component-grid mb-12" data-category="input">
-                    <a href="#" class="component-card"><h3>BaseSearchView</h3><p>Combined search bar + results component</p></a>
-                    <a href="#" class="component-card"><h3>BaseTextViewWithPlaceHolderView</h3><p>Text view with placeholder support</p></a>
-                    <a href="#" class="component-card"><h3>BaseDropdownCustomView</h3><p>Dropdown selector component</p></a>
-                    <a href="#" class="component-card"><h3>BaseRadioButtonView</h3><p>Radio button selection group</p></a>
-                    <a href="#" class="component-card"><h3>BaseLinePinView / PinsView</h3><p>Underline-style PIN entry (single/multi)</p></a>
-                    <a href="#" class="component-card"><h3>BaseSquarePinView / PinsView</h3><p>Square-style PIN entry (single/multi)</p></a>
+                    <a href="base-searchbar.html" class="component-card"><h3>BaseSearchView</h3><p>Icon + text field search row with real-time change callback</p></a>
+                    <a href="base-textview.html" class="component-card"><h3>BaseTextViewWithPlaceHolderView</h3><p>Multi-line text view with max length, placeholder, and auto-grow</p></a>
+                    <a href="base-dropdown.html" class="component-card"><h3>BaseDropdownCustomView</h3><p>Label + chevron dropdown trigger — 2 types: DEFAULT and PADDING</p></a>
+                    <a href="base-radio-button.html" class="component-card"><h3>BaseRadioButtonView</h3><p>Active/inactive radio button with AwesomePro icons and custom colors</p></a>
+                    <a href="base-pin.html" class="component-card"><h3>BaseLinePinView / PinsView</h3><p>Underline-style PIN entry (single/multi)</p></a>
+                    <a href="base-pin.html" class="component-card"><h3>BaseSquarePinView / PinsView</h3><p>Square-style PIN entry (single/multi)</p></a>
+                    <a href="base-newsegsment.html" class="component-card"><h3>BaseNewSegmentedControl</h3><p>UISegmentedControl subclass with TTBaseUIKit color theming + onTapHandle</p></a>
                 </div>
 
                 <!-- Display -->
@@ -98,16 +97,15 @@
                     Display
                 </h2>
                 <div class="component-grid mb-12" data-category="display">
-                    <a href="#" class="component-card"><h3>CircleProgressView</h3><p>Circular progress indicator with animation</p></a>
-                    <a href="#" class="component-card"><h3>BaseIconCircleView</h3><p>Circular icon container</p></a>
-                    <a href="#" class="component-card"><h3>BaseCircleLabel</h3><p>Circular label for badges/counts</p></a>
-                    <a href="#" class="component-card"><h3>BaseBadgeInsetLabel</h3><p>Label with badge overlay</p></a>
-                    <a href="#" class="component-card"><h3>BaseButtonBadge</h3><p>Button with notification badge</p></a>
-                    <a href="#" class="component-card"><h3>BaseTriangleView</h3><p>Triangle shape view for indicators</p></a>
-                    <a href="#" class="component-card"><h3>BaseUICricleView</h3><p>Simple circle view</p></a>
-                    <a href="#" class="component-card"><h3>BaseSkeletonMarkView</h3><p>Skeleton loading placeholder</p></a>
-                    <a href="#" class="component-card"><h3>BaseBorderTrailView</h3><p>Animated border trail effect</p></a>
-                    <a href="#" class="component-card"><h3>BaseNewSegmentedControl</h3><p>Modern segmented control variant</p></a>
+                    <a href="circle-progress.html" class="component-card"><h3>CircleProgressView</h3><p>Circular arc progress ring with CADisplayLink animation, rounded caps, center image/color</p></a>
+                    <a href="base-circle-views.html" class="component-card"><h3>BaseIconCircleView</h3><p>Circular icon container — 60% icon ratio, customizable bg</p></a>
+                    <a href="base-circle-views.html" class="component-card"><h3>TTUIImageCircleView</h3><p>Circular photo avatar with optional border stroke</p></a>
+                    <a href="base-circle-views.html" class="component-card"><h3>TTUIImageFontCircleView</h3><p>Circle with AwesomePro icon and colored background</p></a>
+                    <a href="base-circle-views.html" class="component-card"><h3>TTUIImageFontPaddingView</h3><p>Square padded icon view (not circle)</p></a>
+                    <a href="base-badge.html" class="component-card"><h3>BaseCircleLabel / BadgeView</h3><p>Circular label for counts, badge overlays, and notification dots</p></a>
+                    <a href="base-triangle.html" class="component-card"><h3>BaseTriangleView</h3><p>Upward-pointing triangle for tooltips and callouts</p></a>
+                    <a href="base-skeleton.html" class="component-card"><h3>BaseSkeletonMarkView</h3><p>Simple shimmer placeholder for loading states</p></a>
+                    <a href="base-skeleton.html" class="component-card"><h3>BaseBorderTrailView</h3><p>Animated gradient arc trail racing around a view's border</p></a>
                 </div>
 
                 <!-- Panels -->
@@ -116,13 +114,14 @@
                     Panels
                 </h2>
                 <div class="component-grid mb-12" data-category="panels">
-                    <a href="#" class="component-card"><h3>BaseShadowPanelView</h3><p>Panel with configurable shadow and corners</p></a>
-                    <a href="#" class="component-card"><h3>BasePanelButtonView</h3><p>Panel with integrated action button</p></a>
-                    <a href="#" class="component-card"><h3>BasePanelViewUIStackView</h3><p>Panel using stack view layout</p></a>
-                    <a href="#" class="component-card"><h3>BaseStackPanelView</h3><p>Stacked panel container</p></a>
-                    <a href="#" class="component-card"><h3>BaseStackShadowPanelView</h3><p>Shadow panel with stack layout</p></a>
-                    <a href="#" class="component-card"><h3>BaseTitlePanelView</h3><p>Panel with title header</p></a>
-                    <a href="#" class="component-card"><h3>BaseScrollPanelView</h3><p>Scrollable panel container</p></a>
+                    <a href="base-shadow-panel.html" class="component-card"><h3>BaseShadowPanelView</h3><p>Card panel with CALayer drop shadow — add content to panelShadowView</p></a>
+                    <a href="base-shadow-panel.html" class="component-card"><h3>BaseShadowButtonView</h3><p>Floating CTA button with depth shadow effect</p></a>
+                    <a href="base-shadow-panel.html" class="component-card"><h3>BaseShadowContentView&lt;T&gt;</h3><p>Generic shadow wrapper for any UIView subtype</p></a>
+                    <a href="base-panels.html" class="component-card"><h3>BaseStackPanelView</h3><p>View + embedded vertical stack — add content to panelStackView</p></a>
+                    <a href="base-panels.html" class="component-card"><h3>BaseStackShadowPanelView</h3><p>Shadow card + embedded vertical stack</p></a>
+                    <a href="base-panels.html" class="component-card"><h3>BaseTitlePanelView</h3><p>Card with title label at the top</p></a>
+                    <a href="base-panels.html" class="component-card"><h3>BaseScrollPanelView</h3><p>Scrollable vertical panel with keyboard dismiss</p></a>
+                    <a href="base-panels.html" class="component-card"><h3>BasePanelButtonView</h3><p>View + action button combined</p></a>
                 </div>
 
                 <!-- ViewControllers -->
@@ -133,10 +132,12 @@
                 <div class="component-grid mb-12" data-category="viewcontrollers">
                     <a href="base-viewcontroller.html" class="component-card"><h3>TTBaseUIViewController</h3><p>Base VC with nav bar, status bar, and lifecycle</p><span class="badge badge-red mt-2">Essential</span></a>
                     <a href="base-tableviewcontroller.html" class="component-card"><h3>TTBaseUITableViewController</h3><p>Table VC with refresh and pagination</p><span class="badge badge-red mt-2">Essential</span></a>
-                    <a href="#" class="component-card"><h3>TTBasePopupViewController</h3><p>Modal popup with customizable content</p></a>
-                    <a href="#" class="component-card"><h3>TTBaseNotificationView</h3><p>Toast/banner notification with swipe</p></a>
-                    <a href="#" class="component-card"><h3>DismissView</h3><p>Swipe-to-dismiss container</p></a>
-                    <a href="#" class="component-card"><h3>PresentationController</h3><p>Custom modal presentation controller</p></a>
+                    <a href="base-scroll-viewcontroller.html" class="component-card"><h3>TTBaseScrollViewController</h3><p>VC with scrollable form area — keyboard dismiss and safe area</p></a>
+                    <a href="base-scroll-viewcontroller.html" class="component-card"><h3>TTBaseUICollectionViewController</h3><p>UICollectionViewController with keyboard dismiss</p></a>
+                    <a href="base-popup.html" class="component-card"><h3>TTBasePopupViewController</h3><p>Dimmed modal overlay + tap-to-dismiss — subclass for custom popups</p></a>
+                    <a href="base-popup.html" class="component-card"><h3>TTDismissView</h3><p>Drag handle indicator bar for bottom sheets</p></a>
+                    <a href="base-notification.html" class="component-card"><h3>TTBaseNotificationView</h3><p>In-app toast/banner with icon, title, subtitle, action button</p></a>
+                    <a href="base-datepicker.html" class="component-card"><h3>TTBaseDatePicker</h3><p>Date/time modal picker with Cancel/OK buttons and callbacks</p></a>
                 </div>
 
                 <!-- Composite -->
@@ -145,17 +146,18 @@
                     Composite Views
                 </h2>
                 <div class="component-grid mb-12" data-category="composite">
-                    <a href="#" class="component-card"><h3>BaseLabelIconHorizontalView</h3><p>Label + icon horizontal layout</p></a>
-                    <a href="#" class="component-card"><h3>BaseLableWithButtonView</h3><p>Label + button combination</p></a>
-                    <a href="#" class="component-card"><h3>BaseTwoStackButtonView</h3><p>Two-button action panel</p></a>
-                    <a href="#" class="component-card"><h3>IconLabelView</h3><p>Icon + label vertical layout</p></a>
-                    <a href="#" class="component-card"><h3>IconLabelHorizontalView</h3><p>Icon + label horizontal</p></a>
-                    <a href="#" class="component-card"><h3>LabelTextFieldView</h3><p>Label + text field combination</p></a>
-                    <a href="#" class="component-card"><h3>LabelLeftRightView</h3><p>Left-right label pair</p></a>
-                    <a href="#" class="component-card"><h3>RowTableView</h3><p>Pre-built table row layout</p></a>
-                    <a href="#" class="component-card"><h3>ButtonPanelView</h3><p>Button panel with styling</p></a>
-                    <a href="#" class="component-card"><h3>LineView</h3><p>Separator line component</p></a>
-                    <a href="#" class="component-card"><h3>TTBaseShadowView</h3><p>Shadow wrapper view</p></a>
+                    <a href="base-composite.html" class="component-card"><h3>LabelLeftRightView</h3><p>Left label + right label key-value row</p></a>
+                    <a href="base-composite.html" class="component-card"><h3>IconLabelView / HorizontalView</h3><p>Icon + label pairs (vertical and horizontal)</p></a>
+                    <a href="base-composite.html" class="component-card"><h3>LabelTextFieldView</h3><p>Label + text field vertical pair for forms</p></a>
+                    <a href="base-composite.html" class="component-card"><h3>BaseLableWithButtonView</h3><p>Label + button on same row</p></a>
+                    <a href="base-composite.html" class="component-card"><h3>BaseTwoStackButtonView</h3><p>Two equal-width action buttons (Cancel/Confirm pattern)</p></a>
+                    <a href="base-composite.html" class="component-card"><h3>LineView / TTLineView</h3><p>Horizontal separator line</p></a>
+                    <a href="base-composite.html" class="component-card"><h3>LableSubLabelView</h3><p>Title + subtitle vertical pair</p></a>
+                    <a href="base-composite.html" class="component-card"><h3>RowTableView</h3><p>Pre-styled key-value table row</p></a>
+                    <a href="label-left-right.html" class="component-card"><h3>BaseLabelIconHorizontalView</h3><p>Icon + label horizontal row with size and spacing config</p></a>
+                    <a href="base-cell.html" class="component-card"><h3>TTBaseUITableViewCell</h3><p>Table cell with padding panel, skeleton animation, selection highlight</p></a>
+                    <a href="base-cell-header.html" class="component-card"><h3>TTBaseUITableViewHeaderFooterView</h3><p>Section header/footer with panel container</p></a>
+                    <a href="base-collection-cell.html" class="component-card"><h3>TTBaseUICollectionViewCell</h3><p>Collection cell with panel, selection state, skeleton animation</p></a>
                 </div>
 
                 <!-- Utilities -->
@@ -164,9 +166,10 @@
                     Utilities & Protocols
                 </h2>
                 <div class="component-grid mb-12" data-category="utilities">
-                    <a href="#" class="component-card"><h3>ViewCodable Protocol</h3><p>Organize UI code with setupStyles(), setupData(), setupConstraints()</p><span class="badge badge-green mt-2">Protocol</span></a>
-                    <a href="#" class="component-card"><h3>BaseCustomViewRepresentable</h3><p>UIKit ↔ SwiftUI bridge</p><span class="badge badge-purple mt-2">Bridge</span></a>
-                    <a href="#" class="component-card"><h3>DatePicker</h3><p>Custom date picker component</p></a>
+                    <a href="base-viewcontroller.html" class="component-card"><h3>ViewCodable Protocol</h3><p>Organize UI code with setupStyles(), setupData(), setupConstraints()</p><span class="badge badge-green mt-2">Protocol</span></a>
+                    <a href="base-viewcontroller.html" class="component-card"><h3>BaseCustomViewRepresentable</h3><p>UIKit ↔ SwiftUI bridge</p><span class="badge badge-purple mt-2">Bridge</span></a>
+                    <a href="base-datepicker.html" class="component-card"><h3>TTBaseDatePicker</h3><p>Modal date/time picker popup with Cancel/OK handlers</p></a>
+                    <a href="base-scroll-viewcontroller.html" class="component-card"><h3>TTBaseStackScrollViewController</h3><p>VC with scrollable vertical stack for dynamic form content</p></a>
                 </div>
             </div>
         </main>

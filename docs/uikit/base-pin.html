@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <script src="../js/theme-init.js"></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PIN Entry Views — UIKit — TTBaseUIKit</title>
+    <meta name="description" content="TTBaseLinePinView, TTBaseSquarePinView, TTBaseLinePinsView, TTBaseSquarePinsView: single and multi-slot PIN input views with line and square styles.">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>tailwind.config={darkMode:'class',theme:{extend:{colors:{primary:'#3b82f6'}}}}</script>
+    <link rel="stylesheet" href="../css/style.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet">
+</head>
+<body class="antialiased min-h-screen flex flex-col pt-16">
+    <script>window.TTBase='..';</script>
+    <div id="site-header"></div>
+    <div class="max-w-screen-2xl mx-auto flex-1 w-full flex">
+        <div id="site-sidebar"></div>
+        <main class="flex-1 min-w-0 py-10 px-4 sm:px-6 lg:px-8 xl:pr-24">
+            <div class="prose dark:prose-invert max-w-3xl mx-auto">
+                <nav class="text-sm text-slate-400 mb-4"><a href="index.html" style="color:#3b82f6;text-decoration:none;">UIKit</a> / PIN Entry Views</nav>
+                <div class="flex items-center gap-3 mb-6">
+                    <h1 class="text-4xl font-extrabold m-0">PIN Entry Views</h1>
+                    <span class="badge badge-purple">Input</span>
+                </div>
+                <p>Four PIN entry components for OTP and passcode screens. Single-slot views (<code>TTBaseLinePinView</code>, <code>TTBaseSquarePinView</code>) are composable into multi-slot rows (<code>TTBaseLinePinsView</code>, <code>TTBaseSquarePinsView</code>).</p>
+
+                <table class="api-table">
+                    <thead><tr><th>Class</th><th>Style</th><th>Slots</th></tr></thead>
+                    <tbody>
+                        <tr><td><code>TTBaseLinePinView</code></td><td>Underline only</td><td>Single</td></tr>
+                        <tr><td><code>TTBaseLinePinsView</code></td><td>Underline only</td><td>Multi (row)</td></tr>
+                        <tr><td><code>TTBaseSquarePinView</code></td><td>Square bordered box</td><td>Single</td></tr>
+                        <tr><td><code>TTBaseSquarePinsView</code></td><td>Square bordered box</td><td>Multi (row)</td></tr>
+                    </tbody>
+                </table>
+
+                <hr>
+                <h2 id="line-pin">📏 Line PIN (underline style)</h2>
+<pre><code class="language-swift">// Single slot — set/clear text, active/inactive states
+let pinSlot = TTBaseLinePinView()
+pinSlot.setText(text: "5")  // Shows digit
+pinSlot.setActive()          // Active: themed color
+pinSlot.setNonActive()       // Inactive: dimmed
+pinSlot.setLine()            // Reset to empty line
+
+// Multi-slot row (e.g. 6-digit OTP)
+let pinsView = TTBaseLinePinsView(numberOfPins: 6)
+view.addSubview(pinsView)
+
+// Handle input
+textField.addTarget(self, action: #selector(textChanged), for: .editingChanged)
+
+@objc func textChanged() {
+    let text = textField.text ?? ""
+    pinsView.updatePins(text: text)
+}
+</code></pre>
+
+                <hr>
+                <h2 id="square-pin">🔲 Square PIN (box style)</h2>
+<pre><code class="language-swift">// Single slot — three visual states
+let slot = TTBaseSquarePinView()
+slot.setText(text: "3")      // Show digit (active, border changes)
+slot.setCircle()             // Show filled circle (secure style)
+slot.setLine()               // Show small dash (empty)
+slot.setShow()               // Show digit, hide circle and dash
+slot.setHidden(withCircleColor: .systemBlue) // Show circle with color
+
+// Multi-slot (passcode lock screen style)
+let passcodeView = TTBaseSquarePinsView(numberOfPins: 4)
+passcodeView.style = .circle  // Use circle dots instead of digits
+view.addSubview(passcodeView)
+</code></pre>
+
+                <hr>
+                <h2 id="api">📖 Single Slot API</h2>
+                <h3>TTBaseLinePinView</h3>
+                <table class="api-table">
+                    <thead><tr><th>Member</th><th>Description</th></tr></thead>
+                    <tbody>
+                        <tr><td><code>setText(text:)</code></td><td>Display digit, unhide label</td></tr>
+                        <tr><td><code>setActive()</code></td><td>Active color (text + line)</td></tr>
+                        <tr><td><code>setNonActive()</code></td><td>Dimmed color</td></tr>
+                        <tr><td><code>setLine()</code></td><td>Reset to empty state</td></tr>
+                        <tr><td><code>nonActiveColor</code></td><td>Override inactive color</td></tr>
+                        <tr><td><code>activeColor</code></td><td>Override active color</td></tr>
+                        <tr><td><code>isBoldPIN</code></td><td>Bold digit font (default: true)</td></tr>
+                    </tbody>
+                </table>
+
+                <h3>TTBaseSquarePinView</h3>
+                <table class="api-table">
+                    <thead><tr><th>Member</th><th>Description</th></tr></thead>
+                    <tbody>
+                        <tr><td><code>setText(text:)</code></td><td>Show digit, hide circle/dash</td></tr>
+                        <tr><td><code>setCircle()</code></td><td>Show filled circle dot</td></tr>
+                        <tr><td><code>setLine()</code></td><td>Show small dash (empty)</td></tr>
+                        <tr><td><code>setShow()</code></td><td>Show digit, hide others</td></tr>
+                        <tr><td><code>setHidden(withCircleColor:)</code></td><td>Show circle with specified color</td></tr>
+                    </tbody>
+                </table>
+
+                <div class="info-box tip">
+                    <strong>Pro Tip:</strong> Keep the actual text input in a hidden <code>UITextField</code> (with <code>keyboardType = .numberPad</code>) to capture keystrokes, then sync each character to the corresponding PIN slot view. This provides native keyboard handling while giving full visual control.
+                </div>
+
+                <div class="flex gap-4 mt-8">
+                    <a href="base-searchbar.html" style="color:#3b82f6;text-decoration:none;">← Search Components</a>
+                    <a href="base-dropdown.html" style="color:#3b82f6;text-decoration:none;">TTDropdownCustomView →</a>
+                </div>
+            </div>
+        </main>
+    </div>
+    <div id="site-footer"></div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-swift.min.js"></script>
+    <script src="../js/main.js"></script>
+    <script src="../js/components.js"></script>
+    <script src="../js/search.js"></script>
+</body>
+</html>

@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <script src="../js/theme-init.js"></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Composite Views — UIKit — TTBaseUIKit</title>
+    <meta name="description" content="TTBaseUIKit composite views: LabelLeftRightView, IconLabelView, LabelTextFieldView, ButtonPanelView, LineLabelView, BaseLableWithButtonView, BaseTwoStackButtonView, and more.">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>tailwind.config={darkMode:'class',theme:{extend:{colors:{primary:'#3b82f6'}}}}</script>
+    <link rel="stylesheet" href="../css/style.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet">
+</head>
+<body class="antialiased min-h-screen flex flex-col pt-16">
+    <script>window.TTBase='..';</script>
+    <div id="site-header"></div>
+    <div class="max-w-screen-2xl mx-auto flex-1 w-full flex">
+        <div id="site-sidebar"></div>
+        <main class="flex-1 min-w-0 py-10 px-4 sm:px-6 lg:px-8 xl:pr-24">
+            <div class="prose dark:prose-invert max-w-3xl mx-auto">
+                <nav class="text-sm text-slate-400 mb-4"><a href="index.html" style="color:#3b82f6;text-decoration:none;">UIKit</a> / Composite Views</nav>
+                <div class="flex items-center gap-3 mb-6">
+                    <h1 class="text-4xl font-extrabold m-0">Composite Views</h1>
+                    <span class="badge badge-indigo">Composite</span>
+                </div>
+                <p>Pre-built composite views combining multiple UIKit primitives into common UI patterns — key-value rows, icon-label pairs, form field rows, two-button layouts, and separators. All live in <code>CustomView/Custom/</code>.</p>
+
+                <table class="api-table">
+                    <thead><tr><th>Class</th><th>Pattern</th></tr></thead>
+                    <tbody>
+                        <tr><td><code>LabelLeftRightView</code></td><td>Left label + right label (key-value row)</td></tr>
+                        <tr><td><code>IconLabelView</code></td><td>Icon (top) + label (bottom) vertical pair</td></tr>
+                        <tr><td><code>IconLabelHorizontalView</code></td><td>Icon (left) + label horizontal pair</td></tr>
+                        <tr><td><code>LabelTextFieldView</code></td><td>Label + text field vertical pair</td></tr>
+                        <tr><td><code>ButtonPanelView</code></td><td>Single prominent action button in a panel</td></tr>
+                        <tr><td><code>LineView</code> / <code>TTLineView</code></td><td>Horizontal separator line</td></tr>
+                        <tr><td><code>TTBaseLableWithButtonView</code></td><td>Label + button on the same row</td></tr>
+                        <tr><td><code>BaseTwoStackButtonView</code></td><td>Two equal-width action buttons</td></tr>
+                        <tr><td><code>RowTableView</code></td><td>Pre-styled key-value table row</td></tr>
+                        <tr><td><code>LableSubLabelView</code></td><td>Title + subtitle vertical pair</td></tr>
+                        <tr><td><code>BaseTwoButtonDiffWidthView</code></td><td>Two buttons with different widths</td></tr>
+                        <tr><td><code>IconLabelTextFieldHorizontalView</code></td><td>Icon + label + text field in a row</td></tr>
+                        <tr><td><code>TTBaseShadowView</code></td><td>Generic shadow wrapper for any view</td></tr>
+                    </tbody>
+                </table>
+
+                <hr>
+                <h2 id="usage">🚀 Usage Examples</h2>
+
+<pre><code class="language-swift">// Key-value row (settings, profile details)
+let row = LabelLeftRightView(
+    leftText: "Email",
+    rightText: user.email
+)
+
+// Icon + label (tab bar item alternative)
+let iconLabel = IconLabelView(
+    icon: .heart,
+    label: "Favorites"
+)
+
+// Icon + label horizontal (list item)
+let hRow = IconLabelHorizontalView(
+    icon: .mapMarker,
+    label: "123 Main St, Springfield"
+)
+hRow.iconColor = .systemRed
+
+// Form field row (label above text field)
+let fieldRow = LabelTextFieldView(label: "Phone Number")
+fieldRow.textField.keyboardType = .phonePad
+
+// Separator line
+let line = LineView()  // or TTLineView()
+line.setHeightAnchor(constant: 1)
+line.setBgColor(TTView.lineDefColor)
+
+// Label + button on same row
+let row = TTBaseLableWithButtonView(
+    labelText: "Remember me",
+    buttonText: "Learn more"
+)
+row.onButtonTouchHandler = { self.showInfo() }
+
+// Two equal buttons
+let twoButtons = BaseTwoStackButtonView(
+    leftTitle: "Cancel",
+    rightTitle: "Confirm"
+)
+twoButtons.onLeftTouchHandler = { self.dismiss(animated: true) }
+twoButtons.onRightTouchHandler = { self.confirm() }
+
+// Title + subtitle
+let subtitleView = LableSubLabelView(
+    title: "Premium Plan",
+    subTitle: "$9.99 / month"
+)
+</code></pre>
+
+                <div class="info-box tip">
+                    <strong>Pro Tip:</strong> Use <code>BaseTwoStackButtonView</code> in bottom action sheets or confirmation panels. It uses <code>TTBaseUIStackView(.fillEqually)</code> so both buttons always share equal width — great for Cancel/Confirm patterns without manual width constraints.
+                </div>
+
+                <div class="flex gap-4 mt-8">
+                    <a href="base-panels.html" style="color:#3b82f6;text-decoration:none;">← Panel Views</a>
+                    <a href="base-notification.html" style="color:#3b82f6;text-decoration:none;">Notification View →</a>
+                </div>
+            </div>
+        </main>
+    </div>
+    <div id="site-footer"></div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-swift.min.js"></script>
+    <script src="../js/main.js"></script>
+    <script src="../js/components.js"></script>
+    <script src="../js/search.js"></script>
+</body>
+</html>

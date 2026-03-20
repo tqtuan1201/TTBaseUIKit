@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <script src="../js/theme-init.js"></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TTBaseSUIList — SwiftUI — TTBaseUIKit</title>
+    <meta name="description" content="TTBaseSUIList: SwiftUI List wrapper with 3 styles (PLAIN, GROUPED, INSET), pull-to-refresh, separator customization, and TTBaseUIKit color token integration.">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>tailwind.config={darkMode:'class',theme:{extend:{colors:{primary:'#3b82f6'}}}}</script>
+    <link rel="stylesheet" href="../css/style.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet">
+</head>
+<body class="antialiased min-h-screen flex flex-col pt-16">
+    <script>window.TTBase='..';</script>
+    <div id="site-header"></div>
+    <div class="max-w-screen-2xl mx-auto flex-1 w-full flex">
+        <div id="site-sidebar"></div>
+        <main class="flex-1 min-w-0 py-10 px-4 sm:px-6 lg:px-8 xl:pr-24">
+            <div class="prose dark:prose-invert max-w-3xl mx-auto">
+                <nav class="text-sm text-slate-400 mb-4"><a href="index.html" style="color:#3b82f6;text-decoration:none;">SwiftUI</a> / TTBaseSUIList</nav>
+                <div class="flex items-center gap-3 mb-6">
+                    <h1 class="text-4xl font-extrabold m-0">TTBaseSUIList</h1>
+                    <span class="badge badge-purple">Layout</span>
+                </div>
+                <p>A <code>List</code> wrapper that strips system background/separator defaults and applies TTBaseUIKit color tokens. Three style types: <code>PLAIN</code>, <code>GROUPED</code>, <code>INSET</code>. Supports pull-to-refresh on iOS 15+.</p>
+
+                <table class="api-table">
+                    <thead><tr><th>TYPE</th><th>SwiftUI Style</th><th>Visual</th></tr></thead>
+                    <tbody>
+                        <tr><td><code>.PLAIN</code></td><td><code>PlainListStyle()</code></td><td>Traditional flat list (UITableView plain)</td></tr>
+                        <tr><td><code>.GROUPED</code></td><td><code>InsetGroupedListStyle()</code></td><td>Rounded grouped cards (iOS Settings style)</td></tr>
+                        <tr><td><code>.INSET</code></td><td><code>InsetListStyle()</code></td><td>Compact inset list</td></tr>
+                    </tbody>
+                </table>
+
+                <hr>
+                <h2 id="usage">🚀 Usage</h2>
+<pre><code class="language-swift">// Simple plain list
+TTBaseSUIList(type: .PLAIN) {
+    ForEach(items) { item in
+        ItemRowView(item: item)
+            .listRowStyle()  // Extension: remove default insets and bg
+    }
+}
+
+// Grouped list (Settings style)
+TTBaseSUIList(type: .GROUPED) {
+    Section(header: Text("Account")) {
+        SettingsRow(title: "Name", value: user.name)
+        SettingsRow(title: "Email", value: user.email)
+    }
+    Section(header: Text("Preferences")) {
+        SettingsRow(title: "Notifications", value: "On")
+    }
+}
+
+// With pull-to-refresh
+@StateObject var viewModel = ListViewModel()
+
+TTBaseSUIList(
+    type: .PLAIN,
+    isEnablePullToRefresh: true,
+    content: {
+        ForEach(viewModel.items) { item in
+            ItemRowView(item: item).listRowStyle()
+        }
+    },
+    pullToRefresh: {
+        await viewModel.reload()
+    }
+)
+
+// Full customization
+TTBaseSUIList(
+    type: .PLAIN,
+    bg: Color(TTView.viewBgColor),
+    rowBgColor: Color(TTView.viewBgCellColor),
+    showSeparator: false,
+    isEnablePullToRefresh: false
+) {
+    ForEach(items) { item in
+        ItemRowView(item: item)
+    }
+}
+</code></pre>
+
+                <hr>
+                <h2 id="api">📖 listRowStyle() Extension</h2>
+<pre><code class="language-swift">// Applied to each row to remove default insets:
+ItemRowView()
+    .listRowStyle()
+// or with custom bg and horizontal inset:
+    .listRowStyle(bg: Color.white, horizontalInset: 16)
+</code></pre>
+
+                <hr>
+                <h2 id="api-ref">📖 API Reference</h2>
+                <table class="api-table">
+                    <thead><tr><th>Parameter (full init)</th><th>Default</th><th>Description</th></tr></thead>
+                    <tbody>
+                        <tr><td><code>type</code></td><td><code>.PLAIN</code></td><td>List style variant</td></tr>
+                        <tr><td><code>bg</code></td><td><code>viewStackDefBgColor</code></td><td>Background behind all rows</td></tr>
+                        <tr><td><code>rowBgColor</code></td><td><code>viewBgCellColor</code></td><td>Individual row background</td></tr>
+                        <tr><td><code>showSeparator</code></td><td><code>true</code></td><td>Show/hide row separator lines</td></tr>
+                        <tr><td><code>isEnablePullToRefresh</code></td><td><code>false</code></td><td>Enable .refreshable (iOS 15+)</td></tr>
+                        <tr><td><code>pullToRefresh</code></td><td><code>nil</code></td><td>Async refresh callback</td></tr>
+                    </tbody>
+                </table>
+
+                <div class="info-box tip">
+                    <strong>Pro Tip:</strong> Always apply <code>.listRowStyle()</code> to each row to remove SwiftUI's default 16pt leading inset and cell background that interferes with custom designs. Without it, rows show a gray background that doesn't match the TTBaseUIKit token.
+                </div>
+
+                <div class="flex gap-4 mt-8">
+                    <a href="base-sui-layouts.html" style="color:#3b82f6;text-decoration:none;">← Layout Views</a>
+                    <a href="base-sui-shadow.html" style="color:#3b82f6;text-decoration:none;">BaseSUIShadowView →</a>
+                </div>
+            </div>
+        </main>
+    </div>
+    <div id="site-footer"></div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-swift.min.js"></script>
+    <script src="../js/main.js"></script>
+    <script src="../js/components.js"></script>
+    <script src="../js/search.js"></script>
+</body>
+</html>

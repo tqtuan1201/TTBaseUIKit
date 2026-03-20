@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <script src="../js/theme-init.js"></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TTBaseNotificationView — UIKit — TTBaseUIKit</title>
+    <meta name="description" content="TTBaseNotificationView: in-app toast/banner notification with icon, title, subtitle, and optional action button. Auto-sized or fixed height.">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>tailwind.config={darkMode:'class',theme:{extend:{colors:{primary:'#3b82f6'}}}}</script>
+    <link rel="stylesheet" href="../css/style.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet">
+</head>
+<body class="antialiased min-h-screen flex flex-col pt-16">
+    <script>window.TTBase='..';</script>
+    <div id="site-header"></div>
+    <div class="max-w-screen-2xl mx-auto flex-1 w-full flex">
+        <div id="site-sidebar"></div>
+        <main class="flex-1 min-w-0 py-10 px-4 sm:px-6 lg:px-8 xl:pr-24">
+            <div class="prose dark:prose-invert max-w-3xl mx-auto">
+                <nav class="text-sm text-slate-400 mb-4"><a href="index.html" style="color:#3b82f6;text-decoration:none;">UIKit</a> / TTBaseNotificationView</nav>
+                <div class="flex items-center gap-3 mb-6">
+                    <h1 class="text-4xl font-extrabold m-0">TTBaseNotificationView</h1>
+                    <span class="badge badge-red">ViewController</span>
+                </div>
+                <p>An in-app notification/toast view with an icon, title, subtitle, and optional right action button. Supports fixed height or auto-sizing for multi-line content. Used with TTBaseNotificationViewConfig for show/dismiss animations.</p>
+
+                <hr>
+                <h2 id="usage">🚀 Usage</h2>
+<pre><code class="language-swift">// Show a success toast
+let notification = TTBaseNotificationView(
+    withPadding: (16, 8, 16, 8),
+    bgColorNotifi: .systemGreen,
+    bgPanelView: .clear,
+    isAutoVerticalSize: false
+)
+notification.titleLabel.setText(text: "Success!")
+notification.subLabel.setText(text: "Your changes have been saved.")
+notification.setHiddenButton()  // No action button in this case
+
+// Add to top of window
+view.addSubview(notification)
+notification.setLeadingAnchor(constant: 0)
+    .setTrailingAnchor(constant: 0)
+    .setTopAnchor(constant: 0)
+
+// Auto-dismiss after 3 seconds
+DispatchQueue.main.asyncAfter(deadline: .now() + 3) {
+    UIView.animate(withDuration: 0.3, animations: {
+        notification.alpha = 0
+    }) { _ in notification.removeFromSuperview() }
+}
+
+// Error notification with details
+let error = TTBaseNotificationView(
+    withPadding: (12, 8, 12, 8),
+    bgColorNotifi: .systemRed,
+    bgPanelView: .red.withAlphaComponent(0.1),
+    isAutoVerticalSize: true
+)
+error.titleLabel.setText(text: "Connection Error")
+error.subLabel.setText(text: "Please check your internet connection and try again.")
+error.iconView.image = UIImage(systemName: "wifi.slash")
+error.setHiddenButton()
+
+// With action button
+notification.buttonRight.setText(text: "Undo").done()
+notification.buttonRight.onTouchHandler = { [weak self] _ in
+    self?.viewModel.undo()
+}
+</code></pre>
+
+                <hr>
+                <h2 id="api">📖 API Reference</h2>
+                <table class="api-table">
+                    <thead><tr><th>Member</th><th>Type</th><th>Description</th></tr></thead>
+                    <tbody>
+                        <tr><td><code>iconView</code></td><td><code>TTBaseUIImageFontView</code></td><td>Left icon (default: checkCircle)</td></tr>
+                        <tr><td><code>titleLabel</code></td><td><code>TTBaseUILabel</code></td><td>Primary notification title</td></tr>
+                        <tr><td><code>subLabel</code></td><td><code>TTBaseUILabel</code></td><td>Detail text (multi-line when isAutoVerticalSize)</td></tr>
+                        <tr><td><code>buttonRight</code></td><td><code>TTBaseUIButton</code></td><td>Right action button (optional)</td></tr>
+                        <tr><td><code>setHiddenIcon()</code></td><td>Method</td><td>Hide left icon</td></tr>
+                        <tr><td><code>setHiddenButton()</code></td><td>Method</td><td>Hide right action button</td></tr>
+                    </tbody>
+                </table>
+
+                <div class="info-box tip">
+                    <strong>Pro Tip:</strong> For a proper push-down banner animation, add <code>TTBaseNotificationView</code> with its top anchor off-screen (negative y), then animate <code>topConstraint.constant = 0</code> with spring damping. The <code>TTBaseNotificationViewConfig</code> helper class manages this lifecycle.
+                </div>
+
+                <div class="flex gap-4 mt-8">
+                    <a href="base-composite.html" style="color:#3b82f6;text-decoration:none;">← Composite Views</a>
+                    <a href="base-popup.html" style="color:#3b82f6;text-decoration:none;">Popup ViewController →</a>
+                </div>
+            </div>
+        </main>
+    </div>
+    <div id="site-footer"></div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-swift.min.js"></script>
+    <script src="../js/main.js"></script>
+    <script src="../js/components.js"></script>
+    <script src="../js/search.js"></script>
+</body>
+</html>

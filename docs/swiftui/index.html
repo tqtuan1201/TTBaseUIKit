@@ -2,9 +2,10 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <script src="../js/theme-init.js"></script>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>SwiftUI Components — TTBaseUIKit Documentation</title>
-    <meta name="description" content="Browse 51+ SwiftUI views: BaseSUIView, BaseSUIText, BaseSUIButton, view modifiers, Shimmer animation, and more. iOS 14+ compatible.">
+    <meta name="description" content="Browse 65+ SwiftUI views: BaseSUIView, BaseSUIText, BaseSUIButton, TabView, List, Group, NavigationLink, view modifiers, Shimmer animation, and more. iOS 14+ compatible.">
     <script src="https://cdn.tailwindcss.com"></script>
     <script>tailwind.config = { darkMode: 'class', theme: { extend: { colors: { primary: '#3b82f6' } } } }</script>
     <link rel="stylesheet" href="../css/style.css">
@@ -22,7 +23,7 @@
             <div class="max-w-5xl mx-auto">
                 <div class="flex items-center gap-3 mb-2">
                     <h1 class="text-4xl font-extrabold tracking-tight text-slate-900 dark:text-white">SwiftUI Components</h1>
-                    <span class="badge badge-purple">51+ items</span>
+                    <span class="badge badge-purple">65+ items</span>
                 </div>
                 <p class="text-lg text-slate-600 dark:text-slate-400 mb-8">Modern declarative UI components targeting <strong>iOS 14+</strong>. Each view integrates with TTBaseUIKit's config system for consistent theming.</p>
 
@@ -45,13 +46,13 @@
                     Base Views
                 </h2>
                 <div class="component-grid mb-12" data-category="base-views">
-                    <a href="base-sui-view.html" class="component-card"><h3>BaseSUIView</h3><p>Base SwiftUI view with lifecycle, state, and config integration</p><span class="badge badge-purple mt-2">Core</span></a>
-                    <a href="base-sui-text.html" class="component-card"><h3>BaseSUIText</h3><p>Enhanced Text with TTBaseUIKit font/color config</p><span class="badge badge-purple mt-2">Core</span></a>
-                    <a href="base-sui-button.html" class="component-card"><h3>BaseSUIButton</h3><p>Customizable button with TTBaseUIKit styling</p><span class="badge badge-purple mt-2">Core</span></a>
-                    <a href="base-sui-image.html" class="component-card"><h3>BaseSUIImage</h3><p>Image component with configuration integration</p></a>
-                    <a href="#" class="component-card"><h3>BaseSUIAsyncImage</h3><p>Async image loading with placeholder and error states</p></a>
-                    <a href="#" class="component-card"><h3>BaseSUICircleImage</h3><p>Circular image clip with border support</p></a>
-                    <a href="#" class="component-card"><h3>BaseSUITextField</h3><p>Text field with validation and styling</p></a>
+                    <a href="base-sui-view.html" class="component-card"><h3>BaseSUIView</h3><p>Base SwiftUI view with background color and corner radius configuration</p><span class="badge badge-purple mt-2">Core</span></a>
+                    <a href="base-sui-text.html" class="component-card"><h3>BaseSUIText</h3><p>Enhanced Text with 5 type variants (HEADER_SUPER→SUB_SUB_TILE), bold/italic, FontConfig</p><span class="badge badge-purple mt-2">Core</span></a>
+                    <a href="base-sui-button.html" class="component-card"><h3>BaseSUIButton</h3><p>Customizable button with TTBaseUIKit styling and type variants</p><span class="badge badge-purple mt-2">Core</span></a>
+                    <a href="base-sui-image.html" class="component-card"><h3>BaseSUIImage</h3><p>Asset/SF Symbol/AwesomePro icon image view with clipping and aspect ratio</p></a>
+                    <a href="base-sui-image.html" class="component-card"><h3>BaseSUIAsyncImage</h3><p>Remote URL image with placeholder and error state fallback</p></a>
+                    <a href="base-sui-image.html" class="component-card"><h3>BaseSUICircleImage</h3><p>Circular image clip — use <code>.clipShape(Circle())</code> with TTBaseSUIImage</p></a>
+                    <a href="base-sui-textfield.html" class="component-card"><h3>BaseSUITextField</h3><p>Text field with 4 border types, secure mode, disabled state, and binding</p></a>
                 </div>
 
                 <!-- Layout -->
@@ -60,17 +61,17 @@
                     Layout
                 </h2>
                 <div class="component-grid mb-12" data-category="layout">
-                    <a href="base-sui-spacer.html" class="component-card"><h3>BaseSUISpacer</h3><p>Customizable spacer with background color and corner radius</p></a>
-                    <a href="#" class="component-card"><h3>BaseSUIHStack</h3><p>Horizontal stack with TTBaseUIKit defaults</p></a>
-                    <a href="#" class="component-card"><h3>BaseSUIVStack</h3><p>Vertical stack with TTBaseUIKit defaults</p></a>
-                    <a href="#" class="component-card"><h3>BaseSUIZStack</h3><p>Z-axis overlay stack</p></a>
-                    <a href="#" class="component-card"><h3>BaseSUIScroll</h3><p>Scroll view with axis and indicator config</p></a>
-                    <a href="#" class="component-card"><h3>BaseSUIList</h3><p>List with TTBaseUIKit styling</p></a>
-                    <a href="#" class="component-card"><h3>BaseSUILazyVStack</h3><p>Lazy vertical stack for performance</p></a>
-                    <a href="#" class="component-card"><h3>BaseSUILazyHStack</h3><p>Lazy horizontal stack</p></a>
-                    <a href="#" class="component-card"><h3>BaseSUILazyVGrid</h3><p>Lazy vertical grid layout</p></a>
-                    <a href="#" class="component-card"><h3>BaseSUILazyHGrid</h3><p>Lazy horizontal grid layout</p></a>
-                    <a href="#" class="component-card"><h3>BaseSUIGroup</h3><p>Group container with config integration</p></a>
+                    <a href="base-sui-spacer-divider.html" class="component-card"><h3>BaseSUISpacer</h3><p>Colored flexible spacer (unlike Spacer, has bg color + corner radius)</p></a>
+                    <a href="base-sui-layouts.html" class="component-card"><h3>BaseSUIHStack</h3><p>Horizontal stack with default TTBaseUIKit spacing + alignment</p></a>
+                    <a href="base-sui-layouts.html" class="component-card"><h3>BaseSUIVStack</h3><p>Vertical stack with default TTBaseUIKit spacing + alignment</p></a>
+                    <a href="base-sui-layouts.html" class="component-card"><h3>BaseSUIZStack</h3><p>Z-axis overlay stack</p></a>
+                    <a href="base-sui-layouts.html" class="component-card"><h3>BaseSUIScroll</h3><p>ScrollView with keyboard dismiss on drag</p></a>
+                    <a href="base-sui-list.html" class="component-card"><h3>BaseSUIList</h3><p>List with PLAIN/GROUPED/INSET styles, pull-to-refresh, and listRowStyle()</p></a>
+                    <a href="base-sui-layouts.html" class="component-card"><h3>BaseSUILazyVStack</h3><p>Lazy vertical stack for large collections</p></a>
+                    <a href="base-sui-layouts.html" class="component-card"><h3>BaseSUILazyHStack</h3><p>Lazy horizontal stack for carousels</p></a>
+                    <a href="base-sui-layouts.html" class="component-card"><h3>BaseSUILazyVGrid</h3><p>Lazy vertical grid — configurable column count and spacing</p></a>
+                    <a href="base-sui-group.html" class="component-card"><h3>BaseSUIGroup</h3><p>Group wrapper with optional bg, corner radius, and padding — 4 init variants</p></a>
+                    <a href="base-sui-shadow.html" class="component-card"><h3>BaseSUIShadowView</h3><p>Card container with RoundedRectangle background and configurable shadow</p></a>
                 </div>
 
                 <!-- Navigation -->
@@ -79,8 +80,8 @@
                     Navigation
                 </h2>
                 <div class="component-grid mb-12" data-category="navigation">
-                    <a href="#" class="component-card"><h3>BaseNavigationLink</h3><p>Navigation link with TTBaseUIKit routing</p></a>
-                    <a href="#" class="component-card"><h3>BaseSUITabView</h3><p>Tab view with custom styling</p></a>
+                    <a href="base-sui-navlink.html" class="component-card"><h3>BaseNavigationLink</h3><p>NavigationLink with auto-hide nav bar, isActive binding, and no-animation option</p></a>
+                    <a href="base-sui-tabview.html" class="component-card"><h3>BaseSUITabView</h3><p>TabView with DEFAULT, PAGE (pager+dots), PAGE_HIDDEN_DOTS modes</p></a>
                     <a href="#" class="component-card"><h3>BaseNewVersionPopupView</h3><p>Force/optional app update popup</p></a>
                 </div>
 
@@ -90,8 +91,8 @@
                     Input Controls
                 </h2>
                 <div class="component-grid mb-12" data-category="input">
-                    <a href="#" class="component-card"><h3>BaseSUISlider</h3><p>Slider with custom range and styling</p></a>
-                    <a href="#" class="component-card"><h3>BaseSUIToggle</h3><p>Toggle switch with theming</p></a>
+                    <a href="base-sui-slider.html" class="component-card"><h3>BaseSUISlider</h3><p>Slider with 3 types (DEFAULT, WITH_LABELS, WITH_VALUE), range, step, and custom tint</p></a>
+                    <a href="base-sui-toggle.html" class="component-card"><h3>BaseSUIToggle</h3><p>Toggle with 3 styles (DEFAULT, ICON, LABEL_ONLY), tint color, and disabled state</p></a>
                 </div>
 
                 <!-- Display -->
@@ -100,10 +101,10 @@
                     Display
                 </h2>
                 <div class="component-grid mb-12" data-category="display">
-                    <a href="#" class="component-card"><h3>BaseSUIProgressView</h3><p>Progress indicator with multiple styles</p></a>
-                    <a href="#" class="component-card"><h3>BaseSUIShadowView</h3><p>Shadow wrapper for any SwiftUI view</p></a>
-                    <a href="#" class="component-card"><h3>BaseHorizontalDivider</h3><p>Horizontal divider line</p></a>
-                    <a href="#" class="component-card"><h3>BaseSUIVerticalDivider</h3><p>Vertical divider line</p></a>
+                    <a href="base-sui-progress.html" class="component-card"><h3>BaseSUIProgressView</h3><p>INDETERMINATE spinner, LINEAR bar, and CIRCULAR ring with label and tint color</p></a>
+                    <a href="base-sui-shadow.html" class="component-card"><h3>BaseSUIShadowView</h3><p>Shadow card wrapper for any SwiftUI view with configurable corner and shadow</p></a>
+                    <a href="base-sui-spacer-divider.html" class="component-card"><h3>BaseSUIHorizontalDividerView</h3><p>Horizontal divider: LINE (1px), SPACE (gap), CUSTOME(color:height:)</p></a>
+                    <a href="base-sui-spacer-divider.html" class="component-card"><h3>BaseSUIVerticalDivider</h3><p>Vertical divider line between HStack children</p></a>
                 </div>
 
                 <!-- Modifiers & Styles -->

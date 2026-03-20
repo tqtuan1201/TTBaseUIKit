@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <script src="../js/theme-init.js"></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Table View Cells — UIKit — TTBaseUIKit</title>
+    <meta name="description" content="TTBaseUITableViewCell and subclasses: skeleton animation support, selection states, rounded panel, and predefined row layouts (icon+text, left+right label, etc.).">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>tailwind.config={darkMode:'class',theme:{extend:{colors:{primary:'#3b82f6'}}}}</script>
+    <link rel="stylesheet" href="../css/style.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet">
+</head>
+<body class="antialiased min-h-screen flex flex-col pt-16">
+    <script>window.TTBase='..';</script>
+    <div id="site-header"></div>
+    <div class="max-w-screen-2xl mx-auto flex-1 w-full flex">
+        <div id="site-sidebar"></div>
+        <main class="flex-1 min-w-0 py-10 px-4 sm:px-6 lg:px-8 xl:pr-24">
+            <div class="prose dark:prose-invert max-w-3xl mx-auto">
+                <nav class="text-sm text-slate-400 mb-4"><a href="index.html" style="color:#3b82f6;text-decoration:none;">UIKit</a> / Table View Cells</nav>
+                <div class="flex items-center gap-3 mb-6">
+                    <h1 class="text-4xl font-extrabold m-0">Table View Cells</h1>
+                    <span class="badge badge-blue">Core</span>
+                </div>
+                <p>A family of <code>UITableViewCell</code> subclasses. <code>TTBaseUITableViewCell</code> is the base — provides a padded <code>panel</code> sub-view, selection highlight, skeleton animation, and bottom border support. Specialized subclasses provide ready-made content layouts.</p>
+
+                <table class="api-table">
+                    <thead><tr><th>Class</th><th>Layout</th></tr></thead>
+                    <tbody>
+                        <tr><td><code>TTBaseUITableViewCell</code></td><td>Base cell — empty panel, subclass and fill</td></tr>
+                        <tr><td><code>BaseShadowTableViewCell</code></td><td>Cell with shadow card effect on panel</td></tr>
+                        <tr><td><code>BaseTextSubtextHorTableViewCell</code></td><td>Horizontal: left label + right label (key-value)</td></tr>
+                        <tr><td><code>IconTextSubtextTableViewCell</code></td><td>Icon (left) + title + subtitle (right)</td></tr>
+                        <tr><td><code>IconTextSubtextTextSubTextRightTableViewCell</code></td><td>Icon + texts left + texts right</td></tr>
+                        <tr><td><code>TextIconTableViewCell</code></td><td>Text (left) + icon (right)</td></tr>
+                        <tr><td><code>TextSubtextIconTableViewCell</code></td><td>Title + subtitle + icon (right)</td></tr>
+                    </tbody>
+                </table>
+
+                <hr>
+                <h2 id="usage">🚀 Usage</h2>
+<pre><code class="language-swift">// Register and dequeue
+tableView.register(TTBaseUITableViewCell.self,
+                   forCellReuseIdentifier: TTBaseUITableViewCell.reuseIdentifier)
+
+let cell = tableView.dequeueReusableCell(
+    withIdentifier: TTBaseUITableViewCell.reuseIdentifier,
+    for: indexPath
+) as! TTBaseUITableViewCell
+
+// Subclass and add your content
+class ProductCell: TTBaseUITableViewCell {
+    let nameLabel = TTBaseUILabel(withType: .TITLE, text: "", align: .left)
+    let priceLabel = TTBaseUILabel(withType: .SUB_TITLE, text: "", align: .right)
+
+    override func updateUI() {
+        panel.addSubview(nameLabel)
+        panel.addSubview(priceLabel)
+        // ... constraints
+    }
+
+    func configure(product: Product) {
+        nameLabel.setText(text: product.name)
+        priceLabel.setText(text: "$\(product.price)")
+    }
+}
+
+// Override padding
+override var padding: (CGFloat, CGFloat, CGFloat, CGFloat) {
+    return (16, 8, 16, 8)
+}
+
+// Bottom border separator
+override var isSetBoderBottom: Bool { return true }
+
+// Skeleton loading
+cell.setSkeletonAnimation().done()
+cell.onStartSkeletonAnimation()
+// ... later:
+cell.onStopSkeletonAnimation()
+</code></pre>
+
+                <hr>
+                <h2 id="api">📖 Base API Reference</h2>
+                <table class="api-table">
+                    <thead><tr><th>Member</th><th>Type</th><th>Description</th></tr></thead>
+                    <tbody>
+                        <tr><td><code>panel</code></td><td><code>TTBaseUIView</code></td><td>Content container with bg and corner radius</td></tr>
+                        <tr><td><code>bgColor</code></td><td><code>UIColor</code></td><td>Override: normal cell bg</td></tr>
+                        <tr><td><code>bgSelectColor</code></td><td><code>UIColor</code></td><td>Override: selected state bg</td></tr>
+                        <tr><td><code>padding</code></td><td><code>(CGFloat×4)</code></td><td>Override: panel insets from cell edges</td></tr>
+                        <tr><td><code>cornerRadius</code></td><td><code>CGFloat</code></td><td>Override: panel corner radius</td></tr>
+                        <tr><td><code>isSetBoderBottom</code></td><td><code>Bool</code></td><td>Override: add 1pt bottom border to panel</td></tr>
+                        <tr><td><code>onStartSkeletonAnimation()</code></td><td>Method</td><td>Show shimmer on all labels/images/buttons</td></tr>
+                        <tr><td><code>onStopSkeletonAnimation()</code></td><td>Method</td><td>Remove shimmer and restore content</td></tr>
+                        <tr><td><code>setBgPanelView(color:)</code></td><td>Method</td><td>Change panel background at runtime</td></tr>
+                        <tr><td><code>getTableView()</code></td><td>Method</td><td>Get parent UITableView reference</td></tr>
+                    </tbody>
+                </table>
+
+                <div class="info-box tip">
+                    <strong>Pro Tip:</strong> Use <code>setSkeletonAnimation()</code> + <code>onStartSkeletonAnimation()</code> while waiting for network data, then call <code>onStopSkeletonAnimation()</code> in your data refresh block. The skeleton layer covers the entire panel automatically.
+                </div>
+
+                <div class="flex gap-4 mt-8">
+                    <a href="base-tableview.html" style="color:#3b82f6;text-decoration:none;">← TTBaseUITableView</a>
+                    <a href="base-cell-header.html" style="color:#3b82f6;text-decoration:none;">Header/Footer Cells →</a>
+                </div>
+            </div>
+        </main>
+    </div>
+    <div id="site-footer"></div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-swift.min.js"></script>
+    <script src="../js/main.js"></script>
+    <script src="../js/components.js"></script>
+    <script src="../js/search.js"></script>
+</body>
+</html>

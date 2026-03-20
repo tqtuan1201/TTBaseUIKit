@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <script src="../js/theme-init.js"></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Header/Footer Cells — UIKit — TTBaseUIKit</title>
+    <meta name="description" content="TTBaseUITableViewHeaderFooterView and subclasses: styled section header/footer views with panel container, padding, and predefined layouts.">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>tailwind.config={darkMode:'class',theme:{extend:{colors:{primary:'#3b82f6'}}}}</script>
+    <link rel="stylesheet" href="../css/style.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet">
+</head>
+<body class="antialiased min-h-screen flex flex-col pt-16">
+    <script>window.TTBase='..';</script>
+    <div id="site-header"></div>
+    <div class="max-w-screen-2xl mx-auto flex-1 w-full flex">
+        <div id="site-sidebar"></div>
+        <main class="flex-1 min-w-0 py-10 px-4 sm:px-6 lg:px-8 xl:pr-24">
+            <div class="prose dark:prose-invert max-w-3xl mx-auto">
+                <nav class="text-sm text-slate-400 mb-4"><a href="index.html" style="color:#3b82f6;text-decoration:none;">UIKit</a> / Header &amp; Footer Cells</nav>
+                <div class="flex items-center gap-3 mb-6">
+                    <h1 class="text-4xl font-extrabold m-0">Header &amp; Footer Cells</h1>
+                    <span class="badge badge-blue">Core</span>
+                </div>
+                <p>Section header and footer view base classes for <code>UITableView</code>. <code>TTBaseUITableViewHeaderFooterView</code> provides a padded <code>panel</code> container with TTBaseUIKit styling. Predefined subclasses cover common header patterns.</p>
+
+                <table class="api-table">
+                    <thead><tr><th>Class</th><th>Pattern</th></tr></thead>
+                    <tbody>
+                        <tr><td><code>TTBaseUITableViewHeaderFooterView</code></td><td>Base — empty panel, override and fill</td></tr>
+                        <tr><td><code>LineTableHeaderFooterViewCell</code></td><td>Separator line only</td></tr>
+                        <tr><td><code>SpaceTableHeaderViewCell</code></td><td>Empty space/gap between sections</td></tr>
+                        <tr><td><code>TextLeftRightTableHeaderFooterViewCell</code></td><td>Left label + right label</td></tr>
+                        <tr><td><code>TextSubTextTableHeaderFooterViewCell</code></td><td>Title above, subtitle below</td></tr>
+                        <tr><td><code>TextTableHeaderFooterViewCell</code></td><td>Single centered/left label</td></tr>
+                    </tbody>
+                </table>
+
+                <hr>
+                <h2 id="usage">🚀 Usage</h2>
+<pre><code class="language-swift">// Register
+tableView.register(TTBaseUITableViewHeaderFooterView.self,
+                   forHeaderFooterViewReuseIdentifier: TTBaseUITableViewHeaderFooterView.reuseIdentifier)
+
+// Dequeue in delegate
+func tableView(_ tableView: UITableView,
+               viewForHeaderInSection section: Int) -> UIView? {
+    let header = tableView.dequeueReusableHeaderFooterView(
+        withIdentifier: TTBaseUITableViewHeaderFooterView.reuseIdentifier
+    ) as! TTBaseUITableViewHeaderFooterView
+    return header
+}
+
+// Text header (most common)
+tableView.register(TextTableHeaderFooterViewCell.self,
+                   forHeaderFooterViewReuseIdentifier: TextTableHeaderFooterViewCell.reuseIdentifier)
+
+func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+    let header = tableView.dequeueReusableHeaderFooterView(
+        withIdentifier: TextTableHeaderFooterViewCell.reuseIdentifier
+    ) as! TextTableHeaderFooterViewCell
+    header.titleLabel.setText(text: "Section \(section + 1)")
+    return header
+}
+
+// Custom header subclass
+class MonthHeaderView: TTBaseUITableViewHeaderFooterView {
+    let monthLabel = TTBaseUILabel(withType: .TITLE, text: "", align: .left)
+
+    override func updateUI() {
+        panel.addSubview(monthLabel)
+        monthLabel.setLeadingAnchor(constant: 16).setcenterYAnchor(constant: 0)
+    }
+
+    func configure(month: String) {
+        monthLabel.setText(text: month)
+    }
+}
+
+// Space header (gap between sections)
+func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+    return tableView.dequeueReusableHeaderFooterView(
+        withIdentifier: SpaceTableHeaderViewCell.reuseIdentifier
+    )
+}
+func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+    return 16
+}
+</code></pre>
+
+                <div class="info-box tip">
+                    <strong>Pro Tip:</strong> Use <code>SpaceTableHeaderViewCell</code> with height ~16pt between sections for grouped-list visual separation without full <code>InsetGroupedTableView</code> which loses row customization. Pair with <code>TTBaseShadowTableViewCell</code> for a card-list look.
+                </div>
+
+                <div class="flex gap-4 mt-8">
+                    <a href="base-cell.html" style="color:#3b82f6;text-decoration:none;">← Table View Cells</a>
+                    <a href="base-collection-cell.html" style="color:#3b82f6;text-decoration:none;">Collection View Cells →</a>
+                </div>
+            </div>
+        </main>
+    </div>
+    <div id="site-footer"></div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-swift.min.js"></script>
+    <script src="../js/main.js"></script>
+    <script src="../js/components.js"></script>
+    <script src="../js/search.js"></script>
+</body>
+</html>

@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <script src="../js/theme-init.js"></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Date Pickers — UIKit — TTBaseUIKit</title>
+    <meta name="description" content="TTBaseDatePicker, TTBaseMonthYearPicker: modal date selection popups with UIDatePicker, Cancel/OK buttons, and flexible configuration.">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>tailwind.config={darkMode:'class',theme:{extend:{colors:{primary:'#3b82f6'}}}}</script>
+    <link rel="stylesheet" href="../css/style.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet">
+</head>
+<body class="antialiased min-h-screen flex flex-col pt-16">
+    <script>window.TTBase='..';</script>
+    <div id="site-header"></div>
+    <div class="max-w-screen-2xl mx-auto flex-1 w-full flex">
+        <div id="site-sidebar"></div>
+        <main class="flex-1 min-w-0 py-10 px-4 sm:px-6 lg:px-8 xl:pr-24">
+            <div class="prose dark:prose-invert max-w-3xl mx-auto">
+                <nav class="text-sm text-slate-400 mb-4"><a href="index.html" style="color:#3b82f6;text-decoration:none;">UIKit</a> / Date Pickers</nav>
+                <div class="flex items-center gap-3 mb-6">
+                    <h1 class="text-4xl font-extrabold m-0">Date Pickers</h1>
+                    <span class="badge badge-red">ViewController</span>
+                </div>
+                <p>Ready-to-use date picker modals that extend <code>TTBasePopupViewController</code>. <code>TTBaseDatePicker</code> wraps Apple's <code>UIDatePicker</code> in a card with Cancel/Select buttons. <code>TTBaseMonthYearPicker</code> provides a month+year-only picker for card expiry inputs.</p>
+
+                <hr>
+                <h2 id="date-picker">📅 TTBaseDatePicker</h2>
+<pre><code class="language-swift">// Date-only picker (default)
+let picker = TTBaseDatePicker(
+    with: true,          // tap outside to dismiss
+    selectedDate: Date(),
+    mode: .date
+)
+picker.didTouchOKButton = { [weak self] selectedDate in
+    self?.dateLabel.text = DateFormatter.display.string(from: selectedDate)
+}
+picker.didTouchCancelButton = { /* optional */ }
+present(picker, animated: true)
+
+// Date + Time picker
+let dateTimePicker = TTBaseDatePicker(
+    with: false,
+    selectedDate: event.startDate,
+    mode: .dateAndTime,
+    textColor: .darkText
+)
+
+// Time only
+let timePicker = TTBaseDatePicker(
+    with: true,
+    selectedDate: Date(),
+    mode: .time
+)
+
+// Custom colors
+picker.setColor(
+    withPanel: .white,
+    text: .darkText,
+    leftButton: .systemGray,
+    rightButton: .systemBlue
+)
+
+// Custom button labels
+picker.setText(forLeftButton: "Huỷ", right: "Chọn")
+
+// Hide buttons (display only)
+picker.setHiddenButton()
+
+// Hide just cancel
+picker.setHiddenCancelButton()
+
+// Real-time change
+picker.didDatePickerValueChanged = { date in
+    print("Picker moved to:", date)
+}
+</code></pre>
+
+                <hr>
+                <h2 id="api">📖 API Reference</h2>
+                <table class="api-table">
+                    <thead><tr><th>Member</th><th>Type</th><th>Description</th></tr></thead>
+                    <tbody>
+                        <tr><td><code>init(with:selectedDate:mode:textColor:)</code></td><td>Init</td><td>Primary initializer</td></tr>
+                        <tr><td><code>didDatePickerValueChanged</code></td><td><code>(Date) → Void</code></td><td>Called on every wheel change</td></tr>
+                        <tr><td><code>didTouchCancelButton</code></td><td><code>() → Void</code></td><td>Cancel button tapped</td></tr>
+                        <tr><td><code>didTouchOKButton</code></td><td><code>(Date) → Void</code></td><td>OK/Select button tapped with final date</td></tr>
+                        <tr><td><code>setText(forLeftButton:right:)</code></td><td>Method</td><td>Localize button labels</td></tr>
+                        <tr><td><code>setColor(withPanel:text:leftButton:rightButton:)</code></td><td>Method</td><td>Fully customize colors</td></tr>
+                        <tr><td><code>setHiddenButton()</code></td><td>Method</td><td>Hide both buttons</td></tr>
+                        <tr><td><code>setHiddenCancelButton()</code></td><td>Method</td><td>Hide cancel only</td></tr>
+                        <tr><td><code>mode</code></td><td><code>UIDatePicker.Mode</code></td><td>.date / .time / .dateAndTime</td></tr>
+                    </tbody>
+                </table>
+
+                <div class="info-box tip">
+                    <strong>Pro Tip:</strong> Use <code>didTouchOKButton</code> rather than <code>didDatePickerValueChanged</code> in forms — <code>didDatePickerValueChanged</code> fires for every wheel movement, potentially causing repeated UI updates. Only commit the selection in the OK handler.
+                </div>
+
+                <div class="flex gap-4 mt-8">
+                    <a href="base-popup.html" style="color:#3b82f6;text-decoration:none;">← Popup ViewControllers</a>
+                    <a href="base-scroll-viewcontroller.html" style="color:#3b82f6;text-decoration:none;">Scroll ViewControllers →</a>
+                </div>
+            </div>
+        </main>
+    </div>
+    <div id="site-footer"></div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-swift.min.js"></script>
+    <script src="../js/main.js"></script>
+    <script src="../js/components.js"></script>
+    <script src="../js/search.js"></script>
+</body>
+</html>

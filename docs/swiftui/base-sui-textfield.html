@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <script src="../js/theme-init.js"></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TTBaseSUITextField — SwiftUI Components — TTBaseUIKit</title>
+    <meta name="description" content="TTBaseSUITextField: SwiftUI text field with 4 border types, secure mode, disabled state, icons, and real-time change handler.">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>tailwind.config={darkMode:'class',theme:{extend:{colors:{primary:'#3b82f6'}}}}</script>
+    <link rel="stylesheet" href="../css/style.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/fuse.js@7.0.0"></script>
+</head>
+<body class="antialiased min-h-screen flex flex-col pt-16">
+    <script>window.TTBase='..';</script>
+    <div id="site-header"></div>
+    <div class="max-w-screen-2xl mx-auto flex-1 w-full flex">
+        <div id="site-sidebar"></div>
+        <main class="flex-1 min-w-0 py-10 px-4 sm:px-6 lg:px-8 xl:pr-24">
+            <div class="prose dark:prose-invert max-w-3xl mx-auto">
+                <nav class="text-sm text-slate-400 mb-4"><a href="index.html" style="color:#3b82f6;text-decoration:none;">SwiftUI</a> / TTBaseSUITextField</nav>
+                <div class="flex items-center gap-3 mb-6">
+                    <h1 class="text-4xl font-extrabold m-0">TTBaseSUITextField</h1>
+                    <span class="badge badge-purple">SwiftUI Core</span>
+                </div>
+                <p>SwiftUI text field with 4 border types (DEFAULT, NO_BORDER, ONLY_BOTTOM, NO_PADDING), secure/password mode, disabled state, placeholder styling, and real-time text change handler. Mirrors the UIKit <a href="../uikit/base-textfield.html" style="color:#3b82f6">TTBaseUITextField</a> API in SwiftUI idiom.</p>
+
+                <hr>
+                <h2 id="types">🎨 Types</h2>
+<pre><code class="language-swift">public enum TYPE {
+    case DEFAULT      // Rounded rect border
+    case NO_BORDER    // No visible border
+    case ONLY_BOTTOM  // Bottom underline only
+    case NO_PADDING   // Zero padding, no border
+}</code></pre>
+
+                <table class="api-table">
+                    <thead><tr><th>Type</th><th>Appearance</th><th>Use Case</th></tr></thead>
+                    <tbody>
+                        <tr><td><code>.DEFAULT</code></td><td>Rounded border</td><td>Standard form fields</td></tr>
+                        <tr><td><code>.NO_BORDER</code></td><td>No border</td><td>Fields inside custom containers</td></tr>
+                        <tr><td><code>.ONLY_BOTTOM</code></td><td>Bottom line</td><td>Flat/modern style</td></tr>
+                        <tr><td><code>.NO_PADDING</code></td><td>Minimal</td><td>Tight layouts</td></tr>
+                    </tbody>
+                </table>
+
+                <hr>
+                <h2 id="usage">🚀 Usage</h2>
+
+<pre><code class="language-swift">// Standard text field with binding
+@State private var name = ""
+
+TTBaseSUITextField(
+    text: $name,
+    placeholder: "Enter your name"
+)
+
+// Secure password field
+@State private var password = ""
+TTBaseSUITextField(
+    text: $password,
+    placeholder: "Password",
+    isSecure: true
+)
+
+// Bottom-line style (flat form)
+TTBaseSUITextField(
+    text: $email,
+    placeholder: "Email address",
+    type: .ONLY_BOTTOM
+)
+.keyboardType(.emailAddress)
+.textContentType(.emailAddress)
+
+// Disabled field (read-only display)
+TTBaseSUITextField(
+    text: $userId,
+    placeholder: "",
+    isDisabled: true
+)
+
+// Real-time text change handler
+TTBaseSUITextField(text: $query, placeholder: "Search...")
+    .onChange(of: query) { newValue in
+        viewModel.search(newValue)
+    }
+</code></pre>
+
+                <hr>
+                <h2 id="in-form">🏗 In a Login Form</h2>
+<pre><code class="language-swift">struct LoginView: View {
+    @State private var email = ""
+    @State private var password = ""
+
+    var body: some View {
+        VStack(spacing: 16) {
+            TTBaseSUITextField(
+                text: $email,
+                placeholder: "Email",
+                type: .ONLY_BOTTOM
+            )
+            .keyboardType(.emailAddress)
+            .textContentType(.emailAddress)
+
+            TTBaseSUITextField(
+                text: $password,
+                placeholder: "Password",
+                type: .ONLY_BOTTOM,
+                isSecure: true
+            )
+            .textContentType(.password)
+
+            TTBaseSUIButton(text: "Sign In") {
+                login(email: email, password: password)
+            }
+        }
+        .padding()
+    }
+}
+</code></pre>
+
+                <hr>
+                <h2 id="api">📖 Initializer Parameters</h2>
+                <table class="api-table">
+                    <thead><tr><th>Parameter</th><th>Type</th><th>Default</th><th>Description</th></tr></thead>
+                    <tbody>
+                        <tr><td><code>text</code></td><td><code>Binding&lt;String&gt;</code></td><td>—</td><td>Two-way text binding</td></tr>
+                        <tr><td><code>placeholder</code></td><td><code>String</code></td><td><code>""</code></td><td>Placeholder text</td></tr>
+                        <tr><td><code>type</code></td><td><code>TYPE</code></td><td><code>.DEFAULT</code></td><td>Border style</td></tr>
+                        <tr><td><code>isSecure</code></td><td><code>Bool</code></td><td><code>false</code></td><td>Enable password masking</td></tr>
+                        <tr><td><code>isDisabled</code></td><td><code>Bool</code></td><td><code>false</code></td><td>Make field read-only/grayed</td></tr>
+                    </tbody>
+                </table>
+
+                <div class="info-box tip">
+                    <strong>Pro Tip:</strong> For a password toggle (show/hide), layer <code>TTBaseSUITextField(isSecure: !showPassword)</code> with a <code>Button</code> toggling <code>showPassword</code> using SwiftUI's native overlay API.
+                </div>
+
+                <div class="flex gap-4 mt-8">
+                    <a href="base-sui-button.html" style="color:#3b82f6;text-decoration:none;">← TTBaseSUIButton</a>
+                    <a href="base-sui-toggle.html" style="color:#3b82f6;text-decoration:none;">TTBaseSUIToggle →</a>
+                </div>
+            </div>
+        </main>
+    </div>
+    <div id="site-footer"></div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-swift.min.js"></script>
+    <script src="../js/main.js"></script>
+    <script src="../js/components.js"></script>
+    <script src="../js/search.js"></script>
+</body>
+</html>

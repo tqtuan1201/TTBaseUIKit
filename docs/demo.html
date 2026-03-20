@@ -1,0 +1,761 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <script src="js/theme-init.js"></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Project Demo — TTBaseUIKitExample | TTBaseUIKit</title>
+    <meta name="description"
+        content="Explore TTBaseUIKitExample — the official sample project for TTBaseUIKit. See live animated demos, UIKit and SwiftUI code approaches side-by-side, and learn how to run the project.">
+    <meta property="og:title" content="Project Demo — TTBaseUIKitExample">
+    <meta property="og:description"
+        content="TTBaseUIKitExample: a fully-integrated iOS sample project showcasing UIKit and SwiftUI components from TTBaseUIKit.">
+    <meta property="og:type" content="website">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>tailwind.config = { darkMode: 'class', theme: { extend: { colors: { primary: '#3b82f6' } } } }</script>
+    <link rel="stylesheet" href="css/style.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/fuse.js@7.0.0"></script>
+    <style>
+        /* ── Demo Page Styles ── */
+        .demo-hero {
+            background: linear-gradient(135deg, #0f172a 0%, #1e293b 40%, #0f172a 100%);
+            position: relative;
+            overflow: hidden;
+        }
+        .demo-hero::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: radial-gradient(ellipse 80% 60% at 50% -10%, rgba(59,130,246,0.15), transparent),
+                        radial-gradient(ellipse 60% 40% at 80% 80%, rgba(139,92,246,0.1), transparent);
+        }
+        .demo-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.375rem 1rem;
+            border-radius: 9999px;
+            background: rgba(59,130,246,0.15);
+            border: 1px solid rgba(59,130,246,0.3);
+            font-size: 0.8125rem;
+            font-weight: 600;
+            color: #93c5fd;
+            margin-bottom: 1.5rem;
+        }
+        .demo-badge-dot {
+            width: 0.5rem;
+            height: 0.5rem;
+            border-radius: 50%;
+            background: #4ade80;
+            animation: pulse 2s infinite;
+        }
+        /* ── GIF Showcase ── */
+        .gif-showcase {
+            position: relative;
+            border-radius: 1.5rem;
+            overflow: hidden;
+            border: 1px solid rgba(59,130,246,0.2);
+            box-shadow: 0 0 0 1px rgba(255,255,255,0.05), 0 25px 50px rgba(0,0,0,0.5);
+            background: #0f172a;
+        }
+        .gif-showcase img {
+            width: 100%;
+            display: block;
+            border-radius: 1.5rem;
+        }
+        .gif-showcase-label {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            padding: 1.25rem 1.5rem;
+            background: linear-gradient(to top, rgba(15,23,42,0.98), transparent);
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            color: white;
+            font-size: 0.875rem;
+            font-weight: 500;
+        }
+        .gif-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.375rem;
+            padding: 0.25rem 0.625rem;
+            border-radius: 9999px;
+            font-size: 0.75rem;
+            font-weight: 600;
+        }
+        .gif-badge-live {
+            background: rgba(74,222,128,0.15);
+            border: 1px solid rgba(74,222,128,0.3);
+            color: #4ade80;
+        }
+        .gif-badge-live::before {
+            content: '';
+            width: 6px;
+            height: 6px;
+            border-radius: 50%;
+            background: #4ade80;
+            animation: pulse 1.5s infinite;
+        }
+        /* ── Tab Switcher ── */
+        .tab-bar {
+            display: flex;
+            gap: 0.25rem;
+            padding: 0.25rem;
+            background: var(--card-bg);
+            border-radius: 0.875rem;
+            border: 1px solid var(--border-color);
+            width: fit-content;
+            margin: 0 auto 2rem auto;
+        }
+        .tab-btn {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.5rem 1.25rem;
+            border-radius: 0.625rem;
+            font-size: 0.875rem;
+            font-weight: 600;
+            cursor: pointer;
+            border: none;
+            background: transparent;
+            color: var(--text-secondary);
+            transition: all 0.2s;
+        }
+        .tab-btn.active-uikit {
+            background: linear-gradient(135deg, #f97316, #ef4444);
+            color: white;
+            box-shadow: 0 4px 12px rgba(249,115,22,0.35);
+        }
+        .tab-btn.active-swiftui {
+            background: linear-gradient(135deg, #8b5cf6, #3b82f6);
+            color: white;
+            box-shadow: 0 4px 12px rgba(139,92,246,0.35);
+        }
+        .tab-btn:not(.active-uikit):not(.active-swiftui):hover {
+            color: var(--text-color);
+            background: var(--card-hover-bg);
+        }
+        .tab-content {
+            display: none;
+        }
+        .tab-content.active {
+            display: block;
+            animation: fadeInUp 0.3s ease-out;
+        }
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        /* ── Code Comparison Panel ── */
+        .approach-panel {
+            border-radius: 1rem;
+            overflow: hidden;
+            border: 1px solid var(--border-color);
+        }
+        .approach-panel-header {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            padding: 0.875rem 1.25rem;
+            font-size: 0.8125rem;
+            font-weight: 600;
+        }
+        .approach-panel-header.uikit-header {
+            background: linear-gradient(135deg, rgba(249,115,22,0.15), rgba(239,68,68,0.1));
+            border-bottom: 1px solid rgba(249,115,22,0.2);
+            color: #fb923c;
+        }
+        .approach-panel-header.swiftui-header {
+            background: linear-gradient(135deg, rgba(139,92,246,0.15), rgba(59,130,246,0.1));
+            border-bottom: 1px solid rgba(139,92,246,0.2);
+            color: #a78bfa;
+        }
+        .approach-panel pre {
+            margin: 0 !important;
+            border-radius: 0 !important;
+            border: none !important;
+        }
+        /* ── Feature Cards ── */
+        .feature-card-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 1rem;
+        }
+        @media (min-width: 768px) {
+            .feature-card-grid {
+                grid-template-columns: repeat(4, 1fr);
+            }
+        }
+        .feature-card {
+            border-radius: 1rem;
+            padding: 1.25rem;
+            border: 1px solid var(--border-color);
+            background: var(--card-bg);
+            transition: all 0.2s;
+            cursor: default;
+        }
+        .feature-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(0,0,0,0.12);
+            border-color: var(--border-hover-color, #93c5fd);
+        }
+        .feature-card-icon {
+            font-size: 1.75rem;
+            margin-bottom: 0.75rem;
+            display: block;
+        }
+        .feature-card-title {
+            font-weight: 700;
+            font-size: 0.9375rem;
+            color: var(--text-color);
+            margin-bottom: 0.375rem;
+        }
+        .feature-card-desc {
+            font-size: 0.8125rem;
+            color: var(--text-secondary);
+            line-height: 1.5;
+        }
+        .feature-card-badge {
+            display: inline-flex;
+            margin-top: 0.625rem;
+            padding: 0.2rem 0.5rem;
+            border-radius: 0.375rem;
+            font-size: 0.6875rem;
+            font-weight: 700;
+            letter-spacing: 0.02em;
+        }
+        /* ── How to Run Steps ── */
+        .run-steps {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+        .run-step {
+            display: flex;
+            align-items: flex-start;
+            gap: 1rem;
+            padding: 1.25rem;
+            border-radius: 1rem;
+            border: 1px solid var(--border-color);
+            background: var(--card-bg);
+            transition: all 0.2s;
+        }
+        .run-step:hover {
+            border-color: rgba(59,130,246,0.4);
+            background: rgba(59,130,246,0.03);
+        }
+        .run-step-num {
+            flex-shrink: 0;
+            width: 2.5rem;
+            height: 2.5rem;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #3b82f6, #06b6d4);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 800;
+            font-size: 0.9375rem;
+            color: white;
+            box-shadow: 0 4px 10px rgba(59,130,246,0.3);
+        }
+        .run-step-body { flex: 1; min-width: 0; }
+        .run-step-title {
+            font-weight: 700;
+            font-size: 0.9375rem;
+            color: var(--text-color);
+            margin-bottom: 0.25rem;
+        }
+        .run-step-desc {
+            font-size: 0.8125rem;
+            color: var(--text-secondary);
+        }
+        .run-step-code {
+            margin-top: 0.5rem;
+            padding: 0.5rem 0.875rem;
+            background: var(--code-bg);
+            border-radius: 0.5rem;
+            font-family: 'JetBrains Mono', 'Fira Code', 'Courier New', monospace;
+            font-size: 0.75rem;
+            color: #93c5fd;
+            border: 1px solid var(--border-color);
+            display: inline-block;
+        }
+        /* ── GitHub CTA ── */
+        .github-cta {
+            background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+            border-radius: 1.5rem;
+            padding: 3rem;
+            text-align: center;
+            border: 1px solid rgba(255,255,255,0.08);
+            position: relative;
+            overflow: hidden;
+        }
+        .github-cta::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: radial-gradient(ellipse 80% 60% at 50% 100%, rgba(59,130,246,0.12), transparent);
+        }
+        .github-cta-inner { position: relative; z-index: 1; }
+        .github-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.75rem;
+            padding: 0.875rem 2rem;
+            background: white;
+            color: #0f172a;
+            font-weight: 700;
+            font-size: 0.9375rem;
+            border-radius: 9999px;
+            text-decoration: none;
+            transition: all 0.2s;
+            margin: 0.5rem;
+        }
+        .github-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(255,255,255,0.15);
+        }
+        .github-btn-secondary {
+            background: rgba(255,255,255,0.08);
+            color: white;
+            border: 1px solid rgba(255,255,255,0.15);
+        }
+        .github-btn-secondary:hover {
+            background: rgba(255,255,255,0.15);
+        }
+        /* ── Section header ── */
+        .section-header {
+            text-align: center;
+            margin-bottom: 2.5rem;
+        }
+        .section-header h2 {
+            font-size: 1.875rem;
+            font-weight: 800;
+            color: var(--text-color);
+            margin-bottom: 0.5rem;
+        }
+        .section-header p {
+            color: var(--text-secondary);
+            font-size: 1rem;
+            max-width: 36rem;
+            margin: 0 auto;
+        }
+        /* ── Approach highlights ── */
+        .highlight-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            margin-top: 1rem;
+        }
+        .highlight-tag {
+            padding: 0.25rem 0.625rem;
+            border-radius: 0.375rem;
+            font-size: 0.75rem;
+            font-weight: 600;
+        }
+    </style>
+</head>
+
+<body class="antialiased min-h-screen flex flex-col">
+    <script>window.TTBase = '';</script>
+    <div id="site-header"></div>
+
+    <div class="max-w-screen-2xl mx-auto flex-1 w-full flex pt-16">
+        <div id="site-sidebar"></div>
+
+        <main class="flex-1 min-w-0 py-10 px-4 sm:px-6 lg:px-8 xl:pr-12">
+            <div class="max-w-5xl mx-auto">
+
+                <!-- ── Hero ── -->
+                <div class="demo-hero rounded-2xl mb-12 px-6 py-14 sm:px-12 sm:py-20 text-center relative">
+                    <div class="relative z-10">
+                        <div class="demo-badge">
+                            <span class="demo-badge-dot"></span>
+                            TTBaseUIKitExample · Official Sample Project
+                        </div>
+                        <h1 class="text-4xl sm:text-5xl font-black text-white mb-4 tracking-tight">
+                            🎬 Project Demo
+                        </h1>
+                        <p class="text-slate-300 text-lg sm:text-xl max-w-2xl mx-auto leading-relaxed mb-8">
+                            The complete reference implementation integrating <strong class="text-white">TTBaseUIKit</strong> — featuring <strong class="text-white">UIKit</strong> and <strong class="text-white">SwiftUI</strong> approaches side-by-side.
+                        </p>
+                        <div class="flex flex-wrap justify-center gap-3">
+                            <span class="px-3 py-1 rounded-full text-xs font-semibold bg-orange-500/20 border border-orange-500/30 text-orange-300">🧱 UIKit Foundation</span>
+                            <span class="px-3 py-1 rounded-full text-xs font-semibold bg-purple-500/20 border border-purple-500/30 text-purple-300">🎨 SwiftUI Modern</span>
+                            <span class="px-3 py-1 rounded-full text-xs font-semibold bg-blue-500/20 border border-blue-500/30 text-blue-300">🛠️ UI Debug Kit</span>
+                            <span class="px-3 py-1 rounded-full text-xs font-semibold bg-green-500/20 border border-green-500/30 text-green-300">🤖 AI Agent Ready</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- ── Animated GIF Showcase ── -->
+                <section class="mb-16">
+                    <div class="section-header">
+                        <h2>See It In Action</h2>
+                        <p>Full navigation flow · Component library demo · UIKit to SwiftUI in one app</p>
+                    </div>
+                    <div class="max-w-3xl mx-auto">
+                        <div class="gif-showcase">
+                            <img
+                                src="https://tqtuan1201.github.io/images/TTBaseUIKit.gif"
+                                alt="TTBaseUIKitExample — Full animated demo of UIKit and SwiftUI components"
+                                loading="lazy"
+                                onerror="this.onerror=null; this.src='https://tqtuan1201.github.io/images/ttbaseuikit_compress_2.gif';">
+                            <div class="gif-showcase-label">
+                                <span class="gif-badge gif-badge-live">LIVE</span>
+                                <span>TTBaseUIKitExample — UIKit + SwiftUI components in one sample project</span>
+                            </div>
+                        </div>
+                        <!-- Debug Kit demo -->
+                        <p class="text-center text-sm text-slate-500 dark:text-slate-400 mt-4">
+                            Also includes <strong>built-in UI Debug Kit</strong> (v2.2.1+) — triple-tap to inspect layouts, view API logs, capture screens
+                        </p>
+                        <div class="max-w-3xl mx-auto mt-4">
+                            <div class="gif-showcase" style="border-color: rgba(139,92,246,0.2);">
+                                <img
+                                    src="https://tqtuan1201.github.io/images/TTBaseUIKit-DebugKit.gif"
+                                    alt="TTBaseUIKit Built-in UI Debug Kit"
+                                    loading="lazy"
+                                    onerror="this.onerror=null; this.style.display='none';">
+                                <div class="gif-showcase-label">
+                                    <span class="gif-badge" style="background:rgba(139,92,246,0.15);border:1px solid rgba(139,92,246,0.3);color:#a78bfa;">🛠️ DEBUG KIT</span>
+                                    <span>Real-time layout inspector · API log viewer · Screen capture</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- ── Tab: UIKit vs SwiftUI ── -->
+                <section class="mb-16">
+                    <div class="section-header">
+                        <h2>Two Approaches, One Kit</h2>
+                        <p>TTBaseUIKitExample demonstrates both UIKit programmatic and SwiftUI declarative patterns</p>
+                    </div>
+
+                    <!-- Tab Bar -->
+                    <div class="tab-bar">
+                        <button class="tab-btn active-uikit" id="tab-uikit" onclick="switchTab('uikit')">
+                            🧱 UIKit Approach
+                        </button>
+                        <button class="tab-btn" id="tab-swiftui" onclick="switchTab('swiftui')">
+                            🎨 SwiftUI Approach
+                        </button>
+                    </div>
+
+                    <!-- UIKit Tab -->
+                    <div class="tab-content active" id="content-uikit">
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                            <!-- Code snippet -->
+                            <div class="approach-panel">
+                                <div class="approach-panel-header uikit-header">
+                                    <span>🧱</span>
+                                    <span>BaseUIViewController</span>
+                                </div>
+                                <pre><code class="language-swift">// UIKit — Programmatic approach
+class HomeViewController: TTBaseUIViewController<BaseViewModel> {
+
+    // ViewCodable protocol auto-calls:
+    override func makeUI() {
+        super.makeUI()
+        // Build UI here — no Storyboard
+        view.addSubview(titleLabel)
+        view.addSubview(actionButton)
+        setConstraints()
+    }
+
+    override func bindViewModel() {
+        super.bindViewModel()
+        // Bind data to views
+    }
+}
+
+// BaseUITableViewController
+class ListViewController: TTBaseUITableViewController<ListViewModel> {
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        // Table setup is handled by base
+    }
+
+    override func tableView(_ tableView: UITableView,
+        cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        // Register & dequeue from base
+    }
+}</code></pre>
+                            </div>
+                            <!-- Highlights -->
+                            <div>
+                                <h3 class="text-lg font-bold dark:text-white mb-4">What's Included</h3>
+                                <ul class="space-y-3">
+                                    <li class="flex items-start gap-3">
+                                        <span class="mt-0.5 text-orange-400 font-bold">✓</span>
+                                        <div>
+                                            <div class="font-semibold dark:text-white text-sm">ViewCodable Protocol</div>
+                                            <div class="text-slate-500 dark:text-slate-400 text-xs">Structured lifecycle: setupData → makeUI → makeConstraints → bindViewModel</div>
+                                        </div>
+                                    </li>
+                                    <li class="flex items-start gap-3">
+                                        <span class="mt-0.5 text-orange-400 font-bold">✓</span>
+                                        <div>
+                                            <div class="font-semibold dark:text-white text-sm">BaseUIViewController</div>
+                                            <div class="text-slate-500 dark:text-slate-400 text-xs">Navigation, loading states, error handling — zero boilerplate</div>
+                                        </div>
+                                    </li>
+                                    <li class="flex items-start gap-3">
+                                        <span class="mt-0.5 text-orange-400 font-bold">✓</span>
+                                        <div>
+                                            <div class="font-semibold dark:text-white text-sm">BaseUITableViewController</div>
+                                            <div class="text-slate-500 dark:text-slate-400 text-xs">Built-in empty state, pull-to-refresh, skeleton loading</div>
+                                        </div>
+                                    </li>
+                                    <li class="flex items-start gap-3">
+                                        <span class="mt-0.5 text-orange-400 font-bold">✓</span>
+                                        <div>
+                                            <div class="font-semibold dark:text-white text-sm">BaseCollectionViewController</div>
+                                            <div class="text-slate-500 dark:text-slate-400 text-xs">Compositional layouts supported out of the box</div>
+                                        </div>
+                                    </li>
+                                    <li class="flex items-start gap-3">
+                                        <span class="mt-0.5 text-orange-400 font-bold">✓</span>
+                                        <div>
+                                            <div class="font-semibold dark:text-white text-sm">Auto Layout Helpers</div>
+                                            <div class="text-slate-500 dark:text-slate-400 text-xs">Chainable programmatic constraints — no NSLayoutConstraint verbosity</div>
+                                        </div>
+                                    </li>
+                                    <li class="flex items-start gap-3">
+                                        <span class="mt-0.5 text-orange-400 font-bold">✓</span>
+                                        <div>
+                                            <div class="font-semibold dark:text-white text-sm">Popup, Notification, Skeleton</div>
+                                            <div class="text-slate-500 dark:text-slate-400 text-xs">Show messages, alerts, badges, loading skeletons in 1 line</div>
+                                        </div>
+                                    </li>
+                                </ul>
+                                <div class="highlight-tags mt-4">
+                                    <span class="highlight-tag bg-orange-100 dark:bg-orange-900/30 text-orange-700 dark:text-orange-300">UIKit</span>
+                                    <span class="highlight-tag bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-400">No Storyboard</span>
+                                    <span class="highlight-tag bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-400">Programmatic</span>
+                                    <span class="highlight-tag bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-400">iOS 12+</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- SwiftUI Tab -->
+                    <div class="tab-content" id="content-swiftui">
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                            <!-- Code snippet -->
+                            <div class="approach-panel">
+                                <div class="approach-panel-header swiftui-header">
+                                    <span>🎨</span>
+                                    <span>BaseSUIView</span>
+                                </div>
+                                <pre><code class="language-swift">// SwiftUI — Declarative approach
+struct HomeView: BaseSUIView {
+
+    var body: some View {
+        VStack(spacing: 16) {
+
+            // Base text with TTBaseUIKit font system
+            BaseSUIText("Welcome to TTBaseUIKit")
+                .ttFont(type: .HEADER_H)
+                .foregroundColor(.primary)
+
+            // Base button with built-in styles
+            BaseSUIButton(title: "Get Started") {
+                // action handler
+            }
+            .ttButtonStyle(.filled)
+
+            // Base list with skeleton loading  
+            BaseSUIList(items: viewModel.items) { item in
+                ItemRowView(item: item)
+            }
+        }
+        .baseSUIPadding()
+    }
+}
+
+// Preview in Xcode — no simulator needed
+#Preview {
+    HomeView()
+}</code></pre>
+                            </div>
+                            <!-- Highlights -->
+                            <div>
+                                <h3 class="text-lg font-bold dark:text-white mb-4">What's Included</h3>
+                                <ul class="space-y-3">
+                                    <li class="flex items-start gap-3">
+                                        <span class="mt-0.5 text-purple-400 font-bold">✓</span>
+                                        <div>
+                                            <div class="font-semibold dark:text-white text-sm">BaseSUIView</div>
+                                            <div class="text-slate-500 dark:text-slate-400 text-xs">Base SwiftUI view with built-in theme, spacing, and lifecycle helpers</div>
+                                        </div>
+                                    </li>
+                                    <li class="flex items-start gap-3">
+                                        <span class="mt-0.5 text-purple-400 font-bold">✓</span>
+                                        <div>
+                                            <div class="font-semibold dark:text-white text-sm">BaseSUIText & BaseSUIButton</div>
+                                            <div class="text-slate-500 dark:text-slate-400 text-xs">Font system and button styles from TTBaseUIKit config — auto-themed</div>
+                                        </div>
+                                    </li>
+                                    <li class="flex items-start gap-3">
+                                        <span class="mt-0.5 text-purple-400 font-bold">✓</span>
+                                        <div>
+                                            <div class="font-semibold dark:text-white text-sm">BaseSUIList & BaseSUIGroup</div>
+                                            <div class="text-slate-500 dark:text-slate-400 text-xs">Declarative list with empty state, skeleton loading, pull-to-refresh</div>
+                                        </div>
+                                    </li>
+                                    <li class="flex items-start gap-3">
+                                        <span class="mt-0.5 text-purple-400 font-bold">✓</span>
+                                        <div>
+                                            <div class="font-semibold dark:text-white text-sm">Shimmer Animations</div>
+                                            <div class="text-slate-500 dark:text-slate-400 text-xs">Built-in shimmer / skeleton loading effect for any view</div>
+                                        </div>
+                                    </li>
+                                    <li class="flex items-start gap-3">
+                                        <span class="mt-0.5 text-purple-400 font-bold">✓</span>
+                                        <div>
+                                            <div class="font-semibold dark:text-white text-sm">View Modifiers</div>
+                                            <div class="text-slate-500 dark:text-slate-400 text-xs">ttFont, ttShadow, ttPadding — consistent styling across the app</div>
+                                        </div>
+                                    </li>
+                                    <li class="flex items-start gap-3">
+                                        <span class="mt-0.5 text-purple-400 font-bold">✓</span>
+                                        <div>
+                                            <div class="font-semibold dark:text-white text-sm">iOS 14+ Compatible</div>
+                                            <div class="text-slate-500 dark:text-slate-400 text-xs">Full SwiftUI support from iOS 14 — maximum device reach</div>
+                                        </div>
+                                    </li>
+                                </ul>
+                                <div class="highlight-tags mt-4">
+                                    <span class="highlight-tag bg-purple-100 dark:bg-purple-900/30 text-purple-700 dark:text-purple-300">SwiftUI</span>
+                                    <span class="highlight-tag bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-400">Declarative</span>
+                                    <span class="highlight-tag bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-400">iOS 14+</span>
+                                    <span class="highlight-tag bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-400">v2.1.0+</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- ── Feature Cards ── -->
+                <section class="mb-16">
+                    <div class="section-header">
+                        <h2>What's Inside TTBaseUIKitExample</h2>
+                        <p>A full-featured sample demonstrating all framework capabilities</p>
+                    </div>
+                    <div class="feature-card-grid">
+                        <div class="feature-card" style="--border-hover-color: rgba(249,115,22,0.4);">
+                            <span class="feature-card-icon">🧱</span>
+                            <div class="feature-card-title">UIKit Foundation</div>
+                            <div class="feature-card-desc">72+ production-ready base views, ViewControllers, programmatic Auto Layout helpers and Coordinator pattern.</div>
+                            <span class="feature-card-badge" style="background:rgba(249,115,22,0.15);color:#fb923c;">72+ Components</span>
+                        </div>
+                        <div class="feature-card" style="--border-hover-color: rgba(139,92,246,0.4);">
+                            <span class="feature-card-icon">🎨</span>
+                            <div class="feature-card-title">SwiftUI Modern</div>
+                            <div class="feature-card-desc">51+ declarative views — buttons, texts, layouts, sliders, toggles, shimmer animations targeting iOS 14+.</div>
+                            <span class="feature-card-badge" style="background:rgba(139,92,246,0.15);color:#a78bfa;">51+ Views</span>
+                        </div>
+                        <div class="feature-card" style="--border-hover-color: rgba(59,130,246,0.4);">
+                            <span class="feature-card-icon">🛠️</span>
+                            <div class="feature-card-title">UI Debug Kit</div>
+                            <div class="feature-card-desc">Triple-tap layout inspector, API response viewer, screen capture with notes. Available since v2.2.1.</div>
+                            <span class="feature-card-badge" style="background:rgba(59,130,246,0.15);color:#60a5fa;">v2.2.1+</span>
+                        </div>
+                        <div class="feature-card" style="--border-hover-color: rgba(16,185,129,0.4);">
+                            <span class="feature-card-icon">🤖</span>
+                            <div class="feature-card-title">AI Agent Ready</div>
+                            <div class="feature-card-desc">Pre-configured for GitHub Copilot, Claude Code, Gemini and Xcode Agent Skills with 17 custom agents.</div>
+                            <span class="feature-card-badge" style="background:rgba(16,185,129,0.15);color:#34d399;">17 Agents</span>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- ── How to Run ── -->
+                <section class="mb-16">
+                    <div class="section-header">
+                        <h2>How to Run</h2>
+                        <p>Get TTBaseUIKitExample running in Xcode in under 60 seconds</p>
+                    </div>
+                    <div class="run-steps max-w-2xl mx-auto">
+                        <div class="run-step">
+                            <div class="run-step-num">1</div>
+                            <div class="run-step-body">
+                                <div class="run-step-title">Clone the Repository</div>
+                                <div class="run-step-desc">Download TTBaseUIKit from GitHub — TTBaseUIKitExample is included in the repo.</div>
+                                <code class="run-step-code">git clone https://github.com/tqtuan1201/TTBaseUIKit.git</code>
+                            </div>
+                        </div>
+                        <div class="run-step">
+                            <div class="run-step-num">2</div>
+                            <div class="run-step-body">
+                                <div class="run-step-title">Open the Xcode Project</div>
+                                <div class="run-step-desc">Open the <code style="font-size:0.75rem;padding:0.1rem 0.3rem;background:var(--code-bg);border-radius:0.25rem;">.xcodeproj</code> file in Xcode. No CocoaPods or SwiftPM install required for the example.</div>
+                                <code class="run-step-code">open TTBaseUIKit.xcodeproj</code>
+                            </div>
+                        </div>
+                        <div class="run-step">
+                            <div class="run-step-num">3</div>
+                            <div class="run-step-body">
+                                <div class="run-step-title">Select the TTBaseUIKitExample Target</div>
+                                <div class="run-step-desc">In Xcode, select the <strong>TTBaseUIKitExample</strong> scheme from the target dropdown, choose a Simulator, and press <kbd style="padding:0.1rem 0.3rem;font-size:0.75rem;background:var(--code-bg);border-radius:0.25rem;border:1px solid var(--border-color);">⌘ R</kbd> to run.</div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- ── GitHub CTA ── -->
+                <div class="github-cta">
+                    <div class="github-cta-inner">
+                        <div class="text-4xl mb-4">⭐</div>
+                        <h2 class="text-2xl sm:text-3xl font-black text-white mb-3">Ready to Explore?</h2>
+                        <p class="text-slate-400 max-w-xl mx-auto mb-8">
+                            Clone TTBaseUIKitExample and see how UIKit and SwiftUI coexist in a single, production-grade iOS project.
+                        </p>
+                        <div class="flex flex-wrap justify-center gap-3">
+                            <a href="https://github.com/tqtuan1201/TTBaseUIKit/tree/master/TTBaseUIKitExample"
+                                target="_blank" rel="noopener" class="github-btn">
+                                <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23A11.509 11.509 0 0112 5.803c1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576C20.566 21.797 24 17.3 24 12c0-6.627-5.373-12-12-12z"/></svg>
+                                View on GitHub
+                            </a>
+                            <a href="https://github.com/tqtuan1201/TTBaseUIKit/archive/refs/heads/master.zip"
+                                class="github-btn github-btn-secondary">
+                                ⬇ Download ZIP
+                            </a>
+                            <a href="getting-started.html" class="github-btn github-btn-secondary">
+                                📖 Getting Started →
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </main>
+    </div>
+
+    <div id="site-footer"></div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-swift.min.js"></script>
+    <script src="js/main.js"></script>
+    <script src="js/components.js"></script>
+    <script src="js/search.js"></script>
+    <script>
+        function switchTab(tab) {
+            // Update tabs
+            document.getElementById('tab-uikit').className = 'tab-btn' + (tab === 'uikit' ? ' active-uikit' : '');
+            document.getElementById('tab-swiftui').className = 'tab-btn' + (tab === 'swiftui' ? ' active-swiftui' : '');
+            // Update content
+            document.getElementById('content-uikit').className = 'tab-content' + (tab === 'uikit' ? ' active' : '');
+            document.getElementById('content-swiftui').className = 'tab-content' + (tab === 'swiftui' ? ' active' : '');
+        }
+    </script>
+</body>
+
+</html>

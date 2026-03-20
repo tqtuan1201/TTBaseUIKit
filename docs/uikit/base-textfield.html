@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <script src="../js/theme-init.js"></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TTBaseUITextField — UIKit Components — TTBaseUIKit</title>
+    <meta name="description" content="TTBaseUITextField: enhanced UITextField with 4 border styles, keyboard type helpers, AwesomePro icon support, auto-dismiss accessory view, email auto-fill, and force uppercase.">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>tailwind.config={darkMode:'class',theme:{extend:{colors:{primary:'#3b82f6'}}}}</script>
+    <link rel="stylesheet" href="../css/style.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/fuse.js@7.0.0"></script>
+</head>
+<body class="antialiased min-h-screen flex flex-col pt-16">
+    <script>window.TTBase='..';</script>
+    <div id="site-header"></div>
+    <div class="max-w-screen-2xl mx-auto flex-1 w-full flex">
+        <div id="site-sidebar"></div>
+        <main class="flex-1 min-w-0 py-10 px-4 sm:px-6 lg:px-8 xl:pr-24">
+            <div class="prose dark:prose-invert max-w-3xl mx-auto">
+                <nav class="text-sm text-slate-400 mb-4"><a href="index.html" style="color:#3b82f6;text-decoration:none;">UIKit</a> / TTBaseUITextField</nav>
+                <div class="flex items-center gap-3 mb-6">
+                    <h1 class="text-4xl font-extrabold m-0">TTBaseUITextField</h1>
+                    <span class="badge badge-blue">Core</span>
+                </div>
+                <p>Enhanced <code>UITextField</code> subclass with 4 border styles, built-in keyboard dismiss accessory view, AwesomePro icon support (left/right), real-time text change handler, email auto-fill, force uppercase, and chainable API. Automatically constrains height to <code>SizeConfig.H_TEXTFIELD</code> when <code>isSetHeight: true</code>.</p>
+
+                <hr>
+                <h2 id="types">🎨 Field Types</h2>
+<pre><code class="language-swift">public enum TYPE {
+    case DEFAULT      // Rounded rect border (system style)
+    case NO_BORDER    // No border, no background line
+    case NO_PADING    // Zero padding (embed in custom container)
+    case ONLY_BOTTOM  // Bottom underline only (flat style)
+}</code></pre>
+
+                <table class="api-table">
+                    <thead><tr><th>Type</th><th>Border</th><th>Padding</th><th>Use Case</th></tr></thead>
+                    <tbody>
+                        <tr><td><code>.DEFAULT</code></td><td>Rounded rect</td><td>5pt uniform</td><td>Standard form fields</td></tr>
+                        <tr><td><code>.NO_BORDER</code></td><td>None</td><td>5pt uniform</td><td>Custom-styled containers</td></tr>
+                        <tr><td><code>.NO_PADING</code></td><td>System default</td><td>None</td><td>Tight layouts, embedded in panels</td></tr>
+                        <tr><td><code>.ONLY_BOTTOM</code></td><td>Bottom line only</td><td>5pt uniform</td><td>Flat/modern form style</td></tr>
+                    </tbody>
+                </table>
+
+                <hr>
+                <h2 id="usage">🚀 Usage</h2>
+
+                <h3>Basic Text Fields</h3>
+<pre><code class="language-swift">// Standard rounded field with dismiss keyboard accessory
+let nameField = TTBaseUITextField(withPlaceholder: "Enter name")
+
+// Bottom underline style (flat look)
+let emailField = TTBaseUITextField(
+    withPlaceholder: "Email",
+    type: .ONLY_BOTTOM
+)
+emailField.setKeyboardStyleByEmail()
+
+// No border, embedded inside a custom styled panel
+let searchField = TTBaseUITextField(
+    withPlaceholder: "Search...",
+    type: .NO_BORDER
+)
+
+// Fixed height (from SizeConfig.H_TEXTFIELD, default 44pt)
+let fixedField = TTBaseUITextField(
+    withPlaceholder: "Fixed height",
+    isSetHeight: true
+)</code></pre>
+
+                <h3>Real-time Text Change Handler</h3>
+<pre><code class="language-swift">let usernameField = TTBaseUITextField(withPlaceholder: "Username")
+usernameField.onTextEditChangedHandler = { field, text in
+    print("Typing: \(text)")
+    validateButton.setEnable()
+}
+
+// Editing began / ended
+usernameField.editingDidBeginHandle = { field in
+    field.layer.borderColor = UIColor.systemBlue.cgColor
+}
+usernameField.editingDidEndHandle = { field in
+    field.layer.borderColor = UIColor.lightGray.cgColor
+}</code></pre>
+
+                <h3>With AwesomePro Icon</h3>
+<pre><code class="language-swift">let searchField = TTBaseUITextField(withPlaceholder: "Search products")
+// Left icon
+searchField.setIcon(icon: .magnifyingGlass, isRight: false)
+
+// Right icon (e.g. clear button)
+searchField.setIcon(icon: .xmark, isRight: true)
+searchField.onTouchIconHandler = { field in
+    field.text = ""
+}
+
+// Custom icon size + color
+searchField.setIcon(
+    icon: .envelope,
+    isRight: false,
+    size: CGSize(width: 20, height: 20),
+    iconColor: .systemBlue
+)</code></pre>
+
+                <h3>Keyboard Styles</h3>
+<pre><code class="language-swift">let phoneField = TTBaseUITextField(withPlaceholder: "Phone number")
+phoneField.setKeyboardStyleByPhone()    // numberPad
+phoneField.setKeyboardStyleByEmail()    // emailAddress
+phoneField.setKeyboardStyleByNumber()   // numberPad
+phoneField.setKeyboardStyleByMoney()    // decimalPad</code></pre>
+
+                <h3>Special Modes</h3>
+<pre><code class="language-swift">// Force all input to uppercase
+let codeField = TTBaseUITextField(withPlaceholder: "Promo code")
+codeField.setForceInputUpperCase()
+
+// Auto-fill common email domains (gmail, yahoo, etc.)
+let emailField = TTBaseUITextField(withPlaceholder: "Email")
+emailField.setAutoFillEmail()
+emailField.setKeyboardStyleByEmail()
+
+// Read-only field that shows a picker/date when tapped
+let dateField = TTBaseUITextField(withPlaceholder: "Select date")
+dateField.setTouchHandler()
+dateField.onTouchHandler = { field in
+    // show date picker
+}
+
+// Password field
+let passField = TTBaseUITextField(withPlaceholder: "Password")
+passField.setPasswordView()</code></pre>
+
+                <h3>Return Key Handler</h3>
+<pre><code class="language-swift">let nameField = TTBaseUITextField(
+    withPlaceholder: "Name",
+    returnKeyType: .next
+)
+nameField.onTouchReturnKeyHandler = { field, keyType in
+    if keyType == .next {
+        emailField.becomeFirstResponder()
+    }
+}
+
+// "Next" keyboard toolbar button
+nameField.setNextKeyboardAccessoryView {
+    emailField.becomeFirstResponder()
+}</code></pre>
+
+                <hr>
+                <h2 id="api">📖 API Reference</h2>
+                <table class="api-table">
+                    <thead><tr><th>Method / Property</th><th>Returns</th><th>Description</th></tr></thead>
+                    <tbody>
+                        <tr><td><code>onTextEditChangedHandler</code></td><td><code>Closure?</code></td><td>Called on every keystroke with current text</td></tr>
+                        <tr><td><code>onDismissKeyboard</code></td><td><code>Closure?</code></td><td>Called when accessory dismiss button tapped</td></tr>
+                        <tr><td><code>onTouchIconHandler</code></td><td><code>Closure?</code></td><td>Called when left/right icon is tapped</td></tr>
+                        <tr><td><code>onTouchHandler</code></td><td><code>Closure?</code></td><td>Called when field is tapped (touch mode only)</td></tr>
+                        <tr><td><code>onTouchReturnKeyHandler</code></td><td><code>Closure?</code></td><td>Called on Return key press with key type</td></tr>
+                        <tr><td><code>editingDidBeginHandle</code></td><td><code>Closure?</code></td><td>Called when field begins editing</td></tr>
+                        <tr><td><code>editingDidEndHandle</code></td><td><code>Closure?</code></td><td>Called when field ends editing</td></tr>
+                        <tr><td><code>setText(text:)</code></td><td><code>Void</code></td><td>Set field value programmatically</td></tr>
+                        <tr><td><code>setTextColor(color:)</code></td><td><code>TTBaseUITextField</code></td><td>Set text color (chainable)</td></tr>
+                        <tr><td><code>setBgColor(_:)</code></td><td><code>Void</code></td><td>Set background color</td></tr>
+                        <tr><td><code>setNoBorder()</code></td><td><code>TTBaseUITextField</code></td><td>Remove all borders</td></tr>
+                        <tr><td><code>setPasswordView()</code></td><td><code>Void</code></td><td>Enable secure text entry</td></tr>
+                        <tr><td><code>setTouchHandler()</code></td><td><code>TTBaseUITextField</code></td><td>Make read-only, fire onTouchHandler on tap</td></tr>
+                        <tr><td><code>setForceInputUpperCase()</code></td><td><code>TTBaseUITextField</code></td><td>Force all characters to uppercase</td></tr>
+                        <tr><td><code>setAutoFillEmail()</code></td><td><code>TTBaseUITextField</code></td><td>Auto-complete common email domains</td></tr>
+                        <tr><td><code>setRemoveDiacritics()</code></td><td><code>TTBaseUITextField</code></td><td>Strip accents/diacritics from input</td></tr>
+                        <tr><td><code>setIcon(icon:isRight:size:iconColor:)</code></td><td><code>Void</code></td><td>Set left or right AwesomePro icon</td></tr>
+                        <tr><td><code>setHiddenKeyboardAccessoryView()</code></td><td><code>TTBaseUITextField</code></td><td>Add dismiss keyboard accessory bar</td></tr>
+                        <tr><td><code>setNextKeyboardAccessoryView(touchHandle:)</code></td><td><code>TTBaseUITextField</code></td><td>Add "Next" button accessory bar</td></tr>
+                        <tr><td><code>setKeyboardStyleByEmail/Number/Phone/Money/Date()</code></td><td><code>TTBaseUITextField</code></td><td>Set keyboard type</td></tr>
+                    </tbody>
+                </table>
+
+                <hr>
+                <h2 id="config">⚙️ Configuration</h2>
+<pre><code class="language-swift">// Control height of all text fields
+TTBaseUIKitConfig
+    .withDefaultConfig()
+    .withSizeConfig(
+        TTBaseUIKitSizeConfig(H_TEXTFIELD: 48)
+    )
+    .start()
+
+// Dismiss keyboard style: .ICON | .ICON_TEXT | .TEXT
+TTBaseUIKitConfig
+    .withDefaultConfig()
+    .withStyleConfig(
+        TTBaseUIKitStyleConfig(
+            dismissKeyboardType: .ICON_TEXT
+        )
+    )
+    .start()</code></pre>
+
+                <div class="info-box tip">
+                    <strong>Pro Tip:</strong> Use <code>setTouchHandler()</code> to turn any text field into a read-only tappable trigger (e.g., date pickers, dropdowns). The <code>iconImageView</code> property gives you direct access to the left/right icon view after calling <code>setIcon()</code>.
+                </div>
+
+                <div class="flex gap-4 mt-8">
+                    <a href="base-button.html" style="color:#3b82f6;text-decoration:none;">← TTBaseUIButton</a>
+                    <a href="base-textview.html" style="color:#3b82f6;text-decoration:none;">TTBaseUITextView →</a>
+                </div>
+            </div>
+        </main>
+    </div>
+    <div id="site-footer"></div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-swift.min.js"></script>
+    <script src="../js/main.js"></script>
+    <script src="../js/components.js"></script>
+    <script src="../js/search.js"></script>
+</body>
+</html>

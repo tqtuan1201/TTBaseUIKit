@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <script src="../js/theme-init.js"></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TTBaseNavigationLink — SwiftUI — TTBaseUIKit</title>
+    <meta name="description" content="TTBaseNavigationLink: NavigationLink wrapper with optional binding, navigation bar auto-hide, and non-animated push support.">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>tailwind.config={darkMode:'class',theme:{extend:{colors:{primary:'#3b82f6'}}}}</script>
+    <link rel="stylesheet" href="../css/style.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet">
+</head>
+<body class="antialiased min-h-screen flex flex-col pt-16">
+    <script>window.TTBase='..';</script>
+    <div id="site-header"></div>
+    <div class="max-w-screen-2xl mx-auto flex-1 w-full flex">
+        <div id="site-sidebar"></div>
+        <main class="flex-1 min-w-0 py-10 px-4 sm:px-6 lg:px-8 xl:pr-24">
+            <div class="prose dark:prose-invert max-w-3xl mx-auto">
+                <nav class="text-sm text-slate-400 mb-4"><a href="index.html" style="color:#3b82f6;text-decoration:none;">SwiftUI</a> / TTBaseNavigationLink</nav>
+                <div class="flex items-center gap-3 mb-6">
+                    <h1 class="text-4xl font-extrabold m-0">TTBaseNavigationLink</h1>
+                    <span class="badge badge-purple">Navigation</span>
+                </div>
+                <p>A <code>NavigationLink</code> wrapper that auto-hides the destination's navigation bar by default, supports programmatic <code>isActive</code> binding, and optionally disables push animation <code>NonAnimationButtonStyle</code>.</p>
+
+                <hr>
+                <h2 id="usage">🚀 Usage</h2>
+<pre><code class="language-swift">// Standard tap-to-push link (bar auto-hidden)
+TTBaseNavigationLink(destination: {
+    DetailView(item: item)
+}, label: {
+    ItemRowView(item: item)
+})
+
+// With nav bar visible on destination
+TTBaseNavigationLink(
+    destination: { AnotherView() },
+    label: { Text("Go to Another") },
+    isForceBarHidden: false
+)
+
+// Programmatic navigation (e.g. after login)
+@State var showDashboard = false
+
+TTBaseNavigationLink(
+    isActive: $showDashboard,
+    destination: { DashboardView() },
+    label: { EmptyView() }
+)
+
+// Trigger programmatically
+Button("Login") {
+    viewModel.login { success in
+        if success { showDashboard = true }
+    }
+}
+
+// Without push animation
+TTBaseNavigationLink(
+    destination: { SettingsView() },
+    label: { SettingsRow() },
+    isAnimation: false
+)
+</code></pre>
+
+                <hr>
+                <h2 id="api">📖 Parameters</h2>
+                <table class="api-table">
+                    <thead><tr><th>Parameter</th><th>Default</th><th>Description</th></tr></thead>
+                    <tbody>
+                        <tr><td><code>destination</code></td><td>Required</td><td>Destination view builder</td></tr>
+                        <tr><td><code>label</code></td><td>Required</td><td>Tappable trigger view</td></tr>
+                        <tr><td><code>isForceBarHidden</code></td><td><code>true</code></td><td>Hides nav bar on destination</td></tr>
+                        <tr><td><code>isAnimation</code></td><td><code>true</code></td><td>Enable/disable push slide animation</td></tr>
+                        <tr><td><code>isActive</code></td><td><code>nil</code></td><td>Optional <code>Binding&lt;Bool&gt;</code> for programmatic push</td></tr>
+                    </tbody>
+                </table>
+
+                <div class="info-box tip">
+                    <strong>Pro Tip:</strong> Use the <code>isActive</code> binding variant for programmatic navigation triggered by business logic (network callbacks, form validation, login success). Prefer this over <code>NavigationLink(destination:tag:selection:)</code> which is deprecated in iOS 16+.
+                </div>
+
+                <div class="flex gap-4 mt-8">
+                    <a href="base-sui-spacer-divider.html" style="color:#3b82f6;text-decoration:none;">← Spacer &amp; Dividers</a>
+                    <a href="index.html" style="color:#3b82f6;text-decoration:none;">SwiftUI Index</a>
+                </div>
+            </div>
+        </main>
+    </div>
+    <div id="site-footer"></div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-swift.min.js"></script>
+    <script src="../js/main.js"></script>
+    <script src="../js/components.js"></script>
+    <script src="../js/search.js"></script>
+</body>
+</html>

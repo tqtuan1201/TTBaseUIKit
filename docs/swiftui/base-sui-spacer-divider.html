@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <script src="../js/theme-init.js"></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Spacer & Dividers — SwiftUI — TTBaseUIKit</title>
+    <meta name="description" content="TTBaseSUISpacer, TTBaseSUIHorizontalDividerView, TTBaseSUIVerticalDivider: flexible spacers and horizontal/vertical divider lines for SwiftUI layouts.">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>tailwind.config={darkMode:'class',theme:{extend:{colors:{primary:'#3b82f6'}}}}</script>
+    <link rel="stylesheet" href="../css/style.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet">
+</head>
+<body class="antialiased min-h-screen flex flex-col pt-16">
+    <script>window.TTBase='..';</script>
+    <div id="site-header"></div>
+    <div class="max-w-screen-2xl mx-auto flex-1 w-full flex">
+        <div id="site-sidebar"></div>
+        <main class="flex-1 min-w-0 py-10 px-4 sm:px-6 lg:px-8 xl:pr-24">
+            <div class="prose dark:prose-invert max-w-3xl mx-auto">
+                <nav class="text-sm text-slate-400 mb-4"><a href="index.html" style="color:#3b82f6;text-decoration:none;">SwiftUI</a> / Spacer & Dividers</nav>
+                <div class="flex items-center gap-3 mb-6">
+                    <h1 class="text-4xl font-extrabold m-0">Spacer &amp; Dividers</h1>
+                    <span class="badge badge-purple">Layout</span>
+                </div>
+                <p>Three layout utility views: <code>TTBaseSUISpacer</code> — a colored flexible spacer, <code>TTBaseSUIHorizontalDividerView</code> — a horizontal line or space divider with 3 types, and <code>TTBaseSUIVerticalDivider</code> for column separators.</p>
+
+                <hr>
+                <h2 id="spacer">↔️ TTBaseSUISpacer</h2>
+                <p>Unlike SwiftUI's built-in <code>Spacer</code>, <code>TTBaseSUISpacer</code> is a <code>Rectangle</code> with background color and corner radius. Useful when you need a visible separator that also flexes.</p>
+<pre><code class="language-swift">// Flexible spacer (expands in available axis)
+TTBaseSUISpacer()
+
+// Fixed height spacer (no color)
+TTBaseSUISpacer(maxHeight: 20)
+
+// Colored flexible spacer
+TTBaseSUISpacer(withBg: .green.opacity(0.2), radius: 8.0)
+
+// Fixed-width colored spacer in HStack
+HStack {
+    LeftView()
+    TTBaseSUISpacer(withBg: .gray.opacity(0.2), radius: 8, maxWidth: 20)
+    RightView()
+}
+
+// Fill remaining height in VStack
+VStack {
+    TopView()
+    TTBaseSUISpacer(withBg: .clear, radius: 0)  // Fills remaining space
+    BottomView()
+}
+</code></pre>
+
+                <hr>
+                <h2 id="divider">➖ TTBaseSUIHorizontalDividerView</h2>
+                <table class="api-table">
+                    <thead><tr><th>TYPE</th><th>Description</th></tr></thead>
+                    <tbody>
+                        <tr><td><code>.LINE</code></td><td>1px line using <code>lineDefColor</code></td></tr>
+                        <tr><td><code>.SPACE</code></td><td>Transparent space of height <code>P_CONS_DEF</code></td></tr>
+                        <tr><td><code>.CUSTOME(color:height:)</code></td><td>Fully custom color and height</td></tr>
+                    </tbody>
+                </table>
+<pre><code class="language-swift">// Standard separator line
+TTBaseSUIHorizontalDividerView(noConner: .LINE)
+
+// Space gap (uses P_CONS_DEF height)
+TTBaseSUIHorizontalDividerView(noConner: .SPACE)
+
+// Custom divider
+TTBaseSUIHorizontalDividerView(
+    noConner: .CUSTOME(color: .systemBlue.opacity(0.3), height: 2)
+)
+
+// With corner radius
+TTBaseSUIHorizontalDividerView(
+    withConner: 4,
+    type: .CUSTOME(color: .systemRed, height: 3)
+)
+</code></pre>
+
+                <div class="info-box tip">
+                    <strong>Pro Tip:</strong> Use <code>TTBaseSUIHorizontalDividerView(noConner: .SPACE)</code> instead of <code>Spacer().frame(height: x)</code> inside <code>TTBaseSUIVStack</code> when you want consistent spacing that follows the TTBaseUIKit config system rather than hardcoded values.
+                </div>
+
+                <div class="flex gap-4 mt-8">
+                    <a href="base-sui-tabview.html" style="color:#3b82f6;text-decoration:none;">← BaseSUITabView</a>
+                    <a href="base-sui-navlink.html" style="color:#3b82f6;text-decoration:none;">NavigationLink →</a>
+                </div>
+            </div>
+        </main>
+    </div>
+    <div id="site-footer"></div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-swift.min.js"></script>
+    <script src="../js/main.js"></script>
+    <script src="../js/components.js"></script>
+    <script src="../js/search.js"></script>
+</body>
+</html>

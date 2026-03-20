@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <script src="../js/theme-init.js"></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SwiftUI Image Components — SwiftUI — TTBaseUIKit</title>
+    <meta name="description" content="TTBaseSUIImage, TTBaseSUIAsyncImage: SwiftUI image views with corner radius, AwesomePro icon support, aspect ratio, placeholder, and async URL loading.">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>tailwind.config={darkMode:'class',theme:{extend:{colors:{primary:'#3b82f6'}}}}</script>
+    <link rel="stylesheet" href="../css/style.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/fuse.js@7.0.0"></script>
+</head>
+<body class="antialiased min-h-screen flex flex-col pt-16">
+    <script>window.TTBase='..';</script>
+    <div id="site-header"></div>
+    <div class="max-w-screen-2xl mx-auto flex-1 w-full flex">
+        <div id="site-sidebar"></div>
+        <main class="flex-1 min-w-0 py-10 px-4 sm:px-6 lg:px-8 xl:pr-24">
+            <div class="prose dark:prose-invert max-w-3xl mx-auto">
+                <nav class="text-sm text-slate-400 mb-4"><a href="index.html" style="color:#3b82f6;text-decoration:none;">SwiftUI</a> / Image Components</nav>
+                <div class="flex items-center gap-3 mb-6">
+                    <h1 class="text-4xl font-extrabold m-0">SwiftUI Image Components</h1>
+                    <span class="badge badge-purple">SwiftUI Core</span>
+                </div>
+                <p>TTBaseUIKit provides two SwiftUI image components: <code>TTBaseSUIImage</code> for asset/icon images with corner radius and aspect ratio, and <code>TTBaseSUIAsyncImage</code> for URL-based remote images with placeholder and error states.</p>
+
+                <table class="api-table">
+                    <thead><tr><th>Class</th><th>Source</th><th>Use Case</th></tr></thead>
+                    <tbody>
+                        <tr><td><code>TTBaseSUIImage</code></td><td>Asset / AwesomePro icon</td><td>Static UI images, icons, badges</td></tr>
+                        <tr><td><code>TTBaseSUIAsyncImage</code></td><td>URL string</td><td>Remote images (avatars, product photos)</td></tr>
+                    </tbody>
+                </table>
+
+                <hr>
+                <h2 id="sui-image">🖼 TTBaseSUIImage</h2>
+<pre><code class="language-swift">// From asset name
+TTBaseSUIImage(imageName: "hero_banner")
+    .scaledToFill()
+    .clipped()
+    .cornerRadius(12)
+
+// System SF Symbol
+TTBaseSUIImage(systemName: "star.fill")
+    .foregroundStyle(.yellow)
+    .frame(width: 24, height: 24)
+
+// AwesomePro icon
+TTBaseSUIImage(awesomeIcon: .bell, color: .systemBlue)
+    .frame(width: 32, height: 32)
+
+// Circle avatar
+TTBaseSUIImage(imageName: "avatar")
+    .scaledToFill()
+    .frame(width: 56, height: 56)
+    .clipShape(Circle())
+
+// With corner radius
+TTBaseSUIImage(imageName: "product_thumb")
+    .scaledToFill()
+    .frame(width: 80, height: 80)
+    .cornerRadius(8)
+    .clipped()
+</code></pre>
+
+                <hr>
+                <h2 id="sui-async-image">🌐 TTBaseSUIAsyncImage</h2>
+<pre><code class="language-swift">// Basic async image from URL
+TTBaseSUIAsyncImage(url: product.imageURLString)
+    .scaledToFill()
+    .frame(width: 100, height: 100)
+    .clipped()
+    .cornerRadius(8)
+
+// With placeholder while loading
+TTBaseSUIAsyncImage(
+    url: user.avatarURL,
+    placeholder: Image(systemName: "person.circle.fill")
+)
+.frame(width: 48, height: 48)
+.clipShape(Circle())
+
+// With error fallback
+TTBaseSUIAsyncImage(
+    url: article.coverImageURL,
+    placeholder: Image("placeholder_hero"),
+    errorImage: Image("error_placeholder")
+)
+.scaledToFill()
+.frame(height: 200)
+.cornerRadius(12)
+.clipped()
+
+// In a product card
+VStack(alignment: .leading) {
+    TTBaseSUIAsyncImage(url: product.imageURL)
+        .scaledToFill()
+        .frame(height: 160)
+        .cornerRadius(10)
+        .clipped()
+
+    TTBaseSUIText(text: product.name, type: .TITLE)
+    TTBaseSUIText(text: product.price, type: .SUB_TITLE)
+}
+.frame(width: 150)
+</code></pre>
+
+                <hr>
+                <h2 id="api">📖 API Reference</h2>
+                <h3>TTBaseSUIImage</h3>
+                <table class="api-table">
+                    <thead><tr><th>Init</th><th>Description</th></tr></thead>
+                    <tbody>
+                        <tr><td><code>init(imageName:)</code></td><td>Load from asset catalog</td></tr>
+                        <tr><td><code>init(systemName:)</code></td><td>SF Symbols</td></tr>
+                        <tr><td><code>init(awesomeIcon:color:)</code></td><td>AwesomePro icon image</td></tr>
+                    </tbody>
+                </table>
+
+                <h3>TTBaseSUIAsyncImage</h3>
+                <table class="api-table">
+                    <thead><tr><th>Parameter</th><th>Type</th><th>Description</th></tr></thead>
+                    <tbody>
+                        <tr><td><code>url</code></td><td><code>String?</code></td><td>URL string for remote image</td></tr>
+                        <tr><td><code>placeholder</code></td><td><code>Image?</code></td><td>Shown while loading</td></tr>
+                        <tr><td><code>errorImage</code></td><td><code>Image?</code></td><td>Shown on load failure</td></tr>
+                    </tbody>
+                </table>
+
+                <div class="info-box tip">
+                    <strong>Pro Tip:</strong> Use <code>.clipShape(Circle())</code> instead of <code>.cornerRadius()</code> for perfect circular avatars — it handles odd frame sizes gracefully. Always pair <code>TTBaseSUIAsyncImage</code> with a <code>.frame()</code> constraint to prevent layout jumps during loading.
+                </div>
+
+                <div class="flex gap-4 mt-8">
+                    <a href="base-sui-progress.html" style="color:#3b82f6;text-decoration:none;">← TTBaseSUIProgressView</a>
+                    <a href="base-sui-layouts.html" style="color:#3b82f6;text-decoration:none;">SwiftUI Layout Views →</a>
+                </div>
+            </div>
+        </main>
+    </div>
+    <div id="site-footer"></div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-swift.min.js"></script>
+    <script src="../js/main.js"></script>
+    <script src="../js/components.js"></script>
+    <script src="../js/search.js"></script>
+</body>
+</html>

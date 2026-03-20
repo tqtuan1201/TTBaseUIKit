@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <script src="../js/theme-init.js"></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SwiftUI Layout Views — SwiftUI — TTBaseUIKit</title>
+    <meta name="description" content="TTBaseSUIHStack, TTBaseSUIVStack, TTBaseSUILazyGrid, TTBaseSUIScrollView: pre-configured SwiftUI layout containers with TTBaseUIKit spacing and theme defaults.">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>tailwind.config={darkMode:'class',theme:{extend:{colors:{primary:'#3b82f6'}}}}</script>
+    <link rel="stylesheet" href="../css/style.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/fuse.js@7.0.0"></script>
+</head>
+<body class="antialiased min-h-screen flex flex-col pt-16">
+    <script>window.TTBase='..';</script>
+    <div id="site-header"></div>
+    <div class="max-w-screen-2xl mx-auto flex-1 w-full flex">
+        <div id="site-sidebar"></div>
+        <main class="flex-1 min-w-0 py-10 px-4 sm:px-6 lg:px-8 xl:pr-24">
+            <div class="prose dark:prose-invert max-w-3xl mx-auto">
+                <nav class="text-sm text-slate-400 mb-4"><a href="index.html" style="color:#3b82f6;text-decoration:none;">SwiftUI</a> / Layout Views</nav>
+                <div class="flex items-center gap-3 mb-6">
+                    <h1 class="text-4xl font-extrabold m-0">SwiftUI Layout Views</h1>
+                    <span class="badge badge-green">SwiftUI Layout</span>
+                </div>
+                <p>Pre-configured SwiftUI layout containers that automatically apply TTBaseUIKit's default spacing (<code>P_CONS_DEF</code>) and alignment options. These wrappers eliminate repetitive <code>spacing</code> and <code>alignment</code> boilerplate while keeping a consistent visual rhythm across the app.</p>
+
+                <table class="api-table">
+                    <thead><tr><th>Component</th><th>Description</th></tr></thead>
+                    <tbody>
+                        <tr><td><code>TTBaseSUIHStack</code></td><td>Horizontal stack with default spacing + alignment</td></tr>
+                        <tr><td><code>TTBaseSUIVStack</code></td><td>Vertical stack with default spacing + alignment</td></tr>
+                        <tr><td><code>TTBaseSUIScrollView</code></td><td>ScrollView with keyboard dismiss on drag</td></tr>
+                        <tr><td><code>TTBaseSUILazyVGrid</code></td><td>Lazy vertical grid with configurable columns</td></tr>
+                        <tr><td><code>TTBaseSUILazyHStack</code></td><td>Lazy horizontal stack for large collections</td></tr>
+                    </tbody>
+                </table>
+
+                <hr>
+                <h2 id="hstack">↔️ TTBaseSUIHStack</h2>
+<pre><code class="language-swift">// Default spacing + center alignment
+TTBaseSUIHStack {
+    TTBaseSUIImage(awesomeIcon: .user, color: .systemBlue)
+        .frame(width: 24, height: 24)
+    TTBaseSUIText(text: "John Doe", type: .TITLE)
+    Spacer()
+    TTBaseSUIText(text: "Admin", type: .SUB_TITLE)
+}
+
+// Custom spacing + leading alignment
+TTBaseSUIHStack(spacing: 4, alignment: .top) {
+    Circle().fill(.green).frame(width: 8, height: 8)
+    TTBaseSUIText(text: "Online", type: .DESC)
+}
+</code></pre>
+
+                <hr>
+                <h2 id="vstack">↕️ TTBaseSUIVStack</h2>
+<pre><code class="language-swift">// Default spacing + leading alignment
+TTBaseSUIVStack {
+    TTBaseSUIText(text: "Product Name", type: .TITLE)
+    TTBaseSUIText(text: "Electronics • Headphones", type: .SUB_TITLE)
+    TTBaseSUIText(text: "$29.99", type: .BODY)
+}
+
+// Center-aligned with custom spacing
+TTBaseSUIVStack(spacing: 24, alignment: .center) {
+    TTBaseSUIImage(systemName: "checkmark.circle.fill")
+        .foregroundStyle(.green)
+        .frame(width: 48, height: 48)
+    TTBaseSUIText(text: "Payment Successful!", type: .TITLE)
+    TTBaseSUIText(text: "Your order has been placed.", type: .BODY)
+}
+</code></pre>
+
+                <hr>
+                <h2 id="scrollview">📜 TTBaseSUIScrollView</h2>
+<pre><code class="language-swift">// Vertical scroll (default)
+TTBaseSUIScrollView {
+    TTBaseSUIVStack {
+        ForEach(items) { item in
+            ItemRowView(item: item)
+        }
+    }
+}
+
+// Horizontal scroll
+TTBaseSUIScrollView(axis: .horizontal, showsIndicators: false) {
+    TTBaseSUIHStack(spacing: 12) {
+        ForEach(categories) { cat in
+            CategoryChipView(category: cat)
+        }
+    }
+    .padding(.horizontal, 16)
+}
+</code></pre>
+
+                <hr>
+                <h2 id="lazygrid">⚡ TTBaseSUILazyVGrid</h2>
+<pre><code class="language-swift">// 2-column grid
+TTBaseSUILazyVGrid(columns: 2) {
+    ForEach(products) { product in
+        ProductCardView(product: product)
+    }
+}
+
+// 3-column compact grid
+TTBaseSUILazyVGrid(
+    columns: 3,
+    spacing: 8,
+    itemSpacing: 8
+) {
+    ForEach(photos) { photo in
+        TTBaseSUIAsyncImage(url: photo.url)
+            .scaledToFill()
+            .frame(height: 120)
+            .clipped()
+    }
+}
+</code></pre>
+
+                <hr>
+                <h2 id="api">📖 Common Parameters</h2>
+                <table class="api-table">
+                    <thead><tr><th>Parameter</th><th>Default</th><th>Description</th></tr></thead>
+                    <tbody>
+                        <tr><td><code>spacing</code></td><td><code>TTSize.P_CONS_DEF</code></td><td>Space between items</td></tr>
+                        <tr><td><code>alignment</code></td><td><code>.leading / .center</code></td><td>Item alignment</td></tr>
+                        <tr><td><code>columns</code></td><td>2 (grid)</td><td>Grid column count</td></tr>
+                        <tr><td><code>itemSpacing</code></td><td><code>TTSize.P_CONS_DEF</code></td><td>Space between grid items</td></tr>
+                    </tbody>
+                </table>
+
+                <div class="info-box tip">
+                    <strong>Pro Tip:</strong> Prefer <code>TTBaseSUIVStack</code> over plain <code>VStack</code> in all screens — the consistent default spacing creates visual rhythm without manual <code>spacing</code> values everywhere. Override only where you need a different gap.
+                </div>
+
+                <div class="flex gap-4 mt-8">
+                    <a href="base-sui-image.html" style="color:#3b82f6;text-decoration:none;">← Image Components</a>
+                    <a href="index.html" style="color:#3b82f6;text-decoration:none;">← SwiftUI Home</a>
+                </div>
+            </div>
+        </main>
+    </div>
+    <div id="site-footer"></div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-swift.min.js"></script>
+    <script src="../js/main.js"></script>
+    <script src="../js/components.js"></script>
+    <script src="../js/search.js"></script>
+</body>
+</html>

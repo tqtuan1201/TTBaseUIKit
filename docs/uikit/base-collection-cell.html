@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <script src="../js/theme-init.js"></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Collection View Cells — UIKit — TTBaseUIKit</title>
+    <meta name="description" content="TTBaseUICollectionViewCell, BaseShadowCollectionViewCell, SlideImageCollectionViewCell: collection view cell base classes with panel container, selection states, and skeleton animation.">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>tailwind.config={darkMode:'class',theme:{extend:{colors:{primary:'#3b82f6'}}}}</script>
+    <link rel="stylesheet" href="../css/style.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet">
+</head>
+<body class="antialiased min-h-screen flex flex-col pt-16">
+    <script>window.TTBase='..';</script>
+    <div id="site-header"></div>
+    <div class="max-w-screen-2xl mx-auto flex-1 w-full flex">
+        <div id="site-sidebar"></div>
+        <main class="flex-1 min-w-0 py-10 px-4 sm:px-6 lg:px-8 xl:pr-24">
+            <div class="prose dark:prose-invert max-w-3xl mx-auto">
+                <nav class="text-sm text-slate-400 mb-4"><a href="index.html" style="color:#3b82f6;text-decoration:none;">UIKit</a> / Collection View Cells</nav>
+                <div class="flex items-center gap-3 mb-6">
+                    <h1 class="text-4xl font-extrabold m-0">Collection View Cells</h1>
+                    <span class="badge badge-blue">Core</span>
+                </div>
+                <p>Collection view cell base classes with a padded <code>panel</code> container, selection highlight, and skeleton animation — mirrors the table cell family but for <code>UICollectionView</code>.</p>
+
+                <table class="api-table">
+                    <thead><tr><th>Class</th><th>Description</th></tr></thead>
+                    <tbody>
+                        <tr><td><code>TTBaseUICollectionViewCell</code></td><td>Base cell — padded panel, skeleton animation, selection</td></tr>
+                        <tr><td><code>BaseShadowCollectionViewCell</code></td><td>Shadow card effect on the panel</td></tr>
+                        <tr><td><code>SlideImageCollectionViewCell</code></td><td>Full-width image slide (for carousels/banners)</td></tr>
+                    </tbody>
+                </table>
+
+                <hr>
+                <h2 id="usage">🚀 Usage</h2>
+<pre><code class="language-swift">// Register and dequeue
+collectionView.register(TTBaseUICollectionViewCell.self,
+                        forCellWithReuseIdentifier: TTBaseUICollectionViewCell.reuseIdentifier)
+
+let cell = collectionView.dequeueReusableCell(
+    withReuseIdentifier: TTBaseUICollectionViewCell.reuseIdentifier,
+    for: indexPath
+) as! TTBaseUICollectionViewCell
+
+// Subclass with custom content
+class CategoryCell: TTBaseUICollectionViewCell {
+    private let iconView = TTBaseUIImageFontView(withFontIconLightSize: .star, sizeIcon: CGSize(width: 40, height: 40), colorIcon: TTView.iconColor)
+    private let titleLabel = TTBaseUILabel(withType: .SUB_TITLE, text: "", align: .center)
+
+    override func updateUI() {
+        panel.addSubview(iconView)
+        panel.addSubview(titleLabel)
+        // ... constraints
+        panel.setConerRadius(TTSize.CORNER_RADIUS)
+    }
+
+    func configure(category: Category) {
+        iconView.setIconColor(category.color)
+        titleLabel.setText(text: category.name)
+    }
+}
+
+// Override cell defaults
+override var padding: CGFloat { return 8 }
+override var bgColor: UIColor { return .systemGroupedBackground }
+override var cornerRadius: CGFloat { return 12 }
+
+// Skeleton loading
+cell.setSkeletonAnimation()
+cell.onStartSkeletonAnimation()
+// After load:
+cell.onStopSkeletonAnimation()
+
+// Slide image carousel
+collectionView.register(SlideImageCollectionViewCell.self,
+                        forCellWithReuseIdentifier: SlideImageCollectionViewCell.reuseIdentifier)
+// Configure banner cell
+let bannerCell = collectionView.dequeueReusableCell(
+    withReuseIdentifier: SlideImageCollectionViewCell.reuseIdentifier,
+    for: indexPath
+) as! SlideImageCollectionViewCell
+bannerCell.imageView.setImage(with: banners[indexPath.item].imageURL)
+</code></pre>
+
+                <hr>
+                <h2 id="api">📖 API Reference</h2>
+                <table class="api-table">
+                    <thead><tr><th>Member</th><th>Type</th><th>Description</th></tr></thead>
+                    <tbody>
+                        <tr><td><code>panel</code></td><td><code>TTBaseUIView</code></td><td>Content container with bg and corner radius</td></tr>
+                        <tr><td><code>isSetPanelBgColor</code></td><td><code>Bool</code></td><td>Enable/disable selection color change</td></tr>
+                        <tr><td><code>bgColor</code></td><td><code>UIColor</code></td><td>Normal state background</td></tr>
+                        <tr><td><code>bgSelectColor</code></td><td><code>UIColor</code></td><td>Selected state background</td></tr>
+                        <tr><td><code>padding</code></td><td><code>CGFloat</code></td><td>Panel inset from all edges</td></tr>
+                        <tr><td><code>cornerRadius</code></td><td><code>CGFloat</code></td><td>Panel corner radius</td></tr>
+                        <tr><td><code>setSkeletonAnimation()</code></td><td>Method</td><td>Add shimmer layer to panel</td></tr>
+                        <tr><td><code>onStartSkeletonAnimation()</code></td><td>Method</td><td>Show shimmer state</td></tr>
+                        <tr><td><code>onStopSkeletonAnimation()</code></td><td>Method</td><td>Remove shimmer, restore content</td></tr>
+                    </tbody>
+                </table>
+
+                <div class="info-box tip">
+                    <strong>Pro Tip:</strong> <code>TTBaseUICollectionViewCell.padding</code> is a single uniform value (unlike the 4-tuple for table cells). For asymmetric insets, override <code>setupBaseContraints()</code> and manually set the panel constraints to different values per edge.
+                </div>
+
+                <div class="flex gap-4 mt-8">
+                    <a href="base-cell-header.html" style="color:#3b82f6;text-decoration:none;">← Header/Footer Cells</a>
+                    <a href="base-newsegsment.html" style="color:#3b82f6;text-decoration:none;">TTBaseNewSegmentedControl →</a>
+                </div>
+            </div>
+        </main>
+    </div>
+    <div id="site-footer"></div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-swift.min.js"></script>
+    <script src="../js/main.js"></script>
+    <script src="../js/components.js"></script>
+    <script src="../js/search.js"></script>
+</body>
+</html>

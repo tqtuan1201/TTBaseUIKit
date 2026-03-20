@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <script src="../js/theme-init.js"></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Label Composite Views — UIKit Components — TTBaseUIKit</title>
+    <meta name="description" content="TTBaseLabelIconHorizontalView, TTBaseLabelTextViewByVerticalView, TTIconLabelView: pre-built composite label+icon and label+textview views.">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>tailwind.config={darkMode:'class',theme:{extend:{colors:{primary:'#3b82f6'}}}}</script>
+    <link rel="stylesheet" href="../css/style.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/fuse.js@7.0.0"></script>
+</head>
+<body class="antialiased min-h-screen flex flex-col pt-16">
+    <script>window.TTBase='..';</script>
+    <div id="site-header"></div>
+    <div class="max-w-screen-2xl mx-auto flex-1 w-full flex">
+        <div id="site-sidebar"></div>
+        <main class="flex-1 min-w-0 py-10 px-4 sm:px-6 lg:px-8 xl:pr-24">
+            <div class="prose dark:prose-invert max-w-3xl mx-auto">
+                <nav class="text-sm text-slate-400 mb-4"><a href="index.html" style="color:#3b82f6;text-decoration:none;">UIKit</a> / Label Composite Views</nav>
+                <div class="flex items-center gap-3 mb-6">
+                    <h1 class="text-4xl font-extrabold m-0">Label Composite Views</h1>
+                    <span class="badge badge-green">Composite</span>
+                </div>
+                <p>Pre-assembled composite views that combine labels, icons, and text inputs in common layout patterns — saving repetitive setup code for standard UI patterns like icon+label rows, form label+field pairs, and two-column label rows.</p>
+
+                <table class="api-table">
+                    <thead><tr><th>Class</th><th>Layout</th><th>Use Case</th></tr></thead>
+                    <tbody>
+                        <tr><td><code>TTBaseLabelIconHorizontalView</code></td><td>Icon → Label (horizontal)</td><td>Menu items, setting rows, icon+text rows</td></tr>
+                        <tr><td><code>TTBaseLabelTextViewByVerticalView</code></td><td>Label on top → TextField below</td><td>Labeled form fields</td></tr>
+                        <tr><td><code>TTIconLabelView</code></td><td>Icon → Label (horizontal, tap-enabled)</td><td>Touchable icon+text rows (base for RadioButton)</td></tr>
+                    </tbody>
+                </table>
+
+                <hr>
+                <h2 id="label-icon">📌 TTBaseLabelIconHorizontalView</h2>
+                <p>An icon (<code>TTBaseUIImageView</code>) followed by a label (<code>TTBaseUILabel</code>) in a horizontal stack. Configurable icon size and spacing.</p>
+
+<pre><code class="language-swift">// Icon + text row
+let settingRow = TTBaseLabelIconHorizontalView()
+settingRow.iconImageView.setIConImage(with: .gear, color: .systemBlue, size: CGSize(width: 22, height: 22))
+settingRow.textLabel.setText(text: "Notification Settings")
+
+// Custom icon size via subclass
+class MenuItemView: TTBaseLabelIconHorizontalView {
+    override var sizeIcon: CGSize { CGSize(width: 28, height: 28) }
+    override var spacingIcon: CGFloat { 12 }
+}
+
+// Tappable row
+settingRow.setOnTouchHandler { view in
+    navigateToNotifications()
+}
+</code></pre>
+
+                <hr>
+                <h2 id="label-textview">📋 TTBaseLabelTextViewByVerticalView</h2>
+                <p>Vertical stack: title <code>TTBaseUILabel</code> on top with a <code>TTBaseUITextField</code> or <code>TTBaseUITextView</code> below. Perfect for form fields with an inline label.</p>
+
+<pre><code class="language-swift">// Label + TextField pair
+let nameField = TTBaseLabelTextViewByVerticalView()
+nameField.titleLabel.setText(text: "Full Name")
+nameField.textField.setPlaceholder("Enter your name")
+
+// In a form stack
+let emailField = TTBaseLabelTextViewByVerticalView()
+emailField.titleLabel.setText(text: "Email Address")
+emailField.textField.setKeyboardStyleByEmail()
+emailField.textField.onTextEditChangedHandler = { _, text in
+    viewModel.email = text
+}
+formStack.addArrangedSubview(nameField)
+formStack.addArrangedSubview(emailField)
+</code></pre>
+
+                <hr>
+                <h2 id="icon-label-view">🖱 TTIconLabelView</h2>
+                <p>Base class for <code>TTBaseRadioButtonView</code>. A touchable horizontal icon+label view.</p>
+
+<pre><code class="language-swift">let row = TTIconLabelView()
+row.iconImageView.setIConImage(with: .heart, color: .systemRed)
+row.textLabel.setText(text: "Add to Favorites")
+row.setOnTouchHandler { view in
+    addToFavorites()
+}
+</code></pre>
+
+                <hr>
+                <h2 id="api">📖 Common API</h2>
+                <table class="api-table">
+                    <thead><tr><th>Property</th><th>Type</th><th>Description</th></tr></thead>
+                    <tbody>
+                        <tr><td><code>iconImageView</code></td><td><code>TTBaseUIImageView</code></td><td>Left/top icon view (use <code>setIConImage</code>)</td></tr>
+                        <tr><td><code>textLabel</code></td><td><code>TTBaseUILabel</code></td><td>Main label</td></tr>
+                        <tr><td><code>titleLabel</code></td><td><code>TTBaseUILabel</code></td><td>Heading label (for vertical views)</td></tr>
+                        <tr><td><code>textField</code></td><td><code>TTBaseUITextField</code></td><td>Input field (for LabelTextViewByVerticalView)</td></tr>
+                        <tr><td><code>setOnTouchHandler(_:)</code></td><td><code>Void</code></td><td>Register tap callback</td></tr>
+                    </tbody>
+                </table>
+
+                <div class="info-box tip">
+                    <strong>Pro Tip:</strong> Subclass <code>TTBaseLabelIconHorizontalView</code> and override <code>sizeIcon</code> and <code>spacingIcon</code> to create a consistent menu-item component across your app, rather than configuring each instance individually.
+                </div>
+
+                <div class="flex gap-4 mt-8">
+                    <a href="base-shadow-panel.html" style="color:#3b82f6;text-decoration:none;">← Shadow Panels</a>
+                    <a href="base-tableviewcontroller.html" style="color:#3b82f6;text-decoration:none;">BaseTableViewController →</a>
+                </div>
+            </div>
+        </main>
+    </div>
+    <div id="site-footer"></div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-swift.min.js"></script>
+    <script src="../js/main.js"></script>
+    <script src="../js/components.js"></script>
+    <script src="../js/search.js"></script>
+</body>
+</html>

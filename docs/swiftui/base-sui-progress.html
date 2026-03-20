@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <script src="../js/theme-init.js"></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TTBaseSUIProgressView — SwiftUI Components — TTBaseUIKit</title>
+    <meta name="description" content="TTBaseSUIProgressView: SwiftUI progress indicator with LINEAR, CIRCULAR, and INDETERMINATE types, progress value, label, and theme color support.">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>tailwind.config={darkMode:'class',theme:{extend:{colors:{primary:'#3b82f6'}}}}</script>
+    <link rel="stylesheet" href="../css/style.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/fuse.js@7.0.0"></script>
+</head>
+<body class="antialiased min-h-screen flex flex-col pt-16">
+    <script>window.TTBase='..';</script>
+    <div id="site-header"></div>
+    <div class="max-w-screen-2xl mx-auto flex-1 w-full flex">
+        <div id="site-sidebar"></div>
+        <main class="flex-1 min-w-0 py-10 px-4 sm:px-6 lg:px-8 xl:pr-24">
+            <div class="prose dark:prose-invert max-w-3xl mx-auto">
+                <nav class="text-sm text-slate-400 mb-4"><a href="index.html" style="color:#3b82f6;text-decoration:none;">SwiftUI</a> / TTBaseSUIProgressView</nav>
+                <div class="flex items-center gap-3 mb-6">
+                    <h1 class="text-4xl font-extrabold m-0">TTBaseSUIProgressView</h1>
+                    <span class="badge badge-purple">SwiftUI Core</span>
+                </div>
+                <p>SwiftUI progress indicator with three types: <strong>INDETERMINATE</strong> (spinning spinner), <strong>LINEAR</strong> (horizontal bar), and <strong>CIRCULAR</strong> (circular ring). Supports optional label text, tint color, and progress value (0.0–1.0). Wraps SwiftUI's native <code>ProgressView</code> with TTBaseUIKit theming.</p>
+
+                <hr>
+                <h2 id="types">🎨 Types</h2>
+<pre><code class="language-swift">public enum TYPE {
+    case INDETERMINATE  // Spinner (for unknown duration tasks)
+    case LINEAR         // Horizontal progress bar (0.0–1.0)
+    case CIRCULAR       // Circular ring progress
+}</code></pre>
+
+                <table class="api-table">
+                    <thead><tr><th>Type</th><th>Appearance</th><th>Use Case</th></tr></thead>
+                    <tbody>
+                        <tr><td><code>.INDETERMINATE</code></td><td>Spinning indicator</td><td>Loading screens, API calls</td></tr>
+                        <tr><td><code>.LINEAR</code></td><td>Filled bar</td><td>File upload, download, multi-step</td></tr>
+                        <tr><td><code>.CIRCULAR</code></td><td>Circular fill</td><td>Compact progress, profile completion</td></tr>
+                    </tbody>
+                </table>
+
+                <hr>
+                <h2 id="usage">🚀 Usage</h2>
+
+<pre><code class="language-swift">// Indeterminate spinner
+TTBaseSUIProgressView(type: .INDETERMINATE)
+
+// With label
+TTBaseSUIProgressView(
+    type: .INDETERMINATE,
+    label: "Loading..."
+)
+
+// Linear deterministic progress
+@State private var uploadProgress: Double = 0.0
+
+TTBaseSUIProgressView(
+    type: .LINEAR,
+    value: $uploadProgress
+)
+
+// Circular deterministic
+TTBaseSUIProgressView(
+    type: .CIRCULAR,
+    value: .constant(0.75),
+    label: "75%",
+    tintColor: .systemGreen
+)
+
+// Full loading overlay pattern
+struct FullScreenLoader: View {
+    let message: String
+
+    var body: some View {
+        ZStack {
+            Color.black.opacity(0.3).ignoresSafeArea()
+            VStack(spacing: 16) {
+                TTBaseSUIProgressView(type: .INDETERMINATE)
+                TTBaseSUIText(text: message, type: .BODY)
+                    .foregroundStyle(.white)
+            }
+            .padding(24)
+            .background(.ultraThinMaterial, in: RoundedRectangle(cornerRadius: 16))
+        }
+    }
+}
+
+// File download with progress bar
+VStack(spacing: 8) {
+    HStack {
+        TTBaseSUIText(text: "Downloading...", type: .BODY)
+        Spacer()
+        TTBaseSUIText(text: "\(Int(progress * 100))%", type: .BODY)
+    }
+    TTBaseSUIProgressView(
+        type: .LINEAR,
+        value: $progress,
+        tintColor: .systemBlue
+    )
+}
+</code></pre>
+
+                <hr>
+                <h2 id="api">📖 Initializer Parameters</h2>
+                <table class="api-table">
+                    <thead><tr><th>Parameter</th><th>Type</th><th>Default</th><th>Description</th></tr></thead>
+                    <tbody>
+                        <tr><td><code>type</code></td><td><code>TYPE</code></td><td><code>.INDETERMINATE</code></td><td>Progress style</td></tr>
+                        <tr><td><code>value</code></td><td><code>Binding&lt;Double&gt;?</code></td><td><code>nil</code></td><td>Progress value (0.0–1.0), nil = indeterminate</td></tr>
+                        <tr><td><code>label</code></td><td><code>String?</code></td><td><code>nil</code></td><td>Optional text label below indicator</td></tr>
+                        <tr><td><code>tintColor</code></td><td><code>Color?</code></td><td>theme primary</td><td>Progress fill color</td></tr>
+                    </tbody>
+                </table>
+
+                <div class="info-box tip">
+                    <strong>Pro Tip:</strong> For API calls, wrap views in a <code>.overlay(alignment: .center)</code> with <code>TTBaseSUIProgressView</code> when <code>isLoading</code> is true. This avoids re-rendering the entire view hierarchy while showing the spinner.
+                </div>
+
+                <div class="flex gap-4 mt-8">
+                    <a href="base-sui-slider.html" style="color:#3b82f6;text-decoration:none;">← TTBaseSUISlider</a>
+                    <a href="base-sui-image.html" style="color:#3b82f6;text-decoration:none;">TTBaseSUIImage →</a>
+                </div>
+            </div>
+        </main>
+    </div>
+    <div id="site-footer"></div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-swift.min.js"></script>
+    <script src="../js/main.js"></script>
+    <script src="../js/components.js"></script>
+    <script src="../js/search.js"></script>
+</body>
+</html>
