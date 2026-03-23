@@ -6,8 +6,8 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/tqtuan1201/TTBaseUIKit.git",
       "state" : {
-        "revision" : "37933a0c69d9b1a2629e3346bb087664eb3a269b",
-        "version" : "2.2.8"
+        "branch" : "master",
+        "revision" : "58f9f2f318e72625ca4caf406b716bdc551ffbd7"
       }
     }
   ],

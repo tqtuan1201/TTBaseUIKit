@@ -857,8 +857,8 @@
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/tqtuan1201/TTBaseUIKit.git";
 			requirement = {
-				kind = upToNextMajorVersion;
-				minimumVersion = 2.2.8;
+				branch = master;
+				kind = branch;
 			};
 		};
 		BC3EBAA52F31A873008C258B /* XCRemoteSwiftPackageReference "TTBaseUIKit" */ = {
