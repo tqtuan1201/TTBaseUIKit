@@ -82,7 +82,7 @@ struct SUIBaseViewDemo<Content: View>: View {
     }
     
     public var body: some View {
-        let iconHeight:CGFloat = XSize.H_NAV - XSize.P_CONS_DEF * 2.7
+        let iconHeight:CGFloat = 35.0
         let removeLeftRightPadding:CGFloat = XSize.P_CONS_DEF / 2
         NavigationView {
             if self.type == .DEFAULT {
@@ -114,9 +114,8 @@ struct SUIBaseViewDemo<Content: View>: View {
                     .navigationBarItems(leading: Button(action: {
                         self.onTouchBackHandle { self.backAction?() }
                     }, label: {
-                        TTBaseSUIImage(withname: "icon.nav.backswiftui", color: .white, contentMode: .fit)
-                            .frame(width: iconHeight, height: iconHeight, alignment: .leading)
-                            .padding(.leading, -XSize.P_CONS_DEF).layoutPriority(1)
+                        TTBaseSUIImage(withname: "icon-circle-back-v2", color: .white, contentMode: .fit)
+                            .frame(width: iconHeight, height: iconHeight, alignment: .center)
                     }).padding(.leading, -removeLeftRightPadding)
                     )
             } else {
