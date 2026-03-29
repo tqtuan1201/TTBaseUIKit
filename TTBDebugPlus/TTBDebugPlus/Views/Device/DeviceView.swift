@@ -91,6 +91,34 @@ struct DeviceView: View {
             case .all: Text("Delete all \(captureVM.screenshotHistory.count) screenshots?")
             }
         }
+        // Keyboard navigation
+        .onKeyPress(.leftArrow) { navigateGallery(direction: -1); return .handled }
+        .onKeyPress(.rightArrow) { navigateGallery(direction: 1); return .handled }
+        .onKeyPress(.space) {
+            captureVM.requestCapture(from: connectionManager); return .handled
+        }
+        .onKeyPress(.delete) {
+            if let item = captureVM.selectedHistoryItem {
+                deleteTarget = .single(item.id)
+                showDeleteConfirm = true
+            }
+            return .handled
+        }
+        .accessibilityElement(children: .contain)
+        .accessibilityLabel("Device Manager")
+    }
+    
+    // MARK: - Gallery Keyboard Navigation
+    private func navigateGallery(direction: Int) {
+        let history = captureVM.sortedHistory
+        guard !history.isEmpty else { return }
+        if let current = captureVM.selectedHistoryItem,
+           let idx = history.firstIndex(where: { $0.id == current.id }) {
+            let newIdx = max(0, min(idx + direction, history.count - 1))
+            captureVM.selectItem(history[newIdx])
+        } else {
+            captureVM.selectItem(history.first!)
+        }
     }
     
     // MARK: - Connected Content

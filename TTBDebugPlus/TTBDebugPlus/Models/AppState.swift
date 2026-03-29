@@ -10,7 +10,9 @@ import SwiftUI
 // MARK: - App State
 @Observable
 class AppState {
-    var selectedTab: AppTab = .console
+    var selectedTab: AppTab = .console {
+        didSet { UserDefaults.standard.set(selectedTab.rawValue, forKey: "selectedTab") }
+    }
     var selectedSidebarItem: SidebarSection = .devices
     var selectedDeviceId: String? = nil
     
@@ -30,6 +32,14 @@ class AppState {
     func openInJSONEditor(json: String, source: String) {
         jsonEditorPayload = JSONEditorPayload(json: json, sourceLabel: source)
         selectedTab = .devtools
+    }
+    
+    init() {
+        // Restore persisted tab selection
+        if let saved = UserDefaults.standard.string(forKey: "selectedTab"),
+           let tab = AppTab(rawValue: saved) {
+            self.selectedTab = tab
+        }
     }
 }
 

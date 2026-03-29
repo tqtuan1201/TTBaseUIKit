@@ -47,7 +47,41 @@ struct ConsoleView: View {
             viewModel.clearAll()
             connectionManager.clearAllLogs()
         }
+        // Keyboard navigation
+        .onKeyPress(.upArrow) { selectPrevious(); return .handled }
+        .onKeyPress(.downArrow) { selectNext(); return .handled }
+        .onKeyPress(.escape) { showDetail = false; return .handled }
+        .accessibilityElement(children: .contain)
+        .accessibilityLabel("Console Log Viewer")
     }
+    
+    // MARK: - Keyboard Selection
+    private func selectNext() {
+        let entries = viewModel.filteredEntries
+        guard !entries.isEmpty else { return }
+        if let current = viewModel.selectedEntry,
+           let idx = entries.firstIndex(where: { $0.id == current.id }) {
+            let nextIdx = min(idx + 1, entries.count - 1)
+            viewModel.selectedEntry = entries[nextIdx]
+        } else {
+            viewModel.selectedEntry = entries.first
+        }
+        showDetail = true
+    }
+    
+    private func selectPrevious() {
+        let entries = viewModel.filteredEntries
+        guard !entries.isEmpty else { return }
+        if let current = viewModel.selectedEntry,
+           let idx = entries.firstIndex(where: { $0.id == current.id }) {
+            let prevIdx = max(idx - 1, 0)
+            viewModel.selectedEntry = entries[prevIdx]
+        } else {
+            viewModel.selectedEntry = entries.first
+        }
+        showDetail = true
+    }
+
     
     // MARK: - Filter Bar
     private var consoleFilterBar: some View {
