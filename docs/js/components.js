@@ -52,6 +52,7 @@ const NAV_SECTIONS = [
         title: 'TTBDebugPlus',
         items: [
             { label: 'Overview', href: 'ttbdebugplus.html', icon: '🛠' },
+            { label: 'Download App', href: 'ttbdebugplus.html#download', icon: '📥' },
             { label: 'Features', href: 'ttbdebugplus.html#features', icon: '' },
             { label: 'SDK Integration', href: 'ttbdebugplus.html#integration', icon: '' },
             { label: 'Shortcuts', href: 'ttbdebugplus.html#shortcuts', icon: '' }

@@ -355,6 +355,125 @@
             background: linear-gradient(135deg, #1e293b 0%, #1a1040 50%, #0c1929 100%);
             border: 1px solid rgba(139, 92, 246, 0.2);
         }
+
+        /* Download Button */
+        .btn-download {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.875rem 2rem;
+            background: linear-gradient(135deg, #22c55e, #16a34a);
+            color: #fff;
+            font-weight: 700;
+            font-size: 1rem;
+            border-radius: 9999px;
+            border: none;
+            cursor: pointer;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 20px rgba(34, 197, 94, 0.3);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .btn-download:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 30px rgba(34, 197, 94, 0.45);
+            background: linear-gradient(135deg, #16a34a, #15803d);
+        }
+
+        .btn-download::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.15), transparent);
+            animation: btnShine 3s ease-in-out infinite;
+        }
+
+        @keyframes btnShine {
+            0% { left: -100%; }
+            50% { left: 100%; }
+            100% { left: 100%; }
+        }
+
+        .btn-download-sm {
+            font-size: 0.875rem;
+            padding: 0.75rem 1.5rem;
+        }
+
+        /* Download section */
+        .download-section {
+            background: linear-gradient(135deg, #0f172a 0%, #0c2a1a 40%, #0f172a 100%);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .download-section::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle at 50% 50%, rgba(34, 197, 94, 0.06) 0%, transparent 50%);
+        }
+
+        .download-card {
+            background: rgba(30, 41, 59, 0.5);
+            border: 1px solid rgba(34, 197, 94, 0.2);
+            border-radius: 1.5rem;
+            padding: 2.5rem;
+            backdrop-filter: blur(16px);
+            position: relative;
+            transition: all 0.3s ease;
+        }
+
+        .download-card:hover {
+            border-color: rgba(34, 197, 94, 0.4);
+            box-shadow: 0 0 60px rgba(34, 197, 94, 0.1);
+        }
+
+        .download-steps {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1.5rem;
+            margin-top: 2rem;
+        }
+
+        @media (max-width: 768px) {
+            .download-steps {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .download-step {
+            text-align: center;
+            padding: 1.25rem;
+            border-radius: 1rem;
+            background: rgba(34, 197, 94, 0.04);
+            border: 1px solid rgba(34, 197, 94, 0.1);
+        }
+
+        .download-step .step-icon {
+            font-size: 2rem;
+            margin-bottom: 0.75rem;
+        }
+
+        .download-step h4 {
+            font-size: 0.9rem;
+            font-weight: 700;
+            color: #fff;
+            margin-bottom: 0.35rem;
+        }
+
+        .download-step p {
+            font-size: 0.8rem;
+            color: #94a3b8;
+            line-height: 1.4;
+        }
     </style>
 </head>
 
@@ -400,9 +519,15 @@
                         </div>
 
                         <div class="flex flex-col sm:flex-row gap-4">
+                            <a href="apps/TTBDebugPlus-Installer.dmg" download
+                                class="btn-download" id="hero-download-btn">
+                                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"></path></svg>
+                                Download for macOS
+                                <span style="font-size: 0.7rem; opacity: 0.8; font-weight: 400;">(.dmg • 5.8 MB)</span>
+                            </a>
                             <a href="#integration"
                                 class="btn-primary btn-ripple px-7 py-3.5 bg-gradient-to-r from-blue-500 to-purple-600 hover:from-blue-600 hover:to-purple-700 text-white font-semibold rounded-full transition-all shadow-lg hover:shadow-xl text-center relative overflow-hidden">
-                                Get Started
+                                SDK Integration
                             </a>
                             <a href="#features"
                                 class="px-7 py-3.5 bg-slate-800/60 hover:bg-slate-700/60 text-white font-semibold rounded-full transition-all border border-slate-700 text-center">
@@ -1259,16 +1384,70 @@ Verify by: Build for Release → Search for TTDebugBridge in binary → should n
             </div>
         </section>
 
+        <!-- ─── DOWNLOAD ─── -->
+        <section id="download" class="download-section py-20" data-reveal="scale">
+            <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 relative" style="z-index: 10;">
+                <h2 class="text-3xl font-bold text-center text-white mb-4">Download TTBDebugPlus</h2>
+                <p class="text-center text-slate-400 mb-10 max-w-xl mx-auto">
+                    Get the macOS companion app. No account needed, no subscription — just download, install, and start debugging.
+                </p>
+
+                <div class="download-card text-center">
+                    <div class="flex items-center justify-center gap-3 mb-4">
+                        <div style="width: 56px; height: 56px; border-radius: 14px; display: flex; align-items: center; justify-content: center; font-size: 1.75rem; background: rgba(34, 197, 94, 0.15);">🖥</div>
+                        <div class="text-left">
+                            <h3 class="text-xl font-bold text-white" style="margin: 0;">TTBDebugPlus for macOS</h3>
+                            <span class="text-xs text-slate-400">macOS 14+ • Universal (Apple Silicon + Intel) • 5.8 MB</span>
+                        </div>
+                    </div>
+
+                    <a href="apps/TTBDebugPlus-Installer.dmg" download class="btn-download" id="download-section-btn" style="margin: 1.5rem auto; display: inline-flex;">
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"></path></svg>
+                        Download TTBDebugPlus-Installer.dmg
+                    </a>
+
+                    <div class="download-steps">
+                        <div class="download-step">
+                            <div class="step-icon">📥</div>
+                            <h4>1. Download</h4>
+                            <p>Click the button above to download the .dmg installer file</p>
+                        </div>
+                        <div class="download-step">
+                            <div class="step-icon">📂</div>
+                            <h4>2. Install</h4>
+                            <p>Open the DMG, drag TTBDebugPlus to your Applications folder</p>
+                        </div>
+                        <div class="download-step">
+                            <div class="step-icon">🚀</div>
+                            <h4>3. Launch</h4>
+                            <p>Open TTBDebugPlus from Applications. It sits in the menu bar ready to go</p>
+                        </div>
+                    </div>
+
+                    <div class="mt-6 flex items-start gap-2 px-4 py-3 rounded-lg text-left" style="background: rgba(245, 158, 11, 0.06); border: 1px solid rgba(245, 158, 11, 0.15); max-width: 32rem; margin-left: auto; margin-right: auto;">
+                        <span class="text-amber-400 text-sm mt-0.5">💡</span>
+                        <span class="text-xs text-slate-400"><strong class="text-amber-300">First launch:</strong> macOS may show "unidentified developer" warning.
+                            Right-click the app → <strong>Open</strong> → click <strong>Open</strong> in the dialog. You only need to do this once.</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
         <!-- ─── CTA ─── -->
         <section class="py-20" data-reveal="scale">
             <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
                 <div class="cta-gradient rounded-2xl p-10 text-center">
                     <h2 class="text-3xl font-bold text-white mb-4">Ready to Debug Smarter?</h2>
                     <p class="text-slate-400 mb-8 max-w-xl mx-auto">
-                        TTBDebugPlus is included with TTBaseUIKit. Add the SDK, open the macOS app, and start debugging
+                        TTBDebugPlus is included with TTBaseUIKit. Download the macOS app, add the SDK, and start debugging
                         in under 5 minutes.
                     </p>
                     <div class="flex flex-col sm:flex-row gap-4 justify-center">
+                        <a href="apps/TTBDebugPlus-Installer.dmg" download
+                            class="btn-download btn-download-sm">
+                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"></path></svg>
+                            Download macOS App
+                        </a>
                         <a href="getting-started.html"
                             class="btn-primary btn-ripple px-8 py-4 bg-gradient-to-r from-blue-500 to-purple-600 hover:from-blue-600 hover:to-purple-700 text-white font-semibold rounded-full transition-all shadow-lg hover:shadow-xl relative overflow-hidden text-center">
                             Get Started with TTBaseUIKit

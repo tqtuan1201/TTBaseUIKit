@@ -31,6 +31,7 @@ targets:
         INFOPLIST_FILE: TTBDebugPlus/Info.plist
         CODE_SIGN_ENTITLEMENTS: TTBDebugPlus/TTBDebugPlus.entitlements
         CODE_SIGN_STYLE: Automatic
+        ENABLE_HARDENED_RUNTIME: true
         ASSETCATALOG_COMPILER_APPICON_NAME: AppIcon
         COMBINE_HIDPI_IMAGES: true
         SWIFT_EMIT_LOC_STRINGS: true
