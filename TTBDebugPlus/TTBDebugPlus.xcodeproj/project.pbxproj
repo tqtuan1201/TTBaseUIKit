@@ -23,6 +23,7 @@
 		3188C9957B131CD01E0CA55F /* JSONEditorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 415E3A7D36F7BE3F48C7FA44 /* JSONEditorView.swift */; };
 		323D8BCDE0B6071362EB99B5 /* PermissionsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7D6C9B622AE920484E773C9 /* PermissionsView.swift */; };
 		331203D381ADAFA1448EF22E /* JSONQueryEngine.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AC6C8EAA43AA52B935AAF50 /* JSONQueryEngine.swift */; };
+		3A51A5BEBF43D8F6BBA54794 /* SharedViewModifiers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BA4ADB046407F802245149E /* SharedViewModifiers.swift */; };
 		45D832AEF5DFDEDBC048DECE /* JSONQueryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34B3C4FA2F05CFF5EF52179F /* JSONQueryView.swift */; };
 		52A1E09A6577F13CC2024ED3 /* JSONDiffEngine.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BF05E2A6C7C450D3377C5C2 /* JSONDiffEngine.swift */; };
 		563D5CB2CAF26B854C872E5E /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 0C52A75F9486B11553AEF6C8 /* Assets.xcassets */; };
@@ -37,6 +38,7 @@
 		6E82A93530376AA0EBA69CF6 /* Typography.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A80E70403AF8112ED9E3032 /* Typography.swift */; };
 		70185CABD6134321D4469370 /* TabBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED3B8119893E5A4C8A3D7320 /* TabBarView.swift */; };
 		7121E26286AACFDB668DD1DF /* DeviceView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0762C5965C85E62C567E17E /* DeviceView.swift */; };
+		7B642CC3B786400921DC873F /* AnnotationHelpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADE4D893FD0591101C27A442 /* AnnotationHelpers.swift */; };
 		7C2240CBEA955BB14E0D7498 /* JSONEditorToolbar.swift in Sources */ = {isa = PBXBuildFile; fileRef = A442509F7A1682080744E49A /* JSONEditorToolbar.swift */; };
 		7D2625748C647A807A5AD977 /* HARExporter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6BE9974877106CE044CA2948 /* HARExporter.swift */; };
 		89EB35B86FFA8A977644F284 /* JSONEditorModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = 682EEE590A834AEE0D21DBC5 /* JSONEditorModels.swift */; };
@@ -71,6 +73,7 @@
 		EB743CEB6D71EA14F97217ED /* PerformanceView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8114B980F6C0236A519DA3F9 /* PerformanceView.swift */; };
 		F0FBE57F86EE1B867DE4E1CC /* TTBDebugPlusApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02E9B2DFF6EF57E4605DBB48 /* TTBDebugPlusApp.swift */; };
 		F81D79288ACF138F45A99B67 /* SessionManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5498AD37D97DF498D6D65041 /* SessionManager.swift */; };
+		FBD0529BE9F531E3DEC88519 /* JSONProcessing.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3A21EE6C58F8C1D7C0A8FA6 /* JSONProcessing.swift */; };
 		FF7F1FD556F940224C44CCC2 /* BugReportComposerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F252A34EB63CE3E3A8C44123 /* BugReportComposerView.swift */; };
 /* End PBXBuildFile section */
 
@@ -91,6 +94,7 @@
 		38569B8F191EE4B97F2B881F /* JSONConvertEngine.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JSONConvertEngine.swift; sourceTree = "<group>"; };
 		39BA70886080B2737C89D8C8 /* StorageSettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StorageSettingsView.swift; sourceTree = "<group>"; };
 		3A80E70403AF8112ED9E3032 /* Typography.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Typography.swift; sourceTree = "<group>"; };
+		3BA4ADB046407F802245149E /* SharedViewModifiers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SharedViewModifiers.swift; sourceTree = "<group>"; };
 		3C9B7389A8590CA61BA3C11B /* Spacing.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Spacing.swift; sourceTree = "<group>"; };
 		3CCFCEFAB7408477FA6A3AB9 /* GuideContainerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GuideContainerView.swift; sourceTree = "<group>"; };
 		3DA50E018F6F0556C69671F1 /* Colors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Colors.swift; sourceTree = "<group>"; };
@@ -122,10 +126,12 @@
 		A5759F83375968766A8EA382 /* FeedbackViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedbackViewModel.swift; sourceTree = "<group>"; };
 		A57B85CB79B3B213DF430E2A /* DebugMessage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DebugMessage.swift; sourceTree = "<group>"; };
 		AC65C33E1ECEA86A9ACDFEDB /* Shadows.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Shadows.swift; sourceTree = "<group>"; };
+		ADE4D893FD0591101C27A442 /* AnnotationHelpers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnnotationHelpers.swift; sourceTree = "<group>"; };
 		B7E9F150472775CE459B30DC /* Animations.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Animations.swift; sourceTree = "<group>"; };
 		BFF3CA8E4A977DBC0139EDFE /* Radius.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Radius.swift; sourceTree = "<group>"; };
 		C01485C84D4793ED034BD252 /* AnnotationEditorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnnotationEditorView.swift; sourceTree = "<group>"; };
 		C36E0FA51385E7684D8B9B89 /* WebSocketServer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebSocketServer.swift; sourceTree = "<group>"; };
+		C3A21EE6C58F8C1D7C0A8FA6 /* JSONProcessing.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JSONProcessing.swift; sourceTree = "<group>"; };
 		C7D6C9B622AE920484E773C9 /* PermissionsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PermissionsView.swift; sourceTree = "<group>"; };
 		C8980189EC5087505B801A87 /* ConsoleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConsoleView.swift; sourceTree = "<group>"; };
 		C8BD40D7FE5AAEF945CCA26A /* DevToolsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DevToolsView.swift; sourceTree = "<group>"; };
@@ -213,7 +219,9 @@
 		5DA81AA0D317D1A01D46B913 /* Shared */ = {
 			isa = PBXGroup;
 			children = (
+				C3A21EE6C58F8C1D7C0A8FA6 /* JSONProcessing.swift */,
 				EAB391D39E357B780C3DEE97 /* JSONViewer.swift */,
+				3BA4ADB046407F802245149E /* SharedViewModifiers.swift */,
 			);
 			path = Shared;
 			sourceTree = "<group>";
@@ -413,6 +421,7 @@
 			isa = PBXGroup;
 			children = (
 				C01485C84D4793ED034BD252 /* AnnotationEditorView.swift */,
+				ADE4D893FD0591101C27A442 /* AnnotationHelpers.swift */,
 				F252A34EB63CE3E3A8C44123 /* BugReportComposerView.swift */,
 				A0762C5965C85E62C567E17E /* DeviceView.swift */,
 				E183FCDE2CCA5E66D6C297D6 /* RecordingExportView.swift */,
@@ -492,6 +501,7 @@
 			files = (
 				02A3C9D3DAD88EDBECA6FEA2 /* Animations.swift in Sources */,
 				1E89943D1543580BD954E640 /* AnnotationEditorView.swift in Sources */,
+				7B642CC3B786400921DC873F /* AnnotationHelpers.swift in Sources */,
 				14473065067F53714E93483D /* AppState.swift in Sources */,
 				A7735250320601BACF7C1183 /* BonjourAdvertiser.swift in Sources */,
 				E07AB12247786E6860FCB3C4 /* BugReport.swift in Sources */,
@@ -524,6 +534,7 @@
 				D9E7DBD7F307E827166CA6C2 /* JSONEditorTreeView.swift in Sources */,
 				3188C9957B131CD01E0CA55F /* JSONEditorView.swift in Sources */,
 				1F4E037198F04CF3823DBA92 /* JSONEditorViewModel.swift in Sources */,
+				FBD0529BE9F531E3DEC88519 /* JSONProcessing.swift in Sources */,
 				331203D381ADAFA1448EF22E /* JSONQueryEngine.swift in Sources */,
 				45D832AEF5DFDEDBC048DECE /* JSONQueryView.swift in Sources */,
 				D1980168ED8EB287481D9688 /* JSONViewer.swift in Sources */,
@@ -543,6 +554,7 @@
 				F81D79288ACF138F45A99B67 /* SessionManager.swift in Sources */,
 				68DC7AF715FB66E1B72F9B85 /* SettingsView.swift in Sources */,
 				AEE54A41587E3EC8CDC07F37 /* Shadows.swift in Sources */,
+				3A51A5BEBF43D8F6BBA54794 /* SharedViewModifiers.swift in Sources */,
 				CA7F1DEEA499FB4AAC43D6F3 /* SidebarView.swift in Sources */,
 				2B2ECCD0E0DDA0624FDBB1D1 /* Spacing.swift in Sources */,
 				E3C818568AB07094BE1715CD /* StatusBarView.swift in Sources */,
