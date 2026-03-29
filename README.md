@@ -1,489 +1,508 @@
-
-# TTBaseUIKit (Base Project - A framework to quickly create iOS project via base views)
-
-
-TTBaseUIKit is a framework that helps you build iOS applications in the fastest and most efficient way, by providing base views written in both UIKit Programmatically and SwiftUI. The current release of TTBaseUIKit supports all versions of iOS and OS X since the introduction of Auto Layout on each platform, in Swift language with a single codebase.
-</br>
-
 <p align="center">
-  <img src="https://tqtuan1201.github.io/images/ttbaseuikit_compress_2.gif"  style="width:100%; height:50%" />
+  <img src="https://tqtuan1201.github.io/images/TTBaseUIKit-Info-BG-1x.png" alt="TTBaseUIKit Banner" width="100%"/>
 </p>
 
-In this update, I have included a Base Project called TTBaseUIKitExample, which provides comprehensive examples of Base classes such as BaseUIViewController, BaseUITableViewController, BaseCollectionViewController, and more in UIKit, as well as BaseView, BaseButton, BaseText, BaseStack, and others in SwiftUI. The simplest and most straightforward way to understand this is to download the example and run it. Hands-on practice is the easiest way to understand it well.
+<h1 align="center">TTBaseUIKit</h1>
 
-You can see more details in here:
-[TTBaseUIKit - TTBaseUIKitExample](https://tqtuan1201.github.io/posts/job/ios/swiftui/ttbaseuikit-integrated-with-swiftui/)
+<p align="center">
+  <strong>Build iOS Apps Faster — 100+ Production-Ready Base Views for UIKit & SwiftUI</strong>
+</p>
+
+<p align="center">
+  <a href="https://github.com/tqtuan1201/TTBaseUIKit/releases"><img src="https://img.shields.io/badge/version-2.3.0-blue.svg" alt="Version"></a>
+  <a href="https://swift.org"><img src="https://img.shields.io/badge/Swift-5.0+-orange.svg" alt="Swift"></a>
+  <a href="https://developer.apple.com/ios/"><img src="https://img.shields.io/badge/iOS-14%2B-green.svg" alt="iOS"></a>
+  <a href="https://github.com/tqtuan1201/TTBaseUIKit/blob/master/LICENSE"><img src="https://img.shields.io/badge/license-MIT-lightgrey.svg" alt="License"></a>
+  <a href="https://cocoapods.org/pods/TTBaseUIKit"><img src="https://img.shields.io/badge/CocoaPods-compatible-red.svg" alt="CocoaPods"></a>
+  <a href="https://swift.org/package-manager"><img src="https://img.shields.io/badge/SPM-compatible-brightgreen.svg" alt="SPM"></a>
+</p>
+
+<p align="center">
+  <a href="https://tqtuan1201.github.io/TTBaseUIKit/">📖 Documentation</a> •
+  <a href="https://tqtuan1201.github.io/TTBaseUIKit/getting-started.html">🚀 Getting Started</a> •
+  <a href="https://tqtuan1201.github.io/TTBaseUIKit/ttbdebugplus.html">🛠 TTBDebugPlus</a> •
+  <a href="https://tqtuan1201.github.io/TTBaseUIKit/showcase.html">📱 Showcase</a> •
+  <a href="https://tqtuan1201.github.io/TTBaseUIKit/blog.html">📝 Blog</a>
+</p>
+
+---
+
+## Overview
+
+TTBaseUIKit is an enterprise-grade iOS framework that eliminates boilerplate and accelerates development by providing **100+ production-ready base views** for both **UIKit** (programmatic) and **SwiftUI** (declarative). Ship production UI in hours, not days.
+
+<p align="center">
+  <img src="https://tqtuan1201.github.io/images/ttbaseuikit_compress_2.gif" width="80%" alt="TTBaseUIKit Demo" />
+</p>
+
+### Key Numbers
+
+| Metric | Count |
+|--------|-------|
+| UIKit Components | 72+ |
+| SwiftUI Views | 51+ |
+| AI Agent Skills | 17 |
+| Production Apps Shipped | 36+ |
+| Users Reached | 5M+ |
+
+## Features
+
+### 🧱 UIKit Foundation
+Production-ready programmatic views with **zero Storyboard/XIB** dependency:
+- `TTBaseUIViewController`, `TTBaseUITableViewController`, `TTBaseUICollectionViewController`
+- `TTBaseUIView`, `TTBaseUILabel`, `TTBaseUIButton`, `TTBaseUITextField`, `TTBaseUITextView`
+- `TTBaseUIImageView`, `TTBaseUIStackView`, `TTBaseUIScrollView`
+- `ViewCodable` protocol — structured lifecycle: `setupData → makeUI → makeConstraints → bindViewModel`
+- Popup, Notification, Skeleton Loading, Segmented Control, PIN Input, and more
+- Programmatic Auto Layout helpers — chainable, clean constraint syntax
+
+### 🎨 SwiftUI Modernity (v2.3.0+)
+Full SwiftUI support targeting iOS 14+:
+- `BaseSUIView`, `BaseSUIText`, `BaseSUIButton`, `BaseSUIImage`
+- `BaseSUIList`, `BaseSUIGroup`, `BaseSUITabView`, `BaseSUINavLink`
+- `BaseSUISlider`, `BaseSUIToggle`, `BaseSUITextField`, `BaseSUIProgress`
+- View modifiers: `ttFont()`, `ttShadow()`, `ttPadding()`
+- Built-in Shimmer / Skeleton loading animations
+
+### 🛠 Built-in UI Debug Kit (v2.2.1+)
+Activate with a single line — no additional dependencies:
+- **Triple-tap Layout Inspector** — visualize constraints and view hierarchy
+- **API Response Log Viewer** — inspect request/response data in-app
+- **Screen Capture** — annotate screenshots and share with team
+- **Developer Settings Panel** — toggle environments, feature flags
+
+```swift
+LogViewHelper.share.config(
+    withDes: "Debug Panel",
+    isStartAppToShow: false,
+    passCode: ""
+).onShow()
+// Long-press any screen to open | Triple-tap to inspect layout
+```
+
+<p align="center">
+  <img src="https://tqtuan1201.github.io/images/TTBaseUIKit-DebugKit.gif" width="80%" alt="UI Debug Kit" />
+</p>
+
+### 🖥 TTBDebugPlus — macOS Companion Debugger
+
+A **professional-grade native macOS app** for debugging iOS applications in real-time. Built entirely with SwiftUI.
+
+> ⚠️ **Requires TTBaseUIKit `v2.3.0` or later.** The DebugBridge SDK is included from version 2.3.0+.
+
+| Feature | Description |
+|---------|-------------|
+| 📋 Live Console | Real-time log streaming with level filtering & JSON inspector |
+| 🌐 Network Inspector | Full HTTP inspection, JSON Tree Viewer, cURL & Postman export |
+| 📱 Device Control | Remote screenshot, dark mode toggle, app lifecycle management |
+| 📊 Performance Monitor | CPU, Memory, FPS charts, bandwidth monitoring, API analytics |
+| 💬 Feedback Reporter | Structured bug reports with annotated screenshots |
+| 📤 Export & Share | Postman Collection v2.1, cURL, session files (.ttbdebug) |
+
+**Architecture:** iOS ↔ Bonjour (mDNS) ↔ WebSocket ↔ macOS — zero configuration, auto-discovery.
+
+<table>
+<tr>
+<td align="center" width="50%">
+<strong>🚀 iOS SDK Integration Guide</strong><br/>
+<img src="docs/images/ttbdebugplus-guide.png" alt="TTBDebugPlus Integration Guide" width="100%"/>
+</td>
+<td align="center" width="50%">
+<strong>📱 Device Control & Screenshot</strong><br/>
+<img src="docs/images/ttbdebugplus-device.png" alt="TTBDebugPlus Device Control" width="100%"/>
+</td>
+</tr>
+<tr>
+<td align="center" width="50%">
+<strong>✏️ Screenshot Annotation</strong><br/>
+<img src="docs/images/ttbdebugplus-annotation.png" alt="TTBDebugPlus Annotation" width="100%"/>
+</td>
+<td align="center" width="50%">
+<strong>🛠 Dev Tools — JSON Editor</strong><br/>
+<img src="docs/images/ttbdebugplus-devtools.png" alt="TTBDebugPlus Dev Tools" width="100%"/>
+</td>
+</tr>
+</table>
+
+> **[📥 Download TTBDebugPlus for macOS](https://tqtuan1201.github.io/TTBaseUIKit/apps/TTBDebugPlus-Installer.dmg)** (.dmg • 5.8 MB • macOS 14+ • Universal)
+
+> 📖 [Full documentation & SDK integration guide →](https://tqtuan1201.github.io/TTBaseUIKit/ttbdebugplus.html)
+
+### 🤖 AI Agent Ready
+Pre-configured for modern AI coding assistants:
+- **GitHub Copilot** — custom instructions & workspace prompts
+- **Claude Code** — CLAUDE.md with project context
+- **Xcode Agent Skills** — 17 custom agent skills
+- **Google Gemini** — GEMINI.md configuration
+- **OpenAI Codex** — codex.md setup
+
+> 📖 [Explore AI Agent Skills →](https://tqtuan1201.github.io/TTBaseUIKit/ai-agents/index.html)
+
+### 🎨 Configurable Design System
+Control every aspect of your app's appearance globally:
+
+```swift
+let view = ViewConfig()
+view.viewBgNavColor = .systemBlue
+view.buttonBgDef    = .systemBlue
+view.viewBgColor    = .white
+
+let size = SizeConfig()
+size.H_BUTTON = 44.0
+size.H_SEG    = 50.0
+
+let font = FontConfig()
+font.HEADER_H       = 16
+font.TITLE_H        = 14
+font.SUB_TITLE_H    = 12
+
+TTBaseUIKitConfig.withDefaultConfig(
+    withFontConfig: font,
+    frameSize: size,
+    view: view
+)?.start(withViewLog: true)
+```
+
+| Config | Purpose | Reference |
+|--------|---------|-----------|
+| [`ViewConfig`](https://github.com/tqtuan1201/TTBaseUIKit/blob/master/Sources/TTBaseUIKit/BaseConfig/ViewConfig.swift) | Colors for buttons, labels, backgrounds, navigation | Global theme |
+| [`SizeConfig`](https://github.com/tqtuan1201/TTBaseUIKit/blob/master/Sources/TTBaseUIKit/BaseConfig/SizeConfig.swift) | Heights, corner radius, icon sizes, spacing | Layout system |
+| [`FontConfig`](https://github.com/tqtuan1201/TTBaseUIKit/blob/master/Sources/TTBaseUIKit/BaseConfig/FontConfig.swift) | Typography scale: header, title, subtitle, body | Type system |
 
 ## Installation
 
-### Swift Package Manager
+### Swift Package Manager (Recommended)
 
-1. File > Swift Packages > Add Package Dependency
-2. Add https://github.com/tqtuan1201/TTBaseUIKit.git
-3. Select "Up to Next Major" with "2.1.0" or higher
+**Via Xcode:**
+1. File → Add Package Dependencies...
+2. Enter URL: `https://github.com/tqtuan1201/TTBaseUIKit.git`
+3. Select "Up to Next Major" from `2.3.0`
 
-Once you have your Swift package set up, adding Alamofire as a dependency is as easy as adding it to the `dependencies` value of your `Package.swift`.
-
-```
+**Via `Package.swift`:**
+```swift
 dependencies: [
-    .package(url: "https://github.com/tqtuan1201/TTBaseUIKit.git", .upToNextMajor(from: "2.1.0"))
-]
-or 
-dependencies: [
-    .package(url: "https://github.com/tqtuan1201/TTBaseUIKit.git", branch: "master"),
+    .package(url: "https://github.com/tqtuan1201/TTBaseUIKit.git", from: "2.3.0")
 ]
 ```
-
-If you encounter any problem or have a question on adding the package to an Xcode project, I suggest reading the Adding Package Dependencies to Your App guide article from Apple.
 
 ### CocoaPods
-CocoaPods is a dependency manager for Cocoa projects.
-Add the following line to your Podfile:
 
-````ruby
+```ruby
 pod 'TTBaseUIKit'
-````
+```
 
 ### Carthage
 
-Add the following line to your Cartfile:
-
-````ruby
+```ruby
 github "tqtuan1201/TTBaseUIKit"
-````
+```
 
 ### Manual
 
-1. Put TTBaseUIKit repo somewhere in your project directory.
-1. In Xcode, add `TTBaseUIKit.xcodeproj` to your project.
-1. On your app's target, add the TTBaseUIKit framework:
-   1. as an embedded binary on the General tab.
-   1. as a target dependency on the Build Phases tab.
+1. Clone or download the repository
+2. Add `TTBaseUIKit.xcodeproj` to your project
+3. Add `TTBaseUIKit.framework` as an embedded binary (General tab) and target dependency (Build Phases tab)
 
-## Basic config settings
-
-When you use this framework. You have the ability to control `Color`, `FontSize`, `UI size`. It helps you a lot when you apply **themes**, build apps on **different platforms** and they are easy to change. Config setting in `AppDelegate`
+## Quick Start
 
 ```swift
-let view:ViewConfig = ViewConfig()
-view.viewBgNavColor = UIColor.blue
-view.viewBgColor = UIColor.white
-view.buttonBgDef = UIColor.blue
-view.buttonBgWar = UIColor.red
+import UIKit
+import TTBaseUIKit
 
-let size:SizeConfig = SizeConfig()
-size.H_SEG = 50.0
-size.H_BUTTON = 44.0
+@main
+class AppDelegate: UIResponder, UIApplicationDelegate {
 
-let font:FontConfig = FontConfig()
-font.HEADER_H = 16
-font.TITLE_H = 14
-font.SUB_TITLE_H = 12
-font.SUB_SUB_TITLE_H = 10
+    var window: UIWindow?
 
-TTBaseUIKitConfig.withDefaultConfig(withFontConfig: font, frameSize: size, view: view)?.start(withViewLog: true)
+    func application(
+        _ application: UIApplication,
+        didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?
+    ) -> Bool {
 
-self.window = UIWindow(frame: UIScreen.main.bounds)
-self.window!.rootViewController = UINavigationController.init(rootViewController: YourViewController())
-self.window!.makeKeyAndVisible()
+        // 1. Configure design system
+        let view = ViewConfig()
+        let size = SizeConfig()
+        let font = FontConfig()
+        
+        TTBaseUIKitConfig.withDefaultConfig(
+            withFontConfig: font,
+            frameSize: size,
+            view: view
+        )?.start(withViewLog: true)
 
+        // 2. (Optional) Enable debug bridge for TTBDebugPlus macOS
+        #if DEBUG
+        TTDebugBridge.shared.start()
+        LogInterceptor.shared.install()
+        #endif
+
+        // 3. Set root view controller
+        window = UIWindow(frame: UIScreen.main.bounds)
+        window?.rootViewController = UINavigationController(
+            rootViewController: HomeViewController()
+        )
+        window?.makeKeyAndVisible()
+        
+        return true
+    }
+}
 ```
 
-- With `ViewConfig`, you can customize the most of colors for `Button`, `Label`, `Background colors`, ect. You can see all the config here: [ViewConfig](https://github.com/tqtuan1201/TTBaseUIKit/blob/master/Sources/TTBaseUIKit/BaseConfig/ViewConfig.swift)
-- With `SizeConfig`, you can customize the most of size for `Button`, `Label`, `Navigation`, `Conner radius`, `Icon`, `Textfield`, ect. You can see all the config here: [SizeConfig](https://github.com/tqtuan1201/TTBaseUIKit/blob/master/Sources/TTBaseUIKit/BaseConfig/SizeConfig.swift)
-- With `FontConfig`, you can customize the most of font size for `Title`, `SubTitle`, `Header`, ect. You can see all the config here: [FontConfig](https://github.com/tqtuan1201/TTBaseUIKit/blob/master/Sources/TTBaseUIKit/BaseConfig/FontConfig.swift)
+## Usage Examples
 
-Apply config by:
-
-> TTBaseUIKitConfig.withDefaultConfig(withFontConfig: font, frameSize: size, view: view)?.start(withViewLog: true)
-
-# Usage
-
-`TTBaseUIKit` dramatically simplifies writing to build UI programmatically. Let's take a quick look at some examples, using `TTBaseUIKit` from Swift.
-
-<p align="center">
-  <img src="https://tqtuan1201.github.io/images/TTBaseUIKit-Info-BG-1x.png"  style="width:100%; height:50%" />
-</p>
-
-<p align="center">
-  <img src="https://tqtuan1201.github.io/images/ttbaseuikit_compress_1.gif"  style="width:100%; height:50%;" />
-</p>
-
-## UI Debugging
-<p align="center">
-    <img src="https://tqtuan1201.github.io/images/image-20250801104328615%e2%80%afAM.png"  style="width:100%; height90%" />
-</p>
-
-You can see more details in here:  [TTBaseDebugKit](https://tqtuan1201.github.io/posts/job/ios/ttbaseuikit/debuguikit/)
-
-With the UI debug tool now integrated into `TTBaseUIKit`, building an iOS app from <mark>a base project is easier than ever</mark>. This tool especially helps developers
-
-- Visualize layout boundaries and hierarchies
-- Test views quickly with mock data
-- Reduce time spent checking constraints manually
-
-This update `TTBaseDebugUIKit` aims to speed up development and reduce friction when building or testing user interfaces — whether you’re using **UIKit** or **SwiftUI**.
-
-
-```swift
- LogViewHelper.share.config(withDes: "Description for Developers", isStartAppToShow: false, passCode: "").onShow()
-```
-
-- `passCode` if you want to secure the debug section, <mark>just set a password</mark>
-- `onShow` Allows you to activate the debug feature on any screen in the app. <mark>To open it, just long-press on the screen</mark>
-
-Or to make it easier, you can download the sample project and run it. [TTBaseUIKitExample](https://github.com/tqtuan1201/TTBaseUIKit/tree/master/TTBaseUIKitExample).
-
-<p align="center">
-    <img src="https://tqtuan1201.github.io/images/image-2025073133012120 PM.png"  style="width:50%; height:50%" />
-  </p>
-
-- `SHOW LOG API RESPONSE` Displays all request and response data when calling APIs, making it easier for developers and testers to test, debug the app.
-- `DEBUG UI LAYOUT` <mark>TRIPLE TAP THE SCREEN</mark> To enable UI debug mode, just tap 3 times on any screen you want to check.
-- `CAPTURE THE SCREEN` Capture the current screen and add notes to save or send to a tester or developer.
-- `SETTING DEV`: You can add any settings you want, such as changing the app's development environment, and more, ...
-
-<p align="center">
-  <img src="https://tqtuan1201.github.io/images/TTBaseUIKit-DebugKit.gif"  style="width:100%; height:50%" />
-</p>
-
-## Interface Customization
-
-### Show Message
-
-```swift
-let noti:TTBaseNotificationViewConfig = TTBaseNotificationViewConfig(with: window)
-noti.setText(with: "WELCOME ^^", subTitle: "Just demo little element ui with write by  programmatically swift")
-noti.type = .NOTIFICATION_VIEW
-noti.touchType = .SWIPE
-noti.notifiType = .SUCCESS
-noti.onShow()
-```
-
-<p align="center">
-  <img src="./Images/2.gif"  style="width:50%; height:50%" />
-</p>
-
-### Show Popup
-
-```swift
-let popupVC = TTPopupViewController(title: "SOMETHING LIKE THIS", subTitle: "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has b", isAllowTouchPanel: true)
-yourVC.present(popupVC, animated: true)
-```
-
-### Show empty for table view
-
-```swift
-yourVC.tableView.setStaticBgNoData(title: "NO DATA", des: "Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from 45 BC, making ") {
-  print("Touch handle!!!!")
-            }
-```
-
-## ViewCodable
-
- This is a `protocol` use to easily organize UI handling code. You can see all configs here: [ViewCodable](https://github.com/tqtuan1201/TTBaseUIKit/blob/master/Sources/TTBaseUIKit/CustomView/ViewCodable/ViewCodable.swift)
-
-- ```swift
-  func setupViewCodable(with views : [UIView])
-  ```
-
-  This function calls all other functions in the correct order. You can use it in an UIViewController viewDidLoad method or in a view initializer, for example.
-
-- ```swift
-  func setupStyles()
-  ```
-
-  This function should be used to apply styles to your customs views.
-
-- ```swift
-  func setupData()
-  ```
-
-  This function should be used to set data
-
-- ```swift
-  func setupConstraints()
-  ```
-
-  This function should be used to add constraints to your customs views
-
-- ```swift
-  func setupBaseDelegate()
-  ```
-
-  This function should be used to set delegate for views
-
-## Base UIViews
-
-### Custom View
+### UIKit — Custom ViewController
 
 ```swift
 import TTBaseUIKit
 
-class YourCustomView : TTBaseUIView {
-    override func updateBaseUIView() {
-        super.updateBaseUIView()
+class HomeViewController: TTBaseUIViewController<TTBaseUIView> {
+
+    let titleLabel = TTBaseUILabel()
+    let actionButton = TTBaseUIButton()
+
+    override func viewDidLoad() {
+        super.viewDidLoad()
     }
 }
 
-extension YourCustomView :TTViewCodable {
+extension HomeViewController: TTViewCodable {
 
     func setupStyles() {
+        titleLabel.setText(text: "Welcome")
+        actionButton.setText(text: "Get Started")
     }
 
     func setupCustomView() {
+        view.addSubview(titleLabel)
+        view.addSubview(actionButton)
     }
 
     func setupConstraints() {
+        titleLabel.setTopAnchor(constant: 20)
+        titleLabel.setCenterXAnchor(constant: 0)
+        actionButton.setTopAnchor(titleLabel, constant: 16)
+        actionButton.setCenterXAnchor(constant: 0)
     }
-
 }
-
 ```
 
-### BaseUIViewController
-
-```swift
-import  TTBaseUIKit
-
-class BaseUIViewController: TTBaseUIViewController<DarkBaseUIView> {
-
-    var lgNavType:BaseUINavigationView.TYPE { get { return .DEFAULT}}
-    var backType:BaseUINavigationView.NAV_BACK = .BACK_POP
-
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(true)
-        self.updateForNav()
-    }
-
-    public override init() {
-        super.init()
-        self.navBar = BaseUINavigationView(withType: self.lgNavType)
-        self.setDelegate()
-    }
-
-    public convenience init(backType:BaseUINavigationView.NAV_BACK) {
-        self.init()
-        self.backType = backType
-    }
-
-    public convenience init(withTitleNav title:String, backType:BaseUINavigationView.NAV_BACK = .BACK_POP) {
-        self.init()
-        self.backType = backType
-        self.setTitleNav(title)
-    }
-
-    public convenience init(withNav nav:BaseUINavigationView, backType:BaseUINavigationView.NAV_BACK = .BACK_POP) {
-        self.init()
-        self.backType = backType
-        self.navBar = nav
-        self.setDelegate()
-    }
-
-    required init?(coder aDecoder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
-
-}
-
-// MARK: For private base funcs
-extension BaseUIViewController {
-
-    fileprivate func setDelegate() {
-        if let lgNav = self.navBar as? BaseUINavigationView { lgNav.delegate = self }
-    }
-
-    fileprivate func updateForNav() {
-        if let lgNav = self.navBar as? BaseUINavigationView {
-            lgNav.setTitle(title: "TTBASEUIVIEW_KIT")
-        }
-    }
-}
-
-// MARK: For public base funcs
-//--NAV
-extension BaseUIViewController {
-
-    func setTitleNav(_ text:String) {
-        self.navBar.setTitle(title: text)
-    }
-
-    func setShowNav() {
-        self.statusBar.isHidden = false
-        self.navBar.isHidden = false
-    }
-
-    func setHiddenNav() {
-        self.statusBar.isHidden = true
-        self.navBar.isHidden = true
-    }
-
-}
-
-extension BaseUIViewController :BaseUINavigationViewDelegate {
-    func navDidTouchUpBackButton(withNavView nav: BaseUINavigationView) {
-        if self.backType == .BACK_POP {
-            self.navigationController?.popViewController(animated: true)
-        } else if self.backType == .BACK_TO_ROOT {
-            self.navigationController?.popToRootViewController(animated: true)
-        } else {
-            self.dismiss(animated: true, completion: nil)
-        }
-    }
-    func navDidTouchUpRightButton(withNavView nav: BaseUINavigationView) {
-
-    }
-}
-
-```
-
-### BaseUITableViewController
+### SwiftUI — Declarative View
 
 ```swift
 import TTBaseUIKit
 
-class BaseUITableViewController: TTBaseUITableViewController {
+struct HomeView: BaseSUIView {
+    var body: some View {
+        VStack(spacing: 16) {
+            BaseSUIText("Welcome to TTBaseUIKit")
+                .ttFont(type: .HEADER_H)
+                .foregroundColor(.primary)
 
-    override var navType: TTBaseUIViewController<TTBaseUIView>.NAV_STYLE { get { return .STATUS_NAV}}
+            BaseSUIButton(title: "Get Started") {
+                // action
+            }
+            .ttButtonStyle(.filled)
 
-    var lgNavType:BaseUINavigationView.TYPE { get { return .DEFAULT}}
-    var backType:BaseUINavigationView.NAV_BACK = .BACK_POP
-
-    override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
-        super.viewWillTransition(to: size, with: coordinator)
-        DispatchQueue.main.async { [weak self] in guard let strongSelf = self else { return }
-            guard let headerView = strongSelf.tableView.tableHeaderView else { return }
-            headerView.layoutIfNeeded()
-            let header = strongSelf.tableView.tableHeaderView
-            strongSelf.tableView.tableHeaderView = header
+            BaseSUIList(items: viewModel.items) { item in
+                ItemRowView(item: item)
+            }
         }
-    }
-
-
-    override func updateBaseUI() {
-        super.updateBaseUI()
-        self.navBar = BaseUINavigationView(withType: self.lgNavType)
-        self.setDelegate()
-    }
-
-}
-
-
-//For Base private funcs
-extension BaseUITableViewController : BaseUINavigationViewDelegate{
-
-    fileprivate func setDelegate() {
-        if let lgNav = self.navBar as? BaseUINavigationView { lgNav.delegate = self }
-    }
-
-    func navDidTouchUpBackButton(withNavView nav: BaseUINavigationView) {
-        self.navigationController?.popViewController(animated: true)
+        .baseSUIPadding()
     }
 }
-
 ```
 
-## Auto Layout
+### Auto Layout Helpers
 
-`TTBaseUIKit` to make easy Auto Layout. This framework provides some functions to setup and update constraints.
+```swift
+// Chainable programmatic constraints
+myView.setTopAnchor(constant: 16)
+myView.setLeadingAnchor(constant: 20)
+myView.setTrailingAnchor(constant: 20)
+myView.setBottomAnchor(constant: 16)
+myView.setCenterXAnchor(constant: 0)
+myView.setcenterYAnchor(constant: 0)
+```
 
-- `setLeadingAnchor` : Set/Update value for **current view** or **super view**
-- `setTrailingAnchor(_ view:UIView? = nil, isUpdate:Bool = false, constant:CGFloat, isApplySafeArea:Bool = false, priority:UILayoutPriority? = nil)`
-- `setTopAnchor(_ view:UIView? = nil, isUpdate:Bool = false, constant:CGFloat, priority:UILayoutPriority? = nil)`
-- `setBottomAnchor(_ view:UIView? = nil, isUpdate:Bool = false, constant:CGFloat,isMarginsGuide:Bool = false, priority:UILayoutPriority? = nil) `
-- `setCenterXAnchor(_ view:UIView? = nil, isUpdate:Bool = false, constant:CGFloat)`
-- `setcenterYAnchor(_ view:UIView? = nil, isUpdate:Bool = false, constant:CGFloat)`
+### UI Components
 
-## Useful functions
+```swift
+// Notification banner
+let noti = TTBaseNotificationViewConfig(with: window)
+noti.setText(with: "Success!", subTitle: "Operation completed")
+noti.notifiType = .SUCCESS
+noti.onShow()
 
-`TTBaseUIKit` provides common handling functions for `String`, `Date`, `Json`, `Device`, `Language`, `VietNamLunar `, `Validation`, `NetworkSpeedTest`
+// Popup dialog
+let popup = TTPopupViewController(
+    title: "Confirm",
+    subTitle: "Are you sure?",
+    isAllowTouchPanel: true
+)
+present(popup, animated: true)
 
-## TTBaseUIKit has integrated SwiftUI
+// Empty state for table view
+tableView.setStaticBgNoData(
+    title: "No Data",
+    des: "Nothing to show yet"
+) {
+    print("Retry tapped")
+}
+```
 
-<p align="center">
-  <img src="https://tqtuan1201.github.io/images/image-20230531165403411.png"  style="width:100%; height:50%" />
-</p>
+## Project Structure
 
-With SwiftUI, Apple offers developers a unified UI framework for building user interfaces on all types of Apple devices.
+```
+TTBaseUIKit/
+├── Sources/TTBaseUIKit/
+│   ├── BaseConfig/          # ViewConfig, SizeConfig, FontConfig
+│   ├── Coordinators/        # Navigation coordination
+│   ├── CustomView/          # 72+ UIKit base views
+│   │   ├── BaseUIView/
+│   │   ├── BaseUILabel/
+│   │   ├── BaseUIButton/
+│   │   ├── BaseUITextField/
+│   │   ├── BaseUITableView/
+│   │   ├── BaseUICollectionView/
+│   │   ├── ViewCodable/
+│   │   └── ...
+│   ├── SwiftUIView/         # 51+ SwiftUI views
+│   │   ├── BaseSUIView/
+│   │   ├── BaseSUIText/
+│   │   ├── BaseSUIButton/
+│   │   └── ...
+│   ├── Extensions/          # String, Date, JSON, Device utilities
+│   └── Support/
+│       ├── DebugBridge/     # TTBDebugPlus iOS SDK
+│       └── Resources/      # Fonts, Images
+├── TTBaseUIKitExample/      # Official sample project
+├── TTBDebugPlus/            # macOS companion app (Xcode project)
+├── Agents/                  # AI agent configurations
+├── docs/                    # Documentation website
+├── Package.swift
+├── TTBaseUIKit.podspec
+└── LICENSE
+```
 
-**TTBaseSUISpacer**
+## Example Project
 
-In SwiftUI, the Spacer view is primarily used for layout and spacing purposes, and it doesn’t have direct properties to change background color or set corner radius. However, we can create a customizing class to add some commonly used functions.
-  <p align="center">
-    <img src="https://tqtuan1201.github.io/images/image-2023101344757062 PM.png"  style="width:50%; height:50%" />
-  </p>
-  
-# Example Apps
+The [`TTBaseUIKitExample`](https://github.com/tqtuan1201/TTBaseUIKit/tree/master/TTBaseUIKitExample) project demonstrates:
+- UIKit programmatic views (BaseUIViewController, TableView, CollectionView)
+- SwiftUI declarative views (BaseSUIView, BaseSUIButton, BaseSUIText)
+- Built-in UI Debug Kit (layout inspector, API log viewer)
+- ViewCodable protocol lifecycle
+- Theme configuration
+- Auto Layout helpers
 
-For more examples and usage, please refer to example project  [`TTBaseUIKitExample`](https://github.com/tqtuan1201/TTBaseUIKit/tree/master/TTBaseUIKitExample)
+```bash
+git clone https://github.com/tqtuan1201/TTBaseUIKit.git
+open TTBaseUIKit.xcodeproj
+# Select TTBaseUIKitExample target → Run (⌘R)
+```
 
-TTBaseUIKitExample, which provides comprehensive examples of Base classes such as BaseUIViewController, BaseUITableViewController, BaseCollectionViewController, and more in UIKit, as well as BaseView, BaseButton, BaseText, BaseStack, and others in SwiftUI. The simplest and most straightforward way to understand this is to download the example and run it.
-# Installed Applications
+## Apps Built with TTBaseUIKit
 
-During my work, I have updated and used this framework in many projects. All my project using `UI programmatically` instead of using `Storyboard`. Here are some screenshoots of the apps:
+<table>
+<tr>
+<td align="center" width="25%">
+<strong>12Bay iOS</strong><br/>
+<em>✈️ Travel • #20 App Store VN</em><br/>
+<sub>UIKit + SwiftUI • MVVM/VIPER</sub>
+</td>
+<td align="center" width="25%">
+<strong>Aihealth - Truedoc</strong><br/>
+<em>🏥 Healthcare • Pre-Series A</em><br/>
+<sub>UIKit • AI Diagnostics</sub>
+</td>
+<td align="center" width="25%">
+<strong>TMS Mobile</strong><br/>
+<em>🚛 Logistics</em><br/>
+<sub>UIKit • Real-time GPS</sub>
+</td>
+<td align="center" width="25%">
+<strong>WECARE 247</strong><br/>
+<em>🫶 Care Management</em><br/>
+<sub>UIKit + SwiftUI</sub>
+</td>
+</tr>
+<tr>
+<td align="center" width="25%">
+<strong>12Bay macOS</strong><br/>
+<em>🖥️ Mac Catalyst</em><br/>
+<sub>Shared codebase with iOS</sub>
+</td>
+<td align="center" width="25%">
+<strong>AiDoctor</strong><br/>
+<em>⚕️ Telemedicine</em><br/>
+<sub>UIKit • Video Consult</sub>
+</td>
+<td align="center" width="25%">
+<strong>AiPharmacy</strong><br/>
+<em>💊 Pharmacy</em><br/>
+<sub>UIKit • Order Management</sub>
+</td>
+<td align="center" width="25%">
+<strong>Contacts Plus</strong><br/>
+<em>👤 Productivity</em><br/>
+<sub>UIKit • App Store</sub>
+</td>
+</tr>
+</table>
 
-- 12Bay iOS App
+> **36+ production apps** shipped across Travel, Healthcare, Logistics, Education, and more.
+> See full showcase → [Apps Showcase](https://tqtuan1201.github.io/TTBaseUIKit/showcase.html)
 
-  
+## Documentation
 
-  <p align="center">
-    <img src="https://tqtuan1201.github.io/images/image-20220714103844009.png"  style="width:50%; height:50%" />
-  </p>
+| Resource | Link |
+|----------|------|
+| 📖 Full Documentation | [tqtuan1201.github.io/TTBaseUIKit](https://tqtuan1201.github.io/TTBaseUIKit/) |
+| 🚀 Getting Started | [Installation & Setup Guide](https://tqtuan1201.github.io/TTBaseUIKit/getting-started.html) |
+| 🧱 UIKit Components | [72+ Component Docs](https://tqtuan1201.github.io/TTBaseUIKit/uikit/index.html) |
+| 🎨 SwiftUI Views | [51+ View Docs](https://tqtuan1201.github.io/TTBaseUIKit/swiftui/index.html) |
+| 🛠 TTBDebugPlus | [macOS Debugger & SDK Guide](https://tqtuan1201.github.io/TTBaseUIKit/ttbdebugplus.html) |
+| 🤖 AI Agent Skills | [17 Agent Configurations](https://tqtuan1201.github.io/TTBaseUIKit/ai-agents/index.html) |
+| 🎬 Project Demo | [TTBaseUIKitExample Demo](https://tqtuan1201.github.io/TTBaseUIKit/demo.html) |
+| 📱 Apps Showcase | [36+ Production Apps](https://tqtuan1201.github.io/TTBaseUIKit/showcase.html) |
+| 📝 Author's Blog | [Technical Articles](https://tqtuan1201.github.io/TTBaseUIKit/blog.html) |
 
-- 12Bay MacOS app
+## Requirements
 
-  <p align="center">
-    <img src="https://tqtuan1201.github.io/images/image-20220714104020426.png"  style="width:50%; height:50%" />
-  </p>
+| Requirement | Minimum |
+|-------------|---------|
+| iOS | 14.0+ |
+| macOS (Catalyst) | 10.15+ |
+| Swift | 5.0+ |
+| Xcode | 13.0+ |
+| TTBDebugPlus (macOS) | macOS 14+ |
 
-- Aihealth iOS app
+## Contributing
 
-<p align="center">
-  <img src="https://tqtuan1201.github.io/images/image-20220714104542214.png"  style="width:50%; height:50%" />
-</p>
+Contributions are welcome! Feel free to:
 
-- TMS Mobile App
+1. Fork the repository
+2. Create a feature branch (`git checkout -b feature/amazing-feature`)
+3. Commit your changes (`git commit -m 'Add amazing feature'`)
+4. Push to the branch (`git push origin feature/amazing-feature`)
+5. Open a Pull Request
 
-<p align="center">
-  <img src="https://tqtuan1201.github.io/images/image-20230717143822644.png"  style="width:50%; height:50%" />
-</p>
+If you find TTBaseUIKit useful, please consider giving it a ⭐ — it helps others discover the project.
 
-- AiDoctor
+## Author
 
-<p align="center">
-  <img src="https://tqtuan1201.github.io/images/image-20220627161510919.png"  style="width:50%; height:50%" />
-</p>
+**Truong Quang Tuan** — Mobile Lead & Framework Author
 
-- WECARE 247
+- 🌐 Website: [tqtuan1201.github.io](https://tqtuan1201.github.io/)
+- 📧 Email: [truongquangtuanit@gmail.com](mailto:truongquangtuanit@gmail.com)
+- 👤 Portfolio: [tqtuan1201.github.io/portfolio](https://tqtuan1201.github.io/portfolio/)
+- 👥 Meet the Team: [Our Team](https://tqtuan1201.github.io/posts/job/cv/ourteam/)
 
-<p align="center">
-  <img src="https://tqtuan1201.github.io/images/image-20220711142551360.png"  style="width:50%; height:50%" />
-</p>
+We build high-quality apps. [Get in touch](https://tqtuan1201.github.io/) if you need help with a project.
 
+## License
 
-You can see all my projects here: [Link](https://tqtuan1201.github.io/portfolio/)
+TTBaseUIKit is available under the **MIT License**. See the [LICENSE](LICENSE) file for details.
 
-# Advantages
-
-- Reusable codes
-- Speed up your project
-- Easy to use
-
-# Disadvantages
-
-- Must **build app to see UI**, `SwiftUI ` solved that problem I was thinking about.
-
-# About
-
-Truong Quang Tuan – [website](https://tqtuan1201.github.io/) –  (email: truongquangtuanit@gmail.com)
-
-Hi, I’m Tuan (short for Quang-Tuan Truong). I’m a mobile lead with years of professional experience building applications and leading teams in both large companies and small startups.
-
-Feel free to get in touch if you have suggestions, issues, or anything else. You can reach me via email at truongquangtuanit@gmail.com or through my website: https://tqtuan1201.github.io/
-
-# Meet My Team
-
-If you have a great idea but don’t know how to start? Don't worry, simply click on [Meet My Team](https://tqtuan1201.github.io/posts/job/cv/ourteam/) and we can discuss your project over a cup of coffee'
-
-We build high quality apps! [Get in touch](https://tqtuan1201.github.io/) if you need help with a project.
-
+```
+MIT License — Copyright (c) 2019 Quang Tuan
+```

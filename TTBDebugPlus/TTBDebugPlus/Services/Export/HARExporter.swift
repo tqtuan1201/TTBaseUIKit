@@ -13,7 +13,7 @@ import AppKit
 enum HARExporter {
     
     /// Generate HAR 1.2 JSON string from API log entries
-    static func generate(from entries: [APILogPayload], creatorName: String = "TTBDebugPlus", creatorVersion: String = "4.2.0") -> String {
+    static func generate(from entries: [APILogPayload], creatorName: String = "TTBDebugPlus", creatorVersion: String = "2.3.0") -> String {
         let harLog = HARLog(
             version: "1.2",
             creator: HARCreator(name: creatorName, version: creatorVersion),

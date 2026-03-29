@@ -156,7 +156,7 @@ struct IntegrationGuideView: View {
                 dependencies: [
                     .package(
                         url: "https://github.com/tqtuan1201/TTBaseUIKit.git",
-                        from: "4.2.0"
+                        from: "2.3.0"
                     )
                 ]
                 

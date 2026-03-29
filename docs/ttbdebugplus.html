@@ -389,14 +389,22 @@
             left: -100%;
             width: 100%;
             height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.15), transparent);
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.15), transparent);
             animation: btnShine 3s ease-in-out infinite;
         }
 
         @keyframes btnShine {
-            0% { left: -100%; }
-            50% { left: 100%; }
-            100% { left: 100%; }
+            0% {
+                left: -100%;
+            }
+
+            50% {
+                left: 100%;
+            }
+
+            100% {
+                left: 100%;
+            }
         }
 
         .btn-download-sm {
@@ -519,9 +527,12 @@
                         </div>
 
                         <div class="flex flex-col sm:flex-row gap-4">
-                            <a href="apps/TTBDebugPlus-Installer.dmg" download
-                                class="btn-download" id="hero-download-btn">
-                                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"></path></svg>
+                            <a href="apps/TTBDebugPlus-Installer.dmg" download class="btn-download"
+                                id="hero-download-btn">
+                                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                        d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"></path>
+                                </svg>
                                 Download for macOS
                                 <span style="font-size: 0.7rem; opacity: 0.8; font-weight: 400;">(.dmg • 5.8 MB)</span>
                             </a>
@@ -538,7 +549,7 @@
 
                     <!-- Right: Screenshot -->
                     <div class="relative">
-                        <img src="images/ttbdebugplus-console.png" alt="TTBDebugPlus Console View"
+                        <img src="images/ttbdebugplus-device.png" alt="TTBDebugPlus Dev Tools — JSON Editor"
                             class="hero-preview-img w-full" loading="lazy">
                         <!-- Glow effect -->
                         <div
@@ -640,16 +651,23 @@
                         <div class="flex items-start gap-4 mb-3">
                             <div class="feature-icon-box" style="background: rgba(59, 130, 246, 0.12);">🌐</div>
                             <div>
-                                <h3 class="font-bold text-white text-lg">Network Inspector <span class="text-xs font-semibold px-2 py-0.5 rounded-full" style="background: rgba(59,130,246,0.15); color: #93c5fd;">v2</span></h3>
+                                <h3 class="font-bold text-white text-lg">Network Inspector <span
+                                        class="text-xs font-semibold px-2 py-0.5 rounded-full"
+                                        style="background: rgba(59,130,246,0.15); color: #93c5fd;">v2</span></h3>
                                 <span class="text-xs text-slate-400">Charles Proxy alternative</span>
                             </div>
                         </div>
                         <ul class="space-y-2 text-sm text-slate-400">
-                            <li class="flex items-start gap-2"><span class="text-blue-400 mt-0.5">✓</span> JSON Tree Viewer — collapsible nodes, Pretty/Tree/Raw modes</li>
-                            <li class="flex items-start gap-2"><span class="text-blue-400 mt-0.5">✓</span> Deep Search — filter by URL, Body, Headers scopes</li>
-                            <li class="flex items-start gap-2"><span class="text-blue-400 mt-0.5">✓</span> Pin/Bookmark ⭐ requests, waterfall timing bars</li>
-                            <li class="flex items-start gap-2"><span class="text-blue-400 mt-0.5">✓</span> Export as cURL, Postman Collection (v2.1), context menus</li>
-                            <li class="flex items-start gap-2"><span class="text-blue-400 mt-0.5">✓</span> API Analytics Dashboard — method/status distribution, slowest requests</li>
+                            <li class="flex items-start gap-2"><span class="text-blue-400 mt-0.5">✓</span> JSON Tree
+                                Viewer — collapsible nodes, Pretty/Tree/Raw modes</li>
+                            <li class="flex items-start gap-2"><span class="text-blue-400 mt-0.5">✓</span> Deep Search —
+                                filter by URL, Body, Headers scopes</li>
+                            <li class="flex items-start gap-2"><span class="text-blue-400 mt-0.5">✓</span> Pin/Bookmark
+                                ⭐ requests, waterfall timing bars</li>
+                            <li class="flex items-start gap-2"><span class="text-blue-400 mt-0.5">✓</span> Export as
+                                cURL, Postman Collection (v2.1), context menus</li>
+                            <li class="flex items-start gap-2"><span class="text-blue-400 mt-0.5">✓</span> API Analytics
+                                Dashboard — method/status distribution, slowest requests</li>
                         </ul>
                     </div>
 
@@ -721,16 +739,23 @@
                         <div class="flex items-start gap-4 mb-3">
                             <div class="feature-icon-box" style="background: rgba(6, 182, 212, 0.12);">📤</div>
                             <div>
-                                <h3 class="font-bold text-white text-lg">Export & Share <span class="text-xs font-semibold px-2 py-0.5 rounded-full" style="background: rgba(6,182,212,0.15); color: #67e8f9;">v2</span></h3>
+                                <h3 class="font-bold text-white text-lg">Export & Share <span
+                                        class="text-xs font-semibold px-2 py-0.5 rounded-full"
+                                        style="background: rgba(6,182,212,0.15); color: #67e8f9;">v2</span></h3>
                                 <span class="text-xs text-slate-400">Multiple formats</span>
                             </div>
                         </div>
                         <ul class="space-y-2 text-sm text-slate-400">
-                            <li class="flex items-start gap-2"><span class="text-cyan-400 mt-0.5">✓</span> Postman Collection v2.1 — one-click import</li>
-                            <li class="flex items-start gap-2"><span class="text-cyan-400 mt-0.5">✓</span> cURL for Terminal replay</li>
-                            <li class="flex items-start gap-2"><span class="text-cyan-400 mt-0.5">✓</span> Session files (.ttbdebug) — share debug sessions</li>
-                            <li class="flex items-start gap-2"><span class="text-cyan-400 mt-0.5">✓</span> Import/Export sessions between team members</li>
-                            <li class="flex items-start gap-2"><span class="text-cyan-400 mt-0.5">✓</span> Context menu: copy URL, headers, body, JSON payload</li>
+                            <li class="flex items-start gap-2"><span class="text-cyan-400 mt-0.5">✓</span> Postman
+                                Collection v2.1 — one-click import</li>
+                            <li class="flex items-start gap-2"><span class="text-cyan-400 mt-0.5">✓</span> cURL for
+                                Terminal replay</li>
+                            <li class="flex items-start gap-2"><span class="text-cyan-400 mt-0.5">✓</span> Session files
+                                (.ttbdebug) — share debug sessions</li>
+                            <li class="flex items-start gap-2"><span class="text-cyan-400 mt-0.5">✓</span> Import/Export
+                                sessions between team members</li>
+                            <li class="flex items-start gap-2"><span class="text-cyan-400 mt-0.5">✓</span> Context menu:
+                                copy URL, headers, body, JSON payload</li>
                         </ul>
                     </div>
                 </div>
@@ -748,35 +773,35 @@
 
                 <div class="screenshot-gallery">
                     <div class="screenshot-card">
-                        <img src="images/ttbdebugplus-console.png" alt="Console View" loading="lazy">
+                        <img src="images/ttbdebugplus-guide.png" alt="Integration Guide" loading="lazy">
                         <div class="caption">
-                            <h4 class="font-bold text-white text-sm mb-1">📋 Console View</h4>
-                            <p class="text-xs text-slate-400">Real-time log streaming with level filtering, subsystem
-                                grouping, and JSON detail inspector.</p>
-                        </div>
-                    </div>
-                    <div class="screenshot-card">
-                        <img src="images/ttbdebugplus-network.png" alt="Network Inspector" loading="lazy">
-                        <div class="caption">
-                            <h4 class="font-bold text-white text-sm mb-1">🌐 Network Inspector</h4>
-                            <p class="text-xs text-slate-400">Full HTTP inspection with headers, JSON body, timing
-                                waterfall, and cURL export.</p>
+                            <h4 class="font-bold text-white text-sm mb-1">🚀 iOS SDK Integration</h4>
+                            <p class="text-xs text-slate-400">Step-by-step setup guide with copyable code snippets,
+                                Bonjour status, and troubleshooting — all inside the app.</p>
                         </div>
                     </div>
                     <div class="screenshot-card">
                         <img src="images/ttbdebugplus-device.png" alt="Device Control" loading="lazy">
                         <div class="caption">
                             <h4 class="font-bold text-white text-sm mb-1">📱 Device Control</h4>
-                            <p class="text-xs text-slate-400">Remote screenshot, app lifecycle control, accessibility
-                                overrides, and feedback reporter.</p>
+                            <p class="text-xs text-slate-400">Remote screenshot capture, screenshot gallery, dark mode
+                                toggle, device info, and app lifecycle management.</p>
                         </div>
                     </div>
                     <div class="screenshot-card">
-                        <img src="images/ttbdebugplus-performance.png" alt="Performance Monitor" loading="lazy">
+                        <img src="images/ttbdebugplus-annotation.png" alt="Screenshot Annotation" loading="lazy">
                         <div class="caption">
-                            <h4 class="font-bold text-white text-sm mb-1">📊 Performance Monitor</h4>
-                            <p class="text-xs text-slate-400">Real-time CPU, memory, FPS charts with network bandwidth
-                                monitoring and API analytics dashboard.</p>
+                            <h4 class="font-bold text-white text-sm mb-1">✏️ Screenshot Annotation</h4>
+                            <p class="text-xs text-slate-400">Full-screen drawing tools — pen, arrow, rectangle, text,
+                                color picker — annotate and share bug reports instantly.</p>
+                        </div>
+                    </div>
+                    <div class="screenshot-card">
+                        <img src="images/ttbdebugplus-devtools.png" alt="Dev Tools" loading="lazy">
+                        <div class="caption">
+                            <h4 class="font-bold text-white text-sm mb-1">🛠 Dev Tools — JSON Editor</h4>
+                            <p class="text-xs text-slate-400">Professional JSON Editor with Code, Tree, Graph, and Split
+                                views. Syntax highlighting, search, format, minify, and diff.</p>
                         </div>
                     </div>
                 </div>
@@ -793,29 +818,34 @@
                 </p>
 
                 <!-- Quick Start Overview -->
-                <div class="mb-12 p-6 rounded-2xl" style="background: linear-gradient(135deg, rgba(59,130,246,0.08), rgba(139,92,246,0.08)); border: 1px solid rgba(59,130,246,0.15);">
+                <div class="mb-12 p-6 rounded-2xl"
+                    style="background: linear-gradient(135deg, rgba(59,130,246,0.08), rgba(139,92,246,0.08)); border: 1px solid rgba(59,130,246,0.15);">
                     <h3 class="text-lg font-bold text-white mb-4 text-center">⚡ Quick Start Overview</h3>
                     <div class="arch-flow">
-                        <div class="arch-node bg-gradient-to-br from-green-500/20 to-green-600/10 border border-green-500/20">
+                        <div
+                            class="arch-node bg-gradient-to-br from-green-500/20 to-green-600/10 border border-green-500/20">
                             <div class="text-2xl mb-2">1️⃣</div>
                             <div class="font-bold text-white text-sm">Open TTBDebugPlus</div>
                             <div class="text-xs text-slate-400 mt-1">on macOS</div>
                         </div>
                         <div class="arch-arrow">→</div>
-                        <div class="arch-node bg-gradient-to-br from-blue-500/20 to-blue-600/10 border border-blue-500/20">
+                        <div
+                            class="arch-node bg-gradient-to-br from-blue-500/20 to-blue-600/10 border border-blue-500/20">
                             <div class="text-2xl mb-2">2️⃣</div>
                             <div class="font-bold text-white text-sm">Integrate SDK</div>
                             <div class="text-xs text-slate-400 mt-1">into your iOS app</div>
                         </div>
                         <div class="arch-arrow">→</div>
-                        <div class="arch-node bg-gradient-to-br from-purple-500/20 to-purple-600/10 border border-purple-500/20">
+                        <div
+                            class="arch-node bg-gradient-to-br from-purple-500/20 to-purple-600/10 border border-purple-500/20">
                             <div class="text-2xl mb-2">3️⃣</div>
                             <div class="font-bold text-white text-sm">Run & Debug</div>
                             <div class="text-xs text-slate-400 mt-1">same Wi-Fi, auto-connect</div>
                         </div>
                     </div>
                     <p class="text-center text-xs text-slate-500 mt-4">
-                        Ensure both devices (Mac + iPhone/Simulator) are on the same Wi-Fi network. Auto-connects in &lt; 2 seconds.
+                        Ensure both devices (Mac + iPhone/Simulator) are on the same Wi-Fi network. Auto-connects in
+                        &lt; 2 seconds.
                     </p>
                 </div>
 
@@ -827,7 +857,8 @@
                             <div class="step-number bg-gradient-to-br from-blue-500 to-blue-600 text-white">1</div>
                             <div class="flex-1">
                                 <h3 class="text-lg font-bold text-white mb-2">Add TTBaseUIKit to Your Project</h3>
-                                <p class="text-sm text-slate-400 mb-4">Add the TTBaseUIKit package which includes the DebugBridge module via Swift Package Manager.</p>
+                                <p class="text-sm text-slate-400 mb-4">Add the TTBaseUIKit package which includes the
+                                    DebugBridge module via Swift Package Manager.</p>
                                 <div class="code-window">
                                     <div class="code-header">
                                         <div class="code-dots"><span></span><span></span><span></span></div>
@@ -838,7 +869,7 @@
 dependencies: [
     .package(
         url: "https://github.com/tqtuan1201/TTBaseUIKit.git",
-        from: "4.2.0"
+        from: "2.3.0"
     )
 ]
 
@@ -863,10 +894,14 @@ dependencies: [
                         <div class="flex items-start gap-4">
                             <div class="step-number bg-gradient-to-br from-red-500 to-red-600 text-white">2</div>
                             <div class="flex-1">
-                                <h3 class="text-lg font-bold text-white mb-2">⚠️ Configure Info.plist <span class="text-xs font-semibold px-2 py-0.5 rounded-full" style="background: rgba(239,68,68,0.15); color: #f87171;">REQUIRED</span></h3>
+                                <h3 class="text-lg font-bold text-white mb-2">⚠️ Configure Info.plist <span
+                                        class="text-xs font-semibold px-2 py-0.5 rounded-full"
+                                        style="background: rgba(239,68,68,0.15); color: #f87171;">REQUIRED</span></h3>
                                 <p class="text-sm text-slate-400 mb-4">
-                                    iOS 14+ requires local network access declarations in <code class="text-red-300">Info.plist</code>.
-                                    <strong class="text-red-400">Missing this step causes "NoAuth -65555" error</strong> when NWBrowser attempts Bonjour scanning.
+                                    iOS 14+ requires local network access declarations in <code
+                                        class="text-red-300">Info.plist</code>.
+                                    <strong class="text-red-400">Missing this step causes "NoAuth -65555" error</strong>
+                                    when NWBrowser attempts Bonjour scanning.
                                 </p>
                                 <div class="code-window">
                                     <div class="code-header">
@@ -891,8 +926,11 @@ on macOS to stream debug logs.&lt;/string&gt;
                                 <div class="mt-3 flex items-start gap-2 px-3 py-2.5 rounded-lg"
                                     style="background: rgba(239, 68, 68, 0.06); border: 1px solid rgba(239, 68, 68, 0.15);">
                                     <span class="text-red-400 text-sm mt-0.5">⚠️</span>
-                                    <span class="text-xs text-slate-400"><strong class="text-red-300">IMPORTANT:</strong> Without these 2 keys, iOS will block NWBrowser with a NoAuth error.
-                                        After adding them, <strong>delete the app from the device</strong> and Build &amp; Run again so iOS shows the permission prompt.</span>
+                                    <span class="text-xs text-slate-400"><strong
+                                            class="text-red-300">IMPORTANT:</strong> Without these 2 keys, iOS will
+                                        block NWBrowser with a NoAuth error.
+                                        After adding them, <strong>delete the app from the device</strong> and Build
+                                        &amp; Run again so iOS shows the permission prompt.</span>
                                 </div>
                             </div>
                         </div>
@@ -905,8 +943,11 @@ on macOS to stream debug logs.&lt;/string&gt;
                             <div class="step-number bg-gradient-to-br from-purple-500 to-purple-600 text-white">3</div>
                             <div class="flex-1">
                                 <h3 class="text-lg font-bold text-white mb-2">Start the Debug Bridge</h3>
-                                <p class="text-sm text-slate-400 mb-4">Initialize the bridge in your AppDelegate or SceneDelegate. 
-                                    <strong class="text-purple-300">Always wrap in <code class="text-purple-300">#if DEBUG</code></strong> to exclude from production builds.
+                                <p class="text-sm text-slate-400 mb-4">Initialize the bridge in your AppDelegate or
+                                    SceneDelegate.
+                                    <strong class="text-purple-300">Always wrap in <code
+                                            class="text-purple-300">#if DEBUG</code></strong> to exclude from production
+                                    builds.
                                 </p>
                                 <div class="code-window">
                                     <div class="code-header">
@@ -948,7 +989,8 @@ func application(
                                 <div class="mt-3 flex items-start gap-2 px-3 py-2.5 rounded-lg"
                                     style="background: rgba(59, 130, 246, 0.06); border: 1px solid rgba(59, 130, 246, 0.15);">
                                     <span class="text-blue-400 text-sm mt-0.5">📡</span>
-                                    <span class="text-xs text-slate-400">The bridge auto-discovers the macOS app via Bonjour —
+                                    <span class="text-xs text-slate-400">The bridge auto-discovers the macOS app via
+                                        Bonjour —
                                         <strong>no IP configuration needed!</strong> Just same Wi-Fi network.</span>
                                 </div>
                             </div>
@@ -963,7 +1005,9 @@ func application(
                             <div class="flex-1">
                                 <h3 class="text-lg font-bold text-white mb-2">Send API Logs</h3>
                                 <p class="text-sm text-slate-400 mb-4">In your network layer, call <code
-                                        class="text-green-300">sendAPILog</code> to forward request/response data to the macOS app. Data appears in the <strong>Network</strong> tab with JSON viewer, waterfall timing, and export options.</p>
+                                        class="text-green-300">sendAPILog</code> to forward request/response data to the
+                                    macOS app. Data appears in the <strong>Network</strong> tab with JSON viewer,
+                                    waterfall timing, and export options.</p>
                                 <div class="code-window">
                                     <div class="code-header">
                                         <div class="code-dots"><span></span><span></span><span></span></div>
@@ -1013,7 +1057,8 @@ LogInterceptor.shared.interceptAPILog(
                             <div class="step-number bg-gradient-to-br from-amber-500 to-amber-600 text-white">5</div>
                             <div class="flex-1">
                                 <h3 class="text-lg font-bold text-white mb-2">Send Console Logs</h3>
-                                <p class="text-sm text-slate-400 mb-4">There are 3 ways to forward console logs to macOS. Choose the one that best fits your codebase:</p>
+                                <p class="text-sm text-slate-400 mb-4">There are 3 ways to forward console logs to
+                                    macOS. Choose the one that best fits your codebase:</p>
                                 <div class="code-window">
                                     <div class="code-header">
                                         <div class="code-dots"><span></span><span></span><span></span></div>
@@ -1049,8 +1094,11 @@ LogInterceptor.shared.interceptConsoleLog(
                                 <div class="mt-3 flex items-start gap-2 px-3 py-2.5 rounded-lg"
                                     style="background: rgba(168, 85, 247, 0.06); border: 1px solid rgba(168, 85, 247, 0.15);">
                                     <span class="text-purple-400 text-sm mt-0.5">💡</span>
-                                    <span class="text-xs text-slate-400"><strong class="text-purple-300">Recommend:</strong> Use <code
-                                            class="text-purple-300">TTBPrint()</code> instead of <code class="text-purple-300">print()</code> — auto-sends to macOS + prints to Xcode console.</span>
+                                    <span class="text-xs text-slate-400"><strong
+                                            class="text-purple-300">Recommend:</strong> Use <code
+                                            class="text-purple-300">TTBPrint()</code> instead of <code
+                                            class="text-purple-300">print()</code> — auto-sends to macOS + prints to
+                                        Xcode console.</span>
                                 </div>
                             </div>
                         </div>
@@ -1062,7 +1110,9 @@ LogInterceptor.shared.interceptConsoleLog(
                             <div class="step-number bg-gradient-to-br from-cyan-500 to-cyan-600 text-white">6</div>
                             <div class="flex-1">
                                 <h3 class="text-lg font-bold text-white mb-2">Run & Verify Connection</h3>
-                                <p class="text-sm text-slate-400 mb-4">Ensure both devices are on the same Wi-Fi network, open TTBDebugPlus on Mac, then Build & Run your iOS app. TTBDebugPlus auto-discovers the device within seconds.</p>
+                                <p class="text-sm text-slate-400 mb-4">Ensure both devices are on the same Wi-Fi
+                                    network, open TTBDebugPlus on Mac, then Build & Run your iOS app. TTBDebugPlus
+                                    auto-discovers the device within seconds.</p>
                                 <div class="code-window">
                                     <div class="code-header">
                                         <div class="code-dots"><span></span><span></span><span></span></div>
@@ -1096,9 +1146,12 @@ TTDebugBridge.shared.config = config</code></pre>
                                 <div class="mt-3 flex items-start gap-2 px-3 py-2.5 rounded-lg"
                                     style="background: rgba(6, 182, 212, 0.06); border: 1px solid rgba(6, 182, 212, 0.15);">
                                     <span class="text-cyan-400 text-sm mt-0.5">📱</span>
-                                    <span class="text-xs text-slate-400">On first run on a physical device, iOS will show a
-                                        <strong>"Allow Local Network Access"</strong> popup — tap <strong>Allow</strong>.
-                                        If you already denied it, go to <strong>Settings → Privacy → Local Network</strong> to re-enable.</span>
+                                    <span class="text-xs text-slate-400">On first run on a physical device, iOS will
+                                        show a
+                                        <strong>"Allow Local Network Access"</strong> popup — tap
+                                        <strong>Allow</strong>.
+                                        If you already denied it, go to <strong>Settings → Privacy → Local
+                                            Network</strong> to re-enable.</span>
                                 </div>
                             </div>
                         </div>
@@ -1106,11 +1159,13 @@ TTDebugBridge.shared.config = config</code></pre>
                 </div>
 
                 <!-- Complete Working Example -->
-                <div class="mt-12 p-6 rounded-2xl" style="background: rgba(34,197,94,0.05); border: 1px solid rgba(34,197,94,0.15);">
+                <div class="mt-12 p-6 rounded-2xl"
+                    style="background: rgba(34,197,94,0.05); border: 1px solid rgba(34,197,94,0.15);">
                     <h3 class="text-lg font-bold text-white mb-4 flex items-center gap-2">
                         <span>📋</span> Complete Working Example
                     </h3>
-                    <p class="text-sm text-slate-400 mb-4">Copy the complete setup code below into your AppDelegate. This is the minimal full setup for a new iOS app:</p>
+                    <p class="text-sm text-slate-400 mb-4">Copy the complete setup code below into your AppDelegate.
+                        This is the minimal full setup for a new iOS app:</p>
                     <div class="code-window">
                         <div class="code-header">
                             <div class="code-dots"><span></span><span></span><span></span></div>
@@ -1185,8 +1240,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                         </thead>
                         <tbody>
                             <tr class="border-b border-slate-800/50">
-                                <td class="px-6 py-3"><span class="kbd-key">⌘</span> <span class="kbd-key">1</span>–<span class="kbd-key">5</span></td>
-                                <td class="px-6 py-3 text-slate-300">Switch tabs: Console, Network, Device, Performance, Feedback</td>
+                                <td class="px-6 py-3"><span class="kbd-key">⌘</span> <span
+                                        class="kbd-key">1</span>–<span class="kbd-key">5</span></td>
+                                <td class="px-6 py-3 text-slate-300">Switch tabs: Console, Network, Device, Performance,
+                                    Feedback</td>
                             </tr>
                             <tr class="border-b border-slate-800/50" style="background: rgba(30,41,59,0.3);">
                                 <td class="px-6 py-3"><span class="kbd-key">⌘</span> <span class="kbd-key">K</span></td>
@@ -1197,15 +1254,18 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                                 <td class="px-6 py-3 text-slate-300">Focus search field</td>
                             </tr>
                             <tr class="border-b border-slate-800/50" style="background: rgba(30,41,59,0.3);">
-                                <td class="px-6 py-3"><span class="kbd-key">⇧</span> <span class="kbd-key">⌘</span> <span class="kbd-key">C</span></td>
+                                <td class="px-6 py-3"><span class="kbd-key">⇧</span> <span class="kbd-key">⌘</span>
+                                    <span class="kbd-key">C</span></td>
                                 <td class="px-6 py-3 text-slate-300">Capture screenshot from iOS device</td>
                             </tr>
                             <tr class="border-b border-slate-800/50">
-                                <td class="px-6 py-3"><span class="kbd-key">⇧</span> <span class="kbd-key">⌘</span> <span class="kbd-key">E</span></td>
+                                <td class="px-6 py-3"><span class="kbd-key">⇧</span> <span class="kbd-key">⌘</span>
+                                    <span class="kbd-key">E</span></td>
                                 <td class="px-6 py-3 text-slate-300">Export current debug session (.ttbdebug)</td>
                             </tr>
                             <tr class="border-b border-slate-800/50" style="background: rgba(30,41,59,0.3);">
-                                <td class="px-6 py-3"><span class="kbd-key">⇧</span> <span class="kbd-key">⌘</span> <span class="kbd-key">I</span></td>
+                                <td class="px-6 py-3"><span class="kbd-key">⇧</span> <span class="kbd-key">⌘</span>
+                                    <span class="kbd-key">I</span></td>
                                 <td class="px-6 py-3 text-slate-300">Import debug session from file</td>
                             </tr>
                             <tr class="border-b border-slate-800/50">
@@ -1241,18 +1301,23 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                         </h4>
                         <div class="trouble-explain">
                             <span class="icon">ℹ️</span>
-                            <span>iOS 14+ requires declaring <code class="px-1.5 py-0.5 rounded text-xs" style="background: rgba(59,130,246,0.15); color: #93c5fd;">NSLocalNetworkUsageDescription</code>
-                            and <code class="px-1.5 py-0.5 rounded text-xs" style="background: rgba(59,130,246,0.15); color: #93c5fd;">NSBonjourServices</code> in Info.plist.
-                            If missing, NWBrowser is immediately blocked by the system with error code -65555.</span>
+                            <span>iOS 14+ requires declaring <code class="px-1.5 py-0.5 rounded text-xs"
+                                    style="background: rgba(59,130,246,0.15); color: #93c5fd;">NSLocalNetworkUsageDescription</code>
+                                and <code class="px-1.5 py-0.5 rounded text-xs"
+                                    style="background: rgba(59,130,246,0.15); color: #93c5fd;">NSBonjourServices</code>
+                                in Info.plist.
+                                If missing, NWBrowser is immediately blocked by the system with error code
+                                -65555.</span>
                         </div>
                         <div class="trouble-solution">
                             <span class="icon">✅</span>
                             <div>
                                 <div class="label">Solution:</div>
-                                <div class="text">1. Open Info.plist → Add NSLocalNetworkUsageDescription (with description)
-2. Add NSBonjourServices → array containing "_ttbdebug._tcp"
-3. Delete the app from the device → Build &amp; Run again
-4. When the popup appears → tap "Allow"</div>
+                                <div class="text">1. Open Info.plist → Add NSLocalNetworkUsageDescription (with
+                                    description)
+                                    2. Add NSBonjourServices → array containing "_ttbdebug._tcp"
+                                    3. Delete the app from the device → Build &amp; Run again
+                                    4. When the popup appears → tap "Allow"</div>
                             </div>
                         </div>
                     </div>
@@ -1266,17 +1331,20 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                         </h4>
                         <div class="trouble-explain">
                             <span class="icon">ℹ️</span>
-                            <span>Error 57 (ENOTCONN) occurs when iOS finds the macOS service via Bonjour but cannot establish a TCP/WebSocket connection.
-                            Causes: different subnet, firewall blocking, or macOS app not listening.</span>
+                            <span>Error 57 (ENOTCONN) occurs when iOS finds the macOS service via Bonjour but cannot
+                                establish a TCP/WebSocket connection.
+                                Causes: different subnet, firewall blocking, or macOS app not listening.</span>
                         </div>
                         <div class="trouble-solution">
                             <span class="icon">✅</span>
                             <div>
                                 <div class="label">Solution:</div>
-                                <div class="text">1. Ensure both devices are on the same Wi-Fi network (same SSID, same subnet)
-2. Disable VPN if active
-3. Check macOS Firewall: System Settings → Network → Firewall → allow TTBDebugPlus
-4. Restart the macOS app and check that the log shows "Bonjour advertiser ready"</div>
+                                <div class="text">1. Ensure both devices are on the same Wi-Fi network (same SSID, same
+                                    subnet)
+                                    2. Disable VPN if active
+                                    3. Check macOS Firewall: System Settings → Network → Firewall → allow TTBDebugPlus
+                                    4. Restart the macOS app and check that the log shows "Bonjour advertiser ready"
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -1290,18 +1358,22 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                         </h4>
                         <div class="trouble-explain">
                             <span class="icon">ℹ️</span>
-                            <span>macOS is advertising the service <code class="px-1.5 py-0.5 rounded text-xs" style="background: rgba(59,130,246,0.15); color: #93c5fd;">_ttbdebug._tcp</code>
-                            but iOS cannot find it. Common causes: different Wi-Fi network, iOS hasn't called <code class="px-1.5 py-0.5 rounded text-xs" style="background: rgba(59,130,246,0.15); color: #93c5fd;">start()</code>,
-                            or Local Network permission was previously denied.</span>
+                            <span>macOS is advertising the service <code class="px-1.5 py-0.5 rounded text-xs"
+                                    style="background: rgba(59,130,246,0.15); color: #93c5fd;">_ttbdebug._tcp</code>
+                                but iOS cannot find it. Common causes: different Wi-Fi network, iOS hasn't called <code
+                                    class="px-1.5 py-0.5 rounded text-xs"
+                                    style="background: rgba(59,130,246,0.15); color: #93c5fd;">start()</code>,
+                                or Local Network permission was previously denied.</span>
                         </div>
                         <div class="trouble-solution">
                             <span class="icon">✅</span>
                             <div>
                                 <div class="label">Solution:</div>
                                 <div class="text">1. Check both devices are on the same Wi-Fi network
-2. Confirm TTDebugBridge.shared.start() has been called
-3. If permission was denied: Settings → Privacy → Local Network → re-enable for the app
-4. Try restarting both the iOS app and macOS app</div>
+                                    2. Confirm TTDebugBridge.shared.start() has been called
+                                    3. If permission was denied: Settings → Privacy → Local Network → re-enable for the
+                                    app
+                                    4. Try restarting both the iOS app and macOS app</div>
                             </div>
                         </div>
                     </div>
@@ -1316,16 +1388,16 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                         <div class="trouble-explain">
                             <span class="icon">ℹ️</span>
                             <span>The bridge auto-reconnects with exponential backoff (2s → 4s → 8s → 16s → 30s max).
-                            If it keeps reconnecting, the network is unstable or the macOS app was closed.</span>
+                                If it keeps reconnecting, the network is unstable or the macOS app was closed.</span>
                         </div>
                         <div class="trouble-solution">
                             <span class="icon">✅</span>
                             <div>
                                 <div class="label">Solution:</div>
                                 <div class="text">1. Verify the network connection is stable
-2. Reduce heartbeatInterval in Config (default 5s)
-3. Ensure the macOS app is open and listening
-4. Check macOS logs to confirm "Bonjour advertiser ready"</div>
+                                    2. Reduce heartbeatInterval in Config (default 5s)
+                                    3. Ensure the macOS app is open and listening
+                                    4. Check macOS logs to confirm "Bonjour advertiser ready"</div>
                             </div>
                         </div>
                     </div>
@@ -1340,15 +1412,15 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                         <div class="trouble-explain">
                             <span class="icon">ℹ️</span>
                             <span>When the iOS app enters background, the system suspends network connections.
-                            The bridge automatically resumes when the app returns to foreground.</span>
+                                The bridge automatically resumes when the app returns to foreground.</span>
                         </div>
                         <div class="trouble-solution">
                             <span class="icon">✅</span>
                             <div>
                                 <div class="label">Solution:</div>
                                 <div class="text">1. Bring the iOS app to foreground to resume
-2. Screenshot capture only works when the app is in foreground
-3. Messages are buffered (up to 200) and flushed on reconnect</div>
+                                    2. Screenshot capture only works when the app is in foreground
+                                    3. Messages are buffered (up to 200) and flushed on reconnect</div>
                             </div>
                         </div>
                     </div>
@@ -1362,20 +1434,23 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                         </h4>
                         <div class="trouble-explain">
                             <span class="icon">ℹ️</span>
-                            <span>The bridge is a no-op when start() hasn't been called, but best practice is to wrap everything in
-                            <code class="px-1.5 py-0.5 rounded text-xs" style="background: rgba(59,130,246,0.15); color: #93c5fd;">#if DEBUG ... #endif</code>
-                            so the compiler strips it entirely from the binary.</span>
+                            <span>The bridge is a no-op when start() hasn't been called, but best practice is to wrap
+                                everything in
+                                <code class="px-1.5 py-0.5 rounded text-xs"
+                                    style="background: rgba(59,130,246,0.15); color: #93c5fd;">#if DEBUG ... #endif</code>
+                                so the compiler strips it entirely from the binary.</span>
                         </div>
                         <div class="trouble-solution">
                             <span class="icon">✅</span>
                             <div>
                                 <div class="label">Solution:</div>
                                 <div class="text">Wrap all TTDebugBridge calls in:
-#if DEBUG
-    TTDebugBridge.shared.start()
-#endif
+                                    #if DEBUG
+                                    TTDebugBridge.shared.start()
+                                    #endif
 
-Verify by: Build for Release → Search for TTDebugBridge in binary → should not be found.</div>
+                                    Verify by: Build for Release → Search for TTDebugBridge in binary → should not be
+                                    found.</div>
                             </div>
                         </div>
                     </div>
@@ -1389,20 +1464,28 @@ Verify by: Build for Release → Search for TTDebugBridge in binary → should n
             <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 relative" style="z-index: 10;">
                 <h2 class="text-3xl font-bold text-center text-white mb-4">Download TTBDebugPlus</h2>
                 <p class="text-center text-slate-400 mb-10 max-w-xl mx-auto">
-                    Get the macOS companion app. No account needed, no subscription — just download, install, and start debugging.
+                    Get the macOS companion app. No account needed, no subscription — just download, install, and start
+                    debugging.
                 </p>
 
                 <div class="download-card text-center">
                     <div class="flex items-center justify-center gap-3 mb-4">
-                        <div style="width: 56px; height: 56px; border-radius: 14px; display: flex; align-items: center; justify-content: center; font-size: 1.75rem; background: rgba(34, 197, 94, 0.15);">🖥</div>
+                        <div
+                            style="width: 56px; height: 56px; border-radius: 14px; display: flex; align-items: center; justify-content: center; font-size: 1.75rem; background: rgba(34, 197, 94, 0.15);">
+                            🖥</div>
                         <div class="text-left">
                             <h3 class="text-xl font-bold text-white" style="margin: 0;">TTBDebugPlus for macOS</h3>
-                            <span class="text-xs text-slate-400">macOS 14+ • Universal (Apple Silicon + Intel) • 5.8 MB</span>
+                            <span class="text-xs text-slate-400">macOS 14+ • Universal (Apple Silicon + Intel) • 5.8
+                                MB</span>
                         </div>
                     </div>
 
-                    <a href="apps/TTBDebugPlus-Installer.dmg" download class="btn-download" id="download-section-btn" style="margin: 1.5rem auto; display: inline-flex;">
-                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"></path></svg>
+                    <a href="apps/TTBDebugPlus-Installer.dmg" download class="btn-download" id="download-section-btn"
+                        style="margin: 1.5rem auto; display: inline-flex;">
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"></path>
+                        </svg>
                         Download TTBDebugPlus-Installer.dmg
                     </a>
 
@@ -1424,10 +1507,13 @@ Verify by: Build for Release → Search for TTDebugBridge in binary → should n
                         </div>
                     </div>
 
-                    <div class="mt-6 flex items-start gap-2 px-4 py-3 rounded-lg text-left" style="background: rgba(245, 158, 11, 0.06); border: 1px solid rgba(245, 158, 11, 0.15); max-width: 32rem; margin-left: auto; margin-right: auto;">
+                    <div class="mt-6 flex items-start gap-2 px-4 py-3 rounded-lg text-left"
+                        style="background: rgba(245, 158, 11, 0.06); border: 1px solid rgba(245, 158, 11, 0.15); max-width: 32rem; margin-left: auto; margin-right: auto;">
                         <span class="text-amber-400 text-sm mt-0.5">💡</span>
-                        <span class="text-xs text-slate-400"><strong class="text-amber-300">First launch:</strong> macOS may show "unidentified developer" warning.
-                            Right-click the app → <strong>Open</strong> → click <strong>Open</strong> in the dialog. You only need to do this once.</span>
+                        <span class="text-xs text-slate-400"><strong class="text-amber-300">First launch:</strong> macOS
+                            may show "unidentified developer" warning.
+                            Right-click the app → <strong>Open</strong> → click <strong>Open</strong> in the dialog. You
+                            only need to do this once.</span>
                     </div>
                 </div>
             </div>
@@ -1439,13 +1525,16 @@ Verify by: Build for Release → Search for TTDebugBridge in binary → should n
                 <div class="cta-gradient rounded-2xl p-10 text-center">
                     <h2 class="text-3xl font-bold text-white mb-4">Ready to Debug Smarter?</h2>
                     <p class="text-slate-400 mb-8 max-w-xl mx-auto">
-                        TTBDebugPlus is included with TTBaseUIKit. Download the macOS app, add the SDK, and start debugging
+                        TTBDebugPlus is included with TTBaseUIKit. Download the macOS app, add the SDK, and start
+                        debugging
                         in under 5 minutes.
                     </p>
                     <div class="flex flex-col sm:flex-row gap-4 justify-center">
-                        <a href="apps/TTBDebugPlus-Installer.dmg" download
-                            class="btn-download btn-download-sm">
-                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"></path></svg>
+                        <a href="apps/TTBDebugPlus-Installer.dmg" download class="btn-download btn-download-sm">
+                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"></path>
+                            </svg>
                             Download macOS App
                         </a>
                         <a href="getting-started.html"
