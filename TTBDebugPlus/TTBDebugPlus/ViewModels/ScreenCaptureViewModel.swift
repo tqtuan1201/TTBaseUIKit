@@ -47,9 +47,10 @@ final class ScreenCaptureViewModel {
     var isFullscreenPreview: Bool = false
     
     // MARK: - Private
-    private var recordingTimer: Timer?
+    private var recordingSource: DispatchSourceTimer?
     private var elapsedTimer: Timer?
     private let maxHistoryCount = 50
+    private let timerQueue = DispatchQueue(label: "com.ttbdebug.recording", qos: .utility)
     
     // MARK: - Computed
     var sortedHistory: [ScreenshotItem] {
@@ -129,9 +130,14 @@ final class ScreenCaptureViewModel {
         recordingSession.startTime = Date()
         recordingElapsed = 0
         
-        recordingTimer = Timer.scheduledTimer(withTimeInterval: interval, repeats: true) { [weak self] _ in
-            self?.requestCapture(from: connectionManager)
+        // Use DispatchSourceTimer on background queue to avoid main thread blocking
+        let source = DispatchSource.makeTimerSource(queue: timerQueue)
+        source.schedule(deadline: .now() + interval, repeating: interval)
+        source.setEventHandler { [weak self] in
+            DispatchQueue.main.async { self?.requestCapture(from: connectionManager) }
         }
+        source.resume()
+        recordingSource = source
         
         elapsedTimer = Timer.scheduledTimer(withTimeInterval: 0.5, repeats: true) { [weak self] _ in
             guard let self, self.recordingSession.isActive else { return }
@@ -144,8 +150,8 @@ final class ScreenCaptureViewModel {
     
     func stopRecording() {
         recordingSession.isActive = false
-        recordingTimer?.invalidate()
-        recordingTimer = nil
+        recordingSource?.cancel()
+        recordingSource = nil
         elapsedTimer?.invalidate()
         elapsedTimer = nil
         
@@ -537,23 +543,38 @@ struct ScreenshotItem: Identifiable {
     let orientation: String
     let screenSize: CGSize
     
-    var formattedTime: String {
+    // Pre-computed strings (avoid re-formatting each render)
+    let formattedTime: String
+    let formattedDateTime: String
+    
+    // Static DateFormatters — shared across all instances
+    private static let timeFormatter: DateFormatter = {
         let f = DateFormatter()
         f.dateFormat = "HH:mm:ss"
-        return f.string(from: timestamp)
-    }
+        return f
+    }()
     
-    var formattedDateTime: String {
+    private static let dateTimeFormatter: DateFormatter = {
         let f = DateFormatter()
         f.dateFormat = "MMM d, HH:mm:ss"
-        return f.string(from: timestamp)
+        return f
+    }()
+    
+    init(image: NSImage, timestamp: Date, orientation: String, screenSize: CGSize) {
+        self.image = image
+        self.timestamp = timestamp
+        self.orientation = orientation
+        self.screenSize = screenSize
+        self.formattedTime = Self.timeFormatter.string(from: timestamp)
+        self.formattedDateTime = Self.dateTimeFormatter.string(from: timestamp)
     }
     
     var resolutionText: String { "\(Int(screenSize.width))×\(Int(screenSize.height))" }
     
     var fileSizeEstimate: String {
-        guard let data = image.tiffRepresentation else { return "—" }
-        let kb = Double(data.count) / 1024
+        // Rough estimate based on screen size (avoids expensive tiffRepresentation)
+        let estimatedBytes = Int(screenSize.width * screenSize.height * 4 * 0.15) // ~15% of raw RGBA
+        let kb = Double(estimatedBytes) / 1024
         return kb > 1024 ? String(format: "%.1f MB", kb / 1024) : String(format: "%.0f KB", kb)
     }
 }
