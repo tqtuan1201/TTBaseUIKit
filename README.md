@@ -18,11 +18,11 @@
 </p>
 
 <p align="center">
-  <a href="https://tqtuan1201.github.io/TTBaseUIKit/">📖 Documentation</a> •
-  <a href="https://tqtuan1201.github.io/TTBaseUIKit/getting-started.html">🚀 Getting Started</a> •
-  <a href="https://tqtuan1201.github.io/TTBaseUIKit/ttbdebugplus.html">🛠 TTBDebugPlus</a> •
-  <a href="https://tqtuan1201.github.io/TTBaseUIKit/showcase.html">📱 Showcase</a> •
-  <a href="https://tqtuan1201.github.io/TTBaseUIKit/blog.html">📝 Blog</a>
+  <a href="https://tqtuan1201.github.io/public/docs/ttbaseuikit/">📖 Documentation</a> •
+  <a href="https://tqtuan1201.github.io/public/docs/ttbaseuikit/getting-started.html">🚀 Getting Started</a> •
+  <a href="https://tqtuan1201.github.io/public/docs/ttbaseuikit/ttbdebugplus.html">🛠 TTBDebugPlus</a> •
+  <a href="https://tqtuan1201.github.io/public/docs/ttbaseuikit/showcase.html">📱 Showcase</a> •
+  <a href="https://tqtuan1201.github.io/public/docs/ttbaseuikit/blog.html">📝 Blog</a>
 </p>
 
 ---
@@ -124,9 +124,9 @@ A **professional-grade native macOS app** for debugging iOS applications in real
 </tr>
 </table>
 
-> **[📥 Download TTBDebugPlus for macOS](https://tqtuan1201.github.io/TTBaseUIKit/apps/TTBDebugPlus-Installer.dmg)** (.dmg • 5.8 MB • macOS 14+ • Universal)
+> **[📥 Download TTBDebugPlus for macOS](https://tqtuan1201.github.io/public/docs/ttbaseuikit/apps/TTBDebugPlus-Installer.dmg)** (.dmg • 5.8 MB • macOS 14+ • Universal)
 
-> 📖 [Full documentation & SDK integration guide →](https://tqtuan1201.github.io/TTBaseUIKit/ttbdebugplus.html)
+> 📖 [Full documentation & SDK integration guide →](https://tqtuan1201.github.io/public/docs/ttbaseuikit/ttbdebugplus.html)
 
 ### 🤖 AI Agent Ready
 Pre-configured for modern AI coding assistants:
@@ -136,7 +136,7 @@ Pre-configured for modern AI coding assistants:
 - **Google Gemini** — GEMINI.md configuration
 - **OpenAI Codex** — codex.md setup
 
-> 📖 [Explore AI Agent Skills →](https://tqtuan1201.github.io/TTBaseUIKit/ai-agents/index.html)
+> 📖 [Explore AI Agent Skills →](https://tqtuan1201.github.io/public/docs/ttbaseuikit/ai-agents/index.html)
 
 ### 🎨 Configurable Design System
 Control every aspect of your app's appearance globally:
@@ -450,21 +450,21 @@ open TTBaseUIKit.xcodeproj
 </table>
 
 > **36+ production apps** shipped across Travel, Healthcare, Logistics, Education, and more.
-> See full showcase → [Apps Showcase](https://tqtuan1201.github.io/TTBaseUIKit/showcase.html)
+> See full showcase → [Apps Showcase](https://tqtuan1201.github.io/public/docs/ttbaseuikit/showcase.html)
 
 ## Documentation
 
 | Resource | Link |
 |----------|------|
-| 📖 Full Documentation | [tqtuan1201.github.io/TTBaseUIKit](https://tqtuan1201.github.io/TTBaseUIKit/) |
-| 🚀 Getting Started | [Installation & Setup Guide](https://tqtuan1201.github.io/TTBaseUIKit/getting-started.html) |
-| 🧱 UIKit Components | [72+ Component Docs](https://tqtuan1201.github.io/TTBaseUIKit/uikit/index.html) |
-| 🎨 SwiftUI Views | [51+ View Docs](https://tqtuan1201.github.io/TTBaseUIKit/swiftui/index.html) |
-| 🛠 TTBDebugPlus | [macOS Debugger & SDK Guide](https://tqtuan1201.github.io/TTBaseUIKit/ttbdebugplus.html) |
-| 🤖 AI Agent Skills | [17 Agent Configurations](https://tqtuan1201.github.io/TTBaseUIKit/ai-agents/index.html) |
-| 🎬 Project Demo | [TTBaseUIKitExample Demo](https://tqtuan1201.github.io/TTBaseUIKit/demo.html) |
-| 📱 Apps Showcase | [36+ Production Apps](https://tqtuan1201.github.io/TTBaseUIKit/showcase.html) |
-| 📝 Author's Blog | [Technical Articles](https://tqtuan1201.github.io/TTBaseUIKit/blog.html) |
+| 📖 Full Documentation | [tqtuan1201.github.io/public/docs/ttbaseuikit](https://tqtuan1201.github.io/public/docs/ttbaseuikit/) |
+| 🚀 Getting Started | [Installation & Setup Guide](https://tqtuan1201.github.io/public/docs/ttbaseuikit/getting-started.html) |
+| 🧱 UIKit Components | [72+ Component Docs](https://tqtuan1201.github.io/public/docs/ttbaseuikit/uikit/index.html) |
+| 🎨 SwiftUI Views | [51+ View Docs](https://tqtuan1201.github.io/public/docs/ttbaseuikit/swiftui/index.html) |
+| 🛠 TTBDebugPlus | [macOS Debugger & SDK Guide](https://tqtuan1201.github.io/public/docs/ttbaseuikit/ttbdebugplus.html) |
+| 🤖 AI Agent Skills | [17 Agent Configurations](https://tqtuan1201.github.io/public/docs/ttbaseuikit/ai-agents/index.html) |
+| 🎬 Project Demo | [TTBaseUIKitExample Demo](https://tqtuan1201.github.io/public/docs/ttbaseuikit/demo.html) |
+| 📱 Apps Showcase | [36+ Production Apps](https://tqtuan1201.github.io/public/docs/ttbaseuikit/showcase.html) |
+| 📝 Author's Blog | [Technical Articles](https://tqtuan1201.github.io/public/docs/ttbaseuikit/blog.html) |
 
 ## Requirements
 
