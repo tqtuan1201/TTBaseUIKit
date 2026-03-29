@@ -21,10 +21,10 @@ Comprehensive standardization of TTBDebugPlus: extend design system with missing
 |---|-------|--------|--------|
 | 1 | [Design System Extension](phase-01-design-tokens.md) | ✅ DONE (2026-03-29) | 6h |
 | 2 | [Font & Color Migration](phase-02-token-migration.md) | ✅ DONE (2026-03-29) | 10h |
-| 3 | [View Decomposition](phase-03-view-decomposition.md) | 🔄 IN PROGRESS (NetworkView done, 3 remaining) | 10h |
-| 4 | [Performance Optimization](phase-04-performance.md) | ⬜ TODO | 8h |
-| 5 | [UI/UX Polish & Commercialization](phase-05-ux-polish.md) | ⬜ TODO | 8h |
-| 6 | [Quality Assurance & Build Verification](phase-06-qa.md) | ⬜ TODO | 4h |
+| 3 | [View Decomposition](phase-03-view-decomposition.md) | ✅ DONE (2026-03-29) | 10h |
+| 4 | [Performance Optimization](phase-04-performance.md) | ✅ DONE (2026-03-29) | 8h |
+| 5 | [UI/UX Polish & Commercialization](phase-05-ux-polish.md) | ✅ DONE (2026-03-29) | 8h |
+| 6 | [Quality Assurance & Build Verification](phase-06-qa.md) | ✅ DONE (2026-03-29) | 4h |
 
 ## Architecture Overview
 
