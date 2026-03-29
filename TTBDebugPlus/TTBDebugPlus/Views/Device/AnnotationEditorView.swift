@@ -22,7 +22,7 @@ struct AnnotationEditorView: View {
     var onDone: () -> Void
     var onCancel: () -> Void
     
-    @State private var selectedTool: AnnotationTool = .arrow
+    @State private var selectedTool: AnnotationTool = .pen
     @State private var selectedColor: Color = .red
     @State private var lineWidth: CGFloat = 3.0
     @State private var currentDragPoints: [CGPoint] = []
@@ -674,48 +674,43 @@ struct AnnotationEditorView: View {
         switch annotation.tool {
         case .pen:
             if annotation.points.count >= 2 {
-                let path = smoothedPath(from: annotation.points)
+                let path = PathSmoothing.smoothedPath(from: annotation.points)
                 context.stroke(path, with: shading, style: StrokeStyle(lineWidth: annotation.lineWidth, lineCap: .round, lineJoin: .round))
             }
             
         case .marker:
             if annotation.points.count >= 2 {
-                let path = smoothedPath(from: annotation.points)
+                let path = PathSmoothing.smoothedPath(from: annotation.points)
                 context.stroke(path, with: .color(annotation.color.opacity(0.4)),
                               style: StrokeStyle(lineWidth: annotation.lineWidth * 5, lineCap: .round, lineJoin: .round))
             }
             
         case .highlight:
             if annotation.points.count >= 2 {
-                let path = smoothedPath(from: annotation.points)
+                let path = PathSmoothing.smoothedPath(from: annotation.points)
                 context.stroke(path, with: .color(annotation.color.opacity(0.35)),
                               style: StrokeStyle(lineWidth: annotation.lineWidth * 4, lineCap: .round, lineJoin: .round))
             }
             
         case .arrow:
-            if annotation.points.count >= 2 {
-                let start = annotation.points.first!, end = annotation.points.last!
+            if annotation.points.count >= 2,
+               let start = annotation.points.first, let end = annotation.points.last {
                 var path = Path()
                 path.move(to: start)
                 path.addLine(to: end)
                 context.stroke(path, with: shading, style: StrokeStyle(lineWidth: annotation.lineWidth, lineCap: .round))
-                // Arrow head
-                let angle = atan2(end.y - start.y, end.x - start.x)
-                let headLen: CGFloat = max(12, annotation.lineWidth * 4)
-                let headAngle: CGFloat = .pi / 6
+                let head = ArrowGeometry.arrowHead(start: start, end: end, lineWidth: annotation.lineWidth)
                 var arrow = Path()
-                let p1 = CGPoint(x: end.x - headLen * cos(angle - headAngle), y: end.y - headLen * sin(angle - headAngle))
-                let p2 = CGPoint(x: end.x - headLen * cos(angle + headAngle), y: end.y - headLen * sin(angle + headAngle))
-                arrow.move(to: p1)
-                arrow.addLine(to: end)
-                arrow.addLine(to: p2)
+                arrow.move(to: head.p1)
+                arrow.addLine(to: head.tip)
+                arrow.addLine(to: head.p2)
                 arrow.closeSubpath()
                 context.fill(arrow, with: shading)
             }
             
         case .line:
-            if annotation.points.count >= 2 {
-                let start = annotation.points.first!, end = annotation.points.last!
+            if annotation.points.count >= 2,
+               let start = annotation.points.first, let end = annotation.points.last {
                 var path = Path()
                 path.move(to: start)
                 path.addLine(to: end)
@@ -723,9 +718,7 @@ struct AnnotationEditorView: View {
             }
             
         case .rectangle:
-            if annotation.points.count >= 2 {
-                let s = annotation.points.first!, e = annotation.points.last!
-                let rect = CGRect(x: min(s.x, e.x), y: min(s.y, e.y), width: abs(e.x - s.x), height: abs(e.y - s.y))
+            if let rect = annotation.boundingRect {
                 let path = Path(roundedRect: rect, cornerRadius: 3)
                 if annotation.isFilled {
                     context.fill(path, with: .color(annotation.color.opacity(0.3)))
@@ -734,9 +727,7 @@ struct AnnotationEditorView: View {
             }
             
         case .ellipse:
-            if annotation.points.count >= 2 {
-                let s = annotation.points.first!, e = annotation.points.last!
-                let rect = CGRect(x: min(s.x, e.x), y: min(s.y, e.y), width: abs(e.x - s.x), height: abs(e.y - s.y))
+            if let rect = annotation.boundingRect {
                 let path = Path(ellipseIn: rect)
                 if annotation.isFilled {
                     context.fill(path, with: .color(annotation.color.opacity(0.3)))
@@ -765,9 +756,7 @@ struct AnnotationEditorView: View {
             }
             
         case .blur:
-            if annotation.points.count >= 2 {
-                let s = annotation.points.first!, e = annotation.points.last!
-                let rect = CGRect(x: min(s.x, e.x), y: min(s.y, e.y), width: abs(e.x - s.x), height: abs(e.y - s.y))
+            if let rect = annotation.boundingRect {
                 let cellSize: CGFloat = 10
                 for row in stride(from: rect.minY, to: rect.maxY, by: cellSize) {
                     for col in stride(from: rect.minX, to: rect.maxX, by: cellSize) {
@@ -781,9 +770,7 @@ struct AnnotationEditorView: View {
             }
             
         case .spotlight:
-            if annotation.points.count >= 2 {
-                let s = annotation.points.first!, e = annotation.points.last!
-                let spotRect = CGRect(x: min(s.x, e.x), y: min(s.y, e.y), width: abs(e.x - s.x), height: abs(e.y - s.y))
+            if let spotRect = annotation.boundingRect {
                 let fullRect = CGRect(origin: .zero, size: size)
                 var maskPath = Path(fullRect)
                 maskPath.addRoundedRect(in: spotRect, cornerSize: CGSize(width: 6, height: 6))
@@ -794,29 +781,6 @@ struct AnnotationEditorView: View {
         case .eraser:
             break
         }
-    }
-    
-    // MARK: - Path Smoothing
-    private func smoothedPath(from points: [CGPoint]) -> Path {
-        var path = Path()
-        guard points.count >= 2 else { return path }
-        
-        path.move(to: points[0])
-        
-        if points.count == 2 {
-            path.addLine(to: points[1])
-            return path
-        }
-        
-        for i in 1..<points.count {
-            let prev = points[i - 1]
-            let curr = points[i]
-            let mid = CGPoint(x: (prev.x + curr.x) / 2, y: (prev.y + curr.y) / 2)
-            path.addQuadCurve(to: mid, control: prev)
-        }
-        path.addLine(to: points.last!)
-        
-        return path
     }
 }
 

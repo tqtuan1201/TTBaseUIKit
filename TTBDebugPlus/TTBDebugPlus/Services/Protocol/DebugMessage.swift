@@ -115,12 +115,13 @@ struct ConsoleLogPayload: Codable {
     let level: String // "error", "warning", "info", "debug"
     let subsystem: String
     let message: String
+    let payload: String? // Optional JSON payload attached to the log
     let sourceFile: String?
     let sourceLine: Int?
     let threadId: String?
     
     enum CodingKeys: String, CodingKey {
-        case id, timestamp, level, subsystem, message
+        case id, timestamp, level, subsystem, message, payload
         case sourceFile = "source_file"
         case sourceLine = "source_line"
         case threadId = "thread_id"

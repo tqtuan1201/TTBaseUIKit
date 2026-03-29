@@ -7,27 +7,67 @@
 //
 
 import SwiftUI
-import Combine
 
 // MARK: - Console ViewModel
 @Observable
 final class ConsoleViewModel {
     
     // MARK: - State
-    var entries: [ConsoleLogEntry] = []
+    var entries: [ConsoleLogEntry] = [] {
+        didSet { invalidateFilterCache() }
+    }
     var selectedEntry: ConsoleLogEntry? = nil
-    var searchText: String = ""
-    var selectedFilter: LogFilter = .all
+    var searchText: String = "" {
+        didSet { invalidateFilterCache() }
+    }
+    var selectedFilter: LogFilter = .all {
+        didSet { invalidateFilterCache() }
+    }
     var isLiveStreaming: Bool = true
-    var sortOrder: SortOrder = .newestFirst
+    var sortOrder: SortOrder = .newestFirst {
+        didSet { invalidateFilterCache() }
+    }
     
-    // Stats
+    // Stats — cached to avoid redundant O(n) scans
     var totalCount: Int { entries.count }
-    var errorCount: Int { entries.filter { $0.level == "error" }.count }
-    var warningCount: Int { entries.filter { $0.level == "warning" }.count }
+    var errorCount: Int { _cachedErrorCount ?? computeErrorCount() }
+    var warningCount: Int { _cachedWarningCount ?? computeWarningCount() }
     
-    // MARK: - Filtered entries
+    // Cache for filtered entries
+    private var _cachedFilteredEntries: [ConsoleLogEntry]?
+    private var _cachedErrorCount: Int?
+    private var _cachedWarningCount: Int?
+    
+    // Incremental sync tracking
+    private var lastSyncedLogCount: Int = 0
+    
+    // MARK: - Filtered entries (cached)
     var filteredEntries: [ConsoleLogEntry] {
+        if let cached = _cachedFilteredEntries { return cached }
+        let result = computeFilteredEntries()
+        _cachedFilteredEntries = result
+        return result
+    }
+    
+    private func invalidateFilterCache() {
+        _cachedFilteredEntries = nil
+        _cachedErrorCount = nil
+        _cachedWarningCount = nil
+    }
+    
+    private func computeErrorCount() -> Int {
+        let count = entries.count(where: { $0.level == "error" })
+        _cachedErrorCount = count
+        return count
+    }
+    
+    private func computeWarningCount() -> Int {
+        let count = entries.count(where: { $0.level == "warning" })
+        _cachedWarningCount = count
+        return count
+    }
+    
+    private func computeFilteredEntries() -> [ConsoleLogEntry] {
         var result = entries
         
         // Filter by level
@@ -57,7 +97,7 @@ final class ConsoleViewModel {
         return result
     }
     
-    // MARK: - Sync from ConnectionManager
+    // MARK: - Sync from ConnectionManager (incremental)
     func syncFromConnectionManager(_ connectionManager: ConnectionManager) {
         // Collect all console logs from selected device or all devices
         var allLogs: [ConsoleLogPayload] = []
@@ -67,8 +107,11 @@ final class ConsoleViewModel {
             allLogs = connectionManager.connectedDevices.flatMap { $0.consoleLogs }
         }
         
-        // Convert to display model
-        entries = allLogs.map { payload in
+        // Incremental: only convert new entries
+        guard allLogs.count > lastSyncedLogCount else { return }
+        let newLogs = allLogs[lastSyncedLogCount...]
+        
+        let newEntries = newLogs.map { payload in
             ConsoleLogEntry(
                 id: payload.id,
                 timestamp: payload.timestamp,
@@ -76,11 +119,14 @@ final class ConsoleViewModel {
                 subsystem: payload.subsystem,
                 message: payload.message,
                 threadId: payload.threadId ?? "0x0000",
-                payload: nil,
+                payload: payload.payload,
                 sourceFile: payload.sourceFile,
                 sourceLine: payload.sourceLine
             )
         }
+        
+        entries.append(contentsOf: newEntries)
+        lastSyncedLogCount = allLogs.count
     }
     
     
@@ -88,6 +134,7 @@ final class ConsoleViewModel {
     func clearAll() {
         entries.removeAll()
         selectedEntry = nil
+        lastSyncedLogCount = 0
     }
 }
 
@@ -106,9 +153,7 @@ struct ConsoleLogEntry: Identifiable {
     
     var formattedTime: String {
         let date = Date(timeIntervalSince1970: timestamp / 1000)
-        let formatter = DateFormatter()
-        formatter.dateFormat = "HH:mm:ss.SSS"
-        return formatter.string(from: date)
+        return TTDateFormatter.timeWithMillis.string(from: date)
     }
 }
 

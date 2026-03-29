@@ -7,6 +7,7 @@
 //
 
 import SwiftUI
+import AppKit
 
 // MARK: - JSON Viewer
 /// A full-featured JSON viewer with syntax highlighting, collapsible nodes, line numbers, and copy.
@@ -27,10 +28,21 @@ struct JSONViewer: View {
     @State private var isFormatting: Bool = false
     @State private var parsedTree: Any? = nil
     @State private var isTreeParsed: Bool = false
+    @State private var flattenedTreeNodes: [FlatTreeNode] = []
+    @State private var isTreeFlattening: Bool = false
+    
+    // Large payload NSAttributedString (for NSTextView rendering)
+    @State private var largePayloadAttrString: NSAttributedString?
     
     // Truncation for very large payloads
-    private static let maxDisplayBytes = 512_000 // 512KB display limit
-    private static let maxLines = 5_000 // Max lines to render
+    private static let maxDisplayBytes = 2_000_000 // 2MB display limit (NSTextView can handle it)
+    private static let maxLines = 5_000 // Max lines to render in SwiftUI mode
+    private static let largePayloadThreshold = 50_000 // 50KB: above this, use NSTextView
+    
+    /// Whether payload is large enough to require NSTextView rendering
+    private var isLargePayload: Bool {
+        displayString.count >= Self.largePayloadThreshold
+    }
     
     private var isTruncated: Bool {
         jsonString.count > Self.maxDisplayBytes
@@ -61,54 +73,89 @@ struct JSONViewer: View {
                 truncationBanner
             }
             
-            // Content
+            // Content — fills all available space
             contentView
+                .frame(maxWidth: .infinity, maxHeight: .infinity)
                 .background(Color.ttBackground)
         }
-        .background(
-            RoundedRectangle(cornerRadius: 8)
-                .fill(Color.ttBackground)
-                .overlay(
-                    RoundedRectangle(cornerRadius: 8)
-                        .stroke(Color.ttBorder.opacity(0.3), lineWidth: 1)
-                )
-        )
         .task(id: taskKey) {
             await prepareContent()
         }
     }
     
-    /// Task key changes when input or mode changes, triggering async re-preparation
+    /// Task key changes when input, mode, search, or collapse state changes → triggers async re-preparation
     private var taskKey: String {
-        "\(displayString.hashValue)_\(displayMode.rawValue)_\(searchText)"
+        "\(displayString.hashValue)_\(displayMode.rawValue)_\(searchText)_\(collapsedPaths.hashValue)"
     }
     
     // MARK: - Async Content Preparation
     private func prepareContent() async {
         switch displayMode {
         case .formatted:
-            isFormatting = true
-            let input = displayString
-            let search = searchText
-            let lines = await Task.detached(priority: .userInitiated) {
-                JSONHighlighter.highlight(input, searchTerm: search, maxLines: Self.maxLines)
-            }.value
-            
-            // Only update if still relevant
-            if displayMode == .formatted {
-                formattedLines = lines
-                isFormatting = false
+            if isLargePayload {
+                // Large payload: use NSAttributedString for NSTextView
+                isFormatting = true
+                let input = displayString
+                let search = searchText
+                let attrStr = await Task.detached(priority: .userInitiated) {
+                    JSONAttributedHighlighter.highlight(input, searchTerm: search)
+                }.value
+                
+                if displayMode == .formatted {
+                    largePayloadAttrString = attrStr
+                    isFormatting = false
+                }
+            } else {
+                // Small payload: use SwiftUI Text
+                isFormatting = true
+                let input = displayString
+                let search = searchText
+                let lines = await Task.detached(priority: .userInitiated) {
+                    JSONHighlighter.highlight(input, searchTerm: search, maxLines: Self.maxLines)
+                }.value
+                
+                if displayMode == .formatted {
+                    formattedLines = lines
+                    isFormatting = false
+                }
             }
             
         case .tree:
-            if !isTreeParsed {
+            if isLargePayload {
+                // Large payload tree: use NSTextView with pretty-printed JSON
+                isFormatting = true
                 let input = displayString
-                let parsed = await Task.detached(priority: .userInitiated) {
-                    guard let data = input.data(using: .utf8) else { return nil as Any? }
-                    return try? JSONSerialization.jsonObject(with: data, options: .fragmentsAllowed)
+                let search = searchText
+                let attrStr = await Task.detached(priority: .userInitiated) {
+                    JSONAttributedHighlighter.highlight(input, searchTerm: search)
                 }.value
-                parsedTree = parsed
-                isTreeParsed = true
+                
+                if displayMode == .tree {
+                    largePayloadAttrString = attrStr
+                    isFormatting = false
+                }
+            } else {
+                // Small payload: parse and flatten async
+                isTreeFlattening = true
+                let input = displayString
+                let collapsed = collapsedPaths
+                let search = searchText
+                
+                let result = await Task.detached(priority: .userInitiated) { () -> (Any?, [FlatTreeNode]) in
+                    guard let data = input.data(using: .utf8),
+                          let parsed = try? JSONSerialization.jsonObject(with: data, options: .fragmentsAllowed) else {
+                        return (nil, [])
+                    }
+                    let nodes = JSONTreeFlattener.flatten(parsed, collapsedPaths: collapsed, searchTerm: search)
+                    return (parsed, nodes)
+                }.value
+                
+                if displayMode == .tree {
+                    parsedTree = result.0
+                    flattenedTreeNodes = result.1
+                    isTreeParsed = true
+                    isTreeFlattening = false
+                }
             }
             
         case .raw:
@@ -121,18 +168,48 @@ struct JSONViewer: View {
     private var contentView: some View {
         switch displayMode {
         case .formatted:
-            if isFormatting && formattedLines.isEmpty {
-                loadingView
+            if isLargePayload {
+                // Large payload: NSTextView path
+                if isFormatting && largePayloadAttrString == nil {
+                    loadingView
+                } else if let attrString = largePayloadAttrString {
+                    HighPerformanceTextView(
+                        attributedString: attrString,
+                        showLineNumbers: showLineNumbers,
+                        backgroundColor: NSColor(Color.ttBackground)
+                    )
+                } else {
+                    loadingView
+                }
             } else {
-                formattedView
+                // Small payload: SwiftUI Text path
+                if isFormatting && formattedLines.isEmpty {
+                    loadingView
+                } else {
+                    formattedView
+                }
             }
         case .tree:
-            if !isTreeParsed {
-                loadingView
-            } else if let parsed = parsedTree {
-                treeView(parsed)
+            if isLargePayload {
+                // Large payload tree: use NSTextView with highlighted JSON
+                if isFormatting && largePayloadAttrString == nil {
+                    loadingView
+                } else if let attrString = largePayloadAttrString {
+                    HighPerformanceTextView(
+                        attributedString: attrString,
+                        showLineNumbers: showLineNumbers,
+                        backgroundColor: NSColor(Color.ttBackground)
+                    )
+                } else {
+                    loadingView
+                }
             } else {
-                rawContentView
+                // Small payload: SwiftUI tree view
+                if isTreeFlattening && flattenedTreeNodes.isEmpty {
+                    loadingView
+                } else {
+                    treeView
+                }
             }
         case .raw:
             rawContentView
@@ -212,9 +289,11 @@ struct JSONViewer: View {
             HStack(spacing: 2) {
                 ForEach(DisplayMode.allCases, id: \.self) { mode in
                     Button(action: {
+                        // Reset stale state when switching modes
+                        if mode != displayMode {
+                            largePayloadAttrString = nil
+                        }
                         displayMode = mode
-                        // Reset tree parse state when switching modes
-                        if mode == .tree { isTreeParsed = false }
                     }) {
                         Text(mode.rawValue)
                             .font(TTFont.labelSmall)
@@ -274,37 +353,69 @@ struct JSONViewer: View {
     }
     
     // MARK: - Formatted View (Virtualized line rendering)
+    
+    /// Dynamic width for line numbers based on total line count
+    private var lineNumberWidth: CGFloat {
+        let digitCount = max(2, "\(formattedLines.count)".count)
+        return CGFloat(digitCount) * 8 + 16
+    }
+    
     private var formattedView: some View {
-        ScrollView([.horizontal, .vertical]) {
-            LazyVStack(alignment: .leading, spacing: 0) {
-                ForEach(formattedLines) { line in
-                    HStack(alignment: .top, spacing: 0) {
-                        if showLineNumbers {
-                            Text("\(line.lineNumber)")
-                                .font(TTFont.codeSmall)
-                                .foregroundColor(.ttTextMuted)
-                                .frame(width: 36, alignment: .trailing)
-                                .padding(.trailing, 12)
+        ZStack {
+            ScrollView([.horizontal, .vertical]) {
+                LazyVStack(alignment: .leading, spacing: 0) {
+                    ForEach(formattedLines) { line in
+                        HStack(alignment: .top, spacing: 0) {
+                            if showLineNumbers {
+                                Text("\(line.lineNumber)")
+                                    .font(TTFont.codeSmall)
+                                    .foregroundColor(.ttTextMuted)
+                                    .frame(width: lineNumberWidth, alignment: .trailing)
+                                    .padding(.trailing, 12)
+                            }
+                            
+                            line.content
+                                .font(TTFont.codeMedium)
+                                .textSelection(.enabled)
+                                .fixedSize(horizontal: true, vertical: false)
                         }
-                        
-                        line.content
-                            .font(TTFont.codeMedium)
-                            .textSelection(.enabled)
+                        .padding(.vertical, 1)
+                        .id(line.id)
                     }
-                    .padding(.vertical, 1)
-                    .id(line.id)
                 }
+                .padding(12)
             }
-            .padding(12)
+            
+            // Loading overlay (shown during re-formatting, keeps previous content visible)
+            if isFormatting && !formattedLines.isEmpty {
+                VStack {
+                    HStack(spacing: 6) {
+                        ProgressView()
+                            .scaleEffect(0.5)
+                        Text("Updating...")
+                            .font(TTFont.codeSmall)
+                            .foregroundColor(.ttTextTertiary)
+                    }
+                    .padding(.horizontal, 10)
+                    .padding(.vertical, 5)
+                    .background(
+                        Capsule()
+                            .fill(Color.ttSurface.opacity(0.95))
+                            .shadow(color: .black.opacity(0.2), radius: 4)
+                    )
+                    Spacer()
+                }
+                .padding(.top, 8)
+                .transition(.opacity)
+            }
         }
     }
     
-    // MARK: - Tree View (Collapsible nodes with lazy rendering)
-    private func treeView(_ parsed: Any) -> some View {
+    // MARK: - Tree View (pre-flattened, uses async-computed nodes)
+    private var treeView: some View {
         ScrollView([.horizontal, .vertical]) {
             LazyVStack(alignment: .leading, spacing: 0) {
-                let flatNodes = JSONTreeFlattener.flatten(parsed, collapsedPaths: collapsedPaths, searchTerm: searchText)
-                ForEach(flatNodes) { node in
+                ForEach(flattenedTreeNodes) { node in
                     treeNodeRow(node)
                         .id(node.id)
                 }
@@ -340,6 +451,7 @@ struct JSONViewer: View {
             node.content
                 .font(TTFont.codeMedium)
                 .textSelection(.enabled)
+                .fixedSize(horizontal: true, vertical: false)
             
             Spacer(minLength: 0)
         }
@@ -362,6 +474,7 @@ struct JSONViewer: View {
                             .font(TTFont.codeMedium)
                             .foregroundColor(.ttTextPrimary)
                             .textSelection(.enabled)
+                            .fixedSize(horizontal: true, vertical: false)
                     }
                 }
                 .padding(12)
@@ -370,6 +483,7 @@ struct JSONViewer: View {
                     .font(TTFont.codeMedium)
                     .foregroundColor(.ttTextPrimary)
                     .textSelection(.enabled)
+                    .fixedSize(horizontal: true, vertical: false)
                     .padding(12)
             }
         }

@@ -27,17 +27,17 @@ struct JSONDiffView: View {
             HSplitView {
                 // Left pane
                 diffInputPane(title: "Left (Original)", text: $leftJSON, side: .left)
-                    .frame(minWidth: 300)
+                    .frame(minWidth: 200, maxWidth: .infinity)
                 
                 // Right pane
                 diffInputPane(title: "Right (Modified)", text: $rightJSON, side: .right)
-                    .frame(minWidth: 300)
+                    .frame(minWidth: 200, maxWidth: .infinity)
                     .overlay(
                         Rectangle().fill(Color.ttBorder.opacity(0.2)).frame(width: 1),
                         alignment: .leading
                     )
             }
-            .frame(maxHeight: 200)
+            .frame(minHeight: 150, maxHeight: 300)
             
             Divider().background(Color.ttBorder.opacity(0.2))
             

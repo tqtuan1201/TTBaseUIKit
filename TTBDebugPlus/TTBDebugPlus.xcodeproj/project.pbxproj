@@ -7,8 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0001AAFF11223344BBCC5566 /* AnnotationRenderer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0001AAFF11223344BBCC5567 /* AnnotationRenderer.swift */; };
 		0021929AEF5D65624D6898F7 /* IntegrationGuideView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9966C3F1D10AA6DA0E592555 /* IntegrationGuideView.swift */; };
 		02A3C9D3DAD88EDBECA6FEA2 /* Animations.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7E9F150472775CE459B30DC /* Animations.swift */; };
+		072F6A6620CE880B9A8B9367 /* QuickNoteTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE7B83FCD0E6771695610536 /* QuickNoteTextField.swift */; };
 		0E9A2D14739359CC7F4F66DB /* NetworkRequestRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44E0756A58D83B4F5EC5664E /* NetworkRequestRow.swift */; };
 		0F459097989C0C31DB65B635 /* JSONConvertEngine.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38569B8F191EE4B97F2B881F /* JSONConvertEngine.swift */; };
 		1315D128BFB095D394D961F2 /* UsageGuideView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C1BA01B1323E82167CF9F4B /* UsageGuideView.swift */; };
@@ -48,13 +50,19 @@
 		9DD2A8D5F47BE8EDB81CA6C2 /* ConsoleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8980189EC5087505B801A87 /* ConsoleView.swift */; };
 		A32E793E1D967592EC394B67 /* JSONConvertView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC5B2FE3761EDE23FBC14AF1 /* JSONConvertView.swift */; };
 		A69E9252E5CD19A4BF383DF2 /* PerformanceViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F390D308206209882454C208 /* PerformanceViewModel.swift */; };
+		A715C387E151897CF2027A6D /* HighPerformanceTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44E3575754402F04D0669C5C /* HighPerformanceTextView.swift */; };
 		A7735250320601BACF7C1183 /* BonjourAdvertiser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 335C9C8A1BAC55E290A2ED49 /* BonjourAdvertiser.swift */; };
 		A9D1018F103D6313E32DE23A /* Radius.swift in Sources */ = {isa = PBXBuildFile; fileRef = BFF3CA8E4A977DBC0139EDFE /* Radius.swift */; };
+		AABB110011001100AABB1100 /* JSONGraphView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AABB220022002200AABB2200 /* JSONGraphView.swift */; };
+		AABB110011001100AABB1101 /* JSONGraphLayoutEngine.swift in Sources */ = {isa = PBXBuildFile; fileRef = AABB220022002200AABB2201 /* JSONGraphLayoutEngine.swift */; };
+		AABB110011001100AABB1102 /* JSONGraphModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = AABB220022002200AABB2202 /* JSONGraphModels.swift */; };
 		AEE54A41587E3EC8CDC07F37 /* Shadows.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC65C33E1ECEA86A9ACDFEDB /* Shadows.swift */; };
 		AF7D97C62534E2D048C5B1CD /* NetworkStatsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E942D9E2F57278D2D8639B03 /* NetworkStatsView.swift */; };
 		AF7DA7DA12C6B0D79F928FDB /* JSONDiffView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EFE347F0278DFAD2995E8B0F /* JSONDiffView.swift */; };
 		B41D866E5D19F68D8EE549D6 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA8B897D5D3651A405205773 /* ContentView.swift */; };
 		B815E6F583223857AABC045D /* WelcomeSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A66C62A4D39109B2B17DA5B /* WelcomeSheet.swift */; };
+		BCCA73282F78F46C004C3EB4 /* DateFormatters.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCCA73272F78F46C004C3EB4 /* DateFormatters.swift */; };
+		BCD2B9482F792A9600C97895 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = BCD2B9472F792A9600C97895 /* Assets.xcassets */; };
 		BD80EF7C762E4DF56E8F4BFC /* IconSizes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6878FD5144F9AB0002DA41BA /* IconSizes.swift */; };
 		BEA2DE294A07C408556D7F94 /* MenuBarDeviceRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80B29FAC5DD2726C8485490A /* MenuBarDeviceRow.swift */; };
 		C5AD22912ADCC791EB339FFA /* MenuBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F9A4D63385CEB68DA62B171 /* MenuBarView.swift */; };
@@ -78,6 +86,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		0001AAFF11223344BBCC5567 /* AnnotationRenderer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnnotationRenderer.swift; sourceTree = "<group>"; };
 		00EB0EAB1A0B95E6202C68BC /* EmptyStateView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmptyStateView.swift; sourceTree = "<group>"; };
 		0233F5ECFBC0D82294AB1634 /* JSONEditorTreeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JSONEditorTreeView.swift; sourceTree = "<group>"; };
 		02E9B2DFF6EF57E4605DBB48 /* TTBDebugPlusApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TTBDebugPlusApp.swift; sourceTree = "<group>"; };
@@ -101,6 +110,7 @@
 		415E3A7D36F7BE3F48C7FA44 /* JSONEditorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JSONEditorView.swift; sourceTree = "<group>"; };
 		435409EEC0AA8FA281F5318C /* ConsoleViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConsoleViewModel.swift; sourceTree = "<group>"; };
 		44E0756A58D83B4F5EC5664E /* NetworkRequestRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkRequestRow.swift; sourceTree = "<group>"; };
+		44E3575754402F04D0669C5C /* HighPerformanceTextView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HighPerformanceTextView.swift; sourceTree = "<group>"; };
 		4AC6C8EAA43AA52B935AAF50 /* JSONQueryEngine.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JSONQueryEngine.swift; sourceTree = "<group>"; };
 		4FE72CBBAAC8497A746D8E00 /* FeedbackView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedbackView.swift; sourceTree = "<group>"; };
 		5498AD37D97DF498D6D65041 /* SessionManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SessionManager.swift; sourceTree = "<group>"; };
@@ -125,9 +135,15 @@
 		A442509F7A1682080744E49A /* JSONEditorToolbar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JSONEditorToolbar.swift; sourceTree = "<group>"; };
 		A5759F83375968766A8EA382 /* FeedbackViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedbackViewModel.swift; sourceTree = "<group>"; };
 		A57B85CB79B3B213DF430E2A /* DebugMessage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DebugMessage.swift; sourceTree = "<group>"; };
+		AABB220022002200AABB2200 /* JSONGraphView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JSONGraphView.swift; sourceTree = "<group>"; };
+		AABB220022002200AABB2201 /* JSONGraphLayoutEngine.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JSONGraphLayoutEngine.swift; sourceTree = "<group>"; };
+		AABB220022002200AABB2202 /* JSONGraphModels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JSONGraphModels.swift; sourceTree = "<group>"; };
 		AC65C33E1ECEA86A9ACDFEDB /* Shadows.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Shadows.swift; sourceTree = "<group>"; };
 		ADE4D893FD0591101C27A442 /* AnnotationHelpers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnnotationHelpers.swift; sourceTree = "<group>"; };
 		B7E9F150472775CE459B30DC /* Animations.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Animations.swift; sourceTree = "<group>"; };
+		BCCA73272F78F46C004C3EB4 /* DateFormatters.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateFormatters.swift; sourceTree = "<group>"; };
+		BCD2B9472F792A9600C97895 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		BE7B83FCD0E6771695610536 /* QuickNoteTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuickNoteTextField.swift; sourceTree = "<group>"; };
 		BFF3CA8E4A977DBC0139EDFE /* Radius.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Radius.swift; sourceTree = "<group>"; };
 		C01485C84D4793ED034BD252 /* AnnotationEditorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnnotationEditorView.swift; sourceTree = "<group>"; };
 		C36E0FA51385E7684D8B9B89 /* WebSocketServer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebSocketServer.swift; sourceTree = "<group>"; };
@@ -219,6 +235,8 @@
 		5DA81AA0D317D1A01D46B913 /* Shared */ = {
 			isa = PBXGroup;
 			children = (
+				0001AAFF11223344BBCC5567 /* AnnotationRenderer.swift */,
+				44E3575754402F04D0669C5C /* HighPerformanceTextView.swift */,
 				C3A21EE6C58F8C1D7C0A8FA6 /* JSONProcessing.swift */,
 				EAB391D39E357B780C3DEE97 /* JSONViewer.swift */,
 				3BA4ADB046407F802245149E /* SharedViewModifiers.swift */,
@@ -262,6 +280,8 @@
 				A442509F7A1682080744E49A /* JSONEditorToolbar.swift */,
 				0233F5ECFBC0D82294AB1634 /* JSONEditorTreeView.swift */,
 				415E3A7D36F7BE3F48C7FA44 /* JSONEditorView.swift */,
+				AABB220022002200AABB2200 /* JSONGraphView.swift */,
+				AABB220022002200AABB2201 /* JSONGraphLayoutEngine.swift */,
 				34B3C4FA2F05CFF5EF52179F /* JSONQueryView.swift */,
 			);
 			path = DevTools;
@@ -303,6 +323,7 @@
 		97C516F7E1FC28BA3B50D4B0 /* TTBDebugPlus */ = {
 			isa = PBXGroup;
 			children = (
+				BCD2B9472F792A9600C97895 /* Assets.xcassets */,
 				DF9982532801EF528D7EB786 /* Components */,
 				E01067CB8867A01D624611BB /* DesignSystem */,
 				D052C7FAD6D74998ED9B0FC5 /* Models */,
@@ -377,6 +398,7 @@
 				245BC71B239A05E1DA3CA452 /* AppState.swift */,
 				8FCCDD8FB797E81713D4F039 /* BugReport.swift */,
 				682EEE590A834AEE0D21DBC5 /* JSONEditorModels.swift */,
+				AABB220022002200AABB2202 /* JSONGraphModels.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -395,6 +417,7 @@
 		E01067CB8867A01D624611BB /* DesignSystem */ = {
 			isa = PBXGroup;
 			children = (
+				BCCA73272F78F46C004C3EB4 /* DateFormatters.swift */,
 				B7E9F150472775CE459B30DC /* Animations.swift */,
 				A42460D58D8CEBA64D99D6B8 /* ButtonStyles.swift */,
 				EE14765C953B017C5C763950 /* CardView.swift */,
@@ -424,6 +447,7 @@
 				ADE4D893FD0591101C27A442 /* AnnotationHelpers.swift */,
 				F252A34EB63CE3E3A8C44123 /* BugReportComposerView.swift */,
 				A0762C5965C85E62C567E17E /* DeviceView.swift */,
+				BE7B83FCD0E6771695610536 /* QuickNoteTextField.swift */,
 				E183FCDE2CCA5E66D6C297D6 /* RecordingExportView.swift */,
 			);
 			path = Device;
@@ -488,6 +512,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				BCD2B9482F792A9600C97895 /* Assets.xcassets in Resources */,
 				563D5CB2CAF26B854C872E5E /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -501,6 +526,7 @@
 			files = (
 				02A3C9D3DAD88EDBECA6FEA2 /* Animations.swift in Sources */,
 				1E89943D1543580BD954E640 /* AnnotationEditorView.swift in Sources */,
+				0001AAFF11223344BBCC5566 /* AnnotationRenderer.swift in Sources */,
 				7B642CC3B786400921DC873F /* AnnotationHelpers.swift in Sources */,
 				14473065067F53714E93483D /* AppState.swift in Sources */,
 				A7735250320601BACF7C1183 /* BonjourAdvertiser.swift in Sources */,
@@ -510,6 +536,7 @@
 				E49AC4723AE9F94C6090983A /* CardView.swift in Sources */,
 				6AFD593B3491DC3C1E1A963A /* Colors.swift in Sources */,
 				C64E0FC91A6788B55201149C /* ConnectionManager.swift in Sources */,
+				BCCA73282F78F46C004C3EB4 /* DateFormatters.swift in Sources */,
 				9DD2A8D5F47BE8EDB81CA6C2 /* ConsoleView.swift in Sources */,
 				2C976C72CC15F1388F55FEE9 /* ConsoleViewModel.swift in Sources */,
 				B41D866E5D19F68D8EE549D6 /* ContentView.swift in Sources */,
@@ -522,6 +549,7 @@
 				5F8EA98D88399D58AA07E626 /* FeedbackViewModel.swift in Sources */,
 				2EF114BDC1D3BD74C167332D /* GuideContainerView.swift in Sources */,
 				7D2625748C647A807A5AD977 /* HARExporter.swift in Sources */,
+				A715C387E151897CF2027A6D /* HighPerformanceTextView.swift in Sources */,
 				BD80EF7C762E4DF56E8F4BFC /* IconSizes.swift in Sources */,
 				0021929AEF5D65624D6898F7 /* IntegrationGuideView.swift in Sources */,
 				0F459097989C0C31DB65B635 /* JSONConvertEngine.swift in Sources */,
@@ -533,6 +561,9 @@
 				7C2240CBEA955BB14E0D7498 /* JSONEditorToolbar.swift in Sources */,
 				D9E7DBD7F307E827166CA6C2 /* JSONEditorTreeView.swift in Sources */,
 				3188C9957B131CD01E0CA55F /* JSONEditorView.swift in Sources */,
+				AABB110011001100AABB1100 /* JSONGraphView.swift in Sources */,
+				AABB110011001100AABB1101 /* JSONGraphLayoutEngine.swift in Sources */,
+				AABB110011001100AABB1102 /* JSONGraphModels.swift in Sources */,
 				1F4E037198F04CF3823DBA92 /* JSONEditorViewModel.swift in Sources */,
 				FBD0529BE9F531E3DEC88519 /* JSONProcessing.swift in Sources */,
 				331203D381ADAFA1448EF22E /* JSONQueryEngine.swift in Sources */,
@@ -548,6 +579,7 @@
 				EB743CEB6D71EA14F97217ED /* PerformanceView.swift in Sources */,
 				A69E9252E5CD19A4BF383DF2 /* PerformanceViewModel.swift in Sources */,
 				323D8BCDE0B6071362EB99B5 /* PermissionsView.swift in Sources */,
+				072F6A6620CE880B9A8B9367 /* QuickNoteTextField.swift in Sources */,
 				A9D1018F103D6313E32DE23A /* Radius.swift in Sources */,
 				D6E7A86DDFFB1C3448A103C7 /* RecordingExportView.swift in Sources */,
 				93F8D7FDFE2EFF7023C6E3C6 /* ScreenCaptureViewModel.swift in Sources */,
@@ -710,6 +742,7 @@
 					"$(inherited)",
 					"@executable_path/../Frameworks",
 				);
+				MARKETING_VERSION = 1.0.1;
 				PRODUCT_BUNDLE_IDENTIFIER = com.tuantruong.TTBDebugPlus;
 				PRODUCT_NAME = TTBDebugPlus;
 				SDKROOT = macosx;
@@ -730,6 +763,7 @@
 					"$(inherited)",
 					"@executable_path/../Frameworks",
 				);
+				MARKETING_VERSION = 1.0.1;
 				PRODUCT_BUNDLE_IDENTIFIER = com.tuantruong.TTBDebugPlus;
 				PRODUCT_NAME = TTBDebugPlus;
 				SDKROOT = macosx;

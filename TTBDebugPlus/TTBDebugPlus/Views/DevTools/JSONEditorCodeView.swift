@@ -322,7 +322,7 @@ class JSONLineNumberRulerView: NSRulerView {
         self.associatedTextView = textView
         super.init(scrollView: scrollView, orientation: .verticalRuler)
         self.clientView = textView
-        self.ruleThickness = 44
+        self.ruleThickness = 50
         
         // Observe text changes
         NotificationCenter.default.addObserver(

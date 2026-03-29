@@ -86,14 +86,13 @@ final class ScreenCaptureViewModel {
     func handleScreenshotReceived(_ response: ScreenshotResponsePayload) {
         isCapturing = false
         
-        guard let imageData = Data(base64Encoded: response.imageData),
-              let image = NSImage(data: imageData) else {
-            print("[TTBDebug] Failed to decode screenshot")
-            return
-        }
-        
-        DispatchQueue.main.async { [self] in
-            currentScreenshot = image
+        // Decode image on background queue to avoid blocking main thread
+        DispatchQueue.global(qos: .userInitiated).async { [self] in
+            guard let imageData = Data(base64Encoded: response.imageData),
+                  let image = NSImage(data: imageData) else {
+                print("[TTBDebug] Failed to decode screenshot")
+                return
+            }
             
             let item = ScreenshotItem(
                 image: image,
@@ -101,22 +100,26 @@ final class ScreenCaptureViewModel {
                 orientation: response.orientation,
                 screenSize: CGSize(width: response.screenWidth, height: response.screenHeight)
             )
-            screenshotHistory.insert(item, at: 0)
-            selectedHistoryItem = item
             
-            // Add to recording session
-            if recordingSession.isActive {
-                let frame = RecordingFrame(
-                    image: image,
-                    timestamp: Date(),
-                    index: recordingSession.frameCount
-                )
-                recordingSession.frames.append(frame)
-            }
-            
-            // Trim history
-            if screenshotHistory.count > maxHistoryCount {
-                screenshotHistory = Array(screenshotHistory.prefix(maxHistoryCount))
+            DispatchQueue.main.async { [self] in
+                currentScreenshot = image
+                screenshotHistory.insert(item, at: 0)
+                selectedHistoryItem = item
+                
+                // Add to recording session
+                if recordingSession.isActive {
+                    let frame = RecordingFrame(
+                        image: image,
+                        timestamp: Date(),
+                        index: recordingSession.frameCount
+                    )
+                    recordingSession.frames.append(frame)
+                }
+                
+                // Trim history
+                if screenshotHistory.count > maxHistoryCount {
+                    screenshotHistory = Array(screenshotHistory.prefix(maxHistoryCount))
+                }
             }
         }
     }
@@ -366,7 +369,49 @@ final class ScreenCaptureViewModel {
         return image
     }
     
-    private func renderAnnotationToCG(_ annotation: AnnotationItem, context: CGContext, imageSize: CGSize) {
+    // MARK: - Render Quick Annotations onto Image (for copy/export)
+    /// Renders annotations drawn in a display-sized preview onto the full-resolution image.
+    /// Points are scaled from `displaySize` (preview canvas) to `image.size` (pixel coords).
+    func renderImageWithQuickAnnotations(
+        baseImage: NSImage,
+        annotations: [AnnotationItem],
+        displaySize: CGSize
+    ) -> NSImage {
+        let imageSize = baseImage.size
+        let scaleX = imageSize.width / displaySize.width
+        let scaleY = imageSize.height / displaySize.height
+        let scale = max(scaleX, scaleY)
+        
+        let result = NSImage(size: imageSize)
+        result.lockFocus()
+        baseImage.draw(in: NSRect(origin: .zero, size: imageSize))
+        
+        guard let context = NSGraphicsContext.current?.cgContext else {
+            result.unlockFocus()
+            return baseImage
+        }
+        
+        for annotation in annotations {
+            let scaledPoints = annotation.points.map {
+                CGPoint(x: $0.x * scaleX, y: $0.y * scaleY)
+            }
+            var scaled = AnnotationItem(
+                tool: annotation.tool,
+                points: scaledPoints,
+                color: annotation.color,
+                lineWidth: annotation.lineWidth * scale
+            )
+            scaled.text = annotation.text
+            scaled.stepNumber = annotation.stepNumber
+            scaled.isFilled = annotation.isFilled
+            renderAnnotationToCG(scaled, context: context, imageSize: imageSize)
+        }
+        
+        result.unlockFocus()
+        return result
+    }
+    
+    func renderAnnotationToCG(_ annotation: AnnotationItem, context: CGContext, imageSize: CGSize) {
         context.setStrokeColor(NSColor(annotation.color).cgColor)
         context.setFillColor(NSColor(annotation.color).cgColor)
         context.setLineWidth(annotation.lineWidth)
@@ -376,14 +421,7 @@ final class ScreenCaptureViewModel {
         switch annotation.tool {
         case .pen:
             if annotation.points.count >= 2 {
-                context.move(to: annotation.points[0])
-                for i in 1..<annotation.points.count {
-                    let prev = annotation.points[i - 1]
-                    let curr = annotation.points[i]
-                    let mid = CGPoint(x: (prev.x + curr.x) / 2, y: (prev.y + curr.y) / 2)
-                    context.addQuadCurve(to: mid, control: prev)
-                }
-                context.addLine(to: annotation.points.last!)
+                PathSmoothing.addSmoothedPath(to: context, from: annotation.points)
                 context.strokePath()
             }
             
@@ -391,14 +429,7 @@ final class ScreenCaptureViewModel {
             if annotation.points.count >= 2 {
                 context.setStrokeColor(NSColor(annotation.color).withAlphaComponent(0.4).cgColor)
                 context.setLineWidth(annotation.lineWidth * 5)
-                context.move(to: annotation.points[0])
-                for i in 1..<annotation.points.count {
-                    let prev = annotation.points[i - 1]
-                    let curr = annotation.points[i]
-                    let mid = CGPoint(x: (prev.x + curr.x) / 2, y: (prev.y + curr.y) / 2)
-                    context.addQuadCurve(to: mid, control: prev)
-                }
-                context.addLine(to: annotation.points.last!)
+                PathSmoothing.addSmoothedPath(to: context, from: annotation.points)
                 context.strokePath()
             }
             
@@ -406,51 +437,35 @@ final class ScreenCaptureViewModel {
             if annotation.points.count >= 2 {
                 context.setStrokeColor(NSColor(annotation.color).withAlphaComponent(0.35).cgColor)
                 context.setLineWidth(annotation.lineWidth * 4)
-                context.move(to: annotation.points[0])
-                for i in 1..<annotation.points.count {
-                    let prev = annotation.points[i - 1]
-                    let curr = annotation.points[i]
-                    let mid = CGPoint(x: (prev.x + curr.x) / 2, y: (prev.y + curr.y) / 2)
-                    context.addQuadCurve(to: mid, control: prev)
-                }
-                context.addLine(to: annotation.points.last!)
+                PathSmoothing.addSmoothedPath(to: context, from: annotation.points)
                 context.strokePath()
             }
             
         case .arrow:
-            if annotation.points.count >= 2 {
-                let start = annotation.points.first!
-                let end = annotation.points.last!
+            if annotation.points.count >= 2,
+               let start = annotation.points.first, let end = annotation.points.last {
                 context.move(to: start)
                 context.addLine(to: end)
                 context.strokePath()
                 
-                // Filled arrow head
-                let angle = atan2(end.y - start.y, end.x - start.x)
-                let headLength: CGFloat = max(15, annotation.lineWidth * 4)
-                let headAngle: CGFloat = .pi / 6
-                let p1 = CGPoint(x: end.x - headLength * cos(angle - headAngle), y: end.y - headLength * sin(angle - headAngle))
-                let p2 = CGPoint(x: end.x - headLength * cos(angle + headAngle), y: end.y - headLength * sin(angle + headAngle))
-                context.move(to: p1)
-                context.addLine(to: end)
-                context.addLine(to: p2)
+                let head = ArrowGeometry.arrowHead(start: start, end: end, lineWidth: annotation.lineWidth, headLengthMultiplier: 4.0)
+                context.move(to: head.p1)
+                context.addLine(to: head.tip)
+                context.addLine(to: head.p2)
                 context.closePath()
                 context.fillPath()
             }
             
         case .line:
-            if annotation.points.count >= 2 {
-                let start = annotation.points.first!
-                let end = annotation.points.last!
+            if annotation.points.count >= 2,
+               let start = annotation.points.first, let end = annotation.points.last {
                 context.move(to: start)
                 context.addLine(to: end)
                 context.strokePath()
             }
             
         case .rectangle:
-            if annotation.points.count >= 2 {
-                let s = annotation.points.first!, e = annotation.points.last!
-                let rect = CGRect(x: min(s.x, e.x), y: min(s.y, e.y), width: abs(e.x - s.x), height: abs(e.y - s.y))
+            if let rect = annotation.boundingRect {
                 if annotation.isFilled {
                     context.setFillColor(NSColor(annotation.color).withAlphaComponent(0.3).cgColor)
                     context.fill(rect)
@@ -459,9 +474,7 @@ final class ScreenCaptureViewModel {
             }
             
         case .ellipse:
-            if annotation.points.count >= 2 {
-                let s = annotation.points.first!, e = annotation.points.last!
-                let rect = CGRect(x: min(s.x, e.x), y: min(s.y, e.y), width: abs(e.x - s.x), height: abs(e.y - s.y))
+            if let rect = annotation.boundingRect {
                 if annotation.isFilled {
                     context.setFillColor(NSColor(annotation.color).withAlphaComponent(0.3).cgColor)
                     context.fillEllipse(in: rect)
@@ -502,17 +515,13 @@ final class ScreenCaptureViewModel {
             }
             
         case .blur:
-            if annotation.points.count >= 2 {
-                let s = annotation.points.first!, e = annotation.points.last!
-                let rect = CGRect(x: min(s.x, e.x), y: min(s.y, e.y), width: abs(e.x - s.x), height: abs(e.y - s.y))
+            if let rect = annotation.boundingRect {
                 context.setFillColor(NSColor.gray.withAlphaComponent(0.5).cgColor)
                 context.fill(rect)
             }
             
         case .spotlight:
-            if annotation.points.count >= 2 {
-                let s = annotation.points.first!, e = annotation.points.last!
-                let spotRect = CGRect(x: min(s.x, e.x), y: min(s.y, e.y), width: abs(e.x - s.x), height: abs(e.y - s.y))
+            if let spotRect = annotation.boundingRect {
                 let fullRect = CGRect(origin: .zero, size: imageSize)
                 
                 context.saveGState()

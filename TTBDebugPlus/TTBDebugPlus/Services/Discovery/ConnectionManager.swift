@@ -41,22 +41,44 @@ final class ConnectionManager {
         return sessions[id]
     }
     
+    // Cached log arrays — invalidated when counts change
+    private var _cachedAPILogs: [APILogPayload]?
+    private var _cachedAPILogsCount: Int = 0
+    private var _cachedConsoleLogs: [ConsoleLogPayload]?
+    private var _cachedConsoleLogsCount: Int = 0
+    
     // All API logs across all devices (or filtered by selection)
     var allAPILogs: [APILogPayload] {
-        if let device = selectedDevice {
-            return device.apiLogs
+        if let cached = _cachedAPILogs, _cachedAPILogsCount == totalAPILogs {
+            return cached
         }
-        return connectedDevices.flatMap { $0.apiLogs }
-            .sorted { $0.timestamp > $1.timestamp }
+        let result: [APILogPayload]
+        if let device = selectedDevice {
+            result = device.apiLogs
+        } else {
+            result = connectedDevices.flatMap { $0.apiLogs }
+                .sorted { $0.timestamp > $1.timestamp }
+        }
+        _cachedAPILogs = result
+        _cachedAPILogsCount = totalAPILogs
+        return result
     }
     
     // All console logs across all devices (or filtered by selection)
     var allConsoleLogs: [ConsoleLogPayload] {
-        if let device = selectedDevice {
-            return device.consoleLogs
+        if let cached = _cachedConsoleLogs, _cachedConsoleLogsCount == totalConsoleLogs {
+            return cached
         }
-        return connectedDevices.flatMap { $0.consoleLogs }
-            .sorted { $0.timestamp > $1.timestamp }
+        let result: [ConsoleLogPayload]
+        if let device = selectedDevice {
+            result = device.consoleLogs
+        } else {
+            result = connectedDevices.flatMap { $0.consoleLogs }
+                .sorted { $0.timestamp > $1.timestamp }
+        }
+        _cachedConsoleLogs = result
+        _cachedConsoleLogsCount = totalConsoleLogs
+        return result
     }
     
     // MARK: - Private
@@ -222,7 +244,8 @@ final class ConnectionManager {
     // MARK: - Heartbeat Monitor
     private func startHeartbeatMonitor() {
         heartbeatTimer = Timer.scheduledTimer(withTimeInterval: 5.0, repeats: true) { [weak self] _ in
-            self?.checkHeartbeats()
+            guard let self else { return }
+            self.checkHeartbeats()
         }
     }
     

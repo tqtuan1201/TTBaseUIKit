@@ -7,7 +7,6 @@
 //
 
 import SwiftUI
-import UniformTypeIdentifiers
 
 struct NetworkView: View {
     @Environment(AppState.self) var appState
@@ -180,7 +179,8 @@ struct NetworkView: View {
     
     // MARK: - Filter Bar
     private var networkFilterBar: some View {
-        HStack(spacing: 6) {
+        ScrollView(.horizontal, showsIndicators: false) {
+            HStack(spacing: 6) {
             // Search field with inline scope
             HStack(spacing: 6) {
                 Image(systemName: "magnifyingglass")
@@ -394,9 +394,10 @@ struct NetworkView: View {
             }
             .buttonStyle(.plain)
             .help("Clear all requests")
+            }
+            .padding(.horizontal, 12)
+            .padding(.vertical, 6)
         }
-        .padding(.horizontal, 12)
-        .padding(.vertical, 6)
         .background(Color.ttSurface.opacity(0.15))
         .overlay(
             Rectangle().fill(Color.ttBorder.opacity(0.2)).frame(height: 1),

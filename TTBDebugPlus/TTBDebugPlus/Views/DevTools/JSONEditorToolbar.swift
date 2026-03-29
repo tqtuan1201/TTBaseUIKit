@@ -21,10 +21,11 @@ struct JSONEditorToolbar: View {
             
             divider
             
-            // Center: Actions
-            actionButtons
-            
-            Spacer()
+            // Center: Actions (scrollable at narrow widths)
+            ScrollView(.horizontal, showsIndicators: false) {
+                actionButtons
+            }
+            .frame(maxWidth: .infinity)
             
             // Right: Search + Stats
             searchField
@@ -168,7 +169,7 @@ struct JSONEditorToolbar: View {
             TextField("Search...", text: $viewModel.searchText)
                 .textFieldStyle(.plain)
                 .font(TTFont.codeSmall)
-                .frame(maxWidth: 120)
+                .frame(maxWidth: 200)
             
             if !viewModel.searchText.isEmpty {
                 Button(action: { viewModel.searchText = "" }) {

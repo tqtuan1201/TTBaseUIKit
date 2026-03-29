@@ -39,7 +39,9 @@ final class StorageManager {
     
     /// Base application support directory (sandbox-aware)
     var baseDirectory: URL {
-        let appSupport = FileManager.default.urls(for: .applicationSupportDirectory, in: .userDomainMask).first!
+        guard let appSupport = FileManager.default.urls(for: .applicationSupportDirectory, in: .userDomainMask).first else {
+            return FileManager.default.temporaryDirectory.appendingPathComponent("TTBDebugPlus", isDirectory: true)
+        }
         return appSupport.appendingPathComponent("TTBDebugPlus", isDirectory: true)
     }
     
@@ -70,7 +72,9 @@ final class StorageManager {
     
     /// Cache directory (system-managed, separate from app support)
     var cacheDirectory: URL {
-        let cache = FileManager.default.urls(for: .cachesDirectory, in: .userDomainMask).first!
+        guard let cache = FileManager.default.urls(for: .cachesDirectory, in: .userDomainMask).first else {
+            return FileManager.default.temporaryDirectory.appendingPathComponent("TTBDebugPlus", isDirectory: true)
+        }
         return cache.appendingPathComponent("TTBDebugPlus", isDirectory: true)
     }
     
@@ -109,7 +113,7 @@ final class StorageManager {
     
     /// Save screenshot data, returns URL of saved file
     func saveScreenshot(_ data: Data, deviceName: String) -> URL? {
-        let timestamp = ISO8601DateFormatter().string(from: Date())
+        let timestamp = TTDateFormatter.iso8601.string(from: Date())
             .replacingOccurrences(of: ":", with: "-")
         let filename = "\(deviceName)_\(timestamp).png"
         let url = screenshotsDirectory.appendingPathComponent(filename)
@@ -125,7 +129,7 @@ final class StorageManager {
     
     /// Save recording data, returns URL of saved file
     func saveRecording(_ data: Data, deviceName: String, format: String = "mp4") -> URL? {
-        let timestamp = ISO8601DateFormatter().string(from: Date())
+        let timestamp = TTDateFormatter.iso8601.string(from: Date())
             .replacingOccurrences(of: ":", with: "-")
         let filename = "\(deviceName)_\(timestamp).\(format)"
         let url = recordingsDirectory.appendingPathComponent(filename)
@@ -191,7 +195,7 @@ final class StorageManager {
     /// Delete old sessions older than specified days
     func cleanupOldSessions(olderThan days: Int) throws {
         let fm = FileManager.default
-        let cutoff = Calendar.current.date(byAdding: .day, value: -days, to: Date())!
+        guard let cutoff = Calendar.current.date(byAdding: .day, value: -days, to: Date()) else { return }
         
         let contents = try fm.contentsOfDirectory(
             at: sessionsDirectory,

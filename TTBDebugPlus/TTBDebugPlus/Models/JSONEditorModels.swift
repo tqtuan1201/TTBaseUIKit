@@ -13,6 +13,7 @@ enum JSONEditMode: String, CaseIterable, Identifiable {
     case code = "Code"
     case tree = "Tree"
     case split = "Split"
+    case graph = "Graph"
     
     var id: String { rawValue }
     
@@ -21,6 +22,50 @@ enum JSONEditMode: String, CaseIterable, Identifiable {
         case .code: return "chevron.left.forwardslash.chevron.right"
         case .tree: return "list.bullet.indent"
         case .split: return "rectangle.split.2x1"
+        case .graph: return "point.3.connected.trianglepath.dotted"
+        }
+    }
+}
+
+// MARK: - JSON Value Type (for tree badges)
+enum JSONValueType {
+    case object(keyCount: Int)
+    case array(itemCount: Int)
+    case string
+    case number
+    case boolean(Bool)
+    case null
+    
+    var badge: String {
+        switch self {
+        case .object: return "{}"
+        case .array: return "[]"
+        case .string: return "Str"
+        case .number: return "123"
+        case .boolean(let v): return v ? "T" : "F"
+        case .null: return "∅"
+        }
+    }
+    
+    var badgeColor: Color {
+        switch self {
+        case .object: return .ttJsonBrace
+        case .array: return .ttJsonBrace
+        case .string: return .ttJsonString
+        case .number: return .ttJsonNumber
+        case .boolean: return .ttJsonBool
+        case .null: return .ttJsonNull
+        }
+    }
+    
+    var label: String {
+        switch self {
+        case .object(let count): return "Object (\(count) key\(count == 1 ? "" : "s"))"
+        case .array(let count): return "Array (\(count) item\(count == 1 ? "" : "s"))"
+        case .string: return "String"
+        case .number: return "Number"
+        case .boolean(let v): return "Bool (\(v))"
+        case .null: return "Null"
         }
     }
 }

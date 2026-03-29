@@ -33,17 +33,23 @@ struct NetworkDetailPaneView: View {
             // Tab picker
             tabPickerBar
             
-            // Tab content
-            ScrollView {
-                VStack(alignment: .leading, spacing: 0) {
-                    switch selectedTab {
-                    case .headers: headersContent
-                    case .preview: previewContent
-                    case .response: responseContent
-                    case .cookies: cookiesContent
-                    }
+            // Tab content — fills remaining space
+            // Each tab manages its own scrolling internally
+            switch selectedTab {
+            case .headers:
+                ScrollView {
+                    headersContent
+                        .padding(16)
                 }
-                .padding(16)
+            case .preview:
+                previewContent
+            case .response:
+                responseContent
+            case .cookies:
+                ScrollView {
+                    cookiesContent
+                        .padding(16)
+                }
             }
         }
         .background(Color.ttBackground)
@@ -218,54 +224,57 @@ struct NetworkDetailPaneView: View {
         }
     }
     
-    // MARK: - Preview Tab
+    // MARK: - Preview Tab (fills available space)
     private var previewContent: some View {
-        VStack(alignment: .leading, spacing: 16) {
+        Group {
             if !request.responseBody.isEmpty {
-                sectionCard(title: "RESPONSE PREVIEW", icon: "eye") {
-                    JSONViewer(jsonString: request.responseBody, onOpenInEditor: { json in
-                        onOpenInEditor?(json, "Response Preview — \(request.method) \(request.urlPath)")
-                    })
-                        .frame(minHeight: 200)
-                }
+                JSONViewer(jsonString: request.responseBody, onOpenInEditor: { json in
+                    onOpenInEditor?(json, "Response Preview — \(request.method) \(request.urlPath)")
+                })
+                .frame(maxWidth: .infinity, maxHeight: .infinity)
             } else {
                 EmptyStateView(
                     icon: "eye.slash",
                     title: "No Preview",
                     subtitle: "This response has no previewable content"
                 )
+                .frame(maxWidth: .infinity, maxHeight: .infinity)
             }
         }
     }
     
-    // MARK: - Response Tab
+    // MARK: - Response Tab (fills available space for body)
     private var responseContent: some View {
-        VStack(alignment: .leading, spacing: 16) {
-            // Response Headers Card
+        VStack(spacing: 0) {
+            // Response Headers — scrollable section at top
             if !request.responseHeaders.isEmpty {
-                sectionCard(title: "RESPONSE HEADERS", icon: "arrow.down.doc", count: request.responseHeaders.count) {
-                    VStack(alignment: .leading, spacing: 0) {
-                        ForEach(Array(request.responseHeaders.keys.sorted()), id: \.self) { key in
-                            headerRow(key: key, value: request.responseHeaders[key] ?? "")
+                VStack(spacing: 0) {
+                    sectionCard(title: "RESPONSE HEADERS", icon: "arrow.down.doc", count: request.responseHeaders.count) {
+                        VStack(alignment: .leading, spacing: 0) {
+                            ForEach(Array(request.responseHeaders.keys.sorted()), id: \.self) { key in
+                                headerRow(key: key, value: request.responseHeaders[key] ?? "")
+                            }
                         }
                     }
                 }
+                .padding(.horizontal, 16)
+                .padding(.top, 16)
+                .frame(maxHeight: 200) // Cap headers height
             }
             
-            // Response Body Card
+            // Response Body — fills remaining space
             if !request.responseBody.isEmpty {
-                sectionCard(title: "RESPONSE BODY", icon: "doc.text") {
-                    JSONViewer(jsonString: request.responseBody, onOpenInEditor: { json in
-                        onOpenInEditor?(json, "Response Body — \(request.method) \(request.urlPath)")
-                    })
-                        .frame(minHeight: 150)
-                }
+                JSONViewer(jsonString: request.responseBody, onOpenInEditor: { json in
+                    onOpenInEditor?(json, "Response Body — \(request.method) \(request.urlPath)")
+                })
+                .frame(maxWidth: .infinity, maxHeight: .infinity)
             } else {
                 EmptyStateView(
                     icon: "doc.text",
                     title: "No Response Body",
                     subtitle: "This request returned no response body"
                 )
+                .frame(maxWidth: .infinity, maxHeight: .infinity)
             }
         }
     }

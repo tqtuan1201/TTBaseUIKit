@@ -116,7 +116,7 @@ struct TTBDebugPlusApp: App {
         }
         
         // MARK: - Menu Bar Extra
-        MenuBarExtra("TTBDebugPlus", systemImage: "ladybug.fill") {
+        MenuBarExtra("TTBDebugPlus", image: "ttbasedebug-logo") {
             MenuBarView()
                 .environment(connectionManager)
         }

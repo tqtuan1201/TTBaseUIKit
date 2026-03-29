@@ -20,6 +20,20 @@ struct DeviceView: View {
     @State private var showIntervalPicker = false
     @State private var deviceInfoExpanded = false
     
+    // MARK: Quick Draw State
+    @State private var quickDrawTool: AnnotationTool = .pen
+    @State private var quickDrawEnabled: Bool = true
+    @State private var quickDrawColor: Color = .red
+    @State private var quickDrawWidth: CGFloat = 3.0
+    @State private var quickDragPoints: [CGPoint] = []
+    @State private var quickAnnotations: [AnnotationItem] = []
+    @State private var quickRedoStack: [AnnotationItem] = []
+    @State private var previewDisplaySize: CGSize = .zero
+    // Quick text input
+    @State private var quickTextInput: String = ""
+    @State private var quickTextPosition: CGPoint = .zero
+    @State private var showQuickTextInput: Bool = false
+    
     enum DeleteTarget {
         case single(UUID?)
         case selected
@@ -46,6 +60,12 @@ struct DeviceView: View {
             if let _ = newVal, let screenshot = connectionManager.selectedDevice?.latestScreenshot {
                 captureVM.handleScreenshotReceived(screenshot)
             }
+        }
+        // Clear quick annotations when switching screenshots
+        .onChange(of: captureVM.selectedHistoryItem?.id) { _, _ in
+            quickAnnotations.removeAll()
+            quickRedoStack.removeAll()
+            quickDragPoints.removeAll()
         }
         // Annotation editor — opens as large window-sized sheet
         .sheet(isPresented: $captureVM.isAnnotating) {
@@ -116,8 +136,8 @@ struct DeviceView: View {
            let idx = history.firstIndex(where: { $0.id == current.id }) {
             let newIdx = max(0, min(idx + direction, history.count - 1))
             captureVM.selectItem(history[newIdx])
-        } else {
-            captureVM.selectItem(history.first!)
+        } else if let first = history.first {
+            captureVM.selectItem(first)
         }
     }
     
@@ -205,116 +225,235 @@ struct DeviceView: View {
     }
     
     // MARK: - Capture Toolbar
+    @State private var showCopiedFeedback: Bool = false
+    
     private var captureToolbar: some View {
-        HStack(spacing: 3) {
-            // Capture
-            Button(action: { captureVM.requestCapture(from: connectionManager) }) {
-                if captureVM.isCapturing {
-                    ProgressView().controlSize(.small).scaleEffect(0.6)
-                } else {
-                    Image(systemName: "camera.fill")
-                        .font(.ttIcon(TTIcon.lg))
-                }
-            }
-            .buttonStyle(.ttGhost)
-            .disabled(captureVM.isCapturing)
-            .help("Capture screenshot (single)")
-            
-            // Record toggle
-            Button(action: toggleRecording) {
-                Image(systemName: captureVM.isRecording ? "stop.fill" : "record.circle")
-                    .font(.ttIcon(TTIcon.lg))
-                    .foregroundColor(captureVM.isRecording ? .ttError : .ttTextPrimary)
-            }
-            .buttonStyle(.ttGhost)
-            .help(captureVM.isRecording ? "Stop recording" : "Start recording")
-            
-            // Record interval
-            Button(action: { showIntervalPicker.toggle() }) {
-                Text(String(format: "%.1fs", recordingInterval))
-                    .font(TTFont.codeSmall)
-                    .foregroundColor(.ttTextTertiary)
-            }
-            .buttonStyle(.plain)
-            .popover(isPresented: $showIntervalPicker) {
-                VStack(alignment: .leading, spacing: 6) {
-                    Text("CAPTURE INTERVAL")
-                        .font(TTFont.sidebarHeader)
-                        .foregroundColor(.ttTextTertiary)
-                        .tracking(0.8)
-                    ForEach([0.3, 0.5, 1.0, 2.0, 5.0], id: \.self) { interval in
-                        Button(action: {
-                            recordingInterval = interval
-                            showIntervalPicker = false
-                        }) {
-                            HStack {
-                                Text("\(interval, specifier: "%.1f")s")
-                                    .font(TTFont.bodyMedium)
-                                Spacer()
-                                if recordingInterval == interval {
-                                    Image(systemName: "checkmark")
-                                        .foregroundColor(.ttPrimary)
-                                }
-                            }
-                        }
-                        .buttonStyle(.plain)
-                        .padding(.vertical, 2)
+        HStack(spacing: 4) {
+            // ── Capture Group ──
+            HStack(spacing: 2) {
+                // Capture
+                Button(action: { captureVM.requestCapture(from: connectionManager) }) {
+                    if captureVM.isCapturing {
+                        ProgressView().controlSize(.small).scaleEffect(0.6)
+                            .frame(width: 14, height: 14)
+                    } else {
+                        Image(systemName: "camera.fill")
+                            .font(.ttIcon(TTIcon.lg))
                     }
                 }
-                .padding(12)
-                .frame(width: 140)
+                .buttonStyle(.ttGhost)
+                .disabled(captureVM.isCapturing)
+                .help("Capture screenshot (Space)")
+                
+                // Record toggle
+                Button(action: toggleRecording) {
+                    Image(systemName: captureVM.isRecording ? "stop.fill" : "record.circle")
+                        .font(.ttIcon(TTIcon.lg))
+                        .foregroundColor(captureVM.isRecording ? .ttError : .ttTextPrimary)
+                }
+                .buttonStyle(.ttGhost)
+                .help(captureVM.isRecording ? "Stop recording" : "Start recording")
+                
+                // Record interval
+                Button(action: { showIntervalPicker.toggle() }) {
+                    Text(String(format: "%.1fs", recordingInterval))
+                        .font(TTFont.codeSmall)
+                        .foregroundColor(.ttTextTertiary)
+                }
+                .buttonStyle(.plain)
+                .popover(isPresented: $showIntervalPicker) {
+                    VStack(alignment: .leading, spacing: 6) {
+                        Text("CAPTURE INTERVAL")
+                            .font(TTFont.sidebarHeader)
+                            .foregroundColor(.ttTextTertiary)
+                            .tracking(0.8)
+                        ForEach([0.3, 0.5, 1.0, 2.0, 5.0], id: \.self) { interval in
+                            Button(action: {
+                                recordingInterval = interval
+                                showIntervalPicker = false
+                            }) {
+                                HStack {
+                                    Text("\(interval, specifier: "%.1f")s")
+                                        .font(TTFont.bodyMedium)
+                                    Spacer()
+                                    if recordingInterval == interval {
+                                        Image(systemName: "checkmark")
+                                            .foregroundColor(.ttPrimary)
+                                    }
+                                }
+                            }
+                            .buttonStyle(.plain)
+                            .padding(.vertical, 2)
+                        }
+                    }
+                    .padding(12)
+                    .frame(width: 140)
+                }
             }
+            .padding(.horizontal, 6)
+            .padding(.vertical, 3)
+            .background(
+                RoundedRectangle(cornerRadius: 7)
+                    .fill(Color.ttSurface.opacity(0.6))
+                    .overlay(RoundedRectangle(cornerRadius: 7).stroke(Color.ttBorder.opacity(0.3), lineWidth: 1))
+            )
             
-            Divider().frame(height: 16)
-            
-            // Annotate
+            // ── Draw / Annotate — Highlighted CTA ──
             Button(action: { captureVM.isAnnotating = true }) {
-                Image(systemName: "pencil.tip.crop.circle")
-                    .font(.ttIcon(TTIcon.lg))
+                HStack(spacing: 4) {
+                    Image(systemName: "pencil.tip.crop.circle")
+                        .font(.ttIcon(TTIcon.lg))
+                    Text("Draw")
+                        .font(TTFont.badge)
+                }
+                .foregroundColor(captureVM.currentScreenshot != nil ? .white : .ttTextTertiary)
+                .padding(.horizontal, 10)
+                .padding(.vertical, 5)
+                .background(
+                    RoundedRectangle(cornerRadius: 7)
+                        .fill(captureVM.currentScreenshot != nil ? Color.ttPrimary : Color.ttSurface.opacity(0.4))
+                )
             }
-            .buttonStyle(.ttGhost)
+            .buttonStyle(.plain)
             .disabled(captureVM.currentScreenshot == nil)
-            .help("Open annotation editor")
+            .help("Open annotation editor (Draw on screenshot)")
             
-            // Bug report
+            // ── Bug report ──
             Button(action: { captureVM.openBugReport() }) {
                 Image(systemName: "ladybug.fill")
                     .font(.ttIcon(TTIcon.lg))
+                    .foregroundColor(captureVM.currentScreenshot != nil ? .ttWarning : .ttTextTertiary)
             }
             .buttonStyle(.ttGhost)
             .disabled(captureVM.currentScreenshot == nil)
             .help("Create bug report")
             
-            Divider().frame(height: 16)
+            Divider().frame(height: 18)
             
-            // Save
-            Button(action: {
-                if let url = captureVM.exportScreenshot() {
-                    NSWorkspace.shared.activateFileViewerSelecting([url])
-                }
-            }) {
-                Image(systemName: "square.and.arrow.down")
-                    .font(.ttIcon(TTIcon.lg))
-            }
-            .buttonStyle(.ttGhost)
-            .disabled(captureVM.currentScreenshot == nil)
-            .help("Save to disk")
-            
-            // Share
-            Button(action: {
-                if let url = captureVM.exportScreenshot(withAnnotations: true) {
-                    let picker = NSSharingServicePicker(items: [url])
-                    if let contentView = NSApp.keyWindow?.contentView {
-                        picker.show(relativeTo: .zero, of: contentView, preferredEdge: .minY)
+            // ── Action Group: Copy, Save, Share ──
+            HStack(spacing: 2) {
+                // Copy to clipboard
+                Button(action: copyScreenshotToClipboard) {
+                    HStack(spacing: 3) {
+                        Image(systemName: showCopiedFeedback ? "checkmark" : "doc.on.doc")
+                            .font(.ttIcon(TTIcon.md))
+                            .foregroundColor(showCopiedFeedback ? .ttSuccess : .ttTextSecondary)
+                        if showCopiedFeedback {
+                            Text("Copied!")
+                                .font(TTFont.badge)
+                                .foregroundColor(.ttSuccess)
+                                .transition(.opacity.combined(with: .scale(scale: 0.8)))
+                        }
                     }
+                    .animation(.easeOut(duration: 0.15), value: showCopiedFeedback)
                 }
-            }) {
-                Image(systemName: "square.and.arrow.up")
-                    .font(.ttIcon(TTIcon.lg))
+                .buttonStyle(.ttGhost)
+                .disabled(captureVM.currentScreenshot == nil)
+                .help("Copy to clipboard (⌘C)")
+                .keyboardShortcut("c", modifiers: .command)
+                
+                // Save
+                Button(action: exportScreenshotWithQuickAnnotations) {
+                    Image(systemName: "square.and.arrow.down")
+                        .font(.ttIcon(TTIcon.md))
+                }
+                .buttonStyle(.ttGhost)
+                .disabled(captureVM.currentScreenshot == nil)
+                .help("Save to disk")
+                
+                // Share
+                Button(action: {
+                    if let url = exportScreenshotToURL() {
+                        let picker = NSSharingServicePicker(items: [url])
+                        if let contentView = NSApp.keyWindow?.contentView {
+                            picker.show(relativeTo: .zero, of: contentView, preferredEdge: .minY)
+                        }
+                    }
+                }) {
+                    Image(systemName: "square.and.arrow.up")
+                        .font(.ttIcon(TTIcon.md))
+                }
+                .buttonStyle(.ttGhost)
+                .disabled(captureVM.currentScreenshot == nil)
+                .help("Share")
             }
-            .buttonStyle(.ttGhost)
-            .disabled(captureVM.currentScreenshot == nil)
-            .help("Share")
+            .padding(.horizontal, 6)
+            .padding(.vertical, 3)
+            .background(
+                RoundedRectangle(cornerRadius: 7)
+                    .fill(Color.ttSurface.opacity(0.6))
+                    .overlay(RoundedRectangle(cornerRadius: 7).stroke(Color.ttBorder.opacity(0.3), lineWidth: 1))
+            )
+        }
+    }
+    
+    // MARK: - Copy to Clipboard
+    private func copyScreenshotToClipboard() {
+        guard let image = captureVM.currentScreenshot else { return }
+        
+        var finalImage = image
+        
+        // Render full-editor annotations if present
+        if !captureVM.annotations.isEmpty {
+            finalImage = captureVM.renderAnnotatedImage(baseImage: finalImage)
+        }
+        
+        // Render quick-draw annotations if present
+        if !quickAnnotations.isEmpty && previewDisplaySize.width > 0 {
+            finalImage = captureVM.renderImageWithQuickAnnotations(
+                baseImage: finalImage,
+                annotations: quickAnnotations,
+                displaySize: previewDisplaySize
+            )
+        }
+        
+        let pasteboard = NSPasteboard.general
+        pasteboard.clearContents()
+        pasteboard.writeObjects([finalImage])
+        
+        // Show feedback
+        withAnimation { showCopiedFeedback = true }
+        DispatchQueue.main.asyncAfter(deadline: .now() + 1.5) {
+            withAnimation { showCopiedFeedback = false }
+        }
+    }
+    
+    // MARK: - Export Helpers (includes quick annotations)
+    private func buildAnnotatedImage() -> NSImage? {
+        guard var finalImage = captureVM.currentScreenshot else { return nil }
+        
+        if !captureVM.annotations.isEmpty {
+            finalImage = captureVM.renderAnnotatedImage(baseImage: finalImage)
+        }
+        if !quickAnnotations.isEmpty && previewDisplaySize.width > 0 {
+            finalImage = captureVM.renderImageWithQuickAnnotations(
+                baseImage: finalImage,
+                annotations: quickAnnotations,
+                displaySize: previewDisplaySize
+            )
+        }
+        return finalImage
+    }
+    
+    private func exportScreenshotToURL() -> URL? {
+        guard let image = buildAnnotatedImage() else { return nil }
+        
+        let tempDir = FileManager.default.temporaryDirectory
+        let fileName = "TTBDebug_\(Int(Date().timeIntervalSince1970)).png"
+        let fileURL = tempDir.appendingPathComponent(fileName)
+        
+        if let tiffData = image.tiffRepresentation,
+           let bitmap = NSBitmapImageRep(data: tiffData),
+           let pngData = bitmap.representation(using: .png, properties: [:]) {
+            try? pngData.write(to: fileURL)
+            return fileURL
+        }
+        return nil
+    }
+    
+    private func exportScreenshotWithQuickAnnotations() {
+        if let url = exportScreenshotToURL() {
+            NSWorkspace.shared.activateFileViewerSelecting([url])
         }
     }
     
@@ -367,39 +506,454 @@ struct DeviceView: View {
         }
     }
     
-    // MARK: - Screenshot Preview (compact, no bezel)
+    // MARK: - Screenshot Preview with Inline Drawing
     private var screenshotPreview: some View {
-        ZStack {
-            RoundedRectangle(cornerRadius: 12)
-                .fill(Color.ttSurface.opacity(0.3))
-                .overlay(
-                    RoundedRectangle(cornerRadius: 12)
-                        .stroke(Color.ttBorder.opacity(0.3), lineWidth: 1)
-                )
-            
-            if let image = captureVM.currentScreenshot {
-                Image(nsImage: image)
-                    .resizable()
-                    .aspectRatio(contentMode: .fit)
-                    .clipShape(RoundedRectangle(cornerRadius: 8))
-                    .padding(8)
-            } else {
-                VStack(spacing: 10) {
-                    Image(systemName: "iphone")
-                        .font(TTFont.displayMedium)
-                        .foregroundColor(.ttTextTertiary.opacity(0.4))
-                    Text("Capture a screenshot to start")
-                        .font(TTFont.bodySmall)
-                        .foregroundColor(.ttTextTertiary)
+        VStack(spacing: 0) {
+            // Image area
+            ZStack {
+                RoundedRectangle(cornerRadius: 12)
+                    .fill(Color(nsColor: NSColor(calibratedWhite: 0.06, alpha: 1.0)))
+                    .overlay(
+                        RoundedRectangle(cornerRadius: 12)
+                            .stroke(Color.ttBorder.opacity(0.4), lineWidth: 1)
+                    )
+                
+                if let image = captureVM.currentScreenshot {
+                    Image(nsImage: image)
+                        .resizable()
+                        .aspectRatio(contentMode: .fit)
+                        .clipShape(RoundedRectangle(cornerRadius: 6))
+                        // Canvas overlay (pen/arrow/rect only — text rendered separately)
+                        .overlay {
+                            Canvas { context, size in
+                                for annotation in quickAnnotations where annotation.tool != .text {
+                                    renderQuickAnnotation(annotation, in: &context, size: size)
+                                }
+                                if !quickDragPoints.isEmpty && quickDrawTool != .text {
+                                    let current = AnnotationItem(
+                                        tool: quickDrawTool, points: quickDragPoints,
+                                        color: quickDrawColor, lineWidth: quickDrawWidth
+                                    )
+                                    renderQuickAnnotation(current, in: &context, size: size)
+                                }
+                            }
+                            .allowsHitTesting(false)
+                        }
+                        // Text annotations overlay (draggable SwiftUI views)
+                        .overlay {
+                            quickTextAnnotationsOverlay
+                        }
+                        // Drawing gesture overlay (disabled during text input)
+                        .overlay {
+                            if quickDrawEnabled && !showQuickTextInput {
+                                Color.clear
+                                    .contentShape(Rectangle())
+                                    .gesture(quickDrawGesture)
+                            }
+                        }
+                        // Capture rendered size for coordinate scaling
+                        .background(
+                            GeometryReader { geo in
+                                Color.clear
+                                    .onAppear { previewDisplaySize = geo.size }
+                                    .onChange(of: geo.size) { _, newSize in
+                                        previewDisplaySize = newSize
+                                    }
+                            }
+                        )
+                        .padding(10)
+                } else {
+                    VStack(spacing: 10) {
+                        Image(systemName: "iphone")
+                            .font(TTFont.displayMedium)
+                            .foregroundColor(.ttTextTertiary.opacity(0.4))
+                        Text("Capture a screenshot to start")
+                            .font(TTFont.bodySmall)
+                            .foregroundColor(.ttTextTertiary)
+                    }
+                    .frame(maxWidth: .infinity, maxHeight: .infinity)
                 }
-                .padding(.vertical, 40)
+            }
+            .frame(minHeight: 250, maxHeight: 480)
+            .onTapGesture(count: 2) {
+                if captureVM.currentScreenshot != nil && !showQuickTextInput {
+                    captureVM.isAnnotating = true
+                }
+            }
+            // Quick text input popover
+            .overlay {
+                if showQuickTextInput {
+                    quickTextInputOverlay
+                }
+            }
+            
+            // Toolbar — sits BELOW the image, never overlapping
+            if captureVM.currentScreenshot != nil {
+                quickDrawMiniToolbar
+                    .padding(.top, 6)
+                    .padding(.bottom, 2)
             }
         }
-        .frame(maxHeight: 400)
-        .onTapGesture(count: 2) {
-            if captureVM.currentScreenshot != nil {
-                captureVM.isAnnotating = true
+    }
+    
+    // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+    // MARK: - Quick Draw Mini Toolbar
+    // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+    private var quickDrawMiniToolbar: some View {
+        HStack(spacing: 0) {
+            // Tool buttons
+            HStack(spacing: 2) {
+                quickToolBtn(.pen)
+                quickToolBtn(.arrow)
+                quickToolBtn(.rectangle)
+                quickToolBtn(.text)
             }
+            .padding(.horizontal, 4)
+            
+            // Divider
+            Rectangle()
+                .fill(Color.white.opacity(0.15))
+                .frame(width: 1, height: 18)
+                .padding(.horizontal, 4)
+            
+            // Color palette
+            HStack(spacing: 3) {
+                ForEach([Color.red, .orange, .yellow, .green, .blue, .white], id: \.self) { color in
+                    Button(action: { quickDrawColor = color }) {
+                        Circle()
+                            .fill(color)
+                            .frame(width: 12, height: 12)
+                            .overlay(
+                                Circle()
+                                    .stroke(Color.white, lineWidth: quickDrawColor == color ? 1.5 : 0)
+                            )
+                            .overlay(
+                                Circle()
+                                    .stroke(Color.ttPrimary, lineWidth: quickDrawColor == color ? 1 : 0)
+                                    .padding(-2)
+                            )
+                    }
+                    .buttonStyle(.plain)
+                }
+            }
+            .padding(.horizontal, 4)
+            
+            // Divider
+            Rectangle()
+                .fill(Color.white.opacity(0.15))
+                .frame(width: 1, height: 18)
+                .padding(.horizontal, 4)
+            
+            // Undo / Redo / Clear
+            HStack(spacing: 2) {
+                Button(action: quickUndo) {
+                    Image(systemName: "arrow.uturn.backward")
+                        .font(.system(size: 11, weight: .medium))
+                        .foregroundColor(quickAnnotations.isEmpty ? .white.opacity(0.25) : .white.opacity(0.8))
+                        .frame(width: 24, height: 24)
+                }
+                .buttonStyle(.plain)
+                .disabled(quickAnnotations.isEmpty)
+                .help("Undo")
+                
+                Button(action: quickRedo) {
+                    Image(systemName: "arrow.uturn.forward")
+                        .font(.system(size: 11, weight: .medium))
+                        .foregroundColor(quickRedoStack.isEmpty ? .white.opacity(0.25) : .white.opacity(0.8))
+                        .frame(width: 24, height: 24)
+                }
+                .buttonStyle(.plain)
+                .disabled(quickRedoStack.isEmpty)
+                .help("Redo")
+                
+                Button(action: {
+                    quickAnnotations.removeAll()
+                    quickRedoStack.removeAll()
+                }) {
+                    Image(systemName: "trash")
+                        .font(.system(size: 10, weight: .medium))
+                        .foregroundColor(quickAnnotations.isEmpty ? .white.opacity(0.25) : .ttError.opacity(0.9))
+                        .frame(width: 24, height: 24)
+                }
+                .buttonStyle(.plain)
+                .disabled(quickAnnotations.isEmpty)
+                .help("Clear all")
+            }
+            .padding(.horizontal, 2)
+            
+            // Annotation count badge
+            if !quickAnnotations.isEmpty {
+                Text("\(quickAnnotations.count)")
+                    .font(.system(size: 9, weight: .bold))
+                    .foregroundColor(.white)
+                    .padding(.horizontal, 5)
+                    .padding(.vertical, 2)
+                    .background(Capsule().fill(Color.ttPrimary))
+                    .padding(.trailing, 4)
+            }
+        }
+        .padding(.vertical, 5)
+        .padding(.horizontal, 6)
+        .background(
+            Capsule()
+                .fill(.ultraThinMaterial)
+                .environment(\.colorScheme, .dark)
+                .overlay(
+                    Capsule()
+                        .stroke(Color.white.opacity(0.12), lineWidth: 1)
+                )
+        )
+        .shadow(color: .black.opacity(0.35), radius: 8, y: 3)
+    }
+    
+    private func quickToolBtn(_ tool: AnnotationTool) -> some View {
+        let isSelected = quickDrawEnabled && quickDrawTool == tool
+        return Button(action: {
+            if quickDrawTool == tool && quickDrawEnabled {
+                quickDrawEnabled = false
+            } else {
+                quickDrawTool = tool
+                quickDrawEnabled = true
+            }
+        }) {
+            Image(systemName: tool.icon)
+                .font(.system(size: 12, weight: .medium))
+                .foregroundColor(isSelected ? .white : .white.opacity(0.55))
+                .frame(width: 26, height: 26)
+                .background(
+                    RoundedRectangle(cornerRadius: 5)
+                        .fill(isSelected ? Color.ttPrimary : Color.clear)
+                )
+        }
+        .buttonStyle(.plain)
+        .help(tool.rawValue)
+    }
+    
+    // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+    // MARK: - Quick Text Input Overlay
+    // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+    private var quickTextInputOverlay: some View {
+        ZStack(alignment: .topLeading) {
+            // Dismiss background
+            Color.black.opacity(0.15)
+                .clipShape(RoundedRectangle(cornerRadius: 12))
+                .onTapGesture { commitQuickText() }
+            
+            // Input card
+            VStack(alignment: .leading, spacing: 6) {
+                HStack(spacing: 5) {
+                    Circle()
+                        .fill(quickDrawColor)
+                        .frame(width: 8, height: 8)
+                    Text("Add Note")
+                        .font(.system(size: 10, weight: .semibold))
+                        .foregroundColor(.white.opacity(0.5))
+                }
+                
+                HStack(spacing: 6) {
+                    QuickNoteTextField(
+                        text: $quickTextInput,
+                        placeholder: "Type description...",
+                        onCommit: commitQuickText
+                    )
+                    .frame(minWidth: 160, maxWidth: 280, minHeight: 22)
+                    
+                    Button(action: commitQuickText) {
+                        Image(systemName: "checkmark.circle.fill")
+                            .font(.system(size: 16))
+                            .foregroundColor(.ttPrimary)
+                    }
+                    .buttonStyle(.plain)
+                    
+                    Button(action: {
+                        showQuickTextInput = false
+                        quickTextInput = ""
+                    }) {
+                        Image(systemName: "xmark.circle.fill")
+                            .font(.system(size: 16))
+                            .foregroundColor(.white.opacity(0.35))
+                    }
+                    .buttonStyle(.plain)
+                }
+            }
+            .padding(.horizontal, 12)
+            .padding(.vertical, 10)
+            .background(
+                RoundedRectangle(cornerRadius: 10)
+                    .fill(.ultraThinMaterial)
+                    .environment(\.colorScheme, .dark)
+                    .overlay(
+                        RoundedRectangle(cornerRadius: 10)
+                            .stroke(Color.ttPrimary.opacity(0.4), lineWidth: 1)
+                    )
+            )
+            .shadow(color: .black.opacity(0.5), radius: 12, y: 4)
+            .offset(x: min(quickTextPosition.x, previewDisplaySize.width - 200),
+                    y: quickTextPosition.y + 8)
+            .padding(10)
+        }
+    }
+    
+    // MARK: - Text Annotations Overlay (draggable)
+    private var quickTextAnnotationsOverlay: some View {
+        ForEach(Array(quickAnnotations.enumerated()), id: \.element.id) { index, annotation in
+            if annotation.tool == .text, let pos = annotation.points.first, !annotation.text.isEmpty {
+                let fontSize: CGFloat = max(11, annotation.lineWidth * 3.5)
+                Text(annotation.text)
+                    .font(.system(size: fontSize, weight: .semibold))
+                    .foregroundColor(annotation.color)
+                    .padding(.horizontal, 4)
+                    .padding(.vertical, 2)
+                    .background(
+                        RoundedRectangle(cornerRadius: 3)
+                            .fill(Color.black.opacity(0.55))
+                    )
+                    .overlay(
+                        quickDrawTool == .text ?
+                        RoundedRectangle(cornerRadius: 3)
+                            .stroke(Color.white.opacity(0.3), style: StrokeStyle(lineWidth: 1, dash: [3, 2]))
+                        : nil
+                    )
+                    .position(x: pos.x + 20, y: pos.y + 10)
+                    .gesture(
+                        quickDrawTool == .text ?
+                        DragGesture(minimumDistance: 1)
+                            .onChanged { value in
+                                quickAnnotations[index].points = [
+                                    CGPoint(x: value.location.x - 20, y: value.location.y - 10)
+                                ]
+                            }
+                        : nil
+                    )
+            }
+        }
+    }
+    
+    // MARK: - Quick Draw Gesture
+    // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+    private var quickDrawGesture: some Gesture {
+        DragGesture(minimumDistance: 0)
+            .onChanged { value in
+                switch quickDrawTool {
+                case .text:
+                    // Single tap — just track position
+                    if quickDragPoints.isEmpty {
+                        quickDragPoints = [value.location]
+                    }
+                case .arrow, .line, .rectangle, .ellipse:
+                    quickDragPoints = [value.startLocation, value.location]
+                default:
+                    // pen — freehand
+                    quickDragPoints.append(value.location)
+                }
+            }
+            .onEnded { _ in
+                handleQuickDrawEnd()
+            }
+    }
+    
+    private func handleQuickDrawEnd() {
+        // Text tool — show input field
+        if quickDrawTool == .text {
+            if let pos = quickDragPoints.first {
+                quickTextPosition = pos
+                quickTextInput = ""
+                showQuickTextInput = true
+            }
+            quickDragPoints.removeAll()
+            return
+        }
+        
+        guard quickDragPoints.count >= 2 else {
+            quickDragPoints.removeAll()
+            return
+        }
+        let annotation = AnnotationItem(
+            tool: quickDrawTool,
+            points: quickDragPoints,
+            color: quickDrawColor,
+            lineWidth: quickDrawWidth
+        )
+        quickAnnotations.append(annotation)
+        quickRedoStack.removeAll()
+        quickDragPoints.removeAll()
+    }
+    
+    private func commitQuickText() {
+        guard !quickTextInput.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty else {
+            showQuickTextInput = false
+            quickTextInput = ""
+            return
+        }
+        var annotation = AnnotationItem(
+            tool: .text,
+            points: [quickTextPosition],
+            color: quickDrawColor,
+            lineWidth: quickDrawWidth
+        )
+        annotation.text = quickTextInput
+        quickAnnotations.append(annotation)
+        quickRedoStack.removeAll()
+        showQuickTextInput = false
+        quickTextInput = ""
+    }
+    
+    private func quickUndo() {
+        guard let last = quickAnnotations.popLast() else { return }
+        quickRedoStack.append(last)
+    }
+    
+    private func quickRedo() {
+        guard let last = quickRedoStack.popLast() else { return }
+        quickAnnotations.append(last)
+    }
+    
+    // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+    // MARK: - Quick Draw Canvas Rendering
+    // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+    private func renderQuickAnnotation(_ annotation: AnnotationItem, in context: inout GraphicsContext, size: CGSize) {
+        let shading: GraphicsContext.Shading = .color(annotation.color)
+        
+        switch annotation.tool {
+        case .pen:
+            if annotation.points.count >= 2 {
+                let path = PathSmoothing.smoothedPath(from: annotation.points)
+                context.stroke(path, with: shading, style: StrokeStyle(
+                    lineWidth: annotation.lineWidth, lineCap: .round, lineJoin: .round
+                ))
+            }
+            
+        case .arrow:
+            if annotation.points.count >= 2,
+               let start = annotation.points.first, let end = annotation.points.last {
+                var path = Path()
+                path.move(to: start)
+                path.addLine(to: end)
+                context.stroke(path, with: shading, style: StrokeStyle(
+                    lineWidth: annotation.lineWidth, lineCap: .round
+                ))
+                let head = ArrowGeometry.arrowHead(start: start, end: end, lineWidth: annotation.lineWidth, headLengthMultiplier: 4.0)
+                var arrow = Path()
+                arrow.move(to: head.p1)
+                arrow.addLine(to: head.tip)
+                arrow.addLine(to: head.p2)
+                arrow.closeSubpath()
+                context.fill(arrow, with: shading)
+            }
+            
+        case .rectangle:
+            if let rect = annotation.boundingRect {
+                let path = Path(roundedRect: rect, cornerRadius: 2)
+                context.stroke(path, with: shading, lineWidth: annotation.lineWidth)
+            }
+            
+        case .text:
+            // Text is rendered as SwiftUI views in quickTextAnnotationsOverlay
+            // (to support drag-to-reposition). Canvas skips text.
+            break
+            
+        default:
+            break
         }
     }
     
@@ -434,8 +988,9 @@ struct DeviceView: View {
                             Button(action: { captureVM.selectItem(item) }) {
                                 Image(nsImage: item.image)
                                     .resizable()
-                                    .aspectRatio(contentMode: .fill)
+                                    .aspectRatio(contentMode: .fit)
                                     .frame(width: 36, height: 56)
+                                    .background(Color(nsColor: NSColor(calibratedWhite: 0.06, alpha: 1.0)))
                                     .clipShape(RoundedRectangle(cornerRadius: 5))
                                     .overlay(
                                         RoundedRectangle(cornerRadius: 5)
@@ -663,8 +1218,10 @@ struct DeviceView: View {
                 ZStack(alignment: .topTrailing) {
                     Image(nsImage: item.image)
                         .resizable()
-                        .aspectRatio(contentMode: .fill)
+                        .aspectRatio(contentMode: .fit)
                         .frame(height: 120)
+                        .frame(maxWidth: .infinity)
+                        .background(Color(nsColor: NSColor(calibratedWhite: 0.06, alpha: 1.0)))
                         .clipShape(RoundedRectangle(cornerRadius: 6))
                         .overlay(
                             RoundedRectangle(cornerRadius: 6)
@@ -745,9 +1302,14 @@ struct DeviceView: View {
     @ViewBuilder
     private func galleryItemContextMenu(_ item: ScreenshotItem) -> some View {
         Button { captureVM.selectItem(item) } label: { Label("View", systemImage: "eye") }
-        Button { captureVM.selectItem(item); captureVM.isAnnotating = true } label: { Label("Annotate", systemImage: "pencil.tip.crop.circle") }
+        Button { captureVM.selectItem(item); captureVM.isAnnotating = true } label: { Label("Draw / Annotate", systemImage: "pencil.tip.crop.circle") }
         Button { captureVM.openBugReport(with: [item.image]) } label: { Label("Bug Report", systemImage: "ladybug") }
         Divider()
+        Button {
+            let pasteboard = NSPasteboard.general
+            pasteboard.clearContents()
+            pasteboard.writeObjects([item.image])
+        } label: { Label("Copy to Clipboard", systemImage: "doc.on.doc") }
         Button {
             if let url = captureVM.exportItem(item) { NSWorkspace.shared.activateFileViewerSelecting([url]) }
         } label: { Label("Save to Disk", systemImage: "square.and.arrow.down") }

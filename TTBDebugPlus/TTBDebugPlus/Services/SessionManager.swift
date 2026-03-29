@@ -31,9 +31,7 @@ struct DebugSession: Codable, Identifiable {
     }
     
     var formattedDate: String {
-        let formatter = DateFormatter()
-        formatter.dateFormat = "yyyy-MM-dd HH:mm"
-        return formatter.string(from: startTime)
+        TTDateFormatter.dateTime.string(from: startTime)
     }
     
     var totalLogCount: Int {
@@ -62,7 +60,11 @@ final class SessionManager {
     private let fileManager = FileManager.default
     
     private var sessionsDirectory: URL {
-        let appSupport = fileManager.urls(for: .applicationSupportDirectory, in: .userDomainMask).first!
+        guard let appSupport = fileManager.urls(for: .applicationSupportDirectory, in: .userDomainMask).first else {
+            let fallback = fileManager.temporaryDirectory.appendingPathComponent("TTBDebugPlus/sessions", isDirectory: true)
+            try? fileManager.createDirectory(at: fallback, withIntermediateDirectories: true)
+            return fallback
+        }
         let dir = appSupport.appendingPathComponent("TTBDebugPlus/sessions", isDirectory: true)
         try? fileManager.createDirectory(at: dir, withIntermediateDirectories: true)
         return dir

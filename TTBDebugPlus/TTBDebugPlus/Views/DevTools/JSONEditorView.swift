@@ -109,6 +109,8 @@ struct JSONEditorView: View {
                 treeOnlyView
             case .split:
                 splitView
+            case .graph:
+                graphView
             }
         }
     }
@@ -207,26 +209,34 @@ struct JSONEditorView: View {
     // MARK: - Code Only
     private var codeOnlyView: some View {
         JSONEditorCodeView(text: $viewModel.rawJSON)
+            .frame(maxWidth: .infinity, maxHeight: .infinity)
     }
     
     // MARK: - Tree Only
     private var treeOnlyView: some View {
         JSONEditorTreeView(jsonString: viewModel.rawJSON, searchText: viewModel.searchText)
+            .frame(maxWidth: .infinity, maxHeight: .infinity)
     }
     
     // MARK: - Split View
     private var splitView: some View {
         HSplitView {
             JSONEditorCodeView(text: $viewModel.rawJSON)
-                .frame(minWidth: 400)
+                .frame(minWidth: 200, maxWidth: .infinity, maxHeight: .infinity)
             
             JSONEditorTreeView(jsonString: viewModel.rawJSON, searchText: viewModel.searchText)
-                .frame(minWidth: 300)
+                .frame(minWidth: 200, maxWidth: .infinity, maxHeight: .infinity)
                 .overlay(
                     Rectangle().fill(Color.ttBorder.opacity(0.2)).frame(width: 1),
                     alignment: .leading
                 )
         }
+    }
+    
+    // MARK: - Graph View
+    private var graphView: some View {
+        JSONGraphView(jsonString: viewModel.rawJSON)
+            .frame(maxWidth: .infinity, maxHeight: .infinity)
     }
     
     // MARK: - Status Bar

@@ -117,6 +117,7 @@ struct JSONConvertView: View {
                 .font(TTFont.codeMedium)
                 .foregroundColor(.ttTextPrimary)
                 .textSelection(.enabled)
+                .fixedSize(horizontal: true, vertical: false)
                 .padding(16)
                 .frame(maxWidth: .infinity, alignment: .leading)
         }

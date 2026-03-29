@@ -7,6 +7,7 @@
 //
 
 import SwiftUI
+import AppKit
 
 // MARK: - Highlighted Line Model
 struct HighlightedLine: Identifiable {
@@ -192,6 +193,16 @@ struct FlatTreeNode: Identifiable {
     let path: String
     let isCollapsible: Bool
     let isCollapsed: Bool
+    let valueType: JSONValueType?
+    let rawValue: String?
+    
+    // Structured fields for tree view (Phase V3)
+    let key: String?            // "name", "[0]", nil for closing brackets
+    let displayValue: String?   // "John Doe", "42", nil for containers
+    let childCount: Int?        // For objects/arrays: number of children
+    let isClosingBracket: Bool  // true for "}" and "]" rows
+    
+    // Legacy content for backward compat (JSONViewer uses this)
     let content: Text
 }
 
@@ -212,13 +223,12 @@ enum JSONTreeFlattener {
         if let dict = value as? [String: Any] {
             let isCollapsed = collapsedPaths.contains(path)
             
-            // Opening line
+            // Legacy content for JSONViewer compat
             var openText = Text("")
             if let key = key {
                 openText = Text("\"\(key)\"").foregroundColor(.ttJsonKey) +
                     Text(" : ").foregroundColor(.ttJsonBrace)
             }
-            
             if isCollapsed {
                 openText = openText +
                     Text("{ ").foregroundColor(.ttJsonBrace) +
@@ -229,8 +239,14 @@ enum JSONTreeFlattener {
                 openText = openText + Text("{").foregroundColor(.ttJsonBrace)
             }
             
-            nodes.append(FlatTreeNode(id: path, indent: indent, path: path,
-                                     isCollapsible: true, isCollapsed: isCollapsed, content: openText))
+            nodes.append(FlatTreeNode(
+                id: path, indent: indent, path: path,
+                isCollapsible: true, isCollapsed: isCollapsed,
+                valueType: .object(keyCount: dict.count), rawValue: nil,
+                key: key ?? (indent == 0 ? "root" : nil),
+                displayValue: nil, childCount: dict.count,
+                isClosingBracket: false, content: openText
+            ))
             
             if !isCollapsed {
                 let sortedKeys = dict.keys.sorted()
@@ -242,22 +258,27 @@ enum JSONTreeFlattener {
                     }
                 }
                 
-                // Closing brace
+                // Closing brace (legacy compat)
                 let closeText = Text("}").foregroundColor(.ttJsonBrace) +
                     Text(isLast ? "" : ",").foregroundColor(.ttJsonBrace)
-                nodes.append(FlatTreeNode(id: "\(path)_close", indent: indent, path: "",
-                                         isCollapsible: false, isCollapsed: false, content: closeText))
+                nodes.append(FlatTreeNode(
+                    id: "\(path)_close", indent: indent, path: "",
+                    isCollapsible: false, isCollapsed: false,
+                    valueType: nil, rawValue: nil,
+                    key: nil, displayValue: nil, childCount: nil,
+                    isClosingBracket: true, content: closeText
+                ))
             }
             
         } else if let arr = value as? [Any] {
             let isCollapsed = collapsedPaths.contains(path)
             
+            // Legacy content
             var openText = Text("")
             if let key = key {
                 openText = Text("\"\(key)\"").foregroundColor(.ttJsonKey) +
                     Text(" : ").foregroundColor(.ttJsonBrace)
             }
-            
             if isCollapsed {
                 openText = openText +
                     Text("[ ").foregroundColor(.ttJsonBrace) +
@@ -268,11 +289,16 @@ enum JSONTreeFlattener {
                 openText = openText + Text("[").foregroundColor(.ttJsonBrace)
             }
             
-            nodes.append(FlatTreeNode(id: path, indent: indent, path: path,
-                                     isCollapsible: true, isCollapsed: isCollapsed, content: openText))
+            nodes.append(FlatTreeNode(
+                id: path, indent: indent, path: path,
+                isCollapsible: true, isCollapsed: isCollapsed,
+                valueType: .array(itemCount: arr.count), rawValue: nil,
+                key: key ?? (indent == 0 ? "root" : nil),
+                displayValue: nil, childCount: arr.count,
+                isClosingBracket: false, content: openText
+            ))
             
             if !isCollapsed {
-                // Limit array rendering to prevent explosion
                 let maxItems = min(arr.count, 500)
                 for i in 0..<maxItems {
                     flattenValue(arr[i], key: nil, indent: indent + 1,
@@ -284,22 +310,48 @@ enum JSONTreeFlattener {
                     nodes.append(FlatTreeNode(
                         id: "\(path)_truncated", indent: indent + 1, path: "",
                         isCollapsible: false, isCollapsed: false,
+                        valueType: nil, rawValue: nil,
+                        key: "...", displayValue: "+\(arr.count - maxItems) more",
+                        childCount: nil, isClosingBracket: false,
                         content: Text("... (\(arr.count - maxItems) more items)")
                             .foregroundColor(.ttTextTertiary).italic()
                     ))
                 }
                 
+                // Closing bracket (legacy compat)
                 let closeText = Text("]").foregroundColor(.ttJsonBrace) +
                     Text(isLast ? "" : ",").foregroundColor(.ttJsonBrace)
-                nodes.append(FlatTreeNode(id: "\(path)_close", indent: indent, path: "",
-                                         isCollapsible: false, isCollapsed: false, content: closeText))
+                nodes.append(FlatTreeNode(
+                    id: "\(path)_close", indent: indent, path: "",
+                    isCollapsible: false, isCollapsed: false,
+                    valueType: nil, rawValue: nil,
+                    key: nil, displayValue: nil, childCount: nil,
+                    isClosingBracket: true, content: closeText
+                ))
             }
             
         } else {
             // Leaf node
+            let leafType = detectValueType(value)
+            let rawStr = leafRawValue(value)
+            let displayStr = leafDisplayValue(value)
+            
+            // Determine key for array items
+            let nodeKey: String?
+            if let key = key {
+                nodeKey = key
+            } else {
+                // Array item — extract index from path
+                if let bracketRange = path.range(of: "[", options: .backwards) {
+                    nodeKey = String(path[bracketRange.lowerBound...])
+                } else {
+                    nodeKey = nil
+                }
+            }
+            
+            // Legacy content for JSONViewer compat
             var leafContent = Text("")
             if let key = key {
-                // Highlight matching keys
                 if !searchTerm.isEmpty && key.localizedCaseInsensitiveContains(searchTerm) {
                     leafContent = Text("\"\(key)\"").foregroundColor(.ttJsonKey).bold().underline() +
                         Text(" : ").foregroundColor(.ttJsonBrace)
@@ -308,16 +360,56 @@ enum JSONTreeFlattener {
                         Text(" : ").foregroundColor(.ttJsonBrace)
                 }
             }
-            
             leafContent = leafContent + leafText(value, searchTerm: searchTerm)
-            
             if !isLast {
                 leafContent = leafContent + Text(",").foregroundColor(.ttJsonBrace)
             }
             
-            nodes.append(FlatTreeNode(id: path, indent: indent, path: path,
-                                     isCollapsible: false, isCollapsed: false, content: leafContent))
+            nodes.append(FlatTreeNode(
+                id: path, indent: indent, path: path,
+                isCollapsible: false, isCollapsed: false,
+                valueType: leafType, rawValue: rawStr,
+                key: nodeKey, displayValue: displayStr,
+                childCount: nil, isClosingBracket: false,
+                content: leafContent
+            ))
         }
+    }
+    
+    private static func detectValueType(_ value: Any) -> JSONValueType {
+        if value is String { return .string }
+        if let num = value as? NSNumber {
+            if CFBooleanGetTypeID() == CFGetTypeID(num) {
+                return .boolean(num.boolValue)
+            }
+            return .number
+        }
+        if value is NSNull { return .null }
+        return .string // fallback
+    }
+    
+    private static func leafRawValue(_ value: Any) -> String {
+        if let str = value as? String { return str }
+        if let num = value as? NSNumber {
+            if CFBooleanGetTypeID() == CFGetTypeID(num) {
+                return num.boolValue ? "true" : "false"
+            }
+            return "\(num)"
+        }
+        if value is NSNull { return "null" }
+        return "\(value)"
+    }
+    
+    private static func leafDisplayValue(_ value: Any) -> String {
+        if let str = value as? String { return str }
+        if let num = value as? NSNumber {
+            if CFBooleanGetTypeID() == CFGetTypeID(num) {
+                return num.boolValue ? "true" : "false"
+            }
+            return "\(num)"
+        }
+        if value is NSNull { return "null" }
+        return "\(value)"
     }
     
     private static func leafText(_ value: Any, searchTerm: String) -> Text {
@@ -336,6 +428,124 @@ enum JSONTreeFlattener {
             return Text("null").foregroundColor(.ttJsonNull).italic()
         }
         return Text("\(value)").foregroundColor(.ttTextPrimary)
+    }
+}
+
+// MARK: - NSAttributedString-based JSON Highlighter (for NSTextView, large payloads)
+/// Uses regex-based token matching on pretty-printed JSON.
+/// Produces a single NSAttributedString — no SwiftUI view nodes, O(n) performance.
+enum JSONAttributedHighlighter {
+    
+    /// Highlight JSON string and return NSAttributedString. Safe for background thread.
+    static func highlight(_ jsonString: String, searchTerm: String = "") -> NSAttributedString {
+        // Pretty-print JSON first
+        let prettyJSON: String
+        if let data = jsonString.data(using: .utf8),
+           let obj = try? JSONSerialization.jsonObject(with: data, options: .fragmentsAllowed),
+           let pretty = try? JSONSerialization.data(withJSONObject: obj, options: [.prettyPrinted, .sortedKeys]),
+           let str = String(data: pretty, encoding: .utf8) {
+            prettyJSON = str
+        } else {
+            prettyJSON = jsonString
+        }
+        
+        let defaultAttrs: [NSAttributedString.Key: Any] = [
+            .font: NSFont.monospacedSystemFont(ofSize: 12, weight: .regular),
+            .foregroundColor: NSColor(Color.ttTextPrimary)
+        ]
+        
+        let result = NSMutableAttributedString(string: prettyJSON, attributes: defaultAttrs)
+        let fullRange = NSRange(location: 0, length: result.length)
+        
+        // 1. Highlight strings (keys and values)
+        applyRegex("\"(?:[^\"\\\\]|\\\\.)*\"", to: result, in: fullRange) { matchRange in
+            // Check if this string is a key (followed by ' :')
+            let afterMatch = matchRange.location + matchRange.length
+            let isKey: Bool
+            if afterMatch + 2 <= result.length {
+                let afterStr = (result.string as NSString).substring(with: NSRange(location: afterMatch, length: min(3, result.length - afterMatch)))
+                isKey = afterStr.hasPrefix(" :")
+            } else {
+                isKey = false
+            }
+            return [.foregroundColor: isKey ? NSColor(Color.ttJsonKey) : NSColor(Color.ttJsonString)]
+        }
+        
+        // 2. Highlight numbers (standalone, not inside strings)
+        applyRegex("(?<=[ :\\[,])(-?\\d+\\.?\\d*(?:[eE][+-]?\\d+)?)(?=[,\\s\\]\\}])", to: result, in: fullRange) { _ in
+            [.foregroundColor: NSColor(Color.ttJsonNumber)]
+        }
+        
+        // 3. Highlight booleans
+        applyRegex("(?<=[ :\\[,])(true|false)(?=[,\\s\\]\\}])", to: result, in: fullRange) { _ in
+            [.foregroundColor: NSColor(Color.ttJsonBool)]
+        }
+        
+        // 4. Highlight null
+        applyRegex("(?<=[ :\\[,])(null)(?=[,\\s\\]\\}])", to: result, in: fullRange) { _ in
+            [
+                .foregroundColor: NSColor(Color.ttJsonNull),
+                .obliqueness: 0.15 as NSNumber  // Italic effect
+            ]
+        }
+        
+        // 5. Highlight braces/brackets
+        applyRegex("[{}\\[\\]]", to: result, in: fullRange) { _ in
+            [.foregroundColor: NSColor(Color.ttJsonBrace)]
+        }
+        
+        // 6. Highlight colons and commas
+        applyRegex("[,:]", to: result, in: fullRange) { _ in
+            [.foregroundColor: NSColor(Color.ttJsonBrace)]
+        }
+        
+        // 7. Search term highlighting
+        if !searchTerm.isEmpty {
+            highlightSearchTerm(searchTerm, in: result)
+        }
+        
+        return result
+    }
+    
+    // MARK: - Regex Helper
+    
+    private static func applyRegex(
+        _ pattern: String,
+        to attrStr: NSMutableAttributedString,
+        in range: NSRange,
+        attributes: (NSRange) -> [NSAttributedString.Key: Any]
+    ) {
+        guard let regex = try? NSRegularExpression(pattern: pattern, options: []) else { return }
+        let matches = regex.matches(in: attrStr.string, options: [], range: range)
+        for match in matches {
+            let attrs = attributes(match.range)
+            attrStr.addAttributes(attrs, range: match.range)
+        }
+    }
+    
+    // MARK: - Search Highlight
+    
+    private static func highlightSearchTerm(_ term: String, in attrStr: NSMutableAttributedString) {
+        let searchStr = attrStr.string as NSString
+        var searchRange = NSRange(location: 0, length: searchStr.length)
+        
+        while searchRange.location < searchStr.length {
+            let foundRange = searchStr.range(
+                of: term,
+                options: .caseInsensitive,
+                range: searchRange
+            )
+            
+            if foundRange.location == NSNotFound { break }
+            
+            attrStr.addAttributes([
+                .backgroundColor: NSColor(Color.ttPrimary).withAlphaComponent(0.3),
+                .underlineStyle: NSUnderlineStyle.single.rawValue
+            ], range: foundRange)
+            
+            searchRange.location = foundRange.location + foundRange.length
+            searchRange.length = searchStr.length - searchRange.location
+        }
     }
 }
 

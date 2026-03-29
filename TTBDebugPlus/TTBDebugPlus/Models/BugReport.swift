@@ -198,7 +198,11 @@ final class BugReportStorage {
     private let fileManager = FileManager.default
     
     var storageDirectory: URL {
-        let appSupport = fileManager.urls(for: .applicationSupportDirectory, in: .userDomainMask).first!
+        guard let appSupport = fileManager.urls(for: .applicationSupportDirectory, in: .userDomainMask).first else {
+            let fallback = FileManager.default.temporaryDirectory.appendingPathComponent("TTBDebugPlus/BugReports")
+            try? fileManager.createDirectory(at: fallback, withIntermediateDirectories: true)
+            return fallback
+        }
         let dir = appSupport.appendingPathComponent("TTBDebugPlus/BugReports")
         try? fileManager.createDirectory(at: dir, withIntermediateDirectories: true)
         return dir

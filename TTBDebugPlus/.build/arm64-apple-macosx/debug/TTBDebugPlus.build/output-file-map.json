@@ -9,6 +9,20 @@
     "swift-dependencies": "/Volumes/DataStore/S.JOB/J.PROJECT/P.BUILD_LIB/TTBaseUIKit/TTBDebugPlus/.build/arm64-apple-macosx/debug/TTBDebugPlus.build/EmptyStateView.swiftdeps",
     "diagnostics": "/Volumes/DataStore/S.JOB/J.PROJECT/P.BUILD_LIB/TTBaseUIKit/TTBDebugPlus/.build/arm64-apple-macosx/debug/TTBDebugPlus.build/EmptyStateView.dia"
   },
+  "/Volumes/DataStore/S.JOB/J.PROJECT/P.BUILD_LIB/TTBaseUIKit/TTBDebugPlus/TTBDebugPlus/Components/MenuBar/MenuBarDeviceRow.swift": {
+    "dependencies": "/Volumes/DataStore/S.JOB/J.PROJECT/P.BUILD_LIB/TTBaseUIKit/TTBDebugPlus/.build/arm64-apple-macosx/debug/TTBDebugPlus.build/MenuBarDeviceRow.d",
+    "object": "/Volumes/DataStore/S.JOB/J.PROJECT/P.BUILD_LIB/TTBaseUIKit/TTBDebugPlus/.build/arm64-apple-macosx/debug/TTBDebugPlus.build/MenuBarDeviceRow.swift.o",
+    "swiftmodule": "/Volumes/DataStore/S.JOB/J.PROJECT/P.BUILD_LIB/TTBaseUIKit/TTBDebugPlus/.build/arm64-apple-macosx/debug/TTBDebugPlus.build/MenuBarDeviceRow~partial.swiftmodule",
+    "swift-dependencies": "/Volumes/DataStore/S.JOB/J.PROJECT/P.BUILD_LIB/TTBaseUIKit/TTBDebugPlus/.build/arm64-apple-macosx/debug/TTBDebugPlus.build/MenuBarDeviceRow.swiftdeps",
+    "diagnostics": "/Volumes/DataStore/S.JOB/J.PROJECT/P.BUILD_LIB/TTBaseUIKit/TTBDebugPlus/.build/arm64-apple-macosx/debug/TTBDebugPlus.build/MenuBarDeviceRow.dia"
+  },
+  "/Volumes/DataStore/S.JOB/J.PROJECT/P.BUILD_LIB/TTBaseUIKit/TTBDebugPlus/TTBDebugPlus/Components/MenuBar/MenuBarView.swift": {
+    "dependencies": "/Volumes/DataStore/S.JOB/J.PROJECT/P.BUILD_LIB/TTBaseUIKit/TTBDebugPlus/.build/arm64-apple-macosx/debug/TTBDebugPlus.build/MenuBarView.d",
+    "object": "/Volumes/DataStore/S.JOB/J.PROJECT/P.BUILD_LIB/TTBaseUIKit/TTBDebugPlus/.build/arm64-apple-macosx/debug/TTBDebugPlus.build/MenuBarView.swift.o",
+    "swiftmodule": "/Volumes/DataStore/S.JOB/J.PROJECT/P.BUILD_LIB/TTBaseUIKit/TTBDebugPlus/.build/arm64-apple-macosx/debug/TTBDebugPlus.build/MenuBarView~partial.swiftmodule",
+    "swift-dependencies": "/Volumes/DataStore/S.JOB/J.PROJECT/P.BUILD_LIB/TTBaseUIKit/TTBDebugPlus/.build/arm64-apple-macosx/debug/TTBDebugPlus.build/MenuBarView.swiftdeps",
+    "diagnostics": "/Volumes/DataStore/S.JOB/J.PROJECT/P.BUILD_LIB/TTBaseUIKit/TTBDebugPlus/.build/arm64-apple-macosx/debug/TTBDebugPlus.build/MenuBarView.dia"
+  },
   "/Volumes/DataStore/S.JOB/J.PROJECT/P.BUILD_LIB/TTBaseUIKit/TTBDebugPlus/TTBDebugPlus/Components/StatusBarView.swift": {
     "dependencies": "/Volumes/DataStore/S.JOB/J.PROJECT/P.BUILD_LIB/TTBaseUIKit/TTBDebugPlus/.build/arm64-apple-macosx/debug/TTBDebugPlus.build/StatusBarView.d",
     "object": "/Volumes/DataStore/S.JOB/J.PROJECT/P.BUILD_LIB/TTBaseUIKit/TTBDebugPlus/.build/arm64-apple-macosx/debug/TTBDebugPlus.build/StatusBarView.swift.o",
@@ -29,6 +43,13 @@
     "swiftmodule": "/Volumes/DataStore/S.JOB/J.PROJECT/P.BUILD_LIB/TTBaseUIKit/TTBDebugPlus/.build/arm64-apple-macosx/debug/TTBDebugPlus.build/ContentView~partial.swiftmodule",
     "swift-dependencies": "/Volumes/DataStore/S.JOB/J.PROJECT/P.BUILD_LIB/TTBaseUIKit/TTBDebugPlus/.build/arm64-apple-macosx/debug/TTBDebugPlus.build/ContentView.swiftdeps",
     "diagnostics": "/Volumes/DataStore/S.JOB/J.PROJECT/P.BUILD_LIB/TTBaseUIKit/TTBDebugPlus/.build/arm64-apple-macosx/debug/TTBDebugPlus.build/ContentView.dia"
+  },
+  "/Volumes/DataStore/S.JOB/J.PROJECT/P.BUILD_LIB/TTBaseUIKit/TTBDebugPlus/TTBDebugPlus/DesignSystem/Animations.swift": {
+    "dependencies": "/Volumes/DataStore/S.JOB/J.PROJECT/P.BUILD_LIB/TTBaseUIKit/TTBDebugPlus/.build/arm64-apple-macosx/debug/TTBDebugPlus.build/Animations.d",
+    "object": "/Volumes/DataStore/S.JOB/J.PROJECT/P.BUILD_LIB/TTBaseUIKit/TTBDebugPlus/.build/arm64-apple-macosx/debug/TTBDebugPlus.build/Animations.swift.o",
+    "swiftmodule": "/Volumes/DataStore/S.JOB/J.PROJECT/P.BUILD_LIB/TTBaseUIKit/TTBDebugPlus/.build/arm64-apple-macosx/debug/TTBDebugPlus.build/Animations~partial.swiftmodule",
+    "swift-dependencies": "/Volumes/DataStore/S.JOB/J.PROJECT/P.BUILD_LIB/TTBaseUIKit/TTBDebugPlus/.build/arm64-apple-macosx/debug/TTBDebugPlus.build/Animations.swiftdeps",
+    "diagnostics": "/Volumes/DataStore/S.JOB/J.PROJECT/P.BUILD_LIB/TTBaseUIKit/TTBDebugPlus/.build/arm64-apple-macosx/debug/TTBDebugPlus.build/Animations.dia"
   },
   "/Volumes/DataStore/S.JOB/J.PROJECT/P.BUILD_LIB/TTBaseUIKit/TTBDebugPlus/TTBDebugPlus/DesignSystem/ButtonStyles.swift": {
     "dependencies": "/Volumes/DataStore/S.JOB/J.PROJECT/P.BUILD_LIB/TTBaseUIKit/TTBDebugPlus/.build/arm64-apple-macosx/debug/TTBDebugPlus.build/ButtonStyles.d",
@@ -51,6 +72,41 @@
     "swift-dependencies": "/Volumes/DataStore/S.JOB/J.PROJECT/P.BUILD_LIB/TTBaseUIKit/TTBDebugPlus/.build/arm64-apple-macosx/debug/TTBDebugPlus.build/Colors.swiftdeps",
     "diagnostics": "/Volumes/DataStore/S.JOB/J.PROJECT/P.BUILD_LIB/TTBaseUIKit/TTBDebugPlus/.build/arm64-apple-macosx/debug/TTBDebugPlus.build/Colors.dia"
   },
+  "/Volumes/DataStore/S.JOB/J.PROJECT/P.BUILD_LIB/TTBaseUIKit/TTBDebugPlus/TTBDebugPlus/DesignSystem/DateFormatters.swift": {
+    "dependencies": "/Volumes/DataStore/S.JOB/J.PROJECT/P.BUILD_LIB/TTBaseUIKit/TTBDebugPlus/.build/arm64-apple-macosx/debug/TTBDebugPlus.build/DateFormatters.d",
+    "object": "/Volumes/DataStore/S.JOB/J.PROJECT/P.BUILD_LIB/TTBaseUIKit/TTBDebugPlus/.build/arm64-apple-macosx/debug/TTBDebugPlus.build/DateFormatters.swift.o",
+    "swiftmodule": "/Volumes/DataStore/S.JOB/J.PROJECT/P.BUILD_LIB/TTBaseUIKit/TTBDebugPlus/.build/arm64-apple-macosx/debug/TTBDebugPlus.build/DateFormatters~partial.swiftmodule",
+    "swift-dependencies": "/Volumes/DataStore/S.JOB/J.PROJECT/P.BUILD_LIB/TTBaseUIKit/TTBDebugPlus/.build/arm64-apple-macosx/debug/TTBDebugPlus.build/DateFormatters.swiftdeps",
+    "diagnostics": "/Volumes/DataStore/S.JOB/J.PROJECT/P.BUILD_LIB/TTBaseUIKit/TTBDebugPlus/.build/arm64-apple-macosx/debug/TTBDebugPlus.build/DateFormatters.dia"
+  },
+  "/Volumes/DataStore/S.JOB/J.PROJECT/P.BUILD_LIB/TTBaseUIKit/TTBDebugPlus/TTBDebugPlus/DesignSystem/IconSizes.swift": {
+    "dependencies": "/Volumes/DataStore/S.JOB/J.PROJECT/P.BUILD_LIB/TTBaseUIKit/TTBDebugPlus/.build/arm64-apple-macosx/debug/TTBDebugPlus.build/IconSizes.d",
+    "object": "/Volumes/DataStore/S.JOB/J.PROJECT/P.BUILD_LIB/TTBaseUIKit/TTBDebugPlus/.build/arm64-apple-macosx/debug/TTBDebugPlus.build/IconSizes.swift.o",
+    "swiftmodule": "/Volumes/DataStore/S.JOB/J.PROJECT/P.BUILD_LIB/TTBaseUIKit/TTBDebugPlus/.build/arm64-apple-macosx/debug/TTBDebugPlus.build/IconSizes~partial.swiftmodule",
+    "swift-dependencies": "/Volumes/DataStore/S.JOB/J.PROJECT/P.BUILD_LIB/TTBaseUIKit/TTBDebugPlus/.build/arm64-apple-macosx/debug/TTBDebugPlus.build/IconSizes.swiftdeps",
+    "diagnostics": "/Volumes/DataStore/S.JOB/J.PROJECT/P.BUILD_LIB/TTBaseUIKit/TTBDebugPlus/.build/arm64-apple-macosx/debug/TTBDebugPlus.build/IconSizes.dia"
+  },
+  "/Volumes/DataStore/S.JOB/J.PROJECT/P.BUILD_LIB/TTBaseUIKit/TTBDebugPlus/TTBDebugPlus/DesignSystem/Radius.swift": {
+    "dependencies": "/Volumes/DataStore/S.JOB/J.PROJECT/P.BUILD_LIB/TTBaseUIKit/TTBDebugPlus/.build/arm64-apple-macosx/debug/TTBDebugPlus.build/Radius.d",
+    "object": "/Volumes/DataStore/S.JOB/J.PROJECT/P.BUILD_LIB/TTBaseUIKit/TTBDebugPlus/.build/arm64-apple-macosx/debug/TTBDebugPlus.build/Radius.swift.o",
+    "swiftmodule": "/Volumes/DataStore/S.JOB/J.PROJECT/P.BUILD_LIB/TTBaseUIKit/TTBDebugPlus/.build/arm64-apple-macosx/debug/TTBDebugPlus.build/Radius~partial.swiftmodule",
+    "swift-dependencies": "/Volumes/DataStore/S.JOB/J.PROJECT/P.BUILD_LIB/TTBaseUIKit/TTBDebugPlus/.build/arm64-apple-macosx/debug/TTBDebugPlus.build/Radius.swiftdeps",
+    "diagnostics": "/Volumes/DataStore/S.JOB/J.PROJECT/P.BUILD_LIB/TTBaseUIKit/TTBDebugPlus/.build/arm64-apple-macosx/debug/TTBDebugPlus.build/Radius.dia"
+  },
+  "/Volumes/DataStore/S.JOB/J.PROJECT/P.BUILD_LIB/TTBaseUIKit/TTBDebugPlus/TTBDebugPlus/DesignSystem/Shadows.swift": {
+    "dependencies": "/Volumes/DataStore/S.JOB/J.PROJECT/P.BUILD_LIB/TTBaseUIKit/TTBDebugPlus/.build/arm64-apple-macosx/debug/TTBDebugPlus.build/Shadows.d",
+    "object": "/Volumes/DataStore/S.JOB/J.PROJECT/P.BUILD_LIB/TTBaseUIKit/TTBDebugPlus/.build/arm64-apple-macosx/debug/TTBDebugPlus.build/Shadows.swift.o",
+    "swiftmodule": "/Volumes/DataStore/S.JOB/J.PROJECT/P.BUILD_LIB/TTBaseUIKit/TTBDebugPlus/.build/arm64-apple-macosx/debug/TTBDebugPlus.build/Shadows~partial.swiftmodule",
+    "swift-dependencies": "/Volumes/DataStore/S.JOB/J.PROJECT/P.BUILD_LIB/TTBaseUIKit/TTBDebugPlus/.build/arm64-apple-macosx/debug/TTBDebugPlus.build/Shadows.swiftdeps",
+    "diagnostics": "/Volumes/DataStore/S.JOB/J.PROJECT/P.BUILD_LIB/TTBaseUIKit/TTBDebugPlus/.build/arm64-apple-macosx/debug/TTBDebugPlus.build/Shadows.dia"
+  },
+  "/Volumes/DataStore/S.JOB/J.PROJECT/P.BUILD_LIB/TTBaseUIKit/TTBDebugPlus/TTBDebugPlus/DesignSystem/Spacing.swift": {
+    "dependencies": "/Volumes/DataStore/S.JOB/J.PROJECT/P.BUILD_LIB/TTBaseUIKit/TTBDebugPlus/.build/arm64-apple-macosx/debug/TTBDebugPlus.build/Spacing.d",
+    "object": "/Volumes/DataStore/S.JOB/J.PROJECT/P.BUILD_LIB/TTBaseUIKit/TTBDebugPlus/.build/arm64-apple-macosx/debug/TTBDebugPlus.build/Spacing.swift.o",
+    "swiftmodule": "/Volumes/DataStore/S.JOB/J.PROJECT/P.BUILD_LIB/TTBaseUIKit/TTBDebugPlus/.build/arm64-apple-macosx/debug/TTBDebugPlus.build/Spacing~partial.swiftmodule",
+    "swift-dependencies": "/Volumes/DataStore/S.JOB/J.PROJECT/P.BUILD_LIB/TTBaseUIKit/TTBDebugPlus/.build/arm64-apple-macosx/debug/TTBDebugPlus.build/Spacing.swiftdeps",
+    "diagnostics": "/Volumes/DataStore/S.JOB/J.PROJECT/P.BUILD_LIB/TTBaseUIKit/TTBDebugPlus/.build/arm64-apple-macosx/debug/TTBDebugPlus.build/Spacing.dia"
+  },
   "/Volumes/DataStore/S.JOB/J.PROJECT/P.BUILD_LIB/TTBaseUIKit/TTBDebugPlus/TTBDebugPlus/DesignSystem/Typography.swift": {
     "dependencies": "/Volumes/DataStore/S.JOB/J.PROJECT/P.BUILD_LIB/TTBaseUIKit/TTBDebugPlus/.build/arm64-apple-macosx/debug/TTBDebugPlus.build/Typography.d",
     "object": "/Volumes/DataStore/S.JOB/J.PROJECT/P.BUILD_LIB/TTBaseUIKit/TTBDebugPlus/.build/arm64-apple-macosx/debug/TTBDebugPlus.build/Typography.swift.o",
@@ -71,6 +127,20 @@
     "swiftmodule": "/Volumes/DataStore/S.JOB/J.PROJECT/P.BUILD_LIB/TTBaseUIKit/TTBDebugPlus/.build/arm64-apple-macosx/debug/TTBDebugPlus.build/BugReport~partial.swiftmodule",
     "swift-dependencies": "/Volumes/DataStore/S.JOB/J.PROJECT/P.BUILD_LIB/TTBaseUIKit/TTBDebugPlus/.build/arm64-apple-macosx/debug/TTBDebugPlus.build/BugReport.swiftdeps",
     "diagnostics": "/Volumes/DataStore/S.JOB/J.PROJECT/P.BUILD_LIB/TTBaseUIKit/TTBDebugPlus/.build/arm64-apple-macosx/debug/TTBDebugPlus.build/BugReport.dia"
+  },
+  "/Volumes/DataStore/S.JOB/J.PROJECT/P.BUILD_LIB/TTBaseUIKit/TTBDebugPlus/TTBDebugPlus/Models/JSONEditorModels.swift": {
+    "dependencies": "/Volumes/DataStore/S.JOB/J.PROJECT/P.BUILD_LIB/TTBaseUIKit/TTBDebugPlus/.build/arm64-apple-macosx/debug/TTBDebugPlus.build/JSONEditorModels.d",
+    "object": "/Volumes/DataStore/S.JOB/J.PROJECT/P.BUILD_LIB/TTBaseUIKit/TTBDebugPlus/.build/arm64-apple-macosx/debug/TTBDebugPlus.build/JSONEditorModels.swift.o",
+    "swiftmodule": "/Volumes/DataStore/S.JOB/J.PROJECT/P.BUILD_LIB/TTBaseUIKit/TTBDebugPlus/.build/arm64-apple-macosx/debug/TTBDebugPlus.build/JSONEditorModels~partial.swiftmodule",
+    "swift-dependencies": "/Volumes/DataStore/S.JOB/J.PROJECT/P.BUILD_LIB/TTBaseUIKit/TTBDebugPlus/.build/arm64-apple-macosx/debug/TTBDebugPlus.build/JSONEditorModels.swiftdeps",
+    "diagnostics": "/Volumes/DataStore/S.JOB/J.PROJECT/P.BUILD_LIB/TTBaseUIKit/TTBDebugPlus/.build/arm64-apple-macosx/debug/TTBDebugPlus.build/JSONEditorModels.dia"
+  },
+  "/Volumes/DataStore/S.JOB/J.PROJECT/P.BUILD_LIB/TTBaseUIKit/TTBDebugPlus/TTBDebugPlus/Models/JSONGraphModels.swift": {
+    "dependencies": "/Volumes/DataStore/S.JOB/J.PROJECT/P.BUILD_LIB/TTBaseUIKit/TTBDebugPlus/.build/arm64-apple-macosx/debug/TTBDebugPlus.build/JSONGraphModels.d",
+    "object": "/Volumes/DataStore/S.JOB/J.PROJECT/P.BUILD_LIB/TTBaseUIKit/TTBDebugPlus/.build/arm64-apple-macosx/debug/TTBDebugPlus.build/JSONGraphModels.swift.o",
+    "swiftmodule": "/Volumes/DataStore/S.JOB/J.PROJECT/P.BUILD_LIB/TTBaseUIKit/TTBDebugPlus/.build/arm64-apple-macosx/debug/TTBDebugPlus.build/JSONGraphModels~partial.swiftmodule",
+    "swift-dependencies": "/Volumes/DataStore/S.JOB/J.PROJECT/P.BUILD_LIB/TTBaseUIKit/TTBDebugPlus/.build/arm64-apple-macosx/debug/TTBDebugPlus.build/JSONGraphModels.swiftdeps",
+    "diagnostics": "/Volumes/DataStore/S.JOB/J.PROJECT/P.BUILD_LIB/TTBaseUIKit/TTBDebugPlus/.build/arm64-apple-macosx/debug/TTBDebugPlus.build/JSONGraphModels.dia"
   },
   "/Volumes/DataStore/S.JOB/J.PROJECT/P.BUILD_LIB/TTBaseUIKit/TTBDebugPlus/TTBDebugPlus/Services/Communication/DeviceSession.swift": {
     "dependencies": "/Volumes/DataStore/S.JOB/J.PROJECT/P.BUILD_LIB/TTBaseUIKit/TTBDebugPlus/.build/arm64-apple-macosx/debug/TTBDebugPlus.build/DeviceSession.d",
@@ -121,6 +191,13 @@
     "swift-dependencies": "/Volumes/DataStore/S.JOB/J.PROJECT/P.BUILD_LIB/TTBaseUIKit/TTBDebugPlus/.build/arm64-apple-macosx/debug/TTBDebugPlus.build/SessionManager.swiftdeps",
     "diagnostics": "/Volumes/DataStore/S.JOB/J.PROJECT/P.BUILD_LIB/TTBaseUIKit/TTBDebugPlus/.build/arm64-apple-macosx/debug/TTBDebugPlus.build/SessionManager.dia"
   },
+  "/Volumes/DataStore/S.JOB/J.PROJECT/P.BUILD_LIB/TTBaseUIKit/TTBDebugPlus/TTBDebugPlus/Services/Storage/StorageManager.swift": {
+    "dependencies": "/Volumes/DataStore/S.JOB/J.PROJECT/P.BUILD_LIB/TTBaseUIKit/TTBDebugPlus/.build/arm64-apple-macosx/debug/TTBDebugPlus.build/StorageManager.d",
+    "object": "/Volumes/DataStore/S.JOB/J.PROJECT/P.BUILD_LIB/TTBaseUIKit/TTBDebugPlus/.build/arm64-apple-macosx/debug/TTBDebugPlus.build/StorageManager.swift.o",
+    "swiftmodule": "/Volumes/DataStore/S.JOB/J.PROJECT/P.BUILD_LIB/TTBaseUIKit/TTBDebugPlus/.build/arm64-apple-macosx/debug/TTBDebugPlus.build/StorageManager~partial.swiftmodule",
+    "swift-dependencies": "/Volumes/DataStore/S.JOB/J.PROJECT/P.BUILD_LIB/TTBaseUIKit/TTBDebugPlus/.build/arm64-apple-macosx/debug/TTBDebugPlus.build/StorageManager.swiftdeps",
+    "diagnostics": "/Volumes/DataStore/S.JOB/J.PROJECT/P.BUILD_LIB/TTBaseUIKit/TTBDebugPlus/.build/arm64-apple-macosx/debug/TTBDebugPlus.build/StorageManager.dia"
+  },
   "/Volumes/DataStore/S.JOB/J.PROJECT/P.BUILD_LIB/TTBaseUIKit/TTBDebugPlus/TTBDebugPlus/TTBDebugPlusApp.swift": {
     "dependencies": "/Volumes/DataStore/S.JOB/J.PROJECT/P.BUILD_LIB/TTBaseUIKit/TTBDebugPlus/.build/arm64-apple-macosx/debug/TTBDebugPlus.build/TTBDebugPlusApp.d",
     "object": "/Volumes/DataStore/S.JOB/J.PROJECT/P.BUILD_LIB/TTBaseUIKit/TTBDebugPlus/.build/arm64-apple-macosx/debug/TTBDebugPlus.build/TTBDebugPlusApp.swift.o",
@@ -141,6 +218,34 @@
     "swiftmodule": "/Volumes/DataStore/S.JOB/J.PROJECT/P.BUILD_LIB/TTBaseUIKit/TTBDebugPlus/.build/arm64-apple-macosx/debug/TTBDebugPlus.build/FeedbackViewModel~partial.swiftmodule",
     "swift-dependencies": "/Volumes/DataStore/S.JOB/J.PROJECT/P.BUILD_LIB/TTBaseUIKit/TTBDebugPlus/.build/arm64-apple-macosx/debug/TTBDebugPlus.build/FeedbackViewModel.swiftdeps",
     "diagnostics": "/Volumes/DataStore/S.JOB/J.PROJECT/P.BUILD_LIB/TTBaseUIKit/TTBDebugPlus/.build/arm64-apple-macosx/debug/TTBDebugPlus.build/FeedbackViewModel.dia"
+  },
+  "/Volumes/DataStore/S.JOB/J.PROJECT/P.BUILD_LIB/TTBaseUIKit/TTBDebugPlus/TTBDebugPlus/ViewModels/JSONConvertEngine.swift": {
+    "dependencies": "/Volumes/DataStore/S.JOB/J.PROJECT/P.BUILD_LIB/TTBaseUIKit/TTBDebugPlus/.build/arm64-apple-macosx/debug/TTBDebugPlus.build/JSONConvertEngine.d",
+    "object": "/Volumes/DataStore/S.JOB/J.PROJECT/P.BUILD_LIB/TTBaseUIKit/TTBDebugPlus/.build/arm64-apple-macosx/debug/TTBDebugPlus.build/JSONConvertEngine.swift.o",
+    "swiftmodule": "/Volumes/DataStore/S.JOB/J.PROJECT/P.BUILD_LIB/TTBaseUIKit/TTBDebugPlus/.build/arm64-apple-macosx/debug/TTBDebugPlus.build/JSONConvertEngine~partial.swiftmodule",
+    "swift-dependencies": "/Volumes/DataStore/S.JOB/J.PROJECT/P.BUILD_LIB/TTBaseUIKit/TTBDebugPlus/.build/arm64-apple-macosx/debug/TTBDebugPlus.build/JSONConvertEngine.swiftdeps",
+    "diagnostics": "/Volumes/DataStore/S.JOB/J.PROJECT/P.BUILD_LIB/TTBaseUIKit/TTBDebugPlus/.build/arm64-apple-macosx/debug/TTBDebugPlus.build/JSONConvertEngine.dia"
+  },
+  "/Volumes/DataStore/S.JOB/J.PROJECT/P.BUILD_LIB/TTBaseUIKit/TTBDebugPlus/TTBDebugPlus/ViewModels/JSONDiffEngine.swift": {
+    "dependencies": "/Volumes/DataStore/S.JOB/J.PROJECT/P.BUILD_LIB/TTBaseUIKit/TTBDebugPlus/.build/arm64-apple-macosx/debug/TTBDebugPlus.build/JSONDiffEngine.d",
+    "object": "/Volumes/DataStore/S.JOB/J.PROJECT/P.BUILD_LIB/TTBaseUIKit/TTBDebugPlus/.build/arm64-apple-macosx/debug/TTBDebugPlus.build/JSONDiffEngine.swift.o",
+    "swiftmodule": "/Volumes/DataStore/S.JOB/J.PROJECT/P.BUILD_LIB/TTBaseUIKit/TTBDebugPlus/.build/arm64-apple-macosx/debug/TTBDebugPlus.build/JSONDiffEngine~partial.swiftmodule",
+    "swift-dependencies": "/Volumes/DataStore/S.JOB/J.PROJECT/P.BUILD_LIB/TTBaseUIKit/TTBDebugPlus/.build/arm64-apple-macosx/debug/TTBDebugPlus.build/JSONDiffEngine.swiftdeps",
+    "diagnostics": "/Volumes/DataStore/S.JOB/J.PROJECT/P.BUILD_LIB/TTBaseUIKit/TTBDebugPlus/.build/arm64-apple-macosx/debug/TTBDebugPlus.build/JSONDiffEngine.dia"
+  },
+  "/Volumes/DataStore/S.JOB/J.PROJECT/P.BUILD_LIB/TTBaseUIKit/TTBDebugPlus/TTBDebugPlus/ViewModels/JSONEditorViewModel.swift": {
+    "dependencies": "/Volumes/DataStore/S.JOB/J.PROJECT/P.BUILD_LIB/TTBaseUIKit/TTBDebugPlus/.build/arm64-apple-macosx/debug/TTBDebugPlus.build/JSONEditorViewModel.d",
+    "object": "/Volumes/DataStore/S.JOB/J.PROJECT/P.BUILD_LIB/TTBaseUIKit/TTBDebugPlus/.build/arm64-apple-macosx/debug/TTBDebugPlus.build/JSONEditorViewModel.swift.o",
+    "swiftmodule": "/Volumes/DataStore/S.JOB/J.PROJECT/P.BUILD_LIB/TTBaseUIKit/TTBDebugPlus/.build/arm64-apple-macosx/debug/TTBDebugPlus.build/JSONEditorViewModel~partial.swiftmodule",
+    "swift-dependencies": "/Volumes/DataStore/S.JOB/J.PROJECT/P.BUILD_LIB/TTBaseUIKit/TTBDebugPlus/.build/arm64-apple-macosx/debug/TTBDebugPlus.build/JSONEditorViewModel.swiftdeps",
+    "diagnostics": "/Volumes/DataStore/S.JOB/J.PROJECT/P.BUILD_LIB/TTBaseUIKit/TTBDebugPlus/.build/arm64-apple-macosx/debug/TTBDebugPlus.build/JSONEditorViewModel.dia"
+  },
+  "/Volumes/DataStore/S.JOB/J.PROJECT/P.BUILD_LIB/TTBaseUIKit/TTBDebugPlus/TTBDebugPlus/ViewModels/JSONQueryEngine.swift": {
+    "dependencies": "/Volumes/DataStore/S.JOB/J.PROJECT/P.BUILD_LIB/TTBaseUIKit/TTBDebugPlus/.build/arm64-apple-macosx/debug/TTBDebugPlus.build/JSONQueryEngine.d",
+    "object": "/Volumes/DataStore/S.JOB/J.PROJECT/P.BUILD_LIB/TTBaseUIKit/TTBDebugPlus/.build/arm64-apple-macosx/debug/TTBDebugPlus.build/JSONQueryEngine.swift.o",
+    "swiftmodule": "/Volumes/DataStore/S.JOB/J.PROJECT/P.BUILD_LIB/TTBaseUIKit/TTBDebugPlus/.build/arm64-apple-macosx/debug/TTBDebugPlus.build/JSONQueryEngine~partial.swiftmodule",
+    "swift-dependencies": "/Volumes/DataStore/S.JOB/J.PROJECT/P.BUILD_LIB/TTBaseUIKit/TTBDebugPlus/.build/arm64-apple-macosx/debug/TTBDebugPlus.build/JSONQueryEngine.swiftdeps",
+    "diagnostics": "/Volumes/DataStore/S.JOB/J.PROJECT/P.BUILD_LIB/TTBaseUIKit/TTBDebugPlus/.build/arm64-apple-macosx/debug/TTBDebugPlus.build/JSONQueryEngine.dia"
   },
   "/Volumes/DataStore/S.JOB/J.PROJECT/P.BUILD_LIB/TTBaseUIKit/TTBDebugPlus/TTBDebugPlus/ViewModels/NetworkViewModel.swift": {
     "dependencies": "/Volumes/DataStore/S.JOB/J.PROJECT/P.BUILD_LIB/TTBaseUIKit/TTBDebugPlus/.build/arm64-apple-macosx/debug/TTBDebugPlus.build/NetworkViewModel.d",
@@ -170,12 +275,89 @@
     "swift-dependencies": "/Volumes/DataStore/S.JOB/J.PROJECT/P.BUILD_LIB/TTBaseUIKit/TTBDebugPlus/.build/arm64-apple-macosx/debug/TTBDebugPlus.build/ConsoleView.swiftdeps",
     "diagnostics": "/Volumes/DataStore/S.JOB/J.PROJECT/P.BUILD_LIB/TTBaseUIKit/TTBDebugPlus/.build/arm64-apple-macosx/debug/TTBDebugPlus.build/ConsoleView.dia"
   },
+  "/Volumes/DataStore/S.JOB/J.PROJECT/P.BUILD_LIB/TTBaseUIKit/TTBDebugPlus/TTBDebugPlus/Views/DevTools/DevToolsView.swift": {
+    "dependencies": "/Volumes/DataStore/S.JOB/J.PROJECT/P.BUILD_LIB/TTBaseUIKit/TTBDebugPlus/.build/arm64-apple-macosx/debug/TTBDebugPlus.build/DevToolsView.d",
+    "object": "/Volumes/DataStore/S.JOB/J.PROJECT/P.BUILD_LIB/TTBaseUIKit/TTBDebugPlus/.build/arm64-apple-macosx/debug/TTBDebugPlus.build/DevToolsView.swift.o",
+    "swiftmodule": "/Volumes/DataStore/S.JOB/J.PROJECT/P.BUILD_LIB/TTBaseUIKit/TTBDebugPlus/.build/arm64-apple-macosx/debug/TTBDebugPlus.build/DevToolsView~partial.swiftmodule",
+    "swift-dependencies": "/Volumes/DataStore/S.JOB/J.PROJECT/P.BUILD_LIB/TTBaseUIKit/TTBDebugPlus/.build/arm64-apple-macosx/debug/TTBDebugPlus.build/DevToolsView.swiftdeps",
+    "diagnostics": "/Volumes/DataStore/S.JOB/J.PROJECT/P.BUILD_LIB/TTBaseUIKit/TTBDebugPlus/.build/arm64-apple-macosx/debug/TTBDebugPlus.build/DevToolsView.dia"
+  },
+  "/Volumes/DataStore/S.JOB/J.PROJECT/P.BUILD_LIB/TTBaseUIKit/TTBDebugPlus/TTBDebugPlus/Views/DevTools/JSONConvertView.swift": {
+    "dependencies": "/Volumes/DataStore/S.JOB/J.PROJECT/P.BUILD_LIB/TTBaseUIKit/TTBDebugPlus/.build/arm64-apple-macosx/debug/TTBDebugPlus.build/JSONConvertView.d",
+    "object": "/Volumes/DataStore/S.JOB/J.PROJECT/P.BUILD_LIB/TTBaseUIKit/TTBDebugPlus/.build/arm64-apple-macosx/debug/TTBDebugPlus.build/JSONConvertView.swift.o",
+    "swiftmodule": "/Volumes/DataStore/S.JOB/J.PROJECT/P.BUILD_LIB/TTBaseUIKit/TTBDebugPlus/.build/arm64-apple-macosx/debug/TTBDebugPlus.build/JSONConvertView~partial.swiftmodule",
+    "swift-dependencies": "/Volumes/DataStore/S.JOB/J.PROJECT/P.BUILD_LIB/TTBaseUIKit/TTBDebugPlus/.build/arm64-apple-macosx/debug/TTBDebugPlus.build/JSONConvertView.swiftdeps",
+    "diagnostics": "/Volumes/DataStore/S.JOB/J.PROJECT/P.BUILD_LIB/TTBaseUIKit/TTBDebugPlus/.build/arm64-apple-macosx/debug/TTBDebugPlus.build/JSONConvertView.dia"
+  },
+  "/Volumes/DataStore/S.JOB/J.PROJECT/P.BUILD_LIB/TTBaseUIKit/TTBDebugPlus/TTBDebugPlus/Views/DevTools/JSONDiffView.swift": {
+    "dependencies": "/Volumes/DataStore/S.JOB/J.PROJECT/P.BUILD_LIB/TTBaseUIKit/TTBDebugPlus/.build/arm64-apple-macosx/debug/TTBDebugPlus.build/JSONDiffView.d",
+    "object": "/Volumes/DataStore/S.JOB/J.PROJECT/P.BUILD_LIB/TTBaseUIKit/TTBDebugPlus/.build/arm64-apple-macosx/debug/TTBDebugPlus.build/JSONDiffView.swift.o",
+    "swiftmodule": "/Volumes/DataStore/S.JOB/J.PROJECT/P.BUILD_LIB/TTBaseUIKit/TTBDebugPlus/.build/arm64-apple-macosx/debug/TTBDebugPlus.build/JSONDiffView~partial.swiftmodule",
+    "swift-dependencies": "/Volumes/DataStore/S.JOB/J.PROJECT/P.BUILD_LIB/TTBaseUIKit/TTBDebugPlus/.build/arm64-apple-macosx/debug/TTBDebugPlus.build/JSONDiffView.swiftdeps",
+    "diagnostics": "/Volumes/DataStore/S.JOB/J.PROJECT/P.BUILD_LIB/TTBaseUIKit/TTBDebugPlus/.build/arm64-apple-macosx/debug/TTBDebugPlus.build/JSONDiffView.dia"
+  },
+  "/Volumes/DataStore/S.JOB/J.PROJECT/P.BUILD_LIB/TTBaseUIKit/TTBDebugPlus/TTBDebugPlus/Views/DevTools/JSONEditorCodeView.swift": {
+    "dependencies": "/Volumes/DataStore/S.JOB/J.PROJECT/P.BUILD_LIB/TTBaseUIKit/TTBDebugPlus/.build/arm64-apple-macosx/debug/TTBDebugPlus.build/JSONEditorCodeView.d",
+    "object": "/Volumes/DataStore/S.JOB/J.PROJECT/P.BUILD_LIB/TTBaseUIKit/TTBDebugPlus/.build/arm64-apple-macosx/debug/TTBDebugPlus.build/JSONEditorCodeView.swift.o",
+    "swiftmodule": "/Volumes/DataStore/S.JOB/J.PROJECT/P.BUILD_LIB/TTBaseUIKit/TTBDebugPlus/.build/arm64-apple-macosx/debug/TTBDebugPlus.build/JSONEditorCodeView~partial.swiftmodule",
+    "swift-dependencies": "/Volumes/DataStore/S.JOB/J.PROJECT/P.BUILD_LIB/TTBaseUIKit/TTBDebugPlus/.build/arm64-apple-macosx/debug/TTBDebugPlus.build/JSONEditorCodeView.swiftdeps",
+    "diagnostics": "/Volumes/DataStore/S.JOB/J.PROJECT/P.BUILD_LIB/TTBaseUIKit/TTBDebugPlus/.build/arm64-apple-macosx/debug/TTBDebugPlus.build/JSONEditorCodeView.dia"
+  },
+  "/Volumes/DataStore/S.JOB/J.PROJECT/P.BUILD_LIB/TTBaseUIKit/TTBDebugPlus/TTBDebugPlus/Views/DevTools/JSONEditorToolbar.swift": {
+    "dependencies": "/Volumes/DataStore/S.JOB/J.PROJECT/P.BUILD_LIB/TTBaseUIKit/TTBDebugPlus/.build/arm64-apple-macosx/debug/TTBDebugPlus.build/JSONEditorToolbar.d",
+    "object": "/Volumes/DataStore/S.JOB/J.PROJECT/P.BUILD_LIB/TTBaseUIKit/TTBDebugPlus/.build/arm64-apple-macosx/debug/TTBDebugPlus.build/JSONEditorToolbar.swift.o",
+    "swiftmodule": "/Volumes/DataStore/S.JOB/J.PROJECT/P.BUILD_LIB/TTBaseUIKit/TTBDebugPlus/.build/arm64-apple-macosx/debug/TTBDebugPlus.build/JSONEditorToolbar~partial.swiftmodule",
+    "swift-dependencies": "/Volumes/DataStore/S.JOB/J.PROJECT/P.BUILD_LIB/TTBaseUIKit/TTBDebugPlus/.build/arm64-apple-macosx/debug/TTBDebugPlus.build/JSONEditorToolbar.swiftdeps",
+    "diagnostics": "/Volumes/DataStore/S.JOB/J.PROJECT/P.BUILD_LIB/TTBaseUIKit/TTBDebugPlus/.build/arm64-apple-macosx/debug/TTBDebugPlus.build/JSONEditorToolbar.dia"
+  },
+  "/Volumes/DataStore/S.JOB/J.PROJECT/P.BUILD_LIB/TTBaseUIKit/TTBDebugPlus/TTBDebugPlus/Views/DevTools/JSONEditorTreeView.swift": {
+    "dependencies": "/Volumes/DataStore/S.JOB/J.PROJECT/P.BUILD_LIB/TTBaseUIKit/TTBDebugPlus/.build/arm64-apple-macosx/debug/TTBDebugPlus.build/JSONEditorTreeView.d",
+    "object": "/Volumes/DataStore/S.JOB/J.PROJECT/P.BUILD_LIB/TTBaseUIKit/TTBDebugPlus/.build/arm64-apple-macosx/debug/TTBDebugPlus.build/JSONEditorTreeView.swift.o",
+    "swiftmodule": "/Volumes/DataStore/S.JOB/J.PROJECT/P.BUILD_LIB/TTBaseUIKit/TTBDebugPlus/.build/arm64-apple-macosx/debug/TTBDebugPlus.build/JSONEditorTreeView~partial.swiftmodule",
+    "swift-dependencies": "/Volumes/DataStore/S.JOB/J.PROJECT/P.BUILD_LIB/TTBaseUIKit/TTBDebugPlus/.build/arm64-apple-macosx/debug/TTBDebugPlus.build/JSONEditorTreeView.swiftdeps",
+    "diagnostics": "/Volumes/DataStore/S.JOB/J.PROJECT/P.BUILD_LIB/TTBaseUIKit/TTBDebugPlus/.build/arm64-apple-macosx/debug/TTBDebugPlus.build/JSONEditorTreeView.dia"
+  },
+  "/Volumes/DataStore/S.JOB/J.PROJECT/P.BUILD_LIB/TTBaseUIKit/TTBDebugPlus/TTBDebugPlus/Views/DevTools/JSONEditorView.swift": {
+    "dependencies": "/Volumes/DataStore/S.JOB/J.PROJECT/P.BUILD_LIB/TTBaseUIKit/TTBDebugPlus/.build/arm64-apple-macosx/debug/TTBDebugPlus.build/JSONEditorView.d",
+    "object": "/Volumes/DataStore/S.JOB/J.PROJECT/P.BUILD_LIB/TTBaseUIKit/TTBDebugPlus/.build/arm64-apple-macosx/debug/TTBDebugPlus.build/JSONEditorView.swift.o",
+    "swiftmodule": "/Volumes/DataStore/S.JOB/J.PROJECT/P.BUILD_LIB/TTBaseUIKit/TTBDebugPlus/.build/arm64-apple-macosx/debug/TTBDebugPlus.build/JSONEditorView~partial.swiftmodule",
+    "swift-dependencies": "/Volumes/DataStore/S.JOB/J.PROJECT/P.BUILD_LIB/TTBaseUIKit/TTBDebugPlus/.build/arm64-apple-macosx/debug/TTBDebugPlus.build/JSONEditorView.swiftdeps",
+    "diagnostics": "/Volumes/DataStore/S.JOB/J.PROJECT/P.BUILD_LIB/TTBaseUIKit/TTBDebugPlus/.build/arm64-apple-macosx/debug/TTBDebugPlus.build/JSONEditorView.dia"
+  },
+  "/Volumes/DataStore/S.JOB/J.PROJECT/P.BUILD_LIB/TTBaseUIKit/TTBDebugPlus/TTBDebugPlus/Views/DevTools/JSONGraphLayoutEngine.swift": {
+    "dependencies": "/Volumes/DataStore/S.JOB/J.PROJECT/P.BUILD_LIB/TTBaseUIKit/TTBDebugPlus/.build/arm64-apple-macosx/debug/TTBDebugPlus.build/JSONGraphLayoutEngine.d",
+    "object": "/Volumes/DataStore/S.JOB/J.PROJECT/P.BUILD_LIB/TTBaseUIKit/TTBDebugPlus/.build/arm64-apple-macosx/debug/TTBDebugPlus.build/JSONGraphLayoutEngine.swift.o",
+    "swiftmodule": "/Volumes/DataStore/S.JOB/J.PROJECT/P.BUILD_LIB/TTBaseUIKit/TTBDebugPlus/.build/arm64-apple-macosx/debug/TTBDebugPlus.build/JSONGraphLayoutEngine~partial.swiftmodule",
+    "swift-dependencies": "/Volumes/DataStore/S.JOB/J.PROJECT/P.BUILD_LIB/TTBaseUIKit/TTBDebugPlus/.build/arm64-apple-macosx/debug/TTBDebugPlus.build/JSONGraphLayoutEngine.swiftdeps",
+    "diagnostics": "/Volumes/DataStore/S.JOB/J.PROJECT/P.BUILD_LIB/TTBaseUIKit/TTBDebugPlus/.build/arm64-apple-macosx/debug/TTBDebugPlus.build/JSONGraphLayoutEngine.dia"
+  },
+  "/Volumes/DataStore/S.JOB/J.PROJECT/P.BUILD_LIB/TTBaseUIKit/TTBDebugPlus/TTBDebugPlus/Views/DevTools/JSONGraphView.swift": {
+    "dependencies": "/Volumes/DataStore/S.JOB/J.PROJECT/P.BUILD_LIB/TTBaseUIKit/TTBDebugPlus/.build/arm64-apple-macosx/debug/TTBDebugPlus.build/JSONGraphView.d",
+    "object": "/Volumes/DataStore/S.JOB/J.PROJECT/P.BUILD_LIB/TTBaseUIKit/TTBDebugPlus/.build/arm64-apple-macosx/debug/TTBDebugPlus.build/JSONGraphView.swift.o",
+    "swiftmodule": "/Volumes/DataStore/S.JOB/J.PROJECT/P.BUILD_LIB/TTBaseUIKit/TTBDebugPlus/.build/arm64-apple-macosx/debug/TTBDebugPlus.build/JSONGraphView~partial.swiftmodule",
+    "swift-dependencies": "/Volumes/DataStore/S.JOB/J.PROJECT/P.BUILD_LIB/TTBaseUIKit/TTBDebugPlus/.build/arm64-apple-macosx/debug/TTBDebugPlus.build/JSONGraphView.swiftdeps",
+    "diagnostics": "/Volumes/DataStore/S.JOB/J.PROJECT/P.BUILD_LIB/TTBaseUIKit/TTBDebugPlus/.build/arm64-apple-macosx/debug/TTBDebugPlus.build/JSONGraphView.dia"
+  },
+  "/Volumes/DataStore/S.JOB/J.PROJECT/P.BUILD_LIB/TTBaseUIKit/TTBDebugPlus/TTBDebugPlus/Views/DevTools/JSONQueryView.swift": {
+    "dependencies": "/Volumes/DataStore/S.JOB/J.PROJECT/P.BUILD_LIB/TTBaseUIKit/TTBDebugPlus/.build/arm64-apple-macosx/debug/TTBDebugPlus.build/JSONQueryView.d",
+    "object": "/Volumes/DataStore/S.JOB/J.PROJECT/P.BUILD_LIB/TTBaseUIKit/TTBDebugPlus/.build/arm64-apple-macosx/debug/TTBDebugPlus.build/JSONQueryView.swift.o",
+    "swiftmodule": "/Volumes/DataStore/S.JOB/J.PROJECT/P.BUILD_LIB/TTBaseUIKit/TTBDebugPlus/.build/arm64-apple-macosx/debug/TTBDebugPlus.build/JSONQueryView~partial.swiftmodule",
+    "swift-dependencies": "/Volumes/DataStore/S.JOB/J.PROJECT/P.BUILD_LIB/TTBaseUIKit/TTBDebugPlus/.build/arm64-apple-macosx/debug/TTBDebugPlus.build/JSONQueryView.swiftdeps",
+    "diagnostics": "/Volumes/DataStore/S.JOB/J.PROJECT/P.BUILD_LIB/TTBaseUIKit/TTBDebugPlus/.build/arm64-apple-macosx/debug/TTBDebugPlus.build/JSONQueryView.dia"
+  },
   "/Volumes/DataStore/S.JOB/J.PROJECT/P.BUILD_LIB/TTBaseUIKit/TTBDebugPlus/TTBDebugPlus/Views/Device/AnnotationEditorView.swift": {
     "dependencies": "/Volumes/DataStore/S.JOB/J.PROJECT/P.BUILD_LIB/TTBaseUIKit/TTBDebugPlus/.build/arm64-apple-macosx/debug/TTBDebugPlus.build/AnnotationEditorView.d",
     "object": "/Volumes/DataStore/S.JOB/J.PROJECT/P.BUILD_LIB/TTBaseUIKit/TTBDebugPlus/.build/arm64-apple-macosx/debug/TTBDebugPlus.build/AnnotationEditorView.swift.o",
     "swiftmodule": "/Volumes/DataStore/S.JOB/J.PROJECT/P.BUILD_LIB/TTBaseUIKit/TTBDebugPlus/.build/arm64-apple-macosx/debug/TTBDebugPlus.build/AnnotationEditorView~partial.swiftmodule",
     "swift-dependencies": "/Volumes/DataStore/S.JOB/J.PROJECT/P.BUILD_LIB/TTBaseUIKit/TTBDebugPlus/.build/arm64-apple-macosx/debug/TTBDebugPlus.build/AnnotationEditorView.swiftdeps",
     "diagnostics": "/Volumes/DataStore/S.JOB/J.PROJECT/P.BUILD_LIB/TTBaseUIKit/TTBDebugPlus/.build/arm64-apple-macosx/debug/TTBDebugPlus.build/AnnotationEditorView.dia"
+  },
+  "/Volumes/DataStore/S.JOB/J.PROJECT/P.BUILD_LIB/TTBaseUIKit/TTBDebugPlus/TTBDebugPlus/Views/Device/AnnotationHelpers.swift": {
+    "dependencies": "/Volumes/DataStore/S.JOB/J.PROJECT/P.BUILD_LIB/TTBaseUIKit/TTBDebugPlus/.build/arm64-apple-macosx/debug/TTBDebugPlus.build/AnnotationHelpers.d",
+    "object": "/Volumes/DataStore/S.JOB/J.PROJECT/P.BUILD_LIB/TTBaseUIKit/TTBDebugPlus/.build/arm64-apple-macosx/debug/TTBDebugPlus.build/AnnotationHelpers.swift.o",
+    "swiftmodule": "/Volumes/DataStore/S.JOB/J.PROJECT/P.BUILD_LIB/TTBaseUIKit/TTBDebugPlus/.build/arm64-apple-macosx/debug/TTBDebugPlus.build/AnnotationHelpers~partial.swiftmodule",
+    "swift-dependencies": "/Volumes/DataStore/S.JOB/J.PROJECT/P.BUILD_LIB/TTBaseUIKit/TTBDebugPlus/.build/arm64-apple-macosx/debug/TTBDebugPlus.build/AnnotationHelpers.swiftdeps",
+    "diagnostics": "/Volumes/DataStore/S.JOB/J.PROJECT/P.BUILD_LIB/TTBaseUIKit/TTBDebugPlus/.build/arm64-apple-macosx/debug/TTBDebugPlus.build/AnnotationHelpers.dia"
   },
   "/Volumes/DataStore/S.JOB/J.PROJECT/P.BUILD_LIB/TTBaseUIKit/TTBDebugPlus/TTBDebugPlus/Views/Device/BugReportComposerView.swift": {
     "dependencies": "/Volumes/DataStore/S.JOB/J.PROJECT/P.BUILD_LIB/TTBaseUIKit/TTBDebugPlus/.build/arm64-apple-macosx/debug/TTBDebugPlus.build/BugReportComposerView.d",
@@ -190,6 +372,13 @@
     "swiftmodule": "/Volumes/DataStore/S.JOB/J.PROJECT/P.BUILD_LIB/TTBaseUIKit/TTBDebugPlus/.build/arm64-apple-macosx/debug/TTBDebugPlus.build/DeviceView~partial.swiftmodule",
     "swift-dependencies": "/Volumes/DataStore/S.JOB/J.PROJECT/P.BUILD_LIB/TTBaseUIKit/TTBDebugPlus/.build/arm64-apple-macosx/debug/TTBDebugPlus.build/DeviceView.swiftdeps",
     "diagnostics": "/Volumes/DataStore/S.JOB/J.PROJECT/P.BUILD_LIB/TTBaseUIKit/TTBDebugPlus/.build/arm64-apple-macosx/debug/TTBDebugPlus.build/DeviceView.dia"
+  },
+  "/Volumes/DataStore/S.JOB/J.PROJECT/P.BUILD_LIB/TTBaseUIKit/TTBDebugPlus/TTBDebugPlus/Views/Device/QuickNoteTextField.swift": {
+    "dependencies": "/Volumes/DataStore/S.JOB/J.PROJECT/P.BUILD_LIB/TTBaseUIKit/TTBDebugPlus/.build/arm64-apple-macosx/debug/TTBDebugPlus.build/QuickNoteTextField.d",
+    "object": "/Volumes/DataStore/S.JOB/J.PROJECT/P.BUILD_LIB/TTBaseUIKit/TTBDebugPlus/.build/arm64-apple-macosx/debug/TTBDebugPlus.build/QuickNoteTextField.swift.o",
+    "swiftmodule": "/Volumes/DataStore/S.JOB/J.PROJECT/P.BUILD_LIB/TTBaseUIKit/TTBDebugPlus/.build/arm64-apple-macosx/debug/TTBDebugPlus.build/QuickNoteTextField~partial.swiftmodule",
+    "swift-dependencies": "/Volumes/DataStore/S.JOB/J.PROJECT/P.BUILD_LIB/TTBaseUIKit/TTBDebugPlus/.build/arm64-apple-macosx/debug/TTBDebugPlus.build/QuickNoteTextField.swiftdeps",
+    "diagnostics": "/Volumes/DataStore/S.JOB/J.PROJECT/P.BUILD_LIB/TTBaseUIKit/TTBDebugPlus/.build/arm64-apple-macosx/debug/TTBDebugPlus.build/QuickNoteTextField.dia"
   },
   "/Volumes/DataStore/S.JOB/J.PROJECT/P.BUILD_LIB/TTBaseUIKit/TTBDebugPlus/TTBDebugPlus/Views/Device/RecordingExportView.swift": {
     "dependencies": "/Volumes/DataStore/S.JOB/J.PROJECT/P.BUILD_LIB/TTBaseUIKit/TTBDebugPlus/.build/arm64-apple-macosx/debug/TTBDebugPlus.build/RecordingExportView.d",
@@ -233,6 +422,20 @@
     "swift-dependencies": "/Volumes/DataStore/S.JOB/J.PROJECT/P.BUILD_LIB/TTBaseUIKit/TTBDebugPlus/.build/arm64-apple-macosx/debug/TTBDebugPlus.build/WelcomeSheet.swiftdeps",
     "diagnostics": "/Volumes/DataStore/S.JOB/J.PROJECT/P.BUILD_LIB/TTBaseUIKit/TTBDebugPlus/.build/arm64-apple-macosx/debug/TTBDebugPlus.build/WelcomeSheet.dia"
   },
+  "/Volumes/DataStore/S.JOB/J.PROJECT/P.BUILD_LIB/TTBaseUIKit/TTBDebugPlus/TTBDebugPlus/Views/Network/NetworkDetailPane.swift": {
+    "dependencies": "/Volumes/DataStore/S.JOB/J.PROJECT/P.BUILD_LIB/TTBaseUIKit/TTBDebugPlus/.build/arm64-apple-macosx/debug/TTBDebugPlus.build/NetworkDetailPane.d",
+    "object": "/Volumes/DataStore/S.JOB/J.PROJECT/P.BUILD_LIB/TTBaseUIKit/TTBDebugPlus/.build/arm64-apple-macosx/debug/TTBDebugPlus.build/NetworkDetailPane.swift.o",
+    "swiftmodule": "/Volumes/DataStore/S.JOB/J.PROJECT/P.BUILD_LIB/TTBaseUIKit/TTBDebugPlus/.build/arm64-apple-macosx/debug/TTBDebugPlus.build/NetworkDetailPane~partial.swiftmodule",
+    "swift-dependencies": "/Volumes/DataStore/S.JOB/J.PROJECT/P.BUILD_LIB/TTBaseUIKit/TTBDebugPlus/.build/arm64-apple-macosx/debug/TTBDebugPlus.build/NetworkDetailPane.swiftdeps",
+    "diagnostics": "/Volumes/DataStore/S.JOB/J.PROJECT/P.BUILD_LIB/TTBaseUIKit/TTBDebugPlus/.build/arm64-apple-macosx/debug/TTBDebugPlus.build/NetworkDetailPane.dia"
+  },
+  "/Volumes/DataStore/S.JOB/J.PROJECT/P.BUILD_LIB/TTBaseUIKit/TTBDebugPlus/TTBDebugPlus/Views/Network/NetworkRequestRow.swift": {
+    "dependencies": "/Volumes/DataStore/S.JOB/J.PROJECT/P.BUILD_LIB/TTBaseUIKit/TTBDebugPlus/.build/arm64-apple-macosx/debug/TTBDebugPlus.build/NetworkRequestRow.d",
+    "object": "/Volumes/DataStore/S.JOB/J.PROJECT/P.BUILD_LIB/TTBaseUIKit/TTBDebugPlus/.build/arm64-apple-macosx/debug/TTBDebugPlus.build/NetworkRequestRow.swift.o",
+    "swiftmodule": "/Volumes/DataStore/S.JOB/J.PROJECT/P.BUILD_LIB/TTBaseUIKit/TTBDebugPlus/.build/arm64-apple-macosx/debug/TTBDebugPlus.build/NetworkRequestRow~partial.swiftmodule",
+    "swift-dependencies": "/Volumes/DataStore/S.JOB/J.PROJECT/P.BUILD_LIB/TTBaseUIKit/TTBDebugPlus/.build/arm64-apple-macosx/debug/TTBDebugPlus.build/NetworkRequestRow.swiftdeps",
+    "diagnostics": "/Volumes/DataStore/S.JOB/J.PROJECT/P.BUILD_LIB/TTBaseUIKit/TTBDebugPlus/.build/arm64-apple-macosx/debug/TTBDebugPlus.build/NetworkRequestRow.dia"
+  },
   "/Volumes/DataStore/S.JOB/J.PROJECT/P.BUILD_LIB/TTBaseUIKit/TTBDebugPlus/TTBDebugPlus/Views/Network/NetworkStatsView.swift": {
     "dependencies": "/Volumes/DataStore/S.JOB/J.PROJECT/P.BUILD_LIB/TTBaseUIKit/TTBDebugPlus/.build/arm64-apple-macosx/debug/TTBDebugPlus.build/NetworkStatsView.d",
     "object": "/Volumes/DataStore/S.JOB/J.PROJECT/P.BUILD_LIB/TTBaseUIKit/TTBDebugPlus/.build/arm64-apple-macosx/debug/TTBDebugPlus.build/NetworkStatsView.swift.o",
@@ -254,6 +457,13 @@
     "swift-dependencies": "/Volumes/DataStore/S.JOB/J.PROJECT/P.BUILD_LIB/TTBaseUIKit/TTBDebugPlus/.build/arm64-apple-macosx/debug/TTBDebugPlus.build/PerformanceView.swiftdeps",
     "diagnostics": "/Volumes/DataStore/S.JOB/J.PROJECT/P.BUILD_LIB/TTBaseUIKit/TTBDebugPlus/.build/arm64-apple-macosx/debug/TTBDebugPlus.build/PerformanceView.dia"
   },
+  "/Volumes/DataStore/S.JOB/J.PROJECT/P.BUILD_LIB/TTBaseUIKit/TTBDebugPlus/TTBDebugPlus/Views/Settings/PermissionsView.swift": {
+    "dependencies": "/Volumes/DataStore/S.JOB/J.PROJECT/P.BUILD_LIB/TTBaseUIKit/TTBDebugPlus/.build/arm64-apple-macosx/debug/TTBDebugPlus.build/PermissionsView.d",
+    "object": "/Volumes/DataStore/S.JOB/J.PROJECT/P.BUILD_LIB/TTBaseUIKit/TTBDebugPlus/.build/arm64-apple-macosx/debug/TTBDebugPlus.build/PermissionsView.swift.o",
+    "swiftmodule": "/Volumes/DataStore/S.JOB/J.PROJECT/P.BUILD_LIB/TTBaseUIKit/TTBDebugPlus/.build/arm64-apple-macosx/debug/TTBDebugPlus.build/PermissionsView~partial.swiftmodule",
+    "swift-dependencies": "/Volumes/DataStore/S.JOB/J.PROJECT/P.BUILD_LIB/TTBaseUIKit/TTBDebugPlus/.build/arm64-apple-macosx/debug/TTBDebugPlus.build/PermissionsView.swiftdeps",
+    "diagnostics": "/Volumes/DataStore/S.JOB/J.PROJECT/P.BUILD_LIB/TTBaseUIKit/TTBDebugPlus/.build/arm64-apple-macosx/debug/TTBDebugPlus.build/PermissionsView.dia"
+  },
   "/Volumes/DataStore/S.JOB/J.PROJECT/P.BUILD_LIB/TTBaseUIKit/TTBDebugPlus/TTBDebugPlus/Views/Settings/SettingsView.swift": {
     "dependencies": "/Volumes/DataStore/S.JOB/J.PROJECT/P.BUILD_LIB/TTBaseUIKit/TTBDebugPlus/.build/arm64-apple-macosx/debug/TTBDebugPlus.build/SettingsView.d",
     "object": "/Volumes/DataStore/S.JOB/J.PROJECT/P.BUILD_LIB/TTBaseUIKit/TTBDebugPlus/.build/arm64-apple-macosx/debug/TTBDebugPlus.build/SettingsView.swift.o",
@@ -261,12 +471,47 @@
     "swift-dependencies": "/Volumes/DataStore/S.JOB/J.PROJECT/P.BUILD_LIB/TTBaseUIKit/TTBDebugPlus/.build/arm64-apple-macosx/debug/TTBDebugPlus.build/SettingsView.swiftdeps",
     "diagnostics": "/Volumes/DataStore/S.JOB/J.PROJECT/P.BUILD_LIB/TTBaseUIKit/TTBDebugPlus/.build/arm64-apple-macosx/debug/TTBDebugPlus.build/SettingsView.dia"
   },
+  "/Volumes/DataStore/S.JOB/J.PROJECT/P.BUILD_LIB/TTBaseUIKit/TTBDebugPlus/TTBDebugPlus/Views/Settings/StorageSettingsView.swift": {
+    "dependencies": "/Volumes/DataStore/S.JOB/J.PROJECT/P.BUILD_LIB/TTBaseUIKit/TTBDebugPlus/.build/arm64-apple-macosx/debug/TTBDebugPlus.build/StorageSettingsView.d",
+    "object": "/Volumes/DataStore/S.JOB/J.PROJECT/P.BUILD_LIB/TTBaseUIKit/TTBDebugPlus/.build/arm64-apple-macosx/debug/TTBDebugPlus.build/StorageSettingsView.swift.o",
+    "swiftmodule": "/Volumes/DataStore/S.JOB/J.PROJECT/P.BUILD_LIB/TTBaseUIKit/TTBDebugPlus/.build/arm64-apple-macosx/debug/TTBDebugPlus.build/StorageSettingsView~partial.swiftmodule",
+    "swift-dependencies": "/Volumes/DataStore/S.JOB/J.PROJECT/P.BUILD_LIB/TTBaseUIKit/TTBDebugPlus/.build/arm64-apple-macosx/debug/TTBDebugPlus.build/StorageSettingsView.swiftdeps",
+    "diagnostics": "/Volumes/DataStore/S.JOB/J.PROJECT/P.BUILD_LIB/TTBaseUIKit/TTBDebugPlus/.build/arm64-apple-macosx/debug/TTBDebugPlus.build/StorageSettingsView.dia"
+  },
+  "/Volumes/DataStore/S.JOB/J.PROJECT/P.BUILD_LIB/TTBaseUIKit/TTBDebugPlus/TTBDebugPlus/Views/Shared/AnnotationRenderer.swift": {
+    "dependencies": "/Volumes/DataStore/S.JOB/J.PROJECT/P.BUILD_LIB/TTBaseUIKit/TTBDebugPlus/.build/arm64-apple-macosx/debug/TTBDebugPlus.build/AnnotationRenderer.d",
+    "object": "/Volumes/DataStore/S.JOB/J.PROJECT/P.BUILD_LIB/TTBaseUIKit/TTBDebugPlus/.build/arm64-apple-macosx/debug/TTBDebugPlus.build/AnnotationRenderer.swift.o",
+    "swiftmodule": "/Volumes/DataStore/S.JOB/J.PROJECT/P.BUILD_LIB/TTBaseUIKit/TTBDebugPlus/.build/arm64-apple-macosx/debug/TTBDebugPlus.build/AnnotationRenderer~partial.swiftmodule",
+    "swift-dependencies": "/Volumes/DataStore/S.JOB/J.PROJECT/P.BUILD_LIB/TTBaseUIKit/TTBDebugPlus/.build/arm64-apple-macosx/debug/TTBDebugPlus.build/AnnotationRenderer.swiftdeps",
+    "diagnostics": "/Volumes/DataStore/S.JOB/J.PROJECT/P.BUILD_LIB/TTBaseUIKit/TTBDebugPlus/.build/arm64-apple-macosx/debug/TTBDebugPlus.build/AnnotationRenderer.dia"
+  },
+  "/Volumes/DataStore/S.JOB/J.PROJECT/P.BUILD_LIB/TTBaseUIKit/TTBDebugPlus/TTBDebugPlus/Views/Shared/HighPerformanceTextView.swift": {
+    "dependencies": "/Volumes/DataStore/S.JOB/J.PROJECT/P.BUILD_LIB/TTBaseUIKit/TTBDebugPlus/.build/arm64-apple-macosx/debug/TTBDebugPlus.build/HighPerformanceTextView.d",
+    "object": "/Volumes/DataStore/S.JOB/J.PROJECT/P.BUILD_LIB/TTBaseUIKit/TTBDebugPlus/.build/arm64-apple-macosx/debug/TTBDebugPlus.build/HighPerformanceTextView.swift.o",
+    "swiftmodule": "/Volumes/DataStore/S.JOB/J.PROJECT/P.BUILD_LIB/TTBaseUIKit/TTBDebugPlus/.build/arm64-apple-macosx/debug/TTBDebugPlus.build/HighPerformanceTextView~partial.swiftmodule",
+    "swift-dependencies": "/Volumes/DataStore/S.JOB/J.PROJECT/P.BUILD_LIB/TTBaseUIKit/TTBDebugPlus/.build/arm64-apple-macosx/debug/TTBDebugPlus.build/HighPerformanceTextView.swiftdeps",
+    "diagnostics": "/Volumes/DataStore/S.JOB/J.PROJECT/P.BUILD_LIB/TTBaseUIKit/TTBDebugPlus/.build/arm64-apple-macosx/debug/TTBDebugPlus.build/HighPerformanceTextView.dia"
+  },
+  "/Volumes/DataStore/S.JOB/J.PROJECT/P.BUILD_LIB/TTBaseUIKit/TTBDebugPlus/TTBDebugPlus/Views/Shared/JSONProcessing.swift": {
+    "dependencies": "/Volumes/DataStore/S.JOB/J.PROJECT/P.BUILD_LIB/TTBaseUIKit/TTBDebugPlus/.build/arm64-apple-macosx/debug/TTBDebugPlus.build/JSONProcessing.d",
+    "object": "/Volumes/DataStore/S.JOB/J.PROJECT/P.BUILD_LIB/TTBaseUIKit/TTBDebugPlus/.build/arm64-apple-macosx/debug/TTBDebugPlus.build/JSONProcessing.swift.o",
+    "swiftmodule": "/Volumes/DataStore/S.JOB/J.PROJECT/P.BUILD_LIB/TTBaseUIKit/TTBDebugPlus/.build/arm64-apple-macosx/debug/TTBDebugPlus.build/JSONProcessing~partial.swiftmodule",
+    "swift-dependencies": "/Volumes/DataStore/S.JOB/J.PROJECT/P.BUILD_LIB/TTBaseUIKit/TTBDebugPlus/.build/arm64-apple-macosx/debug/TTBDebugPlus.build/JSONProcessing.swiftdeps",
+    "diagnostics": "/Volumes/DataStore/S.JOB/J.PROJECT/P.BUILD_LIB/TTBaseUIKit/TTBDebugPlus/.build/arm64-apple-macosx/debug/TTBDebugPlus.build/JSONProcessing.dia"
+  },
   "/Volumes/DataStore/S.JOB/J.PROJECT/P.BUILD_LIB/TTBaseUIKit/TTBDebugPlus/TTBDebugPlus/Views/Shared/JSONViewer.swift": {
     "dependencies": "/Volumes/DataStore/S.JOB/J.PROJECT/P.BUILD_LIB/TTBaseUIKit/TTBDebugPlus/.build/arm64-apple-macosx/debug/TTBDebugPlus.build/JSONViewer.d",
     "object": "/Volumes/DataStore/S.JOB/J.PROJECT/P.BUILD_LIB/TTBaseUIKit/TTBDebugPlus/.build/arm64-apple-macosx/debug/TTBDebugPlus.build/JSONViewer.swift.o",
     "swiftmodule": "/Volumes/DataStore/S.JOB/J.PROJECT/P.BUILD_LIB/TTBaseUIKit/TTBDebugPlus/.build/arm64-apple-macosx/debug/TTBDebugPlus.build/JSONViewer~partial.swiftmodule",
     "swift-dependencies": "/Volumes/DataStore/S.JOB/J.PROJECT/P.BUILD_LIB/TTBaseUIKit/TTBDebugPlus/.build/arm64-apple-macosx/debug/TTBDebugPlus.build/JSONViewer.swiftdeps",
     "diagnostics": "/Volumes/DataStore/S.JOB/J.PROJECT/P.BUILD_LIB/TTBaseUIKit/TTBDebugPlus/.build/arm64-apple-macosx/debug/TTBDebugPlus.build/JSONViewer.dia"
+  },
+  "/Volumes/DataStore/S.JOB/J.PROJECT/P.BUILD_LIB/TTBaseUIKit/TTBDebugPlus/TTBDebugPlus/Views/Shared/SharedViewModifiers.swift": {
+    "dependencies": "/Volumes/DataStore/S.JOB/J.PROJECT/P.BUILD_LIB/TTBaseUIKit/TTBDebugPlus/.build/arm64-apple-macosx/debug/TTBDebugPlus.build/SharedViewModifiers.d",
+    "object": "/Volumes/DataStore/S.JOB/J.PROJECT/P.BUILD_LIB/TTBaseUIKit/TTBDebugPlus/.build/arm64-apple-macosx/debug/TTBDebugPlus.build/SharedViewModifiers.swift.o",
+    "swiftmodule": "/Volumes/DataStore/S.JOB/J.PROJECT/P.BUILD_LIB/TTBaseUIKit/TTBDebugPlus/.build/arm64-apple-macosx/debug/TTBDebugPlus.build/SharedViewModifiers~partial.swiftmodule",
+    "swift-dependencies": "/Volumes/DataStore/S.JOB/J.PROJECT/P.BUILD_LIB/TTBaseUIKit/TTBDebugPlus/.build/arm64-apple-macosx/debug/TTBDebugPlus.build/SharedViewModifiers.swiftdeps",
+    "diagnostics": "/Volumes/DataStore/S.JOB/J.PROJECT/P.BUILD_LIB/TTBaseUIKit/TTBDebugPlus/.build/arm64-apple-macosx/debug/TTBDebugPlus.build/SharedViewModifiers.dia"
   },
   "/Volumes/DataStore/S.JOB/J.PROJECT/P.BUILD_LIB/TTBaseUIKit/TTBDebugPlus/TTBDebugPlus/Views/Sidebar/SidebarView.swift": {
     "dependencies": "/Volumes/DataStore/S.JOB/J.PROJECT/P.BUILD_LIB/TTBaseUIKit/TTBDebugPlus/.build/arm64-apple-macosx/debug/TTBDebugPlus.build/SidebarView.d",
