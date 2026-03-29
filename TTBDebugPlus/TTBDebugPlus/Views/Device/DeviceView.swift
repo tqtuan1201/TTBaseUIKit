@@ -1,0 +1,870 @@
+//
+//  DeviceView.swift
+//  TTBDebugPlus
+//
+//  Created by TuanTruong on 2026-03-27.
+//  Redesigned: compact preview, inline toolbar, gallery + annotation/report sheets
+//
+
+import SwiftUI
+
+struct DeviceView: View {
+    @Environment(ConnectionManager.self) var connectionManager
+    @State private var captureVM = ScreenCaptureViewModel()
+    
+    @State private var darkModeOverride = true
+    @State private var showGallery = true
+    @State private var showDeleteConfirm = false
+    @State private var deleteTarget: DeleteTarget = .single(nil)
+    @State private var recordingInterval: TimeInterval = 0.5
+    @State private var showIntervalPicker = false
+    @State private var deviceInfoExpanded = false
+    
+    enum DeleteTarget {
+        case single(UUID?)
+        case selected
+        case all
+    }
+    
+    var body: some View {
+        Group {
+            if let device = connectionManager.selectedDevice, device.isOnline {
+                connectedContent(device: device)
+            } else {
+                EmptyStateView(
+                    icon: "iphone.slash",
+                    title: "No Device Connected",
+                    subtitle: "Connect an iOS device running TTBaseUIKit to start debugging.\nMake sure both devices are on the same network.",
+                    actionTitle: "Scan for Devices"
+                ) {
+                    connectionManager.startServer()
+                }
+            }
+        }
+        .background(Color.ttBackground)
+        .onChange(of: connectionManager.selectedDevice?.latestScreenshot?.timestamp) { _, newVal in
+            if let _ = newVal, let screenshot = connectionManager.selectedDevice?.latestScreenshot {
+                captureVM.handleScreenshotReceived(screenshot)
+            }
+        }
+        // Annotation editor — opens as large window-sized sheet
+        .sheet(isPresented: $captureVM.isAnnotating) {
+            if let image = captureVM.currentScreenshot {
+                AnnotationEditorView(
+                    baseImage: image,
+                    annotations: $captureVM.annotations,
+                    onDone: { captureVM.isAnnotating = false },
+                    onCancel: { captureVM.isAnnotating = false }
+                )
+                .frame(
+                    minWidth: 1000, idealWidth: 1400, maxWidth: .infinity,
+                    minHeight: 750, idealHeight: 1000, maxHeight: .infinity
+                )
+                .interactiveDismissDisabled()
+            }
+        }
+        // Bug report composer sheet
+        .sheet(isPresented: $captureVM.showBugReportComposer) {
+            BugReportComposerView(
+                screenshots: captureVM.reportScreenshots,
+                deviceInfo: currentDeviceInfoSnapshot
+            )
+        }
+        // Recording export sheet
+        .sheet(isPresented: $captureVM.showRecordingExport) {
+            RecordingExportView(captureVM: captureVM)
+        }
+        // Delete confirmation
+        .confirmationDialog("Delete Screenshots", isPresented: $showDeleteConfirm, titleVisibility: .visible) {
+            Button("Delete", role: .destructive) {
+                switch deleteTarget {
+                case .single(let id): if let id { captureVM.deleteItem(id) }
+                case .selected: captureVM.deleteSelected()
+                case .all: captureVM.clearAllHistory()
+                }
+            }
+            Button("Cancel", role: .cancel) { }
+        } message: {
+            switch deleteTarget {
+            case .single: Text("This screenshot will be permanently removed.")
+            case .selected: Text("Delete \(captureVM.selectedCount) selected screenshots?")
+            case .all: Text("Delete all \(captureVM.screenshotHistory.count) screenshots?")
+            }
+        }
+    }
+    
+    // MARK: - Connected Content
+    private func connectedContent(device: DeviceSession) -> some View {
+        VStack(spacing: 0) {
+            // Compact header with capture toolbar
+            compactHeader(device: device)
+            
+            Divider().background(Color.ttBorder.opacity(0.3))
+            
+            // Main content
+            HSplitView {
+                // Left: Preview + device info
+                leftPanel(device: device)
+                    .frame(minWidth: 320, idealWidth: 380)
+                
+                // Right: Gallery
+                if showGallery {
+                    rightGalleryPanel
+                        .frame(minWidth: 300, idealWidth: 460)
+                }
+            }
+        }
+    }
+    
+    // MARK: - Compact Header
+    private func compactHeader(device: DeviceSession) -> some View {
+        HStack(spacing: 8) {
+            // Connection status
+            ConnectionIndicator(isConnected: device.isOnline)
+            Text(device.displayName)
+                .font(TTFont.labelMedium)
+                .foregroundColor(.ttTextPrimary)
+            
+            StatusBadge(text: device.shortId, color: .ttTextSecondary, style: .outlined)
+            
+            Spacer()
+            
+            // Recording indicator
+            if captureVM.isRecording {
+                HStack(spacing: 5) {
+                    Circle().fill(Color.ttError).frame(width: 7, height: 7)
+                        .modifier(PulsingAnimation())
+                    Text("REC \(captureVM.formattedRecordingTime)")
+                        .font(TTFont.badge)
+                        .foregroundColor(.ttError)
+                        .monospacedDigit()
+                    Text("• \(captureVM.recordingSession.frameCount)f")
+                        .font(TTFont.codeSmall)
+                        .foregroundColor(.ttError.opacity(0.7))
+                }
+                .padding(.horizontal, 8)
+                .padding(.vertical, 3)
+                .background(
+                    Capsule()
+                        .fill(Color.ttError.opacity(0.1))
+                        .overlay(Capsule().stroke(Color.ttError.opacity(0.3), lineWidth: 1))
+                )
+            }
+            
+            // Capture toolbar buttons
+            captureToolbar
+            
+            Divider().frame(height: 20)
+            
+            // Gallery toggle
+            Button(action: { withAnimation(.easeInOut(duration: 0.2)) { showGallery.toggle() } }) {
+                HStack(spacing: 3) {
+                    Image(systemName: showGallery ? "sidebar.trailing" : "photo.on.rectangle")
+                        .font(.ttIcon(TTIcon.md))
+                    if !captureVM.screenshotHistory.isEmpty {
+                        Text("\(captureVM.screenshotHistory.count)")
+                            .font(TTFont.badge)
+                            .foregroundColor(.ttPrimary)
+                    }
+                }
+            }
+            .buttonStyle(.ttGhost)
+            .help(showGallery ? "Hide gallery" : "Show gallery")
+        }
+        .padding(.horizontal, 16)
+        .padding(.vertical, 8)
+        .background(Color.ttSurface.opacity(0.3))
+    }
+    
+    // MARK: - Capture Toolbar
+    private var captureToolbar: some View {
+        HStack(spacing: 3) {
+            // Capture
+            Button(action: { captureVM.requestCapture(from: connectionManager) }) {
+                if captureVM.isCapturing {
+                    ProgressView().controlSize(.small).scaleEffect(0.6)
+                } else {
+                    Image(systemName: "camera.fill")
+                        .font(.ttIcon(TTIcon.lg))
+                }
+            }
+            .buttonStyle(.ttGhost)
+            .disabled(captureVM.isCapturing)
+            .help("Capture screenshot (single)")
+            
+            // Record toggle
+            Button(action: toggleRecording) {
+                Image(systemName: captureVM.isRecording ? "stop.fill" : "record.circle")
+                    .font(.ttIcon(TTIcon.lg))
+                    .foregroundColor(captureVM.isRecording ? .ttError : .ttTextPrimary)
+            }
+            .buttonStyle(.ttGhost)
+            .help(captureVM.isRecording ? "Stop recording" : "Start recording")
+            
+            // Record interval
+            Button(action: { showIntervalPicker.toggle() }) {
+                Text(String(format: "%.1fs", recordingInterval))
+                    .font(TTFont.codeSmall)
+                    .foregroundColor(.ttTextTertiary)
+            }
+            .buttonStyle(.plain)
+            .popover(isPresented: $showIntervalPicker) {
+                VStack(alignment: .leading, spacing: 6) {
+                    Text("CAPTURE INTERVAL")
+                        .font(TTFont.sidebarHeader)
+                        .foregroundColor(.ttTextTertiary)
+                        .tracking(0.8)
+                    ForEach([0.3, 0.5, 1.0, 2.0, 5.0], id: \.self) { interval in
+                        Button(action: {
+                            recordingInterval = interval
+                            showIntervalPicker = false
+                        }) {
+                            HStack {
+                                Text("\(interval, specifier: "%.1f")s")
+                                    .font(TTFont.bodyMedium)
+                                Spacer()
+                                if recordingInterval == interval {
+                                    Image(systemName: "checkmark")
+                                        .foregroundColor(.ttPrimary)
+                                }
+                            }
+                        }
+                        .buttonStyle(.plain)
+                        .padding(.vertical, 2)
+                    }
+                }
+                .padding(12)
+                .frame(width: 140)
+            }
+            
+            Divider().frame(height: 16)
+            
+            // Annotate
+            Button(action: { captureVM.isAnnotating = true }) {
+                Image(systemName: "pencil.tip.crop.circle")
+                    .font(.ttIcon(TTIcon.lg))
+            }
+            .buttonStyle(.ttGhost)
+            .disabled(captureVM.currentScreenshot == nil)
+            .help("Open annotation editor")
+            
+            // Bug report
+            Button(action: { captureVM.openBugReport() }) {
+                Image(systemName: "ladybug.fill")
+                    .font(.ttIcon(TTIcon.lg))
+            }
+            .buttonStyle(.ttGhost)
+            .disabled(captureVM.currentScreenshot == nil)
+            .help("Create bug report")
+            
+            Divider().frame(height: 16)
+            
+            // Save
+            Button(action: {
+                if let url = captureVM.exportScreenshot() {
+                    NSWorkspace.shared.activateFileViewerSelecting([url])
+                }
+            }) {
+                Image(systemName: "square.and.arrow.down")
+                    .font(.ttIcon(TTIcon.lg))
+            }
+            .buttonStyle(.ttGhost)
+            .disabled(captureVM.currentScreenshot == nil)
+            .help("Save to disk")
+            
+            // Share
+            Button(action: {
+                if let url = captureVM.exportScreenshot(withAnnotations: true) {
+                    let picker = NSSharingServicePicker(items: [url])
+                    if let contentView = NSApp.keyWindow?.contentView {
+                        picker.show(relativeTo: .zero, of: contentView, preferredEdge: .minY)
+                    }
+                }
+            }) {
+                Image(systemName: "square.and.arrow.up")
+                    .font(.ttIcon(TTIcon.lg))
+            }
+            .buttonStyle(.ttGhost)
+            .disabled(captureVM.currentScreenshot == nil)
+            .help("Share")
+        }
+    }
+    
+    // MARK: - Left Panel
+    private func leftPanel(device: DeviceSession) -> some View {
+        ScrollView {
+            VStack(spacing: 14) {
+                // Screenshot preview (compact, no bezel)
+                screenshotPreview
+                
+                // Image metadata
+                if let item = captureVM.selectedHistoryItem {
+                    metadataBar(item: item)
+                }
+                
+                // Thumbnail strip
+                thumbnailStrip
+                
+                // Device info (collapsible)
+                DisclosureGroup(isExpanded: $deviceInfoExpanded) {
+                    deviceInfoContent(device: device)
+                } label: {
+                    HStack(spacing: 6) {
+                        Image(systemName: "iphone")
+                            .font(.ttIcon(TTIcon.md))
+                            .foregroundColor(.ttTextTertiary)
+                        Text("DEVICE INFO")
+                            .font(TTFont.sidebarHeader)
+                            .foregroundColor(.ttTextSecondary)
+                            .tracking(0.8)
+                    }
+                }
+                .padding(12)
+                .background(
+                    RoundedRectangle(cornerRadius: 10)
+                        .fill(Color.ttSurface.opacity(0.5))
+                        .overlay(
+                            RoundedRectangle(cornerRadius: 10)
+                                .stroke(Color.ttBorder.opacity(0.3), lineWidth: 1)
+                        )
+                )
+                
+                // Appearance toggle
+                appearanceRow
+                
+                // Coming soon
+                comingSoonSection
+            }
+            .padding(14)
+        }
+    }
+    
+    // MARK: - Screenshot Preview (compact, no bezel)
+    private var screenshotPreview: some View {
+        ZStack {
+            RoundedRectangle(cornerRadius: 12)
+                .fill(Color.ttSurface.opacity(0.3))
+                .overlay(
+                    RoundedRectangle(cornerRadius: 12)
+                        .stroke(Color.ttBorder.opacity(0.3), lineWidth: 1)
+                )
+            
+            if let image = captureVM.currentScreenshot {
+                Image(nsImage: image)
+                    .resizable()
+                    .aspectRatio(contentMode: .fit)
+                    .clipShape(RoundedRectangle(cornerRadius: 8))
+                    .padding(8)
+            } else {
+                VStack(spacing: 10) {
+                    Image(systemName: "iphone")
+                        .font(TTFont.displayMedium)
+                        .foregroundColor(.ttTextTertiary.opacity(0.4))
+                    Text("Capture a screenshot to start")
+                        .font(TTFont.bodySmall)
+                        .foregroundColor(.ttTextTertiary)
+                }
+                .padding(.vertical, 40)
+            }
+        }
+        .frame(maxHeight: 400)
+        .onTapGesture(count: 2) {
+            if captureVM.currentScreenshot != nil {
+                captureVM.isAnnotating = true
+            }
+        }
+    }
+    
+    // MARK: - Metadata Bar
+    private func metadataBar(item: ScreenshotItem) -> some View {
+        HStack(spacing: 8) {
+            metaChip(icon: "clock", text: item.formattedTime)
+            metaChip(icon: "arrow.up.left.and.arrow.down.right", text: item.resolutionText)
+            metaChip(icon: "doc", text: item.fileSizeEstimate)
+            Spacer()
+        }
+    }
+    
+    private func metaChip(icon: String, text: String) -> some View {
+        HStack(spacing: 3) {
+            Image(systemName: icon).font(.ttIcon(TTIcon.xxs)).foregroundColor(.ttTextTertiary)
+            Text(text).font(TTFont.codeSmall).foregroundColor(.ttTextTertiary)
+        }
+        .padding(.horizontal, 6)
+        .padding(.vertical, 2)
+        .background(Capsule().fill(Color.ttSurface.opacity(0.6)))
+    }
+    
+    // MARK: - Thumbnail Strip
+    private var thumbnailStrip: some View {
+        Group {
+            if !captureVM.screenshotHistory.isEmpty {
+                ScrollView(.horizontal, showsIndicators: false) {
+                    HStack(spacing: 5) {
+                        ForEach(captureVM.screenshotHistory.prefix(15)) { item in
+                            let selected = captureVM.selectedHistoryItem?.id == item.id
+                            Button(action: { captureVM.selectItem(item) }) {
+                                Image(nsImage: item.image)
+                                    .resizable()
+                                    .aspectRatio(contentMode: .fill)
+                                    .frame(width: 36, height: 56)
+                                    .clipShape(RoundedRectangle(cornerRadius: 5))
+                                    .overlay(
+                                        RoundedRectangle(cornerRadius: 5)
+                                            .stroke(selected ? Color.ttPrimary : Color.ttBorder.opacity(0.3), lineWidth: selected ? 2 : 1)
+                                    )
+                            }
+                            .buttonStyle(.plain)
+                            .contextMenu {
+                                galleryItemContextMenu(item)
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+    
+    // MARK: - Device Info Content
+    private func deviceInfoContent(device: DeviceSession) -> some View {
+        VStack(spacing: 6) {
+            infoRow(icon: "gear", label: "OS", value: device.osVersionString)
+            infoRow(icon: "app.badge", label: "App", value: "\(device.appNameString) v\(device.deviceInfo?.appVersion ?? "—")")
+            infoRow(icon: "rectangle.on.rectangle", label: "Screen", value: {
+                if let info = device.deviceInfo {
+                    return "\(Int(info.screenWidth))×\(Int(info.screenHeight))pt"
+                }
+                return "—"
+            }())
+            infoRow(icon: "wrench.and.screwdriver", label: "SDK", value: device.deviceInfo?.sdkVersion ?? "—")
+            
+            if device.isSimulator {
+                HStack(spacing: 6) {
+                    Image(systemName: "desktopcomputer").font(.ttIcon(TTIcon.sm)).foregroundColor(.ttWarning).frame(width: 18)
+                    Text("Simulator").font(TTFont.labelSmall).foregroundColor(.ttWarning)
+                    Spacer()
+                    StatusBadge(text: "SIM", color: .ttWarning, style: .filled)
+                }
+            }
+            
+            HStack(spacing: 6) {
+                Image(systemName: "clock").font(.ttIcon(TTIcon.sm)).foregroundColor(.ttTextTertiary).frame(width: 18)
+                Text("Connected").font(TTFont.labelSmall).foregroundColor(.ttTextTertiary)
+                Spacer()
+                Text(device.connectedAt, style: .relative).font(TTFont.codeSmall).foregroundColor(.ttTextSecondary)
+            }
+        }
+        .padding(.top, 6)
+    }
+    
+    private func infoRow(icon: String, label: String, value: String) -> some View {
+        HStack(spacing: 6) {
+            Image(systemName: icon).font(.ttIcon(TTIcon.sm)).foregroundColor(.ttTextTertiary).frame(width: 18)
+            Text(label).font(TTFont.labelSmall).foregroundColor(.ttTextTertiary)
+            Spacer()
+            Text(value).font(TTFont.codeSmall).foregroundColor(.ttTextPrimary).lineLimit(1)
+        }
+    }
+    
+    // MARK: - Appearance
+    private var appearanceRow: some View {
+        HStack(spacing: 8) {
+            Image(systemName: darkModeOverride ? "moon.fill" : "sun.max.fill")
+                .font(.ttIcon(TTIcon.lg))
+                .foregroundColor(darkModeOverride ? .ttPrimary : .ttWarning)
+                .frame(width: 20)
+            Text("Dark Mode")
+                .font(TTFont.labelSmall)
+                .foregroundColor(.ttTextPrimary)
+            Spacer()
+            Toggle("", isOn: Binding(
+                get: { darkModeOverride },
+                set: { newValue in
+                    darkModeOverride = newValue
+                    connectionManager.sendCommand(newValue ? "dark_mode_on" : "dark_mode_off")
+                }
+            ))
+            .toggleStyle(.switch)
+            .tint(.ttPrimary)
+            .controlSize(.small)
+        }
+        .padding(.horizontal, 12)
+        .padding(.vertical, 8)
+        .background(
+            RoundedRectangle(cornerRadius: 8)
+                .fill(Color.ttSurface.opacity(0.5))
+                .overlay(RoundedRectangle(cornerRadius: 8).stroke(Color.ttBorder.opacity(0.3), lineWidth: 1))
+        )
+    }
+    
+    // MARK: - Coming Soon
+    private var comingSoonSection: some View {
+        VStack(alignment: .leading, spacing: 4) {
+            ForEach([("rocket.fill", "App Lifecycle"), ("accessibility", "Accessibility"), ("hand.tap.fill", "Touch Overlay")], id: \.1) { icon, title in
+                HStack(spacing: 6) {
+                    Image(systemName: icon).font(.ttIcon(TTIcon.sm)).foregroundColor(.ttTextTertiary).frame(width: 18)
+                    Text(title).font(TTFont.labelSmall).foregroundColor(.ttTextTertiary)
+                    Spacer()
+                    StatusBadge(text: "SOON", color: .ttTextTertiary, style: .outlined)
+                }
+                .opacity(0.4)
+            }
+        }
+        .padding(.horizontal, 12)
+        .padding(.vertical, 8)
+        .background(
+            RoundedRectangle(cornerRadius: 8)
+                .fill(Color.ttSurface.opacity(0.3))
+        )
+    }
+    
+    // MARK: - Right Gallery Panel
+    private var rightGalleryPanel: some View {
+        VStack(spacing: 0) {
+            galleryToolbar
+            Divider().background(Color.ttBorder.opacity(0.3))
+            
+            if captureVM.screenshotHistory.isEmpty {
+                VStack(spacing: 12) {
+                    Spacer()
+                    Image(systemName: "photo.stack")
+                        .font(TTFont.displayLarge)
+                        .foregroundColor(.ttTextTertiary.opacity(0.4))
+                    Text("No Screenshots")
+                        .font(TTFont.heading3)
+                        .foregroundColor(.ttTextTertiary)
+                    Text("Captured screenshots appear here")
+                        .font(TTFont.bodySmall)
+                        .foregroundColor(.ttTextTertiary)
+                    Spacer()
+                }
+                .frame(maxWidth: .infinity)
+            } else {
+                galleryContent
+            }
+            
+            if !captureVM.screenshotHistory.isEmpty {
+                galleryFooter
+            }
+        }
+        .background(Color.ttBackground)
+    }
+    
+    // MARK: - Gallery Toolbar
+    private var galleryToolbar: some View {
+        HStack(spacing: 6) {
+            Text("SCREENSHOTS")
+                .font(TTFont.sidebarHeader)
+                .foregroundColor(.ttTextSecondary)
+                .tracking(0.8)
+            
+            Text("\(captureVM.screenshotHistory.count)")
+                .font(TTFont.badge)
+                .foregroundColor(.ttPrimary)
+                .padding(.horizontal, 5)
+                .padding(.vertical, 1)
+                .background(Capsule().fill(Color.ttPrimary.opacity(0.15)))
+            
+            Spacer()
+            
+            Picker("", selection: $captureVM.galleryViewMode) {
+                ForEach(GalleryViewMode.allCases, id: \.self) { mode in
+                    Image(systemName: mode.icon).tag(mode)
+                }
+            }
+            .pickerStyle(.segmented)
+            .frame(width: 64)
+            
+            Menu {
+                ForEach(GallerySortOrder.allCases, id: \.self) { order in
+                    Button { captureVM.sortOrder = order } label: {
+                        HStack {
+                            Text(order.rawValue)
+                            if captureVM.sortOrder == order { Image(systemName: "checkmark") }
+                        }
+                    }
+                }
+            } label: {
+                Image(systemName: "arrow.up.arrow.down").font(.ttIcon(TTIcon.sm))
+            }
+            .menuStyle(.borderlessButton)
+            .frame(width: 20)
+            
+            Button(action: {
+                captureVM.isMultiSelectMode.toggle()
+                if !captureVM.isMultiSelectMode { captureVM.deselectAll() }
+            }) {
+                Image(systemName: captureVM.isMultiSelectMode ? "checkmark.circle.fill" : "checkmark.circle")
+                    .font(.ttIcon(TTIcon.lg))
+                    .foregroundColor(captureVM.isMultiSelectMode ? .ttPrimary : .ttTextTertiary)
+            }
+            .buttonStyle(.plain)
+            .help("Multi-select")
+        }
+        .padding(.horizontal, 10)
+        .padding(.vertical, 8)
+    }
+    
+    // MARK: - Gallery Content
+    private var galleryContent: some View {
+        ScrollView {
+            switch captureVM.galleryViewMode {
+            case .grid: galleryGrid
+            case .list: galleryList
+            }
+        }
+    }
+    
+    private var galleryGrid: some View {
+        LazyVGrid(columns: [GridItem(.adaptive(minimum: 90, maximum: 130), spacing: 6)], spacing: 6) {
+            ForEach(captureVM.sortedHistory) { item in
+                galleryGridItem(item)
+            }
+        }
+        .padding(10)
+    }
+    
+    private func galleryGridItem(_ item: ScreenshotItem) -> some View {
+        let isSelected = captureVM.selectedHistoryItem?.id == item.id
+        let isChecked = captureVM.selectedItems.contains(item.id)
+        
+        return Button(action: {
+            captureVM.isMultiSelectMode ? captureVM.toggleSelection(item.id) : captureVM.selectItem(item)
+        }) {
+            VStack(spacing: 3) {
+                ZStack(alignment: .topTrailing) {
+                    Image(nsImage: item.image)
+                        .resizable()
+                        .aspectRatio(contentMode: .fill)
+                        .frame(height: 120)
+                        .clipShape(RoundedRectangle(cornerRadius: 6))
+                        .overlay(
+                            RoundedRectangle(cornerRadius: 6)
+                                .stroke(isSelected ? Color.ttPrimary : Color.ttBorder.opacity(0.3), lineWidth: isSelected ? 2 : 1)
+                        )
+                    
+                    if captureVM.isMultiSelectMode {
+                        Image(systemName: isChecked ? "checkmark.circle.fill" : "circle")
+                            .font(.ttIcon(TTIcon.xxl))
+                            .foregroundColor(isChecked ? .ttPrimary : .white.opacity(0.7))
+                            .shadow(color: .black.opacity(0.5), radius: 2)
+                            .padding(4)
+                    }
+                }
+                
+                Text(item.formattedTime)
+                    .font(TTFont.codeSmall)
+                    .foregroundColor(isSelected ? .ttPrimary : .ttTextTertiary)
+            }
+        }
+        .buttonStyle(.plain)
+        .contextMenu { galleryItemContextMenu(item) }
+    }
+    
+    private var galleryList: some View {
+        LazyVStack(spacing: 0) {
+            ForEach(captureVM.sortedHistory) { item in
+                galleryListItem(item)
+            }
+        }
+    }
+    
+    private func galleryListItem(_ item: ScreenshotItem) -> some View {
+        let isSelected = captureVM.selectedHistoryItem?.id == item.id
+        let isChecked = captureVM.selectedItems.contains(item.id)
+        
+        return Button(action: {
+            captureVM.isMultiSelectMode ? captureVM.toggleSelection(item.id) : captureVM.selectItem(item)
+        }) {
+            HStack(spacing: 8) {
+                if captureVM.isMultiSelectMode {
+                    Image(systemName: isChecked ? "checkmark.circle.fill" : "circle")
+                        .font(.ttIcon(TTIcon.xl))
+                        .foregroundColor(isChecked ? .ttPrimary : .ttTextTertiary)
+                }
+                
+                Image(nsImage: item.image)
+                    .resizable()
+                    .aspectRatio(contentMode: .fill)
+                    .frame(width: 36, height: 52)
+                    .clipShape(RoundedRectangle(cornerRadius: 4))
+                
+                VStack(alignment: .leading, spacing: 2) {
+                    Text(item.formattedDateTime)
+                        .font(TTFont.labelSmall)
+                        .foregroundColor(isSelected ? .ttPrimary : .ttTextPrimary)
+                    HStack(spacing: 6) {
+                        Text(item.resolutionText).font(TTFont.codeSmall).foregroundColor(.ttTextTertiary)
+                        Text("•").foregroundColor(.ttTextTertiary)
+                        Text(item.fileSizeEstimate).font(TTFont.codeSmall).foregroundColor(.ttTextTertiary)
+                    }
+                }
+                
+                Spacer()
+            }
+            .padding(.horizontal, 10)
+            .padding(.vertical, 4)
+            .background(
+                RoundedRectangle(cornerRadius: 4)
+                    .fill(isSelected ? Color.ttPrimary.opacity(0.08) : Color.clear)
+            )
+        }
+        .buttonStyle(.plain)
+        .contextMenu { galleryItemContextMenu(item) }
+    }
+    
+    // MARK: - Context Menu
+    @ViewBuilder
+    private func galleryItemContextMenu(_ item: ScreenshotItem) -> some View {
+        Button { captureVM.selectItem(item) } label: { Label("View", systemImage: "eye") }
+        Button { captureVM.selectItem(item); captureVM.isAnnotating = true } label: { Label("Annotate", systemImage: "pencil.tip.crop.circle") }
+        Button { captureVM.openBugReport(with: [item.image]) } label: { Label("Bug Report", systemImage: "ladybug") }
+        Divider()
+        Button {
+            if let url = captureVM.exportItem(item) { NSWorkspace.shared.activateFileViewerSelecting([url]) }
+        } label: { Label("Save to Disk", systemImage: "square.and.arrow.down") }
+        Button {
+            if let url = captureVM.exportItem(item) {
+                let picker = NSSharingServicePicker(items: [url])
+                if let view = NSApp.keyWindow?.contentView { picker.show(relativeTo: .zero, of: view, preferredEdge: .minY) }
+            }
+        } label: { Label("Share...", systemImage: "square.and.arrow.up") }
+        Divider()
+        Button(role: .destructive) { deleteTarget = .single(item.id); showDeleteConfirm = true } label: { Label("Delete", systemImage: "trash") }
+    }
+    
+    // MARK: - Gallery Footer
+    private var galleryFooter: some View {
+        HStack(spacing: 6) {
+            if captureVM.isMultiSelectMode {
+                Button(action: { captureVM.selectAll() }) {
+                    Text("All").font(TTFont.labelSmall)
+                }
+                .buttonStyle(.ttGhost)
+                
+                if captureVM.hasSelection {
+                    Text("\(captureVM.selectedCount) sel.")
+                        .font(TTFont.codeSmall)
+                        .foregroundColor(.ttPrimary)
+                    
+                    Spacer()
+                    
+                    Button(action: { captureVM.openBugReportFromSelected() }) {
+                        Image(systemName: "ladybug").font(.ttIcon(TTIcon.sm))
+                    }
+                    .buttonStyle(.ttGhost)
+                    .help("Create bug report from selected")
+                    
+                    Button(action: {
+                        let urls = captureVM.exportSelected()
+                        if !urls.isEmpty { NSWorkspace.shared.activateFileViewerSelecting(urls) }
+                    }) {
+                        Image(systemName: "square.and.arrow.down").font(.ttIcon(TTIcon.sm))
+                    }
+                    .buttonStyle(.ttGhost)
+                    
+                    Button(action: { deleteTarget = .selected; showDeleteConfirm = true }) {
+                        Image(systemName: "trash").font(.ttIcon(TTIcon.sm)).foregroundColor(.ttError)
+                    }
+                    .buttonStyle(.ttGhost)
+                } else { Spacer() }
+            } else {
+                Text("\(captureVM.screenshotHistory.count) screenshots")
+                    .font(TTFont.codeSmall).foregroundColor(.ttTextTertiary)
+                Spacer()
+                Menu {
+                    Button {
+                        let urls = captureVM.exportAll()
+                        if !urls.isEmpty { NSWorkspace.shared.activateFileViewerSelecting(urls) }
+                    } label: { Label("Export All", systemImage: "square.and.arrow.down") }
+                    Divider()
+                    Button(role: .destructive) { deleteTarget = .all; showDeleteConfirm = true } label: { Label("Clear All", systemImage: "trash") }
+                } label: {
+                    Image(systemName: "ellipsis.circle").font(.ttIcon(TTIcon.lg)).foregroundColor(.ttTextTertiary)
+                }
+                .menuStyle(.borderlessButton)
+                .frame(width: 24)
+            }
+        }
+        .padding(.horizontal, 10)
+        .padding(.vertical, 6)
+        .background(Color.ttBackground)
+        .overlay(Rectangle().fill(Color.ttBorder.opacity(0.3)).frame(height: 1), alignment: .top)
+    }
+    
+    // MARK: - Helpers
+    private func toggleRecording() {
+        if captureVM.isRecording {
+            captureVM.stopRecording()
+        } else {
+            captureVM.startRecording(connectionManager: connectionManager, interval: recordingInterval)
+        }
+    }
+    
+    private var currentDeviceInfoSnapshot: DeviceInfoSnapshot {
+        guard let device = connectionManager.selectedDevice else { return .empty }
+        return DeviceInfoSnapshot(
+            deviceName: device.displayName,
+            osVersion: device.osVersionString,
+            appName: device.appNameString,
+            appVersion: device.deviceInfo?.appVersion ?? "—",
+            sdkVersion: device.deviceInfo?.sdkVersion ?? "—",
+            screenResolution: {
+                if let info = device.deviceInfo {
+                    return "\(Int(info.screenWidth))×\(Int(info.screenHeight))pt"
+                }
+                return "—"
+            }(),
+            isSimulator: device.isSimulator
+        )
+    }
+}
+
+// MARK: - Pulsing Animation
+struct PulsingAnimation: ViewModifier {
+    @State private var isPulsing = false
+    func body(content: Content) -> some View {
+        content
+            .opacity(isPulsing ? 0.3 : 1.0)
+            .animation(.easeInOut(duration: 0.8).repeatForever(autoreverses: true), value: isPulsing)
+            .onAppear { isPulsing = true }
+    }
+}
+
+// MARK: - Flow Layout
+struct FlowLayout: Layout {
+    var spacing: CGFloat = 8
+    
+    func sizeThatFits(proposal: ProposedViewSize, subviews: Subviews, cache: inout ()) -> CGSize {
+        arrange(proposal: proposal, subviews: subviews).size
+    }
+    
+    func placeSubviews(in bounds: CGRect, proposal: ProposedViewSize, subviews: Subviews, cache: inout ()) {
+        let result = arrange(proposal: proposal, subviews: subviews)
+        for (i, pos) in result.positions.enumerated() {
+            subviews[i].place(at: CGPoint(x: bounds.minX + pos.x, y: bounds.minY + pos.y), proposal: .unspecified)
+        }
+    }
+    
+    private func arrange(proposal: ProposedViewSize, subviews: Subviews) -> (positions: [CGPoint], size: CGSize) {
+        let maxW = proposal.width ?? .infinity
+        var positions: [CGPoint] = []
+        var x: CGFloat = 0, y: CGFloat = 0, lineH: CGFloat = 0, maxX: CGFloat = 0
+        for sv in subviews {
+            let sz = sv.sizeThatFits(.unspecified)
+            if x + sz.width > maxW && x > 0 { x = 0; y += lineH + spacing; lineH = 0 }
+            positions.append(CGPoint(x: x, y: y))
+            lineH = max(lineH, sz.height)
+            x += sz.width + spacing
+            maxX = max(maxX, x)
+        }
+        return (positions, CGSize(width: maxX, height: y + lineH))
+    }
+}
+
+#Preview {
+    DeviceView()
+        .environment(ConnectionManager())
+        .frame(width: 1000, height: 800)
+        .preferredColorScheme(.dark)
+}

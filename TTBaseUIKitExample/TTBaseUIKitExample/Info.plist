@@ -47,5 +47,11 @@
     <string>Light</string>
 	<key>CFBundleDisplayName</key>
 	<string>TTBaseUIKit - UI Components</string>
+	<key>NSLocalNetworkUsageDescription</key>
+	<string>Required for connecting to TTBDebugPlus on macOS to stream debug logs.</string>
+	<key>NSBonjourServices</key>
+	<array>
+		<string>_ttbdebug._tcp</string>
+	</array>
 </dict>
 </plist>

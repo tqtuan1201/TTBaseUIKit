@@ -49,6 +49,15 @@ const NAV_SECTIONS = [
         ]
     },
     {
+        title: 'TTBDebugPlus',
+        items: [
+            { label: 'Overview', href: 'ttbdebugplus.html', icon: '🛠' },
+            { label: 'Features', href: 'ttbdebugplus.html#features', icon: '' },
+            { label: 'SDK Integration', href: 'ttbdebugplus.html#integration', icon: '' },
+            { label: 'Shortcuts', href: 'ttbdebugplus.html#shortcuts', icon: '' }
+        ]
+    },
+    {
         title: 'AI Agents',
         items: [
             { label: 'Overview', href: 'ai-agents/index.html', icon: '✨' },
@@ -112,6 +121,7 @@ function renderHeader() {
                     <a href="${resolveHref('getting-started.html')}" class="hover:text-blue-500 transition-colors" style="text-decoration:none;">Docs</a>
                     <a href="${resolveHref('uikit/index.html')}" class="hover:text-blue-500 transition-colors" style="text-decoration:none;">UIKit</a>
                     <a href="${resolveHref('swiftui/index.html')}" class="hover:text-blue-500 transition-colors" style="text-decoration:none;">SwiftUI</a>
+                    <a href="${resolveHref('ttbdebugplus.html')}" class="hover:text-blue-500 transition-colors" style="text-decoration:none;">TTBDebugPlus</a>
                     <a href="${resolveHref('ai-agents/index.html')}" class="hover:text-blue-500 transition-colors" style="text-decoration:none;">AI Agents</a>
                     <a href="${resolveHref('showcase.html')}" class="hover:text-blue-500 transition-colors" style="text-decoration:none;">Showcase</a>
                     <a href="${resolveHref('demo.html')}" class="hover:text-blue-500 transition-colors" style="text-decoration:none;">Demo</a>
