@@ -187,7 +187,7 @@ extension String {
             return try NSAttributedString(data: data, options: [.documentType: NSAttributedString.DocumentType.html, .characterEncoding: String.Encoding.utf8.rawValue], documentAttributes: nil)
         }
         catch {
-            print(error)
+            TTBaseFunc.shared.printLog(object: error)
             return nil
         }
     }

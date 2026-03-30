@@ -11,15 +11,15 @@ public class Service {
     private init() {}
     
     public static func printData() {
-        print("Init TTBaseUIKit Successfully")
+        TTBaseFunc.shared.printLog(object: "Init TTBaseUIKit Successfully")
     }
     
     public static func printUpdate() {
-        print("Update TTBaseUIKit Successfully")
+        TTBaseFunc.shared.printLog(object: "Update TTBaseUIKit Successfully")
     }
     
     public static func ahuhu() {
-        print("Update TTBaseUIKit Successfully")
+        TTBaseFunc.shared.printLog(object: "Update TTBaseUIKit Successfully")
     }
 }
 

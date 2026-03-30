@@ -30,7 +30,7 @@ public extension Encodable {
             json = String(describing: self)
         }
 
-        print("\(prefix) \(tag) \(function):\n\(json)\n")
+        TTBaseFunc.shared.printLog(object: "\(prefix) \(tag) \(function):\n\(json)")
     }
 }
 
@@ -53,7 +53,7 @@ public func pp(_ value: Any,
     let tag = "[\(URL(fileURLWithPath: file).lastPathComponent):\(line)]"
     debugPrint("\(prefix) \(tag) \(function):")
     dump(value, maxDepth: 4, maxItems: 20)
-    print("–––")
+    TTBaseFunc.shared.printLog(object: "–––")
 }
 
 

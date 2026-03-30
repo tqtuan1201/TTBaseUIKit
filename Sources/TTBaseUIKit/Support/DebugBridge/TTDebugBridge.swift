@@ -83,7 +83,7 @@ public final class TTDebugBridge {
             guard state == .idle || state == .disconnected else { return }
             _updateState(.browsing)
             _startBrowsing()
-            print("[TTDebugBridge] 🔍 Started browsing for debug services...")
+            TTBaseFunc.shared.printLog(object: "[TTDebugBridge] 🔍 Started browsing for debug services...")
         }
     }
     
@@ -98,7 +98,7 @@ public final class TTDebugBridge {
                 heartbeatTimer?.invalidate()
                 heartbeatTimer = nil
             }
-            print("[TTDebugBridge] ⏹ Bridge stopped")
+            TTBaseFunc.shared.printLog(object: "[TTDebugBridge] ⏹ Bridge stopped")
         }
     }
     
@@ -170,9 +170,9 @@ public final class TTDebugBridge {
             guard let self = self else { return }
             switch s {
             case .ready:
-                print("[TTDebugBridge] Browser ready")
+                TTBaseFunc.shared.printLog(object: "[TTDebugBridge] Browser ready")
             case .failed(let error):
-                print("[TTDebugBridge] Browser failed: \(error)")
+                TTBaseFunc.shared.printLog(object: "[TTDebugBridge] Browser failed: \(error)")
                 self.queue.async { self._scheduleReconnect() }
             default:
                 break
@@ -185,7 +185,7 @@ public final class TTDebugBridge {
                 guard self.browser === b else { return }
                 guard self.state == .browsing || self.state == .disconnected else { return }
                 if let endpoint = results.first?.endpoint {
-                    print("[TTDebugBridge] 📡 Found service: \(endpoint)")
+                    TTBaseFunc.shared.printLog(object: "[TTDebugBridge] 📡 Found service: \(endpoint)")
                     self._connect(to: endpoint)
                 }
             }
@@ -239,8 +239,16 @@ public final class TTDebugBridge {
             guard self.connectionGeneration == gen else { return }
             
             switch nwState {
+            case .setup:
+                // Initial state before start() is called — no action needed
+                TTBaseFunc.shared.printLog(object: "[TTDebugBridge] 🔧 Connection setup (pre-start)")
+                
+            case .preparing:
+                // Actively resolving endpoint / performing TCP handshake
+                TTBaseFunc.shared.printLog(object: "[TTDebugBridge] 🔄 Preparing connection (DNS resolve / TCP handshake)...")
+                
             case .ready:
-                print("[TTDebugBridge] ✅ Connected!")
+                TTBaseFunc.shared.printLog(object: "[TTDebugBridge] ✅ Connected!")
                 self.reconnectAttempt = 0
                 self._updateState(.connected)
                 self._stopBrowsing()
@@ -250,23 +258,30 @@ public final class TTDebugBridge {
                 self._receiveLoop(gen: gen)
                 
             case .waiting(let error):
-                print("[TTDebugBridge] ⏳ Waiting: \(error)")
+                // Path is not viable (e.g. no route, Wi-Fi off).
+                // Teardown and schedule reconnect to try fresh later.
+                TTBaseFunc.shared.printLog(object: "[TTDebugBridge] ⏳ Waiting (path not viable): \(error)")
+                self._teardownConnection()
+                self._updateState(.disconnected)
+                self._scheduleReconnect()
                 
             case .failed(let error):
-                print("[TTDebugBridge] ❌ Failed: \(error)")
+                TTBaseFunc.shared.printLog(object: "[TTDebugBridge] ❌ Failed: \(error)")
                 self._teardownConnection()
                 self._updateState(.disconnected)
                 self._scheduleReconnect()
                 
             case .cancelled:
+                TTBaseFunc.shared.printLog(object: "[TTDebugBridge] 🚫 Connection cancelled")
                 // Only act if still the current generation
                 if self.connectionGeneration == gen {
                     self.connection = nil
                     self._updateState(.disconnected)
                 }
                 
-            default:
-                break
+            @unknown default:
+                // Future-proof: log any new states added by Apple
+                TTBaseFunc.shared.printLog(object: "[TTDebugBridge] ⚠️ Unknown connection state: \(nwState)")
             }
         }
         
@@ -283,7 +298,7 @@ public final class TTDebugBridge {
             guard let self = self, self.connectionGeneration == gen else { return }
             
             if let error = error {
-                print("[TTDebugBridge] Recv header error: \(error)")
+                TTBaseFunc.shared.printLog(object: "[TTDebugBridge] Recv header error: \(error)")
                 return
             }
             
@@ -300,7 +315,7 @@ public final class TTDebugBridge {
                 guard let self = self, self.connectionGeneration == gen else { return }
                 
                 if let error = error {
-                    print("[TTDebugBridge] Recv body error: \(error)")
+                    TTBaseFunc.shared.printLog(object: "[TTDebugBridge] Recv body error: \(error)")
                     return
                 }
                 
@@ -443,7 +458,7 @@ public final class TTDebugBridge {
         
         reconnectAttempt += 1
         let delay = min(pow(2.0, Double(reconnectAttempt)), config.reconnectMaxDelay)
-        print("[TTDebugBridge] ⏳ Reconnecting in \(delay)s (attempt \(reconnectAttempt))...")
+        TTBaseFunc.shared.printLog(object: "[TTDebugBridge] ⏳ Reconnecting in \(delay)s (attempt \(reconnectAttempt))...")
         
         queue.asyncAfter(deadline: .now() + delay) { [weak self] in
             guard let self = self, self.state != .idle else { return }
@@ -479,7 +494,7 @@ public final class TTDebugBridge {
         frame.append(data)
         c.send(content: frame, completion: .contentProcessed { error in
             if let error = error {
-                print("[TTDebugBridge] Send error: \(error)")
+                TTBaseFunc.shared.printLog(object: "[TTDebugBridge] Send error: \(error)")
             }
         })
     }
@@ -492,7 +507,7 @@ public final class TTDebugBridge {
         for data in buffered {
             _sendData(data, on: c)
         }
-        print("[TTDebugBridge] 📤 Flushed \(buffered.count) buffered messages")
+        TTBaseFunc.shared.printLog(object: "[TTDebugBridge] 📤 Flushed \(buffered.count) buffered messages")
     }
     
     // MARK: - Private: State (queue)

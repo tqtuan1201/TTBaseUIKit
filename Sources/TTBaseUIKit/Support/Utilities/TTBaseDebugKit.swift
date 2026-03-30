@@ -201,7 +201,7 @@ fileprivate extension UIView {
             let allviews = rootView.subviewsRecursive()
             for v in allviews {
                 if v.hasAmbiguousLayout {
-                    print("⚠️ \(type(of: v)) Ambiguous Layout: \(v.description)")
+                    TTBaseFunc.shared.printLog(object: "⚠️ \(type(of: v)) Ambiguous Layout: \(v.description)")
                     v.backgroundColor = .red.withAlphaComponent(0.7)
                 }
             }
@@ -328,7 +328,7 @@ fileprivate extension UIView {
         self.layer.borderWidth = 1.0
         self.clipsToBounds = false
         
-        print(self)
+        TTBaseFunc.shared.printLog(object: self)
         
         
         let nameDebugLabel = TTBaseUILabel.init(withType: .SUB_SUB_TILE, text: String(describing: type(of: self)), align: .left)
@@ -368,7 +368,7 @@ fileprivate extension UIView {
     
     func printViewHierarchy(_ view: UIView, level: Int = 0) {
         let indent = String(repeating: "–", count: level)
-        print("\(indent)\(type(of: view)) frame: \(view.frame)")
+        TTBaseFunc.shared.printLog(object: "\(indent)\(type(of: view)) frame: \(view.frame)")
         for subview in view.subviews {
             printViewHierarchy(subview, level: level + 1)
         }
@@ -440,25 +440,25 @@ public extension UIView {
     }
     
     func debugSnapshot() {
-        print("🔢 TTBaseUIKit DebugKit ===================================")
-        print("🧩 View: \(type(of: self))")
-        print("📦 View : \(NSStringFromClass(self.classForCoder))")
-        print("📦 ViewController: \(self.getCurrentVCName())")
-        print("🧩 SuperView: \(self.superviewHierarchyDescription())")
-        print("📦 Path: \(self.debugLog("Path"))")
-        print("📦 Path: \(self.superview?.debugLog("Path") ?? "")")
+        TTBaseFunc.shared.printLog(object: "🔢 TTBaseUIKit DebugKit ===================================")
+        TTBaseFunc.shared.printLog(object: "🧩 View: \(type(of: self))")
+        TTBaseFunc.shared.printLog(object: "📦 View : \(NSStringFromClass(self.classForCoder))")
+        TTBaseFunc.shared.printLog(object: "📦 ViewController: \(self.getCurrentVCName())")
+        TTBaseFunc.shared.printLog(object: "🧩 SuperView: \(self.superviewHierarchyDescription())")
+        TTBaseFunc.shared.printLog(object: "📦 Path: \(self.debugLog("Path"))")
+        TTBaseFunc.shared.printLog(object: "📦 Path: \(self.superview?.debugLog("Path") ?? "")")
         
         
-        print("🔢 Frame: \(frame)")
-        print("📦 Superview: \(String(describing: superview))")
+        TTBaseFunc.shared.printLog(object: "🔢 Frame: \(frame)")
+        TTBaseFunc.shared.printLog(object: "📦 Superview: \(String(describing: superview))")
         
-        print("📦 ViewHierarchy: \(self.printViewHierarchy(self))")
+        TTBaseFunc.shared.printLog(object: "📦 ViewHierarchy: \(self.printViewHierarchy(self))")
         
         let stack = Thread.callStackSymbols.prefix(10).joined(separator: "\n")
-        print("📜 Stack:\n\(stack)")
+        TTBaseFunc.shared.printLog(object: "📜 Stack:\n\(stack)")
         
         for constraint in self.constraints {
-            print("📦 Contrains: \(constraint)")
+            TTBaseFunc.shared.printLog(object: "📦 Contrains: \(constraint)")
         }
     }
     
