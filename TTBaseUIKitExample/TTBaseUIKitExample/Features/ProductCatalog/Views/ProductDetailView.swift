@@ -11,6 +11,7 @@ import TTBaseUIKit
 
 // MARK: - ProductDetailView
 /// Full product detail with image gallery, price, reviews, specs.
+/// Refactored to maximize TTBaseUIKit SwiftUI base components.
 struct ProductDetailView: View {
     
     let product: Product
@@ -21,9 +22,11 @@ struct ProductDetailView: View {
     // MARK: - Design
     private enum Design {
         static let imageGalleryHeight: CGFloat = 320
-        static let sectionSpacing: CGFloat = 20
-        static let cardCorner: CGFloat = 16
+        static let sectionSpacing: CGFloat = TTSize.P_CONS_DEF * 1.5
+        static let cardCorner: CGFloat = TTSize.CORNER_PANEL
         static let dotSize: CGFloat = 8
+        static let accentColor = Color(red: 0.2, green: 0.5, blue: 0.95)
+        static let cardBg = Color(TTView.viewBgCellColor)
     }
     
     var body: some View {
@@ -32,38 +35,19 @@ struct ProductDetailView: View {
             title: product.title
         ) {
             ScrollView(.vertical, showsIndicators: false) {
-                VStack(alignment: .leading, spacing: Design.sectionSpacing) {
-                    // Image Gallery
+                TTBaseSUIVStack(alignment: .leading, spacing: Design.sectionSpacing) {
                     imageGallerySection
+                    headerSection.pHorizontal(TTSize.P_CONS_DEF)
+                    quickStatsSection.pHorizontal(TTSize.P_CONS_DEF)
+                    descriptionSection.pHorizontal(TTSize.P_CONS_DEF)
+                    specsSection.pHorizontal(TTSize.P_CONS_DEF)
+                    reviewsSection.pHorizontal(TTSize.P_CONS_DEF)
+                    addToCartSection.pHorizontal(TTSize.P_CONS_DEF)
                     
-                    // Header: Title + Price
-                    headerSection
-                        .padding(.horizontal, 16)
-                    
-                    // Quick Stats
-                    quickStatsSection
-                        .padding(.horizontal, 16)
-                    
-                    // Description
-                    descriptionSection
-                        .padding(.horizontal, 16)
-                    
-                    // Specifications
-                    specsSection
-                        .padding(.horizontal, 16)
-                    
-                    // Reviews
-                    reviewsSection
-                        .padding(.horizontal, 16)
-                    
-                    // Add to Cart Button
-                    addToCartSection
-                        .padding(.horizontal, 16)
-                    
-                    Spacer(minLength: 30)
+                    TTBaseSUISpacer(maxHeight: 30)
                 }
             }
-            .background(Color(UIColor.systemGroupedBackground))
+            .bg(byDef: Color(UIColor.systemGroupedBackground))
         }
     }
     
@@ -77,22 +61,20 @@ struct ProductDetailView: View {
                         contentMode: .fit,
                         cornerRadius: 0
                     )
-                    .frame(maxWidth: .infinity)
-                    .background(Color.white)
+                    .maxWidth()
+                    .bg(byDef: Design.cardBg)
                     .tag(index)
                 }
             }
             .tabViewStyle(PageTabViewStyle(indexDisplayMode: .never))
-            .frame(height: Design.imageGalleryHeight)
+            .size(height: Design.imageGalleryHeight)
             
             // Custom Page Indicator
             if product.images.count > 1 {
-                HStack(spacing: 6) {
+                TTBaseSUIHStack(alignment: .center, spacing: 6, bg: .clear) {
                     ForEach(0..<product.images.count, id: \.self) { index in
                         Circle()
-                            .fill(index == selectedImageIndex ?
-                                  Color(red: 0.2, green: 0.5, blue: 0.95) :
-                                  Color(UIColor.systemGray4))
+                            .fill(index == selectedImageIndex ? Design.accentColor : Color(UIColor.systemGray4))
                             .frame(
                                 width: index == selectedImageIndex ? 10 : Design.dotSize,
                                 height: Design.dotSize
@@ -100,11 +82,11 @@ struct ProductDetailView: View {
                             .animation(.spring(response: 0.3), value: selectedImageIndex)
                     }
                 }
-                .padding(.vertical, 10)
-                .padding(.horizontal, 16)
-                .background(Color.white.opacity(0.9))
-                .cornerRadius(20)
-                .padding(.bottom, 12)
+                .pVertical(TTSize.P_CONS_DEF * 0.8)
+                .pHorizontal(TTSize.P_CONS_DEF)
+                .bg(byDef: Design.cardBg.opacity(0.9))
+                .corner(byDef: 20)
+                .pBottom(TTSize.P_CONS_DEF)
             }
             
             // Discount Badge
@@ -112,21 +94,24 @@ struct ProductDetailView: View {
                 VStack {
                     HStack {
                         Spacer()
-                        Text("-\(Int(product.discountPercentage))% OFF")
-                            .font(.system(size: 13, weight: .heavy))
-                            .foregroundColor(.white)
-                            .padding(.horizontal, 14)
-                            .padding(.vertical, 8)
-                            .background(
-                                LinearGradient(
-                                    colors: [Color(red: 1.0, green: 0.25, blue: 0.2), Color(red: 0.9, green: 0.15, blue: 0.1)],
-                                    startPoint: .topLeading,
-                                    endPoint: .bottomTrailing
-                                )
+                        TTBaseSUIText(
+                            withBold: .SUB_TITLE,
+                            text: "-\(Int(product.discountPercentage))% OFF",
+                            align: .center,
+                            color: .white
+                        )
+                        .pHorizontal(TTSize.P_CONS_DEF)
+                        .pVertical(TTSize.P_CONS_DEF / 2)
+                        .background(
+                            LinearGradient(
+                                colors: [Color(red: 1.0, green: 0.25, blue: 0.2), Color(red: 0.9, green: 0.15, blue: 0.1)],
+                                startPoint: .topLeading,
+                                endPoint: .bottomTrailing
                             )
-                            .cornerRadius(12)
-                            .padding(.top, 16)
-                            .padding(.trailing, 16)
+                        )
+                        .corner(byDef: TTSize.CORNER_RADIUS)
+                        .pTop(TTSize.P_CONS_DEF)
+                        .pTrailing(TTSize.P_CONS_DEF)
                     }
                     Spacer()
                 }
@@ -136,46 +121,61 @@ struct ProductDetailView: View {
     
     // MARK: - Header Section
     private var headerSection: some View {
-        VStack(alignment: .leading, spacing: 8) {
-            // Category
-            HStack(spacing: 8) {
-                Text(product.category.uppercased())
-                    .font(.system(size: 11, weight: .bold))
-                    .foregroundColor(.white)
-                    .padding(.horizontal, 10)
-                    .padding(.vertical, 4)
-                    .background(categoryColor)
-                    .cornerRadius(6)
+        TTBaseSUIVStack(alignment: .leading, spacing: TTSize.P_CONS_DEF / 2, bg: .clear) {
+            // Category + Brand
+            TTBaseSUIHStack(alignment: .center, spacing: TTSize.P_CONS_DEF / 2, bg: .clear) {
+                TTBaseSUIText(
+                    withBold: .SUB_SUB_TILE,
+                    text: product.category.uppercased(),
+                    align: .center,
+                    color: .white
+                )
+                .pHorizontal(TTSize.P_CONS_DEF * 0.8)
+                .pVertical(4)
+                .bg(byDef: categoryColor)
+                .corner(byDef: 6)
                 
                 if let brand = product.brand {
-                    Text(brand)
-                        .font(.system(size: 12, weight: .medium))
-                        .foregroundColor(Color(UIColor.secondaryLabel))
+                    TTBaseSUIText(
+                        withType: .SUB_TITLE,
+                        text: brand,
+                        align: .leading,
+                        color: Color(TTView.textSubTitleColor)
+                    )
                 }
             }
             
             // Title
-            Text(product.title)
-                .font(.system(size: 24, weight: .bold))
-                .foregroundColor(Color(UIColor.label))
+            TTBaseSUIText(
+                withBold: .HEADER,
+                text: product.title,
+                align: .leading,
+                color: Color(TTView.textTitleColor)
+            )
             
             // Rating Row
-            HStack(spacing: 4) {
+            TTBaseSUIHStack(alignment: .center, spacing: 4, bg: .clear) {
                 ForEach(0..<5) { index in
                     Image(systemName: index < Int(product.rating.rounded()) ? "star.fill" : "star")
                         .font(.system(size: 14, weight: .medium))
                         .foregroundColor(.orange)
                 }
-                Text(String(format: "%.1f", product.rating))
-                    .font(.system(size: 14, weight: .bold))
-                    .foregroundColor(Color(UIColor.label))
-                Text("(\(product.reviews.count) reviews)")
-                    .font(.system(size: 13))
-                    .foregroundColor(Color(UIColor.secondaryLabel))
+                TTBaseSUIText(
+                    withBold: .SUB_TITLE,
+                    text: String(format: "%.1f", product.rating),
+                    align: .leading,
+                    color: Color(TTView.textTitleColor)
+                )
+                TTBaseSUIText(
+                    withType: .SUB_TITLE,
+                    text: "(\(product.reviews.count) reviews)",
+                    align: .leading,
+                    color: Color(TTView.textSubTitleColor)
+                )
             }
             
             // Price
-            HStack(alignment: .firstTextBaseline, spacing: 10) {
+            TTBaseSUIHStack(alignment: .center, spacing: TTSize.P_CONS_DEF, bg: .clear) {
                 if product.hasDiscount {
                     Text(product.formattedDiscountedPrice)
                         .font(.system(size: 28, weight: .bold))
@@ -186,30 +186,33 @@ struct ProductDetailView: View {
                         .strikethrough()
                         .foregroundColor(Color(UIColor.tertiaryLabel))
                     
-                    Text("Save \(String(format: "$%.2f", product.price - product.discountedPrice))")
-                        .font(.system(size: 12, weight: .bold))
-                        .foregroundColor(.green)
-                        .padding(.horizontal, 8)
-                        .padding(.vertical, 3)
-                        .background(Color.green.opacity(0.1))
-                        .cornerRadius(4)
+                    TTBaseSUIText(
+                        withBold: .SUB_SUB_TILE,
+                        text: "Save \(String(format: "$%.2f", product.price - product.discountedPrice))",
+                        align: .center,
+                        color: .green
+                    )
+                    .pHorizontal(TTSize.P_CONS_DEF / 2)
+                    .pVertical(3)
+                    .bg(byDef: Color.green.opacity(0.1))
+                    .corner(byDef: 4)
                 } else {
                     Text(product.formattedPrice)
                         .font(.system(size: 28, weight: .bold))
-                        .foregroundColor(Color(UIColor.label))
+                        .foregroundColor(Color(TTView.textTitleColor))
                 }
             }
         }
-        .padding(16)
-        .frame(maxWidth: .infinity, alignment: .leading)
-        .background(Color.white)
-        .cornerRadius(Design.cardCorner)
+        .pAll(TTSize.P_CONS_DEF)
+        .maxWidth(alignment: .leading)
+        .bg(byDef: Design.cardBg)
+        .corner(byDef: Design.cardCorner)
         .baseShadow(corner: Design.cardCorner, color: .black.opacity(0.06), radius: 6, y: 3)
     }
     
     // MARK: - Quick Stats
     private var quickStatsSection: some View {
-        HStack(spacing: 12) {
+        TTBaseSUIHStack(alignment: .center, spacing: TTSize.P_CONS_DEF, bg: .clear) {
             quickStatItem(
                 icon: product.isInStock ? "checkmark.circle.fill" : (product.isLowStock ? "exclamationmark.circle.fill" : "xmark.circle.fill"),
                 title: product.availabilityStatus,
@@ -223,44 +226,48 @@ struct ProductDetailView: View {
     }
     
     private func quickStatItem(icon: String, title: String, color: Color) -> some View {
-        VStack(spacing: 6) {
+        TTBaseSUIVStack(alignment: .center, spacing: 6, bg: .clear) {
             Image(systemName: icon)
                 .font(.system(size: 20, weight: .medium))
                 .foregroundColor(color)
             
-            Text(title)
-                .font(.system(size: 10, weight: .medium))
-                .foregroundColor(Color(UIColor.secondaryLabel))
-                .multilineTextAlignment(.center)
-                .lineLimit(2)
+            TTBaseSUIText(
+                withType: .SUB_SUB_TILE,
+                text: title,
+                align: .center,
+                color: Color(TTView.textSubTitleColor)
+            )
+            .lineLimit(2)
         }
-        .frame(maxWidth: .infinity)
-        .padding(.vertical, 14)
-        .background(Color.white)
-        .cornerRadius(12)
-        .baseShadow(corner: 12, color: .black.opacity(0.04), radius: 4, y: 2)
+        .maxWidth()
+        .pVertical(TTSize.P_CONS_DEF)
+        .bg(byDef: Design.cardBg)
+        .corner(byDef: TTSize.CORNER_RADIUS)
+        .baseShadow(corner: TTSize.CORNER_RADIUS, color: .black.opacity(0.04), radius: 4, y: 2)
     }
     
     // MARK: - Description
     private var descriptionSection: some View {
-        VStack(alignment: .leading, spacing: 10) {
+        TTBaseSUIVStack(alignment: .leading, spacing: TTSize.P_CONS_DEF, bg: .clear) {
             sectionHeader(title: "Description", icon: "text.alignleft")
             
-            Text(product.description)
-                .font(.system(size: 14, weight: .regular))
-                .foregroundColor(Color(UIColor.secondaryLabel))
-                .lineSpacing(4)
+            TTBaseSUIText(
+                withType: .SUB_TITLE,
+                text: product.description,
+                align: .leading,
+                color: Color(TTView.textSubTitleColor)
+            )
         }
-        .padding(16)
-        .frame(maxWidth: .infinity, alignment: .leading)
-        .background(Color.white)
-        .cornerRadius(Design.cardCorner)
+        .pAll(TTSize.P_CONS_DEF)
+        .maxWidth(alignment: .leading)
+        .bg(byDef: Design.cardBg)
+        .corner(byDef: Design.cardCorner)
         .baseShadow(corner: Design.cardCorner, color: .black.opacity(0.04), radius: 4, y: 2)
     }
     
     // MARK: - Specifications
     private var specsSection: some View {
-        VStack(alignment: .leading, spacing: 12) {
+        TTBaseSUIVStack(alignment: .leading, spacing: TTSize.P_CONS_DEF, bg: .clear) {
             sectionHeader(title: "Specifications", icon: "list.bullet.rectangle.fill")
             
             specRow(label: "SKU", value: product.sku)
@@ -270,45 +277,57 @@ struct ProductDetailView: View {
             specRow(label: "Min. Order", value: "\(product.minimumOrderQuantity) units")
             
             if !product.tags.isEmpty {
-                HStack(spacing: 6) {
-                    Text("Tags")
-                        .font(.system(size: 12, weight: .semibold))
-                        .foregroundColor(Color(UIColor.secondaryLabel))
-                        .frame(width: 90, alignment: .leading)
+                TTBaseSUIHStack(alignment: .center, spacing: 6, bg: .clear) {
+                    TTBaseSUIText(
+                        withBold: .SUB_SUB_TILE,
+                        text: "Tags",
+                        align: .leading,
+                        color: Color(TTView.textSubTitleColor)
+                    )
+                    .size(width: 90)
                     
                     ScrollView(.horizontal, showsIndicators: false) {
-                        HStack(spacing: 6) {
+                        TTBaseSUIHStack(alignment: .center, spacing: 6, bg: .clear) {
                             ForEach(product.tags, id: \.self) { tag in
-                                Text(tag)
-                                    .font(.system(size: 11, weight: .medium))
-                                    .foregroundColor(Color(red: 0.2, green: 0.5, blue: 0.95))
-                                    .padding(.horizontal, 10)
-                                    .padding(.vertical, 4)
-                                    .background(Color(red: 0.2, green: 0.5, blue: 0.95).opacity(0.1))
-                                    .cornerRadius(6)
+                                TTBaseSUIText(
+                                    withType: .SUB_SUB_TILE,
+                                    text: tag,
+                                    align: .center,
+                                    color: Design.accentColor
+                                )
+                                .pHorizontal(TTSize.P_CONS_DEF * 0.8)
+                                .pVertical(4)
+                                .bg(byDef: Design.accentColor.opacity(0.1))
+                                .corner(byDef: 6)
                             }
                         }
                     }
                 }
             }
         }
-        .padding(16)
-        .frame(maxWidth: .infinity, alignment: .leading)
-        .background(Color.white)
-        .cornerRadius(Design.cardCorner)
+        .pAll(TTSize.P_CONS_DEF)
+        .maxWidth(alignment: .leading)
+        .bg(byDef: Design.cardBg)
+        .corner(byDef: Design.cardCorner)
         .baseShadow(corner: Design.cardCorner, color: .black.opacity(0.04), radius: 4, y: 2)
     }
     
     private func specRow(label: String, value: String) -> some View {
-        HStack {
-            Text(label)
-                .font(.system(size: 12, weight: .semibold))
-                .foregroundColor(Color(UIColor.secondaryLabel))
-                .frame(width: 90, alignment: .leading)
+        TTBaseSUIHStack(alignment: .center, spacing: 0, bg: .clear) {
+            TTBaseSUIText(
+                withBold: .SUB_SUB_TILE,
+                text: label,
+                align: .leading,
+                color: Color(TTView.textSubTitleColor)
+            )
+            .size(width: 90)
             
-            Text(value)
-                .font(.system(size: 13, weight: .regular))
-                .foregroundColor(Color(UIColor.label))
+            TTBaseSUIText(
+                withType: .SUB_TITLE,
+                text: value,
+                align: .leading,
+                color: Color(TTView.textTitleColor)
+            )
             
             Spacer()
         }
@@ -316,7 +335,7 @@ struct ProductDetailView: View {
     
     // MARK: - Reviews
     private var reviewsSection: some View {
-        VStack(alignment: .leading, spacing: 12) {
+        TTBaseSUIVStack(alignment: .leading, spacing: TTSize.P_CONS_DEF, bg: .clear) {
             sectionHeader(title: "Reviews (\(product.reviews.count))", icon: "bubble.left.and.bubble.right.fill")
             
             let displayedReviews = showAllReviews ? product.reviews : Array(product.reviews.prefix(2))
@@ -327,51 +346,60 @@ struct ProductDetailView: View {
             
             if product.reviews.count > 2 {
                 Button(action: { withAnimation(.spring()) { showAllReviews.toggle() } }) {
-                    HStack {
+                    TTBaseSUIHStack(alignment: .center, spacing: 4, bg: .clear) {
                         Spacer()
-                        Text(showAllReviews ? "Show Less" : "View All \(product.reviews.count) Reviews")
-                            .font(.system(size: 13, weight: .semibold))
-                            .foregroundColor(Color(red: 0.2, green: 0.5, blue: 0.95))
+                        TTBaseSUIText(
+                            withBold: .SUB_TITLE,
+                            text: showAllReviews ? "Show Less" : "View All \(product.reviews.count) Reviews",
+                            align: .center,
+                            color: Design.accentColor
+                        )
                         Image(systemName: showAllReviews ? "chevron.up" : "chevron.down")
                             .font(.system(size: 11, weight: .semibold))
-                            .foregroundColor(Color(red: 0.2, green: 0.5, blue: 0.95))
+                            .foregroundColor(Design.accentColor)
                         Spacer()
                     }
                 }
             }
         }
-        .padding(16)
-        .frame(maxWidth: .infinity, alignment: .leading)
-        .background(Color.white)
-        .cornerRadius(Design.cardCorner)
+        .pAll(TTSize.P_CONS_DEF)
+        .maxWidth(alignment: .leading)
+        .bg(byDef: Design.cardBg)
+        .corner(byDef: Design.cardCorner)
         .baseShadow(corner: Design.cardCorner, color: .black.opacity(0.04), radius: 4, y: 2)
     }
     
     private func reviewCard(review: ProductReview) -> some View {
-        VStack(alignment: .leading, spacing: 6) {
-            HStack {
+        TTBaseSUIVStack(alignment: .leading, spacing: 6, bg: .clear) {
+            TTBaseSUIHStack(alignment: .center, spacing: 0, bg: .clear) {
                 // Avatar
                 Circle()
                     .fill(
                         LinearGradient(
-                            colors: [Color(red: 0.2, green: 0.5, blue: 0.95), Color(red: 0.4, green: 0.7, blue: 1.0)],
+                            colors: [Design.accentColor, Color(red: 0.4, green: 0.7, blue: 1.0)],
                             startPoint: .topLeading,
                             endPoint: .bottomTrailing
                         )
                     )
-                    .frame(width: 32, height: 32)
+                    .sizeSquare(width: 32)
                     .overlay(
-                        Text(String(review.reviewerName.prefix(1)))
-                            .font(.system(size: 14, weight: .bold))
-                            .foregroundColor(.white)
+                        TTBaseSUIText(
+                            withBold: .SUB_TITLE,
+                            text: String(review.reviewerName.prefix(1)),
+                            align: .center,
+                            color: .white
+                        )
                     )
                 
-                VStack(alignment: .leading, spacing: 2) {
-                    Text(review.reviewerName)
-                        .font(.system(size: 13, weight: .semibold))
-                        .foregroundColor(Color(UIColor.label))
+                TTBaseSUIVStack(alignment: .leading, spacing: 2, bg: .clear) {
+                    TTBaseSUIText(
+                        withBold: .SUB_TITLE,
+                        text: review.reviewerName,
+                        align: .leading,
+                        color: Color(TTView.textTitleColor)
+                    )
                     
-                    HStack(spacing: 2) {
+                    TTBaseSUIHStack(alignment: .center, spacing: 2, bg: .clear) {
                         ForEach(0..<5) { i in
                             Image(systemName: i < review.rating ? "star.fill" : "star")
                                 .font(.system(size: 9))
@@ -379,65 +407,79 @@ struct ProductDetailView: View {
                         }
                     }
                 }
+                .pLeading(TTSize.P_CONS_DEF / 2)
                 
                 Spacer()
             }
             
-            Text(review.comment)
-                .font(.system(size: 13, weight: .regular))
-                .foregroundColor(Color(UIColor.secondaryLabel))
-                .padding(.leading, 40)
+            TTBaseSUIText(
+                withType: .SUB_TITLE,
+                text: review.comment,
+                align: .leading,
+                color: Color(TTView.textSubTitleColor)
+            )
+            .pLeading(40)
         }
-        .padding(12)
-        .background(Color(UIColor.systemGray6))
-        .cornerRadius(12)
+        .pAll(TTSize.P_CONS_DEF)
+        .bg(byDef: Color(UIColor.systemGray6))
+        .corner(byDef: TTSize.CORNER_RADIUS)
     }
     
     // MARK: - Add to Cart
     private var addToCartSection: some View {
         Button(action: {
-            // Demo action
             if let vc = hostingProvider.getCurrentVC() {
                 vc.showNoticeView(body: "Added \(product.title) to cart!")
             }
         }) {
-            HStack(spacing: 10) {
+            TTBaseSUIHStack(alignment: .center, spacing: TTSize.P_CONS_DEF, bg: .clear) {
                 Image(systemName: "cart.badge.plus")
                     .font(.system(size: 18, weight: .semibold))
                 
-                Text("Add to Cart")
-                    .font(.system(size: 16, weight: .bold))
+                TTBaseSUIText(
+                    withBold: .TITLE,
+                    text: "Add to Cart",
+                    align: .leading,
+                    color: .white
+                )
                 
                 Spacer()
                 
-                Text(product.hasDiscount ? product.formattedDiscountedPrice : product.formattedPrice)
-                    .font(.system(size: 16, weight: .bold))
+                TTBaseSUIText(
+                    withBold: .TITLE,
+                    text: product.hasDiscount ? product.formattedDiscountedPrice : product.formattedPrice,
+                    align: .trailing,
+                    color: .white
+                )
             }
             .foregroundColor(.white)
-            .padding(.horizontal, 24)
-            .padding(.vertical, 16)
+            .pHorizontal(TTSize.P_CONS_DEF * 2)
+            .pVertical(TTSize.P_CONS_DEF)
             .background(
                 LinearGradient(
-                    colors: [Color(red: 0.2, green: 0.5, blue: 0.95), Color(red: 0.15, green: 0.4, blue: 0.85)],
+                    colors: [Design.accentColor, Color(red: 0.15, green: 0.4, blue: 0.85)],
                     startPoint: .leading,
                     endPoint: .trailing
                 )
             )
-            .cornerRadius(16)
-            .baseShadow(corner: 16, color: Color(red: 0.2, green: 0.5, blue: 0.95).opacity(0.35), radius: 10, y: 5)
+            .corner(byDef: Design.cardCorner)
+            .baseShadow(corner: Design.cardCorner, color: Design.accentColor.opacity(0.35), radius: 10, y: 5)
         }
     }
     
     // MARK: - Helpers
     private func sectionHeader(title: String, icon: String) -> some View {
-        HStack(spacing: 8) {
+        TTBaseSUIHStack(alignment: .center, spacing: TTSize.P_CONS_DEF / 2, bg: .clear) {
             Image(systemName: icon)
                 .font(.system(size: 14, weight: .semibold))
-                .foregroundColor(Color(red: 0.2, green: 0.5, blue: 0.95))
+                .foregroundColor(Design.accentColor)
             
-            Text(title)
-                .font(.system(size: 16, weight: .bold))
-                .foregroundColor(Color(UIColor.label))
+            TTBaseSUIText(
+                withBold: .TITLE,
+                text: title,
+                align: .leading,
+                color: Color(TTView.textTitleColor)
+            )
         }
     }
     

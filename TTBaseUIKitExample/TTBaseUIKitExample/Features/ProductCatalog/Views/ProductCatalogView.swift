@@ -11,24 +11,25 @@ import TTBaseUIKit
 
 // MARK: - ProductCatalogView
 /// Main product catalog with search, category filters, sort, and grid of products.
+/// Refactored to maximize TTBaseUIKit SwiftUI base components.
 struct ProductCatalogView: View {
     
     @StateObject private var viewModel = ProductCatalogViewModel()
     @EnvironmentObject var hostingProvider: ViewControllerProvider
     
     @State private var showSortSheet = false
-    @State private var isSearchActive = false
     
     // MARK: - Grid Layout
     private let columns = [
-        GridItem(.flexible(), spacing: 12),
-        GridItem(.flexible(), spacing: 12)
+        GridItem(.flexible(), spacing: TTSize.P_CONS_DEF),
+        GridItem(.flexible(), spacing: TTSize.P_CONS_DEF)
     ]
     
-    // MARK: - Design
+    // MARK: - Design Tokens
     private enum Design {
         static let accentColor = Color(red: 0.2, green: 0.5, blue: 0.95)
         static let bgColor = Color(UIColor.systemGroupedBackground)
+        static let cardBg = Color(TTView.viewBgCellColor)
     }
     
     var body: some View {
@@ -39,7 +40,7 @@ struct ProductCatalogView: View {
             ZStack {
                 Design.bgColor.ignoresSafeArea()
                 
-                VStack(spacing: 0) {
+                TTBaseSUIVStack(alignment: .leading, spacing: 0, bg: .clear) {
                     // Search & Filter Bar
                     searchAndFilterBar
                     
@@ -68,17 +69,17 @@ struct ProductCatalogView: View {
     
     // MARK: - Search & Filter Bar
     private var searchAndFilterBar: some View {
-        VStack(spacing: 0) {
-            HStack(spacing: 10) {
+        TTBaseSUIVStack(alignment: .leading, spacing: 0, bg: Design.cardBg) {
+            TTBaseSUIHStack(alignment: .center, spacing: TTSize.P_CONS_DEF) {
                 // Search Field
-                HStack(spacing: 8) {
+                TTBaseSUIHStack(alignment: .center, spacing: TTSize.P_CONS_DEF / 2) {
                     Image(systemName: "magnifyingglass")
                         .font(.system(size: 15, weight: .medium))
                         .foregroundColor(Color(UIColor.systemGray))
                     
                     TextField("Search products...", text: $viewModel.searchText)
                         .font(.system(size: 14, weight: .regular))
-                        .foregroundColor(Color(UIColor.label))
+                        .foregroundColor(Color(TTView.textDefColor))
                     
                     if !viewModel.searchText.isEmpty {
                         Button(action: { viewModel.searchText = "" }) {
@@ -88,19 +89,19 @@ struct ProductCatalogView: View {
                         }
                     }
                 }
-                .padding(.horizontal, 12)
-                .padding(.vertical, 10)
-                .background(Color(UIColor.systemGray6))
-                .cornerRadius(12)
+                .pHorizontal(TTSize.P_CONS_DEF)
+                .pVertical(TTSize.P_CONS_DEF * 0.8)
+                .bg(byDef: Color(UIColor.systemGray6))
+                .corner(byDef: TTSize.CORNER_RADIUS)
                 
                 // Sort Button
                 Button(action: { showSortSheet = true }) {
                     Image(systemName: viewModel.sortOption.icon)
                         .font(.system(size: 15, weight: .semibold))
                         .foregroundColor(Design.accentColor)
-                        .frame(width: 40, height: 40)
-                        .background(Design.accentColor.opacity(0.1))
-                        .cornerRadius(10)
+                        .sizeSquare(width: 40)
+                        .bg(byDef: Design.accentColor.opacity(0.1))
+                        .corner(byDef: TTSize.CORNER_RADIUS)
                 }
                 .actionSheet(isPresented: $showSortSheet) {
                     ActionSheet(
@@ -113,46 +114,50 @@ struct ProductCatalogView: View {
                     )
                 }
             }
-            .padding(.horizontal, 16)
-            .padding(.vertical, 10)
-            .background(Color.white)
+            .pAll(TTSize.P_CONS_DEF)
             
             // Product Count + Sort info
-            HStack {
-                Text("\(viewModel.productCount) products")
-                    .font(.system(size: 12, weight: .semibold))
-                    .foregroundColor(Color(UIColor.secondaryLabel))
+            TTBaseSUIHStack(alignment: .center, spacing: TTSize.P_CONS_DEF / 2) {
+                TTBaseSUIText(
+                    withBold: .SUB_SUB_TILE,
+                    text: "\(viewModel.productCount) products",
+                    align: .leading,
+                    color: Color(TTView.textSubTitleColor)
+                )
                 
                 Spacer()
                 
-                HStack(spacing: 4) {
+                TTBaseSUIHStack(alignment: .center, spacing: 4, bg: .clear) {
                     Image(systemName: viewModel.sortOption.icon)
                         .font(.system(size: 10, weight: .medium))
-                    Text(viewModel.sortOption.rawValue)
-                        .font(.system(size: 11, weight: .medium))
+                    TTBaseSUIText(
+                        withType: .SUB_SUB_TILE,
+                        text: viewModel.sortOption.rawValue,
+                        align: .trailing,
+                        color: Design.accentColor
+                    )
                 }
                 .foregroundColor(Design.accentColor)
             }
-            .padding(.horizontal, 16)
-            .padding(.vertical, 6)
-            .background(Color.white)
+            .pHorizontal(TTSize.P_CONS_DEF)
+            .pVertical(TTSize.P_CONS_DEF / 2)
             
-            Divider()
+            TTBaseSUIHorizontalDividerView(noConner: .LINE)
         }
     }
     
     // MARK: - Category Chips
     private var categoryChipsSection: some View {
         ScrollView(.horizontal, showsIndicators: false) {
-            HStack(spacing: 8) {
+            TTBaseSUIHStack(alignment: .center, spacing: TTSize.P_CONS_DEF / 2) {
                 ForEach(ProductCategory.allCases) { category in
                     categoryChip(category: category)
                 }
             }
-            .padding(.horizontal, 16)
-            .padding(.vertical, 10)
+            .pHorizontal(TTSize.P_CONS_DEF)
+            .pVertical(TTSize.P_CONS_DEF * 0.8)
         }
-        .background(Color.white.opacity(0.95))
+        .bg(byDef: Design.cardBg.opacity(0.95))
     }
     
     private func categoryChip(category: ProductCategory) -> some View {
@@ -164,26 +169,33 @@ struct ProductCatalogView: View {
                 viewModel.selectedCategory = category
             }
         }) {
-            HStack(spacing: 5) {
+            TTBaseSUIHStack(alignment: .center, spacing: 5, bg: .clear) {
                 Image(systemName: category.icon)
                     .font(.system(size: 11, weight: .semibold))
                 
-                Text(category.displayName)
-                    .font(.system(size: 12, weight: .semibold))
+                TTBaseSUIText(
+                    withBold: .SUB_SUB_TILE,
+                    text: category.displayName,
+                    align: .center,
+                    color: isSelected ? .white : Color(UIColor.secondaryLabel)
+                )
                 
                 if count > 0 && category != .all {
-                    Text("\(count)")
-                        .font(.system(size: 10, weight: .bold))
-                        .foregroundColor(isSelected ? Design.accentColor : .white)
-                        .padding(.horizontal, 5)
-                        .padding(.vertical, 1)
-                        .background(isSelected ? Color.white : Color.white.opacity(0.3))
-                        .cornerRadius(8)
+                    TTBaseSUIText(
+                        withBold: .SUB_SUB_TILE,
+                        text: "\(count)",
+                        align: .center,
+                        color: isSelected ? Design.accentColor : .white
+                    )
+                    .pHorizontal(5)
+                    .pVertical(1)
+                    .bg(byDef: isSelected ? .white : .white.opacity(0.3))
+                    .corner(byDef: 8)
                 }
             }
             .foregroundColor(isSelected ? .white : Color(UIColor.secondaryLabel))
-            .padding(.horizontal, 14)
-            .padding(.vertical, 8)
+            .pHorizontal(TTSize.P_CONS_DEF)
+            .pVertical(TTSize.P_CONS_DEF / 2)
             .background(
                 isSelected ?
                 LinearGradient(
@@ -197,7 +209,7 @@ struct ProductCatalogView: View {
                     endPoint: .trailing
                 )
             )
-            .cornerRadius(20)
+            .corner(byDef: 20)
             .baseShadow(corner: 20, color: isSelected ? Design.accentColor.opacity(0.3) : .clear, radius: isSelected ? 6 : 0, y: isSelected ? 3 : 0)
         }
     }
@@ -216,7 +228,10 @@ struct ProductCatalogView: View {
     @ViewBuilder
     private var scrollContent: some View {
         ScrollView(.vertical, showsIndicators: false) {
-            LazyVGrid(columns: columns, spacing: 14) {
+            TTBaseSUILazyVGrid(
+                columns: columns,
+                spacing: TTSize.P_CONS_DEF
+            ) {
                 ForEach(viewModel.filteredProducts) { product in
                     ProductCardView(product: product) {
                         navigateToDetail(product: product)
@@ -230,20 +245,23 @@ struct ProductCatalogView: View {
                     ))
                 }
             }
-            .padding(.horizontal, 16)
-            .padding(.top, 8)
-            .padding(.bottom, 20)
+            .pHorizontal(TTSize.P_CONS_DEF)
+            .pTop(TTSize.P_CONS_DEF / 2)
+            .pBottom(TTSize.P_CONS_DEF * 2)
             
             // Loading More Indicator
             if viewModel.isLoadingMore {
-                HStack(spacing: 10) {
+                TTBaseSUIHStack(alignment: .center, spacing: TTSize.P_CONS_DEF) {
                     ProgressView()
                         .scaleEffect(0.8)
-                    Text("Loading more...")
-                        .font(.system(size: 12, weight: .medium))
-                        .foregroundColor(Color(UIColor.secondaryLabel))
+                    TTBaseSUIText(
+                        withType: .SUB_SUB_TILE,
+                        text: "Loading more...",
+                        align: .center,
+                        color: Color(TTView.textSubTitleColor)
+                    )
                 }
-                .padding(.vertical, 16)
+                .pVertical(TTSize.P_CONS_DEF)
             }
         }
     }
@@ -251,27 +269,27 @@ struct ProductCatalogView: View {
     // MARK: - Loading State
     private var loadingState: some View {
         ScrollView {
-            VStack(spacing: 16) {
+            TTBaseSUIVStack(alignment: .leading, spacing: TTSize.P_CONS_DEF) {
                 // Skeleton header
-                HStack(spacing: 8) {
+                TTBaseSUIHStack(alignment: .center, spacing: TTSize.P_CONS_DEF / 2) {
                     ForEach(0..<4, id: \.self) { _ in
                         RoundedRectangle(cornerRadius: 20)
                             .fill(Color(UIColor.systemGray5))
-                            .frame(width: 80, height: 34)
+                            .size(width: 80, height: 34)
                     }
                 }
                 .skeleton(active: true, isShimmering: true, isLight: true)
-                .padding(.horizontal, 16)
+                .pHorizontal(TTSize.P_CONS_DEF)
                 
                 ProductSkeletonGridView()
             }
-            .padding(.top, 12)
+            .pTop(TTSize.P_CONS_DEF)
         }
     }
     
     // MARK: - Empty State
     private var emptyState: some View {
-        VStack(spacing: 16) {
+        TTBaseSUIVStack(alignment: .center, spacing: TTSize.P_CONS_DEF) {
             Spacer()
             
             Image(systemName: "magnifyingglass")
@@ -284,30 +302,23 @@ struct ProductCatalogView: View {
                 withType: .SUB_TITLE,
                 text: "Try adjusting your search or filter to find what you're looking for.",
                 align: .center,
-                color: Color(UIColor.secondaryLabel)
+                color: Color(TTView.textSubTitleColor)
             )
             
-            Button(action: {
+            TTBaseSUIButton(title: "Clear Filters") {
                 viewModel.searchText = ""
                 viewModel.selectedCategory = .all
-            }) {
-                Text("Clear Filters")
-                    .font(.system(size: 14, weight: .semibold))
-                    .foregroundColor(.white)
-                    .padding(.horizontal, 24)
-                    .padding(.vertical, 10)
-                    .background(Design.accentColor)
-                    .cornerRadius(20)
             }
+            .pHorizontal(TTSize.P_CONS_DEF * 2)
             
             Spacer()
         }
-        .frame(maxWidth: .infinity)
+        .maxWidth()
     }
     
     // MARK: - Error State
     private func errorState(message: String) -> some View {
-        VStack(spacing: 16) {
+        TTBaseSUIVStack(alignment: .center, spacing: TTSize.P_CONS_DEF) {
             Spacer()
             
             Image(systemName: "wifi.exclamationmark")
@@ -320,27 +331,17 @@ struct ProductCatalogView: View {
                 withType: .SUB_TITLE,
                 text: message,
                 align: .center,
-                color: Color(UIColor.secondaryLabel)
+                color: Color(TTView.textSubTitleColor)
             )
             
-            Button(action: {
+            TTBaseSUIButton(title: "Try Again") {
                 Task { await viewModel.loadProducts() }
-            }) {
-                HStack(spacing: 8) {
-                    Image(systemName: "arrow.clockwise")
-                    Text("Try Again")
-                }
-                .font(.system(size: 14, weight: .semibold))
-                .foregroundColor(.white)
-                .padding(.horizontal, 24)
-                .padding(.vertical, 10)
-                .background(Design.accentColor)
-                .cornerRadius(20)
             }
+            .pHorizontal(TTSize.P_CONS_DEF * 2)
             
             Spacer()
         }
-        .frame(maxWidth: .infinity)
+        .maxWidth()
     }
     
     // MARK: - Navigation

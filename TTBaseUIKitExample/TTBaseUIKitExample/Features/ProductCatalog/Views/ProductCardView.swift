@@ -21,16 +21,15 @@ struct ProductCardView: View {
     
     // MARK: - Design Constants
     private enum Design {
-        static let cardCorner: CGFloat = 16
+        static let cardCorner: CGFloat = TTSize.CORNER_PANEL
         static let imageHeight: CGFloat = 180
-        static let badgePadding: CGFloat = 8
-        static let contentPadding: CGFloat = 12
-        static let ratingStarSize: CGFloat = 10
+        static let badgePadding: CGFloat = TTSize.P_CONS_DEF / 2
+        static let contentPadding: CGFloat = TTSize.P_CONS_DEF
     }
     
     var body: some View {
         Button(action: onTap) {
-            TTBaseSUIVStack(alignment: .leading, spacing: 0, bg: .white, radius: Design.cardCorner) {
+            TTBaseSUIVStack(alignment: .leading, spacing: 0, bg: Color(TTView.viewBgCellColor), radius: Design.cardCorner) {
                 // Product Image
                 imageSection
                 
@@ -61,9 +60,9 @@ struct ProductCardView: View {
                 contentMode: .fit,
                 cornerRadius: 0
             )
-            .frame(maxWidth: .infinity)
-            .frame(height: Design.imageHeight)
-            .background(Color(UIColor.systemGray6))
+            .maxWidth()
+            .size(height: Design.imageHeight)
+            .bg(byDef: Color(UIColor.systemGray6))
             .clipShape(RoundedTopCorners(radius: Design.cardCorner))
             
             // Discount Badge
@@ -82,26 +81,32 @@ struct ProductCardView: View {
     private var infoSection: some View {
         TTBaseSUIVStack(alignment: .leading, spacing: 6, bg: .clear) {
             // Category Tag
-            Text(product.category.uppercased())
-                .font(.system(size: 9, weight: .bold))
-                .foregroundColor(.white)
-                .padding(.horizontal, 8)
-                .padding(.vertical, 3)
-                .background(categoryColor)
-                .cornerRadius(4)
+            TTBaseSUIText(
+                withBold: .SUB_SUB_TILE,
+                text: product.category.uppercased(),
+                align: .leading,
+                color: .white
+            )
+            .pHorizontal(TTSize.P_CONS_DEF / 2)
+            .pVertical(3)
+            .bg(byDef: categoryColor)
+            .corner(byDef: 4)
             
             // Title
             Text(product.title)
                 .font(.system(size: 13, weight: .semibold))
-                .foregroundColor(Color(UIColor.label))
+                .foregroundColor(Color(TTView.textTitleColor))
                 .lineLimit(2)
-                .fixedSize(horizontal: false, vertical: true)
+                .fixedByVertical()
             
             // Brand
             if let brand = product.brand {
-                Text(brand)
-                    .font(.system(size: 11, weight: .medium))
-                    .foregroundColor(Color(UIColor.secondaryLabel))
+                TTBaseSUIText(
+                    withType: .SUB_SUB_TILE,
+                    text: brand,
+                    align: .leading,
+                    color: Color(TTView.textSubTitleColor)
+                )
             }
             
             // Rating
@@ -110,32 +115,38 @@ struct ProductCardView: View {
             // Price
             priceView
         }
-        .padding(Design.contentPadding)
+        .pAll(Design.contentPadding)
     }
     
     // MARK: - Rating View
     private var ratingView: some View {
-        HStack(spacing: 3) {
+        TTBaseSUIHStack(alignment: .center, spacing: 3, bg: .clear) {
             // Stars
             ForEach(0..<5) { index in
                 Image(systemName: starType(for: index))
-                    .font(.system(size: Design.ratingStarSize, weight: .medium))
+                    .font(.system(size: 10, weight: .medium))
                     .foregroundColor(index < Int(product.rating.rounded()) ? .orange : Color(UIColor.systemGray4))
             }
             
-            Text(String(format: "%.1f", product.rating))
-                .font(.system(size: 10, weight: .semibold))
-                .foregroundColor(Color(UIColor.secondaryLabel))
+            TTBaseSUIText(
+                withBold: .SUB_SUB_TILE,
+                text: String(format: "%.1f", product.rating),
+                align: .leading,
+                color: Color(TTView.textSubTitleColor)
+            )
             
-            Text("(\(product.reviews.count))")
-                .font(.system(size: 10))
-                .foregroundColor(Color(UIColor.tertiaryLabel))
+            TTBaseSUIText(
+                withType: .SUB_SUB_TILE,
+                text: "(\(product.reviews.count))",
+                align: .leading,
+                color: Color(UIColor.tertiaryLabel)
+            )
         }
     }
     
     // MARK: - Price View
     private var priceView: some View {
-        HStack(alignment: .firstTextBaseline, spacing: 6) {
+        TTBaseSUIHStack(alignment: .center, spacing: 6, bg: .clear) {
             if product.hasDiscount {
                 Text(product.formattedDiscountedPrice)
                     .font(.system(size: 16, weight: .bold))
@@ -148,7 +159,7 @@ struct ProductCardView: View {
             } else {
                 Text(product.formattedPrice)
                     .font(.system(size: 16, weight: .bold))
-                    .foregroundColor(Color(UIColor.label))
+                    .foregroundColor(Color(TTView.textTitleColor))
             }
             
             Spacer()
@@ -157,20 +168,23 @@ struct ProductCardView: View {
     
     // MARK: - Discount Badge
     private var discountBadge: some View {
-        Text("-\(Int(product.discountPercentage))%")
-            .font(.system(size: 11, weight: .heavy))
-            .foregroundColor(.white)
-            .padding(.horizontal, 8)
-            .padding(.vertical, 4)
-            .background(
-                LinearGradient(
-                    colors: [Color(red: 1.0, green: 0.25, blue: 0.2), Color(red: 0.9, green: 0.15, blue: 0.1)],
-                    startPoint: .topLeading,
-                    endPoint: .bottomTrailing
-                )
+        TTBaseSUIText(
+            withBold: .SUB_SUB_TILE,
+            text: "-\(Int(product.discountPercentage))%",
+            align: .center,
+            color: .white
+        )
+        .pHorizontal(TTSize.P_CONS_DEF / 2)
+        .pVertical(4)
+        .background(
+            LinearGradient(
+                colors: [Color(red: 1.0, green: 0.25, blue: 0.2), Color(red: 0.9, green: 0.15, blue: 0.1)],
+                startPoint: .topLeading,
+                endPoint: .bottomTrailing
             )
-            .cornerRadius(8)
-            .padding(Design.badgePadding)
+        )
+        .corner(byDef: TTSize.P_CONS_DEF / 2)
+        .pAll(Design.badgePadding)
     }
     
     // MARK: - Stock Badge
@@ -179,22 +193,25 @@ struct ProductCardView: View {
             Spacer()
             HStack {
                 Spacer()
-                HStack(spacing: 3) {
+                TTBaseSUIHStack(alignment: .center, spacing: 3, bg: .clear) {
                     Circle()
                         .fill(Color.orange)
-                        .frame(width: 5, height: 5)
-                    Text("Low Stock")
-                        .font(.system(size: 9, weight: .semibold))
-                        .foregroundColor(.orange)
+                        .sizeSquare(width: 5)
+                    TTBaseSUIText(
+                        withBold: .SUB_SUB_TILE,
+                        text: "Low Stock",
+                        align: .center,
+                        color: .orange
+                    )
                 }
-                .padding(.horizontal, 8)
-                .padding(.vertical, 3)
-                .background(Color.orange.opacity(0.12))
-                .cornerRadius(4)
-                .padding(Design.badgePadding)
+                .pHorizontal(TTSize.P_CONS_DEF / 2)
+                .pVertical(3)
+                .bg(byDef: Color.orange.opacity(0.12))
+                .corner(byDef: 4)
+                .pAll(Design.badgePadding)
             }
         }
-        .frame(height: Design.imageHeight)
+        .size(height: Design.imageHeight)
     }
     
     // MARK: - Helpers
