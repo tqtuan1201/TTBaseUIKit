@@ -61,6 +61,7 @@ class MenuViewController: BaseUITableViewController {
         self.tableView.register(TTEmptyTableHeaderViewCell.self)
         self.tableView.register(MenuHeaderCell.self)
         self.tableView.resetContentInset()
+        self.tableView.contentInset.top = XSize.H_NAV
         self.tableView.contentInset.bottom = XSize.H_BOTTOM_SAFE_AREA_INSET + XSize.H_BUTTON
         self.tableView.dataSource = self
     }
