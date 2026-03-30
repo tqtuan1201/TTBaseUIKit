@@ -153,8 +153,6 @@ class MenuCoordinator: Coordinator {
             hostVC = BaseSwiftUINewVersionDemo().embeddedInHostingController()
         case .ANIMATION_SKELETON_SWIFTUI:
             hostVC = BaseSwiftUISkeletonScrollStackDemo().embeddedInHostingController()
-        case .PRODUCT_CATALOG:
-            hostVC = ProductCatalogView().embeddedInHostingController()
         default: break
         }
         

@@ -44,7 +44,6 @@ struct MenuFunction {
         case BASE_SWIFTUI_DIVIDER
         
         case BASE_SWIFTUI_NEW_VERSION
-        case PRODUCT_CATALOG
         
         case BASE_FUNCS
         case DEBUG_UI
@@ -83,7 +82,6 @@ struct MenuFunction {
         case .BASE_FUNCS:         return "row"
         case .BASE_SWIFTUI_SCROLL_STACK: return "row"
         case .BASE_SWIFTUI_DIVIDER: return "row"
-        case .PRODUCT_CATALOG:    return "cart.fill"
         case .DEBUG_UI:           return "debugging"
         case .JAILBREAK_CHECKER:  return "mobile-device"
         default:                  return "row"
@@ -130,7 +128,6 @@ extension MenuFunction {
             MenuFunction(type: .BASE_SWIFTUI_DIVIDER, name: "Base SwiftUI Divider", des: "Let's look at some illustrations of custom SwiftUI views"),
             MenuFunction(type: .ANIMATION_SKELETON_SWIFTUI, name: "SKELETON SWIFTUI", des: "Play skeleton animation in SwiftUI world"),
             MenuFunction(type: .BASE_SWIFTUI_NEW_VERSION, name: "Modern Update Alert", des: "Learn how to design a smooth, elegant SwiftUI alert for new app versions."),
-            MenuFunction(type: .PRODUCT_CATALOG, name: "🛍️ Product Catalog", des: "Professional SwiftUI product catalog with search, filter, sort & detail. Data from DummyJSON API."),
         ]
     }
     

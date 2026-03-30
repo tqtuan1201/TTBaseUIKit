@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import SwiftUI
 import TTBaseUIKit
 
 // MARK: - AppCoordinator
@@ -32,13 +33,16 @@ class AppCoordinator: Coordinator {
         menuCoordinator.start()
         menuNav.tabBarItem = UITabBarItem(title: "Menu", image: UIImage(systemName: "filemenu.and.selection"), tag: 0)
         
+        // Demo Features Tab (SwiftUI — manages its own NavigationView)
+        let demoFeaturesVC = DemoFeaturesView().embeddedInHostingController(isHiddenTabbar: false)
+        demoFeaturesVC.tabBarItem = UITabBarItem(title: "Demos", image: UIImage(systemName: "sparkles.rectangle.stack.fill"), tag: 1)
         // Contact Tab
         let contactNav = UINavigationController()
         let contactVC = ContactVC()
         contactNav.viewControllers = [contactVC]
-        contactNav.tabBarItem = UITabBarItem(title: "Contact", image: UIImage(systemName: "person.crop.circle.fill"), tag: 1)
+        contactNav.tabBarItem = UITabBarItem(title: "Contact", image: UIImage(systemName: "person.crop.circle.fill"), tag: 2)
         
-        tabBarController.viewControllers = [menuNav, contactNav]
+        tabBarController.viewControllers = [menuNav, demoFeaturesVC, contactNav]
         
         window.rootViewController = tabBarController
         window.makeKeyAndVisible()

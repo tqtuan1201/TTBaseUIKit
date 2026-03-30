@@ -15,7 +15,6 @@ import TTBaseUIKit
 struct ProductCatalogView: View {
     
     @StateObject private var viewModel = ProductCatalogViewModel()
-    @EnvironmentObject var hostingProvider: ViewControllerProvider
     
     @State private var showSortSheet = false
     
@@ -33,34 +32,31 @@ struct ProductCatalogView: View {
     }
     
     var body: some View {
-        SUIBaseViewDemo(
-            backType: .POP,
-            title: "Product Catalog"
-        ) {
-            ZStack {
-                Design.bgColor.ignoresSafeArea()
+        ZStack {
+            Design.bgColor.ignoresSafeArea()
+            
+            TTBaseSUIVStack(alignment: .leading, spacing: 0, bg: .clear) {
+                // Search & Filter Bar
+                searchAndFilterBar
                 
-                TTBaseSUIVStack(alignment: .leading, spacing: 0, bg: .clear) {
-                    // Search & Filter Bar
-                    searchAndFilterBar
-                    
-                    // Category Chips
-                    categoryChipsSection
-                    
-                    // Content
-                    if viewModel.isLoading && viewModel.products.isEmpty {
-                        loadingState
-                    } else if let error = viewModel.errorMessage, viewModel.products.isEmpty {
-                        errorState(message: error)
-                    } else if viewModel.isEmptyState {
-                        emptyState
-                    } else {
-                        productGrid
-                    }
+                // Category Chips
+                categoryChipsSection
+                
+                // Content
+                if viewModel.isLoading && viewModel.products.isEmpty {
+                    loadingState
+                } else if let error = viewModel.errorMessage, viewModel.products.isEmpty {
+                    errorState(message: error)
+                } else if viewModel.isEmptyState {
+                    emptyState
+                } else {
+                    productGrid
                 }
             }
         }
+        .navigationBarTitle("Product Catalog", displayMode: .inline)
         .onAppear {
+            UITabBar.hideTabBar(animated: true)
             if viewModel.products.isEmpty {
                 Task { await viewModel.loadProducts() }
             }
@@ -233,9 +229,10 @@ struct ProductCatalogView: View {
                 spacing: TTSize.P_CONS_DEF
             ) {
                 ForEach(viewModel.filteredProducts) { product in
-                    ProductCardView(product: product) {
-                        navigateToDetail(product: product)
+                    NavigationLink(destination: ProductDetailView(product: product)) {
+                        ProductCardView(product: product) { }
                     }
+                    .buttonStyle(PlainButtonStyle())
                     .onAppear {
                         Task { await viewModel.loadMoreIfNeeded(currentItem: product) }
                     }
@@ -344,14 +341,6 @@ struct ProductCatalogView: View {
         .maxWidth()
     }
     
-    // MARK: - Navigation
-    private func navigateToDetail(product: Product) {
-        let detailView = ProductDetailView(product: product)
-        if let hostVC = hostingProvider.getCurrentVC() {
-            let detailVC = detailView.embeddedInHostingController()
-            hostVC.navigationController?.pushViewController(detailVC, animated: true)
-        }
-    }
 }
 
 // MARK: - Preview

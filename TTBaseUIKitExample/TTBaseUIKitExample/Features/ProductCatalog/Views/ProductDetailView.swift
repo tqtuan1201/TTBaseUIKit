@@ -17,7 +17,7 @@ struct ProductDetailView: View {
     let product: Product
     @State private var selectedImageIndex = 0
     @State private var showAllReviews = false
-    @EnvironmentObject var hostingProvider: ViewControllerProvider
+    @State private var showAddedToCartAlert = false
     
     // MARK: - Design
     private enum Design {
@@ -30,24 +30,24 @@ struct ProductDetailView: View {
     }
     
     var body: some View {
-        SUIBaseViewDemo(
-            backType: .POP,
-            title: product.title
-        ) {
-            ScrollView(.vertical, showsIndicators: false) {
-                TTBaseSUIVStack(alignment: .leading, spacing: Design.sectionSpacing) {
-                    imageGallerySection
-                    headerSection.pHorizontal(TTSize.P_CONS_DEF)
-                    quickStatsSection.pHorizontal(TTSize.P_CONS_DEF)
-                    descriptionSection.pHorizontal(TTSize.P_CONS_DEF)
-                    specsSection.pHorizontal(TTSize.P_CONS_DEF)
-                    reviewsSection.pHorizontal(TTSize.P_CONS_DEF)
-                    addToCartSection.pHorizontal(TTSize.P_CONS_DEF)
-                    
-                    TTBaseSUISpacer(maxHeight: 30)
-                }
+        ScrollView(.vertical, showsIndicators: false) {
+            TTBaseSUIVStack(alignment: .leading, spacing: Design.sectionSpacing) {
+                imageGallerySection
+                headerSection.pHorizontal(TTSize.P_CONS_DEF)
+                quickStatsSection.pHorizontal(TTSize.P_CONS_DEF)
+                descriptionSection.pHorizontal(TTSize.P_CONS_DEF)
+                specsSection.pHorizontal(TTSize.P_CONS_DEF)
+                reviewsSection.pHorizontal(TTSize.P_CONS_DEF)
+                addToCartSection.pHorizontal(TTSize.P_CONS_DEF)
+                
+                TTBaseSUISpacer(maxHeight: 30)
             }
-            .bg(byDef: Color(UIColor.systemGroupedBackground))
+        }
+        .bg(byDef: Color(UIColor.systemGroupedBackground))
+        .navigationBarTitle(product.title, displayMode: .inline)
+        .onAppear { UITabBar.hideTabBar(animated: true) }
+        .alert(isPresented: $showAddedToCartAlert) {
+            Alert(title: Text("Added to Cart"), message: Text("Added \(product.title) to cart!"), dismissButton: .default(Text("OK")))
         }
     }
     
@@ -428,9 +428,7 @@ struct ProductDetailView: View {
     // MARK: - Add to Cart
     private var addToCartSection: some View {
         Button(action: {
-            if let vc = hostingProvider.getCurrentVC() {
-                vc.showNoticeView(body: "Added \(product.title) to cart!")
-            }
+            showAddedToCartAlert = true
         }) {
             TTBaseSUIHStack(alignment: .center, spacing: TTSize.P_CONS_DEF, bg: .clear) {
                 Image(systemName: "cart.badge.plus")
