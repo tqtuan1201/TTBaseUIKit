@@ -144,14 +144,36 @@ struct SidebarView: View {
             }
             
             if connectionManager.connectedDevices.isEmpty {
-                // No devices
-                HStack(spacing: 8) {
-                    Image(systemName: "antenna.radiowaves.left.and.right.slash")
-                        .font(.ttIcon(TTIcon.lg))
-                        .foregroundColor(.ttTextTertiary)
-                    Text("No devices found")
-                        .font(TTFont.bodySmall)
-                        .foregroundColor(.ttTextTertiary)
+                // No devices — show network hint
+                VStack(alignment: .leading, spacing: 6) {
+                    HStack(spacing: 8) {
+                        Image(systemName: "antenna.radiowaves.left.and.right.slash")
+                            .font(.ttIcon(TTIcon.lg))
+                            .foregroundColor(.ttTextTertiary)
+                        Text("No devices found")
+                            .font(TTFont.bodySmall)
+                            .foregroundColor(.ttTextTertiary)
+                    }
+                    
+                    if let ip = connectionManager.macLocalIP {
+                        HStack(spacing: 4) {
+                            Image(systemName: "network")
+                                .font(.system(size: 9))
+                                .foregroundColor(.ttTextMuted)
+                            Text("Mac IP: \(ip)")
+                                .font(TTFont.codeSmall)
+                                .foregroundColor(.ttTextMuted)
+                        }
+                        .padding(.leading, 28)
+                    }
+                    
+                    Button(action: { appState.selectedTab = .device }) {
+                        Text("View Diagnostics →")
+                            .font(TTFont.labelSmall)
+                            .foregroundColor(.ttPrimary)
+                    }
+                    .buttonStyle(.plain)
+                    .padding(.leading, 28)
                 }
                 .padding(.vertical, 8)
                 .padding(.horizontal, 4)

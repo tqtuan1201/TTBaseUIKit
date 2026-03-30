@@ -26,6 +26,7 @@ final class DeviceSession: Identifiable, Hashable {
     var consoleLogs: [ConsoleLogPayload] = []
     var latestScreenshot: ScreenshotResponsePayload? = nil
     var latestPerformance: PerformanceMetricsPayload? = nil
+    var latestDiagnostics: ConnectionDiagnosticsPayload? = nil
     
     // Computed
     var displayName: String {

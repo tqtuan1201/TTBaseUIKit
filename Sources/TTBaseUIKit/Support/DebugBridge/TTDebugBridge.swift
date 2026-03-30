@@ -52,6 +52,9 @@ public final class TTDebugBridge {
     public private(set) var state: BridgeState = .idle
     public var onStateChange: ((BridgeState) -> Void)?
     
+    /// Current reconnect attempt count (exposed for diagnostics)
+    public var currentReconnectAttempt: Int { reconnectAttempt }
+    
     // MARK: - Private
     private var browser: NWBrowser?
     /// Strong reference to the active NWConnection — ONLY mutated on `queue`
@@ -64,6 +67,11 @@ public final class TTDebugBridge {
     private let deviceId: String
     /// Monotonically increasing ID to track connection generations
     private var connectionGeneration: UInt64 = 0
+    
+    /// Network path monitor for detecting Wi-Fi / cellular / VPN changes
+    private var pathMonitor: NWPathMonitor?
+    /// Diagnostics timer — fires periodically while NOT connected
+    private var diagnosticTimer: Timer?
     
     private init() {
         if let savedId = UserDefaults.standard.string(forKey: "TTDebugBridge.deviceId") {
@@ -83,6 +91,9 @@ public final class TTDebugBridge {
             guard state == .idle || state == .disconnected else { return }
             _updateState(.browsing)
             _startBrowsing()
+            _startPathMonitor()
+            _startDiagnosticTimer()
+            _logNetworkInfo()
             TTBaseFunc.shared.printLog(object: "[TTDebugBridge] 🔍 Started browsing for debug services...")
         }
     }
@@ -91,6 +102,8 @@ public final class TTDebugBridge {
         queue.async { [self] in
             _teardownConnection()
             _stopBrowsing()
+            _stopPathMonitor()
+            _stopDiagnosticTimer()
             messageBuffer.removeAll()
             reconnectAttempt = 0
             _updateState(.idle)
@@ -100,6 +113,21 @@ public final class TTDebugBridge {
             }
             TTBaseFunc.shared.printLog(object: "[TTDebugBridge] ⏹ Bridge stopped")
         }
+    }
+    
+    // MARK: - Public Diagnostic API
+    
+    /// Prints a comprehensive diagnostic report to Xcode console.
+    /// Call this manually to get a full connection status snapshot.
+    public func printDiagnosticReport() {
+        let snapshot = ConnectionDiagnostics.shared.captureSnapshot(from: self)
+        let report = ConnectionDiagnostics.formatReport(snapshot)
+        print(report)
+    }
+    
+    /// Returns a diagnostic snapshot for programmatic use.
+    public func getDiagnosticSnapshot() -> ConnectionDiagnostics.Snapshot {
+        return ConnectionDiagnostics.shared.captureSnapshot(from: self)
     }
     
     public func sendAPILog(
@@ -184,6 +212,13 @@ public final class TTDebugBridge {
             self.queue.async {
                 guard self.browser === b else { return }
                 guard self.state == .browsing || self.state == .disconnected else { return }
+                
+                // Track browse results for diagnostics
+                ConnectionDiagnostics.shared.recordBrowseResults(
+                    count: results.count,
+                    endpoint: results.first?.endpoint.debugDescription
+                )
+                
                 if let endpoint = results.first?.endpoint {
                     TTBaseFunc.shared.printLog(object: "[TTDebugBridge] 📡 Found service: \(endpoint)")
                     self._connect(to: endpoint)
@@ -252,7 +287,9 @@ public final class TTDebugBridge {
                 self.reconnectAttempt = 0
                 self._updateState(.connected)
                 self._stopBrowsing()
+                self._stopDiagnosticTimer() // No need for diagnostics while connected
                 self._sendDeviceInfo()
+                self._sendConnectionDiagnostics() // Send diagnostic info to macOS
                 self._startHeartbeat()
                 self._flushBuffer()
                 self._receiveLoop(gen: gen)
@@ -261,14 +298,18 @@ public final class TTDebugBridge {
                 // Path is not viable (e.g. no route, Wi-Fi off).
                 // Teardown and schedule reconnect to try fresh later.
                 TTBaseFunc.shared.printLog(object: "[TTDebugBridge] ⏳ Waiting (path not viable): \(error)")
+                ConnectionDiagnostics.shared.recordEvent(state: "waiting", detail: "\(error)")
                 self._teardownConnection()
                 self._updateState(.disconnected)
+                self._startDiagnosticTimer()
                 self._scheduleReconnect()
                 
             case .failed(let error):
                 TTBaseFunc.shared.printLog(object: "[TTDebugBridge] ❌ Failed: \(error)")
+                ConnectionDiagnostics.shared.recordEvent(state: "failed", detail: "\(error)")
                 self._teardownConnection()
                 self._updateState(.disconnected)
+                self._startDiagnosticTimer()
                 self._scheduleReconnect()
                 
             case .cancelled:
@@ -514,9 +555,128 @@ public final class TTDebugBridge {
     
     private func _updateState(_ s: BridgeState) {
         state = s
+        ConnectionDiagnostics.shared.recordStateChange(s)
         DispatchQueue.main.async { [weak self] in
             self?.onStateChange?(s)
         }
+    }
+    
+    // MARK: - Private: Network Path Monitor
+    
+    private func _startPathMonitor() {
+        _stopPathMonitor()
+        let monitor = NWPathMonitor()
+        monitor.pathUpdateHandler = { [weak self] path in
+            guard let self = self else { return }
+            let status: String
+            switch path.status {
+            case .satisfied: status = "satisfied"
+            case .unsatisfied: status = "unsatisfied"
+            case .requiresConnection: status = "requiresConnection"
+            @unknown default: status = "unknown"
+            }
+            
+            let interfaces = path.availableInterfaces.map { $0.debugDescription }.joined(separator: ", ")
+            ConnectionDiagnostics.shared.recordEvent(
+                state: "network",
+                detail: "path=\(status) interfaces=[\(interfaces)]"
+            )
+            
+            if path.status == .unsatisfied {
+                TTBaseFunc.shared.printLog(object: "[TTDebugBridge] 🔄 Network path lost — Wi-Fi disconnected?")
+            }
+        }
+        monitor.start(queue: queue)
+        pathMonitor = monitor
+    }
+    
+    private func _stopPathMonitor() {
+        pathMonitor?.cancel()
+        pathMonitor = nil
+    }
+    
+    // MARK: - Private: Diagnostic Timer
+    
+    /// Fires every 30s while not connected to print a diagnostic summary.
+    private func _startDiagnosticTimer() {
+        _stopDiagnosticTimer()
+        DispatchQueue.main.async { [weak self] in
+            guard let self = self else { return }
+            self.diagnosticTimer?.invalidate()
+            self.diagnosticTimer = Timer.scheduledTimer(
+                withTimeInterval: 30.0,
+                repeats: true
+            ) { [weak self] _ in
+                guard let self = self else { return }
+                guard self.state != .connected && self.state != .idle else { return }
+                self._printDiagnosticSummary()
+            }
+        }
+    }
+    
+    private func _stopDiagnosticTimer() {
+        DispatchQueue.main.async { [weak self] in
+            self?.diagnosticTimer?.invalidate()
+            self?.diagnosticTimer = nil
+        }
+    }
+    
+    private func _printDiagnosticSummary() {
+        let snapshot = ConnectionDiagnostics.shared.captureSnapshot(from: self)
+        let durationStr = String(format: "%.0fs", snapshot.stateDuration)
+        
+        var lines: [String] = []
+        lines.append("[TTDebugBridge] ──── Connection Diagnostic ────")
+        lines.append("  State: \(snapshot.bridgeState.rawValue.uppercased()) (\(durationStr))")
+        
+        let wifiStatus = snapshot.wifiConnected ? "✅" : "❌"
+        let ipInfo = snapshot.localIP ?? "N/A"
+        lines.append("  Wi-Fi: \(wifiStatus) \(ipInfo)")
+        
+        if snapshot.vpnActive {
+            lines.append("  VPN: ⚠️ Active")
+        }
+        
+        lines.append("  Browser: \(snapshot.browseResultCount) services found")
+        
+        // Add a contextual hint
+        switch snapshot.bridgeState {
+        case .browsing where snapshot.browseResultCount == 0:
+            lines.append("  Hint: Ensure TTBDebugPlus is running on Mac")
+        case .disconnected:
+            lines.append("  Hint: Reconnect attempt #\(snapshot.reconnectAttempt)")
+        default:
+            break
+        }
+        
+        lines.append("[TTDebugBridge] ────────────────────────────────")
+        
+        TTBaseFunc.shared.printLog(object: lines.joined(separator: "\n"))
+    }
+    
+    // MARK: - Private: Initial Network Info Log
+    
+    private func _logNetworkInfo() {
+        let ip = NetworkDiagnosticUtils.getLocalIPAddress() ?? "N/A"
+        let vpn = NetworkDiagnosticUtils.isVPNActive() ? " | VPN: ⚠️ Active" : ""
+        let prefix = NetworkDiagnosticUtils.getNetworkPrefix() ?? "N/A"
+        TTBaseFunc.shared.printLog(object: "[TTDebugBridge] 📡 Network: IP=\(ip) Subnet=\(prefix)\(vpn)")
+    }
+    
+    // MARK: - Private: Send Diagnostics to macOS
+    
+    private func _sendConnectionDiagnostics() {
+        let payload = ConnectionDiagnosticsPayload(
+            localIP: NetworkDiagnosticUtils.getLocalIPAddress(),
+            subnetMask: NetworkDiagnosticUtils.getSubnetMask(),
+            networkPrefix: NetworkDiagnosticUtils.getNetworkPrefix(),
+            isVPN: NetworkDiagnosticUtils.isVPNActive(),
+            isWiFi: NetworkDiagnosticUtils.isWiFiConnected(),
+            sdkVersion: config.sdkVersion,
+            connectionAttempts: reconnectAttempt,
+            stateDurationSeconds: Date().timeIntervalSince(ConnectionDiagnostics.shared.stateEnteredAt)
+        )
+        _enqueueMessage(type: .connectionDiagnostics, payload: payload)
     }
     
     // MARK: - Private: System Metrics (safe from any thread)

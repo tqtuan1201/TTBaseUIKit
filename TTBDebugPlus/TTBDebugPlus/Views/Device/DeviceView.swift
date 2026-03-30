@@ -45,14 +45,7 @@ struct DeviceView: View {
             if let device = connectionManager.selectedDevice, device.isOnline {
                 connectedContent(device: device)
             } else {
-                EmptyStateView(
-                    icon: "iphone.slash",
-                    title: "No Device Connected",
-                    subtitle: "Connect an iOS device running TTBaseUIKit to start debugging.\nMake sure both devices are on the same network.",
-                    actionTitle: "Scan for Devices"
-                ) {
-                    connectionManager.startServer()
-                }
+                ConnectionHealthView()
             }
         }
         .background(Color.ttBackground)

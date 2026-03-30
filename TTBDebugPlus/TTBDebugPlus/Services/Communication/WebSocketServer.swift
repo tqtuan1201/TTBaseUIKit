@@ -25,6 +25,7 @@ final class WebSocketServer {
     var onHeartbeat: ((String) -> Void)?
     var onScreenshot: ((String, ScreenshotResponsePayload) -> Void)?
     var onPerformanceMetrics: ((String, PerformanceMetricsPayload) -> Void)?
+    var onConnectionDiagnostics: ((String, ConnectionDiagnosticsPayload) -> Void)?
     
     // Track connections by endpoint for identification before handshake
     private var pendingConnections: [String: NWConnection] = [:] // endpoint → connection
@@ -152,6 +153,13 @@ final class WebSocketServer {
                   let deviceId = identifiedConnections[endpointId] else { return }
             DispatchQueue.main.async {
                 self.onPerformanceMetrics?(deviceId, metrics)
+            }
+            
+        case .connectionDiagnostics:
+            guard let diag = message.decodePayload(ConnectionDiagnosticsPayload.self),
+                  let deviceId = identifiedConnections[endpointId] else { return }
+            DispatchQueue.main.async {
+                self.onConnectionDiagnostics?(deviceId, diag)
             }
             
         default:

@@ -50,6 +50,7 @@ enum MessageType: String, Codable {
     case appCommand = "app_command"
     case performanceMetrics = "performance_metrics"
     case disconnect = "disconnect"
+    case connectionDiagnostics = "connection_diagnostics"
 }
 
 // MARK: - Payloads
@@ -177,5 +178,27 @@ struct PerformanceMetricsPayload: Codable {
         case networkBytesSent = "network_bytes_sent"
         case networkBytesReceived = "network_bytes_received"
         case timestamp
+    }
+}
+
+struct ConnectionDiagnosticsPayload: Codable {
+    let localIP: String?
+    let subnetMask: String?
+    let networkPrefix: String?
+    let isVPN: Bool
+    let isWiFi: Bool
+    let sdkVersion: String
+    let connectionAttempts: Int
+    let stateDurationSeconds: Double
+    
+    enum CodingKeys: String, CodingKey {
+        case localIP = "local_ip"
+        case subnetMask = "subnet_mask"
+        case networkPrefix = "network_prefix"
+        case isVPN = "is_vpn"
+        case isWiFi = "is_wifi"
+        case sdkVersion = "sdk_version"
+        case connectionAttempts = "connection_attempts"
+        case stateDurationSeconds = "state_duration_seconds"
     }
 }

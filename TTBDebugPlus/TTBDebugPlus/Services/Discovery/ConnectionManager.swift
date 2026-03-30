@@ -168,6 +168,10 @@ final class ConnectionManager {
         wsServer.onPerformanceMetrics = { [weak self] deviceId, metrics in
             self?.handlePerformanceMetrics(deviceId: deviceId, metrics: metrics)
         }
+        
+        wsServer.onConnectionDiagnostics = { [weak self] deviceId, diag in
+            self?.handleConnectionDiagnostics(deviceId: deviceId, diagnostics: diag)
+        }
     }
     
     // MARK: - Event Handlers
@@ -239,6 +243,67 @@ final class ConnectionManager {
     
     private func handlePerformanceMetrics(deviceId: String, metrics: PerformanceMetricsPayload) {
         sessions[deviceId]?.latestPerformance = metrics
+    }
+    
+    private func handleConnectionDiagnostics(deviceId: String, diagnostics: ConnectionDiagnosticsPayload) {
+        sessions[deviceId]?.latestDiagnostics = diagnostics
+        print("[TTBDebug] 📋 Diagnostics from \(sessions[deviceId]?.displayName ?? deviceId): IP=\(diagnostics.localIP ?? "N/A"), VPN=\(diagnostics.isVPN)")
+    }
+    
+    // MARK: - macOS Network Info (for ConnectionHealthView)
+    
+    /// Returns the macOS machine's local IP address.
+    var macLocalIP: String? {
+        var ifaddr: UnsafeMutablePointer<ifaddrs>?
+        guard getifaddrs(&ifaddr) == 0, let firstAddr = ifaddr else { return nil }
+        defer { freeifaddrs(ifaddr) }
+        
+        for ptr in sequence(first: firstAddr, next: { $0.pointee.ifa_next }) {
+            let sa = ptr.pointee.ifa_addr.pointee
+            guard sa.sa_family == UInt8(AF_INET) else { continue }
+            let name = String(cString: ptr.pointee.ifa_name)
+            guard name == "en0" else { continue }
+            
+            var hostname = [CChar](repeating: 0, count: Int(NI_MAXHOST))
+            getnameinfo(ptr.pointee.ifa_addr, socklen_t(sa.sa_len),
+                        &hostname, socklen_t(hostname.count),
+                        nil, 0, NI_NUMERICHOST)
+            return String(cString: hostname)
+        }
+        return nil
+    }
+    
+    /// Returns the macOS subnet mask for en0.
+    var macSubnetMask: String? {
+        var ifaddr: UnsafeMutablePointer<ifaddrs>?
+        guard getifaddrs(&ifaddr) == 0, let firstAddr = ifaddr else { return nil }
+        defer { freeifaddrs(ifaddr) }
+        
+        for ptr in sequence(first: firstAddr, next: { $0.pointee.ifa_next }) {
+            let sa = ptr.pointee.ifa_addr.pointee
+            guard sa.sa_family == UInt8(AF_INET) else { continue }
+            let name = String(cString: ptr.pointee.ifa_name)
+            guard name == "en0" else { continue }
+            
+            guard let netmask = ptr.pointee.ifa_netmask else { continue }
+            var hostname = [CChar](repeating: 0, count: Int(NI_MAXHOST))
+            getnameinfo(netmask, socklen_t(netmask.pointee.sa_len),
+                        &hostname, socklen_t(hostname.count),
+                        nil, 0, NI_NUMERICHOST)
+            return String(cString: hostname)
+        }
+        return nil
+    }
+    
+    /// Returns the macOS network prefix for subnet comparison.
+    var macNetworkPrefix: String? {
+        guard let ip = macLocalIP, let mask = macSubnetMask else { return nil }
+        let ipParts = ip.split(separator: ".").compactMap { UInt32($0) }
+        let maskParts = mask.split(separator: ".").compactMap { UInt32($0) }
+        guard ipParts.count == 4, maskParts.count == 4 else { return nil }
+        
+        let result = zip(ipParts, maskParts).map { $0.0 & $0.1 }
+        return result.map { String($0) }.joined(separator: ".")
     }
     
     // MARK: - Heartbeat Monitor
