@@ -2,6 +2,7 @@
 # ## Xcode - General      ##
 # ##########################
 .build/
+.swiftpm
 plans/
 build/
 DerivedData/

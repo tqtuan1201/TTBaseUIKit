@@ -101,30 +101,22 @@ A **professional-grade native macOS app** for debugging iOS applications in real
 
 **Architecture:** iOS ↔ Bonjour (mDNS) ↔ WebSocket ↔ macOS — zero configuration, auto-discovery.
 
-<table>
-<tr>
-<td align="center" width="50%">
-<strong>🚀 iOS SDK Integration Guide</strong><br/>
-<img src="docs/images/ttbdebugplus-guide.png" alt="TTBDebugPlus Integration Guide" width="100%"/>
-</td>
-<td align="center" width="50%">
-<strong>📱 Device Control & Screenshot</strong><br/>
-<img src="docs/images/ttbdebugplus-device.png" alt="TTBDebugPlus Device Control" width="100%"/>
-</td>
-</tr>
-<tr>
-<td align="center" width="50%">
-<strong>✏️ Screenshot Annotation</strong><br/>
-<img src="docs/images/ttbdebugplus-annotation.png" alt="TTBDebugPlus Annotation" width="100%"/>
-</td>
-<td align="center" width="50%">
-<strong>🛠 Dev Tools — JSON Editor</strong><br/>
-<img src="docs/images/ttbdebugplus-devtools.png" alt="TTBDebugPlus Dev Tools" width="100%"/>
-</td>
-</tr>
-</table>
+#### Screenshots
 
-> **[📥 Download TTBDebugPlus for macOS](https://tqtuan1201.github.io/public/docs/ttbaseuikit/apps/TTBDebugPlus-Installer.dmg)** (.dmg • 5.8 MB • macOS 14+ • Universal)
+| 🚀 iOS SDK Integration Guide | 📱 Device Control & Screenshot |
+|:---:|:---:|
+| Step-by-step setup with copyable code snippets, Bonjour status, and troubleshooting | Remote screenshot capture, dark mode toggle, device info, app lifecycle management |
+
+| ✏️ Screenshot Annotation | 🛠 Dev Tools — JSON Editor |
+|:---:|:---:|
+| Drawing tools — pen, arrow, rectangle, text, color picker — annotate & share bug reports | Code, Tree, Graph, and Split views. Syntax highlighting, search, format, minify |
+
+> 👉 **[See all screenshots & live demo →](https://tqtuan1201.github.io/public/docs/ttbaseuikit/ttbdebugplus.html)**
+
+<p align="center">
+  <a href="https://tqtuan1201.github.io/public/docs/ttbaseuikit/apps/TTBDebugPlus-Installer.dmg"><img src="https://img.shields.io/badge/Download_TTBDebugPlus-macOS_(.dmg)-blue?style=for-the-badge&logo=apple" alt="Download TTBDebugPlus"/></a>
+</p>
+<p align="center"><sub>5.8 MB • macOS 14+ • Universal (Apple Silicon + Intel)</sub></p>
 
 > 📖 [Full documentation & SDK integration guide →](https://tqtuan1201.github.io/public/docs/ttbaseuikit/ttbdebugplus.html)
 
