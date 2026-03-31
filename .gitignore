@@ -1,6 +1,7 @@
 # ##########################
 # ## Xcode - General      ##
 # ##########################
+.build/
 plans/
 build/
 DerivedData/
