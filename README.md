@@ -86,39 +86,243 @@ LogViewHelper.share.config(
 
 ### 🖥 TTBDebugPlus — macOS Companion Debugger
 
-A **professional-grade native macOS app** for debugging iOS applications in real-time. Built entirely with SwiftUI.
+A **professional-grade native macOS app** for debugging iOS applications in real-time. Built entirely with SwiftUI — dark theme, polished UI, zero compromise.
 
-> ⚠️ **Requires TTBaseUIKit `v2.3.0` or later.** The DebugBridge SDK is included from version 2.3.0+.
-
-| Feature | Description |
-|---------|-------------|
-| 📋 Live Console | Real-time log streaming with level filtering & JSON inspector |
-| 🌐 Network Inspector | Full HTTP inspection, JSON Tree Viewer, cURL & Postman export |
-| 📱 Device Control | Remote screenshot, dark mode toggle, app lifecycle management |
-| 📊 Performance Monitor | CPU, Memory, FPS charts, bandwidth monitoring, API analytics |
-| 💬 Feedback Reporter | Structured bug reports with annotated screenshots |
-| 📤 Export & Share | Postman Collection v2.1, cURL, session files (.ttbdebug) |
-
-**Architecture:** iOS ↔ Bonjour (mDNS) ↔ WebSocket ↔ macOS — zero configuration, auto-discovery.
-
-#### Screenshots
-
-| 🚀 iOS SDK Integration Guide | 📱 Device Control & Screenshot |
-|:---:|:---:|
-| Step-by-step setup with copyable code snippets, Bonjour status, and troubleshooting | Remote screenshot capture, dark mode toggle, device info, app lifecycle management |
-
-| ✏️ Screenshot Annotation | 🛠 Dev Tools — JSON Editor |
-|:---:|:---:|
-| Drawing tools — pen, arrow, rectangle, text, color picker — annotate & share bug reports | Code, Tree, Graph, and Split views. Syntax highlighting, search, format, minify |
-
-> 👉 **[See all screenshots & live demo →](https://tqtuan1201.github.io/public/docs/ttbaseuikit/ttbdebugplus.html)**
+> ⚠️ **Requires TTBaseUIKit `v2.3.0` or later.** The DebugBridge SDK is bundled from v2.3.0+.
 
 <p align="center">
-  <a href="https://tqtuan1201.github.io/public/docs/ttbaseuikit/apps/TTBDebugPlus-Installer.dmg"><img src="https://img.shields.io/badge/Download_TTBDebugPlus-macOS_(.dmg)-blue?style=for-the-badge&logo=apple" alt="Download TTBDebugPlus"/></a>
+  <a href="https://tqtuan1201.github.io/public/docs/ttbaseuikit/apps/TTBDebugPlus-Installer.dmg"><img src="https://img.shields.io/badge/⬇_Download_TTBDebugPlus-macOS_Universal-0A84FF?style=for-the-badge&logo=apple&logoColor=white" alt="Download TTBDebugPlus"/></a>
 </p>
-<p align="center"><sub>5.8 MB • macOS 14+ • Universal (Apple Silicon + Intel)</sub></p>
+<p align="center"><sub>5.8 MB • macOS 14+ • Universal (Apple Silicon + Intel) • No account required</sub></p>
 
-> 📖 [Full documentation & SDK integration guide →](https://tqtuan1201.github.io/public/docs/ttbaseuikit/ttbdebugplus.html)
+#### How It Works
+
+```
+┌─────────────┐    Bonjour (mDNS)    ┌──────────────────┐
+│   iOS App   │ ◄──── auto-discover ──► │  TTBDebugPlus    │
+│  (iPhone /  │                        │  (macOS App)     │
+│  Simulator) │ ◄──── WebSocket ──────► │                  │
+└─────────────┘    bidirectional       └──────────────────┘
+                   real-time
+```
+
+> **Zero configuration** — both devices on the same Wi-Fi → auto-connects in < 2 seconds.
+
+#### Features at a Glance
+
+<table>
+<tr>
+<td width="50%">
+
+**📋 Live Console**
+- Filter by level: Error, Warning, Info, Debug
+- Full-text search with highlighted matches
+- Click-to-expand JSON payload inspector
+- Auto-scroll LIVE mode
+
+</td>
+<td width="50%">
+
+**🌐 Network Inspector v2**
+- JSON Tree Viewer — collapsible nodes, Pretty / Tree / Raw
+- Deep Search — filter by URL, Body, Headers
+- Pin/Bookmark ⭐ requests, waterfall timing bars
+- Export as cURL, Postman Collection (v2.1)
+- API Analytics Dashboard — method/status distribution
+
+</td>
+</tr>
+<tr>
+<td width="50%">
+
+**📱 Device Control**
+- Remote screenshot capture & recording
+- Toggle Dark Mode, Reduced Motion
+- App lifecycle: Launch, Kill, Reset Sandbox
+- Accessibility overrides
+
+</td>
+<td width="50%">
+
+**📊 Performance Monitor**
+- CPU & Memory usage charts
+- FPS counter and disk usage
+- Network bandwidth monitoring
+- Slow request & duplicate detection
+
+</td>
+</tr>
+<tr>
+<td width="50%">
+
+**💬 Feedback Reporter**
+- Structured bug reports (UI/UX, Network, Crash)
+- Attach annotated screenshots
+- Export as Markdown
+
+</td>
+<td width="50%">
+
+**📤 Export & Share v2**
+- Postman Collection v2.1 — one-click import
+- cURL for Terminal replay
+- Session files (`.ttbdebug`) — share between team
+- Context menu: copy URL, headers, body, JSON
+
+</td>
+</tr>
+</table>
+
+#### ⚡ Quick Start — iOS SDK Integration
+
+**Step 1 — Add TTBaseUIKit** (SPM):
+
+```swift
+// Package.swift
+dependencies: [
+    .package(url: "https://github.com/tqtuan1201/TTBaseUIKit.git", from: "2.3.0")
+]
+// Or via Xcode: File → Add Package Dependencies...
+// URL: https://github.com/tqtuan1201/TTBaseUIKit.git
+```
+
+**Step 2 — Configure `Info.plist`** _(required for Bonjour)_:
+
+```xml
+<!-- Add to your iOS app's Info.plist -->
+<key>NSLocalNetworkUsageDescription</key>
+<string>Required for connecting to TTBDebugPlus on macOS to stream debug logs.</string>
+
+<key>NSBonjourServices</key>
+<array>
+    <string>_ttbdebug._tcp</string>
+</array>
+```
+
+> ⚠️ Missing this step causes `NoAuth -65555` error when `NWBrowser` attempts Bonjour scanning.
+
+**Step 3 — Start the Debug Bridge**:
+
+```swift
+// AppDelegate.swift (UIKit)
+import TTBaseUIKit
+
+func application(
+    _ application: UIApplication,
+    didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?
+) -> Bool {
+    #if DEBUG
+    TTDebugBridge.shared.start()        // Auto-discover macOS app via Bonjour
+    LogInterceptor.shared.install()     // Auto-intercept console logs
+    #endif
+    return true
+}
+
+// Or SwiftUI:
+// @main struct MyApp: App {
+//     init() {
+//         #if DEBUG
+//         TTDebugBridge.shared.start()
+//         LogInterceptor.shared.install()
+//         #endif
+//     }
+// }
+```
+
+**Step 4 — Forward API & Console Logs**:
+
+```swift
+// ── Forward API logs (in your network layer) ──
+#if DEBUG
+TTDebugBridge.shared.sendAPILog(
+    method: request.httpMethod ?? "GET",
+    url: request.url?.absoluteString ?? "",
+    statusCode: (response as? HTTPURLResponse)?.statusCode ?? 0,
+    requestHeaders: request.allHTTPHeaderFields ?? [:],
+    requestBody: String(data: request.httpBody ?? Data(), encoding: .utf8) ?? "",
+    responseHeaders: (response as? HTTPURLResponse)?.allHeaderFields as? [String: String] ?? [:],
+    responseBody: String(data: responseData, encoding: .utf8) ?? "",
+    durationMs: elapsedTime * 1000,
+    sizeBytes: responseData.count
+)
+#endif
+
+// ── Forward console logs (3 methods) ──
+// Method 1: TTBPrint() — drop-in replacement for print()
+TTBPrint("User logged in", level: "info", subsystem: "Auth")
+
+// Method 2: Manual
+#if DEBUG
+TTDebugBridge.shared.sendConsoleLog(
+    level: "debug",       // debug | info | warning | error
+    subsystem: "Network",
+    message: "Profile loaded",
+    sourceFile: #file, sourceLine: #line
+)
+#endif
+
+// Method 3: LogInterceptor hook
+#if DEBUG
+LogInterceptor.shared.interceptConsoleLog(
+    message: "Something happened",
+    level: "warning", subsystem: "Analytics"
+)
+#endif
+```
+
+<details>
+<summary><strong>🔍 Verify Connection</strong></summary>
+
+Run your iOS app → check Xcode Console:
+```
+[TTDebugBridge] 🔍 Started browsing for debug services...
+[TTDebugBridge] 📡 Found service: xxx._ttbdebug._tcp.local.
+[TTDebugBridge] ✅ Connected to macOS app!
+```
+
+TTBDebugPlus macOS will show:
+```
+[TTBDebug] 🚀 Connection manager started
+[TTBDebug] ✅ Bonjour advertiser ready on port 50689
+```
+
+Optional — monitor connection state:
+```swift
+TTDebugBridge.shared.onStateChange = { state in
+    print("[Debug] Bridge: \(state.rawValue)")
+    // States: idle → browsing → connecting → connected
+}
+```
+
+</details>
+
+<details>
+<summary><strong>⚙️ Advanced Configuration</strong></summary>
+
+```swift
+var config = TTDebugBridge.Config()
+config.heartbeatInterval   = 5.0   // seconds (default)
+config.maxBufferedMessages = 200   // buffer when offline
+config.reconnectMaxDelay   = 30.0  // max reconnect delay
+TTDebugBridge.shared.config = config
+```
+
+</details>
+
+<details>
+<summary><strong>🛠 Troubleshooting</strong></summary>
+
+| Problem | Cause | Fix |
+|---------|-------|-----|
+| `NoAuth (-65555)` | Missing `Info.plist` keys | Add `NSLocalNetworkUsageDescription` + `NSBonjourServices` |
+| `posixError(57)` | Socket connection failed | Ensure same Wi-Fi network, check firewall |
+| iOS app not in sidebar | Bridge not started / wrong network | Verify `TTDebugBridge.shared.start()` called in `#if DEBUG` |
+| Frequent disconnects | Background suspension | Expected iOS behavior — auto-reconnects on foreground |
+| Logs in production build | Missing `#if DEBUG` guard | Wrap all bridge calls in `#if DEBUG ... #endif` |
+
+</details>
+
+> 📖 **[Full documentation & SDK integration guide →](https://tqtuan1201.github.io/public/docs/ttbaseuikit/ttbdebugplus.html)**
 
 ### 🤖 AI Agent Ready
 Pre-configured for modern AI coding assistants:
