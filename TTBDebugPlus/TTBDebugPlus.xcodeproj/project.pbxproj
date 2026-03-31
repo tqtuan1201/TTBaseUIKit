@@ -740,6 +740,8 @@
 				CODE_SIGN_ENTITLEMENTS = TTBDebugPlus/TTBDebugPlus.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
+				CURRENT_PROJECT_VERSION = 12;
+				DEVELOPMENT_TEAM = NWP32GXP5M;
 				ENABLE_HARDENED_RUNTIME = YES;
 				ENABLE_PREVIEWS = YES;
 				INFOPLIST_FILE = TTBDebugPlus/Info.plist;
@@ -747,6 +749,8 @@
 					"$(inherited)",
 					"@executable_path/../Frameworks",
 				);
+				MACOSX_DEPLOYMENT_TARGET = 14.0;
+				MARKETING_VERSION = 1.0.1;
 				PRODUCT_BUNDLE_IDENTIFIER = com.tuantruong.TTBDebugPlus;
 				PRODUCT_NAME = TTBDebugPlus;
 				SDKROOT = macosx;
@@ -761,6 +765,8 @@
 				CODE_SIGN_ENTITLEMENTS = TTBDebugPlus/TTBDebugPlus.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
+				CURRENT_PROJECT_VERSION = 12;
+				DEVELOPMENT_TEAM = NWP32GXP5M;
 				ENABLE_HARDENED_RUNTIME = YES;
 				ENABLE_PREVIEWS = YES;
 				INFOPLIST_FILE = TTBDebugPlus/Info.plist;
@@ -768,6 +774,8 @@
 					"$(inherited)",
 					"@executable_path/../Frameworks",
 				);
+				MACOSX_DEPLOYMENT_TARGET = 14.0;
+				MARKETING_VERSION = 1.0.1;
 				PRODUCT_BUNDLE_IDENTIFIER = com.tuantruong.TTBDebugPlus;
 				PRODUCT_NAME = TTBDebugPlus;
 				SDKROOT = macosx;
