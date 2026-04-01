@@ -36,13 +36,22 @@ class AppCoordinator: Coordinator {
         // Demo Features Tab (SwiftUI — manages its own NavigationView)
         let demoFeaturesVC = DemoFeaturesView().embeddedInHostingController(isHiddenTabbar: false)
         demoFeaturesVC.tabBarItem = UITabBarItem(title: "Demos", image: UIImage(systemName: "sparkles.rectangle.stack.fill"), tag: 1)
+        
+        // DebugBridge Tab (SwiftUI — demos TTDebugBridge API logging to TTBDebugPlus macOS)
+        let debugBridgeVC = DebugBridgeDemoView().embeddedInHostingController(isHiddenTabbar: false)
+        debugBridgeVC.tabBarItem = UITabBarItem(title: "DebugBridge", image: UIImage(systemName: "antenna.radiowaves.left.and.right"), tag: 2)
+        
+        // UI Debug Tab (SwiftUI — launch TTBaseDebugKit in-app debugging tools)
+        let debugUIVC = DebugUIDemoView().embeddedInHostingController(isHiddenTabbar: false)
+        debugUIVC.tabBarItem = UITabBarItem(title: "UI Debug", image: UIImage(systemName: "eye.trianglebadge.exclamationmark"), tag: 3)
+        
         // Contact Tab
         let contactNav = UINavigationController()
         let contactVC = ContactVC()
         contactNav.viewControllers = [contactVC]
-        contactNav.tabBarItem = UITabBarItem(title: "Contact", image: UIImage(systemName: "person.crop.circle.fill"), tag: 2)
+        contactNav.tabBarItem = UITabBarItem(title: "Contact", image: UIImage(systemName: "person.crop.circle.fill"), tag: 4)
         
-        tabBarController.viewControllers = [menuNav, demoFeaturesVC, contactNav]
+        tabBarController.viewControllers = [menuNav, demoFeaturesVC, debugBridgeVC, debugUIVC, contactNav]
         
         window.rootViewController = tabBarController
         window.makeKeyAndVisible()

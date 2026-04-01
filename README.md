@@ -20,6 +20,7 @@
 <p align="center">
   <a href="https://tqtuan1201.github.io/public/docs/ttbaseuikit/">📖 Documentation</a> •
   <a href="https://tqtuan1201.github.io/public/docs/ttbaseuikit/getting-started.html">🚀 Getting Started</a> •
+  <a href="https://tqtuan1201.github.io/public/docs/ttbaseuikit/best-practice.html">🎯 Best Practice</a> •
   <a href="https://tqtuan1201.github.io/public/docs/ttbaseuikit/ttbdebugplus.html">🛠 TTBDebugPlus</a> •
   <a href="https://tqtuan1201.github.io/public/docs/ttbaseuikit/showcase.html">📱 Showcase</a> •
   <a href="https://tqtuan1201.github.io/public/docs/ttbaseuikit/blog.html">📝 Blog</a>
@@ -86,41 +87,47 @@ LogViewHelper.share.config(
 
 ### 🖥 TTBDebugPlus — macOS Companion Debugger
 
-A native macOS app for debugging iOS apps in real-time — live console, network inspector, remote screenshots, and more. Built with SwiftUI.
+A **professional-grade native macOS app** for debugging iOS applications in real-time. Built entirely with SwiftUI.
 
-> Requires TTBaseUIKit **v2.3.0+**. The DebugBridge SDK is bundled automatically.
+> ⚠️ **Requires TTBaseUIKit `v2.3.0` or later.** The DebugBridge SDK is included from version 2.3.0+.
 
-<p align="center">
-  <img src="https://tqtuan1201.github.io/public/docs/ttbaseuikit/images/ttbdebugplus-annotation.png" width="80%" alt="TTBDebugPlus — macOS Debugger for iOS" />
-</p>
+| Feature | Description |
+|---------|-------------|
+| 📋 Live Console | Real-time log streaming with level filtering & JSON inspector |
+| 🌐 Network Inspector | Full HTTP inspection, JSON Tree Viewer, cURL & Postman export |
+| 📱 Device Control | Remote screenshot, dark mode toggle, app lifecycle management |
+| 📊 Performance Monitor | CPU, Memory, FPS charts, bandwidth monitoring, API analytics |
+| 💬 Feedback Reporter | Structured bug reports with annotated screenshots |
+| 📤 Export & Share | Postman Collection v2.1, cURL, session files (.ttbdebug) |
 
-| Feature | Highlights |
-|---------|-----------|
-| 📋 Live Console | Log level filtering, full-text search, JSON inspector, auto-scroll LIVE mode |
-| 🌐 Network Inspector | JSON Tree Viewer, waterfall timing, cURL & Postman export, API analytics |
-| 📱 Device Control | Remote screenshot, dark mode toggle, app lifecycle (launch/kill/reset) |
-| 📊 Performance | CPU, memory, FPS charts, bandwidth monitoring, slow request detection |
-| 💬 Feedback & Export | Bug reports with annotated screenshots, Postman Collection v2.1, session files |
+**Architecture:** iOS ↔ Bonjour (mDNS) ↔ WebSocket ↔ macOS — zero configuration, auto-discovery.
 
-**Architecture:** iOS ↔ Bonjour (mDNS) ↔ WebSocket ↔ macOS — zero config, auto-discovery.
+<table>
+<tr>
+<td align="center" width="50%">
+<strong>🚀 iOS SDK Integration Guide</strong><br/>
+<img src="docs/images/ttbdebugplus-guide.png" alt="TTBDebugPlus Integration Guide" width="100%"/>
+</td>
+<td align="center" width="50%">
+<strong>📱 Device Control & Screenshot</strong><br/>
+<img src="docs/images/ttbdebugplus-device.png" alt="TTBDebugPlus Device Control" width="100%"/>
+</td>
+</tr>
+<tr>
+<td align="center" width="50%">
+<strong>✏️ Screenshot Annotation</strong><br/>
+<img src="docs/images/ttbdebugplus-annotation.png" alt="TTBDebugPlus Annotation" width="100%"/>
+</td>
+<td align="center" width="50%">
+<strong>🛠 Dev Tools — JSON Editor</strong><br/>
+<img src="docs/images/ttbdebugplus-devtools.png" alt="TTBDebugPlus Dev Tools" width="100%"/>
+</td>
+</tr>
+</table>
 
-**Quick Start:**
-
-```swift
-// AppDelegate.swift
-#if DEBUG
-TTDebugBridge.shared.start()       // Auto-discover macOS app via Bonjour
-LogInterceptor.shared.install()    // Auto-forward console logs
-#endif
-```
-
-<p align="center">
-  <a href="https://tqtuan1201.github.io/public/docs/ttbaseuikit/apps/TTBDebugPlus-Installer.dmg"><img src="https://img.shields.io/badge/⬇_Download-macOS_(.dmg)-0A84FF?style=for-the-badge&logo=apple&logoColor=white" alt="Download"/></a>
-</p>
-<p align="center"><sub>5.8 MB • macOS 14+ • Universal (Apple Silicon + Intel)</sub></p>
+> **[📥 Download TTBDebugPlus for macOS](https://tqtuan1201.github.io/public/docs/ttbaseuikit/apps/TTBDebugPlus-Installer.dmg)** (.dmg • 5.8 MB • macOS 14+ • Universal)
 
 > 📖 [Full documentation & SDK integration guide →](https://tqtuan1201.github.io/public/docs/ttbaseuikit/ttbdebugplus.html)
-> &nbsp;|&nbsp; 💻 [Source Code →](https://github.com/tqtuan1201/TTBDebugPlus)
 
 ### 🤖 AI Agent Ready
 Pre-configured for modern AI coding assistants:
@@ -378,15 +385,13 @@ TTBaseUIKit/
 └── LICENSE
 ```
 
-## Example Project
+## 🎯 Best Practice — Run First, Read Code Later
 
-The [`TTBaseUIKitExample`](https://github.com/tqtuan1201/TTBaseUIKit/tree/master/TTBaseUIKitExample) project demonstrates:
-- UIKit programmatic views (BaseUIViewController, TableView, CollectionView)
-- SwiftUI declarative views (BaseSUIView, BaseSUIButton, BaseSUIText)
-- Built-in UI Debug Kit (layout inspector, API log viewer)
-- ViewCodable protocol lifecycle
-- Theme configuration
-- Auto Layout helpers
+> **The fastest way to learn TTBaseUIKit:** Clone the example project, run it first, explore all features in action — *then* study the code. Developers who run examples first learn frameworks 10x faster.
+
+📖 [**Full Best Practice Guide →**](https://tqtuan1201.github.io/public/docs/ttbaseuikit/best-practice.html)
+
+### Quick Start (60 seconds)
 
 ```bash
 git clone https://github.com/tqtuan1201/TTBaseUIKit.git
@@ -394,12 +399,76 @@ open TTBaseUIKit.xcodeproj
 # Select TTBaseUIKitExample target → Run (⌘R)
 ```
 
+### What's Inside TTBaseUIKitExample
+
+The [`TTBaseUIKitExample`](https://github.com/tqtuan1201/TTBaseUIKit/tree/master/TTBaseUIKitExample) is a full-featured sample app with **5 tabs**:
+
+| Tab | Description | Tech |
+|-----|-------------|------|
+| 📋 **Menu** | Framework overview, theme config, base components showcase | UIKit |
+| ✨ **Demos** | 7 real-world demos — Recipe Book, Product Catalog, User Directory, Social Feed, Quotes Wall, Todo Manager, Photo Gallery | SwiftUI + API |
+| 🔗 **DebugBridge** | TTBDebugPlus macOS companion — real-time logs, network inspector, remote screenshots | v2.3.0+ |
+| 🔍 **UI Debug** | Built-in TTBaseDebugKit — layout inspector, API logger, screen capture | v2.2.1+ |
+| 👤 **Contact** | Author info and portfolio links | UIKit |
+
+### Example Screenshots
+
+<table>
+<tr>
+<td align="center" width="25%">
+<strong>📋 Menu</strong><br/>
+<img src="docs/images/sample/iOS_sam_01.jpeg" alt="Menu Tab" width="100%"/>
+</td>
+<td align="center" width="25%">
+<strong>✨ Demos</strong><br/>
+<img src="docs/images/sample/iOS_sam_02.jpeg" alt="Demos Tab" width="100%"/>
+</td>
+<td align="center" width="25%">
+<strong>🔗 DebugBridge</strong><br/>
+<img src="docs/images/sample/iOS_sam_03.jpeg" alt="DebugBridge Tab" width="100%"/>
+</td>
+<td align="center" width="25%">
+<strong>🔍 UI Debug</strong><br/>
+<img src="docs/images/sample/iOS_sam_04.jpeg" alt="UI Debug Tab" width="100%"/>
+</td>
+</tr>
+</table>
+
+### Code Architecture
+
+The example follows a clean architecture pattern:
+
+```
+AppDelegate (Config) → AppCoordinator (TabBar) → ViewControllers (ViewCodable)
+```
+
+- **AppDelegate** — Configure `ViewConfig`, `SizeConfig`, `FontConfig`, `StyleConfig`, `ParamConfig` + start `TTDebugBridge`
+- **AppCoordinator** — Setup `UITabBarController` with 5 tabs using Coordinator pattern
+- **ViewControllers** — Implement `ViewCodable` protocol: `setupData → makeUI → makeConstraints → bindViewModel`
+
+### UIKit Demo Categories
+
+The Menu tab includes **11 UIKit demo categories**:
+
+| Demo | What It Shows |
+|------|---------------|
+| Auto Layout | Programmatic constraints with chainable helpers |
+| Calendar | Custom calendar view implementation |
+| Cell Types | Table/Collection cell patterns |
+| CollectionView | BaseUICollectionViewController demos |
+| Components | Buttons, labels, text fields, images |
+| Empty Table | Empty state + retry pattern |
+| Message | Notification banners & alerts |
+| Popup | Modal dialogs & bottom sheets |
+| Skeleton | Loading placeholder animations |
+| TableView | BaseUITableViewController patterns |
+| ViewController | ViewCodable lifecycle demos |
+
 ## Apps Built with TTBaseUIKit
 
 <table>
 <tr>
 <td align="center" width="25%">
-<img src="https://tqtuan1201.github.io/images/12bay-appstore.jpeg" width="180" alt="12Bay App Store"/><br/>
 <strong>12Bay iOS</strong><br/>
 <em>✈️ Travel • #20 App Store VN</em><br/>
 <sub>UIKit + SwiftUI • MVVM/VIPER</sub>
@@ -457,6 +526,7 @@ open TTBaseUIKit.xcodeproj
 | 🎨 SwiftUI Views | [51+ View Docs](https://tqtuan1201.github.io/public/docs/ttbaseuikit/swiftui/index.html) |
 | 🛠 TTBDebugPlus | [macOS Debugger & SDK Guide](https://tqtuan1201.github.io/public/docs/ttbaseuikit/ttbdebugplus.html) |
 | 🤖 AI Agent Skills | [17 Agent Configurations](https://tqtuan1201.github.io/public/docs/ttbaseuikit/ai-agents/index.html) |
+| 🎯 Best Practice | [Run First, Read Code Later](https://tqtuan1201.github.io/public/docs/ttbaseuikit/best-practice.html) |
 | 🎬 Project Demo | [TTBaseUIKitExample Demo](https://tqtuan1201.github.io/public/docs/ttbaseuikit/demo.html) |
 | 📱 Apps Showcase | [36+ Production Apps](https://tqtuan1201.github.io/public/docs/ttbaseuikit/showcase.html) |
 | 📝 Author's Blog | [Technical Articles](https://tqtuan1201.github.io/public/docs/ttbaseuikit/blog.html) |

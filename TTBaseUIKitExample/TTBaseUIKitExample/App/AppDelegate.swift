@@ -65,6 +65,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             config.heartbeatInterval = 3.0  // seconds
             config.maxBufferedMessages = 500
             TTDebugBridge.shared.config = config
+            
             TTDebugBridge.shared.start()
             LogInterceptor.shared.install()
             //TTDebugBridge.shared.showDiagnosticOverlay()
