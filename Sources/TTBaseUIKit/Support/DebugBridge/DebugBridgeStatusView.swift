@@ -41,15 +41,15 @@ public struct DebugBridgeStatusView: View {
     
     public var body: some View {
         GeometryReader { geometry in
-            ZStack(alignment: .topTrailing) {
+            ZStack(alignment: .bottomTrailing) {
                 // Transparent — no Color.clear fill so touches pass through
                 
                 Group {
                     if isExpanded {
                         expandedPanel
                             .transition(.asymmetric(
-                                insertion: .scale(scale: 0.5, anchor: .topTrailing).combined(with: .opacity),
-                                removal: .scale(scale: 0.8, anchor: .topTrailing).combined(with: .opacity)
+                                insertion: .scale(scale: 0.5, anchor: .bottomTrailing).combined(with: .opacity),
+                                removal: .scale(scale: 0.8, anchor: .bottomTrailing).combined(with: .opacity)
                             ))
                     } else {
                         floatingPill
@@ -93,10 +93,11 @@ public struct DebugBridgeStatusView: View {
                         }
                 )
                 .animation(.easeInOut(duration: 0.15), value: isDragging)
-                .padding(.trailing, 12)
-                .padding(.top, 8)
+                .padding(.trailing, 10)
+                // Overlay window doesn't know about tab bar — detect it from app window
+                .padding(.bottom, Self.bottomInsetAboveTabBar + 10)
             }
-            .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .topTrailing)
+            .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .bottomTrailing)
         }
         .onAppear {
             bridgeState = TTDebugBridge.shared.state
@@ -484,6 +485,51 @@ public struct DebugBridgeStatusView: View {
         
         return hints
     }
+    
+    // MARK: - Tab Bar Height Detection
+    
+    /// Computes the total bottom inset needed to position above the tab bar.
+    /// The overlay window doesn't share the app's view hierarchy,
+    /// so we query the app's main window for the actual tab bar frame.
+    private static var bottomInsetAboveTabBar: CGFloat {
+        #if canImport(UIKit)
+        guard let windowScene = UIApplication.shared.connectedScenes
+            .compactMap({ $0 as? UIWindowScene })
+            .first,
+              let appWindow = windowScene.windows.first(where: { $0.isKeyWindow })
+                ?? windowScene.windows.first else {
+            return 34 // fallback: home indicator only
+        }
+        
+        let safeBottom = appWindow.safeAreaInsets.bottom
+        
+        // Find UITabBarController in the root hierarchy
+        var tabBarHeight: CGFloat = 0
+        if let tabBarController = findTabBarController(from: appWindow.rootViewController) {
+            let tabBar = tabBarController.tabBar
+            if !tabBar.isHidden {
+                tabBarHeight = tabBar.frame.height
+            }
+        }
+        
+        // tabBar.frame.height already includes the safe area on notch devices,
+        // so just use the larger of tabBarHeight or safeBottom
+        return max(tabBarHeight, safeBottom)
+        #else
+        return 34
+        #endif
+    }
+    
+    #if canImport(UIKit)
+    private static func findTabBarController(from vc: UIViewController?) -> UITabBarController? {
+        guard let vc = vc else { return nil }
+        if let tabBar = vc as? UITabBarController { return tabBar }
+        if let nav = vc as? UINavigationController {
+            return findTabBarController(from: nav.visibleViewController)
+        }
+        return findTabBarController(from: vc.presentedViewController)
+    }
+    #endif
 }
 
 // MARK: - Notification Name for State Changes
@@ -537,7 +583,7 @@ extension TTDebugBridge {
             
             let hostingController = UIHostingController(rootView:
                 DebugBridgeStatusView()
-                    .edgesIgnoringSafeArea(.all)
+                .edgesIgnoringSafeArea([.leading, .trailing, .bottom])
             )
             hostingController.view.backgroundColor = .clear
             hostingController.view.isUserInteractionEnabled = true

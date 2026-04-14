@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 60;
+	objectVersion = 54;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -87,6 +87,9 @@
 		BC2452F42C5C9CF700D3FEC5 /* BaseSwiftUITextDemo.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC2452F32C5C9CF700D3FEC5 /* BaseSwiftUITextDemo.swift */; };
 		BC2FD3FC2F615B8700FC6984 /* TTBaseUIKit in Frameworks */ = {isa = PBXBuildFile; productRef = BC2FD3FB2F615B8700FC6984 /* TTBaseUIKit */; };
 		BC3EBAA72F31A873008C258B /* TTBaseUIKit in Frameworks */ = {isa = PBXBuildFile; productRef = BC3EBAA62F31A873008C258B /* TTBaseUIKit */; };
+		BC5581142F8DE7F7001F4410 /* TTBaseUIKit in Frameworks */ = {isa = PBXBuildFile; productRef = BC5581132F8DE7F7001F4410 /* TTBaseUIKit */; };
+		BC5581172F8DFA2E001F4410 /* TTBaseUIKit in Frameworks */ = {isa = PBXBuildFile; productRef = BC5581162F8DFA2E001F4410 /* TTBaseUIKit */; };
+		BC55811A2F8DFD14001F4410 /* TTBaseUIKit in Frameworks */ = {isa = PBXBuildFile; productRef = BC5581192F8DFD14001F4410 /* TTBaseUIKit */; };
 		BC57F5552F7A409D00CCBE21 /* TTBaseUIKit in Frameworks */ = {isa = PBXBuildFile; productRef = BC57F5542F7A409D00CCBE21 /* TTBaseUIKit */; };
 		BC5DF8B72F7C275D000DD8D2 /* TTBaseUIKit in Frameworks */ = {isa = PBXBuildFile; productRef = BC5DF8B62F7C275D000DD8D2 /* TTBaseUIKit */; };
 		BC5DF8F92F7C3971000DD8D2 /* DebugBridgeDemoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC5DF8F72F7C3971000DD8D2 /* DebugBridgeDemoView.swift */; };
@@ -251,14 +254,17 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				BC55811A2F8DFD14001F4410 /* TTBaseUIKit in Frameworks */,
 				BC2FD3FC2F615B8700FC6984 /* TTBaseUIKit in Frameworks */,
 				BCB90CDD2ED06AFD00125913 /* TTBaseUIKit in Frameworks */,
 				BCCF1A4E2E3A1346001BF6A3 /* TTBaseUIKit in Frameworks */,
+				BC5581172F8DFA2E001F4410 /* TTBaseUIKit in Frameworks */,
 				BCCF1A4B2E3A0EA2001BF6A3 /* TTBaseUIKit in Frameworks */,
 				BC5DF8B72F7C275D000DD8D2 /* TTBaseUIKit in Frameworks */,
 				BC57F5552F7A409D00CCBE21 /* TTBaseUIKit in Frameworks */,
 				BCBAAED82F87B9BC00EE8068 /* TTBaseUIKit in Frameworks */,
 				BC3EBAA72F31A873008C258B /* TTBaseUIKit in Frameworks */,
+				BC5581142F8DE7F7001F4410 /* TTBaseUIKit in Frameworks */,
 				BC8166A32E378C9A000D6708 /* TTBaseUIKit in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1135,7 +1141,7 @@
 			);
 			mainGroup = 93F0FDBD22580B980037C427;
 			packageReferences = (
-				BCBAAED62F87B9BC00EE8068 /* XCLocalSwiftPackageReference "../../TTBaseUIKit" */,
+				BC5581182F8DFD14001F4410 /* XCRemoteSwiftPackageReference "TTBaseUIKit" */,
 			);
 			productRefGroup = 93F0FDC722580B980037C427 /* Products */;
 			projectDirPath = "";
@@ -1482,13 +1488,6 @@
 		};
 /* End XCConfigurationList section */
 
-/* Begin XCLocalSwiftPackageReference section */
-		BCBAAED62F87B9BC00EE8068 /* XCLocalSwiftPackageReference "../../TTBaseUIKit" */ = {
-			isa = XCLocalSwiftPackageReference;
-			relativePath = ../../TTBaseUIKit;
-		};
-/* End XCLocalSwiftPackageReference section */
-
 /* Begin XCRemoteSwiftPackageReference section */
 		BC2FD3FA2F615B8700FC6984 /* XCRemoteSwiftPackageReference "TTBaseUIKit" */ = {
 			isa = XCRemoteSwiftPackageReference;
@@ -1499,6 +1498,22 @@
 			};
 		};
 		BC3EBAA52F31A873008C258B /* XCRemoteSwiftPackageReference "TTBaseUIKit" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/tqtuan1201/TTBaseUIKit.git";
+			requirement = {
+				branch = master;
+				kind = branch;
+			};
+		};
+		BC5581122F8DE7F7001F4410 /* XCRemoteSwiftPackageReference "TTBaseUIKit" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/tqtuan1201/TTBaseUIKit.git";
+			requirement = {
+				branch = master;
+				kind = branch;
+			};
+		};
+		BC5581182F8DFD14001F4410 /* XCRemoteSwiftPackageReference "TTBaseUIKit" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/tqtuan1201/TTBaseUIKit.git";
 			requirement = {
@@ -1541,6 +1556,20 @@
 		BC3EBAA62F31A873008C258B /* TTBaseUIKit */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = BC3EBAA52F31A873008C258B /* XCRemoteSwiftPackageReference "TTBaseUIKit" */;
+			productName = TTBaseUIKit;
+		};
+		BC5581132F8DE7F7001F4410 /* TTBaseUIKit */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = BC5581122F8DE7F7001F4410 /* XCRemoteSwiftPackageReference "TTBaseUIKit" */;
+			productName = TTBaseUIKit;
+		};
+		BC5581162F8DFA2E001F4410 /* TTBaseUIKit */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = TTBaseUIKit;
+		};
+		BC5581192F8DFD14001F4410 /* TTBaseUIKit */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = BC5581182F8DFD14001F4410 /* XCRemoteSwiftPackageReference "TTBaseUIKit" */;
 			productName = TTBaseUIKit;
 		};
 		BC57F5542F7A409D00CCBE21 /* TTBaseUIKit */ = {
