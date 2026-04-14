@@ -558,6 +558,13 @@ public final class TTDebugBridge {
         ConnectionDiagnostics.shared.recordStateChange(s)
         DispatchQueue.main.async { [weak self] in
             self?.onStateChange?(s)
+            // Also post notification so overlay and other observers can listen
+            // without overwriting the onStateChange callback
+            NotificationCenter.default.post(
+                name: .ttDebugBridgeStateDidChange,
+                object: self,
+                userInfo: ["state": s.rawValue]
+            )
         }
     }
     

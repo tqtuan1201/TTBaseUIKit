@@ -59,6 +59,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         self.appCoordinator = AppCoordinator(window: self.window!)
         self.appCoordinator?.start()
         
+        #if DEBUG
         DispatchQueue.main.asyncAfter(deadline: .now()) {
             // Optional: Custom configuration
             var config = TTDebugBridge.Config()
@@ -66,15 +67,17 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             config.maxBufferedMessages = 500
             TTDebugBridge.shared.config = config
             
-            TTDebugBridge.shared.start()
-            LogInterceptor.shared.install()
-            //TTDebugBridge.shared.showDiagnosticOverlay()
-            // Optional: Monitor connection state
+            // Monitor connection state (safe to set — overlay uses NotificationCenter)
             TTDebugBridge.shared.onStateChange = { state in
                 print("[Debug] Bridge state: \(state.rawValue)")
                 // States: idle → browsing → connecting → connected
             }
+            
+            TTDebugBridge.shared.start()
+            LogInterceptor.shared.install()
+            TTDebugBridge.shared.showDiagnosticOverlay()
         }
+        #endif
         
         return true
     }

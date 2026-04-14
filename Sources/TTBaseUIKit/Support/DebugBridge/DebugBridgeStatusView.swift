@@ -12,6 +12,7 @@ import SwiftUI
 // MARK: - Debug Bridge Status View (iOS 14+)
 /// A floating pill/badge that shows TTDebugBridge connection status.
 /// Tap to expand into a full diagnostics panel.
+/// Supports drag-to-reposition and pass-through touch so the app remains usable.
 ///
 /// Usage:
 /// ```swift
@@ -27,82 +28,135 @@ public struct DebugBridgeStatusView: View {
     @State private var bridgeState: TTDebugBridge.BridgeState = .idle
     @State private var snapshot: ConnectionDiagnostics.Snapshot?
     @State private var refreshTimer: Timer?
+    @State private var showFullReport: Bool = false
+    @State private var fullReportText: String = ""
+    @State private var isResetting: Bool = false
+    
+    /// Drag offset for repositioning — starts at top-right
+    @State private var offset: CGSize = .zero
+    @State private var lastDragOffset: CGSize = .zero
+    @State private var isDragging: Bool = false
     
     public init() {}
     
     public var body: some View {
-        VStack(spacing: 0) {
-            Spacer()
-            HStack {
-                Spacer()
+        GeometryReader { geometry in
+            ZStack(alignment: .topTrailing) {
+                // Transparent — no Color.clear fill so touches pass through
                 
-                if isExpanded {
-                    expandedPanel
-                        .transition(.asymmetric(
-                            insertion: .scale(scale: 0.5, anchor: .bottomTrailing).combined(with: .opacity),
-                            removal: .scale(scale: 0.8, anchor: .bottomTrailing).combined(with: .opacity)
-                        ))
-                } else {
-                    floatingPill
-                        .transition(.scale(scale: 0.5).combined(with: .opacity))
+                Group {
+                    if isExpanded {
+                        expandedPanel
+                            .transition(.asymmetric(
+                                insertion: .scale(scale: 0.5, anchor: .topTrailing).combined(with: .opacity),
+                                removal: .scale(scale: 0.8, anchor: .topTrailing).combined(with: .opacity)
+                            ))
+                    } else {
+                        floatingPill
+                            .opacity(isDragging ? 0.8 : 0.4)
+                            .scaleEffect(isDragging ? 1.1 : 1.0)
+                            .transition(.scale(scale: 0.5).combined(with: .opacity))
+                    }
                 }
+                .offset(x: offset.width, y: offset.height)
+                .gesture(
+                    DragGesture(minimumDistance: 0)
+                        .onChanged { value in
+                            let distance = sqrt(
+                                value.translation.width * value.translation.width +
+                                value.translation.height * value.translation.height
+                            )
+                            // Once moved >5pt, mark as dragging
+                            if distance > 5 {
+                                isDragging = true
+                            }
+                            if isDragging {
+                                offset = CGSize(
+                                    width: lastDragOffset.width + value.translation.width,
+                                    height: lastDragOffset.height + value.translation.height
+                                )
+                            }
+                        }
+                        .onEnded { value in
+                            if isDragging {
+                                // Was a drag — save position
+                                lastDragOffset = offset
+                            } else {
+                                // Was a tap — toggle expand
+                                if !isExpanded {
+                                    isExpanded = true
+                                    refreshSnapshot()
+                                    startAutoRefresh()
+                                }
+                            }
+                            isDragging = false
+                        }
+                )
+                .animation(.easeInOut(duration: 0.15), value: isDragging)
+                .padding(.trailing, 12)
+                .padding(.top, 8)
             }
-            .padding(.trailing, 16)
-            .padding(.bottom, 16)
+            .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .topTrailing)
         }
         .onAppear {
             bridgeState = TTDebugBridge.shared.state
-            TTDebugBridge.shared.onStateChange = { newState in
-                withAnimation(.easeInOut(duration: 0.3)) {
-                    bridgeState = newState
+            // Use NotificationCenter to avoid overwriting onStateChange
+            NotificationCenter.default.addObserver(
+                forName: .ttDebugBridgeStateDidChange,
+                object: nil,
+                queue: .main
+            ) { notification in
+                if let newState = notification.userInfo?["state"] as? String,
+                   let state = TTDebugBridge.BridgeState(rawValue: newState) {
+                    withAnimation(.easeInOut(duration: 0.3)) {
+                        bridgeState = state
+                    }
+                    if isExpanded { refreshSnapshot() }
                 }
-                if isExpanded { refreshSnapshot() }
             }
         }
         .onDisappear {
             refreshTimer?.invalidate()
             refreshTimer = nil
+            NotificationCenter.default.removeObserver(self, name: .ttDebugBridgeStateDidChange, object: nil)
         }
         .animation(.spring(response: 0.35, dampingFraction: 0.8), value: isExpanded)
+        .sheet(isPresented: $showFullReport) {
+            fullReportSheet
+        }
     }
     
     // MARK: - Floating Pill
     
     private var floatingPill: some View {
-        Button(action: {
-            isExpanded = true
-            refreshSnapshot()
-            startAutoRefresh()
-        }) {
-            HStack(spacing: 6) {
-                Circle()
-                    .fill(colorForState(bridgeState))
-                    .frame(width: 8, height: 8)
-                    .overlay(
-                        Circle()
-                            .fill(colorForState(bridgeState))
-                            .frame(width: 8, height: 8)
-                            .blur(radius: bridgeState == .connected ? 4 : 0)
-                            .opacity(bridgeState == .connected ? 0.6 : 0)
-                    )
-                
-                Text(labelForState(bridgeState))
-                    .font(.system(size: 11, weight: .semibold, design: .monospaced))
-                    .foregroundColor(.white)
-            }
-            .padding(.horizontal, 12)
-            .padding(.vertical, 8)
-            .background(
-                Capsule()
-                    .fill(Color.black.opacity(0.75))
-                    .overlay(
-                        Capsule()
-                            .stroke(colorForState(bridgeState).opacity(0.5), lineWidth: 1)
-                    )
-            )
-            .shadow(color: .black.opacity(0.3), radius: 8, y: 4)
+        HStack(spacing: 6) {
+            Circle()
+                .fill(colorForState(bridgeState))
+                .frame(width: 8, height: 8)
+                .overlay(
+                    Circle()
+                        .fill(colorForState(bridgeState))
+                        .frame(width: 8, height: 8)
+                        .blur(radius: bridgeState == .connected ? 4 : 0)
+                        .opacity(bridgeState == .connected ? 0.6 : 0)
+                )
+            
+            Text(labelForState(bridgeState))
+                .font(.system(size: 11, weight: .semibold, design: .monospaced))
+                .foregroundColor(.white)
         }
-        .buttonStyle(PlainButtonStyle())
+        .padding(.horizontal, 12)
+        .padding(.vertical, 8)
+        .background(
+            Capsule()
+                .fill(Color.black.opacity(0.75))
+                .overlay(
+                    Capsule()
+                        .stroke(colorForState(bridgeState).opacity(0.5), lineWidth: 1)
+                )
+        )
+        .shadow(color: .black.opacity(0.3), radius: 8, y: 4)
+        .contentShape(Capsule())
     }
     
     // MARK: - Expanded Panel
@@ -219,20 +273,56 @@ public struct DebugBridgeStatusView: View {
                     }
                 }
                 
-                // Full report button
-                Button(action: {
-                    TTDebugBridge.shared.printDiagnosticReport()
-                }) {
-                    HStack(spacing: 4) {
-                        Image(systemName: "doc.text")
-                            .font(.system(size: 10))
-                        Text("Print Full Report")
-                            .font(.system(size: 10, weight: .medium))
+                // Action buttons row
+                Rectangle()
+                    .fill(Color.white.opacity(0.06))
+                    .frame(height: 1)
+                    .padding(.vertical, 4)
+                
+                HStack(spacing: 12) {
+                    // Full report button — opens in-app sheet
+                    Button(action: {
+                        let snapshot = TTDebugBridge.shared.getDiagnosticSnapshot()
+                        fullReportText = ConnectionDiagnostics.formatReport(snapshot)
+                        // Also print to console
+                        TTDebugBridge.shared.printDiagnosticReport()
+                        showFullReport = true
+                    }) {
+                        HStack(spacing: 4) {
+                            Image(systemName: "doc.text")
+                                .font(.system(size: 10))
+                            Text("Full Report")
+                                .font(.system(size: 10, weight: .medium))
+                        }
+                        .foregroundColor(.blue)
                     }
-                    .foregroundColor(.blue)
-                    .padding(.top, 4)
+                    .buttonStyle(PlainButtonStyle())
+                    
+                    // Reset / Reconnect button
+                    Button(action: {
+                        performReset()
+                    }) {
+                        HStack(spacing: 4) {
+                            if isResetting {
+                                ProgressView()
+                                    .scaleEffect(0.5)
+                                    .frame(width: 10, height: 10)
+                            } else {
+                                Image(systemName: "arrow.triangle.2.circlepath")
+                                    .font(.system(size: 10))
+                            }
+                            Text("Reset")
+                                .font(.system(size: 10, weight: .medium))
+                        }
+                        .foregroundColor(.orange)
+                    }
+                    .buttonStyle(PlainButtonStyle())
+                    .disabled(isResetting)
+                    .opacity(isResetting ? 0.5 : 1.0)
+                    
+                    Spacer()
                 }
-                .buttonStyle(PlainButtonStyle())
+                .padding(.top, 2)
             }
             .padding(.horizontal, 14)
             .padding(.vertical, 10)
@@ -247,6 +337,43 @@ public struct DebugBridgeStatusView: View {
                 )
         )
         .shadow(color: .black.opacity(0.4), radius: 16, y: 8)
+    }
+    
+    // MARK: - Full Report Sheet
+    
+    private var fullReportSheet: some View {
+        NavigationView {
+            ScrollView {
+                Text(fullReportText)
+                    .font(.system(size: 12, weight: .regular, design: .monospaced))
+                    .foregroundColor(.primary)
+                    .padding(16)
+                    .frame(maxWidth: .infinity, alignment: .leading)
+            }
+            .background(Color(.systemGroupedBackground))
+            .navigationBarTitle("Diagnostic Report", displayMode: .inline)
+            .navigationBarItems(
+                leading: Button(action: {
+                    // Refresh report
+                    let snapshot = TTDebugBridge.shared.getDiagnosticSnapshot()
+                    fullReportText = ConnectionDiagnostics.formatReport(snapshot)
+                }) {
+                    Image(systemName: "arrow.clockwise")
+                },
+                trailing: HStack(spacing: 12) {
+                    // Copy to clipboard
+                    Button(action: {
+                        UIPasteboard.general.string = fullReportText
+                    }) {
+                        Image(systemName: "doc.on.doc")
+                    }
+                    // Close
+                    Button("Done") {
+                        showFullReport = false
+                    }
+                }
+            )
+        }
     }
     
     // MARK: - Diagnostic Row
@@ -276,10 +403,32 @@ public struct DebugBridgeStatusView: View {
         }
     }
     
+    // MARK: - Actions
+    
+    private func performReset() {
+        isResetting = true
+        
+        // Stop everything, then restart from scratch after a brief delay
+        TTDebugBridge.shared.stop()
+        
+        DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
+            TTDebugBridge.shared.start()
+            
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+                isResetting = false
+                refreshSnapshot()
+            }
+        }
+    }
+    
     // MARK: - Helpers
     
     private func refreshSnapshot() {
         snapshot = TTDebugBridge.shared.getDiagnosticSnapshot()
+        // Also sync state from bridge
+        withAnimation(.easeInOut(duration: 0.2)) {
+            bridgeState = TTDebugBridge.shared.state
+        }
     }
     
     private func startAutoRefresh() {
@@ -337,12 +486,36 @@ public struct DebugBridgeStatusView: View {
     }
 }
 
+// MARK: - Notification Name for State Changes
+public extension Notification.Name {
+    /// Posted by TTDebugBridge when its state changes.
+    /// `userInfo["state"]` contains the `BridgeState.rawValue` string.
+    static let ttDebugBridgeStateDidChange = Notification.Name("TTDebugBridge.stateDidChange")
+}
+
+// MARK: - Pass-Through Window for Overlay
+/// A UIWindow subclass that only intercepts touches on its visible subviews,
+/// allowing touches to pass through to the app's main window underneath.
+@available(iOS 14.0, *)
+private class PassThroughWindow: UIWindow {
+    override func hitTest(_ point: CGPoint, with event: UIEvent?) -> UIView? {
+        guard let hitView = super.hitTest(point, with: event) else { return nil }
+        // If the hit view is the root hosting view's background (the clear hosting view),
+        // return nil so touches pass through to the app window beneath.
+        if hitView === self.rootViewController?.view {
+            return nil
+        }
+        return hitView
+    }
+}
+
 // MARK: - UIKit Integration — Window Overlay
 
 @available(iOS 14.0, *)
 extension TTDebugBridge {
     
     /// Shows a floating diagnostic overlay pill on the app's key window.
+    /// Uses a pass-through window so the app remains fully interactive.
     /// Only works in SwiftUI-compatible iOS 14+ apps.
     public func showDiagnosticOverlay() {
         #if canImport(UIKit)
@@ -351,7 +524,13 @@ extension TTDebugBridge {
                 .compactMap({ $0 as? UIWindowScene })
                 .first else { return }
             
-            let overlayWindow = UIWindow(windowScene: windowScene)
+            // Don't create duplicate overlays
+            if let existing = objc_getAssociatedObject(self, &AssociatedKeys.overlayWindow) as? UIWindow,
+               !existing.isHidden {
+                return
+            }
+            
+            let overlayWindow = PassThroughWindow(windowScene: windowScene)
             overlayWindow.windowLevel = .statusBar + 1
             overlayWindow.backgroundColor = .clear
             overlayWindow.isUserInteractionEnabled = true
@@ -361,8 +540,10 @@ extension TTDebugBridge {
                     .edgesIgnoringSafeArea(.all)
             )
             hostingController.view.backgroundColor = .clear
+            hostingController.view.isUserInteractionEnabled = true
             overlayWindow.rootViewController = hostingController
-            overlayWindow.makeKeyAndVisible()
+            overlayWindow.isHidden = false
+            // Do NOT call makeKeyAndVisible — it steals first responder from the app
             
             // Store reference to prevent deallocation
             objc_setAssociatedObject(

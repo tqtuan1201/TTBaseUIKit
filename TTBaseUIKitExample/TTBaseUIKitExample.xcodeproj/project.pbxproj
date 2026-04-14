@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 54;
+	objectVersion = 60;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -103,6 +103,7 @@
 		BCA2809B2C5A4ED600472024 /* BaseCollectionViewViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCA280982C5A4ED600472024 /* BaseCollectionViewViewModel.swift */; };
 		BCA2809D2C5A4F9A00472024 /* HomeNewHealthProductsViewCollectionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCA2809C2C5A4F9A00472024 /* HomeNewHealthProductsViewCollectionCell.swift */; };
 		BCB90CDD2ED06AFD00125913 /* TTBaseUIKit in Frameworks */ = {isa = PBXBuildFile; productRef = BCB90CDC2ED06AFD00125913 /* TTBaseUIKit */; };
+		BCBAAED82F87B9BC00EE8068 /* TTBaseUIKit in Frameworks */ = {isa = PBXBuildFile; productRef = BCBAAED72F87B9BC00EE8068 /* TTBaseUIKit */; };
 		BCCD6BB02C5E020E00DA9164 /* BaseSwiftUIImageDemo.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCCD6BAF2C5E020E00DA9164 /* BaseSwiftUIImageDemo.swift */; };
 		BCCD6BB22C5E047500DA9164 /* BaseSwiftUIScrollStackDemo.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCCD6BB12C5E047500DA9164 /* BaseSwiftUIScrollStackDemo.swift */; };
 		BCCD6BB42C5E04DF00DA9164 /* BaseSwiftUIStackDemo.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCCD6BB32C5E04DF00DA9164 /* BaseSwiftUIStackDemo.swift */; };
@@ -256,6 +257,7 @@
 				BCCF1A4B2E3A0EA2001BF6A3 /* TTBaseUIKit in Frameworks */,
 				BC5DF8B72F7C275D000DD8D2 /* TTBaseUIKit in Frameworks */,
 				BC57F5552F7A409D00CCBE21 /* TTBaseUIKit in Frameworks */,
+				BCBAAED82F87B9BC00EE8068 /* TTBaseUIKit in Frameworks */,
 				BC3EBAA72F31A873008C258B /* TTBaseUIKit in Frameworks */,
 				BC8166A32E378C9A000D6708 /* TTBaseUIKit in Frameworks */,
 			);
@@ -1133,7 +1135,7 @@
 			);
 			mainGroup = 93F0FDBD22580B980037C427;
 			packageReferences = (
-				BC5DF8B52F7C275D000DD8D2 /* XCRemoteSwiftPackageReference "TTBaseUIKit" */,
+				BCBAAED62F87B9BC00EE8068 /* XCLocalSwiftPackageReference "../../TTBaseUIKit" */,
 			);
 			productRefGroup = 93F0FDC722580B980037C427 /* Products */;
 			projectDirPath = "";
@@ -1480,6 +1482,13 @@
 		};
 /* End XCConfigurationList section */
 
+/* Begin XCLocalSwiftPackageReference section */
+		BCBAAED62F87B9BC00EE8068 /* XCLocalSwiftPackageReference "../../TTBaseUIKit" */ = {
+			isa = XCLocalSwiftPackageReference;
+			relativePath = ../../TTBaseUIKit;
+		};
+/* End XCLocalSwiftPackageReference section */
+
 /* Begin XCRemoteSwiftPackageReference section */
 		BC2FD3FA2F615B8700FC6984 /* XCRemoteSwiftPackageReference "TTBaseUIKit" */ = {
 			isa = XCRemoteSwiftPackageReference;
@@ -1549,6 +1558,10 @@
 			productName = TTBaseUIKit;
 		};
 		BCB90CDC2ED06AFD00125913 /* TTBaseUIKit */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = TTBaseUIKit;
+		};
+		BCBAAED72F87B9BC00EE8068 /* TTBaseUIKit */ = {
 			isa = XCSwiftPackageProductDependency;
 			productName = TTBaseUIKit;
 		};
