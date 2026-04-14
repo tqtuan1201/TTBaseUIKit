@@ -35,6 +35,15 @@ public final class TTDebugBridge {
         public var sdkVersion: String = "4.2.0"
         public var isEnabled: Bool = true
         
+        /// Bottom padding for the diagnostic overlay (in points).
+        /// - `nil` (default): auto-detect tab bar height from the app window.
+        /// - Any value: use as fixed bottom padding (e.g. `60` to sit 60pt above screen bottom).
+        public var overlayBottomPadding: CGFloat? = nil
+        
+        /// When `true`, the overlay pill automatically hides 4 seconds after
+        /// reaching the `.connected` state. Defaults to `false` (always visible).
+        public var overlayAutoHideOnConnect: Bool = false
+        
         public init() {}
     }
     

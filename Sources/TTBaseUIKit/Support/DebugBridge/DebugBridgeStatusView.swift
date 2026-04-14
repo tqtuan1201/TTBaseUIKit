@@ -32,10 +32,14 @@ public struct DebugBridgeStatusView: View {
     @State private var fullReportText: String = ""
     @State private var isResetting: Bool = false
     
-    /// Drag offset for repositioning — starts at top-right
+    /// Drag offset for repositioning — default position is bottom-right
     @State private var offset: CGSize = .zero
     @State private var lastDragOffset: CGSize = .zero
     @State private var isDragging: Bool = false
+    
+    /// Auto-hide: pill hides after connected for 4 seconds (if configured)
+    @State private var isHiddenByAutoHide: Bool = false
+    @State private var autoHideTimer: Timer?
     
     public init() {}
     
@@ -58,6 +62,8 @@ public struct DebugBridgeStatusView: View {
                             .transition(.scale(scale: 0.5).combined(with: .opacity))
                     }
                 }
+                .opacity(isHiddenByAutoHide ? 0 : 1)
+                .allowsHitTesting(!isHiddenByAutoHide)
                 .offset(x: offset.width, y: offset.height)
                 .gesture(
                     DragGesture(minimumDistance: 0)
@@ -94,14 +100,14 @@ public struct DebugBridgeStatusView: View {
                 )
                 .animation(.easeInOut(duration: 0.15), value: isDragging)
                 .padding(.trailing, 10)
-                // Overlay window doesn't know about tab bar — detect it from app window
-                .padding(.bottom, Self.bottomInsetAboveTabBar + 10)
+                // Use configured padding, or auto-detect tab bar height
+                .padding(.bottom, (TTDebugBridge.shared.config.overlayBottomPadding ?? Self.bottomInsetAboveTabBar) + 12.0)
             }
             .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .bottomTrailing)
         }
         .onAppear {
             bridgeState = TTDebugBridge.shared.state
-            // Use NotificationCenter to avoid overwriting onStateChange
+            // Listen via NotificationCenter to avoid overwriting onStateChange callback
             NotificationCenter.default.addObserver(
                 forName: .ttDebugBridgeStateDidChange,
                 object: nil,
@@ -113,12 +119,15 @@ public struct DebugBridgeStatusView: View {
                         bridgeState = state
                     }
                     if isExpanded { refreshSnapshot() }
+                    handleAutoHide(for: state)
                 }
             }
         }
         .onDisappear {
             refreshTimer?.invalidate()
             refreshTimer = nil
+            autoHideTimer?.invalidate()
+            autoHideTimer = nil
             NotificationCenter.default.removeObserver(self, name: .ttDebugBridgeStateDidChange, object: nil)
         }
         .animation(.spring(response: 0.35, dampingFraction: 0.8), value: isExpanded)
@@ -439,6 +448,43 @@ public struct DebugBridgeStatusView: View {
         }
     }
     
+    /// Handles auto-hide behavior based on `overlayAutoHideOnConnect` config.
+    /// Hides the pill 4 seconds after reaching `.connected` state;
+    /// shows it again if the state changes to anything else.
+    private func handleAutoHide(for state: TTDebugBridge.BridgeState) {
+        guard TTDebugBridge.shared.config.overlayAutoHideOnConnect else {
+            // Feature disabled — always visible
+            autoHideTimer?.invalidate()
+            autoHideTimer = nil
+            if isHiddenByAutoHide {
+                withAnimation(.easeInOut(duration: 0.3)) {
+                    isHiddenByAutoHide = false
+                }
+            }
+            return
+        }
+        
+        if state == .connected {
+            // Start 4-second countdown to hide
+            autoHideTimer?.invalidate()
+            autoHideTimer = Timer.scheduledTimer(withTimeInterval: 4.0, repeats: false) { _ in
+                withAnimation(.easeInOut(duration: 0.3)) {
+                    isHiddenByAutoHide = true
+                    isExpanded = false
+                }
+            }
+        } else {
+            // Not connected — cancel timer and show pill again
+            autoHideTimer?.invalidate()
+            autoHideTimer = nil
+            if isHiddenByAutoHide {
+                withAnimation(.easeInOut(duration: 0.3)) {
+                    isHiddenByAutoHide = false
+                }
+            }
+        }
+    }
+    
     private func colorForState(_ state: TTDebugBridge.BridgeState) -> Color {
         switch state {
         case .idle: return .gray
@@ -542,16 +588,61 @@ public extension Notification.Name {
 // MARK: - Pass-Through Window for Overlay
 /// A UIWindow subclass that only intercepts touches on its visible subviews,
 /// allowing touches to pass through to the app's main window underneath.
+/// Compatible with iOS 14–26+.
 @available(iOS 14.0, *)
 private class PassThroughWindow: UIWindow {
     override func hitTest(_ point: CGPoint, with event: UIEvent?) -> UIView? {
         guard let hitView = super.hitTest(point, with: event) else { return nil }
-        // If the hit view is the root hosting view's background (the clear hosting view),
-        // return nil so touches pass through to the app window beneath.
-        if hitView === self.rootViewController?.view {
+        
+        // Window itself — always pass through
+        if hitView === self { return nil }
+        
+        // Root hosting view — always pass through
+        if hitView === rootViewController?.view { return nil }
+        
+        // Check if the view renders any visible content.
+        // Transparent container views (SwiftUI internals) should pass through.
+        // This approach is iOS-version-agnostic — it doesn't depend on
+        // UIHostingController's internal view hierarchy structure.
+        if !hasVisibleContent(hitView) {
             return nil
         }
+        
         return hitView
+    }
+    
+    /// Checks whether a UIView renders any visible content at the pixel level.
+    /// Returns `false` for transparent layout containers (safe to pass through).
+    private func hasVisibleContent(_ view: UIView) -> Bool {
+        // 1. Check backgroundColor alpha
+        if let bg = view.backgroundColor {
+            var alpha: CGFloat = 0
+            bg.getRed(nil, green: nil, blue: nil, alpha: &alpha)
+            if alpha > 0.01 { return true }
+        }
+        
+        // 2. Check layer for drawn content (images, text rendering, etc.)
+        if view.layer.contents != nil { return true }
+        
+        // 3. Check for visible sublayers (CAShapeLayer, CAGradientLayer, etc.)
+        if let sublayers = view.layer.sublayers {
+            for sublayer in sublayers {
+                if sublayer.contents != nil { return true }
+                if let cgColor = sublayer.backgroundColor {
+                    let alpha = cgColor.alpha
+                    if alpha > 0.01 { return true }
+                }
+                if sublayer is CAShapeLayer { return true }
+                if sublayer is CAGradientLayer { return true }
+            }
+        }
+        
+        // 4. Check shadow / border (visual decoration)
+        if view.layer.shadowOpacity > 0 { return true }
+        if view.layer.borderWidth > 0 { return true }
+        
+        // No visible content — this is a transparent container
+        return false
     }
 }
 
@@ -562,7 +653,7 @@ extension TTDebugBridge {
     
     /// Shows a floating diagnostic overlay pill on the app's key window.
     /// Uses a pass-through window so the app remains fully interactive.
-    /// Only works in SwiftUI-compatible iOS 14+ apps.
+    /// Compatible with iOS 14–26+.
     public func showDiagnosticOverlay() {
         #if canImport(UIKit)
         DispatchQueue.main.async {
@@ -586,7 +677,15 @@ extension TTDebugBridge {
                 .edgesIgnoringSafeArea([.leading, .trailing, .bottom])
             )
             hostingController.view.backgroundColor = .clear
+            hostingController.view.isOpaque = false
             hostingController.view.isUserInteractionEnabled = true
+            
+            // iOS 16+: prevent UIHostingController from adding automatic
+            // safe area backgrounds that would block touch pass-through
+            if #available(iOS 16.4, *) {
+                hostingController.safeAreaRegions = []
+            }
+            
             overlayWindow.rootViewController = hostingController
             overlayWindow.isHidden = false
             // Do NOT call makeKeyAndVisible — it steals first responder from the app

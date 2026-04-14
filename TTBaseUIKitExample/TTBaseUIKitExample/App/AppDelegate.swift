@@ -65,6 +65,15 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             var config = TTDebugBridge.Config()
             config.heartbeatInterval = 3.0  // seconds
             config.maxBufferedMessages = 500
+            
+            // Bottom padding — nil = auto-detect tab bar height
+            config.overlayBottomPadding = nil     // default
+            //config.overlayBottomPadding = 80      // fixed 80pt from bottom
+            
+            // Auto-hide after connected — false = always visible
+            config.overlayAutoHideOnConnect = false  // default: pill stays
+            //config.overlayAutoHideOnConnect = true   // pill hides 4s after connected
+            
             TTDebugBridge.shared.config = config
             
             // Monitor connection state (safe to set — overlay uses NotificationCenter)

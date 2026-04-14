@@ -94,6 +94,8 @@
 		BC5DF8B72F7C275D000DD8D2 /* TTBaseUIKit in Frameworks */ = {isa = PBXBuildFile; productRef = BC5DF8B62F7C275D000DD8D2 /* TTBaseUIKit */; };
 		BC5DF8F92F7C3971000DD8D2 /* DebugBridgeDemoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC5DF8F72F7C3971000DD8D2 /* DebugBridgeDemoView.swift */; };
 		BC5DF8FC2F7C3E51000DD8D2 /* DebugUIDemoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC5DF8FA2F7C3E51000DD8D2 /* DebugUIDemoView.swift */; };
+		BC6793DF2F8E068B00174B52 /* TTBaseUIKit in Frameworks */ = {isa = PBXBuildFile; productRef = BC6793DE2F8E068B00174B52 /* TTBaseUIKit */; };
+		BC6794D72F8E0BC000174B52 /* TTBaseUIKit in Frameworks */ = {isa = PBXBuildFile; productRef = BC6794D62F8E0BC000174B52 /* TTBaseUIKit */; };
 		BC78A9AE2C525308008E0BA4 /* WebViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC78A9AD2C525308008E0BA4 /* WebViewController.swift */; };
 		BC8166A32E378C9A000D6708 /* TTBaseUIKit in Frameworks */ = {isa = PBXBuildFile; productRef = BC8166A22E378C9A000D6708 /* TTBaseUIKit */; };
 		BC8B92E12ED830DB005E7398 /* BaseSwiftUINewVersionDemo.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC8B92E02ED830DB005E7398 /* BaseSwiftUINewVersionDemo.swift */; };
@@ -258,12 +260,14 @@
 				BC2FD3FC2F615B8700FC6984 /* TTBaseUIKit in Frameworks */,
 				BCB90CDD2ED06AFD00125913 /* TTBaseUIKit in Frameworks */,
 				BCCF1A4E2E3A1346001BF6A3 /* TTBaseUIKit in Frameworks */,
+				BC6794D72F8E0BC000174B52 /* TTBaseUIKit in Frameworks */,
 				BC5581172F8DFA2E001F4410 /* TTBaseUIKit in Frameworks */,
 				BCCF1A4B2E3A0EA2001BF6A3 /* TTBaseUIKit in Frameworks */,
 				BC5DF8B72F7C275D000DD8D2 /* TTBaseUIKit in Frameworks */,
 				BC57F5552F7A409D00CCBE21 /* TTBaseUIKit in Frameworks */,
 				BCBAAED82F87B9BC00EE8068 /* TTBaseUIKit in Frameworks */,
 				BC3EBAA72F31A873008C258B /* TTBaseUIKit in Frameworks */,
+				BC6793DF2F8E068B00174B52 /* TTBaseUIKit in Frameworks */,
 				BC5581142F8DE7F7001F4410 /* TTBaseUIKit in Frameworks */,
 				BC8166A32E378C9A000D6708 /* TTBaseUIKit in Frameworks */,
 			);
@@ -1122,8 +1126,9 @@
 		93F0FDBE22580B980037C427 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
+				BuildIndependentTargetsInParallel = YES;
 				LastSwiftUpdateCheck = 1020;
-				LastUpgradeCheck = 1020;
+				LastUpgradeCheck = 2640;
 				ORGANIZATIONNAME = "Truong Quang Tuan";
 				TargetAttributes = {
 					93F0FDC522580B980037C427 = {
@@ -1141,7 +1146,7 @@
 			);
 			mainGroup = 93F0FDBD22580B980037C427;
 			packageReferences = (
-				BC5581182F8DFD14001F4410 /* XCRemoteSwiftPackageReference "TTBaseUIKit" */,
+				BC6794D52F8E0BC000174B52 /* XCRemoteSwiftPackageReference "TTBaseUIKit" */,
 			);
 			productRefGroup = 93F0FDC722580B980037C427 /* Products */;
 			projectDirPath = "";
@@ -1329,6 +1334,7 @@
 				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
 				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
 				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
 				CLANG_WARN_STRICT_PROTOTYPES = YES;
 				CLANG_WARN_SUSPICIOUS_MOVE = YES;
@@ -1338,8 +1344,10 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = dwarf;
+				DEVELOPMENT_TEAM = NWP32GXP5M;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_TESTABILITY = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_NO_COMMON_BLOCKS = YES;
@@ -1359,6 +1367,7 @@
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
+				STRING_CATALOG_GENERATE_SYMBOLS = YES;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
 				SWIFT_OBJC_BRIDGING_HEADER = TTBaseUIKitExample/TTBaseBridge.h;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
@@ -1391,6 +1400,7 @@
 				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
 				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
 				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
 				CLANG_WARN_STRICT_PROTOTYPES = YES;
 				CLANG_WARN_SUSPICIOUS_MOVE = YES;
@@ -1400,8 +1410,10 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				DEVELOPMENT_TEAM = NWP32GXP5M;
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
 				GCC_NO_COMMON_BLOCKS = YES;
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
@@ -1414,6 +1426,7 @@
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				SDKROOT = iphoneos;
+				STRING_CATALOG_GENERATE_SYMBOLS = YES;
 				SWIFT_COMPILATION_MODE = wholemodule;
 				SWIFT_OBJC_BRIDGING_HEADER = TTBaseUIKitExample/TTBaseBridge.h;
 				SWIFT_OPTIMIZATION_LEVEL = "-O";
@@ -1427,7 +1440,6 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 10;
-				DEVELOPMENT_TEAM = NWP32GXP5M;
 				INFOPLIST_FILE = TTBaseUIKitExample/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = TTBaseUIKit;
 				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
@@ -1449,7 +1461,6 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 10;
-				DEVELOPMENT_TEAM = NWP32GXP5M;
 				INFOPLIST_FILE = TTBaseUIKitExample/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = TTBaseUIKit;
 				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
@@ -1529,6 +1540,14 @@
 				kind = branch;
 			};
 		};
+		BC6794D52F8E0BC000174B52 /* XCRemoteSwiftPackageReference "TTBaseUIKit" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/tqtuan1201/TTBaseUIKit.git";
+			requirement = {
+				branch = master;
+				kind = branch;
+			};
+		};
 		BC8166A12E378C9A000D6708 /* XCRemoteSwiftPackageReference "TTBaseUIKit" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/tqtuan1201/TTBaseUIKit.git";
@@ -1579,6 +1598,15 @@
 		BC5DF8B62F7C275D000DD8D2 /* TTBaseUIKit */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = BC5DF8B52F7C275D000DD8D2 /* XCRemoteSwiftPackageReference "TTBaseUIKit" */;
+			productName = TTBaseUIKit;
+		};
+		BC6793DE2F8E068B00174B52 /* TTBaseUIKit */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = TTBaseUIKit;
+		};
+		BC6794D62F8E0BC000174B52 /* TTBaseUIKit */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = BC6794D52F8E0BC000174B52 /* XCRemoteSwiftPackageReference "TTBaseUIKit" */;
 			productName = TTBaseUIKit;
 		};
 		BC8166A22E378C9A000D6708 /* TTBaseUIKit */ = {
