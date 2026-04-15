@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 60;
+	objectVersion = 54;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -95,6 +95,7 @@
 		BC5DF8F92F7C3971000DD8D2 /* DebugBridgeDemoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC5DF8F72F7C3971000DD8D2 /* DebugBridgeDemoView.swift */; };
 		BC5DF8FC2F7C3E51000DD8D2 /* DebugUIDemoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC5DF8FA2F7C3E51000DD8D2 /* DebugUIDemoView.swift */; };
 		BC65F3D12F8E524800151236 /* TTBaseUIKit in Frameworks */ = {isa = PBXBuildFile; productRef = BC65F3D02F8E524800151236 /* TTBaseUIKit */; };
+		BC65F3D42F8F2E5D00151236 /* TTBaseUIKit in Frameworks */ = {isa = PBXBuildFile; productRef = BC65F3D32F8F2E5D00151236 /* TTBaseUIKit */; };
 		BC6793DF2F8E068B00174B52 /* TTBaseUIKit in Frameworks */ = {isa = PBXBuildFile; productRef = BC6793DE2F8E068B00174B52 /* TTBaseUIKit */; };
 		BC6794D72F8E0BC000174B52 /* TTBaseUIKit in Frameworks */ = {isa = PBXBuildFile; productRef = BC6794D62F8E0BC000174B52 /* TTBaseUIKit */; };
 		BC78A9AE2C525308008E0BA4 /* WebViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC78A9AD2C525308008E0BA4 /* WebViewController.swift */; };
@@ -261,6 +262,7 @@
 				BC2FD3FC2F615B8700FC6984 /* TTBaseUIKit in Frameworks */,
 				BCB90CDD2ED06AFD00125913 /* TTBaseUIKit in Frameworks */,
 				BC65F3D12F8E524800151236 /* TTBaseUIKit in Frameworks */,
+				BC65F3D42F8F2E5D00151236 /* TTBaseUIKit in Frameworks */,
 				BCCF1A4E2E3A1346001BF6A3 /* TTBaseUIKit in Frameworks */,
 				BC6794D72F8E0BC000174B52 /* TTBaseUIKit in Frameworks */,
 				BC5581172F8DFA2E001F4410 /* TTBaseUIKit in Frameworks */,
@@ -1148,7 +1150,7 @@
 			);
 			mainGroup = 93F0FDBD22580B980037C427;
 			packageReferences = (
-				BC65F3CF2F8E524800151236 /* XCLocalSwiftPackageReference "../../TTBaseUIKit" */,
+				BC65F3D22F8F2E5D00151236 /* XCRemoteSwiftPackageReference "TTBaseUIKit" */,
 			);
 			productRefGroup = 93F0FDC722580B980037C427 /* Products */;
 			projectDirPath = "";
@@ -1501,13 +1503,6 @@
 		};
 /* End XCConfigurationList section */
 
-/* Begin XCLocalSwiftPackageReference section */
-		BC65F3CF2F8E524800151236 /* XCLocalSwiftPackageReference "../../TTBaseUIKit" */ = {
-			isa = XCLocalSwiftPackageReference;
-			relativePath = ../../TTBaseUIKit;
-		};
-/* End XCLocalSwiftPackageReference section */
-
 /* Begin XCRemoteSwiftPackageReference section */
 		BC2FD3FA2F615B8700FC6984 /* XCRemoteSwiftPackageReference "TTBaseUIKit" */ = {
 			isa = XCRemoteSwiftPackageReference;
@@ -1542,6 +1537,14 @@
 			};
 		};
 		BC5DF8B52F7C275D000DD8D2 /* XCRemoteSwiftPackageReference "TTBaseUIKit" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/tqtuan1201/TTBaseUIKit.git";
+			requirement = {
+				branch = master;
+				kind = branch;
+			};
+		};
+		BC65F3D22F8F2E5D00151236 /* XCRemoteSwiftPackageReference "TTBaseUIKit" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/tqtuan1201/TTBaseUIKit.git";
 			requirement = {
@@ -1611,6 +1614,11 @@
 		};
 		BC65F3D02F8E524800151236 /* TTBaseUIKit */ = {
 			isa = XCSwiftPackageProductDependency;
+			productName = TTBaseUIKit;
+		};
+		BC65F3D32F8F2E5D00151236 /* TTBaseUIKit */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = BC65F3D22F8F2E5D00151236 /* XCRemoteSwiftPackageReference "TTBaseUIKit" */;
 			productName = TTBaseUIKit;
 		};
 		BC6793DE2F8E068B00174B52 /* TTBaseUIKit */ = {
