@@ -35,14 +35,9 @@ public final class TTDebugBridge {
         public var sdkVersion: String = "4.2.0"
         public var isEnabled: Bool = true
         
-        /// Bottom padding for the diagnostic overlay (in points).
-        /// - `nil` (default): auto-detect tab bar height from the app window.
-        /// - Any value: use as fixed bottom padding (e.g. `60` to sit 60pt above screen bottom).
-        public var overlayBottomPadding: CGFloat? = nil
-        
-        /// When `true`, the overlay pill automatically hides 4 seconds after
-        /// reaching the `.connected` state. Defaults to `false` (always visible).
-        public var overlayAutoHideOnConnect: Bool = false
+        /// Show an in-app toast (NoticeView) when the bridge connects or disconnects.
+        /// Set to `false` to suppress the popup. Defaults to `true`.
+        public var showStateNotice: Bool = true
         
         public init() {}
     }
@@ -563,6 +558,10 @@ public final class TTDebugBridge {
     // MARK: - Private: State (queue)
     
     private func _updateState(_ s: BridgeState) {
+        #if DEBUG
+        let isChanged = (self.state != s)
+        #endif
+        
         state = s
         ConnectionDiagnostics.shared.recordStateChange(s)
         DispatchQueue.main.async { [weak self] in
@@ -574,6 +573,16 @@ public final class TTDebugBridge {
                 object: self,
                 userInfo: ["state": s.rawValue]
             )
+            
+            #if DEBUG
+            if isChanged, self?.config.showStateNotice == true {
+                if s == .connected {
+                    UIApplication.topViewController()?.onShowNoticeView(title: "🖥 TTDebugBridge", body: "Connected successfully to macOS TTBDebugPlus!", style: .SUCCESS)
+                } else if s == .disconnected {
+                    UIApplication.topViewController()?.onShowNoticeView(title: "🖥 TTDebugBridge", body: "Connection failed or disconnected.", style: .WARNING)
+                }
+            }
+            #endif
         }
     }
     

@@ -175,6 +175,24 @@ extension LogViewHelper {
                 })
             }
             
+            showLogVC.debugBridgeButton.onTouchHandler = {  [weak self] _ in guard let strongSelf = self else { return }
+                showLogVC.dismiss(animated: true, completion: {
+                    DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) {
+                        #if canImport(SwiftUI)
+                        if #available(iOS 14.0, *) {
+                            if let topVC = UIApplication.topViewController() {
+                                let bridgeVC = DebugBridgeViewController()
+                                let nav = UINavigationController(rootViewController: bridgeVC)
+                                nav.modalPresentationStyle = .fullScreen
+                                topVC.present(nav, animated: true)
+                            }
+                        }
+                        #endif
+                    }
+                    strongSelf.viewModel.isShow = false
+                })
+            }
+            
             showLogVC.captureBugButton.onTouchHandler = {  [weak self] _ in guard let strongSelf = self else { return }
                 showLogVC.dismiss(animated: true, completion: {
                     DispatchQueue.main.asyncAfter(deadline: .now()) {

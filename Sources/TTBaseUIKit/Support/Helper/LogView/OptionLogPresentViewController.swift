@@ -16,6 +16,7 @@ class TTBaseOptionLogPresentViewController: TTCoverVerticalViewController {
     
     let showLogButton:TTBaseUIButton = TTBaseUIButton(textString: "SHOW LOG API RESPONSE", type: .DEFAULT, isSetSize: false)
     let debugUIButton:TTBaseUIButton = TTBaseUIButton(textString: "DEBUG UI/LAYOUT\n(TRIPLE TAP THE SCREEN)", type: .WARRING, isSetSize: false)
+    let debugBridgeButton:TTBaseUIButton = TTBaseUIButton(textString: "DEBUG BRIDGE", type: .DEFAULT, isSetSize: false)
     let captureBugButton:TTBaseUIButton = TTBaseUIButton(textString: "CAPTURE THE SCREEN", type: .WARRING, isSetSize: false)
     let showSettingButton:TTBaseUIButton = TTBaseUIButton(textString: "SETTING DEV", type: .WARRING, isSetSize: false)
     
@@ -43,6 +44,7 @@ class TTBaseOptionLogPresentViewController: TTCoverVerticalViewController {
         self.view.addSubview(self.subLabel)
         self.view.addSubview(self.showLogButton)
         self.view.addSubview(self.debugUIButton)
+        self.view.addSubview(self.debugBridgeButton)
         self.view.addSubview(self.captureBugButton)
         self.view.addSubview(self.showSettingButton)
         
@@ -63,7 +65,11 @@ class TTBaseOptionLogPresentViewController: TTCoverVerticalViewController {
             .setLeadingAnchor(constant: 8).setTrailingAnchor(constant: 8)
             .setHeightAnchor(constant: 35)
         
-        self.captureBugButton.setTopAnchorWithAboveView(nextToView: self.debugUIButton, constant: 8)
+        self.debugBridgeButton.setTopAnchorWithAboveView(nextToView: self.debugUIButton, constant: 8)
+            .setLeadingAnchor(constant: 8).setTrailingAnchor(constant: 8)
+            .setHeightAnchor(constant: 35)
+        
+        self.captureBugButton.setTopAnchorWithAboveView(nextToView: self.debugBridgeButton, constant: 8)
             .setLeadingAnchor(constant: 8).setTrailingAnchor(constant: 8)
             .setHeightAnchor(constant: 35)
             

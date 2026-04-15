@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 54;
+	objectVersion = 60;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -94,6 +94,7 @@
 		BC5DF8B72F7C275D000DD8D2 /* TTBaseUIKit in Frameworks */ = {isa = PBXBuildFile; productRef = BC5DF8B62F7C275D000DD8D2 /* TTBaseUIKit */; };
 		BC5DF8F92F7C3971000DD8D2 /* DebugBridgeDemoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC5DF8F72F7C3971000DD8D2 /* DebugBridgeDemoView.swift */; };
 		BC5DF8FC2F7C3E51000DD8D2 /* DebugUIDemoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC5DF8FA2F7C3E51000DD8D2 /* DebugUIDemoView.swift */; };
+		BC65F3D12F8E524800151236 /* TTBaseUIKit in Frameworks */ = {isa = PBXBuildFile; productRef = BC65F3D02F8E524800151236 /* TTBaseUIKit */; };
 		BC6793DF2F8E068B00174B52 /* TTBaseUIKit in Frameworks */ = {isa = PBXBuildFile; productRef = BC6793DE2F8E068B00174B52 /* TTBaseUIKit */; };
 		BC6794D72F8E0BC000174B52 /* TTBaseUIKit in Frameworks */ = {isa = PBXBuildFile; productRef = BC6794D62F8E0BC000174B52 /* TTBaseUIKit */; };
 		BC78A9AE2C525308008E0BA4 /* WebViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC78A9AD2C525308008E0BA4 /* WebViewController.swift */; };
@@ -259,6 +260,7 @@
 				BC55811A2F8DFD14001F4410 /* TTBaseUIKit in Frameworks */,
 				BC2FD3FC2F615B8700FC6984 /* TTBaseUIKit in Frameworks */,
 				BCB90CDD2ED06AFD00125913 /* TTBaseUIKit in Frameworks */,
+				BC65F3D12F8E524800151236 /* TTBaseUIKit in Frameworks */,
 				BCCF1A4E2E3A1346001BF6A3 /* TTBaseUIKit in Frameworks */,
 				BC6794D72F8E0BC000174B52 /* TTBaseUIKit in Frameworks */,
 				BC5581172F8DFA2E001F4410 /* TTBaseUIKit in Frameworks */,
@@ -1146,7 +1148,7 @@
 			);
 			mainGroup = 93F0FDBD22580B980037C427;
 			packageReferences = (
-				BC6794D52F8E0BC000174B52 /* XCRemoteSwiftPackageReference "TTBaseUIKit" */,
+				BC65F3CF2F8E524800151236 /* XCLocalSwiftPackageReference "../../TTBaseUIKit" */,
 			);
 			productRefGroup = 93F0FDC722580B980037C427 /* Products */;
 			projectDirPath = "";
@@ -1499,6 +1501,13 @@
 		};
 /* End XCConfigurationList section */
 
+/* Begin XCLocalSwiftPackageReference section */
+		BC65F3CF2F8E524800151236 /* XCLocalSwiftPackageReference "../../TTBaseUIKit" */ = {
+			isa = XCLocalSwiftPackageReference;
+			relativePath = ../../TTBaseUIKit;
+		};
+/* End XCLocalSwiftPackageReference section */
+
 /* Begin XCRemoteSwiftPackageReference section */
 		BC2FD3FA2F615B8700FC6984 /* XCRemoteSwiftPackageReference "TTBaseUIKit" */ = {
 			isa = XCRemoteSwiftPackageReference;
@@ -1598,6 +1607,10 @@
 		BC5DF8B62F7C275D000DD8D2 /* TTBaseUIKit */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = BC5DF8B52F7C275D000DD8D2 /* XCRemoteSwiftPackageReference "TTBaseUIKit" */;
+			productName = TTBaseUIKit;
+		};
+		BC65F3D02F8E524800151236 /* TTBaseUIKit */ = {
+			isa = XCSwiftPackageProductDependency;
 			productName = TTBaseUIKit;
 		};
 		BC6793DE2F8E068B00174B52 /* TTBaseUIKit */ = {

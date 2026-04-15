@@ -3,111 +3,80 @@
 //  TTBaseUIKit
 //
 //  Created by TuanTruong on 2026-03-30.
-//  SwiftUI floating diagnostic overlay for iOS apps integrating TTDebugBridge
+//  Full-screen diagnostic panel for TTDebugBridge connection status
 //
 
 #if canImport(SwiftUI)
 import SwiftUI
 
 // MARK: - Debug Bridge Status View (iOS 14+)
-/// A floating pill/badge that shows TTDebugBridge connection status.
-/// Tap to expand into a full diagnostics panel.
-/// Supports drag-to-reposition and pass-through touch so the app remains usable.
+/// A full-screen diagnostics panel for TTDebugBridge connection status.
+/// Accessible via "Debug Bridge" menu item in TTBaseDebugKit.
 ///
 /// Usage:
 /// ```swift
 /// #if DEBUG
 /// TTDebugBridge.shared.start()
-/// TTDebugBridge.shared.showDiagnosticOverlay()
+/// // Access via TTBaseDebugKit menu → Debug Bridge
 /// #endif
 /// ```
 @available(iOS 14.0, *)
 public struct DebugBridgeStatusView: View {
     
-    @State private var isExpanded: Bool = false
     @State private var bridgeState: TTDebugBridge.BridgeState = .idle
     @State private var snapshot: ConnectionDiagnostics.Snapshot?
     @State private var refreshTimer: Timer?
     @State private var showFullReport: Bool = false
     @State private var fullReportText: String = ""
     @State private var isResetting: Bool = false
-    
-    /// Drag offset for repositioning — default position is bottom-right
-    @State private var offset: CGSize = .zero
-    @State private var lastDragOffset: CGSize = .zero
-    @State private var isDragging: Bool = false
-    
-    /// Auto-hide: pill hides after connected for 4 seconds (if configured)
-    @State private var isHiddenByAutoHide: Bool = false
-    @State private var autoHideTimer: Timer?
+    @State private var pulseAnimation: Bool = false
+    @State private var showEventLog: Bool = false
     
     public init() {}
     
     public var body: some View {
-        GeometryReader { geometry in
-            ZStack(alignment: .bottomTrailing) {
-                // Transparent — no Color.clear fill so touches pass through
+        ScrollView {
+            VStack(spacing: 16) {
+                // Hero connection status card
+                connectionStatusCard
                 
-                Group {
-                    if isExpanded {
-                        expandedPanel
-                            .transition(.asymmetric(
-                                insertion: .scale(scale: 0.5, anchor: .bottomTrailing).combined(with: .opacity),
-                                removal: .scale(scale: 0.8, anchor: .bottomTrailing).combined(with: .opacity)
-                            ))
-                    } else {
-                        floatingPill
-                            .opacity(isDragging ? 0.8 : 0.4)
-                            .scaleEffect(isDragging ? 1.1 : 1.0)
-                            .transition(.scale(scale: 0.5).combined(with: .opacity))
+                // Network info section
+                if let s = snapshot {
+                    networkInfoSection(s)
+                    
+                    // Bonjour discovery section
+                    discoverySection(s)
+                    
+                    // Diagnostic hints
+                    let hints = diagnosticHints(s)
+                    if !hints.isEmpty {
+                        hintsSection(hints)
+                    }
+                    
+                    // Event log (collapsible)
+                    if !s.recentEvents.isEmpty {
+                        eventLogSection(s.recentEvents)
                     }
                 }
-                .opacity(isHiddenByAutoHide ? 0 : 1)
-                .allowsHitTesting(!isHiddenByAutoHide)
-                .offset(x: offset.width, y: offset.height)
-                .gesture(
-                    DragGesture(minimumDistance: 0)
-                        .onChanged { value in
-                            let distance = sqrt(
-                                value.translation.width * value.translation.width +
-                                value.translation.height * value.translation.height
-                            )
-                            // Once moved >5pt, mark as dragging
-                            if distance > 5 {
-                                isDragging = true
-                            }
-                            if isDragging {
-                                offset = CGSize(
-                                    width: lastDragOffset.width + value.translation.width,
-                                    height: lastDragOffset.height + value.translation.height
-                                )
-                            }
-                        }
-                        .onEnded { value in
-                            if isDragging {
-                                // Was a drag — save position
-                                lastDragOffset = offset
-                            } else {
-                                // Was a tap — toggle expand
-                                if !isExpanded {
-                                    isExpanded = true
-                                    refreshSnapshot()
-                                    startAutoRefresh()
-                                }
-                            }
-                            isDragging = false
-                        }
-                )
-                .animation(.easeInOut(duration: 0.15), value: isDragging)
-                .padding(.trailing, 10)
-                // Use configured padding, or auto-detect tab bar height
-                .padding(.bottom, (TTDebugBridge.shared.config.overlayBottomPadding ?? Self.bottomInsetAboveTabBar) + 12.0)
+                
+                // Action buttons
+                actionButtonsSection
+                
+                // SDK info footer
+                sdkInfoFooter
             }
-            .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .bottomTrailing)
+            .padding(.horizontal, 16)
+            .padding(.top, 8)
+            .padding(.bottom, 24)
         }
+        .background(Color(.systemGroupedBackground).ignoresSafeArea())
         .onAppear {
             bridgeState = TTDebugBridge.shared.state
-            // Listen via NotificationCenter to avoid overwriting onStateChange callback
+            refreshSnapshot()
+            startAutoRefresh()
+            withAnimation(.easeInOut(duration: 1.0).repeatForever(autoreverses: true)) {
+                pulseAnimation = true
+            }
             NotificationCenter.default.addObserver(
                 forName: .ttDebugBridgeStateDidChange,
                 object: nil,
@@ -118,235 +87,408 @@ public struct DebugBridgeStatusView: View {
                     withAnimation(.easeInOut(duration: 0.3)) {
                         bridgeState = state
                     }
-                    if isExpanded { refreshSnapshot() }
-                    handleAutoHide(for: state)
+                    refreshSnapshot()
                 }
             }
         }
         .onDisappear {
             refreshTimer?.invalidate()
             refreshTimer = nil
-            autoHideTimer?.invalidate()
-            autoHideTimer = nil
             NotificationCenter.default.removeObserver(self, name: .ttDebugBridgeStateDidChange, object: nil)
         }
-        .animation(.spring(response: 0.35, dampingFraction: 0.8), value: isExpanded)
         .sheet(isPresented: $showFullReport) {
             fullReportSheet
         }
     }
     
-    // MARK: - Floating Pill
+    // MARK: - Connection Status Card
     
-    private var floatingPill: some View {
-        HStack(spacing: 6) {
-            Circle()
-                .fill(colorForState(bridgeState))
-                .frame(width: 8, height: 8)
-                .overlay(
-                    Circle()
-                        .fill(colorForState(bridgeState))
-                        .frame(width: 8, height: 8)
-                        .blur(radius: bridgeState == .connected ? 4 : 0)
-                        .opacity(bridgeState == .connected ? 0.6 : 0)
-                )
+    private var connectionStatusCard: some View {
+        VStack(spacing: 16) {
+            // Animated status icon
+            ZStack {
+                // Outer pulse ring
+                Circle()
+                    .stroke(colorForState(bridgeState).opacity(0.2), lineWidth: 3)
+                    .frame(width: 80, height: 80)
+                    .scaleEffect(pulseAnimation && bridgeState != .connected ? 1.2 : 1.0)
+                    .opacity(pulseAnimation && bridgeState != .connected ? 0.0 : 0.3)
+                
+                // Inner circle
+                Circle()
+                    .fill(colorForState(bridgeState).opacity(0.15))
+                    .frame(width: 72, height: 72)
+                
+                Image(systemName: sfSymbolForState(bridgeState))
+                    .font(.system(size: 30, weight: .medium))
+                    .foregroundColor(colorForState(bridgeState))
+            }
+            .padding(.top, 8)
             
-            Text(labelForState(bridgeState))
-                .font(.system(size: 11, weight: .semibold, design: .monospaced))
-                .foregroundColor(.white)
-        }
-        .padding(.horizontal, 12)
-        .padding(.vertical, 8)
-        .background(
-            Capsule()
-                .fill(Color.black.opacity(0.75))
-                .overlay(
+            // Status text
+            VStack(spacing: 4) {
+                Text(labelForState(bridgeState))
+                    .font(.system(size: 20, weight: .bold, design: .rounded))
+                    .foregroundColor(.primary)
+                
+                Text(descriptionForState(bridgeState))
+                    .font(.system(size: 13))
+                    .foregroundColor(.secondary)
+                    .multilineTextAlignment(.center)
+            }
+            
+            // Duration badge
+            if let s = snapshot, s.stateDuration > 1 {
+                HStack(spacing: 4) {
+                    Image(systemName: "clock")
+                        .font(.system(size: 10))
+                    Text(formatDuration(s.stateDuration))
+                        .font(.system(size: 11, weight: .medium, design: .monospaced))
+                }
+                .foregroundColor(.secondary)
+                .padding(.horizontal, 10)
+                .padding(.vertical, 4)
+                .background(
                     Capsule()
-                        .stroke(colorForState(bridgeState).opacity(0.5), lineWidth: 1)
+                        .fill(Color(.tertiarySystemGroupedBackground))
                 )
+            }
+        }
+        .frame(maxWidth: .infinity)
+        .padding(.vertical, 20)
+        .background(
+            RoundedRectangle(cornerRadius: 16)
+                .fill(Color(.secondarySystemGroupedBackground))
         )
-        .shadow(color: .black.opacity(0.3), radius: 8, y: 4)
-        .contentShape(Capsule())
     }
     
-    // MARK: - Expanded Panel
+    // MARK: - Network Info Section
     
-    private var expandedPanel: some View {
+    private func networkInfoSection(_ s: ConnectionDiagnostics.Snapshot) -> some View {
         VStack(alignment: .leading, spacing: 0) {
-            // Header
-            HStack {
-                Image(systemName: "antenna.radiowaves.left.and.right")
-                    .font(.system(size: 14, weight: .semibold))
-                    .foregroundColor(colorForState(bridgeState))
-                
-                Text("TTDebugBridge")
-                    .font(.system(size: 13, weight: .bold))
-                    .foregroundColor(.white)
-                
-                Spacer()
-                
-                // Refresh button
-                Button(action: refreshSnapshot) {
-                    Image(systemName: "arrow.clockwise")
-                        .font(.system(size: 12, weight: .medium))
-                        .foregroundColor(.white.opacity(0.6))
-                }
-                .buttonStyle(PlainButtonStyle())
-                
-                // Close button
-                Button(action: {
-                    isExpanded = false
-                    refreshTimer?.invalidate()
-                    refreshTimer = nil
-                }) {
-                    Image(systemName: "xmark.circle.fill")
-                        .font(.system(size: 16))
-                        .foregroundColor(.white.opacity(0.4))
-                }
-                .buttonStyle(PlainButtonStyle())
-            }
-            .padding(.horizontal, 14)
-            .padding(.vertical, 10)
+            sectionHeader("NETWORK")
             
-            // Divider
-            Rectangle()
-                .fill(Color.white.opacity(0.1))
-                .frame(height: 1)
-            
-            // State
-            VStack(alignment: .leading, spacing: 8) {
-                diagnosticRow(
-                    icon: iconForState(bridgeState),
-                    label: "Status",
-                    value: bridgeState.rawValue.uppercased(),
-                    valueColor: colorForState(bridgeState)
+            VStack(spacing: 0) {
+                infoRow(
+                    icon: "wifi",
+                    iconColor: s.wifiConnected ? .green : .red,
+                    title: "Wi-Fi",
+                    value: s.wifiConnected ? "Connected" : "Not Connected",
+                    valueColor: s.wifiConnected ? .primary : .red
                 )
                 
-                if let s = snapshot {
-                    // Duration
-                    diagnosticRow(
-                        icon: "⏱",
-                        label: "Duration",
-                        value: String(format: "%.0fs in this state", s.stateDuration)
+                if let ip = s.localIP {
+                    Divider().padding(.leading, 44)
+                    infoRow(
+                        icon: "network",
+                        iconColor: .blue,
+                        title: "Local IP",
+                        value: ip
                     )
-                    
-                    // Network
-                    diagnosticRow(
-                        icon: s.wifiConnected ? "📡" : "📡",
-                        label: "Wi-Fi",
-                        value: s.wifiConnected ? (s.localIP ?? "Connected") : "Not connected",
-                        valueColor: s.wifiConnected ? .green : .red
-                    )
-                    
-                    if let prefix = s.networkPrefix {
-                        diagnosticRow(icon: "🔍", label: "Subnet", value: prefix)
-                    }
-                    
-                    if s.vpnActive {
-                        diagnosticRow(
-                            icon: "🛡",
-                            label: "VPN",
-                            value: "Active ⚠️",
-                            valueColor: .orange
-                        )
-                    }
-                    
-                    // Bonjour
-                    diagnosticRow(
-                        icon: "🔎",
-                        label: "Services",
-                        value: "\(s.browseResultCount) found"
-                    )
-                    
-                    if s.reconnectAttempt > 0 {
-                        diagnosticRow(
-                            icon: "🔄",
-                            label: "Reconnect",
-                            value: "Attempt #\(s.reconnectAttempt)"
-                        )
-                    }
-                    
-                    // Hints
-                    let hints = diagnosticHints(s)
-                    if !hints.isEmpty {
-                        Rectangle()
-                            .fill(Color.white.opacity(0.06))
-                            .frame(height: 1)
-                            .padding(.vertical, 4)
-                        
-                        ForEach(Array(hints.enumerated()), id: \.offset) { _, hint in
-                            Text(hint)
-                                .font(.system(size: 10, weight: .regular))
-                                .foregroundColor(.orange)
-                                .fixedSize(horizontal: false, vertical: true)
-                        }
-                    }
                 }
                 
-                // Action buttons row
-                Rectangle()
-                    .fill(Color.white.opacity(0.06))
-                    .frame(height: 1)
-                    .padding(.vertical, 4)
+                if let prefix = s.networkPrefix {
+                    Divider().padding(.leading, 44)
+                    infoRow(
+                        icon: "square.grid.3x3.topleft.filled",
+                        iconColor: .blue,
+                        title: "Subnet",
+                        value: prefix
+                    )
+                }
                 
-                HStack(spacing: 12) {
-                    // Full report button — opens in-app sheet
-                    Button(action: {
-                        let snapshot = TTDebugBridge.shared.getDiagnosticSnapshot()
-                        fullReportText = ConnectionDiagnostics.formatReport(snapshot)
-                        // Also print to console
-                        TTDebugBridge.shared.printDiagnosticReport()
-                        showFullReport = true
-                    }) {
-                        HStack(spacing: 4) {
-                            Image(systemName: "doc.text")
-                                .font(.system(size: 10))
-                            Text("Full Report")
-                                .font(.system(size: 10, weight: .medium))
-                        }
-                        .foregroundColor(.blue)
+                if s.vpnActive {
+                    Divider().padding(.leading, 44)
+                    infoRow(
+                        icon: "shield.lefthalf.filled",
+                        iconColor: .orange,
+                        title: "VPN",
+                        value: "Active ⚠️",
+                        valueColor: .orange
+                    )
+                }
+            }
+            .background(
+                RoundedRectangle(cornerRadius: 12)
+                    .fill(Color(.secondarySystemGroupedBackground))
+            )
+        }
+    }
+    
+    // MARK: - Discovery Section
+    
+    private func discoverySection(_ s: ConnectionDiagnostics.Snapshot) -> some View {
+        VStack(alignment: .leading, spacing: 0) {
+            sectionHeader("BONJOUR DISCOVERY")
+            
+            VStack(spacing: 0) {
+                infoRow(
+                    icon: "bonjour",
+                    iconColor: .purple,
+                    title: "Services Found",
+                    value: "\(s.browseResultCount)"
+                )
+                
+                if let endpoint = s.lastFoundEndpoint {
+                    Divider().padding(.leading, 44)
+                    infoRow(
+                        icon: "mappin.and.ellipse",
+                        iconColor: .blue,
+                        title: "Endpoint",
+                        value: endpoint
+                    )
+                }
+                
+                if s.reconnectAttempt > 0 {
+                    Divider().padding(.leading, 44)
+                    infoRow(
+                        icon: "arrow.triangle.2.circlepath",
+                        iconColor: .orange,
+                        title: "Reconnect",
+                        value: "Attempt #\(s.reconnectAttempt)",
+                        valueColor: .orange
+                    )
+                }
+            }
+            .background(
+                RoundedRectangle(cornerRadius: 12)
+                    .fill(Color(.secondarySystemGroupedBackground))
+            )
+        }
+    }
+    
+    // MARK: - Hints Section
+    
+    private func hintsSection(_ hints: [String]) -> some View {
+        VStack(alignment: .leading, spacing: 0) {
+            sectionHeader("DIAGNOSTICS")
+            
+            VStack(alignment: .leading, spacing: 8) {
+                ForEach(Array(hints.enumerated()), id: \.offset) { _, hint in
+                    HStack(alignment: .top, spacing: 8) {
+                        Image(systemName: "lightbulb.fill")
+                            .font(.system(size: 12))
+                            .foregroundColor(.orange)
+                            .padding(.top, 2)
+                        
+                        Text(hint)
+                            .font(.system(size: 13))
+                            .foregroundColor(.primary)
+                            .fixedSize(horizontal: false, vertical: true)
                     }
-                    .buttonStyle(PlainButtonStyle())
-                    
-                    // Reset / Reconnect button
-                    Button(action: {
-                        performReset()
-                    }) {
-                        HStack(spacing: 4) {
-                            if isResetting {
-                                ProgressView()
-                                    .scaleEffect(0.5)
-                                    .frame(width: 10, height: 10)
-                            } else {
-                                Image(systemName: "arrow.triangle.2.circlepath")
-                                    .font(.system(size: 10))
-                            }
-                            Text("Reset")
-                                .font(.system(size: 10, weight: .medium))
-                        }
-                        .foregroundColor(.orange)
-                    }
-                    .buttonStyle(PlainButtonStyle())
-                    .disabled(isResetting)
-                    .opacity(isResetting ? 0.5 : 1.0)
+                }
+            }
+            .padding(14)
+            .frame(maxWidth: .infinity, alignment: .leading)
+            .background(
+                RoundedRectangle(cornerRadius: 12)
+                    .fill(Color.orange.opacity(0.08))
+            )
+            .overlay(
+                RoundedRectangle(cornerRadius: 12)
+                    .stroke(Color.orange.opacity(0.2), lineWidth: 1)
+            )
+        }
+    }
+    
+    // MARK: - Event Log Section
+    
+    private func eventLogSection(_ events: [ConnectionDiagnostics.DiagnosticEvent]) -> some View {
+        VStack(alignment: .leading, spacing: 0) {
+            // Tappable header to expand/collapse
+            Button(action: {
+                withAnimation(.easeInOut(duration: 0.25)) {
+                    showEventLog.toggle()
+                }
+            }) {
+                HStack {
+                    Text("EVENT LOG")
+                        .font(.system(size: 12, weight: .semibold))
+                        .foregroundColor(.secondary)
                     
                     Spacer()
+                    
+                    HStack(spacing: 4) {
+                        Text("\(events.count)")
+                            .font(.system(size: 11, weight: .medium, design: .monospaced))
+                            .foregroundColor(.secondary)
+                        
+                        Image(systemName: showEventLog ? "chevron.up" : "chevron.down")
+                            .font(.system(size: 10, weight: .semibold))
+                            .foregroundColor(.secondary)
+                    }
                 }
-                .padding(.top, 2)
+                .padding(.horizontal, 4)
+                .padding(.bottom, 6)
             }
-            .padding(.horizontal, 14)
-            .padding(.vertical, 10)
-        }
-        .frame(width: 280)
-        .background(
-            RoundedRectangle(cornerRadius: 14)
-                .fill(Color.black.opacity(0.85))
-                .overlay(
-                    RoundedRectangle(cornerRadius: 14)
-                        .stroke(Color.white.opacity(0.15), lineWidth: 1)
+            .buttonStyle(PlainButtonStyle())
+            
+            if showEventLog {
+                VStack(spacing: 0) {
+                    ForEach(Array(events.reversed().enumerated()), id: \.offset) { index, event in
+                        if index > 0 {
+                            Divider().padding(.leading, 44)
+                        }
+                        
+                        HStack(spacing: 10) {
+                            // Timestamp
+                            Text(event.formattedTime)
+                                .font(.system(size: 10, weight: .medium, design: .monospaced))
+                                .foregroundColor(.secondary)
+                                .frame(width: 70, alignment: .leading)
+                            
+                            // State badge
+                            Text(event.state.uppercased())
+                                .font(.system(size: 9, weight: .bold, design: .rounded))
+                                .foregroundColor(.white)
+                                .padding(.horizontal, 6)
+                                .padding(.vertical, 2)
+                                .background(
+                                    Capsule()
+                                        .fill(colorForStateName(event.state))
+                                )
+                            
+                            // Detail
+                            if !event.detail.isEmpty {
+                                Text(event.detail)
+                                    .font(.system(size: 10))
+                                    .foregroundColor(.secondary)
+                                    .lineLimit(1)
+                            }
+                            
+                            Spacer()
+                        }
+                        .padding(.horizontal, 12)
+                        .padding(.vertical, 8)
+                    }
+                }
+                .background(
+                    RoundedRectangle(cornerRadius: 12)
+                        .fill(Color(.secondarySystemGroupedBackground))
                 )
-        )
-        .shadow(color: .black.opacity(0.4), radius: 16, y: 8)
+            }
+        }
+    }
+    
+    // MARK: - Action Buttons
+    
+    private var actionButtonsSection: some View {
+        VStack(spacing: 10) {
+            // Full Report button
+            Button(action: {
+                let snapshot = TTDebugBridge.shared.getDiagnosticSnapshot()
+                fullReportText = ConnectionDiagnostics.formatReport(snapshot)
+                TTDebugBridge.shared.printDiagnosticReport()
+                showFullReport = true
+            }) {
+                HStack {
+                    Image(systemName: "doc.text.magnifyingglass")
+                        .font(.system(size: 16, weight: .medium))
+                    Text("View Full Report")
+                        .font(.system(size: 15, weight: .semibold))
+                    Spacer()
+                    Image(systemName: "chevron.right")
+                        .font(.system(size: 12, weight: .semibold))
+                        .foregroundColor(.secondary)
+                }
+                .foregroundColor(.blue)
+                .padding(.horizontal, 16)
+                .padding(.vertical, 14)
+                .background(
+                    RoundedRectangle(cornerRadius: 12)
+                        .fill(Color(.secondarySystemGroupedBackground))
+                )
+            }
+            .buttonStyle(PlainButtonStyle())
+            
+            // Reset / Reconnect button
+            Button(action: { performReset() }) {
+                HStack {
+                    if isResetting {
+                        ProgressView()
+                            .scaleEffect(0.8)
+                            .frame(width: 16, height: 16)
+                    } else {
+                        Image(systemName: "arrow.triangle.2.circlepath")
+                            .font(.system(size: 16, weight: .medium))
+                    }
+                    Text(isResetting ? "Reconnecting..." : "Reset Connection")
+                        .font(.system(size: 15, weight: .semibold))
+                    Spacer()
+                }
+                .foregroundColor(.orange)
+                .padding(.horizontal, 16)
+                .padding(.vertical, 14)
+                .background(
+                    RoundedRectangle(cornerRadius: 12)
+                        .fill(Color(.secondarySystemGroupedBackground))
+                )
+            }
+            .buttonStyle(PlainButtonStyle())
+            .disabled(isResetting)
+            .opacity(isResetting ? 0.6 : 1.0)
+        }
+    }
+    
+    // MARK: - SDK Info Footer
+    
+    private var sdkInfoFooter: some View {
+        VStack(spacing: 4) {
+            if let s = snapshot {
+                Text("TTDebugBridge SDK v\(s.sdkVersion)")
+                    .font(.system(size: 11, weight: .medium))
+                    .foregroundColor(.secondary)
+                
+                Text(s.isEnabled ? "Bridge Enabled" : "Bridge Disabled")
+                    .font(.system(size: 10))
+                    .foregroundColor(s.isEnabled ? .green : .red)
+            }
+        }
+        .frame(maxWidth: .infinity)
+        .padding(.top, 8)
+    }
+    
+    // MARK: - Reusable Components
+    
+    private func sectionHeader(_ title: String) -> some View {
+        Text(title)
+            .font(.system(size: 12, weight: .semibold))
+            .foregroundColor(.secondary)
+            .padding(.horizontal, 4)
+            .padding(.bottom, 6)
+    }
+    
+    private func infoRow(
+        icon: String,
+        iconColor: Color,
+        title: String,
+        value: String,
+        valueColor: Color = .primary
+    ) -> some View {
+        HStack(spacing: 12) {
+            ZStack {
+                RoundedRectangle(cornerRadius: 6)
+                    .fill(iconColor.opacity(0.12))
+                    .frame(width: 30, height: 30)
+                
+                Image(systemName: icon)
+                    .font(.system(size: 14, weight: .medium))
+                    .foregroundColor(iconColor)
+            }
+            
+            Text(title)
+                .font(.system(size: 15))
+                .foregroundColor(.primary)
+            
+            Spacer()
+            
+            Text(value)
+                .font(.system(size: 14, weight: .medium, design: .monospaced))
+                .foregroundColor(valueColor)
+                .lineLimit(1)
+        }
+        .padding(.horizontal, 12)
+        .padding(.vertical, 10)
     }
     
     // MARK: - Full Report Sheet
@@ -364,20 +506,17 @@ public struct DebugBridgeStatusView: View {
             .navigationBarTitle("Diagnostic Report", displayMode: .inline)
             .navigationBarItems(
                 leading: Button(action: {
-                    // Refresh report
                     let snapshot = TTDebugBridge.shared.getDiagnosticSnapshot()
                     fullReportText = ConnectionDiagnostics.formatReport(snapshot)
                 }) {
                     Image(systemName: "arrow.clockwise")
                 },
                 trailing: HStack(spacing: 12) {
-                    // Copy to clipboard
                     Button(action: {
                         UIPasteboard.general.string = fullReportText
                     }) {
                         Image(systemName: "doc.on.doc")
                     }
-                    // Close
                     Button("Done") {
                         showFullReport = false
                     }
@@ -386,44 +525,14 @@ public struct DebugBridgeStatusView: View {
         }
     }
     
-    // MARK: - Diagnostic Row
-    
-    private func diagnosticRow(
-        icon: String,
-        label: String,
-        value: String,
-        valueColor: Color = .white.opacity(0.8)
-    ) -> some View {
-        HStack(spacing: 6) {
-            Text(icon)
-                .font(.system(size: 12))
-                .frame(width: 18, alignment: .center)
-            
-            Text(label)
-                .font(.system(size: 11, weight: .medium))
-                .foregroundColor(.white.opacity(0.5))
-                .frame(width: 60, alignment: .leading)
-            
-            Text(value)
-                .font(.system(size: 11, weight: .semibold, design: .monospaced))
-                .foregroundColor(valueColor)
-                .lineLimit(1)
-            
-            Spacer()
-        }
-    }
-    
     // MARK: - Actions
     
     private func performReset() {
         isResetting = true
-        
-        // Stop everything, then restart from scratch after a brief delay
         TTDebugBridge.shared.stop()
         
         DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
             TTDebugBridge.shared.start()
-            
             DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
                 isResetting = false
                 refreshSnapshot()
@@ -435,7 +544,6 @@ public struct DebugBridgeStatusView: View {
     
     private func refreshSnapshot() {
         snapshot = TTDebugBridge.shared.getDiagnosticSnapshot()
-        // Also sync state from bridge
         withAnimation(.easeInOut(duration: 0.2)) {
             bridgeState = TTDebugBridge.shared.state
         }
@@ -443,45 +551,22 @@ public struct DebugBridgeStatusView: View {
     
     private func startAutoRefresh() {
         refreshTimer?.invalidate()
-        refreshTimer = Timer.scheduledTimer(withTimeInterval: 5.0, repeats: true) { _ in
+        refreshTimer = Timer.scheduledTimer(withTimeInterval: 3.0, repeats: true) { _ in
             refreshSnapshot()
         }
     }
     
-    /// Handles auto-hide behavior based on `overlayAutoHideOnConnect` config.
-    /// Hides the pill 4 seconds after reaching `.connected` state;
-    /// shows it again if the state changes to anything else.
-    private func handleAutoHide(for state: TTDebugBridge.BridgeState) {
-        guard TTDebugBridge.shared.config.overlayAutoHideOnConnect else {
-            // Feature disabled — always visible
-            autoHideTimer?.invalidate()
-            autoHideTimer = nil
-            if isHiddenByAutoHide {
-                withAnimation(.easeInOut(duration: 0.3)) {
-                    isHiddenByAutoHide = false
-                }
-            }
-            return
-        }
-        
-        if state == .connected {
-            // Start 4-second countdown to hide
-            autoHideTimer?.invalidate()
-            autoHideTimer = Timer.scheduledTimer(withTimeInterval: 4.0, repeats: false) { _ in
-                withAnimation(.easeInOut(duration: 0.3)) {
-                    isHiddenByAutoHide = true
-                    isExpanded = false
-                }
-            }
+    private func formatDuration(_ seconds: TimeInterval) -> String {
+        if seconds < 60 {
+            return String(format: "%.0fs", seconds)
+        } else if seconds < 3600 {
+            let mins = Int(seconds) / 60
+            let secs = Int(seconds) % 60
+            return "\(mins)m \(secs)s"
         } else {
-            // Not connected — cancel timer and show pill again
-            autoHideTimer?.invalidate()
-            autoHideTimer = nil
-            if isHiddenByAutoHide {
-                withAnimation(.easeInOut(duration: 0.3)) {
-                    isHiddenByAutoHide = false
-                }
-            }
+            let hrs = Int(seconds) / 3600
+            let mins = (Int(seconds) % 3600) / 60
+            return "\(hrs)h \(mins)m"
         }
     }
     
@@ -495,23 +580,49 @@ public struct DebugBridgeStatusView: View {
         }
     }
     
-    private func iconForState(_ state: TTDebugBridge.BridgeState) -> String {
+    private func colorForStateName(_ name: String) -> Color {
+        switch name.lowercased() {
+        case "idle": return .gray
+        case "browsing": return .blue
+        case "connecting": return .orange
+        case "connected": return .green
+        case "disconnected": return .red
+        default: return .secondary
+        }
+    }
+    
+    private func sfSymbolForState(_ state: TTDebugBridge.BridgeState) -> String {
         switch state {
-        case .idle: return "⏸"
-        case .browsing: return "🔍"
-        case .connecting: return "🔄"
-        case .connected: return "✅"
-        case .disconnected: return "❌"
+        case .idle: return "pause.circle"
+        case .browsing: return "antenna.radiowaves.left.and.right"
+        case .connecting: return "arrow.triangle.2.circlepath"
+        case .connected: return "checkmark.circle.fill"
+        case .disconnected: return "xmark.circle"
         }
     }
     
     private func labelForState(_ state: TTDebugBridge.BridgeState) -> String {
         switch state {
-        case .idle: return "IDLE"
-        case .browsing: return "SCANNING"
-        case .connecting: return "CONNECTING"
-        case .connected: return "CONNECTED"
-        case .disconnected: return "OFFLINE"
+        case .idle: return "Idle"
+        case .browsing: return "Scanning..."
+        case .connecting: return "Connecting..."
+        case .connected: return "Connected"
+        case .disconnected: return "Disconnected"
+        }
+    }
+    
+    private func descriptionForState(_ state: TTDebugBridge.BridgeState) -> String {
+        switch state {
+        case .idle:
+            return "Debug Bridge is not active.\nCall TTDebugBridge.shared.start() to begin."
+        case .browsing:
+            return "Looking for TTBDebugPlus on your Mac...\nMake sure both devices are on the same Wi-Fi."
+        case .connecting:
+            return "Establishing connection to macOS service..."
+        case .connected:
+            return "Successfully connected to TTBDebugPlus.\nLogs are being streamed in real-time."
+        case .disconnected:
+            return "Connection lost. Auto-reconnecting..."
         }
     }
     
@@ -519,63 +630,22 @@ public struct DebugBridgeStatusView: View {
         var hints: [String] = []
         
         if !s.wifiConnected {
-            hints.append("💡 Connect to Wi-Fi to enable debug bridge")
+            hints.append("Connect to Wi-Fi to enable debug bridge")
         }
         if s.vpnActive {
-            hints.append("💡 VPN may block mDNS — try disabling")
+            hints.append("VPN may block mDNS discovery — try disabling it")
         }
         if s.bridgeState == .browsing && s.browseResultCount == 0 && s.stateDuration > 15 {
-            hints.append("💡 No macOS found — is TTBDebugPlus running?")
-            hints.append("💡 Check both devices on same Wi-Fi")
+            hints.append("No macOS service found — is TTBDebugPlus running?")
+            hints.append("Check that both devices are on the same Wi-Fi network")
+        }
+        if s.bridgeState == .connecting && s.stateDuration > 10 {
+            hints.append("Connection is taking longer than expected")
+            hints.append("Check Mac firewall settings")
         }
         
         return hints
     }
-    
-    // MARK: - Tab Bar Height Detection
-    
-    /// Computes the total bottom inset needed to position above the tab bar.
-    /// The overlay window doesn't share the app's view hierarchy,
-    /// so we query the app's main window for the actual tab bar frame.
-    private static var bottomInsetAboveTabBar: CGFloat {
-        #if canImport(UIKit)
-        guard let windowScene = UIApplication.shared.connectedScenes
-            .compactMap({ $0 as? UIWindowScene })
-            .first,
-              let appWindow = windowScene.windows.first(where: { $0.isKeyWindow })
-                ?? windowScene.windows.first else {
-            return 34 // fallback: home indicator only
-        }
-        
-        let safeBottom = appWindow.safeAreaInsets.bottom
-        
-        // Find UITabBarController in the root hierarchy
-        var tabBarHeight: CGFloat = 0
-        if let tabBarController = findTabBarController(from: appWindow.rootViewController) {
-            let tabBar = tabBarController.tabBar
-            if !tabBar.isHidden {
-                tabBarHeight = tabBar.frame.height
-            }
-        }
-        
-        // tabBar.frame.height already includes the safe area on notch devices,
-        // so just use the larger of tabBarHeight or safeBottom
-        return max(tabBarHeight, safeBottom)
-        #else
-        return 34
-        #endif
-    }
-    
-    #if canImport(UIKit)
-    private static func findTabBarController(from vc: UIViewController?) -> UITabBarController? {
-        guard let vc = vc else { return nil }
-        if let tabBar = vc as? UITabBarController { return tabBar }
-        if let nav = vc as? UINavigationController {
-            return findTabBarController(from: nav.visibleViewController)
-        }
-        return findTabBarController(from: vc.presentedViewController)
-    }
-    #endif
 }
 
 // MARK: - Notification Name for State Changes
@@ -585,137 +655,51 @@ public extension Notification.Name {
     static let ttDebugBridgeStateDidChange = Notification.Name("TTDebugBridge.stateDidChange")
 }
 
-// MARK: - Pass-Through Window for Overlay
-/// A UIWindow subclass that only intercepts touches on its visible subviews,
-/// allowing touches to pass through to the app's main window underneath.
-/// Compatible with iOS 14–26+.
+// MARK: - UIKit ViewController for Debug Bridge
+
+/// A UIKit view controller that hosts the `DebugBridgeStatusView` SwiftUI view.
+/// Presented from TTBaseDebugKit menu → "Debug Bridge".
 @available(iOS 14.0, *)
-private class PassThroughWindow: UIWindow {
-    override func hitTest(_ point: CGPoint, with event: UIEvent?) -> UIView? {
-        guard let hitView = super.hitTest(point, with: event) else { return nil }
+public class DebugBridgeViewController: UIViewController {
+    
+    public override func viewDidLoad() {
+        super.viewDidLoad()
+        title = "Debug Bridge"
+        view.backgroundColor = .systemGroupedBackground
         
-        // Window itself — always pass through
-        if hitView === self { return nil }
-        
-        // Root hosting view — always pass through
-        if hitView === rootViewController?.view { return nil }
-        
-        // Check if the view renders any visible content.
-        // Transparent container views (SwiftUI internals) should pass through.
-        // This approach is iOS-version-agnostic — it doesn't depend on
-        // UIHostingController's internal view hierarchy structure.
-        if !hasVisibleContent(hitView) {
-            return nil
+        // Nav bar appearance
+        if #available(iOS 15.0, *) {
+            let appearance = UINavigationBarAppearance()
+            appearance.configureWithOpaqueBackground()
+            appearance.backgroundColor = .systemGroupedBackground
+            navigationController?.navigationBar.standardAppearance = appearance
+            navigationController?.navigationBar.scrollEdgeAppearance = appearance
         }
+
+        let hostingController = UIHostingController(rootView: DebugBridgeStatusView())
+        hostingController.view.backgroundColor = .clear
         
-        return hitView
+        addChild(hostingController)
+        view.addSubview(hostingController.view)
+        hostingController.view.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            hostingController.view.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
+            hostingController.view.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            hostingController.view.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            hostingController.view.bottomAnchor.constraint(equalTo: view.bottomAnchor)
+        ])
+        hostingController.didMove(toParent: self)
+        
+        navigationItem.rightBarButtonItem = UIBarButtonItem(
+            barButtonSystemItem: .done,
+            target: self,
+            action: #selector(dismissSelf)
+        )
     }
     
-    /// Checks whether a UIView renders any visible content at the pixel level.
-    /// Returns `false` for transparent layout containers (safe to pass through).
-    private func hasVisibleContent(_ view: UIView) -> Bool {
-        // 1. Check backgroundColor alpha
-        if let bg = view.backgroundColor {
-            var alpha: CGFloat = 0
-            bg.getRed(nil, green: nil, blue: nil, alpha: &alpha)
-            if alpha > 0.01 { return true }
-        }
-        
-        // 2. Check layer for drawn content (images, text rendering, etc.)
-        if view.layer.contents != nil { return true }
-        
-        // 3. Check for visible sublayers (CAShapeLayer, CAGradientLayer, etc.)
-        if let sublayers = view.layer.sublayers {
-            for sublayer in sublayers {
-                if sublayer.contents != nil { return true }
-                if let cgColor = sublayer.backgroundColor {
-                    let alpha = cgColor.alpha
-                    if alpha > 0.01 { return true }
-                }
-                if sublayer is CAShapeLayer { return true }
-                if sublayer is CAGradientLayer { return true }
-            }
-        }
-        
-        // 4. Check shadow / border (visual decoration)
-        if view.layer.shadowOpacity > 0 { return true }
-        if view.layer.borderWidth > 0 { return true }
-        
-        // No visible content — this is a transparent container
-        return false
+    @objc private func dismissSelf() {
+        dismiss(animated: true, completion: nil)
     }
-}
-
-// MARK: - UIKit Integration — Window Overlay
-
-@available(iOS 14.0, *)
-extension TTDebugBridge {
-    
-    /// Shows a floating diagnostic overlay pill on the app's key window.
-    /// Uses a pass-through window so the app remains fully interactive.
-    /// Compatible with iOS 14–26+.
-    public func showDiagnosticOverlay() {
-        #if canImport(UIKit)
-        DispatchQueue.main.async {
-            guard let windowScene = UIApplication.shared.connectedScenes
-                .compactMap({ $0 as? UIWindowScene })
-                .first else { return }
-            
-            // Don't create duplicate overlays
-            if let existing = objc_getAssociatedObject(self, &AssociatedKeys.overlayWindow) as? UIWindow,
-               !existing.isHidden {
-                return
-            }
-            
-            let overlayWindow = PassThroughWindow(windowScene: windowScene)
-            overlayWindow.windowLevel = .statusBar + 1
-            overlayWindow.backgroundColor = .clear
-            overlayWindow.isUserInteractionEnabled = true
-            
-            let hostingController = UIHostingController(rootView:
-                DebugBridgeStatusView()
-                .edgesIgnoringSafeArea([.leading, .trailing, .bottom])
-            )
-            hostingController.view.backgroundColor = .clear
-            hostingController.view.isOpaque = false
-            hostingController.view.isUserInteractionEnabled = true
-            
-            // iOS 16+: prevent UIHostingController from adding automatic
-            // safe area backgrounds that would block touch pass-through
-            if #available(iOS 16.4, *) {
-                hostingController.safeAreaRegions = []
-            }
-            
-            overlayWindow.rootViewController = hostingController
-            overlayWindow.isHidden = false
-            // Do NOT call makeKeyAndVisible — it steals first responder from the app
-            
-            // Store reference to prevent deallocation
-            objc_setAssociatedObject(
-                self,
-                &AssociatedKeys.overlayWindow,
-                overlayWindow,
-                .OBJC_ASSOCIATION_RETAIN_NONATOMIC
-            )
-        }
-        #endif
-    }
-    
-    /// Hides the diagnostic overlay.
-    public func hideDiagnosticOverlay() {
-        #if canImport(UIKit)
-        DispatchQueue.main.async {
-            if let window = objc_getAssociatedObject(self, &AssociatedKeys.overlayWindow) as? UIWindow {
-                window.isHidden = true
-                objc_setAssociatedObject(self, &AssociatedKeys.overlayWindow, nil, .OBJC_ASSOCIATION_RETAIN_NONATOMIC)
-            }
-        }
-        #endif
-    }
-}
-
-private enum AssociatedKeys {
-    static var overlayWindow = "TTDebugBridge.overlayWindow"
 }
 
 #endif
