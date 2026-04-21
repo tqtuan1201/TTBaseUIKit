@@ -9,9 +9,64 @@
 import Foundation
 import UIKit
 
+//
+//  String+URL.swift
+//  YourLibraryName
+//
+//  Created by You on 2026.
+//  Description:
+//  Utilities for normalizing and validating URL strings before creating URL objects.
+//
+
+import Foundation
+
+public extension String {
+    
+    /// Normalize and convert to URL safely
+    func normalizedURL(defaultScheme: String = "https") -> URL? {
+        guard !self.isEmpty else { return nil }
+        
+        var urlString = self.trimmingCharacters(in: .whitespacesAndNewlines)
+        
+        // Decode to avoid double encoding
+        if let decoded = urlString.removingPercentEncoding {
+            urlString = decoded
+        }
+        
+        // Handle //example.com
+        if urlString.hasPrefix("//") {
+            urlString = "\(defaultScheme):" + urlString
+        }
+        
+        // Handle missing scheme
+        if !urlString.lowercased().hasPrefix("http://"),
+           !urlString.lowercased().hasPrefix("https://") {
+            urlString = "\(defaultScheme)://\(urlString)"
+        }
+        
+        // Fix redundant slashes after scheme
+        if let range = urlString.range(of: "://") {
+            let prefix = urlString[..<range.upperBound]      // Substring
+            let suffix = urlString[range.upperBound...]      // Substring
+            
+            let cleanedSuffix = suffix.drop(while: { $0 == "/" })
+            
+            // ✅ FIX: convert Substring → String
+            urlString = String(prefix) + String(cleanedSuffix)
+        }
+        
+        // ⚠️ Optional: only encode if needed (safe way)
+        if let components = URLComponents(string: urlString),
+           let finalURL = components.url {
+            return finalURL
+        }
+        
+        return URL(string: urlString)
+    }
+}
+
 extension String {
-    
-    
+
     /// Check if a given string is a valid, reachable URL
     public func isValidURL() -> Bool {
         

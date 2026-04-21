@@ -79,19 +79,24 @@ public class TTBaseCheckNewVersion: NSObject {
     // Present in-app App Store product page (StoreKit)
     public func presentStoreProduct(appId: String, from viewController: UIViewController? = nil) {
         DispatchQueue.main.async {
-            let storeVC = SKStoreProductViewController()
-            let params: [String: Any] = [SKStoreProductParameterITunesItemIdentifier: NSNumber(value: Int(appId) ?? 1191396802)]
-            storeVC.loadProduct(withParameters: params) { success, error in
-                DispatchQueue.main.async {
-                    if success {
-                        DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
-                            (viewController ?? UIApplication.topViewController())?.presentDef(vc: storeVC, type: .overFullScreen, transitionStyle: .coverVertical)
+            if let appId:Int64 = Int64(appId) {
+                let storeVC = SKStoreProductViewController()
+                let params: [String: Any] = [SKStoreProductParameterITunesItemIdentifier: NSNumber(value: appId)]
+                storeVC.loadProduct(withParameters: params) { success, error in
+                    DispatchQueue.main.async {
+                        if success {
+                            DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
+                                (viewController ?? UIApplication.topViewController())?.presentDef(vc: storeVC, type: .overFullScreen, transitionStyle: .coverVertical)
+                            }
+                        } else {
+                            // fallback: open App Store app
+                            self.openAppStore(appId: String(appId))
                         }
-                    } else {
-                        // fallback: open App Store app
-                        self.openAppStore(appId: String(appId))
                     }
                 }
+            } else {
+                // fallback: open App Store app
+                self.openAppStore(appId: String(appId))
             }
         }
     }

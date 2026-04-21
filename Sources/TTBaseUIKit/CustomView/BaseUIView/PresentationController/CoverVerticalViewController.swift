@@ -14,7 +14,12 @@ open class TTCoverVerticalViewController: UIViewController {
     open var padding:(CGFloat,CGFloat,CGFloat,CGFloat) = (0,0,0,0)
     open var bgView:UIColor = UIColor.white
     open var bgSafeView:UIColor = UIColor.white
-    open var isAddDownSwipe:Bool = true
+
+    
+    open var isAllowTouchToDismiss:Bool { get { return true } }
+    open var isAddDownSwipe:Bool { get { return true } }
+    
+    
     open var heightDissmissView:CGFloat = TTSize.H_DISSMISS_PRESENTVIEW
     open var timeAnimationChangeFrame:TimeInterval { get { return 0.2 } }
     open var isGetKeyboardHeight:Bool { get { return false } }
@@ -128,8 +133,8 @@ fileprivate extension TTCoverVerticalViewController {
     
     func setupBaseUIView() {
         
-        transitioningDelegate = self
-        modalPresentationStyle = .custom
+        self.transitioningDelegate = self
+        self.modalPresentationStyle = .custom
         
         self.bottomSafeAreaView.setBgColor(self.bgSafeView)
         
@@ -150,8 +155,10 @@ fileprivate extension TTCoverVerticalViewController {
 
 
 extension TTCoverVerticalViewController: UIViewControllerTransitioningDelegate {
+    
     public func presentationController(forPresented presented: UIViewController, presenting: UIViewController?, source: UIViewController) -> UIPresentationController? {
         self.coverPresentationController = TTCoverVerticalPresentationController(presentedViewController: presented, presenting: presenting)
+        self.coverPresentationController?.isAllowTouchDimmingToDismiss = self.isAllowTouchToDismiss
         self.coverPresentationController?.onTouchDimmingViewHandler = { [weak self] in guard let strongSelf = self else { return }
             strongSelf.coverPresentationController = nil
             strongSelf.onDissmissViewHandler?()

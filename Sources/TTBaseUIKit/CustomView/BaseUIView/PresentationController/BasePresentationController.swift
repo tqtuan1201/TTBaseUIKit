@@ -18,6 +18,7 @@ open class TTBasePresentationController: UIPresentationController {
     fileprivate lazy var dimmingBgColor:UIColor = UIColor.darkGray.withAlphaComponent(0.6)
     
     public var onTouchDimmingViewHandler:(() -> Void)?
+    public var isAllowTouchDimmingToDismiss:Bool = true
     open var timeAnimation:TimeInterval = 0.4
     
     public override init(presentedViewController: UIViewController, presenting presentingViewController: UIViewController?) {
@@ -84,6 +85,7 @@ private extension TTBasePresentationController {
     }
     
     @objc dynamic func handleTap(recognizer: UITapGestureRecognizer) {
+        guard self.isAllowTouchDimmingToDismiss else { return }
         self.onTouchDimmingViewHandler?()
         self.presentingViewController.dismiss(animated: true)
     }
