@@ -17,6 +17,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         
+        
+        // Default Language
+        TTLanguageManager.shared.defaultLanguage = .en
+        
         // MARK: - Configure TTBaseUIKit Design System
         let view = ViewConfig()
         view.viewBgNavColor = UIColor.getColorFromHex(netHex: 0x4DA0DC)
@@ -65,12 +69,14 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             var config = TTDebugBridge.Config()
             config.heartbeatInterval = 3.0  // seconds
             config.maxBufferedMessages = 500
-            config.showStateNotice = true
             TTDebugBridge.shared.config = config
             
             // Monitor connection state (safe to set — overlay uses NotificationCenter)
             TTDebugBridge.shared.onStateChange = { state in
                 print("[Debug] Bridge state: \(state.rawValue)")
+                DispatchQueue.main.asyncAfter(deadline: .now() + 4.0) {
+                    UIApplication.topViewController()?.showNoticeView(title: "TTDebugBridge", body: "[Debug] Bridge state: \(state.rawValue)", style: .SUCCESS, time: 1.0)
+                }
                 // States: idle → browsing → connecting → connected
             }
             

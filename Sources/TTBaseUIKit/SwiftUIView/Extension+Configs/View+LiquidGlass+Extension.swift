@@ -83,7 +83,7 @@ public struct BlackLiquidGlassBackground: View {
 public extension View {
     
     @ViewBuilder func enableGlassEffectV2<Content>(isClear:Bool = false, cornerRadius:CGFloat? = nil, @ViewBuilder content: () -> Content, align:Alignment = .center) -> some View where Content : View {
-#if compiler(>=6.2)
+#if swift(>=6.2)
         if #available(iOS 26.0, *) {
             if let _cornerRadius = cornerRadius {
                 self.glassEffect( isClear ? Glass.clear.interactive() : Glass.regular.interactive(), in: .rect(cornerRadius: _cornerRadius))
@@ -108,7 +108,7 @@ public extension View {
     
     //Old -> need to check end update !!!!!
     @ViewBuilder func enableGlassEffect<Content>(cornerRadius:CGFloat? = nil, @ViewBuilder content: () -> Content, align:Alignment = .center) -> some View where Content : View {
-#if compiler(>=6.2)
+#if swift(>=6.2)
         if #available(iOS 26.0, *) {
             if let _cornerRadius = cornerRadius {
                 self.corner(byDef: _cornerRadius).glassEffect(Glass.clear, in: RoundedRectangle(cornerRadius:_cornerRadius))

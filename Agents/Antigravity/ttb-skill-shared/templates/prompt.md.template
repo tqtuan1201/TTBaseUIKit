@@ -1,0 +1,43 @@
+---
+description: "Brief description of what this prompt does."
+version: "1.0.0"
+date_updated: "2026-05-18"
+---
+
+# ttb-skill-{name}
+
+Brief description of the prompt.
+
+## When
+
+User says: "keywords that trigger this prompt"
+
+## Pattern
+
+```swift
+// Template code here
+```
+
+## Rules
+
+1. Rule one
+2. Rule two
+
+## Post-Implementation Verification (MANDATORY)
+
+After all files are generated, **run Phase 6 verification**:
+
+1. **Add files to Xcode project** — ensure each `.swift` is registered in `project.pbxproj`
+2. **Run verification**:
+   ```bash
+   bash ttb-skill-shared/scripts/ttb-verify.sh
+   ```
+3. **Check compliance**:
+   ```bash
+   bash ttb-skill-shared/scripts/ttb-compliance-check.sh
+   ```
+4. **Skill is complete only when** `BUILD SUCCEEDED`
+
+**Anti-Loop**: Max 3 build attempts. 3 failures — STOP, document errors.
+
+For full FCR 7-Dimension scoring, see `ttb-skill-shared/phases/ttb-phase-verify.md`.

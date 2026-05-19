@@ -1,0 +1,135 @@
+//
+//  Localizable.strings
+//  TTBaseUIKitExample
+//
+//  [TTBaseUIKit-AI-Agents]: TTBaseUIKit Agent Support is active 🚀
+//
+
+/* Common */
+"App.Common.Button.Confirm" = "Confirm";
+"App.Common.Button.Cancel" = "Cancel";
+"App.Common.Button.Save" = "Save";
+"App.Common.Button.Delete" = "Delete";
+"App.Common.Button.Edit" = "Edit";
+"App.Common.Button.Retry" = "Retry";
+"App.Common.Button.Close" = "Close";
+"App.Common.Button.Submit" = "Submit";
+"App.Common.Button.Next" = "Next";
+"App.Common.Button.Back" = "Back";
+"App.Common.Button.Done" = "Done";
+"App.Common.Button.Skip" = "Skip";
+"App.Common.Button.OK" = "OK";
+"App.Common.Button.Yes" = "Yes";
+"App.Common.Button.No" = "No";
+"App.Common.Button.Left" = "Left";
+"App.Common.Button.Right" = "Right";
+
+/* Alerts */
+"App.Common.Alert.Error" = "Error";
+"App.Common.Alert.Success" = "Success";
+"App.Common.Alert.Warning" = "Warning";
+"App.Common.Alert.Info" = "Information";
+
+/* States */
+"App.Common.Loading" = "Loading...";
+"App.Common.Empty" = "No data available";
+"App.Common.Retry" = "Retry";
+"App.Common.Search" = "Search";
+"App.Common.NoResults" = "No results found";
+
+/* Errors */
+"App.Common.Error.Network" = "Network error. Please check your connection.";
+"App.Common.Error.Server" = "Server error. Please try again later.";
+"App.Common.Error.Unknown" = "An unexpected error occurred.";
+"App.Common.Error.Timeout" = "Request timed out. Please try again.";
+
+/* Tabs */
+"App.Tab.Home" = "Home";
+"App.Tab.Menu" = "Menu";
+"App.Tab.Demos" = "Demos";
+"App.Tab.Debug" = "Debug";
+"App.Tab.DebugBridge" = "DebugBridge";
+"App.Tab.UIDebug" = "UI Debug";
+"App.Tab.Contact" = "Contact";
+
+/* Menu */
+"App.Menu.Header.Title" = "TTBaseUIKit";
+"App.Menu.Header.Description" = "iOS UI Framework for faster development";
+"App.Menu.Section.Config" = "Configuration";
+"App.Menu.Section.UIKit" = "UIKit Components";
+"App.Menu.Section.SwiftUI" = "SwiftUI Components";
+"App.Menu.Section.Utils" = "Utilities";
+"App.Menu.Section.More" = "More";
+
+/* Demo */
+"App.Demo.Welcome" = "Welcome!";
+"App.Demo.Welcome.Message" = "TTBaseUIKit is a framework that helps you build iOS applications in the fastest and most efficient way";
+"App.Demo.Message" = "Message";
+
+/* Contact */
+"App.Contact.Title" = "Contact";
+"App.Contact.Email" = "Email";
+"App.Contact.Phone" = "Phone";
+"App.Contact.Website" = "Website";
+
+/* Placeholders */
+"App.Placeholder.Search" = "Search...";
+"App.Placeholder.EnterName" = "Enter name";
+"App.Placeholder.EnterEmail" = "Enter email";
+"App.Placeholder.EnterPassword" = "Enter password";
+
+/* GateDetail */
+"App.GateDetail.Alert.DeleteTitle" = "Delete Endpoint";
+"App.GateDetail.Alert.DeleteMessage" = "Are you sure you want to delete this endpoint? This action cannot be undone.";
+"App.GateDetail.Alert.DeleteConfirm" = "Delete";
+"App.GateDetail.Alert.DeleteCancel" = "Cancel";
+"App.GateDetail.Info.Pin" = "Pin";
+"App.GateDetail.Info.Temperature" = "Temperature";
+"App.GateDetail.Info.RSSI" = "Signal";
+"App.GateDetail.G6.SectionTitle" = "TTS-06/TTS-06S Devices";
+"App.GateDetail.G6.EmptyMessage" = "No TTS-06/TTS-06S-06 devices found";
+"App.GateDetail.G6.AddButton" = "Add G6 Device";
+"App.GateDetail.Endpoint.SectionTitle" = "Endpoints";
+"App.GateDetail.Endpoint.AddNew" = "Add New";
+"App.GateDetail.A11y.AddG6" = "Add G6 device";
+"App.GateDetail.A11y.AddEndpoint" = "Add endpoint";
+"App.GateDetail.A11y.DeviceHint" = "Double-tap to view device details";
+"App.GateDetail.Status.Online" = "Online";
+"App.GateDetail.Status.Offline" = "Offline";
+
+/* ProductList */
+"App.ProductList.Nav.Title" = "Product List";
+"App.ProductList.Empty.Title" = "No products found";
+"App.ProductList.Empty.Subtitle" = "Try changing filters or search with a different keyword";
+"App.ProductList.Empty.Action" = "Order now";
+"App.Product.Category.Search" = "Search products...";
+
+/* Home */
+"App.Home.Hot.Title" = "What's hot today?";
+"App.Product.Badge.BestSeller" = "Bestseller";
+
+/* GList */
+"App.GList.Title" = "Thêm thiết bị TTS-06/TTS-06S";
+"App.GList.Description" = "Chọn 1 thiết bị cùng cơ sở để tích hợp";
+"App.GList.Search.Placeholder" = "Tìm kiếm thiết bị";
+"App.GList.Result.Count" = "Đang hiển thị tất cả %d thiết bị";
+"App.GList.Button.Add" = "Thêm thiết bị";
+"App.GList.Device.Type" = "Loại thiết bị";
+"App.GList.Device.ActivationStatus" = "Trạng thái kích hoạt";
+"App.GList.Device.DeviceStatus" = "Trạng thái thiết bị";
+"App.GList.Status.Online" = "Trực tuyến";
+"App.GList.Status.Offline" = "Ngoại tuyến";
+"App.GList.Status.Activated" = "Đã kích hoạt";
+"App.GList.Status.Maintenance" = "Bảo trì";
+
+/* GatewayEmpty */
+"App.GatewayEmpty.Nav.Title" = "Kết nối thiết bị";
+"App.GatewayEmpty.Nav.Cancel" = "Huỷ";
+"App.GatewayEmpty.Device.Name" = "Chuông đèn Gateway";
+"App.GatewayEmpty.Guide.Title" = "Hướng dẫn";
+"App.GatewayEmpty.Guide.Step1" = "Cấp nguồn cho thiết bị";
+"App.GatewayEmpty.Guide.Step2" = "Nhấn nút FUNC 5 lần để vào chế độ kết nối";
+"App.GatewayEmpty.Guide.Note" = "Đèn network sẽ nháy màu xanh khi sẵn sàng";
+"App.GatewayEmpty.Confirm.Title" = "Xác nhận trạng thái thiết bị để tiếp tục";
+"App.GatewayEmpty.Confirm.NetworkLight" = "Đèn network đang nháy màu xanh";
+"App.GatewayEmpty.Button.Continue" = "Tiếp tục";

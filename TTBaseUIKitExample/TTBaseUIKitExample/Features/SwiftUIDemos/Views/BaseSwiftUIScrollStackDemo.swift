@@ -1,40 +1,52 @@
 //
-//  BaseSwiftUIStackDemo.swift
+//  BaseSwiftUIScrollStackDemo.swift
 //  TTBaseUIKitExample
 //
 //  Created by TuanTruong on 3/8/24.
 //  Copyright © 2024 Truong Quang Tuan. All rights reserved.
 //
 
-import TTBaseUIKit
 import SwiftUI
+import TTBaseUIKit
 
+// MARK: - View
 struct BaseSwiftUIScrollStackDemo: View {
-    init() {
-    }
-    
+    init() {}
+
     var body: some View {
-        SUIBaseViewDemo(title: "Base Scroll + Stack Sample".uppercased()) {
-            TTBaseSUIVStack(alignment: .center, spacing: 8.0, content: {
+        SUIBaseView(title: "Base Scroll + Stack Sample".uppercased()) {
+            TTBaseSUIVStack(alignment: .center, spacing: XSize.P_CONS_DEF, content: {
                 TTBaseSUIScroll(alignment: .vertical) {
-                    TTBaseSUILazyVStack(alignment: .center, spacing: 10, bg: .gray, radius: 10, pinnedViews: [.sectionHeaders]) {
-                        Section(header:
-                            Text("Section 1 Header")
-                            .maxWidth().frame(height: 50.0).bg(byDef: .red)
-                        ) {
+                    TTBaseSUILazyVStack(alignment: .center, spacing: XSize.P_CONS_DEF, bg: XView.viewBgColor.toColor(), radius: XSize.CORNER_RADIUS, pinnedViews: [.sectionHeaders]) {
+                        Section(header: sectionHeader) {
                             ForEach(1...10, id: \.self) { count in
-                                Text.init("Placeholder \(count)").frame(height: 140).maxWidth().bg(byDef: Color.random)
+                                placeholderItem(count: count)
                             }
                         }
                     }
                 }
-                TTBaseSUIText(withBold: .TITLE, text: "TTBaseSUILazyVStack Preview", align: .center, color: .blue)
-                    .frame(height: 40)
+                TTBaseSUIText(withBold: .TITLE, text: "TTBaseSUILazyVStack Preview", align: .center, color: XView.buttonBgDef.toColor())
+                    .frame(height: XSize.H_BUTTON)
             })
             .frame(maxWidth: .infinity, maxHeight: .infinity)
-            .padding()
+            .pAll()
         }
-        .onAppear { }
+        .onAppear {}
+    }
+
+    // MARK: - Subviews
+    private var sectionHeader: some View {
+        TTBaseSUIText(withType: .TITLE, text: "Section 1 Header", align: .center)
+            .maxWidth()
+            .frame(height: XSize.H_BUTTON)
+            .bg(byDef: .red)
+    }
+
+    private func placeholderItem(count: Int) -> some View {
+        TTBaseSUIText(withBold: .TITLE, text: "Placeholder \(count)", align: .center)
+            .frame(height: 140)
+            .maxWidth()
+            .bg(byDef: XView.viewBgCellColor.toColor())
     }
 }
 

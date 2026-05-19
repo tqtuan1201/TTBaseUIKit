@@ -99,7 +99,7 @@ public class SizeConfig {
 
     public func updateContraintsH(withHeightUpdate top:CGFloat, botom:CGFloat, left:CGFloat, right:CGFloat, defValue:CGFloat) -> SizeConfig {
         self.P_CONS_TOP_H = top
-        self.P_CONS_TOP_H = P_CONS_BOTOM_H
+        self.P_CONS_BOTOM_H = botom
         self.P_CONS_LEFT_H = left
         self.P_CONS_RIGHT_H = right
         self.P_CONS_DEF = defValue
@@ -109,7 +109,7 @@ public class SizeConfig {
 
 // MARK: FOR BASE FUNC
 extension SizeConfig {
-
+    public func getPadding() -> CGFloat { return self.P_CONS_DEF * 2 }
     public func getPaddingDef() -> CGFloat { return self.P_CONS_DEF * 2 }
     public func getPaddingView() -> CGFloat { return self.P }
     public func getCellHight() -> CGFloat { return self.H_CELL }

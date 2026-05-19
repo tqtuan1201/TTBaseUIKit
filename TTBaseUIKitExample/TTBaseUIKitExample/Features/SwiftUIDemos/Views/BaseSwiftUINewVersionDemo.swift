@@ -11,11 +11,10 @@ import TTBaseUIKit
 
 struct BaseSwiftUINewVersionDemo: View {
     var body: some View {
-        SUIBaseViewDemo(title: "Check new version demo".uppercased()) {
+        SUIBaseView(title: "Check new version demo".uppercased()) {
             BaseNewVersionPopupContentView()
         }
-        .ignoresSafeArea()
-        .onAppear { }
+        .onAppear {}
     }
 }
 

@@ -23,11 +23,17 @@ enum DemoFeatureDestination {
     case recipeBook
     case productCatalog
     case userDirectory
+    case newUserProfile
     case socialFeed
     case quotesWall
     case todoManager
     case photoGallery
     case contactsBook
+    case setupDevices
+    case deviceDetail
+    case deviceList
+    case gatewayEmpty
+    case gList
 }
 
 // MARK: - DemoFeaturesView
@@ -55,6 +61,48 @@ struct DemoFeaturesView: View {
             subtitle: "Browse user profiles with search, filter & detailed profile cards.",
             gradient: [Color.blue, Color.purple],
             destination: .userDirectory
+        ),
+        DemoFeatureItem(
+            icon: "🧑‍💼",
+            title: "New User Profile",
+            subtitle: "Modern user profile screen with avatar, info cards & TTBaseSUI components.",
+            gradient: [Color.red, Color.blue],
+            destination: .newUserProfile
+        ),
+        DemoFeatureItem(
+            icon: "🔗",
+            title: "Setup Devices",
+            subtitle: "Device connection wizard with step-by-step instructions for smoke detector setup.",
+            gradient: [Color.green, Color.red],
+            destination: .setupDevices
+        ),
+        DemoFeatureItem(
+            icon: "💡",
+            title: "Device Detail",
+            subtitle: "Device detail screen with power control, status display & info cards. Native SwiftUI.",
+            gradient: [Color.orange, Color.yellow],
+            destination: .deviceDetail
+        ),
+        DemoFeatureItem(
+            icon: "📱",
+            title: "Device List",
+            subtitle: "Smart device list with search, toggle control & real-time status. TTBaseSUI Components.",
+            gradient: [Color.blue, Color.red],
+            destination: .deviceList
+        ),
+        DemoFeatureItem(
+            icon: "🔔",
+            title: "Gateway",
+            subtitle: "Gateway bell-light connection guide screen with network light confirmation and a fixed CTA.",
+            gradient: [Color.yellow, Color.green],
+            destination: .gatewayEmpty
+        ),
+        DemoFeatureItem(
+            icon: "🟨",
+            title: "Add New Device",
+            subtitle: "Device selection list integrated with search.",
+            gradient: [Color.yellow, Color.orange],
+            destination: .gList
         ),
         DemoFeatureItem(
             icon: "📝",
@@ -194,6 +242,8 @@ struct DemoFeaturesView: View {
             ProductCatalogView()
         case .userDirectory:
             UserDirectoryView()
+        case .newUserProfile:
+            NewUserProfileView()
         case .socialFeed:
             SocialFeedView()
         case .quotesWall:
@@ -208,10 +258,22 @@ struct DemoFeaturesView: View {
             }
         case .contactsBook:
             ContactsBookView()
+        case .setupDevices:
+            SetupDevicesView()
+        case .deviceDetail:
+            DeviceDetailView()
+        case .deviceList:
+            GateDetailView()
+        case .gatewayEmpty:
+            GatewayEmptyView()
+        case .gList:
+            GListView()
         }
     }
 }
 
-#Preview {
-    DemoFeaturesView()
+struct DemoFeaturesView_Previews: PreviewProvider {
+    static var previews: some View {
+        DemoFeaturesView()
+    }
 }

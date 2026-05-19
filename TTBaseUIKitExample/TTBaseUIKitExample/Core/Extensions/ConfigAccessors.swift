@@ -9,7 +9,27 @@
 import Foundation
 import TTBaseUIKit
 
-var XSize:SizeConfig { get { return TTBaseUIKitConfig.getSizeConfig() } }
-var XView:ViewConfig { get { return TTBaseUIKitConfig.getViewConfig() } }
-var XFont:FontConfig { get { return TTBaseUIKitConfig.getFontConfig() } }
+var XSize: SizeConfig { TTBaseUIKitConfig.getSizeConfig() }
+var XView: ViewConfig { TTBaseUIKitConfig.getViewConfig() }
+var XFont: FontConfig { TTBaseUIKitConfig.getFontConfig() }
 
+func XTextU(_ key:String) -> String{
+    return key.localize(withBundle: Bundle.main).uppercased()
+}
+
+func XText(_ key:String) -> String {
+    return key.localize(withBundle: Bundle.main)
+}
+
+
+func XPrint(_ key: AnyObject) {
+    if (EnvironmentsConfig.IS_SHOW_LOG) {
+        print(key)
+    }
+}
+
+func XPrint(_ key: Any) {
+    if (EnvironmentsConfig.IS_SHOW_LOG) {
+        print(key)
+    }
+}

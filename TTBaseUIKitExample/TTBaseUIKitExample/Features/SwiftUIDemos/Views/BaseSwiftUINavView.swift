@@ -11,7 +11,7 @@ import SwiftUI
 
 
 struct BaseSwiftUINavView: View {
-    var items:[String] =  [
+    var items: [String] = [
         "The only way to do great work is to love what you do. - Steve Jobs",
         "Believe you can and you're halfway there. - Theodore Roosevelt",
         "Success is not final, failure is not fatal: it is the courage to continue that counts. - Winston Churchill",
@@ -33,32 +33,34 @@ struct BaseSwiftUINavView: View {
         "Code is like humor. When you have to explain it, it's bad. - Cory House",
         "The only way to do great work is to love what you do. - Steve Jobs"
     ]
-    
-    init() {
-    }
-    
+
     var body: some View {
-        SUIBaseViewDemo(title: "Base SwiftUI View Sample".uppercased()) {
+        SUIBaseView(title: "Base SwiftUI View Sample".uppercased()) {
             TTBaseSUIView(withCornerRadius: 0, bg: XView.viewBgColor.toColor()) {
                 TTBaseSUIVStack(alignment: .center, spacing: XSize.P_CONS_DEF) {
                     TTBaseSUIText(withBold: .TITLE, text: "Base TTBaseSUIText", align: .center, color: XView.textDefColor.toColor())
-                        .padding(.all, XSize.P_CONS_DEF).bg(byDef: .white).corner().padding(.all, XSize.P_CONS_DEF)
+                        .pAll().bg(byDef: .white).corner().pAll()
                     TTBaseSUIScroll {
                         TTBaseSUIVStack(alignment: .center, spacing: XSize.P_CONS_DEF, bg: .clear) {
                             ForEach(items, id: \.self) { item in
-                                TTBaseSUIText.init(withBold: .TITLE, text: item, align: .leading, color: XView.textDefColor.toColor())
-                                    .maxWidth(alignment: .center).padding(.all, XSize.P_CONS_DEF).bg(byDef: .white).corner().padding([.leading, .trailing], XSize.P_CONS_DEF)
+                                TTBaseSUIText(withBold: .TITLE, text: item, align: .leading, color: XView.textDefColor.toColor())
+                                    .maxWidth(alignment: .center)
+                                    .pAll()
+                                    .bg(byDef: .white)
+                                    .corner()
+                                    .pHorizontal()
                             }
-                        }.padding([.top, .bottom], XSize.P_CONS_DEF)
+                        }
+                        .pVertical()
                     }
                 }
             }
         }
-        .onAppear { }
+        .onAppear {}
     }
 }
 
-struct BusListView_Previews: PreviewProvider {
+struct BaseSwiftUINavView_Previews: PreviewProvider {
     static var previews: some View {
         BaseSwiftUINavView()
     }

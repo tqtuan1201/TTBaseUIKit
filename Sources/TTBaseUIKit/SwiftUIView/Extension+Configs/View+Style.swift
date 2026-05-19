@@ -103,10 +103,43 @@ public struct RoundedTopCorners: Shape {
 
 public extension View {
     
+    @available(*, deprecated, message: "Use baseBorder instead")
     func setBorder(WithRadius cornerRadius:CGFloat = TTSize.CORNER_RADIUS, color:Color = TTView.buttonBgDef.toColor(), lineWidth:CGFloat = TTSize.H_LINEVIEW)  -> some View  {
         return self.overlay(
             RoundedRectangle(cornerRadius: cornerRadius)
                 .stroke(color, lineWidth: lineWidth)
         )
+    }
+}
+
+extension View {
+    public func hideKeyboardOnScroll() -> some View {
+        modifier(HideKeyboardOnScrollModifier())
+    }
+    /// Hides the navigation bar and back button in both NavigationView & NavigationStack.
+    func hiddenNavigationBar() -> some View {
+        self
+        .navigationBarHidden(true)
+        .navigationBarBackButtonHidden(true)
+    }
+}
+
+private struct HideKeyboardOnScrollModifier: ViewModifier {
+    func body(content: Content) -> some View {
+        if #available(iOS 16.0, *) {
+            content.scrollDismissesKeyboard(.interactively)
+        } else {
+            content.gesture(
+                DragGesture().onChanged { _ in
+                    UIApplication.shared.endEditing()
+                }
+            )
+        }
+    }
+}
+
+extension UIApplication {
+    public func endEditing() {
+        sendAction(#selector(UIResponder.resignFirstResponder), to: nil, from: nil, for: nil)
     }
 }

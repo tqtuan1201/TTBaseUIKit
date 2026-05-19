@@ -10,10 +10,9 @@ import TTBaseUIKit
 import SwiftUI
 
 struct BaseSwiftUIDividerDemo: View {
-    init() {
-    }
+    init() {}
     var body: some View {
-        SUIBaseViewDemo(title: "Base Divider Sample".uppercased()) {
+        SUIBaseView(title: "Base Divider Sample".uppercased()) {
             TTBaseSUIHStack(alignment: .center, spacing: 10) {
                 TTBaseSUIVerticalDividerView(noConner: .LINE).padding()
                 TTBaseSUIVerticalDividerView(withConner: 10, type: .SPACE)

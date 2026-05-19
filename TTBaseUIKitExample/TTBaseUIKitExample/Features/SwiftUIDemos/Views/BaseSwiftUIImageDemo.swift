@@ -14,11 +14,11 @@ struct BaseSwiftUIImageDemo: View {
     }
     
     var body: some View {
-        SUIBaseViewDemo(title: "Base TTBaseSUIImage Sample".uppercased()) {
+        SUIBaseView(title: "Base TTBaseSUIImage Sample".uppercased()) {
             TTBaseSUIVStack(alignment: .center) {
                 TTBaseSUIText(withBold: .TITLE, text: "TTBaseSUIImage", align: .center, color: XView.textDefColor.toColor())
                 TTBaseSUIImage.init(withname: "TTBaseUIKitBg", contentMode: .fill)
-                    .corner().sizeSquare(width: 200).padding(.top, /*@START_MENU_TOKEN@*/10/*@END_MENU_TOKEN@*/)
+                    .corner().sizeSquare(width: 200).pTop(XSize.P_CONS_DEF)
             }
         }
         .onAppear { }

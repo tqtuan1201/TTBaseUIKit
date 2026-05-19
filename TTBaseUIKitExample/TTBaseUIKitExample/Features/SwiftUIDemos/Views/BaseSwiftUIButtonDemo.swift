@@ -10,21 +10,20 @@ import SwiftUI
 import TTBaseUIKit
 
 struct BaseSwiftUIButtonDemo: View {
-    init() {
-    }
-    
+    init() {}
+
     var body: some View {
-        SUIBaseViewDemo(title: "Base TTBaseSUIButton Sample".uppercased()) {
+        SUIBaseView(title: "Base TTBaseSUIButton Sample".uppercased()) {
             TTBaseSUIVStack(alignment: .center) {
                 TTBaseSUIButton(type: .DEFAULT, title: "DEFAULT")
-                TTBaseSUIButton(type: .DEFAULT_COLOR(color: .systemBlue, textColor: .white), title: "DEFAULT_COLOR")
+                TTBaseSUIButton(type: .DEFAULT_COLOR(color: XView.buttonBgDef, textColor: .white), title: "DEFAULT_COLOR")
                 TTBaseSUIButton(type: .WARRING, title: "WARRING")
                 TTBaseSUIButton(type: .DISABLE, title: "DISABLE")
                 TTBaseSUIButton(type: .NO_BG_COLOR, title: "NO_BG_COLOR")
                 TTBaseSUIButton(type: .BORDER, title: "BORDER")
-            }.padding()
+            }.pAll()
         }
-        .onAppear { }
+        .onAppear {}
     }
 }
 

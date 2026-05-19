@@ -31,7 +31,7 @@ public extension View {
 
     // MARK: Vertical
     @inlinable
-    func pVertical(_ size:CGFloat?) -> some View {
+    func pVertical(_ size:CGFloat? = nil) -> some View {
         self.padding(.vertical, size)
     }
     
