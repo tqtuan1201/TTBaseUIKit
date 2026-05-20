@@ -12,7 +12,14 @@ import TTBaseUIKit
 // MARK: - DebugUIDemoView
 struct DebugUIDemoView: View {
     
+    @State fileprivate var isTouchDebugActive: Bool = false
+    
     @State private var isDebugActive = false
+    @State private var launchButtonPulse = false
+    
+    init() {
+        LogViewHelper.share.seedFakeLogs()
+    }
     
     var body: some View {
         NavigationView {
@@ -108,6 +115,7 @@ struct DebugUIDemoView: View {
             featureRow(icon: "network", color: .purple,
                        title: "API Response Log Viewer",
                        detail: "Inspect request/response data, headers, and status codes in-app")
+            
             Divider().padding(.leading, 52)
             
             featureRow(icon: "camera.viewfinder", color: .orange,
@@ -129,8 +137,9 @@ struct DebugUIDemoView: View {
         .baseShadow(color: .black.opacity(0.04), radius: 4, x: 0, y: 2)
     }
     
-    private func featureRow(icon: String, color: Color, title: String, detail: String) -> some View {
-        TTBaseSUIHStack(alignment: .top, spacing: 12, bg: .clear) {
+    @ViewBuilder
+    private func featureRow(icon: String, color: Color, title: String, detail: String, action: (() -> Void)? = nil) -> some View {
+        let content = TTBaseSUIHStack(alignment: .top, spacing: 12, bg: .clear) {
             Image(systemName: icon)
                 .font(.system(size: 18, weight: .semibold))
                 .foregroundColor(color)
@@ -149,7 +158,17 @@ struct DebugUIDemoView: View {
             }
             .maxWidth(alignment: .leading)
         }
-        .pAll(14)
+
+        if let action {
+            Button(action: action) {
+                content
+                    .pAll(14)
+            }
+            .buttonStyle(.plain)
+        } else {
+            content
+                .pAll(14)
+        }
     }
     
     // MARK: - How to Use
@@ -188,22 +207,56 @@ struct DebugUIDemoView: View {
     
     // MARK: - Launch Button
     private var launchButton: some View {
-        Button(action: { startDebugKit() }) {
-            TTBaseSUIHStack(alignment: .center, spacing: 10, bg: .clear) {
-                Image(systemName: "play.circle.fill")
-                    .font(.system(size: 22, weight: .semibold))
+        Button(action: {
+            if self.isTouchDebugActive {
+                UIApplication.topViewController()?.showAlert("Activated. Please long-press anywhere to open the debug panel.")
+            } else {
+                self.startDebugKit()
+            }
+        }) {
+            TTBaseSUIHStack(alignment: .center, spacing: 12, bg: .clear) {
+                ZStack {
+                    Circle()
+                        .stroke(Color.white.opacity(0.55), lineWidth: 1.5)
+                        .frame(width: 42, height: 42)
+                        .scaleEffect(launchButtonPulse ? 1.32 : 0.82)
+                        .opacity(launchButtonPulse ? 0 : 0.75)
+                    
+                    Circle()
+                        .fill(Color.white.opacity(0.18))
+                        .frame(width: 42, height: 42)
+                    
+                    Image(systemName: isDebugActive ? "checkmark.circle.fill" : "play.circle.fill")
+                        .font(.system(size: 24, weight: .semibold))
+                        .scaleEffect(launchButtonPulse ? 1.08 : 0.96)
+                }
                 
-                TTBaseSUIVStack(alignment: .leading, spacing: 2, bg: .clear) {
-                    Text("Start TTBaseDebugKit")
+                TTBaseSUIVStack(alignment: .leading, spacing: 4, bg: .clear) {
+                    Text(isDebugActive ? "TTBaseDebugKit Ready" : "Start TTBaseDebugKit")
                         .font(.system(size: 15, weight: .bold))
-                    Text("Activate, then long-press anywhere to open debug panel")
+                    Text(isDebugActive ? "Tap to review debug actions, logs, capture, and settings" : "Tap to activate, then explore the debug actions")
                         .font(.system(size: 11))
                         .opacity(0.85)
+                        .fixedSize(horizontal: false, vertical: true)
+                    
+                    TTBaseSUIHStack(alignment: .center, spacing: 5, bg: .clear) {
+                        Circle()
+                            .fill(Color.white)
+                            .frame(width: 5, height: 5)
+                            .opacity(launchButtonPulse ? 1 : 0.45)
+                        Text("Tap to explore actions")
+                            .font(.system(size: 10, weight: .semibold))
+                    }
+                    .padding(.horizontal, 8)
+                    .padding(.vertical, 4)
+                    .background(Color.white.opacity(0.18))
+                    .cornerRadius(10)
                 }
                 .maxWidth(alignment: .leading)
                 
                 Image(systemName: "chevron.right")
                     .font(.system(size: 14, weight: .semibold))
+                    .offset(x: launchButtonPulse ? 4 : 0)
             }
             .foregroundColor(.white)
             .pAll(16)
@@ -216,6 +269,15 @@ struct DebugUIDemoView: View {
             )
             .cornerRadius(14)
             .baseShadow(color: Color(XView.viewBgNavColor).opacity(0.3), radius: 8, x: 0, y: 4)
+            .overlay(
+                RoundedRectangle(cornerRadius: 14)
+                    .stroke(Color.white.opacity(launchButtonPulse ? 0.35 : 0.12), lineWidth: 1)
+            )
+            .scaleEffect(launchButtonPulse ? 1.01 : 1.0)
+            .animation(.easeInOut(duration: 1.05).repeatForever(autoreverses: true), value: launchButtonPulse)
+            .onAppear {
+                launchButtonPulse = true
+            }
         }
     }
     
@@ -290,6 +352,7 @@ struct DebugUIDemoView: View {
             isStartAppToShow: true,
             passCode: ""
         ).onStartAndPresentVC()
+        self.isTouchDebugActive = false
     }
 }
 

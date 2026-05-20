@@ -61,14 +61,7 @@ public struct TTBaseUIViewControllerPreview<VC: UIViewController>: UIViewControl
     public func updateUIViewController(_ vc: VC, context: Context) {}
 }
 
- struct TTBaseUIViewController_Previews: PreviewProvider {
-     static var previews: some View {
-         TTBaseUIViewControllerPreview {
-             let vc = LogTrackingTableViewController()
-             return vc
-         }
-     }
- }
+
 
 public struct TTBaseCellPreview<Cell: UIView>: UIViewRepresentable {
     public let size: CGSize

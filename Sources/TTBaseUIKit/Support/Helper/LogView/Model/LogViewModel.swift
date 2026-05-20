@@ -9,33 +9,34 @@
 import Foundation
 
 public class LogViewModel {
-    
-    public var name:String = ""
-    public var request:String = ""
-    public var response:String = ""
-    public var urlRequest:String = ""
-    public var time:Date = Date()
-    
-    public init(withName name:String, request:String, response:String, urlRequest:String) {
+
+    public var name: String = ""
+    public var request: String = ""
+    public var response: String = ""
+    public var method: String = ""
+    public var urlRequest: String = ""
+    public var time: Date = Date()
+
+    public init() {}
+
+    public init(withName name: String, request: String, response: String, urlRequest: String) {
         self.name = name
         self.request = request
         self.response = response
         self.urlRequest = urlRequest
     }
     
+    public init(withName name: String, request: String, response: String, urlRequest: String, method: String) {
+        self.name = name
+        self.request = request
+        self.response = response
+        self.urlRequest = urlRequest
+        self.method = method
+    }
+    
+
     public func getDisplayService() -> String {
         return "\(name) - \(time.dateString(withFormat: .HH_MM_A))\n\(urlRequest)"
     }
-}
-
-class LogTrackingViewModel {
-   
-    var isSkipCheckPass:Bool = false
-    var isStartAppToShow:Bool = true
-    var isShow:Bool = false
-    var displayString:String = "Easily inspect layouts, monitor logs, and simulate environments while building your app"
-    var logs:[LogViewModel] = []
-    var passCode:String = ""
-    init() { }
 }
 

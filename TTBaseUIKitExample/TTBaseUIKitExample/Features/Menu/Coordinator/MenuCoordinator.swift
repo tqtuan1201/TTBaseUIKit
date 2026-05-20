@@ -31,8 +31,8 @@ class MenuCoordinator: Coordinator {
     // MARK: - UIKit Navigation
     
     func showThemeInfo() {
-        showMessagePopup(mess: "In the AppDelegate class, find TTBaseUIKitConfig.withDefaultConfig where you will see a basic example of the setup") { [weak self] in
-            self?.showWebView(title: "AppDelegate class", url: "https://raw.githubusercontent.com/tqtuan1201/TTBaseUIKit/master/TTBaseUIKitExample/TTBaseUIKitExample/AppDelegate.swift")
+        showMessagePopup(mess: "TTBaseUIKit An ultra-modern enterprise foundation providing 100+ production-ready base views for both UIKit and SwiftUI.") { [weak self] in
+            self?.showWebView(title: "Build iOS Apps Faster.", url: "https://tqtuan1201.github.io/public/docs/ttbaseuikit/index.html")
         }
     }
     

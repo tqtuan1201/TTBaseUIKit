@@ -10,6 +10,11 @@ import UIKit
 import SwiftUI
 import TTBaseUIKit
 
+
+class TabWebViewController : WebViewController {
+    override var isSetHiddenTabar: Bool {  return false}
+}
+
 // MARK: - AppCoordinator
 /// Root coordinator. Sets up the TabBarController and child coordinators.
 class AppCoordinator: Coordinator {
@@ -45,13 +50,20 @@ class AppCoordinator: Coordinator {
         let debugUIVC = DebugUIDemoView().embeddedInHostingController(isHiddenTabbar: false)
         debugUIVC.tabBarItem = UITabBarItem(title: "UI Debug", image: UIImage(systemName: "eye.trianglebadge.exclamationmark"), tag: 3)
         
+        // Doc Tab
+        let docNav = UINavigationController()
+        let docVC = TabWebViewController(navTitle: "TTBaseUIKit Doc", urlString: "https://tqtuan1201.github.io/public/docs/ttbaseuikit/index.html")
+        docNav.viewControllers = [docVC]
+        docNav.tabBarItem = UITabBarItem(title: "Doc", image: UIImage(systemName: "filemenu.and.selection"), tag: 4)
+        
+        
         // Contact Tab
         let contactNav = UINavigationController()
         let contactVC = ContactVC()
         contactNav.viewControllers = [contactVC]
-        contactNav.tabBarItem = UITabBarItem(title: "Contact", image: UIImage(systemName: "person.crop.circle.fill"), tag: 4)
+        contactNav.tabBarItem = UITabBarItem(title: "Contact", image: UIImage(systemName: "person.crop.circle.fill"), tag: 5)
         
-        tabBarController.viewControllers = [menuNav, demoFeaturesVC, debugBridgeVC, debugUIVC, contactNav]
+        tabBarController.viewControllers = [menuNav, demoFeaturesVC, debugBridgeVC, debugUIVC, docNav]
         
         window.rootViewController = tabBarController
         window.makeKeyAndVisible()

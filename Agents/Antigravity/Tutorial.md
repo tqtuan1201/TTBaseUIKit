@@ -30,33 +30,33 @@ This tutorial explains **when to use** each skill, **which prompt to activate**,
 ## 1. Skill Selection Decision Tree
 
 ```
-Bạn cần làm gì?
+What do you need to do?
 │
-├── ① Tạo DỰ ÁN MỚI từ đầu
+├── ① Create a NEW PROJECT from scratch
 │   └── → /ttb-init
 │
-├── ② Thêm FEATURE MỚI
+├── ② Add a NEW FEATURE
 │   │
-│   ├── App hiện tại có UIKit navigation stack?
-│   │   ├── CÓ → SwiftUI screens dùng backType = .POP
-│   │   └── KHÔNG → Pure SwiftUI, dùng backType = .SWIFTUI
+│   ├── Does the current app have a UIKit navigation stack?
+│   │   ├── YES → SwiftUI screens use backType = .POP
+│   │   └── NO → Pure SwiftUI, use backType = .SWIFTUI
 │   │
-│   ├── Dùng UIKit (ViewController)?
+│   ├── Using UIKit (ViewController)?
 │   │   └── → /ttb-uikit
 │   │
-│   └── Dùng SwiftUI?
+│   └── Using SwiftUI?
 │       │
-│       ├── Có sẵn TTBaseSUI component?
-│       │   ├── CÓ → /ttb-sui-screen, /ttb-sui-view, /ttb-sui-list
-│       │   └── KHÔNG → Kiểm tra /ttb-native-*
+│       ├── Is there a TTBaseSUI component available?
+│       │   ├── YES → /ttb-sui-screen, /ttb-sui-view, /ttb-sui-list
+│       │   └── NO → Check /ttb-native-*
 │       │
-│       └── Cần native SwiftUI component?
+│       └── Need a native SwiftUI component?
 │           └── → /ttb-native-{component-name}
 │
-├── ③ Sửa BUG
+├── ③ Fix a BUG
 │   └── → /ttb-bugfix
 │
-├── ④ Cải thiện CODE HIỆN CÓ
+├── ④ Improve EXISTING CODE
 │   │
 │   ├── Raw UIKit → TTBaseUIKit
 │   │   └── → /ttb-refactor-uikit
@@ -64,7 +64,7 @@ Bạn cần làm gì?
 │   └── Native SwiftUI → TTBaseSUI
 │       └── → /ttb-refactor-swiftui
 │
-└── ⑤ Kiểm tra CODE
+└── ⑤ Audit CODE
     ├── Performance
     │   └── → /ttb-audit-performance
     ├── Accessibility
