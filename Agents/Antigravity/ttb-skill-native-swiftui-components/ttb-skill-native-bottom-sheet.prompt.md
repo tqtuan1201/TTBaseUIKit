@@ -10,6 +10,23 @@ Build reusable bottom sheet native SwiftUI components using TTBaseUIKit design t
 
 User says: "native bottom sheet", "modal sheet", "slide up panel", "action sheet"
 
+## Native SwiftUI Compliance Baseline
+
+These rules override any older examples in this prompt:
+
+1. **100% native SwiftUI primitives** inside generated `/native-*` components: use `Text`, `Button`, `VStack`, `HStack`, `Image`, native controls, shapes, and modifiers; do not use `TTBaseSUI*`, `SUIBaseView`, or `TTBaseNavigationLink` here.
+2. **TTBaseUIKit project rules still apply**: follow the current project folder structure, file header marker, `MARK` sections, access control, Xcode project registration, and verification scripts.
+3. **Displayed strings must use `XText("key")`**. Prefer API names like `titleKey`, `textKey`, `placeholderKey`, `accessibilityKey`, and `hintKey`. Convert raw sample strings to localization keys before emitting production code.
+4. **Use `TTView`, `TTSize`, and `TTFont` tokens** for colors, spacing, radii, heights, and fonts. Do not hardcode design values unless needed for geometry math.
+5. **Chainable modifiers are mandatory where available**: prefer `.pAll()`, `.pHorizontal()`, `.pVertical()`, `.bg()`, `.corner()`, `.baseShadow()`, `.baseBorder()`, `.size()`, `.sizeSquare()`, `.maxWidth()`, and `.maxHeight()` over raw `.padding`, `.background`, `.clipShape`, `.frame` chains when the extension covers the behavior.
+6. **Use `Button` or native controls for all tappable UI**. Do not use `.onTapGesture` as a button substitute; `.onTapHandle` is only allowed for real non-control gestures.
+7. **Minimum tap target is 44x44** for every interactive element.
+8. **`@StateObject` for owned ViewModels, `@ObservedObject` for injected ViewModels**. Do not instantiate observable objects inside `body`.
+9. **Use `[weak self]` in every escaping closure inside classes/ViewModels/coordinators/services**. SwiftUI `View` structs should call injected closures/private methods without strongly capturing reference objects.
+10. **Keep `body` under 40 lines**. Extract private computed subviews, helper methods, or private `View` structs.
+11. **iOS 14+ only**: no `.task`, `NavigationStack`, `#Preview`, `.foregroundStyle()`, `AsyncImage`, or other iOS 15+ APIs.
+12. **Accessibility is mandatory**: use `.accessibilityLabel(XText(...))` and `.accessibilityHint(XText(...))` for interactive or non-obvious UI.
+
 ## Bottom Sheet Component Pattern
 
 ```swift
@@ -57,7 +74,7 @@ public struct {Name}BottomSheetModifier: ViewModifier {
             if self.isPresented {
                 Color.black.opacity(0.4)
                     .ignoresSafeArea()
-                    .onTapGesture { self.isPresented = false }
+                    .onTapHandle { self.isPresented = false }
             }
 
             // Sheet
@@ -72,7 +89,7 @@ public struct {Name}BottomSheetModifier: ViewModifier {
                 .transition(.move(edge: .bottom).combined(with: .opacity))
             }
         }
-        .animation(.easeInOut(duration: 0.3), value: self.isPresented)
+        .animation(.easeInOut(duration: 0.3))
     }
 }
 
@@ -124,8 +141,8 @@ private struct {Name}SheetContent<Content: View>: View {
                     RoundedRectangle(cornerRadius: 2)
                         .fill(TTView.iconColor.toColor().opacity(0.4))
                         .frame(width: 36, height: 4)
-                        .padding(.top, TTSize.P_S)
-                        .padding(.bottom, TTSize.P_CONS_DEF)
+                        .pTop(TTSize.P_S)
+                        .pBottom(TTSize.P_CONS_DEF)
                 }
 
                 // Content
@@ -142,7 +159,7 @@ private struct {Name}SheetContent<Content: View>: View {
                         RoundedCorner(radius: TTSize.CORNER_PANEL, corners: [.topLeft, .topRight])
                     )
             )
-            .shadow(color: .black.opacity(0.15), radius: 16, x: 0, y: -4)
+            .baseShadow(corner: TTSize.CORNER_PANEL, color: .black.opacity(0.15), radius: 16, x: 0, y: -4)
         }
         .frame(maxWidth: .infinity)
         .ignoresSafeArea(edges: .bottom)
@@ -177,24 +194,26 @@ struct {Name}BottomSheet_Previews: PreviewProvider {
         ZStack {
             Color.gray.opacity(0.3).ignoresSafeArea()
 
-            Button("Show Bottom Sheet") {
+            Button(action: {
                 showSheet = true
+            }) {
+                Text(XText("Preview.BottomSheet.Show"))
             }
-            .padding()
+            .pAll(TTSize.P_CONS_DEF)
 
             Color.clear
                 .{Name}BottomSheet(isPresented: $showSheet) {
                     VStack(spacing: TTSize.P_L) {
-                        Text("Bottom Sheet Content")
+                        Text(XText("Preview.BottomSheet.Title"))
                             .font(.system(size: TTFont.HEADER_H, weight: .bold))
                             .foregroundColor(TTView.textHeaderColor.toColor())
 
-                        Text("This is a native SwiftUI bottom sheet built with TTBaseUIKit design tokens.")
+                        Text(XText("Preview.BottomSheet.Message"))
                             .font(.system(size: TTFont.TITLE_H))
                             .foregroundColor(TTView.textDefColor.toColor())
                             .multilineTextAlignment(.center)
                     }
-                    .padding(TTSize.P_L)
+                    .pAll(TTSize.P_L)
                 }
         }
     }
@@ -203,8 +222,8 @@ struct {Name}BottomSheet_Previews: PreviewProvider {
 
 ## Rules
 
-1. **100% native SwiftUI** — no TTBaseSUI* wrappers
-2. **TTBaseUIKit tokens**: `TTView.*.toColor()`, `TTSize.*`, `TTFont.*`
+1. **100% native SwiftUI primitives** — no `TTBaseSUI*`, `SUIBaseView`, or `TTBaseNavigationLink` wrappers in `/native-*` components
+2. **TTBaseUIKit tokens + chainable modifiers**: `TTView.*.toColor()`, `TTSize.*`, `TTFont.*`, `.pAll()`, `.bg()`, `.corner()`, `.baseShadow()`, `.size()`
 3. **Sheet height**: 25%, 50%, or 90% of screen via GeometryReader
 4. **Drag indicator**: 36x4pt rounded rect, 0.4 opacity
 5. **Corner radius = TTSize.CORNER_PANEL (8pt)** on top corners only

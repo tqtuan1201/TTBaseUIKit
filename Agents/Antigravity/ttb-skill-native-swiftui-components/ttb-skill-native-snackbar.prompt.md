@@ -10,6 +10,23 @@ Build reusable snackbar/toast native SwiftUI components using TTBaseUIKit design
 
 User says: "native snackbar", "toast", "notification bar", "bottom toast", "snack message"
 
+## Native SwiftUI Compliance Baseline
+
+These rules override any older examples in this prompt:
+
+1. **100% native SwiftUI primitives** inside generated `/native-*` components: use `Text`, `Button`, `VStack`, `HStack`, `Image`, native controls, shapes, and modifiers; do not use `TTBaseSUI*`, `SUIBaseView`, or `TTBaseNavigationLink` here.
+2. **TTBaseUIKit project rules still apply**: follow the current project folder structure, file header marker, `MARK` sections, access control, Xcode project registration, and verification scripts.
+3. **Displayed strings must use `XText("key")`**. Prefer API names like `titleKey`, `textKey`, `placeholderKey`, `accessibilityKey`, and `hintKey`. Convert raw sample strings to localization keys before emitting production code.
+4. **Use `TTView`, `TTSize`, and `TTFont` tokens** for colors, spacing, radii, heights, and fonts. Do not hardcode design values unless needed for geometry math.
+5. **Chainable modifiers are mandatory where available**: prefer `.pAll()`, `.pHorizontal()`, `.pVertical()`, `.bg()`, `.corner()`, `.baseShadow()`, `.baseBorder()`, `.size()`, `.sizeSquare()`, `.maxWidth()`, and `.maxHeight()` over raw `.padding`, `.background`, `.clipShape`, `.frame` chains when the extension covers the behavior.
+6. **Use `Button` or native controls for all tappable UI**. Do not use `.onTapGesture` as a button substitute; `.onTapHandle` is only allowed for real non-control gestures.
+7. **Minimum tap target is 44x44** for every interactive element.
+8. **`@StateObject` for owned ViewModels, `@ObservedObject` for injected ViewModels**. Do not instantiate observable objects inside `body`.
+9. **Use `[weak self]` in every escaping closure inside classes/ViewModels/coordinators/services**. SwiftUI `View` structs should call injected closures/private methods without strongly capturing reference objects.
+10. **Keep `body` under 40 lines**. Extract private computed subviews, helper methods, or private `View` structs.
+11. **iOS 14+ only**: no `.task`, `NavigationStack`, `#Preview`, `.foregroundStyle()`, `AsyncImage`, or other iOS 15+ APIs.
+12. **Accessibility is mandatory**: use `.accessibilityLabel(XText(...))` and `.accessibilityHint(XText(...))` for interactive or non-obvious UI.
+
 ## Snackbar Component Pattern
 
 ```swift
@@ -31,7 +48,7 @@ public struct {Name}Snackbar: View {
 
         var backgroundColor: Color {
             switch self {
-            case .default:  return Color(hex: "333333")
+            case .default:  return TTView.textHeaderColor.toColor()
             case .success:  return TTView.notificationBgSuccess.toColor()
             case .warning:  return TTView.notificationBgWarning.toColor()
             case .error:    return TTView.notificationBgError.toColor()
@@ -39,68 +56,68 @@ public struct {Name}Snackbar: View {
         }
     }
 
-    public let message: String
+    public let messageKey: String
     public var style: Style = .default
-    public var actionTitle: String?
+    public var actionTitleKey: String?
     public var action: (() -> Void)?
     public var dismissAction: (() -> Void)?
 
     public init(
-        message: String,
+        messageKey: String,
         style: Style = .default,
-        actionTitle: String? = nil,
+        actionTitleKey: String? = nil,
         action: (() -> Void)? = nil,
         dismissAction: (() -> Void)? = nil
     ) {
-        self.message = message
+        self.messageKey = messageKey
         self.style = style
-        self.actionTitle = actionTitle
+        self.actionTitleKey = actionTitleKey
         self.action = action
         self.dismissAction = dismissAction
     }
 
     public var body: some View {
         HStack(spacing: TTSize.P_CONS_DEF) {
-            Text(self.message)
+            Text(XText(self.messageKey))
                 .font(.system(size: TTFont.TITLE_H, weight: .medium))
                 .foregroundColor(.white)
                 .frame(maxWidth: .infinity, alignment: .leading)
 
-            if let actionTitle = self.actionTitle, let action = self.action {
+            if let actionTitleKey = self.actionTitleKey, let action = self.action {
                 Button(action: action) {
-                    Text(actionTitle.uppercased())
+                    Text(XText(actionTitleKey).uppercased())
                         .font(.system(size: TTFont.SUB_TITLE_H, weight: .bold))
                         .foregroundColor(.white)
-                        .padding(.leading, TTSize.P_CONS_DEF)
+                        .pLeading(TTSize.P_CONS_DEF)
                 }
             }
 
-            if self.actionTitle == nil {
+            if self.actionTitleKey == nil {
                 Button {
                     self.dismissAction?()
                 } label: {
                     Image(systemName: "xmark")
                         .font(.system(size: TTFont.SUB_TITLE_H, weight: .bold))
                         .foregroundColor(.white)
-                        .padding(.leading, TTSize.P_CONS_DEF)
+                        .pLeading(TTSize.P_CONS_DEF)
                 }
             }
         }
-        .padding(.horizontal, TTSize.P_L)
-        .padding(.vertical, TTSize.P_CONS_DEF)
-        .background(self.style.backgroundColor)
-        .clipShape(RoundedRectangle(cornerRadius: TTSize.CORNER_RADIUS))
-        .shadow(color: .black.opacity(0.15), radius: 8, x: 0, y: 4)
-        .padding(.horizontal, TTSize.P_CONS_DEF)
-        .accessibilityLabel("\(self.styleAccessibilityLabel): \(self.message)")
+        .pHorizontal(TTSize.P_L)
+        .pVertical(TTSize.P_CONS_DEF)
+        .bg(byDef: self.style.backgroundColor)
+        .corner(byDef: TTSize.CORNER_RADIUS)
+        .baseShadow(corner: TTSize.CORNER_RADIUS, color: .black.opacity(0.15), radius: 8, x: 0, y: 4)
+        .pHorizontal(TTSize.P_CONS_DEF)
+        .accessibilityLabel(String(format: XText("Accessibility.Snackbar.Format"), XText(self.styleAccessibilityKey), XText(self.messageKey)))
     }
 
-    private var styleAccessibilityLabel: String {
+    private var styleAccessibilityKey: String {
         switch self.style {
-        case .default:  return "Notification"
-        case .success:  return "Success"
-        case .warning:  return "Warning"
-        case .error:    return "Error"
+        case .default:  return "Accessibility.Notification"
+        case .success:  return "Accessibility.Success"
+        case .warning:  return "Accessibility.Warning"
+        case .error:    return "Accessibility.Error"
         }
     }
 }
@@ -108,25 +125,25 @@ public struct {Name}Snackbar: View {
 // MARK: - {Name}SnackbarModifier
 public struct {Name}SnackbarModifier: ViewModifier {
     @Binding public var isPresented: Bool
-    public let message: String
+    public let messageKey: String
     public var style: {Name}Snackbar.Style = .default
     public var duration: Double = 3.0
-    public var actionTitle: String?
+    public var actionTitleKey: String?
     public var action: (() -> Void)?
 
     public init(
         isPresented: Binding<Bool>,
-        message: String,
+        messageKey: String,
         style: {Name}Snackbar.Style = .default,
         duration: Double = 3.0,
-        actionTitle: String? = nil,
+        actionTitleKey: String? = nil,
         action: (() -> Void)? = nil
     ) {
         self._isPresented = isPresented
-        self.message = message
+        self.messageKey = messageKey
         self.style = style
         self.duration = duration
-        self.actionTitle = actionTitle
+        self.actionTitleKey = actionTitleKey
         self.action = action
     }
 
@@ -136,9 +153,9 @@ public struct {Name}SnackbarModifier: ViewModifier {
 
             if self.isPresented {
                 {Name}Snackbar(
-                    message: self.message,
+                    messageKey: self.messageKey,
                     style: self.style,
-                    actionTitle: self.actionTitle,
+                    actionTitleKey: self.actionTitleKey,
                     action: self.action,
                     dismissAction: { self.isPresented = false }
                 )
@@ -156,19 +173,19 @@ public struct {Name}SnackbarModifier: ViewModifier {
 public extension View {
     func snackbar(
         isPresented: Binding<Bool>,
-        message: String,
+        messageKey: String,
         style: {Name}Snackbar.Style = .default,
         duration: Double = 3.0,
-        actionTitle: String? = nil,
+        actionTitleKey: String? = nil,
         action: (() -> Void)? = nil
     ) -> some View {
         modifier(
             {Name}SnackbarModifier(
                 isPresented: isPresented,
-                message: message,
+                messageKey: messageKey,
                 style: style,
                 duration: duration,
-                actionTitle: actionTitle,
+                actionTitleKey: actionTitleKey,
                 action: action
             )
         )
@@ -183,28 +200,28 @@ struct {Name}Snackbar_Previews: PreviewProvider {
 
     static var previews: some View {
         VStack(spacing: TTSize.P_L) {
-            Button("Show Success") { showSuccess = true }
-            Button("Show Error") { showError = true }
-            Button("Show With Action") { showDefault = true }
+            Button(action: { showSuccess = true }) { Text(XText("Preview.Snackbar.ShowSuccess")) }
+            Button(action: { showError = true }) { Text(XText("Preview.Snackbar.ShowError")) }
+            Button(action: { showDefault = true }) { Text(XText("Preview.Snackbar.ShowAction")) }
         }
-        .padding(TTSize.P_L)
-        .snackbar(isPresented: $showSuccess, message: "Changes saved successfully!", style: .success)
-        .snackbar(isPresented: $showError, message: "Failed to save changes.", style: .error, duration: 5.0)
+        .pAll(TTSize.P_L)
+        .snackbar(isPresented: $showSuccess, messageKey: "Preview.Snackbar.Success", style: .success)
+        .snackbar(isPresented: $showError, messageKey: "Preview.Snackbar.Error", style: .error, duration: 5.0)
         .snackbar(
             isPresented: $showDefault,
-            message: "Undo this action?",
-            actionTitle: "UNDO",
+            messageKey: "Preview.Snackbar.Undo",
+            actionTitleKey: "Preview.Snackbar.Undo.Action",
             action: { }
         )
-        .background(TTView.viewBgColor.toColor())
+        .bg(byDef: TTView.viewBgColor.toColor())
     }
 }
 ```
 
 ## Rules
 
-1. **100% native SwiftUI** — no TTBaseSUI* wrappers
-2. **TTBaseUIKit tokens**: `TTView.*.toColor()`, `TTSize.*`, `TTFont.*`
+1. **100% native SwiftUI primitives** — no `TTBaseSUI*`, `SUIBaseView`, or `TTBaseNavigationLink` wrappers in `/native-*` components
+2. **TTBaseUIKit tokens + chainable modifiers**: `TTView.*.toColor()`, `TTSize.*`, `TTFont.*`, `.pAll()`, `.bg()`, `.corner()`, `.baseShadow()`, `.size()`
 3. **Background**: dark gray (#333333) default, TTBaseUIKit status colors for other styles
 4. **Text**: white, medium weight, leading alignment
 5. **Corner radius = TTSize.CORNER_RADIUS (4pt)**

@@ -10,6 +10,23 @@ Build reusable avatar native SwiftUI components using TTBaseUIKit design tokens.
 
 User says: "native avatar", "user avatar", "profile picture", "initials avatar"
 
+## Native SwiftUI Compliance Baseline
+
+These rules override any older examples in this prompt:
+
+1. **100% native SwiftUI primitives** inside generated `/native-*` components: use `Text`, `Button`, `VStack`, `HStack`, `Image`, native controls, shapes, and modifiers; do not use `TTBaseSUI*`, `SUIBaseView`, or `TTBaseNavigationLink` here.
+2. **TTBaseUIKit project rules still apply**: follow the current project folder structure, file header marker, `MARK` sections, access control, Xcode project registration, and verification scripts.
+3. **Displayed strings must use `XText("key")`**. Prefer API names like `titleKey`, `textKey`, `placeholderKey`, `accessibilityKey`, and `hintKey`. Convert raw sample strings to localization keys before emitting production code.
+4. **Use `TTView`, `TTSize`, and `TTFont` tokens** for colors, spacing, radii, heights, and fonts. Do not hardcode design values unless needed for geometry math.
+5. **Chainable modifiers are mandatory where available**: prefer `.pAll()`, `.pHorizontal()`, `.pVertical()`, `.bg()`, `.corner()`, `.baseShadow()`, `.baseBorder()`, `.size()`, `.sizeSquare()`, `.maxWidth()`, and `.maxHeight()` over raw `.padding`, `.background`, `.clipShape`, `.frame` chains when the extension covers the behavior.
+6. **Use `Button` or native controls for all tappable UI**. Do not use `.onTapGesture` as a button substitute; `.onTapHandle` is only allowed for real non-control gestures.
+7. **Minimum tap target is 44x44** for every interactive element.
+8. **`@StateObject` for owned ViewModels, `@ObservedObject` for injected ViewModels**. Do not instantiate observable objects inside `body`.
+9. **Use `[weak self]` in every escaping closure inside classes/ViewModels/coordinators/services**. SwiftUI `View` structs should call injected closures/private methods without strongly capturing reference objects.
+10. **Keep `body` under 40 lines**. Extract private computed subviews, helper methods, or private `View` structs.
+11. **iOS 14+ only**: no `.task`, `NavigationStack`, `#Preview`, `.foregroundStyle()`, `AsyncImage`, or other iOS 15+ APIs.
+12. **Accessibility is mandatory**: use `.accessibilityLabel(XText(...))` and `.accessibilityHint(XText(...))` for interactive or non-obvious UI.
+
 ## Avatar Component Pattern
 
 ```swift
@@ -86,7 +103,7 @@ public struct {Name}Avatar: View {
             Circle()
                 .stroke(self.borderColor ?? Color.clear, lineWidth: self.borderWidth)
         )
-        .accessibilityLabel("Avatar")
+        .accessibilityLabel(XText("Accessibility.Avatar"))
     }
 
     private var backgroundView: some View {
@@ -158,15 +175,15 @@ public struct {Name}AvatarWithStatus: View {
                 )
                 .offset(x: 2, y: 2)
         }
-        .accessibilityLabel("Avatar with \(self.statusAccessibilityLabel) status")
+        .accessibilityLabel(String(format: XText("Accessibility.Avatar.Status.Format"), XText(self.statusAccessibilityKey)))
     }
 
-    private var statusAccessibilityLabel: String {
+    private var statusAccessibilityKey: String {
         switch self.status {
-        case .online:  return "online"
-        case .offline: return "offline"
-        case .busy:    return "busy"
-        case .away:    return "away"
+        case .online:  return "Accessibility.Status.Online"
+        case .offline: return "Accessibility.Status.Offline"
+        case .busy:    return "Accessibility.Status.Busy"
+        case .away:    return "Accessibility.Status.Away"
         }
     }
 }
@@ -195,16 +212,16 @@ struct {Name}Avatar_Previews: PreviewProvider {
                 {Name}AvatarWithStatus(content: .initials("XY"), size: .medium, status: .offline)
             }
         }
-        .padding(TTSize.P_L)
-        .background(TTView.viewBgColor.toColor())
+        .pAll(TTSize.P_L)
+        .bg(byDef: TTView.viewBgColor.toColor())
     }
 }
 ```
 
 ## Rules
 
-1. **100% native SwiftUI** — no TTBaseSUI* wrappers
-2. **TTBaseUIKit tokens**: `TTView.*.toColor()`, `TTSize.*`, `TTFont.*`
+1. **100% native SwiftUI primitives** — no `TTBaseSUI*`, `SUIBaseView`, or `TTBaseNavigationLink` wrappers in `/native-*` components
+2. **TTBaseUIKit tokens + chainable modifiers**: `TTView.*.toColor()`, `TTSize.*`, `TTFont.*`, `.pAll()`, `.bg()`, `.corner()`, `.baseShadow()`, `.size()`
 3. **Sizes**: xsmall (24pt), small (32pt), medium (48pt), large (64pt), xlarge (96pt)
 4. **Content**: `.image(Image)`, `.initials(String)`, `.placeholder`
 5. **Initials**: `prefix(2).uppercased()`, font size = size * 0.35

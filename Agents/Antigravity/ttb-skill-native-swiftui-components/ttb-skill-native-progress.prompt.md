@@ -10,6 +10,23 @@ Build reusable progress native SwiftUI components using TTBaseUIKit design token
 
 User says: "native progress", "progress bar", "loading", "skeleton", "circular progress", "percentage"
 
+## Native SwiftUI Compliance Baseline
+
+These rules override any older examples in this prompt:
+
+1. **100% native SwiftUI primitives** inside generated `/native-*` components: use `Text`, `Button`, `VStack`, `HStack`, `Image`, native controls, shapes, and modifiers; do not use `TTBaseSUI*`, `SUIBaseView`, or `TTBaseNavigationLink` here.
+2. **TTBaseUIKit project rules still apply**: follow the current project folder structure, file header marker, `MARK` sections, access control, Xcode project registration, and verification scripts.
+3. **Displayed strings must use `XText("key")`**. Prefer API names like `titleKey`, `textKey`, `placeholderKey`, `accessibilityKey`, and `hintKey`. Convert raw sample strings to localization keys before emitting production code.
+4. **Use `TTView`, `TTSize`, and `TTFont` tokens** for colors, spacing, radii, heights, and fonts. Do not hardcode design values unless needed for geometry math.
+5. **Chainable modifiers are mandatory where available**: prefer `.pAll()`, `.pHorizontal()`, `.pVertical()`, `.bg()`, `.corner()`, `.baseShadow()`, `.baseBorder()`, `.size()`, `.sizeSquare()`, `.maxWidth()`, and `.maxHeight()` over raw `.padding`, `.background`, `.clipShape`, `.frame` chains when the extension covers the behavior.
+6. **Use `Button` or native controls for all tappable UI**. Do not use `.onTapGesture` as a button substitute; `.onTapHandle` is only allowed for real non-control gestures.
+7. **Minimum tap target is 44x44** for every interactive element.
+8. **`@StateObject` for owned ViewModels, `@ObservedObject` for injected ViewModels**. Do not instantiate observable objects inside `body`.
+9. **Use `[weak self]` in every escaping closure inside classes/ViewModels/coordinators/services**. SwiftUI `View` structs should call injected closures/private methods without strongly capturing reference objects.
+10. **Keep `body` under 40 lines**. Extract private computed subviews, helper methods, or private `View` structs.
+11. **iOS 14+ only**: no `.task`, `NavigationStack`, `#Preview`, `.foregroundStyle()`, `AsyncImage`, or other iOS 15+ APIs.
+12. **Accessibility is mandatory**: use `.accessibilityLabel(XText(...))` and `.accessibilityHint(XText(...))` for interactive or non-obvious UI.
+
 ## Progress Component Pattern
 
 ```swift
@@ -65,7 +82,7 @@ public struct {Name}LinearProgressBar: View {
     }
 
     private var percentageLabel: some View {
-        Text("\(Int(self.progress * 100))%")
+        Text(String(format: XText("Progress.Percent.Format"), Int(self.progress * 100)))
             .font(.system(size: TTFont.SUB_TITLE_H, weight: .semibold))
             .foregroundColor(TTView.textDefColor.toColor())
             .frame(minWidth: 40, alignment: self.labelPosition == .leading ? .leading : .trailing)
@@ -81,11 +98,11 @@ public struct {Name}LinearProgressBar: View {
                 RoundedRectangle(cornerRadius: self.height / 2)
                     .fill(self.progressColor)
                     .frame(width: max(0, geometry.size.width * CGFloat(min(1, max(0, self.progress)))), height: self.height)
-                    .animation(.easeInOut(duration: 0.3), value: self.progress)
+                    .animation(.easeInOut(duration: 0.3))
             }
         }
         .frame(height: self.height)
-        .accessibilityLabel("\(Int(self.progress * 100)) percent complete")
+        .accessibilityLabel(String(format: XText("Accessibility.Progress.Percent.Format"), Int(self.progress * 100)))
     }
 }
 
@@ -123,16 +140,16 @@ public struct {Name}CircularProgress: View {
                 .trim(from: 0, to: CGFloat(min(1, max(0, self.progress))))
                 .stroke(self.progressColor, style: StrokeStyle(lineWidth: self.lineWidth, lineCap: .round))
                 .rotationEffect(.degrees(-90))
-                .animation(.easeInOut(duration: 0.3), value: self.progress)
+                .animation(.easeInOut(duration: 0.3))
 
             if self.showPercentage {
-                Text("\(Int(self.progress * 100))%")
+                Text(String(format: XText("Progress.Percent.Format"), Int(self.progress * 100)))
                     .font(.system(size: TTFont.SUB_TITLE_H, weight: .semibold))
                     .foregroundColor(TTView.textDefColor.toColor())
             }
         }
         .frame(width: self.size, height: self.size)
-        .accessibilityLabel("\(Int(self.progress * 100)) percent complete")
+        .accessibilityLabel(String(format: XText("Accessibility.Progress.Percent.Format"), Int(self.progress * 100)))
     }
 }
 
@@ -167,7 +184,7 @@ public struct {Name}SkeletonLoader: View {
     private var skeletonView: some View {
         Rectangle()
             .fill(TTView.viewBgSkeleton.toColor())
-            .clipShape(RoundedRectangle(cornerRadius: self.shape.cornerRadius))
+            .corner(byDef: self.shape.cornerRadius)
     }
 
     public var body: some View {
@@ -204,16 +221,16 @@ struct {Name}Progress_Previews: PreviewProvider {
                 {Name}SkeletonLoader(height: 60, shape: .rounded(TTSize.CORNER_PANEL))
             }
         }
-        .padding(TTSize.P_L)
-        .background(TTView.viewBgColor.toColor())
+        .pAll(TTSize.P_L)
+        .bg(byDef: TTView.viewBgColor.toColor())
     }
 }
 ```
 
 ## Rules
 
-1. **100% native SwiftUI** — no TTBaseSUI* wrappers
-2. **TTBaseUIKit tokens**: `TTView.*.toColor()`, `TTSize.*`, `TTFont.*`
+1. **100% native SwiftUI primitives** — no `TTBaseSUI*`, `SUIBaseView`, or `TTBaseNavigationLink` wrappers in `/native-*` components
+2. **TTBaseUIKit tokens + chainable modifiers**: `TTView.*.toColor()`, `TTSize.*`, `TTFont.*`, `.pAll()`, `.bg()`, `.corner()`, `.baseShadow()`, `.size()`
 3. **Linear progress**: GeometryReader for responsive width, rounded caps
 4. **Circular progress**: `trim(from:to:)` with `.rotationEffect(.degrees(-90))`
 5. **Skeleton**: use `.shimmering()` modifier from TTBaseUIKit

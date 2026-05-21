@@ -10,6 +10,23 @@ Build reusable divider and section native SwiftUI components using TTBaseUIKit d
 
 User says: "native divider", "separator", "section spacer", "section header", "line"
 
+## Native SwiftUI Compliance Baseline
+
+These rules override any older examples in this prompt:
+
+1. **100% native SwiftUI primitives** inside generated `/native-*` components: use `Text`, `Button`, `VStack`, `HStack`, `Image`, native controls, shapes, and modifiers; do not use `TTBaseSUI*`, `SUIBaseView`, or `TTBaseNavigationLink` here.
+2. **TTBaseUIKit project rules still apply**: follow the current project folder structure, file header marker, `MARK` sections, access control, Xcode project registration, and verification scripts.
+3. **Displayed strings must use `XText("key")`**. Prefer API names like `titleKey`, `textKey`, `placeholderKey`, `accessibilityKey`, and `hintKey`. Convert raw sample strings to localization keys before emitting production code.
+4. **Use `TTView`, `TTSize`, and `TTFont` tokens** for colors, spacing, radii, heights, and fonts. Do not hardcode design values unless needed for geometry math.
+5. **Chainable modifiers are mandatory where available**: prefer `.pAll()`, `.pHorizontal()`, `.pVertical()`, `.bg()`, `.corner()`, `.baseShadow()`, `.baseBorder()`, `.size()`, `.sizeSquare()`, `.maxWidth()`, and `.maxHeight()` over raw `.padding`, `.background`, `.clipShape`, `.frame` chains when the extension covers the behavior.
+6. **Use `Button` or native controls for all tappable UI**. Do not use `.onTapGesture` as a button substitute; `.onTapHandle` is only allowed for real non-control gestures.
+7. **Minimum tap target is 44x44** for every interactive element.
+8. **`@StateObject` for owned ViewModels, `@ObservedObject` for injected ViewModels**. Do not instantiate observable objects inside `body`.
+9. **Use `[weak self]` in every escaping closure inside classes/ViewModels/coordinators/services**. SwiftUI `View` structs should call injected closures/private methods without strongly capturing reference objects.
+10. **Keep `body` under 40 lines**. Extract private computed subviews, helper methods, or private `View` structs.
+11. **iOS 14+ only**: no `.task`, `NavigationStack`, `#Preview`, `.foregroundStyle()`, `AsyncImage`, or other iOS 15+ APIs.
+12. **Accessibility is mandatory**: use `.accessibilityLabel(XText(...))` and `.accessibilityHint(XText(...))` for interactive or non-obvious UI.
+
 ## Divider Component Pattern
 
 ```swift
@@ -107,36 +124,36 @@ public struct {Name}SectionSpacer: View {
 
 // MARK: - {Name}SectionHeader
 public struct {Name}SectionHeader: View {
-    public let title: String
-    public var actionTitle: String?
+    public let titleKey: String
+    public var actionTitleKey: String?
     public var onAction: (() -> Void)?
 
-    public init(title: String, actionTitle: String? = nil, onAction: (() -> Void)? = nil) {
-        self.title = title
-        self.actionTitle = actionTitle
+    public init(titleKey: String, actionTitleKey: String? = nil, onAction: (() -> Void)? = nil) {
+        self.titleKey = titleKey
+        self.actionTitleKey = actionTitleKey
         self.onAction = onAction
     }
 
     public var body: some View {
         HStack {
-            Text(self.title)
+            Text(XText(self.titleKey))
                 .font(.system(size: TTFont.SUB_TITLE_H, weight: .semibold))
                 .foregroundColor(TTView.textSubTitleColor.toColor())
                 .textCase(.uppercase)
 
             Spacer()
 
-            if let actionTitle = self.actionTitle, let onAction = self.onAction {
+            if let actionTitleKey = self.actionTitleKey, let onAction = self.onAction {
                 Button(action: onAction) {
-                    Text(actionTitle)
+                    Text(XText(actionTitleKey))
                         .font(.system(size: TTFont.SUB_TITLE_H, weight: .medium))
                         .foregroundColor(TTView.buttonBgDef.toColor())
                 }
-                .accessibilityLabel("See all \(self.title)")
+                .accessibilityLabel(String(format: XText("Accessibility.Section.Action.Format"), XText(actionTitleKey), XText(self.titleKey)))
             }
         }
-        .padding(.horizontal, TTSize.P_L)
-        .padding(.vertical, TTSize.P_S)
+        .pHorizontal(TTSize.P_L)
+        .pVertical(TTSize.P_S)
     }
 }
 
@@ -159,12 +176,12 @@ public struct {Name}BulletList<Content: View>: View {
 
 // MARK: - {Name}BulletItem
 public struct {Name}BulletItem: View {
-    public let text: String
+    public let textKey: String
     public var bulletColor: Color = TTView.buttonBgDef.toColor()
     public var textColor: Color = TTView.textDefColor.toColor()
 
-    public init(_ text: String, bulletColor: Color? = nil, textColor: Color? = nil) {
-        self.text = text
+    public init(_ textKey: String, bulletColor: Color? = nil, textColor: Color? = nil) {
+        self.textKey = textKey
         if let bc = bulletColor { self.bulletColor = bc }
         if let tc = textColor { self.textColor = tc }
     }
@@ -176,7 +193,7 @@ public struct {Name}BulletItem: View {
                 .frame(width: 6, height: 6)
                 .padding(.top, 6)
 
-            Text(self.text)
+            Text(XText(self.textKey))
                 .font(.system(size: TTFont.TITLE_H, weight: .regular))
                 .foregroundColor(self.textColor)
         }
@@ -187,15 +204,15 @@ public struct {Name}BulletItem: View {
 struct {Name}Divider_Previews: PreviewProvider {
     static var previews: some View {
         VStack(spacing: 0) {
-            {Name}SectionHeader(title: "Account Settings", actionTitle: "Edit") { }
+            {Name}SectionHeader(titleKey: "Settings.Account.Title", actionTitleKey: "Common.Action.Edit") { }
 
             {Name}HorizontalDivider()
 
             VStack(spacing: TTSize.P_L) {
                 HStack(spacing: TTSize.P_L) {
-                    VStack { Text("Left"); Spacer() }
+                    VStack { Text(XText("Preview.Divider.Left")); Spacer() }
                     {Name}VerticalDivider()
-                    VStack { Text("Right"); Spacer() }
+                    VStack { Text(XText("Preview.Divider.Right")); Spacer() }
                 }
                 .frame(height: 60)
 
@@ -207,20 +224,20 @@ struct {Name}Divider_Previews: PreviewProvider {
                     {Name}BulletItem("Third bullet point", bulletColor: TTView.colorSuccess.toColor())
                 }
             }
-            .padding(TTSize.P_L)
+            .pAll(TTSize.P_L)
         }
-        .background(TTView.viewBgCellColor.toColor())
-        .clipShape(RoundedRectangle(cornerRadius: TTSize.CORNER_PANEL))
-        .padding(TTSize.P_L)
-        .background(TTView.viewBgColor.toColor())
+        .bg(byDef: TTView.viewBgCellColor.toColor())
+        .corner(byDef: TTSize.CORNER_PANEL)
+        .pAll(TTSize.P_L)
+        .bg(byDef: TTView.viewBgColor.toColor())
     }
 }
 ```
 
 ## Rules
 
-1. **100% native SwiftUI** — no TTBaseSUI* wrappers
-2. **TTBaseUIKit tokens**: `TTView.*.toColor()`, `TTSize.*`, `TTFont.*`
+1. **100% native SwiftUI primitives** — no `TTBaseSUI*`, `SUIBaseView`, or `TTBaseNavigationLink` wrappers in `/native-*` components
+2. **TTBaseUIKit tokens + chainable modifiers**: `TTView.*.toColor()`, `TTSize.*`, `TTFont.*`, `.pAll()`, `.bg()`, `.corner()`, `.baseShadow()`, `.size()`
 3. **Divider thickness = TTSize.H_LINEVIEW (1.5pt)** — default
 4. **Divider color = TTView.lineDefColor** — separator gray
 5. **Insets**: use `leftInset`/`rightInset` to indent from edges

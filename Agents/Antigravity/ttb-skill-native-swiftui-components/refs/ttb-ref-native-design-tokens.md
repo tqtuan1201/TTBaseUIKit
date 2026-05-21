@@ -118,15 +118,15 @@ TTFont.SUB_SUB_TITLE_H // ~10pt — smallest label
 
 ### Usage in SwiftUI Text
 ```swift
-Text("Heading")
+Text(XText("Feature.Heading"))
     .font(.system(size: TTFont.HEADER_H, weight: .bold))
     .foregroundColor(TTView.textHeaderColor.toColor())
 
-Text("Title")
+Text(XText("Feature.Title"))
     .font(.system(size: TTFont.TITLE_H, weight: .medium))
     .foregroundColor(TTView.textDefColor.toColor())
 
-Text("Caption")
+Text(XText("Feature.Caption"))
     .font(.system(size: TTFont.SUB_TITLE_H, weight: .regular))
     .foregroundColor(TTView.textSubTitleColor.toColor())
 ```
@@ -146,12 +146,12 @@ Text("Caption")
 // Via modifier extension
 .baseShadow()
 // OR raw:
-.shadow(color: .black.opacity(0.14), radius: 8, x: 0, y: 4)
+.baseShadow()
 ```
 
 ### Panel Shadow
 ```swift
-.shadow(color: .black.opacity(0.14), radius: 8, x: 0, y: 4)
+.baseShadow()
 ```
 
 ## Quick Reference Table
@@ -173,14 +173,47 @@ Text("Caption")
 | `TTFont.TITLE_H` | ~14pt | Title text |
 | `TTFont.SUB_TITLE_H` | ~12pt | Subtitle text |
 
+## Chainable Modifier Requirement
+
+Native SwiftUI components still use TTBaseUIKit chainable modifier extensions. Prefer these in generated code whenever they express the same behavior:
+
+```swift
+.pAll(TTSize.P_CONS_DEF)
+.pHorizontal(TTSize.P_CONS_DEF)
+.pVertical(TTSize.P_CONS_DEF)
+.bg(byDef: TTView.viewBgCellColor.toColor())
+.bg(byUIColor: TTView.viewBgColor)
+.corner(byDef: TTSize.CORNER_PANEL)
+.baseShadow()
+.baseBorder(color: TTView.lineDefColor.toColor(), width: TTSize.H_LINEVIEW, radius: TTSize.CORNER_RADIUS)
+.size(height: TTSize.H_BUTTON)
+.sizeSquare(width: TTSize.H_ICON)
+.maxWidth()
+.maxHeight()
+```
+
+Use raw SwiftUI `.padding`, `.background`, `.clipShape`, or `.frame` only when there is no matching chainable extension or when the extension cannot represent the required layout.
+
+## Localization Requirement
+
+Every displayed string must use `XText("key")`:
+
+```swift
+Text(XText("Feature.Title"))
+Button(action: submit) { Text(XText("Feature.Action.Submit")) }
+.accessibilityLabel(XText("Feature.Action.Submit"))
+```
+
+Do not emit raw production copy such as `Text("Submit")`, `Button("Save")`, or `.accessibilityLabel("Close")`.
+
 ## Common Calculations
 
 ```swift
 // Screen edge padding
-.padding(TTSize.P_L)
+.pAll(TTSize.P_L)
 
 // Card internal padding
-.padding(TTSize.P_CONS_DEF)
+.pAll(TTSize.P_CONS_DEF)
 
 // Between icon and text
 HStack(spacing: TTSize.P_S)
@@ -194,14 +227,14 @@ VStack(spacing: TTSize.P_XL)
 // Button with full width
 .frame(maxWidth: .infinity)
 .frame(height: TTSize.H_BUTTON)
-.background(TTView.buttonBgDef.toColor())
-.clipShape(RoundedRectangle(cornerRadius: TTSize.CORNER_BUTTON))
+.bg(byDef: TTView.buttonBgDef.toColor())
+.corner(byDef: TTSize.CORNER_BUTTON)
 
 // Icon + Text row
 HStack(spacing: TTSize.P_CONS_DEF) {
     Image(systemName: "icon")
         .frame(width: TTSize.H_SMALL_ICON, height: TTSize.H_SMALL_ICON)
-    Text("Label")
+    Text(XText("Feature.Label"))
         .font(.system(size: TTFont.TITLE_H))
 }
 
@@ -209,10 +242,10 @@ HStack(spacing: TTSize.P_CONS_DEF) {
 Button { action() } label: {
     content
 }
-.padding(TTSize.P_CONS_DEF)
-.background(TTView.viewBgCellColor.toColor())
-.clipShape(RoundedRectangle(cornerRadius: TTSize.CORNER_PANEL))
-.shadow(color: .black.opacity(0.14), radius: 8, x: 0, y: 4)
+.pAll(TTSize.P_CONS_DEF)
+.bg(byDef: TTView.viewBgCellColor.toColor())
+.corner(byDef: TTSize.CORNER_PANEL)
+.baseShadow()
 .buttonStyle(.plain)
 ```
 

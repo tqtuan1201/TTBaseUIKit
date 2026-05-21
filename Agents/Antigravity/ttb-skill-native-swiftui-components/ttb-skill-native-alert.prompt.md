@@ -10,6 +10,23 @@ Build reusable alert and confirmation dialog native SwiftUI components using TTB
 
 User says: "native alert", "confirmation dialog", "alert dialog", "prompt"
 
+## Native SwiftUI Compliance Baseline
+
+These rules override any older examples in this prompt:
+
+1. **100% native SwiftUI primitives** inside generated `/native-*` components: use `Text`, `Button`, `VStack`, `HStack`, `Image`, native controls, shapes, and modifiers; do not use `TTBaseSUI*`, `SUIBaseView`, or `TTBaseNavigationLink` here.
+2. **TTBaseUIKit project rules still apply**: follow the current project folder structure, file header marker, `MARK` sections, access control, Xcode project registration, and verification scripts.
+3. **Displayed strings must use `XText("key")`**. Prefer API names like `titleKey`, `textKey`, `placeholderKey`, `accessibilityKey`, and `hintKey`. Convert raw sample strings to localization keys before emitting production code.
+4. **Use `TTView`, `TTSize`, and `TTFont` tokens** for colors, spacing, radii, heights, and fonts. Do not hardcode design values unless needed for geometry math.
+5. **Chainable modifiers are mandatory where available**: prefer `.pAll()`, `.pHorizontal()`, `.pVertical()`, `.bg()`, `.corner()`, `.baseShadow()`, `.baseBorder()`, `.size()`, `.sizeSquare()`, `.maxWidth()`, and `.maxHeight()` over raw `.padding`, `.background`, `.clipShape`, `.frame` chains when the extension covers the behavior.
+6. **Use `Button` or native controls for all tappable UI**. Do not use `.onTapGesture` as a button substitute; `.onTapHandle` is only allowed for real non-control gestures.
+7. **Minimum tap target is 44x44** for every interactive element.
+8. **`@StateObject` for owned ViewModels, `@ObservedObject` for injected ViewModels**. Do not instantiate observable objects inside `body`.
+9. **Use `[weak self]` in every escaping closure inside classes/ViewModels/coordinators/services**. SwiftUI `View` structs should call injected closures/private methods without strongly capturing reference objects.
+10. **Keep `body` under 40 lines**. Extract private computed subviews, helper methods, or private `View` structs.
+11. **iOS 14+ only**: no `.task`, `NavigationStack`, `#Preview`, `.foregroundStyle()`, `AsyncImage`, or other iOS 15+ APIs.
+12. **Accessibility is mandatory**: use `.accessibilityLabel(XText(...))` and `.accessibilityHint(XText(...))` for interactive or non-obvious UI.
+
 ## Alert Component Pattern
 
 ```swift
@@ -24,30 +41,30 @@ import TTBaseUIKit
 // MARK: - {Name}AlertModifier
 public struct {Name}AlertModifier: ViewModifier {
     @Binding public var isPresented: Bool
-    public let title: String
-    public var message: String?
-    public var primaryButtonTitle: String
+    public let titleKey: String
+    public var messageKey: String?
+    public var primaryButtonTitleKey: String
     public var primaryAction: () -> Void
-    public var secondaryButtonTitle: String?
+    public var secondaryButtonTitleKey: String?
     public var secondaryAction: (() -> Void)?
     public var dismissAction: (() -> Void)?
 
     public init(
         isPresented: Binding<Bool>,
-        title: String,
-        message: String? = nil,
-        primaryButtonTitle: String,
+        titleKey: String,
+        messageKey: String? = nil,
+        primaryButtonTitleKey: String,
         primaryAction: @escaping () -> Void,
-        secondaryButtonTitle: String? = nil,
+        secondaryButtonTitleKey: String? = nil,
         secondaryAction: (() -> Void)? = nil,
         dismissAction: (() -> Void)? = nil
     ) {
         self._isPresented = isPresented
-        self.title = title
-        self.message = message
-        self.primaryButtonTitle = primaryButtonTitle
+        self.titleKey = titleKey
+        self.messageKey = messageKey
+        self.primaryButtonTitleKey = primaryButtonTitleKey
         self.primaryAction = primaryAction
-        self.secondaryButtonTitle = secondaryButtonTitle
+        self.secondaryButtonTitleKey = secondaryButtonTitleKey
         self.secondaryAction = secondaryAction
         self.dismissAction = dismissAction
     }
@@ -59,7 +76,7 @@ public struct {Name}AlertModifier: ViewModifier {
             if self.isPresented {
                 Color.black.opacity(0.4)
                     .ignoresSafeArea()
-                    .onTapGesture {
+                    .onTapHandle {
                         self.dismiss()
                     }
 
@@ -67,7 +84,7 @@ public struct {Name}AlertModifier: ViewModifier {
                     .transition(.scale.combined(with: .opacity))
             }
         }
-        .animation(.easeInOut(duration: 0.2), value: self.isPresented)
+        .animation(.easeInOut(duration: 0.2))
     }
 
     private func dismiss() {
@@ -78,13 +95,13 @@ public struct {Name}AlertModifier: ViewModifier {
     private var alertView: some View {
         VStack(spacing: TTSize.P_L) {
             VStack(spacing: TTSize.P_S) {
-                Text(self.title)
+                Text(XText(self.titleKey))
                     .font(.system(size: TTFont.HEADER_H, weight: .bold))
                     .foregroundColor(TTView.textHeaderColor.toColor())
                     .multilineTextAlignment(.center)
 
-                if let message = self.message {
-                    Text(message)
+                if let messageKey = self.messageKey {
+                    Text(XText(messageKey))
                         .font(.system(size: TTFont.TITLE_H, weight: .regular))
                         .foregroundColor(TTView.textDefColor.toColor())
                         .multilineTextAlignment(.center)
@@ -96,60 +113,60 @@ public struct {Name}AlertModifier: ViewModifier {
                     self.primaryAction()
                     self.isPresented = false
                 } label: {
-                    Text(self.primaryButtonTitle)
+                    Text(XText(self.primaryButtonTitleKey))
                         .font(.system(size: TTFont.TITLE_H, weight: .semibold))
                         .foregroundColor(.white)
                         .frame(maxWidth: .infinity)
                         .frame(height: TTSize.H_BUTTON)
-                        .background(TTView.buttonBgDef.toColor())
-                        .clipShape(RoundedRectangle(cornerRadius: TTSize.CORNER_BUTTON))
+                        .bg(byDef: TTView.buttonBgDef.toColor())
+                        .corner(byDef: TTSize.CORNER_BUTTON)
                 }
-                .accessibilityLabel(self.primaryButtonTitle)
+                .accessibilityLabel(XText(self.primaryButtonTitleKey))
 
-                if let secondaryTitle = self.secondaryButtonTitle {
+                if let secondaryButtonTitleKey = self.secondaryButtonTitleKey {
                     Button {
                         self.secondaryAction?()
                         self.isPresented = false
                     } label: {
-                        Text(secondaryTitle)
+                        Text(XText(secondaryButtonTitleKey))
                             .font(.system(size: TTFont.TITLE_H, weight: .semibold))
                             .foregroundColor(TTView.buttonBgDef.toColor())
                             .frame(maxWidth: .infinity)
                             .frame(height: TTSize.H_BUTTON)
                             .background(Color.clear)
-                            .clipShape(RoundedRectangle(cornerRadius: TTSize.CORNER_BUTTON))
+                            .corner(byDef: TTSize.CORNER_BUTTON)
                     }
-                    .accessibilityLabel(secondaryTitle)
+                    .accessibilityLabel(XText(secondaryButtonTitleKey))
                 }
             }
         }
-        .padding(TTSize.P_L)
+        .pAll(TTSize.P_L)
         .frame(maxWidth: 280)
-        .background(TTView.viewBgCellColor.toColor())
-        .clipShape(RoundedRectangle(cornerRadius: TTSize.CORNER_PANEL))
-        .shadow(color: .black.opacity(0.2), radius: 16, x: 0, y: 8)
+        .bg(byDef: TTView.viewBgCellColor.toColor())
+        .corner(byDef: TTSize.CORNER_PANEL)
+        .baseShadow(corner: TTSize.CORNER_PANEL, color: .black.opacity(0.2), radius: 16, x: 0, y: 8)
     }
 }
 
 public extension View {
     func {Name}Alert(
         isPresented: Binding<Bool>,
-        title: String,
-        message: String? = nil,
-        primaryButtonTitle: String,
+        titleKey: String,
+        messageKey: String? = nil,
+        primaryButtonTitleKey: String,
         primaryAction: @escaping () -> Void,
-        secondaryButtonTitle: String? = nil,
+        secondaryButtonTitleKey: String? = nil,
         secondaryAction: (() -> Void)? = nil,
         dismissAction: (() -> Void)? = nil
     ) -> some View {
         modifier(
             {Name}AlertModifier(
                 isPresented: isPresented,
-                title: title,
-                message: message,
-                primaryButtonTitle: primaryButtonTitle,
+                titleKey: titleKey,
+                messageKey: messageKey,
+                primaryButtonTitleKey: primaryButtonTitleKey,
                 primaryAction: primaryAction,
-                secondaryButtonTitle: secondaryButtonTitle,
+                secondaryButtonTitleKey: secondaryButtonTitleKey,
                 secondaryAction: secondaryAction,
                 dismissAction: dismissAction
             )
@@ -167,28 +184,28 @@ struct {Name}Alert_Previews: PreviewProvider {
             Color.gray.opacity(0.3).ignoresSafeArea()
 
             VStack(spacing: TTSize.P_L) {
-                Button("Show Alert") { showAlert = true }
-                Button("Show Confirmation") { showConfirm = true }
+                Button(action: { showAlert = true }) { Text(XText("Preview.Alert.Show")) }
+                Button(action: { showConfirm = true }) { Text(XText("Preview.Alert.ShowConfirmation")) }
             }
-            .padding()
+            .pAll(TTSize.P_CONS_DEF)
 
             Color.clear
                 .{Name}Alert(
                     isPresented: $showAlert,
-                    title: "Error",
-                    message: "Unable to connect to the server. Please check your internet connection."
-                ) {
-                    print("OK tapped")
-                }
+                    titleKey: "Preview.Alert.Error.Title",
+                    messageKey: "Preview.Alert.Error.ConnectionMessage",
+                    primaryButtonTitleKey: "Common.Action.OK",
+                    primaryAction: { print("OK tapped") }
+                )
 
             Color.clear
                 .{Name}Alert(
                     isPresented: $showConfirm,
-                    title: "Delete Item?",
-                    message: "This action cannot be undone.",
-                    primaryButtonTitle: "Delete",
+                    titleKey: "Preview.Alert.Delete.Title",
+                    messageKey: "Preview.Alert.Delete.Message",
+                    primaryButtonTitleKey: "Common.Action.Delete",
                     primaryAction: { print("Delete") },
-                    secondaryButtonTitle: "Cancel",
+                    secondaryButtonTitleKey: "Common.Action.Cancel",
                     secondaryAction: { print("Cancel") }
                 )
         }
@@ -198,8 +215,8 @@ struct {Name}Alert_Previews: PreviewProvider {
 
 ## Rules
 
-1. **100% native SwiftUI** — no TTBaseSUI* wrappers
-2. **TTBaseUIKit tokens**: `TTView.*.toColor()`, `TTSize.*`, `TTFont.*`
+1. **100% native SwiftUI primitives** — no `TTBaseSUI*`, `SUIBaseView`, or `TTBaseNavigationLink` wrappers in `/native-*` components
+2. **TTBaseUIKit tokens + chainable modifiers**: `TTView.*.toColor()`, `TTSize.*`, `TTFont.*`, `.pAll()`, `.bg()`, `.corner()`, `.baseShadow()`, `.size()`
 3. **Width**: max 280pt, centered
 4. **Corner radius = TTSize.CORNER_PANEL (8pt)**
 5. **Shadow**: opacity 0.2, radius 16, y: 8

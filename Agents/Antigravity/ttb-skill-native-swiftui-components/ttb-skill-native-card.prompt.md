@@ -10,6 +10,23 @@ Build reusable card native SwiftUI components using TTBaseUIKit design tokens.
 
 User says: "native card", "card component", "tappable card", "action card", "static card"
 
+## Native SwiftUI Compliance Baseline
+
+These rules override any older examples in this prompt:
+
+1. **100% native SwiftUI primitives** inside generated `/native-*` components: use `Text`, `Button`, `VStack`, `HStack`, `Image`, native controls, shapes, and modifiers; do not use `TTBaseSUI*`, `SUIBaseView`, or `TTBaseNavigationLink` here.
+2. **TTBaseUIKit project rules still apply**: follow the current project folder structure, file header marker, `MARK` sections, access control, Xcode project registration, and verification scripts.
+3. **Displayed strings must use `XText("key")`**. Prefer API names like `titleKey`, `textKey`, `placeholderKey`, `accessibilityKey`, and `hintKey`. Convert raw sample strings to localization keys before emitting production code.
+4. **Use `TTView`, `TTSize`, and `TTFont` tokens** for colors, spacing, radii, heights, and fonts. Do not hardcode design values unless needed for geometry math.
+5. **Chainable modifiers are mandatory where available**: prefer `.pAll()`, `.pHorizontal()`, `.pVertical()`, `.bg()`, `.corner()`, `.baseShadow()`, `.baseBorder()`, `.size()`, `.sizeSquare()`, `.maxWidth()`, and `.maxHeight()` over raw `.padding`, `.background`, `.clipShape`, `.frame` chains when the extension covers the behavior.
+6. **Use `Button` or native controls for all tappable UI**. Do not use `.onTapGesture` as a button substitute; `.onTapHandle` is only allowed for real non-control gestures.
+7. **Minimum tap target is 44x44** for every interactive element.
+8. **`@StateObject` for owned ViewModels, `@ObservedObject` for injected ViewModels**. Do not instantiate observable objects inside `body`.
+9. **Use `[weak self]` in every escaping closure inside classes/ViewModels/coordinators/services**. SwiftUI `View` structs should call injected closures/private methods without strongly capturing reference objects.
+10. **Keep `body` under 40 lines**. Extract private computed subviews, helper methods, or private `View` structs.
+11. **iOS 14+ only**: no `.task`, `NavigationStack`, `#Preview`, `.foregroundStyle()`, `AsyncImage`, or other iOS 15+ APIs.
+12. **Accessibility is mandatory**: use `.accessibilityLabel(XText(...))` and `.accessibilityHint(XText(...))` for interactive or non-obvious UI.
+
 ## Card Component Pattern
 
 ```swift
@@ -36,10 +53,10 @@ public struct {Name}TappableCard<Content: View>: View {
             self.onTap?()
         } label: {
             self.content()
-                .padding(TTSize.P_CONS_DEF)
-                .background(TTView.viewBgCellColor.toColor())
-                .clipShape(RoundedRectangle(cornerRadius: TTSize.CORNER_PANEL))
-                .shadow(color: .black.opacity(0.08), radius: 4, x: 0, y: 2)
+                .pAll(TTSize.P_CONS_DEF)
+                .bg(byDef: TTView.viewBgCellColor.toColor())
+                .corner(byDef: TTSize.CORNER_PANEL)
+                .baseShadow()
         }
         .buttonStyle(.plain)
     }
@@ -55,34 +72,34 @@ public struct {Name}StaticCard<Content: View>: View {
 
     public var body: some View {
         self.content()
-            .padding(TTSize.P_CONS_DEF)
-            .background(TTView.viewBgCellColor.toColor())
-            .clipShape(RoundedRectangle(cornerRadius: TTSize.CORNER_PANEL))
-            .shadow(color: .black.opacity(0.08), radius: 4, x: 0, y: 2)
+            .pAll(TTSize.P_CONS_DEF)
+            .bg(byDef: TTView.viewBgCellColor.toColor())
+            .corner(byDef: TTSize.CORNER_PANEL)
+            .baseShadow()
     }
 }
 
 // MARK: - {Name}ActionCard
 public struct {Name}ActionCard: View {
-    public let title: String
-    public let subtitle: String?
+    public let titleKey: String
+    public let subtitleKey: String?
     public let iconName: String?
-    public var buttonTitle: String?
+    public var buttonTitleKey: String?
     public var onTap: (() -> Void)?
     public var onAction: (() -> Void)?
 
     public init(
-        title: String,
-        subtitle: String? = nil,
+        titleKey: String,
+        subtitleKey: String? = nil,
         iconName: String? = nil,
-        buttonTitle: String? = nil,
+        buttonTitleKey: String? = nil,
         onTap: (() -> Void)? = nil,
         onAction: (() -> Void)? = nil
     ) {
-        self.title = title
-        self.subtitle = subtitle
+        self.titleKey = titleKey
+        self.subtitleKey = subtitleKey
         self.iconName = iconName
-        self.buttonTitle = buttonTitle
+        self.buttonTitleKey = buttonTitleKey
         self.onTap = onTap
         self.onAction = onAction
     }
@@ -96,23 +113,23 @@ public struct {Name}ActionCard: View {
                         .foregroundColor(TTView.buttonBgDef.toColor())
                 }
 
-                Text(self.title)
+                Text(XText(self.titleKey))
                     .font(.system(size: TTFont.HEADER_H, weight: .bold))
                     .foregroundColor(TTView.textHeaderColor.toColor())
 
-                if let subtitle = self.subtitle {
-                    Text(subtitle)
+                if let subtitleKey = self.subtitleKey {
+                    Text(XText(subtitleKey))
                         .font(.system(size: TTFont.TITLE_H, weight: .regular))
                         .foregroundColor(TTView.textDefColor.toColor())
                 }
 
-                if let buttonTitle = self.buttonTitle, let onAction = self.onAction {
+                if let buttonTitleKey = self.buttonTitleKey, let onAction = self.onAction {
                     Button(action: onAction) {
-                        Text(buttonTitle)
+                        Text(XText(buttonTitleKey))
                             .font(.system(size: TTFont.TITLE_H, weight: .semibold))
                             .foregroundColor(TTView.buttonBgDef.toColor())
                     }
-                    .padding(.top, TTSize.P_S)
+                    .pTop(TTSize.P_S)
                 }
             }
         }
@@ -122,14 +139,14 @@ public struct {Name}ActionCard: View {
 // MARK: - {Name}CardRow
 public struct {Name}CardRow: View {
     public let iconName: String
-    public let title: String
-    public let subtitle: String?
+    public let titleKey: String
+    public let subtitleKey: String?
     public var onTap: (() -> Void)?
 
-    public init(iconName: String, title: String, subtitle: String? = nil, onTap: (() -> Void)? = nil) {
+    public init(iconName: String, titleKey: String, subtitleKey: String? = nil, onTap: (() -> Void)? = nil) {
         self.iconName = iconName
-        self.title = title
-        self.subtitle = subtitle
+        self.titleKey = titleKey
+        self.subtitleKey = subtitleKey
         self.onTap = onTap
     }
 
@@ -144,11 +161,11 @@ public struct {Name}CardRow: View {
                     .frame(width: TTSize.H_SMALL_ICON, height: TTSize.H_SMALL_ICON)
 
                 VStack(alignment: .leading, spacing: TTSize.P_S / 2) {
-                    Text(self.title)
+                    Text(XText(self.titleKey))
                         .font(.system(size: TTFont.TITLE_H, weight: .medium))
                         .foregroundColor(TTView.textDefColor.toColor())
-                    if let subtitle = self.subtitle {
-                        Text(subtitle)
+                    if let subtitleKey = self.subtitleKey {
+                        Text(XText(subtitleKey))
                             .font(.system(size: TTFont.SUB_TITLE_H, weight: .regular))
                             .foregroundColor(TTView.textSubTitleColor.toColor())
                     }
@@ -160,10 +177,10 @@ public struct {Name}CardRow: View {
                     .font(.system(size: TTFont.SUB_TITLE_H))
                     .foregroundColor(TTView.iconColor.toColor())
             }
-            .padding(TTSize.P_CONS_DEF)
-            .background(TTView.viewBgCellColor.toColor())
-            .clipShape(RoundedRectangle(cornerRadius: TTSize.CORNER_PANEL))
-            .shadow(color: .black.opacity(0.08), radius: 4, x: 0, y: 2)
+            .pAll(TTSize.P_CONS_DEF)
+            .bg(byDef: TTView.viewBgCellColor.toColor())
+            .corner(byDef: TTSize.CORNER_PANEL)
+            .baseShadow()
         }
         .buttonStyle(.plain)
     }
@@ -176,7 +193,7 @@ struct {Name}Card_Previews: PreviewProvider {
             VStack(spacing: TTSize.P_L) {
                 {Name}TappableCard {
                     HStack {
-                        Text("Tappable Card Content")
+                        Text(XText("Preview.Card.TappableContent"))
                             .font(.system(size: TTFont.TITLE_H))
                         Spacer()
                         Image(systemName: "arrow.right")
@@ -185,35 +202,35 @@ struct {Name}Card_Previews: PreviewProvider {
                 .onTapHandle { }
 
                 {Name}StaticCard {
-                    Text("Static Card — no interaction")
+                    Text(XText("Preview.Card.StaticContent"))
                         .font(.system(size: TTFont.TITLE_H))
                         .frame(maxWidth: .infinity, alignment: .leading)
                 }
 
                 {Name}ActionCard(
-                    title: "Get Started",
-                    subtitle: "Complete your profile to unlock all features.",
+                    titleKey: "Preview.Card.GetStarted.Title",
+                    subtitleKey: "Preview.Card.GetStarted.Subtitle",
                     iconName: "star.fill",
-                    buttonTitle: "Let's Go"
+                    buttonTitleKey: "Common.Action.GetStarted"
                 ) { } onAction: { }
 
                 {Name}CardRow(
                     iconName: "person.circle.fill",
-                    title: "Profile",
-                    subtitle: "Manage your account"
+                    titleKey: "Preview.Card.Profile.Title",
+                    subtitleKey: "Preview.Card.Profile.Subtitle"
                 ) { }
             }
-            .padding(TTSize.P_L)
+            .pAll(TTSize.P_L)
         }
-        .background(TTView.viewBgColor.toColor())
+        .bg(byDef: TTView.viewBgColor.toColor())
     }
 }
 ```
 
 ## Rules
 
-1. **100% native SwiftUI** — no TTBaseSUI* wrappers
-2. **TTBaseUIKit tokens**: `TTView.*.toColor()`, `TTSize.*`, `TTFont.*`
+1. **100% native SwiftUI primitives** — no `TTBaseSUI*`, `SUIBaseView`, or `TTBaseNavigationLink` wrappers in `/native-*` components
+2. **TTBaseUIKit tokens + chainable modifiers**: `TTView.*.toColor()`, `TTSize.*`, `TTFont.*`, `.pAll()`, `.bg()`, `.corner()`, `.baseShadow()`, `.size()`
 3. **Card background**: `TTView.viewBgCellColor.toColor()` — white
 4. **Corner radius = TTSize.CORNER_PANEL (8pt)** — panel/card corner
 5. **Shadow = `.opacity(0.08), radius: 4, x: 0, y: 2`** — subtle card shadow

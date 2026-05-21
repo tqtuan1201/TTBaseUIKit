@@ -10,6 +10,23 @@ Build reusable selector native SwiftUI components using TTBaseUIKit design token
 
 User says: "native selector", "toggle", "checkbox", "radio", "segmented", "picker"
 
+## Native SwiftUI Compliance Baseline
+
+These rules override any older examples in this prompt:
+
+1. **100% native SwiftUI primitives** inside generated `/native-*` components: use `Text`, `Button`, `VStack`, `HStack`, `Image`, native controls, shapes, and modifiers; do not use `TTBaseSUI*`, `SUIBaseView`, or `TTBaseNavigationLink` here.
+2. **TTBaseUIKit project rules still apply**: follow the current project folder structure, file header marker, `MARK` sections, access control, Xcode project registration, and verification scripts.
+3. **Displayed strings must use `XText("key")`**. Prefer API names like `titleKey`, `textKey`, `placeholderKey`, `accessibilityKey`, and `hintKey`. Convert raw sample strings to localization keys before emitting production code.
+4. **Use `TTView`, `TTSize`, and `TTFont` tokens** for colors, spacing, radii, heights, and fonts. Do not hardcode design values unless needed for geometry math.
+5. **Chainable modifiers are mandatory where available**: prefer `.pAll()`, `.pHorizontal()`, `.pVertical()`, `.bg()`, `.corner()`, `.baseShadow()`, `.baseBorder()`, `.size()`, `.sizeSquare()`, `.maxWidth()`, and `.maxHeight()` over raw `.padding`, `.background`, `.clipShape`, `.frame` chains when the extension covers the behavior.
+6. **Use `Button` or native controls for all tappable UI**. Do not use `.onTapGesture` as a button substitute; `.onTapHandle` is only allowed for real non-control gestures.
+7. **Minimum tap target is 44x44** for every interactive element.
+8. **`@StateObject` for owned ViewModels, `@ObservedObject` for injected ViewModels**. Do not instantiate observable objects inside `body`.
+9. **Use `[weak self]` in every escaping closure inside classes/ViewModels/coordinators/services**. SwiftUI `View` structs should call injected closures/private methods without strongly capturing reference objects.
+10. **Keep `body` under 40 lines**. Extract private computed subviews, helper methods, or private `View` structs.
+11. **iOS 14+ only**: no `.task`, `NavigationStack`, `#Preview`, `.foregroundStyle()`, `AsyncImage`, or other iOS 15+ APIs.
+12. **Accessibility is mandatory**: use `.accessibilityLabel(XText(...))` and `.accessibilityHint(XText(...))` for interactive or non-obvious UI.
+
 ## Selector Component Pattern
 
 ```swift
@@ -23,12 +40,12 @@ import TTBaseUIKit
 
 // MARK: - {Name}Checkbox
 public struct {Name}Checkbox: View {
-    public let label: String
+    public let labelKey: String
     @Binding public var isChecked: Bool
     public var isDisabled: Bool = false
 
-    public init(label: String, isChecked: Binding<Bool>, isDisabled: Bool = false) {
-        self.label = label
+    public init(labelKey: String, isChecked: Binding<Bool>, isDisabled: Bool = false) {
+        self.labelKey = labelKey
         self._isChecked = isChecked
         self.isDisabled = isDisabled
     }
@@ -43,7 +60,7 @@ public struct {Name}Checkbox: View {
                     .font(.system(size: TTSize.H_SMALL_ICON * 0.7))
                     .foregroundColor(self.isChecked ? TTView.buttonBgDef.toColor() : TTView.iconColor.toColor())
 
-                Text(self.label)
+                Text(XText(self.labelKey))
                     .font(.system(size: TTFont.TITLE_H, weight: .regular))
                     .foregroundColor(TTView.textDefColor.toColor())
 
@@ -54,7 +71,7 @@ public struct {Name}Checkbox: View {
         .buttonStyle(.plain)
         .disabled(self.isDisabled)
         .opacity(self.isDisabled ? 0.5 : 1.0)
-        .accessibilityLabel("\(self.label), \(self.isChecked ? "checked" : "unchecked")")
+        .accessibilityLabel(String(format: XText("Accessibility.Checkbox.State.Format"), XText(self.labelKey), self.isChecked ? XText("Accessibility.State.Checked") : XText("Accessibility.State.Unchecked")))
     }
 }
 
@@ -62,11 +79,11 @@ public struct {Name}Checkbox: View {
 public struct {Name}Radio: View {
     public struct Option: Identifiable, Equatable {
         public let id: String
-        public let label: String
+        public let labelKey: String
 
-        public init(id: String, label: String) {
+        public init(id: String, labelKey: String) {
             self.id = id
-            self.label = label
+            self.labelKey = labelKey
         }
     }
 
@@ -100,7 +117,7 @@ public struct {Name}Radio: View {
                             }
                         }
 
-                        Text(option.label)
+                        Text(XText(option.labelKey))
                             .font(.system(size: TTFont.TITLE_H, weight: .regular))
                             .foregroundColor(TTView.textDefColor.toColor())
 
@@ -113,25 +130,25 @@ public struct {Name}Radio: View {
             }
         }
         .opacity(self.isDisabled ? 0.5 : 1.0)
-        .accessibilityLabel("Select one option")
+        .accessibilityLabel(XText("Accessibility.Radio.SelectOne"))
     }
 }
 
 // MARK: - {Name}SegmentedControl
 public struct {Name}SegmentedControl: View {
-    public let segments: [String]
+    public let segmentKeys: [String]
     @Binding public var selectedIndex: Int
     public var isDisabled: Bool = false
 
-    public init(segments: [String], selectedIndex: Binding<Int>, isDisabled: Bool = false) {
-        self.segments = segments
+    public init(segmentKeys: [String], selectedIndex: Binding<Int>, isDisabled: Bool = false) {
+        self.segmentKeys = segmentKeys
         self._selectedIndex = selectedIndex
         self.isDisabled = isDisabled
     }
 
     public var body: some View {
         GeometryReader { geometry in
-            let segmentWidth = geometry.size.width / CGFloat(self.segments.count)
+            let segmentWidth = geometry.size.width / CGFloat(self.segmentKeys.count)
 
             ZStack(alignment: .leading) {
                 // Background
@@ -147,16 +164,16 @@ public struct {Name}SegmentedControl: View {
                     .fill(TTView.buttonBgDef.toColor().opacity(0.15))
                     .frame(width: segmentWidth)
                     .offset(x: CGFloat(self.selectedIndex) * segmentWidth)
-                    .animation(.easeInOut(duration: 0.2), value: self.selectedIndex)
+                    .animation(.easeInOut(duration: 0.2))
 
                 // Segments
                 HStack(spacing: 0) {
-                    ForEach(Array(self.segments.enumerated()), id: \.offset) { index, segment in
+                    ForEach(Array(self.segmentKeys.enumerated()), id: \.offset) { index, segmentKey in
                         Button {
                             guard !self.isDisabled else { return }
                             self.selectedIndex = index
                         } label: {
-                            Text(segment)
+                            Text(XText(segmentKey))
                                 .font(.system(size: TTFont.SUB_TITLE_H, weight: self.selectedIndex == index ? .semibold : .regular))
                                 .foregroundColor(self.selectedIndex == index ? TTView.buttonBgDef.toColor() : TTView.textDefColor.toColor())
                                 .frame(width: segmentWidth)
@@ -170,7 +187,7 @@ public struct {Name}SegmentedControl: View {
         }
         .frame(height: TTSize.H_SEG)
         .opacity(self.isDisabled ? 0.5 : 1.0)
-        .accessibilityLabel("Segmented control: \(self.segments.joined(separator: ", "))")
+        .accessibilityLabel(XText("Accessibility.SegmentedControl"))
     }
 }
 
@@ -184,30 +201,30 @@ struct {Name}Selector_Previews: PreviewProvider {
 
     static var previews: some View {
         VStack(spacing: TTSize.P_XL) {
-            {Name}Checkbox(label: "Accept terms and conditions", isChecked: $isChecked1)
-            {Name}Checkbox(label: "Subscribe to newsletter", isChecked: $isChecked2, isDisabled: true)
+            {Name}Checkbox(labelKey: "Settings.Terms.Accept", isChecked: $isChecked1)
+            {Name}Checkbox(labelKey: "Settings.Newsletter.Subscribe", isChecked: $isChecked2, isDisabled: true)
 
-            {Name}SegmentedControl(segments: ["Option 1", "Option 2", "Option 3"], selectedIndex: $selectedSegment)
+            {Name}SegmentedControl(segmentKeys: ["Segment.Option.One", "Segment.Option.Two", "Segment.Option.Three"], selectedIndex: $selectedSegment)
 
             {Name}Radio(
                 options: [
-                    {Name}Radio.Option(id: "a", label: "Option A"),
-                    {Name}Radio.Option(id: "b", label: "Option B"),
-                    {Name}Radio.Option(id: "c", label: "Option C")
+                    {Name}Radio.Option(id: "a", labelKey: "Radio.Option.A"),
+                    {Name}Radio.Option(id: "b", labelKey: "Radio.Option.B"),
+                    {Name}Radio.Option(id: "c", labelKey: "Radio.Option.C")
                 ],
                 selectedId: $selectedRadio
             )
         }
-        .padding(TTSize.P_L)
-        .background(TTView.viewBgColor.toColor())
+        .pAll(TTSize.P_L)
+        .bg(byDef: TTView.viewBgColor.toColor())
     }
 }
 ```
 
 ## Rules
 
-1. **100% native SwiftUI** — no TTBaseSUI* wrappers
-2. **TTBaseUIKit tokens**: `TTView.*.toColor()`, `TTSize.*`, `TTFont.*`
+1. **100% native SwiftUI primitives** — no `TTBaseSUI*`, `SUIBaseView`, or `TTBaseNavigationLink` wrappers in `/native-*` components
+2. **TTBaseUIKit tokens + chainable modifiers**: `TTView.*.toColor()`, `TTSize.*`, `TTFont.*`, `.pAll()`, `.bg()`, `.corner()`, `.baseShadow()`, `.size()`
 3. **Toggle**: use `SwitchToggleStyle(tint:)` for native toggle
 4. **Checkbox**: use SF Symbols `checkmark.square.fill` / `square`
 5. **Radio**: custom ZStack circle with 20pt diameter

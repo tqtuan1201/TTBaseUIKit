@@ -10,6 +10,23 @@ Build reusable loading native SwiftUI components using TTBaseUIKit design tokens
 
 User says: "native loading", "spinner", "loading overlay", "shimmer", "activity indicator", "loading"
 
+## Native SwiftUI Compliance Baseline
+
+These rules override any older examples in this prompt:
+
+1. **100% native SwiftUI primitives** inside generated `/native-*` components: use `Text`, `Button`, `VStack`, `HStack`, `Image`, native controls, shapes, and modifiers; do not use `TTBaseSUI*`, `SUIBaseView`, or `TTBaseNavigationLink` here.
+2. **TTBaseUIKit project rules still apply**: follow the current project folder structure, file header marker, `MARK` sections, access control, Xcode project registration, and verification scripts.
+3. **Displayed strings must use `XText("key")`**. Prefer API names like `titleKey`, `textKey`, `placeholderKey`, `accessibilityKey`, and `hintKey`. Convert raw sample strings to localization keys before emitting production code.
+4. **Use `TTView`, `TTSize`, and `TTFont` tokens** for colors, spacing, radii, heights, and fonts. Do not hardcode design values unless needed for geometry math.
+5. **Chainable modifiers are mandatory where available**: prefer `.pAll()`, `.pHorizontal()`, `.pVertical()`, `.bg()`, `.corner()`, `.baseShadow()`, `.baseBorder()`, `.size()`, `.sizeSquare()`, `.maxWidth()`, and `.maxHeight()` over raw `.padding`, `.background`, `.clipShape`, `.frame` chains when the extension covers the behavior.
+6. **Use `Button` or native controls for all tappable UI**. Do not use `.onTapGesture` as a button substitute; `.onTapHandle` is only allowed for real non-control gestures.
+7. **Minimum tap target is 44x44** for every interactive element.
+8. **`@StateObject` for owned ViewModels, `@ObservedObject` for injected ViewModels**. Do not instantiate observable objects inside `body`.
+9. **Use `[weak self]` in every escaping closure inside classes/ViewModels/coordinators/services**. SwiftUI `View` structs should call injected closures/private methods without strongly capturing reference objects.
+10. **Keep `body` under 40 lines**. Extract private computed subviews, helper methods, or private `View` structs.
+11. **iOS 14+ only**: no `.task`, `NavigationStack`, `#Preview`, `.foregroundStyle()`, `AsyncImage`, or other iOS 15+ APIs.
+12. **Accessibility is mandatory**: use `.accessibilityLabel(XText(...))` and `.accessibilityHint(XText(...))` for interactive or non-obvious UI.
+
 ## Loading Component Pattern
 
 ```swift
@@ -53,12 +70,9 @@ public struct {Name}LoadingSpinner: View {
             .stroke(self.color, style: StrokeStyle(lineWidth: self.lineWidth, lineCap: .round))
             .frame(width: self.size.dimension, height: self.size.dimension)
             .rotationEffect(.degrees(self.rotationAngle))
-            .animation(
-                Animation.linear(duration: 1.0).repeatForever(autoreverses: false),
-                value: self.rotationAngle
-            )
+            .animation(Animation.linear(duration: 1.0).repeatForever(autoreverses: false))
             .onAppear { self.rotationAngle = 360 }
-            .accessibilityLabel("Loading")
+            .accessibilityLabel(XText("Accessibility.Loading"))
     }
 
     @State private var rotationAngle: Double = 0
@@ -66,11 +80,11 @@ public struct {Name}LoadingSpinner: View {
 
 // MARK: - {Name}LoadingOverlay
 public struct {Name}LoadingOverlay: View {
-    public let message: String?
+    public let messageKey: String?
     public var backgroundColor: Color = Color.black.opacity(0.4)
 
-    public init(message: String? = nil, backgroundColor: Color? = nil) {
-        self.message = message
+    public init(messageKey: String? = nil, backgroundColor: Color? = nil) {
+        self.messageKey = messageKey
         if let bg = backgroundColor { self.backgroundColor = bg }
     }
 
@@ -82,33 +96,33 @@ public struct {Name}LoadingOverlay: View {
             VStack(spacing: TTSize.P_CONS_DEF) {
                 {Name}LoadingSpinner(size: .large)
 
-                if let message = self.message {
-                    Text(message)
+                if let messageKey = self.messageKey {
+                    Text(XText(messageKey))
                         .font(.system(size: TTFont.TITLE_H, weight: .medium))
                         .foregroundColor(.white)
                 }
             }
-            .padding(TTSize.P_L)
-            .background(TTView.viewBgCellColor.toColor().opacity(0.9))
-            .clipShape(RoundedRectangle(cornerRadius: TTSize.CORNER_PANEL))
+            .pAll(TTSize.P_L)
+            .bg(byDef: TTView.viewBgCellColor.toColor().opacity(0.9))
+            .corner(byDef: TTSize.CORNER_PANEL)
         }
-        .accessibilityLabel(self.message ?? "Loading")
+        .accessibilityLabel(self.messageKey.map { XText($0) } ?? XText("Accessibility.Loading"))
     }
 }
 
 // MARK: - {Name}InlineLoading
 public struct {Name}InlineLoading: View {
-    public let text: String
+    public let textKey: String
 
-    public init(_ text: String) {
-        self.text = text
+    public init(_ textKey: String) {
+        self.textKey = textKey
     }
 
     public var body: some View {
         HStack(spacing: TTSize.P_CONS_DEF) {
             {Name}LoadingSpinner(size: .small)
 
-            Text(self.text)
+            Text(XText(self.textKey))
                 .font(.system(size: TTFont.TITLE_H, weight: .medium))
                 .foregroundColor(TTView.textDefColor.toColor())
         }
@@ -142,7 +156,7 @@ public struct {Name}ShimmerEffect: ViewModifier {
                     )
                     .frame(width: geometry.size.width * self.bandSize)
                     .offset(x: self.isActive ? geometry.size.width : -geometry.size.width * self.bandSize)
-                    .animation(self.isActive ? self.animation : nil, value: self.isActive)
+                    .animation(self.isActive ? self.animation : nil)
                 }
                 .clipped()
             )
@@ -183,24 +197,24 @@ struct {Name}Loading_Previews: PreviewProvider {
                     .frame(height: 60)
                     .shimmer()
             }
-            .padding(TTSize.P_L)
-            .background(TTView.viewBgCellColor.toColor())
-            .clipShape(RoundedRectangle(cornerRadius: TTSize.CORNER_PANEL))
+            .pAll(TTSize.P_L)
+            .bg(byDef: TTView.viewBgCellColor.toColor())
+            .corner(byDef: TTSize.CORNER_PANEL)
         }
         .frame(maxWidth: .infinity, maxHeight: .infinity)
-        .background(TTView.viewBgColor.toColor())
+        .bg(byDef: TTView.viewBgColor.toColor())
     }
 }
 ```
 
 ## Rules
 
-1. **100% native SwiftUI** — no TTBaseSUI* wrappers
-2. **TTBaseUIKit tokens**: `TTView.*.toColor()`, `TTSize.*`, `TTFont.*`
+1. **100% native SwiftUI primitives** — no `TTBaseSUI*`, `SUIBaseView`, or `TTBaseNavigationLink` wrappers in `/native-*` components
+2. **TTBaseUIKit tokens + chainable modifiers**: `TTView.*.toColor()`, `TTSize.*`, `TTFont.*`, `.pAll()`, `.bg()`, `.corner()`, `.baseShadow()`, `.size()`
 3. **Spinner**: `Circle().trim()` + `rotationEffect` + `.onAppear` animation
 4. **Overlay**: `ZStack` with semi-transparent background + `ignoresSafeArea()`
 5. **Shimmer**: `LinearGradient` overlay with `GeometryReader` + animation
-6. **Accessibility**: `.accessibilityLabel("Loading")` on all loaders
+6. **Accessibility**: `.accessibilityLabel(XText("Accessibility.Loading"))` on all loaders
 7. **Inline loading**: `HStack` with spinner + text
 8. **PreviewProvider** at bottom
 9. **MARKER COMMENT** at top

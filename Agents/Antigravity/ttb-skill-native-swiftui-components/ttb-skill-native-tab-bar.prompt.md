@@ -10,6 +10,23 @@ Build reusable tab bar native SwiftUI components using TTBaseUIKit design tokens
 
 User says: "native tab bar", "tab bar item", "bottom navigation", "tab"
 
+## Native SwiftUI Compliance Baseline
+
+These rules override any older examples in this prompt:
+
+1. **100% native SwiftUI primitives** inside generated `/native-*` components: use `Text`, `Button`, `VStack`, `HStack`, `Image`, native controls, shapes, and modifiers; do not use `TTBaseSUI*`, `SUIBaseView`, or `TTBaseNavigationLink` here.
+2. **TTBaseUIKit project rules still apply**: follow the current project folder structure, file header marker, `MARK` sections, access control, Xcode project registration, and verification scripts.
+3. **Displayed strings must use `XText("key")`**. Prefer API names like `titleKey`, `textKey`, `placeholderKey`, `accessibilityKey`, and `hintKey`. Convert raw sample strings to localization keys before emitting production code.
+4. **Use `TTView`, `TTSize`, and `TTFont` tokens** for colors, spacing, radii, heights, and fonts. Do not hardcode design values unless needed for geometry math.
+5. **Chainable modifiers are mandatory where available**: prefer `.pAll()`, `.pHorizontal()`, `.pVertical()`, `.bg()`, `.corner()`, `.baseShadow()`, `.baseBorder()`, `.size()`, `.sizeSquare()`, `.maxWidth()`, and `.maxHeight()` over raw `.padding`, `.background`, `.clipShape`, `.frame` chains when the extension covers the behavior.
+6. **Use `Button` or native controls for all tappable UI**. Do not use `.onTapGesture` as a button substitute; `.onTapHandle` is only allowed for real non-control gestures.
+7. **Minimum tap target is 44x44** for every interactive element.
+8. **`@StateObject` for owned ViewModels, `@ObservedObject` for injected ViewModels**. Do not instantiate observable objects inside `body`.
+9. **Use `[weak self]` in every escaping closure inside classes/ViewModels/coordinators/services**. SwiftUI `View` structs should call injected closures/private methods without strongly capturing reference objects.
+10. **Keep `body` under 40 lines**. Extract private computed subviews, helper methods, or private `View` structs.
+11. **iOS 14+ only**: no `.task`, `NavigationStack`, `#Preview`, `.foregroundStyle()`, `AsyncImage`, or other iOS 15+ APIs.
+12. **Accessibility is mandatory**: use `.accessibilityLabel(XText(...))` and `.accessibilityHint(XText(...))` for interactive or non-obvious UI.
+
 ## Tab Bar Component Pattern
 
 ```swift
@@ -24,18 +41,18 @@ import TTBaseUIKit
 // MARK: - {Name}TabItem
 public struct {Name}TabItem: View {
     public let iconName: String
-    public let title: String
+    public let titleKey: String
     public var isSelected: Bool
     public var onTap: (() -> Void)?
 
     public init(
         iconName: String,
-        title: String,
+        titleKey: String,
         isSelected: Bool,
         onTap: (() -> Void)? = nil
     ) {
         self.iconName = iconName
-        self.title = title
+        self.titleKey = titleKey
         self.isSelected = isSelected
         self.onTap = onTap
     }
@@ -49,15 +66,15 @@ public struct {Name}TabItem: View {
                     .font(.system(size: 22))
                     .foregroundColor(self.isSelected ? TTView.buttonBgDef.toColor() : TTView.iconColor.toColor())
 
-                Text(self.title)
+                Text(XText(self.titleKey))
                     .font(.system(size: TTFont.SUB_SUB_TITLE_H, weight: self.isSelected ? .semibold : .regular))
                     .foregroundColor(self.isSelected ? TTView.buttonBgDef.toColor() : TTView.iconColor.toColor())
             }
             .frame(maxWidth: .infinity)
-            .padding(.top, TTSize.P_S)
+            .pTop(TTSize.P_S)
             .padding(.bottom, TTSize.P_S)
         }
-        .accessibilityLabel("\(self.title) tab")
+        .accessibilityLabel(String(format: XText("Accessibility.Tab.Format"), XText(self.titleKey)))
     }
 }
 
@@ -66,12 +83,12 @@ public struct {Name}CustomTabBar: View {
     public struct TabItem: Identifiable {
         public let id: String
         public let iconName: String
-        public let title: String
+        public let titleKey: String
 
-        public init(id: String, iconName: String, title: String) {
+        public init(id: String, iconName: String, titleKey: String) {
             self.id = id
             self.iconName = iconName
-            self.title = title
+            self.titleKey = titleKey
         }
     }
 
@@ -94,7 +111,7 @@ public struct {Name}CustomTabBar: View {
             ForEach(self.items) { item in
                 {Name}TabItem(
                     iconName: item.iconName,
-                    title: item.title,
+                    titleKey: item.title,
                     isSelected: self.selectedId == item.id
                 ) {
                     self.selectedId = item.id
@@ -105,7 +122,7 @@ public struct {Name}CustomTabBar: View {
         .frame(height: TTSize.H_TAB + (UIApplication.shared.windows.first?.safeAreaInsets.bottom ?? 0))
         .background(
             TTView.viewBgCellColor.toColor()
-                .shadow(color: .black.opacity(0.08), radius: 8, x: 0, y: -2)
+                .baseShadow(corner: TTSize.CORNER_PANEL, color: .black.opacity(0.08), radius: 8, x: 0, y: -2)
         )
     }
 }
@@ -119,24 +136,24 @@ struct {Name}TabBar_Previews: PreviewProvider {
             Spacer()
             {Name}CustomTabBar(
                 items: [
-                    {Name}CustomTabBar.TabItem(id: "home", iconName: "house.fill", title: "Home"),
-                    {Name}CustomTabBar.TabItem(id: "search", iconName: "magnifyingglass", title: "Search"),
-                    {Name}CustomTabBar.TabItem(id: "notifications", iconName: "bell.fill", title: "Alerts"),
-                    {Name}CustomTabBar.TabItem(id: "profile", iconName: "person.fill", title: "Profile")
+                    {Name}CustomTabBar.TabItem(id: "home", iconName: "house.fill", titleKey: "Home"),
+                    {Name}CustomTabBar.TabItem(id: "search", iconName: "magnifyingglass", titleKey: "Search"),
+                    {Name}CustomTabBar.TabItem(id: "notifications", iconName: "bell.fill", titleKey: "Alerts"),
+                    {Name}CustomTabBar.TabItem(id: "profile", iconName: "person.fill", titleKey: "Profile")
                 ],
                 selectedId: $selectedTab
             )
         }
         .ignoresSafeArea(.keyboard)
-        .background(TTView.viewBgColor.toColor())
+        .bg(byDef: TTView.viewBgColor.toColor())
     }
 }
 ```
 
 ## Rules
 
-1. **100% native SwiftUI** — no TTBaseSUI* wrappers
-2. **TTBaseUIKit tokens**: `TTView.*.toColor()`, `TTSize.*`, `TTFont.*`
+1. **100% native SwiftUI primitives** — no `TTBaseSUI*`, `SUIBaseView`, or `TTBaseNavigationLink` wrappers in `/native-*` components
+2. **TTBaseUIKit tokens + chainable modifiers**: `TTView.*.toColor()`, `TTSize.*`, `TTFont.*`, `.pAll()`, `.bg()`, `.corner()`, `.baseShadow()`, `.size()`
 3. **Tab height = TTSize.H_TAB + safe area bottom**
 4. **Icon size**: 22pt, centered
 5. **Text**: SUB_SUB_TITLE_H, semibold when selected

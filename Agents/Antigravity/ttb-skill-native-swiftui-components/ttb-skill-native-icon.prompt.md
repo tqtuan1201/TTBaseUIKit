@@ -10,6 +10,23 @@ Build reusable SF Symbol icon native SwiftUI components using TTBaseUIKit design
 
 User say native icon" "icon component" "SF Symbol"
 
+## Native SwiftUI Compliance Baseline
+
+These rules override any older examples in this prompt:
+
+1. **100% native SwiftUI primitives** inside generated `/native-*` components: use `Text`, `Button`, `VStack`, `HStack`, `Image`, native controls, shapes, and modifiers; do not use `TTBaseSUI*`, `SUIBaseView`, or `TTBaseNavigationLink` here.
+2. **TTBaseUIKit project rules still apply**: follow the current project folder structure, file header marker, `MARK` sections, access control, Xcode project registration, and verification scripts.
+3. **Displayed strings must use `XText("key")`**. Prefer API names like `titleKey`, `textKey`, `placeholderKey`, `accessibilityKey`, and `hintKey`. Convert raw sample strings to localization keys before emitting production code.
+4. **Use `TTView`, `TTSize`, and `TTFont` tokens** for colors, spacing, radii, heights, and fonts. Do not hardcode design values unless needed for geometry math.
+5. **Chainable modifiers are mandatory where available**: prefer `.pAll()`, `.pHorizontal()`, `.pVertical()`, `.bg()`, `.corner()`, `.baseShadow()`, `.baseBorder()`, `.size()`, `.sizeSquare()`, `.maxWidth()`, and `.maxHeight()` over raw `.padding`, `.background`, `.clipShape`, `.frame` chains when the extension covers the behavior.
+6. **Use `Button` or native controls for all tappable UI**. Do not use `.onTapGesture` as a button substitute; `.onTapHandle` is only allowed for real non-control gestures.
+7. **Minimum tap target is 44x44** for every interactive element.
+8. **`@StateObject` for owned ViewModels, `@ObservedObject` for injected ViewModels**. Do not instantiate observable objects inside `body`.
+9. **Use `[weak self]` in every escaping closure inside classes/ViewModels/coordinators/services**. SwiftUI `View` structs should call injected closures/private methods without strongly capturing reference objects.
+10. **Keep `body` under 40 lines**. Extract private computed subviews, helper methods, or private `View` structs.
+11. **iOS 14+ only**: no `.task`, `NavigationStack`, `#Preview`, `.foregroundStyle()`, `AsyncImage`, or other iOS 15+ APIs.
+12. **Accessibility is mandatory**: use `.accessibilityLabel(XText(...))` and `.accessibilityHint(XText(...))` for interactive or non-obvious UI.
+
 ## Icon Component Pattern
 
 ```swift
@@ -141,14 +158,14 @@ public struct {Name}IconBadge: View {
                 Text(count > 99 ? "99+" : "\(count)")
                     .font(.system(size: 10, weight: .bold))
                     .foregroundColor(.white)
-                    .padding(.horizontal, 4)
-                    .padding(.vertical, 2)
-                    .background(self.badgeColor)
-                    .clipShape(Capsule())
+                    .pHorizontal(TTSize.P_XS)
+                    .pVertical(TTSize.P_XS / 2)
+                    .bg(byDef: self.badgeColor)
+                    .clipShape(Capsule())  // Capsule shape required; chainable corner is not equivalent
                     .offset(x: 8, y: -8)
             }
         }
-        .accessibilityLabel("\(self.systemName), badge \(self.badgeCount ?? 0)")
+        .accessibilityLabel(String(format: XText("Accessibility.Icon.Badge.Format"), self.systemName, self.badgeCount ?? 0))
     }
 }
 
@@ -157,17 +174,17 @@ struct {Name}Icon_Previews: PreviewProvider {
     static var previews: some View {
         VStack(spacing: TTSize.P_XL) {
             HStack(spacing: TTSize.P_L) {
-                {Name}Icon("star.fill", size: .tiny, color: .yellow)
-                {Name}Icon("heart.fill", size: .small, color: .red)
+                {Name}Icon("star.fill", size: .tiny, color: TTView.notificationBgWarning.toColor())
+                {Name}Icon("heart.fill", size: .small, color: TTView.notificationBgError.toColor())
                 {Name}Icon("person.fill", size: .medium, color: TTView.buttonBgDef.toColor())
-                {Name}Icon("gearshape.fill", size: .large, color: .gray)
-                {Name}Icon("bell.fill", size: .xlarge, color: .orange)
+                {Name}Icon("gearshape.fill", size: .large, color: TTView.iconColor.toColor())
+                {Name}Icon("bell.fill", size: .xlarge, color: TTView.notificationBgWarning.toColor())
             }
 
             HStack(spacing: TTSize.P_L) {
-                {Name}IconButton("heart.fill", iconColor: .red, bgColor: Color.red.opacity(0.1)) { }
-                {Name}IconButton("star.fill", iconColor: .yellow, bgColor: Color.yellow.opacity(0.1)) { }
-                {Name}IconButton("bell.fill", iconColor: .blue, bgColor: Color.blue.opacity(0.1)) { }
+                {Name}IconButton("heart.fill", iconColor: TTView.notificationBgError.toColor(), bgColor: TTView.notificationBgError.toColor().opacity(0.1)) { }
+                {Name}IconButton("star.fill", iconColor: TTView.notificationBgWarning.toColor(), bgColor: TTView.notificationBgWarning.toColor().opacity(0.1)) { }
+                {Name}IconButton("bell.fill", iconColor: TTView.buttonBgDef.toColor(), bgColor: TTView.buttonBgDef.toColor().opacity(0.1)) { }
             }
 
             HStack(spacing: TTSize.P_XL) {
@@ -177,16 +194,16 @@ struct {Name}Icon_Previews: PreviewProvider {
                 {Name}IconBadge("message.fill", badgeCount: 0)
             }
         }
-        .padding(TTSize.P_L)
-        .background(TTView.viewBgColor.toColor())
+        .pAll(TTSize.P_L)
+        .bg(byDef: TTView.viewBgColor.toColor())
     }
 }
 ```
 
 ## Rules
 
-1. **100% native SwiftUI** — no TTBaseSUI* wrappers
-2. **TTBaseUIKit tokens**: `TTView.*.toColor()`, `TTSize.*`, `TTFont.*`
+1. **100% native SwiftUI primitives** — no `TTBaseSUI*`, `SUIBaseView`, or `TTBaseNavigationLink` wrappers in `/native-*` components
+2. **TTBaseUIKit tokens + chainable modifiers**: `TTView.*.toColor()`, `TTSize.*`, `TTFont.*`, `.pAll()`, `.bg()`, `.corner()`, `.baseShadow()`, `.size()`
 3. **Sizes**: tiny (12pt), small (16pt), medium (24pt), large (32pt), xlarge (48pt)
 4. **IconButton**: 44x44pt tap target, circular bg with 0.1 opacity
 5. **IconBadge**: topTrailing ZStack offset (8, -8), Capsule shape for count

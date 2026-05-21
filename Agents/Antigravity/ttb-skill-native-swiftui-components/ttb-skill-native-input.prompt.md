@@ -10,6 +10,23 @@ Build reusable input native SwiftUI components using TTBaseUIKit design tokens.
 
 User says: "native input", "text field", "search bar", "secure field", "input component"
 
+## Native SwiftUI Compliance Baseline
+
+These rules override any older examples in this prompt:
+
+1. **100% native SwiftUI primitives** inside generated `/native-*` components: use `Text`, `Button`, `VStack`, `HStack`, `Image`, native controls, shapes, and modifiers; do not use `TTBaseSUI*`, `SUIBaseView`, or `TTBaseNavigationLink` here.
+2. **TTBaseUIKit project rules still apply**: follow the current project folder structure, file header marker, `MARK` sections, access control, Xcode project registration, and verification scripts.
+3. **Displayed strings must use `XText("key")`**. Prefer API names like `titleKey`, `textKey`, `placeholderKey`, `accessibilityKey`, and `hintKey`. Convert raw sample strings to localization keys before emitting production code.
+4. **Use `TTView`, `TTSize`, and `TTFont` tokens** for colors, spacing, radii, heights, and fonts. Do not hardcode design values unless needed for geometry math.
+5. **Chainable modifiers are mandatory where available**: prefer `.pAll()`, `.pHorizontal()`, `.pVertical()`, `.bg()`, `.corner()`, `.baseShadow()`, `.baseBorder()`, `.size()`, `.sizeSquare()`, `.maxWidth()`, and `.maxHeight()` over raw `.padding`, `.background`, `.clipShape`, `.frame` chains when the extension covers the behavior.
+6. **Use `Button` or native controls for all tappable UI**. Do not use `.onTapGesture` as a button substitute; `.onTapHandle` is only allowed for real non-control gestures.
+7. **Minimum tap target is 44x44** for every interactive element.
+8. **`@StateObject` for owned ViewModels, `@ObservedObject` for injected ViewModels**. Do not instantiate observable objects inside `body`.
+9. **Use `[weak self]` in every escaping closure inside classes/ViewModels/coordinators/services**. SwiftUI `View` structs should call injected closures/private methods without strongly capturing reference objects.
+10. **Keep `body` under 40 lines**. Extract private computed subviews, helper methods, or private `View` structs.
+11. **iOS 14+ only**: no `.task`, `NavigationStack`, `#Preview`, `.foregroundStyle()`, `AsyncImage`, or other iOS 15+ APIs.
+12. **Accessibility is mandatory**: use `.accessibilityLabel(XText(...))` and `.accessibilityHint(XText(...))` for interactive or non-obvious UI.
+
 ## Input Component Pattern
 
 ```swift
@@ -39,7 +56,7 @@ public struct {Name}TextField: View {
 
     public init(
         placeholder: String,
-        text: Binding<String>,
+        textKey: Binding<String>,
         style: Style = .bordered,
         isDisabled: Bool = false,
         keyboardType: UIKeyboardType = .default,
@@ -70,17 +87,17 @@ public struct {Name}TextField: View {
 
     private var borderedField: some View {
         HStack(spacing: TTSize.P_CONS_DEF) {
-            TextField(self.placeholder, text: self.$text)
+            TextField(self.placeholder, textKey: self.$text)
                 .font(.system(size: TTFont.TITLE_H))
                 .foregroundColor(TTView.textDefColor.toColor())
                 .keyboardType(self.keyboardType)
                 .returnKeyType(self.returnKeyType)
                 .onSubmit { self.onCommit?() }
         }
-        .padding(.horizontal, TTSize.P_CONS_DEF)
+        .pHorizontal(TTSize.P_CONS_DEF)
         .frame(height: TTSize.H_TEXTFIELD)
-        .background(TTView.viewBgCellColor.toColor())
-        .clipShape(RoundedRectangle(cornerRadius: TTSize.CORNER_RADIUS))
+        .bg(byDef: TTView.viewBgCellColor.toColor())
+        .corner(byDef: TTSize.CORNER_RADIUS)
         .overlay(
             RoundedRectangle(cornerRadius: TTSize.CORNER_RADIUS)
                 .stroke(TTView.buttonBorderColor.toColor(), lineWidth: TTSize.H_LINEVIEW)
@@ -89,13 +106,13 @@ public struct {Name}TextField: View {
 
     private var underlinedField: some View {
         VStack(spacing: 0) {
-            TextField(self.placeholder, text: self.$text)
+            TextField(self.placeholder, textKey: self.$text)
                 .font(.system(size: TTFont.TITLE_H))
                 .foregroundColor(TTView.textDefColor.toColor())
                 .keyboardType(self.keyboardType)
                 .returnKeyType(self.returnKeyType)
                 .onSubmit { self.onCommit?() }
-                .padding(.horizontal, TTSize.P_S)
+                .pHorizontal(TTSize.P_S)
 
             Color(TTView.lineDefColor)
                 .frame(height: TTSize.H_LINEVIEW)
@@ -112,7 +129,7 @@ public struct {Name}SecureField: View {
 
     public init(
         placeholder: String,
-        text: Binding<String>,
+        textKey: Binding<String>,
         isDisabled: Bool = false,
         onCommit: (() -> Void)? = nil
     ) {
@@ -124,16 +141,16 @@ public struct {Name}SecureField: View {
 
     public var body: some View {
         HStack(spacing: TTSize.P_CONS_DEF) {
-            SecureField(self.placeholder, text: self.$text)
+            SecureField(self.placeholder, textKey: self.$text)
                 .font(.system(size: TTFont.TITLE_H))
                 .foregroundColor(TTView.textDefColor.toColor())
                 .returnKeyType(.done)
                 .onSubmit { self.onCommit?() }
         }
-        .padding(.horizontal, TTSize.P_CONS_DEF)
+        .pHorizontal(TTSize.P_CONS_DEF)
         .frame(height: TTSize.H_TEXTFIELD)
-        .background(TTView.viewBgCellColor.toColor())
-        .clipShape(RoundedRectangle(cornerRadius: TTSize.CORNER_RADIUS))
+        .bg(byDef: TTView.viewBgCellColor.toColor())
+        .corner(byDef: TTSize.CORNER_RADIUS)
         .overlay(
             RoundedRectangle(cornerRadius: TTSize.CORNER_RADIUS)
                 .stroke(TTView.buttonBorderColor.toColor(), lineWidth: TTSize.H_LINEVIEW)
@@ -153,7 +170,7 @@ public struct {Name}SearchBar: View {
 
     public init(
         placeholder: String = "Search...",
-        text: Binding<String>,
+        textKey: Binding<String>,
         onSubmit: (() -> Void)? = nil,
         onClear: (() -> Void)? = nil
     ) {
@@ -169,7 +186,7 @@ public struct {Name}SearchBar: View {
                 .font(.system(size: TTFont.SUB_TITLE_H))
                 .foregroundColor(TTView.iconColor.toColor())
 
-            TextField(self.placeholder, text: self.$text)
+            TextField(self.placeholder, textKey: self.$text)
                 .font(.system(size: TTFont.TITLE_H))
                 .foregroundColor(TTView.textDefColor.toColor())
                 .returnKeyType(.search)
@@ -187,13 +204,13 @@ public struct {Name}SearchBar: View {
                         .font(.system(size: TTFont.SUB_TITLE_H))
                         .foregroundColor(TTView.iconColor.toColor())
                 }
-                .accessibilityLabel("Clear search")
+                .accessibilityLabel(XText("Accessibility.Search.Clear"))
             }
         }
-        .padding(.horizontal, TTSize.P_CONS_DEF)
+        .pHorizontal(TTSize.P_CONS_DEF)
         .frame(height: TTSize.H_TEXTFIELD)
-        .background(TTView.viewBgCellColor.toColor())
-        .clipShape(RoundedRectangle(cornerRadius: TTSize.CORNER_RADIUS))
+        .bg(byDef: TTView.viewBgCellColor.toColor())
+        .corner(byDef: TTSize.CORNER_RADIUS)
         .overlay(
             RoundedRectangle(cornerRadius: TTSize.CORNER_RADIUS)
                 .stroke(TTView.buttonBorderColor.toColor(), lineWidth: TTSize.H_LINEVIEW)
@@ -209,24 +226,24 @@ struct {Name}Input_Previews: PreviewProvider {
 
     static var previews: some View {
         VStack(spacing: TTSize.P_L) {
-            {Name}TextField(placeholder: "Full name", text: $name)
+            {Name}TextField(placeholder: "Full name", textKey: $name)
 
-            {Name}TextField(placeholder: "Email address", text: $name, style: .underlined)
+            {Name}TextField(placeholder: "Email address", textKey: $name, style: .underlined)
 
-            {Name}SecureField(placeholder: "Password", text: $password)
+            {Name}SecureField(placeholder: "Password", textKey: $password)
 
-            {Name}SearchBar(placeholder: "Search...", text: $search)
+            {Name}SearchBar(placeholder: "Search...", textKey: $search)
         }
-        .padding(TTSize.P_L)
-        .background(TTView.viewBgColor.toColor())
+        .pAll(TTSize.P_L)
+        .bg(byDef: TTView.viewBgColor.toColor())
     }
 }
 ```
 
 ## Rules
 
-1. **100% native SwiftUI** — no TTBaseSUI* wrappers
-2. **TTBaseUIKit tokens**: `TTView.*.toColor()`, `TTSize.*`, `TTFont.*`
+1. **100% native SwiftUI primitives** — no `TTBaseSUI*`, `SUIBaseView`, or `TTBaseNavigationLink` wrappers in `/native-*` components
+2. **TTBaseUIKit tokens + chainable modifiers**: `TTView.*.toColor()`, `TTSize.*`, `TTFont.*`, `.pAll()`, `.bg()`, `.corner()`, `.baseShadow()`, `.size()`
 3. **Height = TTSize.H_TEXTFIELD (35pt)** — consistent input height
 4. **Corner radius = TTSize.CORNER_RADIUS (4pt)** — default corner
 5. **Border = TTSize.H_LINEVIEW (1.5pt)** — line thickness

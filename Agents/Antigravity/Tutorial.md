@@ -1,12 +1,12 @@
 ---
 name: "antigravity-tutorial"
 description: "Comprehensive tutorial for TTBaseUIKit Antigravity agents: when to use each skill, what prompts to use, and practical examples. English version."
-version: "1.0.0"
+version: "2.0.0"
 ---
 
 # Antigravity Agent System — Tutorial
 
-**Version**: 1.0.0 | **Prerequisite**: Read `README.md` first
+**Version**: 2.0.0 | **Prerequisite**: Read `README.md` first
 
 This tutorial explains **when to use** each skill, **which prompt to activate**, and **how to write effective prompts** for each scenario.
 
@@ -37,21 +37,24 @@ What do you need to do?
 │
 ├── ② Add a NEW FEATURE
 │   │
-│   ├── Does the current app have a UIKit navigation stack?
-│   │   ├── YES → SwiftUI screens use backType = .POP
-│   │   └── NO → Pure SwiftUI, use backType = .SWIFTUI
-│   │
 │   ├── Using UIKit (ViewController)?
 │   │   └── → /ttb-uikit
 │   │
 │   └── Using SwiftUI?
 │       │
+│       ├── Does the current app have a UIKit navigation stack?
+│       │   ├── YES → SwiftUI screens use backType = .POP
+│       │   └── NO → Pure SwiftUI, use backType = .SWIFTUI
+│       │
 │       ├── Is there a TTBaseSUI component available?
 │       │   ├── YES → /ttb-sui-screen, /ttb-sui-view, /ttb-sui-list
 │       │   └── NO → Check /ttb-native-*
 │       │
-│       └── Need a native SwiftUI component?
-│           └── → /ttb-native-{component-name}
+│       ├── Need an atomic component?
+│       │   └── → /native-{component-name} (18 types)
+│       │
+│       └── Need a full screen/view?
+│           └── → /ttb-native-screen, /ttb-native-view
 │
 ├── ③ Fix a BUG
 │   └── → /ttb-bugfix
@@ -134,6 +137,7 @@ MyApp/
 ### Prompts Output
 
 After `/ttb-init`, the agent will:
+
 1. Create MVVM-C folder structure
 2. Configure `TTBaseUIKitConfig` with design tokens
 3. Set up `Localizable.strings` with `XText`/`XTextU`
@@ -205,14 +209,19 @@ class ProductDetailViewController: TTBaseUIViewController, TTViewCodable {
     override func viewDidLoad() {
         super.viewDidLoad()
         setupUI()
-        bindViewModel()
+        setupStyles()
+        setupConstraints()
+        setupData()
+        bindComponents()
         viewModel.loadProduct()
     }
 
     // MARK: - TTViewCodable
-    func setupUI() { /* addSubview + SnapKit constraints */ }
+    func setupUI() { /* addSubview + constraints */ }
     func setupData() { /* set initial data */ }
-    func bindViewModel() {
+    func setupStyles() { /* colors from tokens */ }
+    func setupConstraints() { /* TTBaseUIKit chains ending .done() */ }
+    func bindComponents() {
         viewModel.onProductLoaded = { [weak self] product in
             self?.updateUI(with: product)
         }
@@ -222,11 +231,33 @@ class ProductDetailViewController: TTBaseUIViewController, TTViewCodable {
 
 ### Key Rules for UIKit
 
-- ✅ Every VC must implement `TTViewCodable`
+- ✅ Every VC must implement `TTViewCodable` (6 methods)
 - ✅ Use `TTBaseUI*` components (TTBaseUILabel, TTBaseUIButton, etc.)
 - ✅ ViewModel never imports UIKit
 - ✅ Every closure uses `[weak self]`
 - ✅ All strings use `XText("key")` or `XTextU("key")`
+- ✅ Every constraint chain ends with `.done()`
+- ✅ Every `RequestData` calls `super.encode(to:)`
+
+### ⚠️ Anti-pattern: Non-Existent APIs
+
+**NEVER use these fake APIs:**
+
+```swift
+// ❌ Wrong — does NOT exist:
+XPrint("...")                  // → TTBaseFunc.shared.printLog(...)
+BaseShadowPanelView()         // → TTBaseShadowPanelView()
+BaseUIViewController           // → TTBaseUIViewController<TTBaseUIView>
+lbl.setTextString(...)        // → lbl.setText(...)
+.btn.setTextString(...)       // → btn.setText(...)
+
+// ✅ Correct:
+TTBaseFunc.shared.printLog(...)
+TTBaseShadowPanelView()
+TTBaseUIViewController<TTBaseUIView>
+lbl.setText(text: "...")
+btn.setText(text: "...")
+```
 
 ---
 
@@ -239,12 +270,20 @@ class ProductDetailViewController: TTBaseUIViewController, TTViewCodable {
 - Building **SwiftUI lists** with TTBaseSUI components
 - Building **SwiftUI ViewModels**
 
+### Three-Tier Approach
+
+| Tier | When to Use | Commands |
+|------|-------------|----------|
+| **Tier 1 — TTBaseSUI** | TTBaseSUI component exists | `/ttb-sui-screen`, `/ttb-sui-view`, `/ttb-sui-list` |
+| **Tier 2 — Chainable Modifiers** | Styling, layout, spacing, effects | `.pAll()`, `.bg()`, `.corner()`, `.baseShadow()`, etc. |
+| **Tier 3 — Native SwiftUI** | TTBaseSUI has no equivalent | `/ttb-native-screen`, `/ttb-native-view` |
+
 ### Prompts Available
 
 | Prompt | Use When |
 |--------|----------|
 | `/ttb-sui-screen` | SwiftUI screen with SUIBaseView wrapper |
-| `/ttb-sui-view` | Reusable TTBaseSUI view (TTBaseSUIText, TTBaseSUIButton, etc.) |
+| `/ttb-sui-view` | Reusable TTBaseSUI view |
 | `/ttb-sui-list` | SwiftUI list with TTBaseSUILazyVStack |
 | `/ttb-sui-viewmodel` | SwiftUI ViewModel with @Published |
 | `/ttb-native-screen` | Native SwiftUI screen (fallback when TTBaseSUI lacks component) |
@@ -281,66 +320,281 @@ struct ProductDetailScreen: View {
 
     var body: some View {
         SUIBaseView(
-            titleNav: XTextU("Product.Detail.Nav.Title"),
-            isShowBack: true,
-            backType: .SWIFTUI
+            backType: .SWIFTUI,
+            title: XText("Product.Detail.Nav.Title"),
+            type: .DEFAULT,
+            isHiddenTabbar: true,
+            backAction: {}
         ) {
-            content
-        }
-        .onAppear { viewModel.loadProduct(id: productId) }
-    }
-
-    private var content: some View {
-        ScrollView {
-            LazyVStack(spacing: TTSize.P_CONS_DEF) {
-                TTBaseSUIAsyncImage(url: viewModel.product?.imageUrl)
+            TTBaseSUIVStack(alignment: .center, spacing: TTSize.P_CONS_DEF) {
+                TTBaseSUIAsyncImage(urlString: viewModel.product?.imageUrl)
                     .frame(height: TTSize.W * 0.6)
-                    .clipShape(RoundedRectangle(cornerRadius: TTSize.CORNER_PANEL))
+                    .corner(byDef: TTSize.CORNER_PANEL)
 
                 TTBaseSUIText(
-                    text: viewModel.product?.title ?? "",
-                    type: .HEADER
+                    withType: .HEADER,
+                    text: viewModel.product?.title ?? ""
                 )
 
                 TTBaseSUIText(
-                    text: viewModel.product?.price ?? "",
-                    type: .TITLE
+                    withType: .TITLE,
+                    text: viewModel.product?.price ?? ""
                 )
                 .foregroundColor(TTView.buttonBgWar.toColor())
 
-                TTBaseSUIButton(title: XText("Product.Detail.AddToCart")) {
+                TTBaseSUIButton(type: .DEFAULT, title: XText("Product.Detail.AddToCart")) {
                     viewModel.addToCart()
                 }
             }
-            .padding(TTSize.P_CONS_DEF)
         }
-        .background(TTView.viewBgColor.toColor())
+        .onAppear { viewModel.loadProduct(id: productId) }
     }
 }
 ```
 
-### Three-Tier Decision Guide
+### SUIBaseView Parameters (MANDATORY)
 
+```swift
+SUIBaseView(
+    backType: BACK_TYPE,       // .SWIFTUI | .POP | .POP_TO_ROOT | .DISMISS | .DISMISS_ALL | .CLOSE_FLOW
+    title: String,             // Navigation bar title
+    type: TYPE,                // .DEFAULT | .INFO | .NO_NAV
+    isHiddenTabbar: Bool,      // Hide/show tabbar on screen
+    backAction: (() -> Void)?, // Callback on back press
+    titleAction: (() -> Void)?, // Callback on title press
+    rightAction: (() -> Void)?, // Callback on right button press
+    bg: Color,                 // Background color
+    @ViewBuilder content: () -> Content
+)
 ```
-Is there a TTBaseSUI component for what you need?
-│
-├── YES — Use /ttb-sui-* prompts
-│   ├── TTBaseSUIText        → text display
-│   ├── TTBaseSUIButton      → buttons
-│   ├── TTBaseSUIImage       → static images
-│   ├── TTBaseSUIAsyncImage  → remote images
-│   ├── TTBaseSUITextField   → text inputs
-│   ├── TTBaseSUIToggle      → toggle switches
-│   ├── TTBaseSUISlider      → sliders
-│   ├── TTBaseSUITabView     → tab navigation
-│   ├── TTBaseSUILazyVStack  → scrollable lists
-│   └── TTBaseNavigationLink  → navigation between screens
-│
-└── NO — Use /ttb-native-* prompts (Native SwiftUI + TTBaseUIKit tokens)
-    ├── Charts, graphs
-    ├── Custom shapes
-    ├── Advanced gestures
-    └── Components not covered by TTBaseSUI
+
+### TTBaseSUI Component Reference (Complete)
+
+#### Text Components
+
+```swift
+TTBaseSUIText(withType: .HEADER_SUPER, text: "...", align: .center)
+TTBaseSUIText(withType: .HEADER, text: "...", align: .leading)
+TTBaseSUIText(withType: .TITLE, text: "...", align: .leading)
+TTBaseSUIText(withType: .SUB_TITLE, text: "...", align: .leading)
+TTBaseSUIText(withType: .SUB_SUB_TITLE, text: "...", align: .leading)
+
+TTBaseSUIText(withBold: .HEADER, text: "...", align: .center, color: .white)
+```
+
+#### Button Component
+
+```swift
+TTBaseSUIButton(type: .DEFAULT, title: "CONFIRM")
+TTBaseSUIButton(type: .DEFAULT_COLOR(color: .systemBlue, textColor: .white), title: "CUSTOM")
+TTBaseSUIButton(type: .WARRING, title: .DELETE")
+TTBaseSUIButton(type: .DISABLE, title: "DISABLED")
+TTBaseSUIButton(type: .NO_BG_COLOR, title: "LINK")
+TTBaseSUIButton(type: .BORDER, title: "OUTLINE")
+```
+
+#### Stack Components
+
+```swift
+TTBaseSUIVStack(alignment: .center, spacing: TTSize.P_CONS_DEF) { }
+TTBaseSUIVStack(alignment: .center, spacing: TTSize.P_CONS_DEF, bg: .clear) { }
+TTBaseSUIVStack(alignment: .center, spacing: TTSize.P_CONS_DEF, bg: .clear, radius: 8) { }
+TTBaseSUIHStack(alignment: .center, spacing: TTSize.P_CONS_DEF) { }
+TTBaseSUIZStack(alignment: .center, bg: .clear) { }
+```
+
+#### Scroll Components
+
+```swift
+TTBaseSUIScroll(alignment: .vertical, showIndicators: false) { }
+TTBaseSUIScroll(alignment: .vertical, bg: .clear, isEnablePullToRefresh: true) {
+    // content
+} pullToRefresh: {
+    viewModel.fetch()
+}
+
+TTBaseSUILazyVStack(alignment: .leading, spacing: TTSize.P_CONS_DEF, bg: .clear) { }
+TTBaseSUILazyHStack(alignment: .center, spacing: TTSize.P_CONS_DEF) { }
+TTBaseSUILazyVGrid(columns: [GridItem(.flexible()), GridItem(.flexible())], spacing: 8) { }
+TTBaseSUILazyHGrid(rows: [GridItem(.fixed(60)), GridItem(.fixed(60))], spacing: 8) { }
+```
+
+#### Grid Components
+
+```swift
+let columns = [GridItem(.flexible()), GridItem(.flexible())]
+TTBaseEqualHeightGridView(items: products, columns: columns) { product in
+    ProductCard(product: product)
+}
+```
+
+#### Image Components
+
+```swift
+TTBaseSUIImage(withname: "icon_name")
+TTBaseSUIImage(withname: "icon_name", conner: TTSize.CORNER_RADIUS)
+TTBaseSUIImage(withSystemName: "star.fill", iconColor: .orange, contentMode: .fit)
+TTBaseSUICircleImage(withname: "avatar")
+TTBaseSUICircleImage(withname: "avatar", conner: TTSize.CORNER_IMAGE)
+TTBaseSUIAsyncImage(urlString: product.avatarUrl)
+TTBaseSUIAsyncImage(urlString: product.avatarUrl, type: .CIRCLE).sizeSquare(width: 60)
+```
+
+#### Divider Components
+
+```swift
+TTBaseSUIHorizontalDividerView(noConner: .LINE)           // Thin line
+TTBaseSUIHorizontalDividerView(noConner: .SPACE)         // Spacer
+TTBaseSUIHorizontalDividerView(withConner: 4, type: .SPACE)
+TTBaseSUIVerticalDividerView(noConner: .LINE)             // Vertical thin line
+TTBaseSUIVerticalDividerView(noConner: .SPACE)            // Vertical spacer
+```
+
+#### Spacer
+
+```swift
+TTBaseSUISpacer()                           // Fill available space
+TTBaseSUISpacer(maxHeight: 20)              // Fixed height spacer
+TTBaseSUISpacer(maxWidth: 50)               // Fixed width spacer
+TTBaseSUISpacer(withBg: .green, radius: 8)  // Colored spacer fill
+```
+
+#### Container View
+
+```swift
+TTBaseSUIView(withCornerRadius: 0) { }
+TTBaseSUIView(withCornerRadius: TTSize.CORNER_PANEL, bg: .white) { }
+```
+
+#### Form Components
+
+```swift
+TTBaseSUITextField(placeholder: "Enter name", text: $name)
+TTBaseSUITextField(placeholder: "Password", text: $password, isSecure: true)
+TTBaseSUITextField(placeholder: "Search...", text: $query, type: .SEARCH)
+TTBaseSUITextField(placeholder: "Email", text: $email, type: .BORDER)
+TTBaseSUITextField(placeholder: "Phone", text: $phone, type: .UNDERLINE)
+TTBaseSUIToggle(label: "Enable notifications", isOn: $isEnabled)
+TTBaseSUIToggle(label: "Dark mode", isOn: $isDark, type: .ICON(name: "moon.fill"))
+TTBaseSUISlider(value: $volume)
+TTBaseSUISlider(value: $brightness, in: 0...100, step: 5)
+TTBaseSUISlider(value: $size, in: 0...1, type: .WITH_LABELS(min: "0%", max: "100%"))
+```
+
+#### List Components
+
+```swift
+TTBaseSUIList(type: .PLAIN) {
+    ForEach(items) { item in RowView(item: item) }
+}
+TTBaseSUIList(type: .GROUPED, isEnablePullToRefresh: true) {
+    ForEach(items) { item in RowView(item: item) }
+} pullToRefresh: {
+    viewModel.reload()
+}
+```
+
+#### Tab Components
+
+```swift
+TTBaseSUITabView(selection: $currentPage, type: .PAGE) {
+    ForEach(pages) { page in PageView(page: page).tag(page.id) }
+}
+TTBaseSUITabView(selection: $idx, type: .PAGE_HIDDEN_DOTS) { ... }
+TTBaseSUITabView(type: .DEFAULT) {
+    HomeView().tabItem { Label("Home", systemImage: "house") }.tag(0)
+    SettingsView().tabItem { Label("Settings", systemImage: "gear") }.tag(1)
+}
+```
+
+#### Group Component
+
+```swift
+TTBaseSUIGroup { }                              // Transparent group
+TTBaseSUIGroup(bg: .white, radius: 8) { }      // Group with bg + radius
+TTBaseSUIGroup(bg: .white, radius: 8, padding: TTSize.P_CONS_DEF) { }
+```
+
+### Chainable Modifiers (MANDATORY)
+
+**Always use chainable extensions in modifier chains. They return `some View` and chain correctly.**
+
+#### Padding Extensions
+
+```swift
+.pAll(TTSize.P_CONS_DEF)                // all sides padding
+.pAll(.horizontal, TTSize.P_CONS_DEF)    // horizontal only
+.pAll(.vertical, TTSize.P_CONS_DEF)      // vertical only
+.pHorizontal(TTSize.P_CONS_DEF)          // horizontal only (default: 8pt)
+.pVertical(TTSize.P_CONS_DEF)            // vertical only (default: 8pt)
+.pTop(TTSize.P_CONS_DEF)                // top only (default: 8pt)
+.pBottom(TTSize.P_CONS_DEF)             // bottom only (default: 8pt)
+.pLeading(TTSize.P_CONS_DEF)             // leading only (default: 8pt)
+.pTrailing(TTSize.P_CONS_DEF)            // trailing only (default: 8pt)
+```
+
+#### Background & Corner Extensions
+
+```swift
+.bg(byDef: TTView.viewBgCellColor.toColor())  // background from token
+.bg(byUIColor: TTView.viewBgColor)           // UIColor version
+.corner(byDef: TTSize.CORNER_PANEL)         // corner radius from token
+```
+
+#### Shadow & Border Extensions
+
+```swift
+.baseShadow()                                      // default card shadow
+.baseShadow(corner: 8, color: .black.opacity(0.15), radius: 8, x: 0, y: 4)
+.baseBorder(color: TTView.lineDefColor.toColor(), width: TTSize.H_LINEVIEW, radius: TTSize.CORNER_RADIUS)
+```
+
+#### Size Extensions
+
+```swift
+.size(width: 120)                         // set width
+.size(height: 40)                         // set height
+.size(width: 100, height: 40)           // set both
+.sizeSquare(width: 50)                    // square frame
+.maxWidth()                               // fill width
+.maxWidth(alignment: .leading)            // fill width, align left
+.maxHeight()                               // fill height
+```
+
+#### Interactive Extensions
+
+```swift
+.onTapHandle { action() }                // tap gesture (DO NOT use onTapGesture for buttons)
+.skeleton(active: true)                   // shimmer loading
+.skeleton(active: true, isShimmering: false)
+.disabled(true)
+.opacity(0.5)
+.hidden(someCondition)                    // conditional hide
+.showNoticeView(title: "Error", body: "Something went wrong", style: .ERROR)
+```
+
+#### Layout Extensions
+
+```swift
+.fixedByHorizontal()                     // fixed width, free height
+.fixedByVertical()                        // fixed height, free width
+.fixedByAutoSize()                       // fixed both
+.layoutPriority(1)
+```
+
+#### Skeleton + Glass Effects
+
+```swift
+.skeleton(active: isLoading)
+.enableGlassEffectV2(isClear: false, cornerRadius: 16) { WhiteLiquidGlassBackground(cornerRadius: 16) }
+.enableGlassEffect(cornerRadius: 16) { BlackLiquidGlassBackground(cornerRadius: 16) }
+```
+
+#### Keyboard & Navigation Helpers
+
+```swift
+.hideKeyboardOnScroll()
+.hiddenNavigationBar()
 ```
 
 ### Key Rules for SwiftUI
@@ -352,6 +606,9 @@ Is there a TTBaseSUI component for what you need?
 - ✅ Every closure uses `[weak self]`
 - ✅ All strings use `XText("key")` or `XTextU("key")`
 - ✅ iOS 14+ APIs only
+- ✅ Chainable extensions: prefer `.pAll()`, `.bg()`, `.corner()`
+- ✅ Body < 40 lines — extract subviews if longer
+- ✅ TTBaseSUI FIRST — only Native SwiftUI when no equivalent exists
 
 ---
 
@@ -366,7 +623,11 @@ TTBaseSUI **lacks** a component for your need. Examples:
 - Complex gesture recognizers
 - Third-party SwiftUI libraries
 
-### Prompts Available
+### Two Command Groups
+
+#### Group 1: Atomic Components (`/native-*`)
+
+Use when building **reusable atomic component** not available in TTBaseSUI.
 
 | Prompt | Component | Use When |
 |--------|-----------|----------|
@@ -388,7 +649,26 @@ TTBaseSUI **lacks** a component for your need. Examples:
 | `/native-avatar` | Avatar | Image, initials, status |
 | `/native-rating` | Rating | Star rating, interactive/display |
 | `/native-section-header` | Section header | With optional action |
+| `/native-snackbar` | Snackbar/toast | Bottom notification |
 | `/native-alert` | Alert | Confirmation dialog |
+
+#### Group 2: Screen-Level Fallback (`/ttb-native-*`)
+
+Use when building **entire screen** where TTBaseSUI doesn't provide enough layout primitives.
+
+| Prompt | Use When |
+|--------|----------|
+| `/ttb-native-screen` | Full screen with custom layout, complex animations |
+| `/ttb-native-view` | Reusable view with custom layout not in TTBaseSUI |
+
+### Comparison: `/native-*` vs `/ttb-native-*`
+
+| | `/native-*` | `/ttb-native-*` |
+|--|-------------|----------------|
+| Scope | Reusable atomic component | Full screen/view |
+| Usage | Inside TTBaseSUI views or screens | Entire screen layout |
+| Example | Custom badge, chip, chart | Complex screen with custom animation |
+| SUIBaseView | Not needed | Needs SUIBaseView wrapper |
 
 ### How to Prompt
 
@@ -413,22 +693,16 @@ TTBaseSUI **lacks** a component for your need. Examples:
 
 ```swift
 // BadgeText.swift
-//
+// [TTBaseUIKit-AI-Agents]: TTBaseUIKit Agent Support is active 🚀
 //  BadgeText.swift
 //  AppName
+//  ⚠️ NATIVE SWIFTUI: Use when TTBaseSUI has no component
 //
-//  Generated by TTBaseUIKit Antigravity Agent System
-//  DO NOT EDIT manually — changes will be overwritten
-//
-//  Version: 2026-05-19
-//  Skill: ttb-skill-native-swiftui-components v1.0.0
-//
-//  Architecture: MVVM-C | Framework: TTBaseUIKit | Min iOS: 14
-//
-
 import SwiftUI
+import TTBaseUIKit
 
-struct BadgeText: View {
+// MARK: - BadgeTextComponent
+public struct BadgeText: View {
     let text: String
     let backgroundColor: Color
     let textColor: Color
@@ -443,7 +717,7 @@ struct BadgeText: View {
         self.textColor = textColor
     }
 
-    var body: some View {
+    public var body: some View {
         Text(text)
             .font(.system(size: TTFont.SUB_SUB_TITLE_H, weight: .medium))
             .foregroundColor(textColor)
@@ -472,8 +746,11 @@ struct BadgeText_Previews: PreviewProvider {
 - ✅ Use `TTView`, `TTSize`, `TTFont` tokens for all styling
 - ✅ iOS 14+ APIs only (no `.foregroundStyle()`, no `NavigationStack`, etc.)
 - ✅ Always include `PreviewProvider` for iOS 14-16 compatibility
-- ✅ Include generation marker comment at top of file
+- ✅ Include marker comment at top of file
 - ✅ When TTBaseSUI has the component → use `/ttb-sui-*` instead
+- ✅ Use `Button` for tappable views — DO NOT use `onTapGesture`
+- ✅ Minimum 44×44 tap target for interactive elements
+- ✅ Body < 40 lines — extract sub-views
 
 ---
 
@@ -503,7 +780,7 @@ struct BadgeText_Previews: PreviewProvider {
 "/ttb-bugfix — the price label on ProductCell overlaps the buy button on iPhone SE (small screen)."
 
 # API error
-"/ttb-bugfix — the ProductList screen shows empty state even when API returns data. Console shows ' decoding error'."
+"/ttb-bugfix — the ProductList screen shows empty state even when API returns data. Console shows 'decoding error'."
 ```
 
 ### Bug Fix Workflow
@@ -661,6 +938,18 @@ struct BadgeText_Previews: PreviewProvider {
    - Recommendation
 ```
 
+### FCR 7-Dimension Compliance Score
+
+| Dimension | Weight | Check |
+|-----------|--------|-------|
+| iOS 14+ API | 15% | No iOS 15+/16+/17+ APIs |
+| TTBaseUIKit Compliance | 20% | All components, no raw UIKit |
+| Config Tokens | 15% | TTView/TTSize/TTFont everywhere |
+| MVVM Separation | 15% | ViewModel pure, VC thin |
+| Closure Safety | 15% | [weak self] everywhere |
+| Localization | 10% | XText/XTextU with Localizable.strings |
+| Code Quality | 10% | MARK sections, naming, style |
+
 ### Key Rules for Auditing
 
 - ✅ **Comprehensive** — check all dimensions
@@ -734,31 +1023,31 @@ struct BadgeText_Previews: PreviewProvider {
 ┌──────────────────────────────────────────────────────────┐
 │  2. FEATURE RESEARCH (Phase 1)                           │
 │     Analyze existing code, find patterns, assess scope   │
-│     └── Feature Research Report                          │
+│     └── Feature Research Report                         │
 └──────────────────────────────────────────────────────────┘
                           ↓
 ┌──────────────────────────────────────────────────────────┐
-│  3. FEATURE SPEC (Phase 2)                               │
+│  3. FEATURE SPEC (Phase 2)                              │
 │     Define data model, files, navigation, API contract   │
-│     └── Approved Spec                                    │
+│     └── Approved Spec                                   │
 └──────────────────────────────────────────────────────────┘
                           ↓
 ┌──────────────────────────────────────────────────────────┐
-│  4. IMPLEMENTATION (Phase 4)                            │
-│     Generate files one-by-one → xcodebuild each           │
-│     └── Generated Files                                   │
+│  4. IMPLEMENTATION (Phase 3)                            │
+│     Generate files one-by-one → xcodebuild each          │
+│     └── Generated Files                                  │
 └──────────────────────────────────────────────────────────┘
                           ↓
 ┌──────────────────────────────────────────────────────────┐
-│  5. CODE REVIEW (Phase 5)                                │
+│  5. CODE REVIEW (Phase 4)                               │
 │     FCR 7-Dimension audit across all files               │
-│     └── Issues List                                      │
+│     └── Issues List                                     │
 └──────────────────────────────────────────────────────────┘
                           ↓
 ┌──────────────────────────────────────────────────────────┐
-│  6. VERIFICATION (Phase 6) ← MANDATORY                  │
-│     xcodebuild + compliance + regression + FCR score    │
-│     └── ✅ BUILD SUCCEEDED + FCR ≥ 85% → COMPLETE       │
+│  6. VERIFICATION (Phase 5) ← MANDATORY                  │
+│     xcodebuild + compliance + regression + FCR score     │
+│     └── ✅ BUILD SUCCEEDED + FCR ≥ 85% → COMPLETE      │
 └──────────────────────────────────────────────────────────┘
 ```
 
@@ -776,7 +1065,9 @@ struct BadgeText_Previews: PreviewProvider {
 | SwiftUI view | `/ttb-sui-view` | "ProductCardView" |
 | SwiftUI list | `/ttb-sui-list` | "ProductListScreen lazy loading" |
 | SwiftUI ViewModel | `/ttb-sui-viewmodel` | "ProductListViewModel" |
-| Native SwiftUI | `/native-{component}` | "/native-chart — bar chart" |
+| Native atomic | `/native-{component}` | "/native-rating — 5 stars" |
+| Native screen | `/ttb-native-screen` | "/ttb-native-screen — complex chart" |
+| Native view | `/ttb-native-view` | "/ttb-native-view — custom card layout" |
 | Bug fix | `/ttb-bugfix` | "Cart badge doesn't update" |
 | UIKit refactor | `/ttb-refactor-uikit` | "Migrate to TTViewCodable" |
 | SwiftUI refactor | `/ttb-refactor-swiftui` | "Migrate to TTBaseSUI" |
