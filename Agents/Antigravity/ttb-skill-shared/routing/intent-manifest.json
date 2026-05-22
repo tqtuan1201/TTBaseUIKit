@@ -1,0 +1,254 @@
+{
+  "schemaVersion": "1.0.0",
+  "updated": "2026-05-22",
+  "system": "TTBaseUIKit Antigravity",
+  "languageSupport": {
+    "primary": ["en", "vi"],
+    "mixedLanguage": true,
+    "vietnameseDiacriticsOptional": true,
+    "normalization": [
+      "lowercase",
+      "trim",
+      "strip_vietnamese_diacritics",
+      "collapse_whitespace",
+      "singularize_common_english_terms",
+      "map_known_typos_and_shorthand"
+    ]
+  },
+  "routingPolicy": {
+    "strategy": "semantic_intent_first",
+    "exactCommandPriority": 100,
+    "confidenceThresholds": {
+      "autoRoute": 0.78,
+      "askClarifyingQuestion": 0.55,
+      "fallbackToShared": 0.0
+    },
+    "tieBreakers": [
+      "explicit_command",
+      "platform_or_framework_mention",
+      "artifact_type",
+      "lifecycle_stage",
+      "risk_or_quality_intent",
+      "dependency_readiness",
+      "user_language"
+    ],
+    "backwardCompatibility": {
+      "preserveCommands": true,
+      "legacyAliases": {
+        "/tts-init": "/ttb-init",
+        "/tts-uikit": "/ttb-uikit",
+        "/tts-swiftui": "/ttb-swiftui",
+        "/tts-native": "/ttb-native-components",
+        "/tts-bugfix": "/ttb-bugfix",
+        "/tts-refactor": "/ttb-refactor",
+        "/tts-audit": "/ttb-audit"
+      }
+    }
+  },
+  "intents": [
+    {
+      "id": "project_init",
+      "skill": "ttb-skill-init",
+      "command": "/ttb-init",
+      "loadLevel": "always",
+      "priority": 100,
+      "aliases": [
+        "/ttb-init",
+        "/ttb-init-project",
+        "/ttb-new-project",
+        "/ttb-init-structure",
+        "/ttb-init-config",
+        "/ttb-init-l10n",
+        "/ttb-init-debug"
+      ],
+      "semanticAliases": {
+        "en": ["init project", "setup project", "new app foundation", "scaffold mvvm-c", "configure ttbaseuikit", "setup localization", "add debug kit"],
+        "vi": ["khoi tao du an", "khởi tạo dự án", "tao cau truc", "tạo cấu trúc", "cau hinh ttbaseuikit", "cấu hình ttbaseuikit", "setup ngon ngu", "cai debug"]
+      },
+      "negativeSignals": ["fix existing bug", "audit existing code", "only create one screen"],
+      "requires": [],
+      "prompts": [
+        "ttb-skill-init/prompts/ttb-skill-init.prompt.md",
+        "ttb-skill-init/prompts/ttb-skill-init-structure.prompt.md",
+        "ttb-skill-init/prompts/ttb-skill-init-ttbaseui-kit.prompt.md",
+        "ttb-skill-init/prompts/ttb-skill-init-localization.prompt.md",
+        "ttb-skill-init/prompts/ttb-skill-init-debug.prompt.md"
+      ],
+      "fallback": "Ask for dependency manager, project name, existing architecture, and whether this is a new or existing app."
+    },
+    {
+      "id": "uikit_feature",
+      "skill": "ttb-skill-uikit",
+      "command": "/ttb-uikit",
+      "loadLevel": "domain",
+      "priority": 80,
+      "aliases": [
+        "/ttb-uikit",
+        "/ttb-uikit-screen",
+        "/ttb-uikit-list",
+        "/ttb-uikit-form",
+        "/ttb-uikit-cell",
+        "/ttb-uikit-customview",
+        "/ttb-uikit-api",
+        "/ttb-uikit-coordinator",
+        "/ttb-uikit-viewmodel"
+      ],
+      "semanticAliases": {
+        "en": ["build uikit screen", "create view controller", "generate api", "build endpoint", "create service", "make table view", "make collection view", "create cell", "build form", "navigation coordinator", "viewmodel callbacks"],
+        "vi": ["tao man hinh uikit", "tạo màn hình uikit", "tao api", "tạo api", "viet api", "viết api", "api login", "tao service", "tao endpoint", "tao cell", "tao form", "tao coordinator", "tao viewmodel"]
+      },
+      "artifactTypes": ["viewcontroller", "api", "endpoint", "service", "requestdata", "cell", "form", "list", "coordinator", "viewmodel"],
+      "requires": ["ttb-skill-init"],
+      "prompts": [
+        "ttb-skill-uikit/ttb-skill-screen.prompt.md",
+        "ttb-skill-uikit/ttb-skill-list.prompt.md",
+        "ttb-skill-uikit/ttb-skill-form.prompt.md",
+        "ttb-skill-uikit/ttb-skill-cell.prompt.md",
+        "ttb-skill-uikit/ttb-skill-customview.prompt.md",
+        "ttb-skill-uikit/ttb-skill-api.prompt.md",
+        "ttb-skill-uikit/ttb-skill-coordinator.prompt.md",
+        "ttb-skill-uikit/ttb-skill-viewmodel.prompt.md"
+      ],
+      "fallback": "If SwiftUI is explicitly requested, route to ttb-skill-swiftui. If only 'api' is present, prefer /ttb-uikit-api because RequestAPI is a UIKit-domain shared service pattern."
+    },
+    {
+      "id": "swiftui_feature",
+      "skill": "ttb-skill-swiftui",
+      "command": "/ttb-swiftui",
+      "loadLevel": "domain",
+      "priority": 80,
+      "aliases": [
+        "/ttb-swiftui",
+        "/ttb-sui-screen",
+        "/ttb-sui-view",
+        "/ttb-sui-list",
+        "/ttb-sui-viewmodel",
+        "/ttb-native-screen",
+        "/ttb-native-view"
+      ],
+      "semanticAliases": {
+        "en": ["build swiftui screen", "create ttbase sui view", "make swiftui list", "native swiftui fallback", "suibaseview screen", "ttbasenavigationlink flow"],
+        "vi": ["tao man hinh swiftui", "tạo màn hình swiftui", "tao view swiftui", "tao list swiftui", "tao suibaseview", "dieu huong swiftui", "điều hướng swiftui"]
+      },
+      "artifactTypes": ["swiftui_screen", "swiftui_view", "sui_list", "swiftui_viewmodel", "navigation_link"],
+      "requires": ["ttb-skill-init"],
+      "prompts": [
+        "ttb-skill-swiftui/ttb-skill-sui-screen.prompt.md",
+        "ttb-skill-swiftui/ttb-skill-sui-view.prompt.md",
+        "ttb-skill-swiftui/ttb-skill-sui-list.prompt.md",
+        "ttb-skill-swiftui/ttb-skill-sui-viewmodel.prompt.md",
+        "ttb-skill-swiftui/ttb-skill-native-screen.prompt.md",
+        "ttb-skill-swiftui/ttb-skill-native-view.prompt.md"
+      ],
+      "fallback": "Prefer TTBaseSUI. Use native SwiftUI only when TTBaseSUI has no equivalent and document the gap."
+    },
+    {
+      "id": "native_swiftui_component",
+      "skill": "ttb-skill-native-swiftui-components",
+      "command": "/ttb-native-components",
+      "loadLevel": "on-demand",
+      "priority": 70,
+      "aliases": [
+        "/ttb-native-button",
+        "/ttb-native-card",
+        "/ttb-native-alert",
+        "/ttb-native-input",
+        "/ttb-native-avatar",
+        "/ttb-native-chip",
+        "/ttb-native-selector",
+        "/ttb-native-snackbar",
+        "/ttb-native-loading",
+        "/ttb-native-progress",
+        "/ttb-native-rating",
+        "/ttb-native-divider",
+        "/ttb-native-text",
+        "/ttb-native-icon",
+        "/ttb-native-tab-bar",
+        "/ttb-native-bottom-sheet",
+        "/ttb-native-list-row",
+        "/ttb-native-section-header",
+        "/ttb-native-display",
+        "/ttb-native-empty-state"
+      ],
+      "semanticAliases": {
+        "en": ["native swiftui component", "create reusable button", "make card component", "build input component", "custom bottom sheet", "rating view", "empty state view"],
+        "vi": ["tao component swiftui native", "tao nut", "tao button", "tao card", "tao input", "tao bottom sheet", "tao rating", "tao empty state"]
+      },
+      "artifactTypes": ["button", "card", "alert", "input", "avatar", "chip", "selector", "snackbar", "loading", "progress", "rating", "divider", "text", "icon", "tab_bar", "bottom_sheet", "list_row", "section_header", "display", "empty_state"],
+      "requires": ["ttb-skill-init", "ttb-skill-swiftui"],
+      "prompts": ["ttb-skill-native-swiftui-components/ttb-skill-native-*.prompt.md"],
+      "fallback": "If the request is a full screen or app flow, route to ttb-skill-swiftui instead of component skill."
+    },
+    {
+      "id": "bugfix",
+      "skill": "ttb-skill-bugfix",
+      "command": "/ttb-bugfix",
+      "loadLevel": "domain",
+      "priority": 90,
+      "aliases": ["/ttb-bugfix", "/ttb-debug", "/ttb-fix-crash"],
+      "semanticAliases": {
+        "en": ["fix bug", "debug crash", "wrong behavior", "regression", "memory leak", "ui not updating", "decoding error"],
+        "vi": ["sua loi", "sửa lỗi", "fix bug", "debug", "crash", "loi logic", "roi man hinh", "memory leak", "ui khong cap nhat"]
+      },
+      "requires": [],
+      "prompts": ["ttb-skill-bugfix/ttb-skill-bugfix.prompt.md"],
+      "fallback": "If the prompt asks to improve architecture without a failing symptom, route to refactor or audit."
+    },
+    {
+      "id": "refactor",
+      "skill": "ttb-skill-refactor",
+      "command": "/ttb-refactor",
+      "loadLevel": "on-demand",
+      "priority": 60,
+      "aliases": ["/ttb-refactor", "/ttb-refactor-uikit", "/ttb-refactor-swiftui"],
+      "semanticAliases": {
+        "en": ["refactor", "clean up code", "migrate to ttviewcodable", "replace raw uikit", "migrate native swiftui to ttbase sui", "reduce duplication"],
+        "vi": ["refactor", "don code", "dọn code", "tai cau truc", "tái cấu trúc", "chuyen sang ttviewcodable", "thay raw uikit", "giam trung lap"]
+      },
+      "requires": [],
+      "prompts": ["ttb-skill-refactor/ttb-skill-refactor.prompt.md"],
+      "fallback": "If behavior is broken, run bugfix first. If only compliance scoring is needed, route to audit."
+    },
+    {
+      "id": "audit",
+      "skill": "ttb-skill-audit",
+      "command": "/ttb-audit",
+      "loadLevel": "on-demand",
+      "priority": 55,
+      "aliases": ["/ttb-audit", "/ttb-audit-performance", "/ttb-audit-accessibility", "/ttb-audit-localization"],
+      "semanticAliases": {
+        "en": ["audit code", "performance audit", "accessibility audit", "localization audit", "fcr score", "compliance check", "review quality"],
+        "vi": ["audit code", "kiem tra hieu nang", "kiểm tra hiệu năng", "kiem tra accessibility", "kiem tra ngon ngu", "cham diem fcr", "kiem tra compliance"]
+      },
+      "requires": [],
+      "prompts": [
+        "ttb-skill-audit/ttb-skill-audit-performance.prompt.md",
+        "ttb-skill-audit/ttb-skill-audit-accessibility.prompt.md",
+        "ttb-skill-audit/ttb-skill-audit-localization.prompt.md"
+      ],
+      "fallback": "If the audit finds defects and user asks to fix them, chain to bugfix or refactor after reporting findings."
+    }
+  ],
+  "chains": [
+    {
+      "id": "new_feature_full",
+      "when": "feature request with unclear project readiness",
+      "steps": ["ttb-skill-init:validate-foundation", "selected-domain-skill", "ttb-phase-verify"]
+    },
+    {
+      "id": "api_login",
+      "when": "login api, auth endpoint, tao api login, generate auth api",
+      "steps": ["ttb-skill-uikit:/ttb-uikit-api", "ttb-skill-uikit:/ttb-uikit-viewmodel", "ttb-phase-verify"]
+    },
+    {
+      "id": "bug_then_refactor",
+      "when": "bug prompt also asks cleanup",
+      "steps": ["ttb-skill-bugfix", "ttb-skill-refactor:only-if-needed", "ttb-phase-verify"]
+    },
+    {
+      "id": "audit_then_fix",
+      "when": "audit prompt asks to resolve findings",
+      "steps": ["ttb-skill-audit", "ttb-skill-bugfix-or-refactor", "ttb-phase-verify"]
+    }
+  ]
+}

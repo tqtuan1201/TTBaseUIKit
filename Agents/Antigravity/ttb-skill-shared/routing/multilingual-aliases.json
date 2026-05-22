@@ -1,0 +1,52 @@
+{
+  "schemaVersion": "1.0.0",
+  "updated": "2026-05-22",
+  "normalization": {
+    "stripVietnameseDiacritics": {
+      "tạo": "tao",
+      "viết": "viet",
+      "sửa": "sua",
+      "lỗi": "loi",
+      "màn hình": "man hinh",
+      "dự án": "du an",
+      "khởi tạo": "khoi tao",
+      "cấu hình": "cau hinh",
+      "điều hướng": "dieu huong",
+      "kiểm tra": "kiem tra",
+      "hiệu năng": "hieu nang",
+      "ngôn ngữ": "ngon ngu",
+      "tái cấu trúc": "tai cau truc"
+    },
+    "typosAndShorthand": {
+      "api logn": "api login",
+      "auth apii": "auth api",
+      "viewmodle": "viewmodel",
+      "swifui": "swiftui",
+      "swift ui": "swiftui",
+      "ui kit": "uikit",
+      "ttbase ui": "ttbaseuikit",
+      "man hih": "man hinh",
+      "tao man": "tao man hinh",
+      "viet endpoint": "tao api"
+    }
+  },
+  "domainSynonyms": {
+    "api": ["api", "endpoint", "service", "network", "request", "auth api", "login api", "backend call", "tao api", "viet api", "api login", "generate api", "build endpoint"],
+    "screen": ["screen", "page", "view controller", "viewcontroller", "man hinh", "màn hình", "view", "flow"],
+    "list": ["list", "table", "tableview", "collection", "collectionview", "grid", "danh sach", "danh sách"],
+    "form": ["form", "input screen", "validation", "textfield", "text field", "bieu mau", "biểu mẫu", "nhap lieu"],
+    "bugfix": ["bug", "fix", "debug", "crash", "error", "issue", "regression", "sua loi", "loi", "khong chay"],
+    "refactor": ["refactor", "cleanup", "clean up", "restructure", "migrate", "tai cau truc", "don code", "giam trung lap"],
+    "audit": ["audit", "review", "score", "compliance", "performance", "accessibility", "localization", "kiem tra", "danh gia", "cham diem"],
+    "swiftui": ["swiftui", "swift ui", "ttbasesui", "suibaseview", "navigationlink", "native swiftui"],
+    "uikit": ["uikit", "ui kit", "viewcontroller", "ttviewcodable", "uitableview", "uicollectionview"]
+  },
+  "examples": [
+    {"input": "tạo api login", "normalized": "tao api login", "route": "/ttb-uikit-api"},
+    {"input": "generate auth api", "normalized": "generate auth api", "route": "/ttb-uikit-api"},
+    {"input": "viet api", "normalized": "viet api", "route": "/ttb-uikit-api"},
+    {"input": "tao man hinh swiftui", "normalized": "tao man hinh swiftui", "route": "/ttb-sui-screen"},
+    {"input": "fix crash khi tap button", "normalized": "fix crash khi tap button", "route": "/ttb-bugfix"},
+    {"input": "kiem tra localization", "normalized": "kiem tra localization", "route": "/ttb-audit-localization"}
+  ]
+}
