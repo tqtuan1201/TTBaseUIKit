@@ -72,7 +72,7 @@ TTBaseNavigationLink(destination: {
 }, label: {
     ProductCardView(product: product)
         .pAll(TTSize.P_CONS_DEF)
-        .bg(byDef: XView.viewBgCellColor.toColor())
+        .bg(byDef: TTView.viewBgCellColor.toColor())
         .corner(byDef: TTSize.CORNER_PANEL)
         .baseShadow()
 })
@@ -136,7 +136,7 @@ struct ProductListScreen: View {
                         }, label: {
                             ProductCardView(product: product)
                                 .pAll(TTSize.P_CONS_DEF)
-                                .bg(byDef: XView.viewBgCellColor.toColor())
+                                .bg(byDef: TTView.viewBgCellColor.toColor())
                                 .corner(byDef: TTSize.CORNER_PANEL)
                                 .baseShadow()
                         })

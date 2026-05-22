@@ -186,7 +186,7 @@ class TTBaseShadowPanelView: TTBaseUIView {
 ### Non-Existent APIs (DO NOT USE)
 ```swift
 // ❌ These do NOT exist:
-XPrint("...")                  // → TTBaseFunc.shared.printLog(...)
+TTBaseFunc.shared.printLog(with: "...", object: nil)                  // → TTBaseFunc.shared.printLog(...)
 BaseShadowPanelView()           // → TTBaseShadowPanelView()
 .setTextString(...)           // → .setText(...) or direct assignment to .placeholder
 navBaseStype                  // → navType (override var navType: NAV_STYLE)

@@ -1,234 +1,162 @@
-# Antigravity Skills v1.2.0 — Audit Report
-
-> **Date**: 2026-05-18 | **Auditors**: Claude Code (multi-agent audit)
-> **Scope**: TTBaseUIKit Antigravity skill system v1.1.0 → v1.2.0 upgrade
-> **Result**: All Phase 0-5 items completed. Phase 6 = this document.
-
+---
+name: "antigravity-audit-report"
+description: "Audit and upgrade report for TTBaseUIKit Antigravity skills, workflows, routing, metadata, multilingual triggers, and cleanup."
+version: "2.2.0"
+date_updated: "2026-05-22"
+risk: "safe"
+source: "internal"
+tags: ["audit", "routing", "skills", "workflows", "cleanup", "migration"]
 ---
 
-## Summary of Changes by Phase
+# Antigravity Skills + Workflows Audit Report
 
-| Phase | Item | Status | Files Changed |
-|-------|------|--------|--------------|
-| 0 | SizeConfig typo fix | ✅ Done | `SizeConfig.swift` |
-| 0 | `#if compiler(>=6.2)` → `#if swift(>=6.2)` | ✅ Done | `View+LiquidGlass+Extension.swift` |
-| 0 | `BlackLiquidGlassBackground` availability | ✅ Already had `@available` | — |
-| 1 | Iron Laws deduplication (5 SKILL.md files) | ✅ Done | Root, shared, init, uikit, swiftui SKILL.md |
-| 1 | `prepareForReuse()` added to cell/list prompts | ✅ Done | `ttb-skill-cell.prompt.md`, `ttb-skill-list.prompt.md` |
-| 1 | `deinit` RCA checklist added | ✅ Done | `ttb-skill-bugfix.prompt.md` |
-| 1 | Localization check added to compliance script | ✅ Done | `ttb-compliance-check.sh` |
-| 1 | `H_LINEVIEW` documented as border thickness (2pt) | ✅ Done | `ttb-skill-native-button.prompt.md` |
-| 1 | BaseShadowView naming clarified | ✅ Done | `ttb-skill-customview.prompt.md`, `ttb-rule-anti-patterns.md` |
-| 1 | AwesomePro dependency documented | ✅ Done | `ttb-skill-cell.prompt.md`, `ttb-skill-customview.prompt.md` |
-| 2 | `setBorder` deprecated, `baseBorder` kept | ✅ Done | `View+Style.swift`, `NewSupportSUIView.swift` |
-| 2 | `shared` vs `getConfig()` documented | ✅ Done | `ttb-ref-config-tokens.md` |
-| 2 | LiquidGlass Swift version check fixed | ✅ Done | (see Phase 0) |
-| 2 | `ttb-ref-swiftui-extensions.md` created | ✅ Done | New file in `refs/` |
-| 3 | Init skill bumped to v1.1.0 | ✅ Done | `ttb-skill-init/SKILL.md` |
-| 3 | Ruby script path marked optional | ✅ Done | 3 files |
-| 4 | FCR canonical formula defined | ✅ Done | `ttb-skill-registry.md`, `ttb-phase-verify.md` |
-| 5 | `version`/`risk`/`tags` added to all 7 skills | ✅ Done | All 7 SKILL.md files |
-| 5 | Rationalizations tables added | ✅ Done | `ttb-skill-bugfix.prompt.md`, `ttb-skill-refactor.prompt.md` |
-| 5 | Quality Gate Checklists added | ✅ Done | `ttb-skill-native-swiftui-components/SKILL.md` |
+**Date**: 2026-05-22
+**Scope**: `Agents/Antigravity/` only
+**Result**: Upgraded to semantic routing architecture with backward-compatible `/ttb-*` commands and legacy `/tts-*` alias support.
 
----
+## Executive Summary
 
-## Known Issues Not Fixed
+The system now has a canonical registry, machine-readable intent manifest, multilingual alias normalization, routing confidence policy, reusable workflow contract, and metadata validation script.
 
-These issues were identified during audit but deferred due to scope:
+Key issues found:
 
-### 1. `navBaseStype` override — not documented
+- Root README/registry used `/tts-*` commands while active skills use `/ttb-*`.
+- Registry content was duplicated between root and `ttb-skill-shared/`.
+- Routing depended mostly on command/keyword matching.
+- Vietnamese/English/mixed-language triggers were scattered.
+- Skill metadata lacked a consistent routing contract, input/output schema, anti-patterns, and fallback strategy.
+- Some SwiftUI examples still used deprecated `XView/XSize/XFont` aliases.
 
-**File**: `ttb-skill-list.prompt.md`
-**Issue**: The list ViewController template uses `override var navBaseStype: BaseUINavigationView.TYPE { return .DEFAULT }` but this property and its usage are never documented in the TTBaseUIKit API reference or the anti-patterns rules.
-**Impact**: Low — the pattern works but agents won't understand it.
-**Recommended fix**: Document in `ttb-ref-ttbaseuikit.md`.
+## Classification
 
-### 2. `AwesomePro` font icon — no SF Symbols fallback in anti-patterns
+| Category | Files / Directories |
+|----------|---------------------|
+| Skills | `SKILL.md`, `ttb-skill-*/SKILL.md` |
+| Workflows | `ttb-skill-shared/phases/*.md`, `ttb-skill-shared/workflows/ttb-workflow-standard.md` |
+| Shared resources | `ttb-skill-shared/rules/`, `refs/`, `fragments/`, `scripts/`, `templates/` |
+| Prompts | `*.prompt.md` across skill directories |
+| Routers | `ttb-skill-shared/routing/` |
+| Configs / installers | `Installation/`, `export.sh`, `VERSION.md` |
 
-**File**: `ttb-rule-anti-patterns.md`
-**Issue**: The anti-patterns rule lists component replacements but never mentions the AwesomePro font icon alternative (SF Symbols).
-**Impact**: Medium — agents may not know to offer SF Symbols as an alternative.
-**Recommended fix**: Add a "Font Icon Alternatives" section to `ttb-rule-anti-patterns.md`.
+## Changed Files
 
-### 3. `newPanelView` property — inconsistent access pattern
+### New Files
 
-**File**: `ttb-skill-customview.prompt.md`
-**Issue**: `BaseShadowPanelView.newPanelView` is accessed via `self.newPanelView` in the template code but `BaseShadowView` is referenced by name. After consolidation to `BaseShadowPanelView`, the access pattern is now consistent, but `newPanelView` is not documented in `ttb-ref-ttbaseuikit.md`.
-**Impact**: Low — pattern is now consistent in prompts.
-**Recommended fix**: Document `newPanelView` property in `ttb-ref-ttbaseuikit.md`.
+| File | Purpose |
+|------|---------|
+| `ttb-skill-shared/routing/intent-manifest.json` | Machine-readable semantic routing, dependencies, aliases, chains |
+| `ttb-skill-shared/routing/multilingual-aliases.json` | English/Vietnamese normalization, typos, shorthand, synonyms |
+| `ttb-skill-shared/routing/intent-router.md` | Human-readable routing contract and confidence policy |
+| `ttb-skill-shared/routing/router-examples.md` | Routing regression examples |
+| `ttb-skill-shared/workflows/ttb-workflow-standard.md` | Shared state/context/retry/fallback/verification contract |
+| `ttb-skill-shared/scripts/ttb-routing-validate.sh` | Validates routing JSON and required SKILL metadata |
 
-### 4. `ttb-phase-feature-research.md` — not verified
+### Updated Files
 
-**File**: `ttb-skill-shared/phases/ttb-phase-feature-research.md`
-**Issue**: The phase file was not read during this audit. Potential inconsistencies with other phases are unknown.
-**Recommended fix**: Audit this file against `ttb-phase-implementation.md`, `ttb-phase-code-review.md`, and `ttb-phase-verify.md`.
+| File | Change |
+|------|--------|
+| `SKILL.md` | v2.2.0, auto-routing contract, EN/VI examples, routing source links |
+| `README.md`, `README-VI.md` | v2.2.0, fixed `/tts-*` to `/ttb-*`, added auto-routing section |
+| `ttb-skill-registry.md` | Rewritten as canonical v2.2.0 registry |
+| `ttb-skill-shared/ttb-skill-registry.md` | Converted stale duplicate registry into compatibility shim |
+| `ttb-skill-shared/SKILL.md` | Added routing/workflow directories and validation script |
+| `ttb-skill-*/SKILL.md` | Added metadata, routing contracts, schemas, aliases, anti-patterns, fallback strategies |
+| `ttb-skill-shared/templates/*.template` | Added standardized metadata, routing schema, retry/fallback guidance |
+| `ttb-skill-swiftui/*.prompt.md` | Normalized generated SwiftUI examples from `XView/XSize/XFont` to `TTView/TTSize/TTFont` |
+| `ttb-skill-shared/refs/ttb-ref-ttbasesui.md`, `ttb-ref-navigation.md` | Normalized example tokens |
 
-### 5. `awesome-cursorrules` reference not integrated
+## New Architecture
 
-**Finding**: GitHub research identified `awesome-cursorrules` as the top repository for .cursorrules patterns. The Antigravity skills don't currently provide a `.cursorrules` file for Cursor IDE enforcement.
-**Recommended fix**: Create `.cursorrules` at the workspace root enforcing the Iron Laws, anti-patterns, and FCR scoring thresholds.
-
-### 6. Ruby script still referenced (but marked optional)
-
-**Files**: 3 locations in skill system
-**Issue**: The ruby script `add_to_xcode_project.rb` at `.agent/skills/ttbase-swiftui/scripts/` is still referenced (now marked as optional) but does not exist in the codebase.
-**Recommended fix**: Either create the script or remove all references entirely.
-
----
-
-## Skill Version Reference
-
-| Skill | v1.1.0 | v1.2.0 |
-|-------|---------|---------|
-| `ttb-skill-init` | 1.1.0 | **1.2.0** |
-| `ttb-skill-shared` | 1.1.0 | 1.1.0 |
-| `ttb-skill-uikit` | 1.1.0 | **1.2.0** |
-| `ttb-skill-swiftui` | 1.1.0 | **1.2.0** |
-| `ttb-skill-native-swiftui-components` | 1.1.0 | **1.2.0** |
-| `ttb-skill-bugfix` | 1.1.0 | **1.2.0** |
-| `ttb-skill-refactor` | 1.1.0 | **1.2.0** |
-| `ttb-skill-audit` | 1.1.0 | **1.2.0** |
-
-| Shared Resource | Version |
-|----------------|---------|
-| `ttb-iron-laws.frag.md` | 1.0.0 |
-| `ttb-marker.frag.md` | 1.0.0 |
-| `ttb-phase-verify.md` | 1.1.0 |
-| `ttb-phase-code-review.md` | 1.0.0 |
-| `ttb-phase-implementation.md` | 1.0.0 |
-| `ttb-phase-feature-research.md` | Not audited |
-| `ttb-phase-feature-spec.md` | Not audited |
-| `ttb-rule-anti-patterns.md` | 1.0.0 |
-| `ttb-rule-coding-standards.md` | 1.0.0 |
-| `ttb-rule-memory-leaks.md` | 1.0.0 |
-| `ttb-ref-ttbaseuikit.md` | 1.0.0 |
-| `ttb-ref-ttbasesui.md` | 1.0.0 |
-| `ttb-ref-config-tokens.md` | 1.0.0 |
-| `ttb-ref-ios14-compatibility.md` | 1.0.0 |
-| `ttb-ref-swiftui-extensions.md` | **NEW 1.0.0** |
-| `ttb-skill-registry.md` | **1.2.0** |
-| `ttb-compliance-check.sh` | Modified |
-| `ttb-verify.sh` | Not modified |
-
----
-
-## FCR 7-Dimension Scoring — Canonical Reference
-
-```
-FCR Score = (dim1 × 0.15 + dim2 × 0.20 + dim3 × 0.15 + dim4 × 0.15
-           + dim5 × 0.15 + dim6 × 0.10 + dim7 × 0.10) × 10
+```text
+Agents/Antigravity/
+├── SKILL.md
+├── README.md
+├── README-VI.md
+├── ttb-skill-registry.md                 # canonical registry
+├── ttb-skill-*/                          # domain skills
+└── ttb-skill-shared/
+    ├── ttb-skill-registry.md             # compatibility shim
+    ├── routing/
+    │   ├── intent-manifest.json
+    │   ├── multilingual-aliases.json
+    │   ├── intent-router.md
+    │   └── router-examples.md
+    ├── workflows/
+    │   └── ttb-workflow-standard.md
+    ├── phases/
+    ├── rules/
+    ├── refs/
+    ├── fragments/
+    ├── scripts/
+    │   ├── ttb-precheck.sh
+    │   ├── ttb-compliance-check.sh
+    │   ├── ttb-verify.sh
+    │   └── ttb-routing-validate.sh
+    └── templates/
 ```
 
-| # | Dimension | Weight | Must Pass |
-|---|-----------|--------|-----------|
-| 1 | iOS 14+ API | 15% | No iOS 15+/16+/17+ APIs |
-| 2 | TTBaseUIKit Compliance | 20% | All components, no raw UIKit |
-| 3 | Config Tokens | 15% | TTView/TTSize/TTFont everywhere |
-| 4 | MVVM Separation | 15% | ViewModel pure, VC thin |
-| 5 | Closure Safety | 15% | [weak self] everywhere |
-| 6 | Localization | 10% | XText/XTextU with keys |
-| 7 | Code Quality | 10% | MARK, naming, style |
+## Upgraded Routing Logic
 
-**Thresholds**: ≥ 85 = READY | 70–84 = NEEDS FIX | < 70 = BLOCKED
+Routing now follows this order:
 
----
+1. Exact `/ttb-*` command.
+2. Legacy `/tts-*` alias mapped to `/ttb-*`.
+3. Normalize prompt: lowercase, trim, strip Vietnamese diacritics, collapse whitespace, map typo/shorthand aliases.
+4. Classify by semantic intent: artifact type, framework, lifecycle stage, quality/risk intent, dependencies.
+5. Score route confidence.
+6. Auto-route, clarify, or fallback based on threshold.
 
-## Skill Dependency Graph
+| Confidence | Action |
+|------------|--------|
+| `>= 0.78` | Auto-route |
+| `0.55-0.77` | Ask one focused clarification |
+| `< 0.55` | Load shared resources and ask for goal/framework/artifact |
 
-```
-(ttb-skill-init) ← always loaded
-(ttb-skill-shared) ← always loaded
- │
- ├── ttb-iron-laws.frag.md (always)
- ├── ttb-marker.frag.md (always)
- ├── ttb-rule-anti-patterns.md (domain)
- ├── ttb-rule-coding-standards.md (domain)
- ├── ttb-rule-memory-leaks.md (domain)
- ├── ttb-ref-ttbaseuikit.md (domain)
- ├── ttb-ref-ttbasesui.md (domain)
- ├── ttb-ref-config-tokens.md (domain)
- ├── ttb-ref-ios14-compatibility.md (domain)
- ├── ttb-ref-swiftui-extensions.md (on-demand) ← NEW
- ├── ttb-phase-feature-research.md (domain)
- ├── ttb-phase-feature-spec.md (domain)
- ├── ttb-phase-implementation.md (domain)
- ├── ttb-phase-code-review.md (domain)
- ├── ttb-phase-verify.md (domain)
- ├── ttb-verify.sh (on-demand)
- └── ttb-compliance-check.sh (on-demand)
+## Examples Covered
 
-(ttb-skill-uikit) ← domain
-(ttb-skill-swiftui) ← domain
-(ttb-skill-native-swiftui-components) ← on-demand
-(ttb-skill-bugfix) ← domain
-(ttb-skill-refactor) ← on-demand
-(ttb-skill-audit) ← on-demand
-```
+| Prompt | Route |
+|--------|-------|
+| `tạo api` / `tao api` / `generate api` / `build endpoint` | `/ttb-uikit-api` |
+| `api login` / `generate auth api` | `/ttb-uikit-api` |
+| `tạo màn hình SwiftUI` / `tao man hinh swiftui` | `/ttb-sui-screen` |
+| `fix crash khi tap button` / `sửa lỗi UI không update` | `/ttb-bugfix` |
+| `kiểm tra hiệu năng` / `performance audit` | `/ttb-audit-performance` |
 
----
+## Cleanup
 
-## Design Tokens Quick Reference
+Removed or neutralized:
 
-### Accessors
+- Duplicate registry logic in `ttb-skill-shared/ttb-skill-registry.md`; path preserved as a shim.
+- Stale `/tts-*` primary command references in READMEs; legacy aliases remain supported.
+- Deprecated `XView/XSize/XFont` usage from SwiftUI generation examples.
 
-| Alias | Maps To |
-|-------|---------|
-| `TTView` | `TTBaseUIKitConfig.getViewConfig()` |
-| `TTSize` | `TTBaseUIKitConfig.getSizeConfig()` |
-| `TTFont` | `TTBaseUIKitConfig.getFontConfig()` |
+Not removed:
 
-**Rule**: Use `TTView`/`TTSize`/`TTFont` in generated code. Use `TTBaseUIKitConfig.shared` in init-time code only.
+- Installation tarballs under `Installation/` remain because they are packaging artifacts.
+- Existing prompt files remain to preserve command compatibility.
 
-### Key Size Tokens
+## Compatibility Notes
 
-| Token | Value | Usage |
-|-------|-------|-------|
-| `TTSize.P_CONS_DEF` | 8pt | Default padding |
-| `TTSize.P_L` | 16pt | Large spacing |
-| `TTSize.H_LINEVIEW` | 1.5pt | Divider/border thickness |
-| `TTSize.CORNER_RADIUS` | 4pt | Default corner radius |
-| `TTSize.H_BUTTON` | 40pt | Button height |
-| `TTSize.CORNER_BUTTON` | 4pt | Button corner |
+- All existing `/ttb-*` commands are preserved.
+- Legacy `/tts-*` aliases still map to canonical `/ttb-*` commands.
+- `ttb-skill-shared/ttb-skill-registry.md` still exists for older references.
+- No files outside `Agents/Antigravity/` were modified.
 
-| `TTSize.H_BORDER` = 2pt and `TTSize.H_LINEVIEW` = 1.5pt — both valid |
+## Migration Notes
 
----
+For future skill additions:
 
-## Extension Files Reference
+1. Add metadata to `ttb-skill-registry.md`.
+2. Add route to `ttb-skill-shared/routing/intent-manifest.json`.
+3. Add EN/VI aliases to `ttb-skill-shared/routing/multilingual-aliases.json`.
+4. Add examples to `ttb-skill-shared/routing/router-examples.md`.
+5. Use `ttb-skill-shared/templates/SKILL.md.template`.
+6. Run `bash ttb-skill-shared/scripts/ttb-routing-validate.sh`.
 
-New reference document: `ttb-skill-shared/refs/ttb-ref-swiftui-extensions.md`
+## Recommended Future Improvements
 
-| File | Methods | iOS 14 |
-|-------|---------|--------|
-| `View+Style.swift` | `baseBorder`, `setBorder` (deprecated) | ✅ |
-| `View+LiquidGlass+Extension.swift` | `enableGlassEffect`, `enableGlassEffectV2`, `WhiteLiquidGlassBackground`, `BlackLiquidGlassBackground` | ⚠️ `BlackLiquidGlassBackground` = iOS 15+ |
-| `View+Config+Extension.swift` | `bgByView`, `bgByDef`, `textByDef`, `cardBg` | ✅ |
-| `HostingController+Configs+Extension.swift` | 2 initializers | ✅ |
-| `View+Spacing.swift` | `pAll`, `pTop`, `pBottom`, `pLeft`, `pRight`, `pVertical` | ✅ |
-| `View+Swipe.swift` | `swipeLeading`, `swipeTrailing` | ✅ |
-| `View+LayoutPriority.swift` | `maxWidth`, `maxHeight`, `maxHW` | ✅ |
-| `TTBaseUIKit+SwiftUI.swift` | `TTBaseSUIView` struct | ✅ |
-| `UITabBar+Config+Extension.swift` | `configTabBar` (UIKit) | ✅ |
-
----
-
-## GitHub Benchmarking Summary
-
-Based on research of top repositories (antigravity-awesome-skills 37.8k stars, addyosmani/agent-skills 20k stars, Claude SwiftUI Agent Skill 3.9k stars):
-
-### Patterns Adopted in v1.2.0
-- **Standard frontmatter**: `name`, `description`, `version`, `date_updated`, `risk`, `source`, `tags` across all 7 skills
-- **Single source of truth**: Fragment files for Iron Laws and Marker, referenced from all SKILL.md files
-- **Common rationalizations**: Tables in bugfix and refactor skills
-- **Quality gate checklists**: In native components skill
-- **Canonical formula in registry**: FCR scoring defined once in `ttb-skill-registry.md`
-
-### Patterns Not Yet Adopted
-- **`.cursorrules` file**: No Cursor-specific rules file at workspace root
-- **Automated localization checks**: Added to compliance script (warning-level only) — GitHub patterns use stricter enforcement
-- **Skill changelog per-file**: Most files at v1.0.0, only SKILL.md files updated to v1.2.0
-
----
-
-**End of Audit Report — TTBaseUIKit Antigravity Skills v1.2.0**
+- Add a router CLI that returns `selectedSkill`, `selectedCommand`, and `confidence`.
+- Add CI validation for `ttb-routing-validate.sh`.
+- Regenerate installer tarballs after this upgrade.
+- Normalize frontmatter across all `*.prompt.md` files.
+- Add route coverage tests for all native component aliases.

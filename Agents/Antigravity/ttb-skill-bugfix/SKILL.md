@@ -1,8 +1,12 @@
 ---
 name: "ttb-skill-bugfix"
 description: "Systematic bug fixing workflow for TTBaseUIKit apps: root cause analysis, fix strategy, xcodebuild verify, zero regression."
-version: "2.0.0"
+version: "2.2.0"
+date_updated: "2026-05-22"
+risk: "safe"
+source: "internal"
 loadLevel: "domain"
+tags: ["bugfix", "debug", "crash", "root-cause-analysis", "regression", "routing"]
 ---
 
 # ttb-skill-bugfix
@@ -15,6 +19,26 @@ loadLevel: "domain"
 - "fix bug", "debug", "sửa lỗi", "crash", "error"
 - "app crashes", "wrong behavior", "regression"
 - "memory leak", "performance issue", "ui not updating"
+
+## Routing Contract
+
+```yaml
+input:
+  required: [symptom, affected_area_or_files, expected_behavior]
+  optional: [crash_log, reproduction_steps, recent_changes, device_or_ios_version]
+output:
+  artifacts: [root_cause, fix_strategy, changed_files, verification_report, residual_risk]
+  completion_gate: "bug fixed with zero regression or blocker documented"
+confidence:
+  auto_route: ">= 0.78 for crash/debug/fix/regression/memory leak/wrong behavior intents"
+  clarify: "0.55-0.77 when symptom lacks reproduction or affected area"
+fallback:
+  default: "Collect evidence first. Do not refactor until the failing behavior is understood."
+```
+
+Multilingual aliases: `fix bug`, `debug crash`, `regression`, `sửa lỗi`, `sua loi`, `crash khi tap`, `UI không cập nhật`, `loi logic`.
+
+Anti-patterns: do not patch symptoms without root cause; do not mix broad refactor with urgent bugfix; do not exceed three verification attempts without reporting blockers.
 
 ## Bug Classification
 
@@ -79,5 +103,5 @@ See `ttb-skill-bugfix.prompt.md` for the complete BUG FIX REPORT template.
 
 ---
 
-**Version**: 2.0.0 | **Date**: 2026-05-19
-**Changelog**: v2.0.0 — Version bump. Added 11 Iron Laws. Added critical token warnings. Updated shared resources to v2.0.0. v1.4.0 — Updated ttb-rule-coding-standards.md and ttb-rule-anti-patterns.md with chainable extensions.
+**Version**: 2.2.0 | **Date**: 2026-05-22
+**Changelog**: v2.2.0 — Added standardized routing contract, EN/VI bug aliases, input/output schema, confidence guidance, and fallback strategy. v2.0.0 — Version bump, Iron Laws, critical token warnings, and shared resource alignment.

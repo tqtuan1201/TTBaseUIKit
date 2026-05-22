@@ -34,7 +34,7 @@ struct {Name}ListScreen: View {
             isHiddenTabbar: true,
             backAction: {}
         ) {
-            TTBaseSUIVStack(alignment: .center, spacing: XSize.P_XS, bg: XView.viewBgColor.toColor()) {
+            TTBaseSUIVStack(alignment: .center, spacing: TTSize.P_XS, bg: TTView.viewBgColor.toColor()) {
                 searchSection
                 if vm.isEmpty {
                     {Name}EmptyView()
@@ -51,38 +51,38 @@ struct {Name}ListScreen: View {
 private extension {Name}ListScreen {
 
     private var searchSection: some View {
-        TTBaseSUIVStack(alignment: .center, spacing: XSize.P_XS, bg: .clear) {
+        TTBaseSUIVStack(alignment: .center, spacing: TTSize.P_XS, bg: .clear) {
             TTBaseSUITextField(placeholder: XText("App.{Name}.Search.Placeholder"), text: $vm.searchText, type: .SEARCH)
-                .size(height: XSize.H_TEXTFIELD)
-                .bg(byDef: XView.viewBgCellColor.toColor())
+                .size(height: TTSize.H_TEXTFIELD)
+                .bg(byDef: TTView.viewBgCellColor.toColor())
                 .corner()
         }
         .pHorizontal()
-        .pTop(XSize.P_CONS_DEF)
+        .pTop(TTSize.P_CONS_DEF)
         .baseShadow(color: .black.opacity(0.08), radius: 6, x: 0, y: 2)
     }
 
     private var listSection: some View {
         TTBaseSUIScroll(alignment: .vertical, bg: .clear) {
-            TTBaseSUILazyVStack(alignment: .center, spacing: XSize.P_CONS_DEF, bg: .clear) {
+            TTBaseSUILazyVStack(alignment: .center, spacing: TTSize.P_CONS_DEF, bg: .clear) {
                 ForEach(vm.filteredItems) { item in
                     TTBaseNavigationLink(destination: {
                         {Name}DetailScreen(item: item)
                     }, label: {
                         {Name}ItemView(item: item)
-                            .pAll(XSize.P_CONS_DEF)
-                            .bg(byDef: XView.viewBgCellColor.toColor())
+                            .pAll(TTSize.P_CONS_DEF)
+                            .bg(byDef: TTView.viewBgCellColor.toColor())
                             .corner(byDef: TTSize.CORNER_PANEL)
                             .baseShadow()
                     })
                 }
             }
-            .pAll(XSize.P_CONS_DEF)
-            .pBottom(XSize.H_BUTTON)
+            .pAll(TTSize.P_CONS_DEF)
+            .pBottom(TTSize.H_BUTTON)
         }
         .skeleton(active: vm.isLoading)
         .maxHeight()
-        .pBottom(XSize.P_CONS_DEF)
+        .pBottom(TTSize.P_CONS_DEF)
     }
 }
 
@@ -92,21 +92,21 @@ struct {Name}ItemView: View {
     let item: {Name}Model
 
     var body: some View {
-        TTBaseSUIHStack(alignment: .center, spacing: XSize.P_CONS_DEF) {
+        TTBaseSUIHStack(alignment: .center, spacing: TTSize.P_CONS_DEF) {
             TTBaseSUICircleImage(withname: item.avatarUrl ?? "")
                 .sizeSquare(width: 50)
 
-            TTBaseSUIVStack(alignment: .leading, spacing: XSize.P_XS) {
+            TTBaseSUIVStack(alignment: .leading, spacing: TTSize.P_XS) {
                 TTBaseSUIText(withBold: .TITLE, text: item.title ?? "",
-                              align: .leading, color: XView.textDefColor.toColor())
+                              align: .leading, color: TTView.textDefColor.toColor())
                 TTBaseSUIText(withType: .SUB_TITLE, text: item.subtitle ?? "",
-                              align: .leading, color: XView.textSubTitleColor.toColor())
+                              align: .leading, color: TTView.textSubTitleColor.toColor())
             }
             .maxWidth(alignment: .leading)
 
             TTBaseSUISpacer()
 
-            TTBaseSUIImage(withSystemName: "chevron.right", iconColor: XView.textSubTitleColor.toColor(), contentMode: .fit)
+            TTBaseSUIImage(withSystemName: "chevron.right", iconColor: TTView.textSubTitleColor.toColor(), contentMode: .fit)
                 .sizeSquare(width: 14)
         }
         .skeleton(active: true)
@@ -116,16 +116,16 @@ struct {Name}ItemView: View {
 // MARK: - {Name}EmptyView
 struct {Name}EmptyView: View {
     var body: some View {
-        TTBaseSUIVStack(alignment: .center, spacing: XSize.P_CONS_DEF) {
-            TTBaseSUIImage(withSystemName: "tray", iconColor: XView.iconColor.toColor(), contentMode: .fit)
+        TTBaseSUIVStack(alignment: .center, spacing: TTSize.P_CONS_DEF) {
+            TTBaseSUIImage(withSystemName: "tray", iconColor: TTView.iconColor.toColor(), contentMode: .fit)
                 .sizeSquare(width: 80)
-            TTBaseSUIText(withBold: .TITLE, text: XText("App.{Name}.Empty.Title"), align: .center, color: XView.textDefColor.toColor())
-            TTBaseSUIText(withType: .SUB_TITLE, text: XText("App.{Name}.Empty.Subtitle"), align: .center, color: XView.textSubTitleColor.toColor())
+            TTBaseSUIText(withBold: .TITLE, text: XText("App.{Name}.Empty.Title"), align: .center, color: TTView.textDefColor.toColor())
+            TTBaseSUIText(withType: .SUB_TITLE, text: XText("App.{Name}.Empty.Subtitle"), align: .center, color: TTView.textSubTitleColor.toColor())
         }
         .maxWidth().maxHeight()
-        .bg(byDef: XView.viewBgColor.toColor())
+        .bg(byDef: TTView.viewBgColor.toColor())
         .corner()
-        .pAll(XSize.P_L * 2)
+        .pAll(TTSize.P_L * 2)
     }
 }
 
@@ -154,19 +154,19 @@ private var productGrid: some View {
                 ProductDetailScreen(product: product)
             }, label: {
                 ProductCardView(product: product)
-                    .pAll(XSize.P_CONS_DEF)
+                    .pAll(TTSize.P_CONS_DEF)
                     .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .topLeading)
-                    .bg(byDef: XView.viewBgColor.toColor())
+                    .bg(byDef: TTView.viewBgColor.toColor())
                     .corner()
-                    .pLeading(XSize.P_CONS_DEF).pTrailing(XSize.P_CONS_DEF).pTop(XSize.P_CONS_DEF)
+                    .pLeading(TTSize.P_CONS_DEF).pTrailing(TTSize.P_CONS_DEF).pTop(TTSize.P_CONS_DEF)
                     .baseShadow()
             })
         }
-        .pBottom(XSize.H_BUTTON)
+        .pBottom(TTSize.H_BUTTON)
     }
     .hideKeyboardOnScroll()
     .frame(maxHeight: .infinity)
-    .pBottom(XSize.P_CONS_DEF)
+    .pBottom(TTSize.P_CONS_DEF)
     .skeleton(active: vm.isLoading)
 }
 ```
@@ -175,11 +175,11 @@ private var productGrid: some View {
 
 ```swift
 private var bannerSection: some View {
-    TTBaseSUIVStack(alignment: .leading, spacing: XSize.P_CONS_DEF) {
-        TTBaseSUIText(withBold: .HEADER, text: XText("App.Home.Banner.Title"), align: .leading, color: XView.textDefColor.toColor())
+    TTBaseSUIVStack(alignment: .leading, spacing: TTSize.P_CONS_DEF) {
+        TTBaseSUIText(withBold: .HEADER, text: XText("App.Home.Banner.Title"), align: .leading, color: TTView.textDefColor.toColor())
 
         TTBaseSUIScroll(alignment: .horizontal, showIndicators: false, isEnablePullToRefresh: false) {
-            TTBaseSUIHStack(alignment: .center, spacing: XSize.P_CONS_DEF) {
+            TTBaseSUIHStack(alignment: .center, spacing: TTSize.P_CONS_DEF) {
                 ForEach(vm.banners) { banner in
                     TTBaseNavigationLink(destination: {
                         BannerDetailScreen(banner: banner)
@@ -201,8 +201,8 @@ private var bannerSection: some View {
 @State private var currentPage = 0
 
 private var pagerSection: some View {
-    TTBaseSUIVStack(alignment: .center, spacing: XSize.P_CONS_DEF) {
-        TTBaseSUIText(withBold: .HEADER, text: XText("App.Home.Carousel.Title"), align: .leading, color: XView.textDefColor.toColor())
+    TTBaseSUIVStack(alignment: .center, spacing: TTSize.P_CONS_DEF) {
+        TTBaseSUIText(withBold: .HEADER, text: XText("App.Home.Carousel.Title"), align: .leading, color: TTView.textDefColor.toColor())
 
         TTBaseSUITabView(selection: $currentPage, type: .PAGE) {
             ForEach(Array(vm.pages.enumerated()), id: \.offset) { index, page in
@@ -226,7 +226,7 @@ private var pagerSection: some View {
 ```swift
 private var sectionedList: some View {
     TTBaseSUIScroll(alignment: .vertical) {
-        TTBaseSUILazyVStack(alignment: .center, spacing: XSize.P_CONS_DEF, bg: .clear) {
+        TTBaseSUILazyVStack(alignment: .center, spacing: TTSize.P_CONS_DEF, bg: .clear) {
             ForEach(vm.sections) { section in
                 sectionHeader(title: section.title)
                 ForEach(section.items) { item in
@@ -234,23 +234,23 @@ private var sectionedList: some View {
                         DetailScreen(item: item)
                     }, label: {
                         ListItemView(item: item)
-                            .pAll(XSize.P_CONS_DEF)
-                            .bg(byDef: XView.viewBgCellColor.toColor())
+                            .pAll(TTSize.P_CONS_DEF)
+                            .bg(byDef: TTView.viewBgCellColor.toColor())
                             .corner(byDef: TTSize.CORNER_PANEL)
                     })
                 }
             }
         }
-        .pAll(XSize.P_CONS_DEF)
-        .pBottom(XSize.H_BUTTON)
+        .pAll(TTSize.P_CONS_DEF)
+        .pBottom(TTSize.H_BUTTON)
     }
     .skeleton(active: vm.isLoading)
 }
 
 private func sectionHeader(title: String) -> some View {
-    TTBaseSUIText(withBold: .HEADER, text: title, align: .leading, color: XView.textDefColor.toColor())
-        .pTop(XSize.P_CONS_DEF)
-        .pBottom(XSize.P_XS)
+    TTBaseSUIText(withBold: .HEADER, text: title, align: .leading, color: TTView.textDefColor.toColor())
+        .pTop(TTSize.P_CONS_DEF)
+        .pBottom(TTSize.P_XS)
         .maxWidth(alignment: .leading)
 }
 ```
@@ -259,14 +259,14 @@ private func sectionHeader(title: String) -> some View {
 
 ```swift
 // TTBaseUIKit chainable extensions (preferred in modifier chains)
-.pAll(XSize.P_CONS_DEF)                        // all sides padding
-.pHorizontal(XSize.P_CONS_DEF)                   // horizontal only
-.pVertical(XSize.P_CONS_DEF)                     // vertical only
-.pTop(XSize.P_CONS_DEF)                       // top only
-.pBottom(XSize.P_CONS_DEF)                    // bottom only
-.pLeading(XSize.P_CONS_DEF)                  // leading only
-.pTrailing(XSize.P_CONS_DEF)                 // trailing only
-.bg(byDef: XView.viewBgCellColor.toColor())   // background
+.pAll(TTSize.P_CONS_DEF)                        // all sides padding
+.pHorizontal(TTSize.P_CONS_DEF)                   // horizontal only
+.pVertical(TTSize.P_CONS_DEF)                     // vertical only
+.pTop(TTSize.P_CONS_DEF)                       // top only
+.pBottom(TTSize.P_CONS_DEF)                    // bottom only
+.pLeading(TTSize.P_CONS_DEF)                  // leading only
+.pTrailing(TTSize.P_CONS_DEF)                 // trailing only
+.bg(byDef: TTView.viewBgCellColor.toColor())   // background
 .corner(byDef: TTSize.CORNER_PANEL)          // corner radius
 .baseShadow()                                  // card shadow
 .skeleton(active: isLoading)                    // shimmer loading

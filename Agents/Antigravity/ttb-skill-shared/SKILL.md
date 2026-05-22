@@ -1,8 +1,12 @@
 ---
 name: "ttb-skill-shared"
-description: "Shared resources for all TTBaseUIKit skills: rules, phases, references, anti-patterns, coding standards, and coding guidelines."
-version: "2.0.0"
+description: "Shared resources for all TTBaseUIKit skills: routing, workflows, rules, phases, references, anti-patterns, coding standards, and verification."
+version: "2.2.0"
+date_updated: "2026-05-22"
+risk: "safe"
+source: "internal"
 loadLevel: "always"
+tags: ["shared", "routing", "workflow", "rules", "phases", "refs", "verification", "antigravity"]
 ---
 
 # ttb-skill-shared
@@ -15,7 +19,14 @@ loadLevel: "always"
 ```
 ttb-skill-shared/
 ├── SKILL.md                              ← This file
-├── ttb-skill-registry.md                 ← Skill index + progressive loading
+├── ttb-skill-registry.md                 ← compatibility shim to ../ttb-skill-registry.md
+├── routing/
+│   ├── intent-manifest.json              ← machine-readable semantic routing
+│   ├── multilingual-aliases.json         ← EN/VI aliases, typos, shorthand
+│   ├── intent-router.md                  ← human-readable routing contract
+│   └── router-examples.md                ← routing regression examples
+├── workflows/
+│   └── ttb-workflow-standard.md          ← state, retry, fallback, verification contract
 ├── rules/
 │   ├── ttb-rule-anti-patterns.md        ← Component, pattern, performance anti-patterns
 │   ├── ttb-rule-coding-standards.md        ← File header, imports, MARK, naming
@@ -41,7 +52,8 @@ ttb-skill-shared/
 └── scripts/
     ├── ttb-verify.sh                     ← Post-build verification
     ├── ttb-compliance-check.sh             ← grep-based compliance checks
-    └── ttb-precheck.sh                    ← Pre-skill prerequisite gate
+    ├── ttb-precheck.sh                    ← Pre-skill prerequisite gate
+    └── ttb-routing-validate.sh            ← Routing metadata validation
 ```
 
 ## 11 Iron Laws (All Skills)
@@ -83,12 +95,17 @@ Referenced by ALL skill sets. Load once per session:
 
 | Resource | Location | Tokens | Purpose |
 |----------|----------|--------|---------|
+| Intent Router | `routing/intent-router.md` | ~600 | Semantic routing contract |
+| Intent Manifest | `routing/intent-manifest.json` | runtime | Machine-readable routes and chains |
+| Multilingual Aliases | `routing/multilingual-aliases.json` | runtime | EN/VI normalization, typos, synonyms |
+| Workflow Standard | `workflows/ttb-workflow-standard.md` | ~500 | Shared state/retry/fallback contract |
 | Iron Laws | `fragments/ttb-iron-laws.frag.md` | ~240 | 11 mandatory laws |
 | Marker | `fragments/ttb-marker.frag.md` | ~40 | File header template |
 | Verify Script | `scripts/ttb-verify.sh` | — | Post-build verification |
 | Compliance Script | `scripts/ttb-compliance-check.sh` | — | grep-based checks |
 | Precheck Script | `scripts/ttb-precheck.sh` | — | Pre-skill prerequisite gate |
-| Skill Registry | `ttb-skill-registry.md` | — | Skill → command mapping |
+| Routing Validation Script | `scripts/ttb-routing-validate.sh` | — | Validate manifest and skill metadata |
+| Skill Registry | `../ttb-skill-registry.md` | — | Canonical skill → route mapping |
 | Verification Phase | `phases/ttb-phase-verify.md` | ~800 | Mandatory post-build phase |
 | Coding Standards | `rules/ttb-rule-coding-standards.md` | ~400 | File headers, MARK sections, naming |
 | Comments Standard | `rules/ttb-rule-comments.md` | ~400 | Doc comments, inline comments |
@@ -104,6 +121,37 @@ Referenced by ALL skill sets. Load once per session:
 - Context > 60% → Archive old JOURNAL entries
 - Context > 80% → Start new session
 - Progressive loading: metadata (always) → instructions (on-demand) → resources (as needed)
+- Router manifest and aliases are available before heavy skill loading.
+
+## Routing And Workflow Rules
+
+1. Route exact `/ttb-*` commands first.
+2. Normalize English, Vietnamese, mixed-language, diacritic-free Vietnamese, common typos, and shorthand.
+3. Use confidence thresholds from `routing/intent-router.md`.
+4. Preserve legacy `/tts-*` aliases by mapping them to canonical `/ttb-*` commands.
+5. Pass execution state using `workflows/ttb-workflow-standard.md`.
+6. Ask one focused clarification only when confidence is below auto-route threshold.
+
+## Routing Contract
+
+```yaml
+input:
+  required: [user_prompt_or_command]
+  optional: [current_files, project_state, language_hint]
+output:
+  artifacts: [selected_skill, selected_command, confidence, prompts_to_load, shared_resources_to_load, fallback_action]
+  completion_gate: "route selected or one focused clarification requested"
+confidence:
+  auto_route: ">= 0.78"
+  clarify: "0.55-0.77"
+  fallback: "< 0.55"
+fallback:
+  default: "Load shared resources and ask for goal/framework/artifact."
+```
+
+Multilingual aliases and typo handling live in `routing/multilingual-aliases.json`.
+
+Anti-patterns: do not duplicate registry entries in this shared shim; do not route by exact keyword only; do not load every prompt when a domain route is enough.
 
 ## ⚠️ Critical Token Warnings
 
@@ -129,5 +177,5 @@ The following tokens **DO NOT EXIST** in TTBaseUIKit:
 
 ---
 
-**Version**: 2.0.0 | **Date**: 2026-05-19
-**Changelog**: v2.0.0 — Added ttb-ref-navigation.md to refs. Added Iron Law #5 (SUIBaseView) and #6 (TTBaseNavigationLink). Added critical token warnings. Added ttb-rule-comments.md to index. Version bumped to v2.0.0.
+**Version**: 2.2.0 | **Date**: 2026-05-22
+**Changelog**: v2.2.0 — Added routing and workflow directories, canonical registry shim, semantic EN/VI routing contract, aliases, examples, and shared state/retry/fallback workflow. v2.0.0 — Added ttb-ref-navigation.md to refs. Added Iron Law #5 (SUIBaseView) and #6 (TTBaseNavigationLink). Added critical token warnings. Added ttb-rule-comments.md to index.

@@ -1,8 +1,12 @@
 ---
 name: "ttb-skill-uikit"
 description: "UIKit full-stack development: screen, list, form, cell, customview, api, coordinator, viewmodel. Built on TTBaseUIKit + TTViewCodable + MVVM-C. iOS 14+."
-version: "2.0.0"
+version: "2.2.0"
+date_updated: "2026-05-22"
+risk: "safe"
+source: "internal"
 loadLevel: "domain"
+tags: ["uikit", "ttviewcodable", "mvvm-c", "api", "screen", "list", "form", "cell", "routing"]
 ---
 
 # ttb-skill-uikit
@@ -33,6 +37,26 @@ loadLevel: "domain"
 - "build API", "new service endpoint"
 - "build coordinator", "navigation flow"
 - "build viewmodel", "business logic"
+
+## Routing Contract
+
+```yaml
+input:
+  required: [artifact_type, feature_name, data_source_or_static_content]
+  optional: [navigation_flow, localization_keys, api_contract, validation_rules, empty_loading_error_states]
+output:
+  artifacts: [viewcontroller_or_view, viewmodel, api_or_requestdata_when_needed, coordinator_when_needed, verification_report]
+  completion_gate: "TTViewCodable + TTBaseUIKit + xcodebuild verification"
+confidence:
+  auto_route: ">= 0.78 for UIKit, ViewController, API, endpoint, service, cell, form, list, coordinator, viewmodel intents"
+  clarify: "0.55-0.77 when artifact is screen/view but framework is not stated"
+fallback:
+  default: "API/service/endpoint prompts route to /ttb-uikit-api because Antigravity owns iOS RequestAPI services."
+```
+
+Multilingual aliases: `generate api`, `build endpoint`, `create service`, `tạo api`, `tao api`, `viết api`, `viet api`, `api login`, `tạo màn hình UIKit`, `tao cell`, `tao viewmodel`.
+
+Anti-patterns: do not use raw UIKit when TTBaseUIKit exists; do not put UIKit/SwiftUI imports in ViewModel; do not omit `[weak self]`; do not skip `.done()` in constraint chains.
 
 ## Architecture
 
@@ -116,7 +140,7 @@ class MyCoordinator: TTCoordinator {
 }
 ```
 
-## 10 Iron Laws (UIKit)
+## 11 Iron Laws (UIKit)
 
 1. **iOS 14+ ONLY** — no `UIButtonConfiguration`, `UISheetPresentationController`
 2. **TTBaseUIKit COMPONENTS** — no raw `UILabel`, `UIButton`, etc.
@@ -128,6 +152,7 @@ class MyCoordinator: TTCoordinator {
 8. **.done()** — every constraint chain ends with `.done()`
 9. **super.encode(to:)** — in every RequestData
 10. **MARKER COMMENT** — every generated file has the Antigravity marker
+11. **POST-BUILD VERIFICATION IS MANDATORY** — after every skill: `BUILD SUCCEEDED`
 
 ## Real TTBaseUIKit APIs (Quick Reference)
 
@@ -193,7 +218,7 @@ btn.onTouchHandler = { [weak self] _ in }
 ### Non-Existent APIs (DO NOT USE)
 ```swift
 // ❌ Fake — does NOT exist:
-XPrint("...")                  // → TTBaseFunc.shared.printLog(...)
+TTBaseFunc.shared.printLog(with: "...", object: nil)                  // → TTBaseFunc.shared.printLog(...)
 BaseShadowPanelView()          // → TTBaseShadowPanelView()
 BaseUIViewController           // → TTBaseUIViewController<TTBaseUIView>
 lbl.setTextString(...)        // → lbl.setText(...)
@@ -225,5 +250,5 @@ lbl.setTextString(...)        // → lbl.setText(...)
 
 ---
 
-**Version**: 2.0.0 | **Date**: 2026-05-19
-**Changelog**: v2.0.0 — Version bump. Added 11 Iron Laws (SUIBaseView + TTBaseNavigationLink). Added critical token warnings. Updated all shared resources to v2.0.0. v1.4.0 — Added real TTBaseUIKit API reference section.
+**Version**: 2.2.0 | **Date**: 2026-05-22
+**Changelog**: v2.2.0 — Added standardized routing contract, EN/VI API/screen aliases, input/output schema, confidence guidance, and fallback strategy. v2.0.0 — Version bump, Iron Laws, critical token warnings, and shared resource alignment.

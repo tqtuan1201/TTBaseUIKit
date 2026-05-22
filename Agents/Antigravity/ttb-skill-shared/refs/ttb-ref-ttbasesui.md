@@ -23,7 +23,7 @@ SUIBaseView(
     backAction: { /* optional */ },
     titleAction: { /* optional */ },
     rightAction: { /* optional */ },
-    bg: XView.viewBgColor.toColor(),
+    bg: TTView.viewBgColor.toColor(),
     @ViewBuilder content: () -> Content
 )
 ```
@@ -48,8 +48,8 @@ TTBaseNavigationLink(destination: {
     DetailScreen(item: item)
 }, label: {
     ItemCardView(item: item)
-        .pAll(XSize.P_CONS_DEF)
-        .bg(byDef: XView.viewBgCellColor.toColor())
+        .pAll(TTSize.P_CONS_DEF)
+        .bg(byDef: TTView.viewBgCellColor.toColor())
         .corner(byDef: TTSize.CORNER_PANEL)
         .baseShadow()
 })
@@ -168,7 +168,7 @@ TTBaseSUIImage(withname: "icon_name", color: .orange)
 
 // System image (SF Symbols)
 TTBaseSUIImage(withSystemName: "star.fill", iconColor: .orange, contentMode: .fit)
-TTBaseSUIImage(withSystemName: "chevron.right", iconColor: XView.iconColor.toColor(), contentMode: .fit)
+TTBaseSUIImage(withSystemName: "chevron.right", iconColor: TTView.iconColor.toColor(), contentMode: .fit)
 
 // Circle image
 TTBaseSUICircleImage(withname: "avatar")
@@ -234,7 +234,7 @@ TTBaseSUITextField(placeholder: "Phone", text: $phone, type: .UNDERLINE)
 ```swift
 TTBaseSUIToggle(label: "Enable notifications", isOn: $isEnabled)
 TTBaseSUIToggle(label: "Dark mode", isOn: $isDark, type: .ICON(name: "moon.fill"))
-TTBaseSUIToggle(label: "Custom tint", isOn: $isOn, tintColor: XView.buttonBgDef.toColor())
+TTBaseSUIToggle(label: "Custom tint", isOn: $isOn, tintColor: TTView.buttonBgDef.toColor())
 ```
 
 ### Slider
@@ -292,8 +292,8 @@ TTBaseSUITabView(type: .DEFAULT) {
 
 ### Background & Corner
 ```swift
-.bg(byDef: XView.viewBgCellColor.toColor())  // background from token
-.bg(byUIColor: XView.viewBgCellColor)        // UIColor version
+.bg(byDef: TTView.viewBgCellColor.toColor())  // background from token
+.bg(byUIColor: TTView.viewBgCellColor)        // UIColor version
 .corner(byDef: TTSize.CORNER_PANEL)          // corner radius from token
 ```
 
@@ -301,7 +301,7 @@ TTBaseSUITabView(type: .DEFAULT) {
 ```swift
 .baseShadow()                               // card shadow default
 .baseShadow(corner: 8, color: .black.opacity(0.15), radius: 8, x: 0, y: 4)
-.baseBorder(color: XView.lineDefColor.toColor(), width: TTSize.H_LINEVIEW, radius: TTSize.CORNER_RADIUS)
+.baseBorder(color: TTView.lineDefColor.toColor(), width: TTSize.H_LINEVIEW, radius: TTSize.CORNER_RADIUS)
 ```
 
 ### Size
@@ -356,7 +356,7 @@ TTBaseSUITabView(type: .DEFAULT) {
 ```swift
 TTBaseSUIView { ... }
     .pAll(TTSize.P_CONS_DEF)
-    .bg(byDef: XView.viewBgCellColor.toColor())
+    .bg(byDef: TTView.viewBgCellColor.toColor())
     .corner(byDef: TTSize.CORNER_PANEL)
     .baseShadow()
 ```
@@ -367,10 +367,10 @@ TTBaseSUIHStack(alignment: .center, spacing: TTSize.P_CONS_DEF) {
     TTBaseSUIImage(withname: "icon", conner: TTSize.CORNER_RADIUS)
     TTBaseSUIText(withBold: .TITLE, text: title, align: .leading)
     TTBaseSUISpacer()
-    TTBaseSUIImage(withSystemName: "chevron.right", iconColor: XView.iconColor.toColor())
+    TTBaseSUIImage(withSystemName: "chevron.right", iconColor: TTView.iconColor.toColor())
 }
     .pAll(TTSize.P_CONS_DEF)
-    .bg(byDef: XView.viewBgCellColor.toColor())
+    .bg(byDef: TTView.viewBgCellColor.toColor())
     .corner(byDef: TTSize.CORNER_PANEL)
 ```
 
@@ -387,7 +387,7 @@ TTBaseNavigationLink(destination: {
 }, label: {
     ItemCardView(item: item)
         .pAll(TTSize.P_CONS_DEF)
-        .bg(byDef: XView.viewBgCellColor.toColor())
+        .bg(byDef: TTView.viewBgCellColor.toColor())
         .corner(byDef: TTSize.CORNER_PANEL)
         .baseShadow()
 })

@@ -1,16 +1,34 @@
 ---
 description: "Brief description of what this prompt does."
 version: "1.0.0"
-date_updated: "2026-05-18"
+date_updated: "YYYY-MM-DD"
+risk: "safe"
+source: "internal"
+tags: ["prompt", "workflow"]
 ---
 
 # ttb-skill-{name}
 
 Brief description of the prompt.
 
-## When
+## When To Use
 
-User says: "keywords that trigger this prompt"
+Route by semantic intent from `ttb-skill-shared/routing/intent-manifest.json`.
+
+- English aliases: "..."
+- Vietnamese aliases: "...", "..." without diacritics
+- Negative signals: "..."
+
+## Input / Output
+
+```yaml
+input:
+  required: []
+  optional: []
+output:
+  artifacts: []
+  verification: "BUILD SUCCEEDED or documented blocker"
+```
 
 ## Pattern
 
@@ -22,6 +40,12 @@ User says: "keywords that trigger this prompt"
 
 1. Rule one
 2. Rule two
+
+## Retry / Fallback
+
+- Retry verification at most 3 times.
+- If a dependency is missing, stop and report the prerequisite.
+- If route confidence is unclear, ask one focused question.
 
 ## Post-Implementation Verification (MANDATORY)
 

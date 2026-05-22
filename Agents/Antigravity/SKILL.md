@@ -1,11 +1,12 @@
 ---
 name: "antigravity-root"
 description: "Enterprise-grade iOS development workflow for TTBaseUIKit-powered apps. MVVM-C Architecture | UIKit + SwiftUI | TTViewCodable | TTBaseSUI | xcodebuild CLI Verification | Zero Regression | iOS 14+"
-version: "2.1.0"
-date_updated: "2026-05-19"
+version: "2.2.0"
+date_updated: "2026-05-22"
 risk: "safe"
 source: "internal"
-tags: ["ttbaseuikit", "ios", "mvvm-c", "uikit", "swiftui", "ttbasesui", "antigravity"]
+loadLevel: "always"
+tags: ["ttbaseuikit", "ios", "mvvm-c", "uikit", "swiftui", "ttbasesui", "antigravity", "routing", "multilingual"]
 ---
 
 # Antigravity — TTBaseUIKit AI Agents
@@ -26,6 +27,35 @@ tags: ["ttbaseuikit", "ios", "mvvm-c", "uikit", "swiftui", "ttbasesui", "antigra
 | `/ttb-refactor` | Migrate raw UIKit to TTBaseUIKit, TTViewCodable adoption, TTBaseSUI adoption, clean MVVM separation | 2 |
 | `/ttb-audit` | Performance, accessibility, localization audits with FCR compliance scoring | 3 |
 | `/ttb-shared` | Shared resources: rules, phases, references, scripts, fragments, templates, registry | — |
+
+## Auto-Routing Contract
+
+Antigravity routes by semantic intent first, not exact keyword matching. Exact `/ttb-*` commands still win immediately.
+
+| Prompt intent | English examples | Vietnamese examples | Route |
+|---------------|------------------|---------------------|-------|
+| API/service/endpoint | `generate api`, `build endpoint`, `auth api` | `tạo api`, `tao api`, `viết api`, `api login` | `/ttb-uikit-api` |
+| UIKit artifact | `build UIKit screen`, `create cell`, `viewmodel callbacks` | `tạo màn hình UIKit`, `tao cell`, `tao viewmodel` | `/ttb-uikit-*` |
+| SwiftUI artifact | `SwiftUI screen`, `SUIBaseView list` | `tạo màn hình SwiftUI`, `danh sách SwiftUI` | `/ttb-sui-*` |
+| Native component | `native SwiftUI button`, `rating component` | `tao button`, `tao card`, `tao rating` | `/ttb-native-*` |
+| Bugfix | `fix crash`, `debug regression` | `sửa lỗi`, `sua loi`, `crash khi tap` | `/ttb-bugfix` |
+| Refactor | `clean up`, `migrate raw UIKit` | `dọn code`, `tái cấu trúc`, `thay raw UIKit` | `/ttb-refactor` |
+| Audit | `performance audit`, `FCR score` | `kiểm tra hiệu năng`, `chấm điểm FCR` | `/ttb-audit-*` |
+
+Routing sources:
+
+- Machine-readable manifest: `ttb-skill-shared/routing/intent-manifest.json`
+- Human-readable router: `ttb-skill-shared/routing/intent-router.md`
+- Multilingual aliases: `ttb-skill-shared/routing/multilingual-aliases.json`
+- Workflow contract: `ttb-skill-shared/workflows/ttb-workflow-standard.md`
+
+Confidence policy:
+
+| Confidence | Action |
+|------------|--------|
+| `>= 0.78` | Auto-route |
+| `0.55-0.77` | Ask one focused clarification |
+| `< 0.55` | Load shared resources and ask for goal/framework/artifact |
 
 ## Architecture
 
@@ -229,7 +259,7 @@ Skills use `loadLevel` metadata to minimize context bloat:
 | `domain` | Load when domain is detected | UIKit, SwiftUI, Bugfix skills |
 | `on-demand` | Load only when explicitly triggered | Audit, Refactor, Native Components |
 
-See full registry: `ttb-skill-shared/ttb-skill-registry.md`
+See full registry: `ttb-skill-registry.md`
 
 ## Directory Structure
 
@@ -285,7 +315,14 @@ Agents/Antigravity/
 │
 └── ttb-skill-shared/                        ← Shared resources
     ├── SKILL.md
-    ├── ttb-skill-registry.md
+    ├── ttb-skill-registry.md              ← compatibility shim
+    ├── routing/
+    │   ├── intent-manifest.json
+    │   ├── multilingual-aliases.json
+    │   ├── intent-router.md
+    │   └── router-examples.md
+    ├── workflows/
+    │   └── ttb-workflow-standard.md
     ├── scripts/
     │   ├── ttb-verify.sh
     │   ├── ttb-compliance-check.sh
@@ -374,5 +411,5 @@ The following tokens **DO NOT EXIST** in TTBaseUIKit. Always use alternatives:
 
 ---
 
-**Version**: 2.1.0 | **Date**: 2026-05-19
-**Changelog**: v2.1.0 — Added mandatory SUIBaseView + TTBaseNavigationLink as Iron Laws #5-#6. Added critical token warnings section. Added three-tier SwiftUI approach. Added navigation ref to directory structure. Fixed XView/XSize/XFont references throughout. Added ttb-rule-comments to shared resources. Bumped all skill versions to v2.0.0 for consistency. v2.0.0 — ttb-skill-swiftui complete rewrite: SUIBaseView navigation, TTBaseNavigationLink, full TTBaseSUI inventory. v1.3.0 — Critical API corrections: all XView→TTView, XSize→TTSize, XFont→TTFont.
+**Version**: 2.2.0 | **Date**: 2026-05-22
+**Changelog**: v2.2.0 — Added semantic intent routing, EN/VI mixed-language aliases, confidence thresholds, routing manifest, workflow standard contract, and registry deduplication shim. v2.1.0 — Added mandatory SUIBaseView + TTBaseNavigationLink as Iron Laws #5-#6. Added critical token warnings section. Added three-tier SwiftUI approach. Added navigation ref to directory structure. Fixed XView/XSize/XFont references throughout. Added ttb-rule-comments to shared resources. Bumped all skill versions to v2.0.0 for consistency.

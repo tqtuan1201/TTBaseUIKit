@@ -1,8 +1,12 @@
 ---
 name: "ttb-skill-native-swiftui-components"
 description: "Build reusable native SwiftUI UI components using 100% standard SwiftUI primitives with TTBaseUIKit design tokens, localization, chainable modifiers, and project architecture rules. NO TTBaseSUI wrappers. iOS 14+."
-version: "2.1.0"
-loadLevel: "domain"
+version: "2.2.0"
+date_updated: "2026-05-22"
+risk: "safe"
+source: "internal"
+loadLevel: "on-demand"
+tags: ["swiftui", "native-swiftui", "components", "design-tokens", "routing"]
 ---
 
 # ttb-skill-native-swiftui-components
@@ -18,6 +22,26 @@ This skill is for **reusable native SwiftUI components only**.
 - Do **not** use `TTBaseSUI*` wrappers inside this skill: no `TTBaseSUIText`, `TTBaseSUIButton`, `TTBaseSUIVStack`, `TTBaseSUIScroll`, `TTBaseNavigationLink`, or `SUIBaseView` for atomic components.
 - Still obey TTBaseUIKit project standards: file headers, folder structure, `MARK`, tokens, localization, iOS 14 compatibility, ViewModel ownership, weak captures, chainable modifiers, accessibility, and build verification.
 - If the request is a full screen, navigation flow, or TTBaseSUI wrapper work, route to `ttb-skill-swiftui` (`/ttb-sui-screen`, `/ttb-native-screen`, `/ttb-sui-view`) instead of using this skill.
+
+## Routing Contract
+
+```yaml
+input:
+  required: [component_type, component_name, states_or_variants]
+  optional: [accessibility_requirements, token_mapping, interaction_model, preview_examples]
+output:
+  artifacts: [native_swiftui_component, previews, tokenized_styles, verification_report]
+  completion_gate: "iOS 14 native SwiftUI + TTBaseUIKit tokens + no TTBaseSUI wrapper misuse"
+confidence:
+  auto_route: ">= 0.78 for native SwiftUI reusable component intents"
+  clarify: "0.55-0.77 when prompt could mean a full screen instead of a component"
+fallback:
+  default: "Route full screens or flows to ttb-skill-swiftui; use this skill only for reusable components."
+```
+
+Multilingual aliases: `native SwiftUI component`, `button component`, `card component`, `tao button`, `tao card`, `tao input`, `tao rating`, `tao bottom sheet`.
+
+Anti-patterns: do not wrap native components in TTBaseSUI wrappers; do not invent tokens; do not use `AnyView` unless unavoidable; do not create a full feature flow from this component skill.
 
 ## Bốn Tầng Tiếp Cận SwiftUI trong TTBaseUIKit
 
@@ -401,5 +425,5 @@ For full FCR 7-Dimension scoring, see `ttb-skill-shared/phases/ttb-phase-verify.
 
 ---
 
-**Version**: 2.1.0 | **Date**: 2026-05-21
-**Changelog**: v2.1.0 — Synced mandatory chainable modifier, localization, VM ownership, weak capture, body length, iOS 14, and TTBaseUIKit project-structure rules from `ttb-skill-swiftui`; clarified that `/native-*` outputs use only native SwiftUI primitives and never `TTBaseSUI*` wrappers. v2.0.0 — Added tiered SwiftUI approach clarification and native fallback scope. v1.4.0 — Fixed TTView/TTSize/TTFont token references.
+**Version**: 2.2.0 | **Date**: 2026-05-22
+**Changelog**: v2.2.0 — Added standardized routing contract, EN/VI native component aliases, input/output schema, confidence guidance, and fallback strategy. v2.1.0 — Synced mandatory chainable modifier, localization, VM ownership, weak capture, body length, iOS 14, and TTBaseUIKit project-structure rules from `ttb-skill-swiftui`; clarified that `/native-*` outputs use only native SwiftUI primitives and never `TTBaseSUI*` wrappers.

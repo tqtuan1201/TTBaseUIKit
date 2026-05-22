@@ -1,8 +1,12 @@
 ---
 name: "ttb-skill-audit"
 description: "Code audits for TTBaseUIKit apps: performance, accessibility, localization. FCR compliance scoring."
-version: "2.0.0"
+version: "2.2.0"
+date_updated: "2026-05-22"
+risk: "safe"
+source: "internal"
 loadLevel: "on-demand"
+tags: ["audit", "performance", "accessibility", "localization", "fcr", "routing"]
 ---
 
 # ttb-skill-audit
@@ -17,6 +21,26 @@ loadLevel: "on-demand"
 | `/ttb-audit-performance` | Performance: rendering, memory, CPU, main thread |
 | `/ttb-audit-accessibility` | VoiceOver, Dynamic Type, touch targets, color contrast |
 | `/ttb-audit-localization` | Hardcoded strings, missing keys, naming violations |
+
+## Routing Contract
+
+```yaml
+input:
+  required: [audit_type, scope]
+  optional: [target_score, known_risks, files_or_modules, fix_requested]
+output:
+  artifacts: [findings, fcr_score, prioritized_recommendations, optional_fix_plan]
+  completion_gate: "findings reported before fixes unless user explicitly requests fixes"
+confidence:
+  auto_route: ">= 0.78 for audit/review/performance/accessibility/localization/FCR/compliance intents"
+  clarify: "0.55-0.77 when audit type or scope is unclear"
+fallback:
+  default: "Run general FCR audit if user asks broad code audit; chain to bugfix/refactor only when fixes are requested."
+```
+
+Multilingual aliases: `audit code`, `performance audit`, `accessibility audit`, `localization check`, `kiểm tra hiệu năng`, `kiem tra ngon ngu`, `chấm điểm FCR`, `danh gia compliance`.
+
+Anti-patterns: do not hide findings behind summaries; do not fix before reporting audit results unless explicitly requested; do not score without stating evidence.
 
 ## FCR 7-Dimension Compliance Score
 
@@ -99,5 +123,5 @@ Report layers 1-5 from `ttb-phase-verify.md`. Audit is complete only when `✅ B
 
 ---
 
-**Version**: 2.0.0 | **Date**: 2026-05-19
-**Changelog**: v2.0.0 — Version bump. Added 11 Iron Laws. Added critical token warnings. Updated shared resources to v2.0.0. v1.4.0 — Updated ttb-rule-coding-standards.md and ttb-rule-anti-patterns.md with chainable extensions.
+**Version**: 2.2.0 | **Date**: 2026-05-22
+**Changelog**: v2.2.0 — Added standardized routing contract, EN/VI audit aliases, input/output schema, confidence guidance, and fallback strategy. v2.0.0 — Version bump, Iron Laws, critical token warnings, and shared resource alignment.

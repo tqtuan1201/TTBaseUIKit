@@ -32,13 +32,13 @@ struct {Name}CardView: View {
     var onTap: (() -> Void)?
 
     var body: some View {
-        TTBaseSUIHStack(alignment: .center, spacing: XSize.P_CONS_DEF) {
+        TTBaseSUIHStack(alignment: .center, spacing: TTSize.P_CONS_DEF) {
             TTBaseSUIImage(withname: "icon_placeholder", conner: TTSize.CORNER_RADIUS)
                 .sizeSquare(width: 50)
 
-            TTBaseSUIVStack(alignment: .leading, spacing: XSize.P_XS) {
+            TTBaseSUIVStack(alignment: .leading, spacing: TTSize.P_XS) {
                 TTBaseSUIText(withBold: .TITLE, text: title,
-                              align: .leading, color: XView.textDefColor.toColor())
+                              align: .leading, color: TTView.textDefColor.toColor())
                 TTBaseSUIText(withType: .SUB_TITLE, text: subtitle, align: .leading)
             }
             .maxWidth(alignment: .leading)
@@ -46,12 +46,12 @@ struct {Name}CardView: View {
             TTBaseSUISpacer()
 
             TTBaseSUIImage(withname: "chevron.right",
-                           color: XView.textSubTitleColor.toColor(),
+                           color: TTView.textSubTitleColor.toColor(),
                            contentMode: .fit)
                 .sizeSquare(width: 16)
         }
-        .pAll(XSize.P_CONS_DEF)
-        .bg(byDef: XView.viewBgCellColor.toColor())
+        .pAll(TTSize.P_CONS_DEF)
+        .bg(byDef: TTView.viewBgCellColor.toColor())
         .corner(byDef: TTSize.CORNER_PANEL)
         .baseShadow()
         .onTapHandle { onTap?() }
@@ -77,13 +77,13 @@ struct {Name}InfoView: View {
     let subtitle: String
 
     var body: some View {
-        TTBaseSUIVStack(alignment: .leading, spacing: XSize.P_S) {
+        TTBaseSUIVStack(alignment: .leading, spacing: TTSize.P_S) {
             TTBaseSUIText(withBold: .TITLE, text: title,
-                          align: .leading, color: XView.textDefColor.toColor())
+                          align: .leading, color: TTView.textDefColor.toColor())
             TTBaseSUIText(withType: .SUB_TITLE, text: subtitle, align: .leading)
         }
-        .pAll(XSize.P_CONS_DEF)
-        .bg(byDef: XView.viewBgCellColor.toColor())
+        .pAll(TTSize.P_CONS_DEF)
+        .bg(byDef: TTView.viewBgCellColor.toColor())
         .corner(byDef: TTSize.CORNER_PANEL)
     }
 }
@@ -100,28 +100,28 @@ struct ActionRowView: View {
     var onTap: (() -> Void)?
 
     var body: some View {
-        TTBaseSUIHStack(alignment: .center, spacing: XSize.P_CONS_DEF) {
+        TTBaseSUIHStack(alignment: .center, spacing: TTSize.P_CONS_DEF) {
             TTBaseSUIImage(withname: icon, conner: TTSize.CORNER_RADIUS)
-                .sizeSquare(width: XSize.H_SMALL_ICON)
+                .sizeSquare(width: TTSize.H_SMALL_ICON)
 
-            TTBaseSUIText(withBold: .TITLE, text: title, align: .leading, color: XView.textDefColor.toColor())
+            TTBaseSUIText(withBold: .TITLE, text: title, align: .leading, color: TTView.textDefColor.toColor())
                 .maxWidth(alignment: .leading)
 
             TTBaseSUISpacer()
 
             if let badge = badge, !badge.isEmpty {
                 TTBaseSUIText(withType: .SUB_SUB_TILE, text: badge, align: .center, color: .white)
-                    .pVertical(XSize.P_XS)
-                    .pHorizontal(XSize.P_S)
-                    .bg(byDef: XView.buttonBgWar.toColor())
-                    .corner(byDef: XSize.P_S)
+                    .pVertical(TTSize.P_XS)
+                    .pHorizontal(TTSize.P_S)
+                    .bg(byDef: TTView.buttonBgWar.toColor())
+                    .corner(byDef: TTSize.P_S)
             }
 
-            TTBaseSUIImage(withSystemName: "chevron.right", iconColor: XView.textSubTitleColor.toColor(), contentMode: .fit)
+            TTBaseSUIImage(withSystemName: "chevron.right", iconColor: TTView.textSubTitleColor.toColor(), contentMode: .fit)
                 .sizeSquare(width: 14)
         }
-        .pAll(XSize.P_CONS_DEF)
-        .bg(byDef: XView.viewBgCellColor.toColor())
+        .pAll(TTSize.P_CONS_DEF)
+        .bg(byDef: TTView.viewBgCellColor.toColor())
         .onTapHandle { onTap?() }
     }
 }
@@ -136,7 +136,7 @@ struct ProductCardView: View {
 
     var body: some View {
         TTBaseSUIZStack(alignment: .topLeading) {
-            TTBaseSUIVStack(alignment: .leading, spacing: XSize.P_XS) {
+            TTBaseSUIVStack(alignment: .leading, spacing: TTSize.P_XS) {
                 TTBaseSUIZStack(alignment: .topLeading) {
                     TTBaseSUIImage(withname: product.avatarUrl ?? "", contentMode: .fill)
                         .frame(height: 120)
@@ -153,21 +153,21 @@ struct ProductCardView: View {
         let discountText = product.getDiscountToDisplay()
         if !discountText.isEmpty {
             TTBaseSUIText(withType: .SUB_SUB_TILE, text: discountText, align: .center, color: .white)
-                .pVertical(XSize.P_XS)
-                .pHorizontal(XSize.P_S)
+                .pVertical(TTSize.P_XS)
+                .pHorizontal(TTSize.P_S)
                 .bg(byDef: .red)
-                .corner(byDef: XSize.P_S)
-                .pTop(XSize.P_XS)
+                .corner(byDef: TTSize.P_S)
+                .pTop(TTSize.P_XS)
         }
     }
 
     private var productName: some View {
-        TTBaseSUIText(withBold: .TITLE, text: product.productName ?? "", align: .leading, color: XView.textDefColor.toColor())
+        TTBaseSUIText(withBold: .TITLE, text: product.productName ?? "", align: .leading, color: TTView.textDefColor.toColor())
             .lineLimit(2)
     }
 
     private var productPrice: some View {
-        TTBaseSUIText(withBold: .TITLE, text: product.getMinPriceTDL(), align: .leading, color: XView.textWarringColor.toColor())
+        TTBaseSUIText(withBold: .TITLE, text: product.getMinPriceTDL(), align: .leading, color: TTView.textWarringColor.toColor())
     }
 }
 ```
@@ -184,26 +184,26 @@ struct EmptyStateView: View {
     var onButtonTap: (() -> Void)?
 
     var body: some View {
-        TTBaseSUIVStack(alignment: .center, spacing: XSize.P_CONS_DEF) {
-            TTBaseSUIImage(withSystemName: icon, iconColor: XView.iconColor.toColor().opacity(0.7), contentMode: .fit)
+        TTBaseSUIVStack(alignment: .center, spacing: TTSize.P_CONS_DEF) {
+            TTBaseSUIImage(withSystemName: icon, iconColor: TTView.iconColor.toColor().opacity(0.7), contentMode: .fit)
                 .sizeSquare(width: 80)
-                .pTop(XSize.P_L * 5)
+                .pTop(TTSize.P_L * 5)
 
-            TTBaseSUIText(withBold: .TITLE, text: title, align: .center, color: XView.textDefColor.toColor())
-            TTBaseSUIText(withType: .SUB_TITLE, text: subtitle, align: .center, color: XView.textDefColor.toColor().opacity(0.7))
+            TTBaseSUIText(withBold: .TITLE, text: title, align: .center, color: TTView.textDefColor.toColor())
+            TTBaseSUIText(withType: .SUB_TITLE, text: subtitle, align: .center, color: TTView.textDefColor.toColor().opacity(0.7))
                 .lineLimit(4)
 
             if let buttonTitle = buttonTitle {
                 TTBaseSUIButton(type: .DEFAULT, title: buttonTitle)
-                    .pTop(XSize.P_CONS_DEF)
+                    .pTop(TTSize.P_CONS_DEF)
             }
 
             TTBaseSUISpacer()
         }
         .maxWidth().maxHeight()
-        .bg(byDef: XView.viewBgColor.toColor())
+        .bg(byDef: TTView.viewBgColor.toColor())
         .corner()
-        .pAll(XSize.P_L * 2)
+        .pAll(TTSize.P_L * 2)
     }
 }
 ```
@@ -218,10 +218,10 @@ struct BadgeView: View {
 
     var body: some View {
         TTBaseSUIText(withType: .SUB_SUB_TILE, text: text, align: .center, color: .white)
-            .pVertical(XSize.P_XS)
-            .pHorizontal(XSize.P_S)
+            .pVertical(TTSize.P_XS)
+            .pHorizontal(TTSize.P_S)
             .bg(byDef: bgColor)
-            .corner(byDef: XSize.P_S)
+            .corner(byDef: TTSize.P_S)
             .accessibilityElement(children: .combine)
             .accessibilityLabel(text)
     }
@@ -233,10 +233,10 @@ struct BestsellerBadge: View {
 
     var body: some View {
         TTBaseSUIText(withType: .SUB_SUB_TILE, text: text, align: .center, color: .white)
-            .pVertical(XSize.P_XS)
-            .pHorizontal(XSize.P_S)
-            .bg(byDef: XView.buttonBgDef.toColor())
-            .corner(byDef: XSize.P_S)
+            .pVertical(TTSize.P_XS)
+            .pHorizontal(TTSize.P_S)
+            .bg(byDef: TTView.buttonBgDef.toColor())
+            .corner(byDef: TTSize.P_S)
             .accessibilityElement(children: .combine)
             .accessibilityLabel(text)
     }
@@ -312,17 +312,17 @@ TTBaseSUISlider(value: $volume)
 
 ```swift
 // TTBaseUIKit chainable extensions (preferred in modifier chains)
-.pAll(XSize.P_CONS_DEF)                        // all sides padding
-.pHorizontal(XSize.P_CONS_DEF)                   // horizontal only
-.pVertical(XSize.P_CONS_DEF)                     // vertical only
-.pTop(XSize.P_CONS_DEF)                       // top only
-.pBottom(XSize.P_CONS_DEF)                    // bottom only
-.pLeading(XSize.P_CONS_DEF)                  // leading only
-.pTrailing(XSize.P_CONS_DEF)                 // trailing only
-.bg(byDef: XView.viewBgCellColor.toColor())   // background
+.pAll(TTSize.P_CONS_DEF)                        // all sides padding
+.pHorizontal(TTSize.P_CONS_DEF)                   // horizontal only
+.pVertical(TTSize.P_CONS_DEF)                     // vertical only
+.pTop(TTSize.P_CONS_DEF)                       // top only
+.pBottom(TTSize.P_CONS_DEF)                    // bottom only
+.pLeading(TTSize.P_CONS_DEF)                  // leading only
+.pTrailing(TTSize.P_CONS_DEF)                 // trailing only
+.bg(byDef: TTView.viewBgCellColor.toColor())   // background
 .corner(byDef: TTSize.CORNER_PANEL)          // corner radius
 .baseShadow()                                  // card shadow
-.baseBorder(color: XView.lineDefColor.toColor(), width: TTSize.H_LINEVIEW, radius: TTSize.CORNER_RADIUS)
+.baseBorder(color: TTView.lineDefColor.toColor(), width: TTSize.H_LINEVIEW, radius: TTSize.CORNER_RADIUS)
 .skeleton(active: isLoading)                    // shimmer loading
 .onTapHandle { action() }                      // tap gesture
 .sizeSquare(width: 50)                        // square frame
@@ -340,7 +340,7 @@ TTBaseSUISlider(value: $volume)
 1. **iOS 14+ ONLY** — no iOS 15+/16+/17+ APIs
 2. **TTBaseSUI components** — no native `Text`, `Button`, `VStack`, `HStack`, `ZStack`
 3. **Data via `let` properties**, callbacks via `var` closures
-4. **XView/XSize/XFont tokens** — never hardcode colors/sizes
+4. **TTView/TTSize/TTFont tokens** — never hardcode colors/sizes
 5. **Card chain**: `.pAll()` → `.bg()` → `.corner()` → `.baseShadow()`
 6. **PreviewProvider** at bottom, NOT `#Preview`
 7. Place **screen-specific** views in `{Feature}/CustomViews/`

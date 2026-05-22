@@ -245,7 +245,7 @@ class ProductDetailViewController: TTBaseUIViewController, TTViewCodable {
 
 ```swift
 // ❌ Sai — không tồn tại:
-XPrint("...")              // → TTBaseFunc.shared.printLog(...)
+TTBaseFunc.shared.printLog(with: "...", object: nil)              // → TTBaseFunc.shared.printLog(...)
 BaseShadowPanelView()      // → TTBaseShadowPanelView()
 BaseUIViewController        // → TTBaseUIViewController<TTBaseUIView>
 lbl.setTextString(...)     // → lbl.setText(...)

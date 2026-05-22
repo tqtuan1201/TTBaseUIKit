@@ -1,8 +1,12 @@
 ---
 name: "ttb-skill-refactor"
 description: "Refactor TTBaseUIKit code: migrate to TTViewCodable, replace raw UIKit with TTBaseUIKit, TTBaseSUI adoption, clean MVVM separation."
-version: "2.0.0"
+version: "2.2.0"
+date_updated: "2026-05-22"
+risk: "safe"
+source: "internal"
 loadLevel: "domain"
+tags: ["refactor", "migration", "ttviewcodable", "ttbasesui", "cleanup", "routing"]
 ---
 
 # ttb-skill-refactor
@@ -16,6 +20,26 @@ loadLevel: "domain"
 - "migrate to TTViewCodable"
 - "replace raw UIKit with TTBaseUIKit"
 - "migrate native SwiftUI to TTBaseSUI"
+
+## Routing Contract
+
+```yaml
+input:
+  required: [refactor_goal, affected_files_or_module, behavior_to_preserve]
+  optional: [target_pattern, migration_constraints, verification_command]
+output:
+  artifacts: [migration_plan, changed_files, before_after_notes, verification_report]
+  completion_gate: "zero behavior change + build/compliance verification"
+confidence:
+  auto_route: ">= 0.78 for refactor/cleanup/migration/raw UIKit replacement intents"
+  clarify: "0.55-0.77 when prompt mixes bugfix and cleanup"
+fallback:
+  default: "If behavior is broken, run ttb-skill-bugfix first. If user only wants scoring, route to audit."
+```
+
+Multilingual aliases: `refactor`, `clean up code`, `migrate to TTViewCodable`, `replace raw UIKit`, `dọn code`, `don code`, `tái cấu trúc`, `giam trung lap`.
+
+Anti-patterns: do not add new features during refactor; do not change behavior silently; do not migrate across unrelated modules in one step.
 
 ## Scope
 
@@ -72,5 +96,5 @@ See `ttb-skill-refactor.prompt.md` for the complete REFACTOR REPORT template.
 
 ---
 
-**Version**: 2.0.0 | **Date**: 2026-05-19
-**Changelog**: v2.0.0 — Version bump. Added 11 Iron Laws. Added critical token warnings. Updated shared resources to v2.0.0. v1.4.0 — Updated ttb-rule-coding-standards.md and ttb-rule-anti-patterns.md with chainable extensions.
+**Version**: 2.2.0 | **Date**: 2026-05-22
+**Changelog**: v2.2.0 — Added standardized routing contract, EN/VI refactor aliases, input/output schema, confidence guidance, and fallback strategy. v2.0.0 — Version bump, Iron Laws, critical token warnings, and shared resource alignment.

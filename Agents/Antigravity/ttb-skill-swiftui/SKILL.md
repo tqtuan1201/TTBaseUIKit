@@ -1,8 +1,12 @@
 ---
 name: "ttb-skill-swiftui"
 description: "SwiftUI full-stack development for TTBaseUIKit apps: SUIBaseView navigation, TTBaseSUI components, chainable modifiers, Native SwiftUI fallback. iOS 14+."
-version: "2.0.0"
+version: "2.2.0"
+date_updated: "2026-05-22"
+risk: "safe"
+source: "internal"
 loadLevel: "domain"
+tags: ["swiftui", "ttbasesui", "suibaseview", "navigation", "viewmodel", "native-fallback", "routing"]
 ---
 
 # ttb-skill-swiftui
@@ -29,6 +33,26 @@ loadLevel: "domain"
 | `/ttb-native-view` | Native SwiftUI reusable view — chỉ khi TTBaseSUI không có |
 | `/ttb-sui-viewmodel` | SwiftUI ViewModel với `@Published` + `@MainActor` |
 
+## Routing Contract
+
+```yaml
+input:
+  required: [artifact_type, feature_name, state_model]
+  optional: [navigation_flow, ttbase_sui_component_availability, data_source, localization_keys]
+output:
+  artifacts: [suibaseview_screen_or_view, ttbase_sui_components, swiftui_viewmodel_when_needed, verification_report]
+  completion_gate: "SUIBaseView + TTBaseNavigationLink + iOS 14 compatibility + build verification"
+confidence:
+  auto_route: ">= 0.78 for SwiftUI, TTBaseSUI, SUIBaseView, SwiftUI list/view/screen/viewmodel intents"
+  clarify: "0.55-0.77 when prompt says screen/view but does not say UIKit or SwiftUI"
+fallback:
+  default: "Prefer TTBaseSUI. Use native SwiftUI only when TTBaseSUI has no equivalent and document the gap."
+```
+
+Multilingual aliases: `SwiftUI screen`, `SUIBaseView`, `TTBaseSUI view`, `tạo màn hình SwiftUI`, `tao man hinh swiftui`, `danh sách SwiftUI`, `điều hướng SwiftUI`.
+
+Anti-patterns: do not build full SwiftUI screens without `SUIBaseView`; do not use native SwiftUI when TTBaseSUI exists; do not navigate without `TTBaseNavigationLink`; do not use iOS 15+ APIs without `@available`.
+
 ## Tầng 1: SUIBaseView — Navigation Pattern Bắt Buộc
 
 `SUIBaseView` là screen wrapper **duy nhất** cho TTBaseUIKit SwiftUI. Nó cung cấp navigation bar, back button, tabbar control, và `TTBaseNavigationLink` để điều hướng.
@@ -51,7 +75,7 @@ struct ProductListScreen: View {
             isHiddenTabbar: true,
             backAction: {}
         ) {
-            TTBaseSUIVStack(alignment: .center, spacing: XSize.P_XS, bg: XView.viewBgColor.toColor()) {
+            TTBaseSUIVStack(alignment: .center, spacing: TTSize.P_XS, bg: TTView.viewBgColor.toColor()) {
                 searchHeader
                 if vm.isEmpty {
                     EmptyProductView()
@@ -87,11 +111,11 @@ TTBaseNavigationLink(destination: {
     ProductItemScreen(product: product)
 }, label: {
     ProductCardView(product: product)
-        .pAll(XSize.P_CONS_DEF)
+        .pAll(TTSize.P_CONS_DEF)
         .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .topLeading)
-        .bg(byDef: XView.viewBgColor.toColor())
+        .bg(byDef: TTView.viewBgColor.toColor())
         .corner()
-        .pLeading(XSize.P_CONS_DEF).pTrailing(XSize.P_CONS_DEF).pTop(XSize.P_CONS_DEF)
+        .pLeading(TTSize.P_CONS_DEF).pTrailing(TTSize.P_CONS_DEF).pTop(TTSize.P_CONS_DEF)
         .baseShadow()
 })
 ```
@@ -252,7 +276,7 @@ TTBaseSUITextField(placeholder: "Phone", text: $phone, type: .UNDERLINE)
 // Toggle
 TTBaseSUIToggle(label: "Enable notifications", isOn: $isEnabled)
 TTBaseSUIToggle(label: "Dark mode", isOn: $isDark, type: .ICON(name: "moon.fill"))
-TTBaseSUIToggle(label: "Custom tint", isOn: $isOn, tintColor: XView.buttonBgDef.toColor())
+TTBaseSUIToggle(label: "Custom tint", isOn: $isOn, tintColor: TTView.buttonBgDef.toColor())
 
 // Slider
 TTBaseSUISlider(value: $volume)
@@ -391,12 +415,12 @@ TTBaseSUIGroup(bg: .white, radius: 8, padding: TTSize.P_CONS_DEF) { }
 ```swift
 TTBaseSUIView { ... }
     .pAll(TTSize.P_CONS_DEF)
-    .bg(byDef: XView.viewBgCellColor.toColor())
+    .bg(byDef: TTView.viewBgCellColor.toColor())
     .corner(byDef: TTSize.CORNER_PANEL)
     .baseShadow()
 ```
 
-## 10 Iron Laws
+## 11 Iron Laws
 
 1. **iOS 14+ ONLY** — no `.task`, `NavigationStack`, `#Preview`, `.foregroundStyle()`
 2. **SUIBaseView WRAPPER** — mọi screen phải bọc trong `SUIBaseView`
@@ -447,5 +471,5 @@ TTBaseSUIView { ... }
 
 ---
 
-**Version**: 2.0.0 | **Date**: 2026-05-19
-**Changelog**: v2.0.0 — Added ttb-ref-navigation.md reference. Version bump. v2.0.0 (prior) — Complete rewrite with SUIBaseView + TTBaseNavigationLink. Full TTBaseSUI inventory.
+**Version**: 2.2.0 | **Date**: 2026-05-22
+**Changelog**: v2.2.0 — Added standardized routing contract, EN/VI SwiftUI aliases, input/output schema, confidence guidance, and fallback strategy. v2.0.0 — Complete rewrite with SUIBaseView + TTBaseNavigationLink and full TTBaseSUI inventory.

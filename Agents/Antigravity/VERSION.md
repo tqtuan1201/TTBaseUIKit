@@ -1,5 +1,24 @@
 # Antigravity TTBaseUIKit Skills — Version History
 
+## v2.2.0 — 2026-05-22
+
+### Skills + Workflows Routing Upgrade
+
+- Added semantic routing architecture:
+  - `ttb-skill-shared/routing/intent-manifest.json`
+  - `ttb-skill-shared/routing/multilingual-aliases.json`
+  - `ttb-skill-shared/routing/intent-router.md`
+  - `ttb-skill-shared/routing/router-examples.md`
+- Added reusable workflow contract:
+  - `ttb-skill-shared/workflows/ttb-workflow-standard.md`
+- Added metadata validation script:
+  - `ttb-skill-shared/scripts/ttb-routing-validate.sh`
+- Rewrote `ttb-skill-registry.md` as canonical registry v2.2.0.
+- Converted `ttb-skill-shared/ttb-skill-registry.md` into a backward-compatible shim.
+- Added routing contracts, input/output schemas, confidence guidance, fallback strategies, anti-patterns, and EN/VI aliases to all core `SKILL.md` files.
+- Fixed README quick-start commands from `/tts-*` to canonical `/ttb-*`; legacy `/tts-*` aliases remain supported in the routing manifest.
+- Normalized SwiftUI generation examples from deprecated `XView/XSize/XFont` aliases to `TTView/TTSize/TTFont`.
+
 ## v2.1.0 — 2026-05-19
 
 ### Root SKILL.md & Shared Resources — Full v2.0.0 Alignment

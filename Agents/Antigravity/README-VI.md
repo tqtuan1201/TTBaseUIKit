@@ -1,28 +1,29 @@
 ---
 name: "antigravity-readme-vi"
-description: "Vietnamese README — tổng quan hệ thống TTBaseUIKit Antigravity agent v2.0.0."
-version: "2.0.0"
+description: "Vietnamese README — tổng quan hệ thống TTBaseUIKit Antigravity agent v2.2.0."
+version: "2.2.0"
+date_updated: "2026-05-22"
 ---
 
 # Antigravity — Bộ Agent AI cho TTBaseUIKit
 
-**Version**: 2.0.0 | **Min iOS**: 14+ | **Architecture**: MVVM-C
+**Version**: 2.2.0 | **Min iOS**: 14+ | **Architecture**: MVVM-C
 
 ## Tổng quan
 
-Antigravity là hệ thống skill agent AI để xây dựng ứng dụng iOS với **TTBaseUIKit** (UIKit) và **TTBaseSUI** (SwiftUI wrapper). Hệ thống enforce strict workflow 7 phases, 11 Luật Sắt, và FCR 7-Dimension compliance scoring.
+Antigravity là hệ thống skill agent AI để xây dựng ứng dụng iOS với **TTBaseUIKit** (UIKit) và **TTBaseSUI** (SwiftUI wrapper). Hệ thống enforce strict workflow 7 phases, 11 Luật Sắt, FCR 7-Dimension compliance scoring, và semantic routing cho prompt tiếng Việt/tiếng Anh.
 
 ## Bắt đầu nhanh
 
 1. Đọc `SKILL.md` (root) để hiểu system overview
 2. Chọn skill dựa trên task:
-   - **Dự án mới**: `/tts-init` → `ttb-skill-init`
-   - **UIKit Feature**: `/tts-uikit` → `ttb-skill-uikit`
-   - **SwiftUI Feature**: `/tts-swiftui` → `ttb-skill-swiftui`
-   - **Native SwiftUI Components**: `/tts-native` → `ttb-skill-native-swiftui-components`
-   - **Sửa Bug**: `/tts-bugfix` → `ttb-skill-bugfix`
-   - **Refactor**: `/tts-refactor` → `ttb-skill-refactor`
-   - **Audit**: `/tts-audit` → `ttb-skill-audit`
+   - **Dự án mới**: `/ttb-init` → `ttb-skill-init`
+   - **UIKit Feature**: `/ttb-uikit` → `ttb-skill-uikit`
+   - **SwiftUI Feature**: `/ttb-swiftui` → `ttb-skill-swiftui`
+   - **Native SwiftUI Components**: `/ttb-native-components` → `ttb-skill-native-swiftui-components`
+   - **Sửa Bug**: `/ttb-bugfix` → `ttb-skill-bugfix`
+   - **Refactor**: `/ttb-refactor` → `ttb-skill-refactor`
+   - **Audit**: `/ttb-audit` → `ttb-skill-audit`
 
 3. Theo workflow của skill qua các phases
 4. **Luôn chạy post-build verification** (Phase 6) — `BUILD SUCCEEDED` là bắt buộc
@@ -48,12 +49,32 @@ Antigravity là hệ thống skill agent AI để xây dựng ứng dụng iOS v
 ├─────────────────────────────────────────────────────────┤
 │  Shared Resources (all skills use)                      │
 │  ├── 11 Luật Sắt                                      │
+│  ├── Semantic Router (EN/VI, typo, shorthand)          │
+│  ├── Workflow Contract (state, retry, fallback)        │
 │  ├── 5 Phases (Research → Spec → Impl → Review → Ver)│
 │  ├── 5 Rules (coding, anti-patterns, memory, etc.)     │
 │  ├── 7 References (TTBaseUIKit, TTBaseSUI, tokens…)   │
 │  └── 3 Scripts (precheck, compliance, verify)          │
 └─────────────────────────────────────────────────────────┘
 ```
+
+## Auto-Routing
+
+Antigravity có thể tự route prompt tự nhiên mà không cần exact command:
+
+| Prompt | Route |
+|--------|-------|
+| `tạo api`, `tao api`, `generate api`, `build endpoint`, `api login` | `/ttb-uikit-api` |
+| `tạo màn hình SwiftUI`, `tao man hinh swiftui` | `/ttb-sui-screen` |
+| `fix crash khi tap button`, `sửa lỗi UI không update` | `/ttb-bugfix` |
+| `kiểm tra hiệu năng`, `performance audit` | `/ttb-audit-performance` |
+
+Routing sources:
+
+- `ttb-skill-shared/routing/intent-manifest.json`
+- `ttb-skill-shared/routing/multilingual-aliases.json`
+- `ttb-skill-shared/routing/intent-router.md`
+- `ttb-skill-shared/workflows/ttb-workflow-standard.md`
 
 ## 11 Luật Sắt (BẮT BUỘC)
 

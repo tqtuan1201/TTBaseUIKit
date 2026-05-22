@@ -1,8 +1,12 @@
 ---
 name: "ttb-skill-init"
 description: "TTBaseUIKit project initialization skill: scaffold MVVM-C folder structure, setup TTBaseUIKitConfig, configure localization, integrate TTBDebugPlus. Run BEFORE any other TTBaseUIKit skill."
-version: "2.0.0"
+version: "2.2.0"
+date_updated: "2026-05-22"
+risk: "safe"
+source: "internal"
 loadLevel: "always"
+tags: ["init", "project-setup", "mvvm-c", "ttbaseuikit", "localization", "debug", "routing"]
 ---
 
 # ttb-skill-init
@@ -31,6 +35,26 @@ Activate **FIRST** when user:
 - Starting a new iOS/macOS app with TTBaseUIKit
 - Existing project missing proper TTBaseUIKit foundation
 
+## Routing Contract
+
+```yaml
+input:
+  required: [project_name_or_existing_project, dependency_manager, target_platform]
+  optional: [localization_scope, debug_tooling, existing_architecture, app_modules]
+output:
+  artifacts: [folder_structure, ttbaseuikit_config, localization_files, coordinator_foundation, debug_setup, verification_report]
+  completion_gate: "xcodebuild BUILD SUCCEEDED or documented blocker"
+confidence:
+  auto_route: ">= 0.78 when prompt asks init/setup/scaffold/config/localization/debug foundation"
+  clarify: "0.55-0.77 when project is existing but missing foundation details"
+fallback:
+  ask: "Dependency manager, project name, new vs existing app, and whether TTBaseUIKit is already installed."
+```
+
+Multilingual aliases: `init project`, `setup project`, `new app foundation`, `khởi tạo dự án`, `khoi tao du an`, `tạo cấu trúc`, `cấu hình TTBaseUIKit`.
+
+Anti-patterns: do not generate feature screens before foundation validation; do not invent a new architecture if the app already has MVVM-C; do not skip localization/debug setup when requested.
+
 ## Why This Skill Exists
 
 Every existing TTBaseUIKit skill (uikit, swiftui, bugfix, refactor, audit) **assumes** the project already has:
@@ -54,7 +78,7 @@ This skill creates the **correct foundation** so all other skills work without e
 3. Verify with xcodebuild
 4. Project is **READY FOR BUILDING** with other skills
 
-## 12 Iron Laws (All Skills)
+## 11 Iron Laws + Init Guardrails
 
 1. **iOS 14+ ONLY** — no iOS 15+/16+/17+ APIs without `@available`
 2. **TTBaseUIKit COMPONENTS** — never use raw UIKit when TTBaseUIKit exists
@@ -132,5 +156,5 @@ All skills share `ttb-skill-shared/` rules and phases.
 
 ---
 
-**Version**: 2.0.0 | **Date**: 2026-05-19
-**Changelog**: v2.0.0 — Version bump. Added 11 Iron Laws. Added critical token warnings. Updated shared resources to v2.0.0. v1.4.0 — Updated ttb-rule-coding-standards.md and ttb-rule-anti-patterns.md with chainable extensions.
+**Version**: 2.2.0 | **Date**: 2026-05-22
+**Changelog**: v2.2.0 — Added standardized routing contract, EN/VI aliases, input/output schema, confidence guidance, and fallback strategy. v2.0.0 — Version bump, Iron Laws, critical token warnings, and shared resource alignment.

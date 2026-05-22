@@ -2,20 +2,44 @@
 name: "ttb-skill-{name}"
 description: "Brief description of what this skill does."
 version: "1.0.0"
-date_updated: "2026-05-18"
+date_updated: "YYYY-MM-DD"
 risk: "safe"
-source: "ttbaseuikit"
-tags: ["ios", "swift", "ios14"]
+source: "internal"
 loadLevel: "domain"  # always | domain | on-demand
+tags: ["ios", "swift", "ios14", "routing"]
 ---
 
 # ttb-skill-{name}
 
 Brief description of the skill.
 
-## When
+## Purpose
 
-User says: "keywords that trigger this skill"
+Define the exact job this skill owns and the jobs it must not own.
+
+## When To Use
+
+Route by semantic intent, not exact keyword only.
+
+- English aliases: "..."
+- Vietnamese aliases: "...", "..." without diacritics
+- Mixed-language aliases: "..."
+
+## Routing Contract
+
+```yaml
+input:
+  required: []
+  optional: []
+output:
+  artifacts: []
+  completion_gate: "BUILD SUCCEEDED or documented blocker"
+confidence:
+  auto_route: ">= 0.78 when ..."
+  clarify: "0.55-0.77 when ..."
+fallback:
+  default: "..."
+```
 
 ## How to Use
 
@@ -40,12 +64,24 @@ User says: "keywords that trigger this skill"
 1. Rule one
 2. Rule two
 
+## Anti-Patterns
+
+- Do not route unrelated work into this skill.
+- Do not duplicate a shared phase or reference.
+- Do not bypass dependency validation.
+
+## Fallback Strategy
+
+If context is insufficient, ask one focused clarification or route to the safer prerequisite skill.
+
 ## Shared Resources
 
 | Resource | Purpose |
 |---------|---------|
 | `fragments/ttb-iron-laws.frag.md` | Mandatory laws |
 | `fragments/ttb-marker.frag.md` | File header |
+| `routing/intent-router.md` | Routing contract |
+| `workflows/ttb-workflow-standard.md` | State/retry/fallback workflow |
 
 ## Post-Implementation Verification (MANDATORY)
 

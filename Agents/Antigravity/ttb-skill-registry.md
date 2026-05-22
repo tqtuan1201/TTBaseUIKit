@@ -1,161 +1,139 @@
 ---
 name: "ttb-skill-registry"
-description: "Central registry of all TTBaseUIKit Antigravity skills, workflows, phases, rules, and references. Maps activation commands to capabilities."
-version: "2.0.0"
+description: "Canonical registry for TTBaseUIKit Antigravity skills, workflows, routing, phases, rules, references, scripts, and templates."
+version: "2.2.0"
+date_updated: "2026-05-22"
+risk: "safe"
+source: "internal"
+tags: ["registry", "routing", "skills", "workflows", "ttbaseuikit", "antigravity"]
 ---
 
 # TTBaseUIKit Antigravity Skill Registry
 
-**Version**: 2.0.0 | **Date**: 2026-05-19
+**Version**: 2.2.0 | **Date**: 2026-05-22
 
-Central registry of all skills, workflows, phases, rules, references, scripts, templates, and fragments for TTBaseUIKit Antigravity agent system.
+This is the canonical registry for the Antigravity agent system. It preserves every existing `/ttb-*` command while adding semantic routing metadata for English, Vietnamese, mixed-language prompts, typo-tolerant matching, and workflow chaining.
 
----
+## System Map
 
-## Quick Navigation
+| Type | Location | Purpose |
+|------|----------|---------|
+| Root skill | `SKILL.md` | High-level activation, Iron Laws, architecture |
+| Canonical registry | `ttb-skill-registry.md` | Source of truth for skill/workflow inventory |
+| Shared registry shim | `ttb-skill-shared/ttb-skill-registry.md` | Backward-compatible pointer to this file |
+| Intent manifest | `ttb-skill-shared/routing/intent-manifest.json` | Machine-readable routing source |
+| Multilingual aliases | `ttb-skill-shared/routing/multilingual-aliases.json` | Vietnamese/English normalization |
+| Intent router | `ttb-skill-shared/routing/intent-router.md` | Human-readable routing contract |
+| Workflow contract | `ttb-skill-shared/workflows/ttb-workflow-standard.md` | Reusable workflow/state/retry pattern |
 
-| Command | Skill | Purpose |
-|---------|-------|---------|
-| `/tts-init` | `ttb-skill-init` | New project setup |
-| `/tts-uikit` | `ttb-skill-uikit` | UIKit feature development |
-| `/tts-swiftui` | `ttb-skill-swiftui` | SwiftUI feature development |
-| `/tts-native` | `ttb-skill-native-swiftui-components` | Native SwiftUI components |
-| `/tts-bugfix` | `ttb-skill-bugfix` | Bug fixing workflow |
-| `/tts-refactor` | `ttb-skill-refactor` | Code migration & refactoring |
-| `/tts-audit` | `ttb-skill-audit` | Performance, accessibility, localization |
-| `/tts-verify` | `tts-verify` | Research & quality audit |
+## Canonical Commands
 
----
+| Command | Skill | Intent | Load | Backward-Compatible Aliases |
+|---------|-------|--------|------|-----------------------------|
+| `/ttb-init` | `ttb-skill-init` | Project foundation, MVVM-C scaffold, config, localization, debug | `always` | `/ttb-init-project`, `/ttb-new-project`, legacy `/tts-init` |
+| `/ttb-uikit` | `ttb-skill-uikit` | UIKit screen/list/form/cell/API/coordinator/viewmodel | `domain` | `/ttb-uikit-*`, legacy `/tts-uikit` |
+| `/ttb-swiftui` | `ttb-skill-swiftui` | SwiftUI screen/view/list/viewmodel with SUIBaseView/TTBaseSUI | `domain` | `/ttb-sui-*`, `/ttb-native-screen`, `/ttb-native-view`, legacy `/tts-swiftui` |
+| `/ttb-native-components` | `ttb-skill-native-swiftui-components` | Native SwiftUI reusable components with TTBaseUIKit tokens | `on-demand` | `/ttb-native-*`, legacy `/tts-native` |
+| `/ttb-bugfix` | `ttb-skill-bugfix` | Bug/crash/debug/regression/root-cause workflow | `domain` | `/ttb-debug`, `/ttb-fix-crash`, legacy `/tts-bugfix` |
+| `/ttb-refactor` | `ttb-skill-refactor` | Zero-behavior-change migration and cleanup | `on-demand` | `/ttb-refactor-uikit`, `/ttb-refactor-swiftui`, legacy `/tts-refactor` |
+| `/ttb-audit` | `ttb-skill-audit` | Performance/accessibility/localization/FCR audits | `on-demand` | `/ttb-audit-*`, legacy `/tts-audit` |
 
-## Skill Sets
+## Intent Routing Summary
 
-### 1. Core Development Skills
+Routing must follow `ttb-skill-shared/routing/intent-manifest.json`.
 
-| Skill | Path | Load | Purpose |
-|-------|------|------|---------|
-| `ttb-skill-init` | `ttb-skill-init/` | `always` | New project setup, TTBaseUIKitConfig, localization, MVVM-C folder structure |
-| `ttb-skill-uikit` | `ttb-skill-uikit/` | `always` | UIKit feature development: screen, list, form, cell, customview, api, coordinator, viewmodel |
-| `ttb-skill-swiftui` | `ttb-skill-swiftui/` | `always` | SwiftUI feature development: TTBaseSUI screens/views, Native SwiftUI, SUI lists, viewmodels |
+| Prompt Family | Examples | Route |
+|---------------|----------|-------|
+| API/service/endpoint | `tạo api`, `tao api`, `viet api`, `generate api`, `build endpoint`, `api login`, `generate auth api` | `/ttb-uikit-api` |
+| UIKit screen/list/form/cell | `tạo màn hình UIKit`, `build view controller`, `create table view`, `tao cell` | `/ttb-uikit-*` |
+| SwiftUI screen/view/list | `tạo màn hình SwiftUI`, `make SUIBaseView screen`, `SwiftUI list` | `/ttb-sui-*` |
+| Native SwiftUI component | `native SwiftUI button`, `tao card component`, `rating view` | `/ttb-native-*` |
+| Bugfix | `sửa lỗi`, `fix crash`, `debug`, `UI không update`, `decoding error` | `/ttb-bugfix` |
+| Refactor | `dọn code`, `refactor`, `migrate to TTViewCodable`, `replace raw UIKit` | `/ttb-refactor` |
+| Audit | `audit`, `kiểm tra hiệu năng`, `localization check`, `FCR score` | `/ttb-audit-*` |
 
-### 2. Quality & Maintenance Skills
+Confidence thresholds:
 
-| Skill | Path | Load | Purpose |
-|-------|------|------|---------|
-| `ttb-skill-bugfix` | `ttb-skill-bugfix/` | `always` | Systematic bug fixing: root cause analysis, 5 Whys, fix strategy, xcodebuild verify |
-| `ttb-skill-refactor` | `ttb-skill-refactor/` | `domain` | Migrate to TTViewCodable, replace raw UIKit, TTBaseSUI adoption, MVVM separation |
-| `ttb-skill-audit` | `ttb-skill-audit/` | `on-demand` | Performance, accessibility, localization audits with FCR compliance scoring |
+| Confidence | Action |
+|------------|--------|
+| `>= 0.78` | Auto-route |
+| `0.55-0.77` | Ask one focused clarification |
+| `< 0.55` | Load shared resources and ask for goal/framework/artifact |
 
-### 3. SwiftUI Components Skill
+## Skill Inventory
 
-| Skill | Path | Load | Purpose |
-|-------|------|------|---------|
-| `ttb-skill-native-swiftui-components` | `ttb-skill-native-swiftui-components/` | `domain` | Build native SwiftUI components using TTBaseUIKit design tokens, 100% standard SwiftUI, iOS 14+ |
+### Core Development
 
----
+| Skill | Path | Commands | Dependencies | Outputs |
+|-------|------|----------|--------------|---------|
+| `ttb-skill-init` | `ttb-skill-init/` | `/ttb-init`, `/ttb-init-structure`, `/ttb-init-config`, `/ttb-init-l10n`, `/ttb-init-debug` | none | MVVM-C structure, config, localization, debug setup, xcodebuild validation |
+| `ttb-skill-uikit` | `ttb-skill-uikit/` | `/ttb-uikit-screen`, `/ttb-uikit-list`, `/ttb-uikit-form`, `/ttb-uikit-cell`, `/ttb-uikit-customview`, `/ttb-uikit-api`, `/ttb-uikit-coordinator`, `/ttb-uikit-viewmodel` | `ttb-skill-init` foundation | TTViewCodable UIKit artifacts, RequestAPI services, coordinators, ViewModels |
+| `ttb-skill-swiftui` | `ttb-skill-swiftui/` | `/ttb-sui-screen`, `/ttb-sui-view`, `/ttb-sui-list`, `/ttb-sui-viewmodel`, `/ttb-native-screen`, `/ttb-native-view` | `ttb-skill-init` foundation | SUIBaseView screens, TTBaseSUI views/lists, SwiftUI ViewModels |
+| `ttb-skill-native-swiftui-components` | `ttb-skill-native-swiftui-components/` | `/ttb-native-*` | `ttb-skill-init`, `ttb-skill-swiftui` | Reusable native SwiftUI components with TTBaseUIKit tokens |
 
-## Phases (Shared)
+### Quality And Maintenance
 
-All feature, bugfix, and refactor workflows use these shared phases:
+| Skill | Path | Commands | Dependencies | Outputs |
+|-------|------|----------|--------------|---------|
+| `ttb-skill-bugfix` | `ttb-skill-bugfix/` | `/ttb-bugfix` | affected app context | Root cause analysis, minimal fix, verification report |
+| `ttb-skill-refactor` | `ttb-skill-refactor/` | `/ttb-refactor-uikit`, `/ttb-refactor-swiftui` | affected app context | Zero-behavior-change migration plan and implementation |
+| `ttb-skill-audit` | `ttb-skill-audit/` | `/ttb-audit-performance`, `/ttb-audit-accessibility`, `/ttb-audit-localization` | affected app context | Findings, FCR score, recommended fixes |
 
-| Phase | Path | Purpose |
-|-------|------|---------|
-| `ttb-phase-feature-research` | `ttb-skill-shared/phases/ttb-phase-feature-research.md` | Research feature scope, UI patterns, API |
-| `ttb-phase-feature-spec` | `ttb-skill-shared/phases/ttb-phase-feature-spec.md` | Generate spec: data model, file structure, navigation, API contract |
-| `ttb-phase-implementation` | `ttb-skill-shared/phases/ttb-phase-implementation.md` | Build feature according to spec with xcodebuild verification |
-| `ttb-phase-code-review` | `ttb-skill-shared/phases/ttb-phase-code-review.md` | FCR 7-Dimension audit across all modified files |
-| `ttb-phase-verify` | `ttb-skill-shared/phases/ttb-phase-verify.md` | Post-build verification: 5-layer stack, xcodebuild CLI, regression guard |
+## Shared Resources
 
----
+| Category | Path | Load | Purpose |
+|----------|------|------|---------|
+| Shared index | `ttb-skill-shared/SKILL.md` | `always` | Shared resource overview |
+| Router | `ttb-skill-shared/routing/intent-router.md` | `always` | Human-readable routing contract |
+| Manifest | `ttb-skill-shared/routing/intent-manifest.json` | `always` | Machine-readable routing contract |
+| Aliases | `ttb-skill-shared/routing/multilingual-aliases.json` | `always` | EN/VI synonym and typo normalization |
+| Router examples | `ttb-skill-shared/routing/router-examples.md` | `on-demand` | Routing regression examples |
+| Workflow standard | `ttb-skill-shared/workflows/ttb-workflow-standard.md` | `domain` | State, retry, fallback, verification contract |
+| Iron Laws | `ttb-skill-shared/fragments/ttb-iron-laws.frag.md` | `always` | 11 mandatory laws |
+| Marker | `ttb-skill-shared/fragments/ttb-marker.frag.md` | `always` | Generated file header |
+| Rules | `ttb-skill-shared/rules/*.md` | `domain` | Coding standards, anti-patterns, memory leaks, comments |
+| Phases | `ttb-skill-shared/phases/*.md` | `domain` | Research/spec/implementation/review/verify |
+| References | `ttb-skill-shared/refs/*.md` | `on-demand` | TTBaseUIKit, TTBaseSUI, tokens, iOS 14, navigation, performance |
+| Scripts | `ttb-skill-shared/scripts/*.sh` | `on-demand` | Precheck, compliance, xcodebuild verification |
+| Templates | `ttb-skill-shared/templates/*` | `on-demand` | New skill and prompt templates |
 
-## Rules (Shared)
+## Workflow Chains
 
-| Rule | Path | Purpose |
-|------|------|---------|
-| `ttb-iron-laws` | `ttb-skill-shared/fragments/ttb-iron-laws.frag.md` | 11 mandatory Iron Laws |
-| `ttb-rule-coding-standards` | `ttb-skill-shared/rules/ttb-rule-coding-standards.md` | Coding style, naming, SwiftUI conventions, chainable modifiers |
-| `ttb-rule-anti-patterns` | `ttb-skill-shared/rules/ttb-rule-anti-patterns.md` | Common pitfalls in SwiftUI and UIKit, Three-Tier SwiftUI Approach |
-| `ttb-rule-memory-leaks` | `ttb-skill-shared/rules/ttb-rule-memory-leaks.md` | Prevent retain cycles in closures, delegates, NotificationCenter, timers |
-| `ttb-rule-comments` | `ttb-skill-shared/rules/ttb-rule-comments.md` | Code comments and documentation standards |
+| Chain | Trigger | Steps |
+|-------|---------|-------|
+| `new_feature_full` | Feature request with unknown foundation | `init validation` -> selected domain skill -> `ttb-phase-verify` |
+| `api_login` | `api login`, `generate auth api`, `tạo api login` | `/ttb-uikit-api` -> `/ttb-uikit-viewmodel` -> `ttb-phase-verify` |
+| `bug_then_refactor` | Bug request with cleanup language | `/ttb-bugfix` -> optional `/ttb-refactor` -> `ttb-phase-verify` |
+| `audit_then_fix` | Audit request also asks to resolve findings | `/ttb-audit-*` -> selected fix workflow -> `ttb-phase-verify` |
 
----
+## Dependency Rules
 
-## References (Shared)
+1. `ttb-skill-init` is the only foundation skill and has no dependencies.
+2. Feature generation skills require a validated TTBaseUIKit foundation.
+3. `ttb-skill-swiftui` prefers TTBaseSUI. Native SwiftUI is fallback only.
+4. `ttb-skill-native-swiftui-components` is for reusable components, not full app flows.
+5. Bugfix runs before refactor when both intents appear.
+6. Audit reports findings before applying fixes unless the user explicitly asks to fix.
 
-| Reference | Path | Purpose |
-|-----------|------|---------|
-| `ttb-ref-ttbaseuikit` | `ttb-skill-shared/refs/ttb-ref-ttbaseuikit.md` | TTBaseUIKit framework overview, TTViewCodable, MVVM-C |
-| `ttb-ref-ttbasesui` | `ttb-skill-shared/refs/ttb-ref-ttbasesui.md` | TTBaseSUI SwiftUI wrapper components |
-| `ttb-ref-config-tokens` | `ttb-skill-shared/refs/ttb-ref-config-tokens.md` | TTView/TTSize/TTFont design tokens (CRITICAL: token warnings) |
-| `ttb-ref-swiftui-architecture` | `ttb-skill-shared/refs/ttb-ref-swiftui-architecture.md` | Clean Architecture, feature-based modularization, SwiftUI + MVVM + Coordinator |
-| `ttb-ref-swiftui-performance` | `ttb-skill-shared/refs/ttb-ref-swiftui-performance.md` | Stable view identity, LazyVStack, Equatable, @Published optimization |
-| `ttb-ref-ios14-compatibility` | `ttb-skill-shared/refs/ttb-ref-ios14-compatibility.md` | iOS 14+ API usage guidelines |
-| `ttb-ref-navigation` | `ttb-skill-shared/refs/ttb-ref-navigation.md` | Navigation patterns: SUIBaseView, TTBaseNavigationLink, UIKit TTCoordinator |
+## Deprecated Or Compatibility Items
 
----
+| Item | Status | Compatibility Action |
+|------|--------|----------------------|
+| `/tts-*` command aliases | deprecated typo family | Keep as legacy aliases that map to `/ttb-*` |
+| `ttb-skill-shared/ttb-skill-registry.md` duplicate registry | deprecated duplicate | Kept as shim pointing to canonical root registry |
+| `.DS_Store` files | dead local artifacts | Safe to remove from packages/source tree |
+| Exact-keyword-only routing | deprecated | Replaced by semantic manifest + multilingual aliases |
 
-## Scripts (Shared)
+## Validation Checklist
 
-| Script | Path | Purpose |
-|--------|------|---------|
-| `ttb-precheck.sh` | `ttb-skill-shared/scripts/ttb-precheck.sh` | Pre-build check: project state, dependencies, workspace validity |
-| `ttb-compliance-check.sh` | `ttb-skill-shared/scripts/ttb-compliance-check.sh` | Compliance check: Iron Laws, TTBaseUIKit patterns, API usage |
-| `ttb-verify.sh` | `ttb-skill-shared/scripts/ttb-verify.sh` | Full verification: xcodebuild, file registration, regression |
+- Every core skill has frontmatter: `name`, `description`, `version`, `date_updated`, `risk`, `source`, `tags`, `loadLevel`.
+- Every skill documents aliases, routing hints, input/output, anti-patterns, fallback strategy, and confidence guidance.
+- Every workflow documents state/context passing, retry/fallback, dependency validation, and verification gates.
+- The router examples keep Vietnamese, English, mixed-language, typo, and shorthand prompts stable.
+- Backward compatibility is preserved for all existing `/ttb-*` commands and legacy `/tts-*` aliases.
 
----
+Run routing validation:
 
-## Fragments (Shared)
-
-| Fragment | Path | Purpose |
-|----------|------|---------|
-| `ttb-iron-laws` | `ttb-skill-shared/fragments/ttb-iron-laws.frag.md` | Inline the 11 Iron Laws |
-| `ttb-marker` | `ttb-skill-shared/fragments/ttb-marker.frag.md` | Code generation marker comments |
-
----
-
-## Templates (Shared)
-
-| Template | Path | Purpose |
-|----------|------|---------|
-| `prompt.md.template` | `ttb-skill-shared/templates/prompt.md.template` | Template for new prompt files |
-| `SKILL.md.template` | `ttb-skill-shared/templates/SKILL.md.template` | Template for new SKILL files |
-
----
-
-## Progressive Loading Strategy
-
-To manage agent context window efficiently:
-
-| Level | Name | When Loaded | Contents |
-|-------|------|------------|----------|
-| `always` | Core | Every session | Root SKILL.md, ttb-iron-laws, ttb-rule-coding-standards, ttb-rule-anti-patterns |
-| `domain` | Skill-Specific | When skill activates | Selected skill SKILL.md, phases, relevant refs |
-| `on-demand` | Reference | When needed | Deep references, scripts, templates |
-
-### Context Budget
-- **Token Budget**: ~8K tokens per task
-- **Target**: 11 Iron Laws + critical patterns = ~2K tokens
-- **Strategy**: Load references lazily, phases on demand
-
----
-
-## Version History
-
-| Version | Date | Changes |
-|---------|------|---------|
-| 2.0.0 | 2026-05-19 | Full upgrade: frontmatter on all files, version alignment, navigation ref added, token warnings on all critical files, anti-patterns updated, marker fragments updated, three-tier SwiftUI approach documented |
-| 1.x | 2026 | Initial release |
-
----
-
-## Metadata
-
-- **Root Skill**: `Agents/Antigravity/SKILL.md`
-- **Shared Resources**: `Agents/Antigravity/ttb-skill-shared/SKILL.md`
-- **Registry**: `Agents/Antigravity/ttb-skill-registry.md`
-- **Tutorial (EN)**: `Agents/Antigravity/Tutorial.md`
-- **Tutorial (VI)**: `Agents/Antigravity/Tutorial-vi.md`
-- **Version**: 2.0.0
-- **Date**: 2026-05-19
-- **Repository**: TTBaseUIKit
-- **Architecture**: MVVM-C (TTBaseUIKit + TTBaseSUI)
-- **Min iOS**: iOS 14+
+```bash
+bash ttb-skill-shared/scripts/ttb-routing-validate.sh
+```

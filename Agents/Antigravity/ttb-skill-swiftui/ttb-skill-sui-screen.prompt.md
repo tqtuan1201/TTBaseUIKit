@@ -34,7 +34,7 @@ struct {Name}Screen: View {
             isHiddenTabbar: true,
             backAction: {}
         ) {
-            TTBaseSUIVStack(alignment: .center, spacing: XSize.P_XS, bg: XView.viewBgColor.toColor()) {
+            TTBaseSUIVStack(alignment: .center, spacing: TTSize.P_XS, bg: TTView.viewBgColor.toColor()) {
                 headerSection
                 if vm.isEmpty {
                     emptyView
@@ -51,38 +51,38 @@ struct {Name}Screen: View {
 private extension {Name}Screen {
 
     private var headerSection: some View {
-        TTBaseSUIHStack(alignment: .center, spacing: XSize.P_CONS_DEF) {
-            TTBaseSUIText(withBold: .HEADER, text: XText("App.{Name}.Header"), align: .leading, color: XView.textDefColor.toColor())
+        TTBaseSUIHStack(alignment: .center, spacing: TTSize.P_CONS_DEF) {
+            TTBaseSUIText(withBold: .HEADER, text: XText("App.{Name}.Header"), align: .leading, color: TTView.textDefColor.toColor())
             TTBaseSUISpacer()
         }
-        .pHorizontal(XSize.P_CONS_DEF)
-        .pTop(XSize.P_CONS_DEF)
+        .pHorizontal(TTSize.P_CONS_DEF)
+        .pTop(TTSize.P_CONS_DEF)
     }
 
     private var emptyView: some View {
-        TTBaseSUIVStack(alignment: .center, spacing: XSize.P_CONS_DEF) {
-            TTBaseSUIImage(withSystemName: "tray", iconColor: XView.iconColor.toColor(), contentMode: .fit)
+        TTBaseSUIVStack(alignment: .center, spacing: TTSize.P_CONS_DEF) {
+            TTBaseSUIImage(withSystemName: "tray", iconColor: TTView.iconColor.toColor(), contentMode: .fit)
                 .sizeSquare(width: 80)
-            TTBaseSUIText(withBold: .TITLE, text: XText("App.{Name}.Empty.Title"), align: .center, color: XView.textDefColor.toColor())
-            TTBaseSUIText(withType: .SUB_TITLE, text: XText("App.{Name}.Empty.Subtitle"), align: .center, color: XView.textSubTitleColor.toColor())
+            TTBaseSUIText(withBold: .TITLE, text: XText("App.{Name}.Empty.Title"), align: .center, color: TTView.textDefColor.toColor())
+            TTBaseSUIText(withType: .SUB_TITLE, text: XText("App.{Name}.Empty.Subtitle"), align: .center, color: TTView.textSubTitleColor.toColor())
         }
         .maxWidth().maxHeight()
-        .bg(byDef: XView.viewBgColor.toColor())
+        .bg(byDef: TTView.viewBgColor.toColor())
         .corner()
-        .pAll(XSize.P_L * 2)
+        .pAll(TTSize.P_L * 2)
     }
 
     private var contentSection: some View {
         TTBaseSUIScroll(alignment: .vertical, bg: .clear) {
-            TTBaseSUIVStack(alignment: .center, spacing: XSize.P_CONS_DEF) {
+            TTBaseSUIVStack(alignment: .center, spacing: TTSize.P_CONS_DEF) {
                 // Items go here
             }
-            .pAll(XSize.P_CONS_DEF)
-            .pBottom(XSize.H_BUTTON)
+            .pAll(TTSize.P_CONS_DEF)
+            .pBottom(TTSize.H_BUTTON)
         }
         .skeleton(active: vm.isLoading)
         .maxHeight()
-        .pBottom(XSize.P_CONS_DEF)
+        .pBottom(TTSize.P_CONS_DEF)
     }
 }
 
@@ -103,21 +103,21 @@ Every screen that navigates to another screen MUST use `TTBaseNavigationLink`.
 ```swift
 private var itemsList: some View {
     TTBaseSUIScroll(alignment: .vertical) {
-        TTBaseSUILazyVStack(alignment: .center, spacing: XSize.P_CONS_DEF) {
+        TTBaseSUILazyVStack(alignment: .center, spacing: TTSize.P_CONS_DEF) {
             ForEach(vm.items) { item in
                 TTBaseNavigationLink(destination: {
                     {Name}DetailScreen(item: item)
                 }, label: {
                     {Name}ItemView(item: item)
-                        .pAll(XSize.P_CONS_DEF)
-                        .bg(byDef: XView.viewBgCellColor.toColor())
-                        .corner(byDef: XSize.CORNER_PANEL)
+                        .pAll(TTSize.P_CONS_DEF)
+                        .bg(byDef: TTView.viewBgCellColor.toColor())
+                        .corner(byDef: TTSize.CORNER_PANEL)
                         .baseShadow()
                 })
             }
         }
-        .pAll(XSize.P_CONS_DEF)
-        .pBottom(XSize.H_BUTTON)
+        .pAll(TTSize.P_CONS_DEF)
+        .pBottom(TTSize.H_BUTTON)
     }
     .skeleton(active: vm.isLoading)
     .maxHeight()
@@ -157,7 +157,7 @@ SUIBaseView(
     backAction: { /* optional custom back handling */ },
     titleAction: { /* optional title tap */ },
     rightAction: { /* optional right bar button */ },
-    bg: XView.viewBgColor.toColor(),
+    bg: TTView.viewBgColor.toColor(),
     @ViewBuilder content: () -> Content
 )
 ```

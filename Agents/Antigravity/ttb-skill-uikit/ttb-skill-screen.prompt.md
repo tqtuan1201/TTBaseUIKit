@@ -204,7 +204,7 @@ btn.onTouchHandler = { [weak self] _ in }
 ### Non-Existent APIs (DO NOT USE)
 ```swift
 // ❌ Fake — does NOT exist in TTBaseUIKit:
-XPrint("...")                  // → TTBaseFunc.shared.printLog(with:..., object:...)
+TTBaseFunc.shared.printLog(with: "...", object: nil)                  // → TTBaseFunc.shared.printLog(with:..., object:...)
 TTBaseShadowPanelView() named // → TTBaseShadowPanelView() — EXISTS but use property panelShadowView
 BaseUIViewController          // → TTBaseUIViewController<TTBaseUIView>
 navBaseStype                  // → navType (override var navType: NAV_STYLE)
