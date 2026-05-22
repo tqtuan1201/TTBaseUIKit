@@ -18,10 +18,16 @@ set -e
 
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 SKILLS_DIR="$HOME/.agents/skills"
+EXTRACTED_DIR="$SCRIPT_DIR/antigravity-export-tmp"
+
+cleanup() {
+    rm -rf "$EXTRACTED_DIR"
+}
+trap cleanup EXIT
 
 echo "========================================"
 echo "  Antigravity Skills — Codex Installer"
-echo "  Version 2.0.0"
+echo "  Version 2.2.0"
 echo "========================================"
 echo ""
 echo "Installation folder: $SCRIPT_DIR"
@@ -42,11 +48,18 @@ fi
 # Create skills directory if needed
 mkdir -p "$SKILLS_DIR"
 
+if [[ ! -w "$SKILLS_DIR" ]]; then
+    echo "ERROR: Destination is not writable: $SKILLS_DIR"
+    echo ""
+    echo "Fix ownership, then re-run installer:"
+    echo "  sudo chown -R \"$USER\":staff \"$HOME/.agents\""
+    echo "  bash \"$SCRIPT_DIR/install.sh\""
+    exit 1
+fi
+
 # Extract the archive
 echo "Extracting skills archive..."
 tar -xzf "$SCRIPT_DIR/antigravity-codex-skills.tar.gz" -C "$SCRIPT_DIR/"
-
-EXTRACTED_DIR="$SCRIPT_DIR/antigravity-export-tmp"
 
 if [[ ! -d "$EXTRACTED_DIR" ]]; then
     echo "ERROR: Failed to extract archive."
@@ -126,7 +139,7 @@ for file in "SKILL.md" "README.md" "README-VI.md" "VERSION.md" "Tutorial.md" "Tu
                             echo "description: Antigravity tutorial — when to use each skill, prompt examples, practical guide. Vietnamese version."
                             ;;
                     esac
-                    echo "version: \"2.0.0\""
+                    echo "version: \"2.2.0\""
                     echo "---"
                     echo ""
                     cat "$src"
@@ -141,9 +154,6 @@ for file in "SKILL.md" "README.md" "README-VI.md" "VERSION.md" "Tutorial.md" "Tu
         echo "  [SKIP] antigravity-$file (not found in archive)"
     fi
 done
-
-# Cleanup extracted folder
-rm -rf "$EXTRACTED_DIR"
 
 echo ""
 echo "========================================"
@@ -172,4 +182,4 @@ echo "  - \$HOME/.agents/skills/  (USER level — this install)"
 echo "  - .agents/skills/        (REPO level)"
 echo "  - /etc/codex/skills/      (ADMIN level)"
 echo ""
-echo "v2.0.0 — 11 Iron Laws, SUIBaseView + TTBaseNavigationLink, navigation ref, token warnings"
+echo "v2.2.0 — semantic routing, EN/VI aliases, workflow standard, 11 Iron Laws"

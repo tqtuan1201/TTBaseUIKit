@@ -4,7 +4,7 @@
 
 This package contains the full Antigravity TTBaseUIKit skill set for **Codex** AI agents.
 
-**Version 2.0.0** — 11 Iron Laws, SUIBaseView + TTBaseNavigationLink mandatory, navigation reference, token warnings, three-tier SwiftUI approach, FCR 7-Dimension scoring, progressive loading.
+**Version 2.2.0** — semantic routing, Vietnamese/English aliases, workflow standard, 11 Iron Laws, SUIBaseView + TTBaseNavigationLink mandatory, navigation reference, token warnings, FCR 7-Dimension scoring, progressive loading.
 
 ## Codex Skill Locations
 
@@ -22,7 +22,7 @@ Skills in `~/.agents/skills/` apply to every repository you work in.
 
 ```
 Codex/
-├── antigravity-codex-skills.tar.gz    ← Portable archive (v2.0.0)
+├── antigravity-codex-skills.tar.gz    ← Portable archive (v2.2.0)
 ├── install.sh                         ← Installation script
 └── INSTALL.md                        ← This file
 ```
@@ -101,15 +101,15 @@ Skills land in `~/.agents/skills/`:
 ├── antigravity-SKILL.md/
 │   └── SKILL.md               Root skill entry point (v2.1.0)
 ├── antigravity-README.md/
-│   └── SKILL.md               Overview and quick reference (v2.0.0)
+│   └── SKILL.md               Overview and quick reference (v2.2.0)
 ├── antigravity-README-VI.md/
-│   └── SKILL.md               Vietnamese overview (v2.0.0)
+│   └── SKILL.md               Vietnamese overview (v2.2.0)
 ├── antigravity-Tutorial.md/
 │   └── SKILL.md               Tutorial: when to use each skill, prompt examples (v1.0.0)
 ├── antigravity-Tutorial-vi.md/
 │   └── SKILL.md               Vietnamese tutorial (v1.0.0)
 └── antigravity-VERSION.md/
-    └── SKILL.md               Version history (v2.0.0)
+    └── SKILL.md               Version history (v2.2.0)
 ```
 
 ## Skill Activation
