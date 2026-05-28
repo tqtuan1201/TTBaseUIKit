@@ -142,11 +142,11 @@ struct ProductCatalogScreen: View {
 
     var body: some View {
         SUIBaseView(
-            titleNav: XTextU("App.ProductCatalog.Title"),
-            isShowBack: true,
             backType: .SWIFTUI,
-            isShowRightNav: true,
-            titleRightNav: XText("Common.Add")
+            title: XText("App.ProductCatalog.Title"),
+            type: .DEFAULT,
+            isHiddenTabbar: true,
+            backAction: {}
         ) {
             content
         }
@@ -154,18 +154,19 @@ struct ProductCatalogScreen: View {
     }
 
     private var content: some View {
-        ScrollView {
-            LazyVStack(spacing: TTSize.P_CONS_DEF) {
+        TTBaseSUIScroll(alignment: .vertical, bg: .clear) {
+            TTBaseSUILazyVStack(alignment: .center, spacing: TTSize.P_CONS_DEF, bg: .clear) {
                 ForEach(viewModel.products) { product in
-                    TTBaseNavigationLink(
-                        destination: ProductDetailScreen(product: product, viewModel: viewModel),
-                        label: { ProductCardView(product: product) }
-                    )
+                    TTBaseNavigationLink(destination: {
+                        ProductDetailScreen(product: product, viewModel: viewModel)
+                    }, label: {
+                        ProductCardView(product: product)
+                    }, isAnimation: true)
                 }
             }
-            .padding(TTSize.P_CONS_DEF)
+            .pAll(TTSize.P_CONS_DEF)
         }
-        .background(TTView.viewBgColor.toColor())
+        .bg(byDef: TTView.viewBgColor.toColor())
     }
 }
 ```
@@ -174,21 +175,26 @@ struct ProductCatalogScreen: View {
 
 ```swift
 // Variant 1: Navigation link with label closure
-TTBaseNavigationLink(
-    destination: DetailScreen(viewModel: vm),
-    label: { ProductCardView(product: product) }
-)
+TTBaseNavigationLink(destination: {
+    DetailScreen(viewModel: vm)
+}, label: {
+    ProductCardView(product: product)
+}, isAnimation: true)
 
 // Variant 2: Navigation link with active binding
-TTBaseNavigationLink(isActive: $vm.isShowingDetail) {
-    DetailScreen(viewModel: vm)
-}
+TTBaseNavigationLink(
+    isActive: $vm.isShowingDetail,
+    destination: { DetailScreen(viewModel: vm) },
+    label: { ProductCardView(product: product) },
+    isAnimation: true
+)
 
 // Variant 3: Full configuration
 TTBaseNavigationLink(
-    destination: DetailScreen(viewModel: vm),
     isActive: $vm.isActive,
-    label: { CardView(item: item) }
+    destination: { DetailScreen(viewModel: vm) },
+    label: { CardView(item: item) },
+    isAnimation: true
 )
 ```
 

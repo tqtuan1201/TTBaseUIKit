@@ -123,7 +123,13 @@ struct DetailScreen: View {
     @StateObject private var viewModel = DetailViewModel()
 
     var body: some View {
-        SUIBaseView(titleNav: XTextU("Detail.Title")) {
+        SUIBaseView(
+            backType: .SWIFTUI,
+            title: XText("Detail.Title"),
+            type: .DEFAULT,
+            isHiddenTabbar: true,
+            backAction: {}
+        ) {
             DetailContent(viewModel: viewModel)
         }
     }

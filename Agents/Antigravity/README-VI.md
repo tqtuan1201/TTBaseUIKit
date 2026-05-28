@@ -112,10 +112,11 @@ Mọi navigation giữa các màn hình **PHẢI** dùng `TTBaseNavigationLink`.
 struct HomeScreen: View {
     var body: some View {
         SUIBaseView(
-            titleNav: XTextU("App.Home.Nav.Title"),
-            isShowBack: true,
             backType: .SWIFTUI,
-            isHiddenTabbar: false
+            title: XText("App.Home.Nav.Title"),
+            type: .DEFAULT,
+            isHiddenTabbar: false,
+            backAction: {}
         ) {
             content
         }
@@ -123,29 +124,37 @@ struct HomeScreen: View {
     }
 
     private var content: some View {
-        ScrollView {
-            LazyVStack(spacing: TTSize.P_CONS_DEF) {
+        TTBaseSUIScroll(alignment: .vertical, bg: .clear) {
+            TTBaseSUILazyVStack(alignment: .center, spacing: TTSize.P_CONS_DEF, bg: .clear) {
                 ForEach(items) { item in
-                    TTBaseNavigationLink(
-                        destination: DetailScreen(item: item),
-                        label: { ItemCardView(item: item) }
-                    )
+                    TTBaseNavigationLink(destination: {
+                        DetailScreen(item: item)
+                    }, label: {
+                        ItemCardView(item: item)
+                    }, isAnimation: true)
                 }
             }
-            .padding(TTSize.P_CONS_DEF)
+            .pAll(TTSize.P_CONS_DEF)
         }
-        .background(TTView.viewBgColor.toColor())
+        .bg(byDef: TTView.viewBgColor.toColor())
     }
 }
 
 // TTBaseNavigationLink variants
 // Variant 1: Navigation đơn giản với label closure
-TTBaseNavigationLink(destination: { DetailScreen(vm: vm) }, label: { CardView() })
+TTBaseNavigationLink(destination: {
+    DetailScreen(vm: vm)
+}, label: {
+    CardView()
+}, isAnimation: true)
 
 // Variant 2: Active binding cho navigation có điều kiện
-TTBaseNavigationLink(isActive: $vm.isShowingDetail) {
-    DetailScreen(vm: vm)
-}
+TTBaseNavigationLink(
+    isActive: $vm.isShowingDetail,
+    destination: { DetailScreen(vm: vm) },
+    label: { CardView() },
+    isAnimation: true
+)
 ```
 
 ### backType Decision Matrix

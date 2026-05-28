@@ -24,7 +24,9 @@ This is the canonical registry for the Antigravity agent system. It preserves ev
 | Intent manifest | `ttb-skill-shared/routing/intent-manifest.json` | Machine-readable routing source |
 | Multilingual aliases | `ttb-skill-shared/routing/multilingual-aliases.json` | Vietnamese/English normalization |
 | Intent router | `ttb-skill-shared/routing/intent-router.md` | Human-readable routing contract |
-| Workflow contract | `ttb-skill-shared/workflows/ttb-workflow-standard.md` | Reusable workflow/state/retry pattern |
+| Workflow contract | `ttb-skill-shared/workflows/ttb-workflow-standard.md` | Reusable preflight/state/retry pattern |
+| Preflight gate | `ttb-skill-shared/fragments/ttb-preflight-execution-gate.frag.md` | Requirement analysis, ambiguity detection, confidence gating |
+| Clarification survey | `ttb-skill-shared/templates/ttb-clarification-survey.md` | Standard survey blocks for missing critical information |
 
 ## Canonical Commands
 
@@ -60,6 +62,16 @@ Confidence thresholds:
 | `0.55-0.77` | Ask one focused clarification |
 | `< 0.55` | Load shared resources and ask for goal/framework/artifact |
 
+Execution confidence thresholds:
+
+| Confidence | Action |
+|------------|--------|
+| `90-100` | Execute directly and state key assumptions |
+| `70-89` | Execute only with documented low-risk assumptions |
+| `<70` | Stop and ask a survey before editing |
+
+Every command must run the preflight gate before code generation, refactor, migration, file modification, architecture creation, workflow update, UI/navigation update, dependency update, or business logic change.
+
 ## Skill Inventory
 
 ### Core Development
@@ -89,6 +101,8 @@ Confidence thresholds:
 | Aliases | `ttb-skill-shared/routing/multilingual-aliases.json` | `always` | EN/VI synonym and typo normalization |
 | Router examples | `ttb-skill-shared/routing/router-examples.md` | `on-demand` | Routing regression examples |
 | Workflow standard | `ttb-skill-shared/workflows/ttb-workflow-standard.md` | `domain` | State, retry, fallback, verification contract |
+| Preflight gate | `ttb-skill-shared/fragments/ttb-preflight-execution-gate.frag.md` | `always` | Requirement validation, ambiguity detection, confidence scoring, execution approval |
+| Clarification survey | `ttb-skill-shared/templates/ttb-clarification-survey.md` | `on-demand` | Multiple-choice clarification patterns |
 | Iron Laws | `ttb-skill-shared/fragments/ttb-iron-laws.frag.md` | `always` | 11 mandatory laws |
 | Marker | `ttb-skill-shared/fragments/ttb-marker.frag.md` | `always` | Generated file header |
 | Rules | `ttb-skill-shared/rules/*.md` | `domain` | Coding standards, anti-patterns, memory leaks, comments |
@@ -129,6 +143,7 @@ Confidence thresholds:
 - Every core skill has frontmatter: `name`, `description`, `version`, `date_updated`, `risk`, `source`, `tags`, `loadLevel`.
 - Every skill documents aliases, routing hints, input/output, anti-patterns, fallback strategy, and confidence guidance.
 - Every workflow documents state/context passing, retry/fallback, dependency validation, and verification gates.
+- Every skill, prompt, workflow, phase, and template references the preflight execution gate before file edits.
 - The router examples keep Vietnamese, English, mixed-language, typo, and shorthand prompts stable.
 - Backward compatibility is preserved for all existing `/ttb-*` commands and legacy `/tts-*` aliases.
 

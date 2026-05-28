@@ -10,9 +10,12 @@ version: "2.0.0"
 
 Generate detailed specification: data model, file structure, navigation, API contract.
 
+This phase may only run after the preflight gate has resolved architecture-critical ambiguity or explicitly marked safe assumptions.
+
 ## Input
 - Feature Research output
 - User clarification
+- Preflight gate decision from `fragments/ttb-preflight-execution-gate.frag.md`
 
 ## Steps
 
@@ -64,6 +67,12 @@ Generate detailed specification: data model, file structure, navigation, API con
 - All `XText`/`XTextU` keys
 - Format: `"App.{Module}.{Screen}.{Element}" = "Default Value";`
 
+### 6. Validate Spec Completeness
+- Confirm target module and file locations.
+- Confirm UI, navigation, API, state management, routing, naming, localization, and reusable component requirements.
+- If a business-critical item is missing, return to survey instead of implementation.
+- Re-score confidence; implementation requires `>=70`, with `<70` forcing clarification.
+
 ## Output
 
 ```
@@ -105,3 +114,4 @@ struct {Name}Model: Codable {
 - Every screen must have a navigation strategy
 - Every API call must have error handling
 - Every user-facing string must have a localization key
+- Do not advance to implementation while architecture-critical or business-critical requirements are missing

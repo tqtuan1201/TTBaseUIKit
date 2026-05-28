@@ -26,6 +26,10 @@
       "ui kit": "uikit",
       "ttbase ui": "ttbaseuikit",
       "man hih": "man hinh",
+      "man login": "man hinh login",
+      "tao man login": "tao man hinh login",
+      "man detail": "man hinh detail",
+      "push qua": "push to",
       "tao man": "tao man hinh",
       "viet endpoint": "tao api"
     }
@@ -39,13 +43,31 @@
     "refactor": ["refactor", "cleanup", "clean up", "restructure", "migrate", "tai cau truc", "don code", "giam trung lap"],
     "audit": ["audit", "review", "score", "compliance", "performance", "accessibility", "localization", "kiem tra", "danh gia", "cham diem"],
     "swiftui": ["swiftui", "swift ui", "ttbasesui", "suibaseview", "navigationlink", "native swiftui"],
-    "uikit": ["uikit", "ui kit", "viewcontroller", "ttviewcodable", "uitableview", "uicollectionview"]
+    "uikit": ["uikit", "ui kit", "viewcontroller", "ttviewcodable", "uitableview", "uicollectionview"],
+    "navigation": ["navigation", "route", "routing", "push", "modal", "fullscreencover", "full screen", "dieu huong", "push qua", "mo modal"],
+    "architecture": ["architecture", "clean architecture", "mvvm", "mvvm-c", "coordinator", "dependency injection", "kien truc", "cau truc"],
+    "dependency": ["dependency", "package", "library", "framework", "sdk", "pod", "spm", "phu thuoc"],
+    "workflow": ["workflow", "process", "pipeline", "skill", "prompt", "template", "quy trinh", "luong lam viec"]
+  },
+  "executionTaskTypes": {
+    "generate": ["generate", "create", "build", "scaffold", "tao", "viet", "dung"],
+    "refactor": ["refactor", "cleanup", "clean up", "tai cau truc", "don code"],
+    "migration": ["migrate", "convert", "adopt", "move to", "chuyen", "di chuyen"],
+    "fix": ["fix", "debug", "repair", "sua", "sua loi"],
+    "architectureUpdate": ["architecture update", "change architecture", "clean architecture", "cap nhat kien truc"],
+    "uiUpdate": ["ui update", "update ui", "layout", "screen", "view", "cap nhat giao dien"],
+    "navigationUpdate": ["navigation update", "routing", "push", "modal", "cap nhat dieu huong"],
+    "backendUpdate": ["api", "backend", "endpoint", "service"],
+    "dependencyUpdate": ["dependency", "package", "spm", "pod", "sdk"],
+    "workflowUpdate": ["workflow", "skill", "prompt", "template", "pipeline"]
   },
   "examples": [
     {"input": "tạo api login", "normalized": "tao api login", "route": "/ttb-uikit-api"},
     {"input": "generate auth api", "normalized": "generate auth api", "route": "/ttb-uikit-api"},
     {"input": "viet api", "normalized": "viet api", "route": "/ttb-uikit-api"},
     {"input": "tao man hinh swiftui", "normalized": "tao man hinh swiftui", "route": "/ttb-sui-screen"},
+    {"input": "tao man login", "normalized": "tao man hinh login", "route": "/ttb-uikit-screen or /ttb-sui-screen requires framework clarification"},
+    {"input": "push qua detail screen", "normalized": "push to detail screen", "route": "/ttb-sui-screen or /ttb-uikit-coordinator requires source/destination validation"},
     {"input": "fix crash khi tap button", "normalized": "fix crash khi tap button", "route": "/ttb-bugfix"},
     {"input": "kiem tra localization", "normalized": "kiem tra localization", "route": "/ttb-audit-localization"}
   ]

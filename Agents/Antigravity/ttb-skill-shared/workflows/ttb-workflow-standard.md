@@ -1,21 +1,37 @@
 ---
 name: "ttb-workflow-standard"
-description: "Reusable workflow contract for Antigravity skills: validation, context passing, retry/fallback handling, verification gates, and output shape."
-version: "1.0.0"
+description: "Reusable workflow contract for Antigravity skills: preflight validation, context passing, retry/fallback handling, verification gates, and output shape."
+version: "1.1.0"
 date_updated: "2026-05-22"
 risk: "safe"
 source: "internal"
-tags: ["workflow", "standard", "state", "fallback", "verification"]
+tags: ["workflow", "standard", "preflight", "state", "fallback", "verification"]
 ---
 
 # Antigravity Standard Workflow Contract
 
 All Antigravity skills should follow this modular workflow unless a skill-specific prompt overrides a step for a documented reason.
 
+Before any code generation, refactor, migration, file modification, architecture creation, workflow update, UI update, navigation update, or business logic change, skills must pass `ttb-skill-shared/fragments/ttb-preflight-execution-gate.frag.md`.
+
 ## State Object
 
 ```yaml
 state:
+  preflight:
+    intent: string
+    taskType: "generate" | "refactor" | "migration" | "fix" | "architecture update" | "UI update" | "navigation update" | "backend update" | "dependency update" | "workflow update"
+    scope: "small" | "medium" | "large"
+    language: "en" | "vi" | "mixed" | "unknown"
+    impactedFiles: string[]
+    impactedModules: string[]
+    dependencies: string[]
+    architectureConstraints: string[]
+    missingInformation: string[]
+    ambiguities: string[]
+    assumptions: string[]
+    confidence: number
+    gateDecision: "execute" | "execute-with-assumptions" | "survey-required"
   route:
     selectedSkill: string
     command: string
@@ -43,6 +59,14 @@ state:
 
 ## Standard Steps
 
+0. **Preflight Execution Gate**
+   - Run the seven phases from `fragments/ttb-preflight-execution-gate.frag.md`: requirement analysis, context validation, ambiguity detection, missing information detection, survey/clarification, confidence evaluation, execution approval.
+   - Validate multilingual prompts in English, Vietnamese, mixed language, diacritic-free Vietnamese, and light typos.
+   - Score confidence from `0-100`.
+   - `90-100`: execute directly and record assumptions.
+   - `70-89`: execute only with explicit low-risk assumptions.
+   - `<70`: stop and ask a survey using `templates/ttb-clarification-survey.md`.
+
 1. **Route**
    - Use `routing/intent-manifest.json`.
    - Preserve exact `/ttb-*` commands.
@@ -56,6 +80,7 @@ state:
 3. **Collect Context**
    - Identify target platform, framework, artifact type, data source, navigation, localization keys, and verification command.
    - For bugfixes, collect failing behavior before proposing changes.
+   - Identify impacted files/modules, dependencies, project conventions, architecture constraints, and reusable components before editing.
 
 4. **Plan Minimal Execution**
    - Reuse existing architecture, prompts, phases, refs, and scripts.
@@ -65,6 +90,7 @@ state:
    - Apply skill-specific prompt.
    - Pass state between substeps using the state object fields above.
    - Keep changes scoped to the selected skill and affected app files.
+   - Do not execute if `state.preflight.gateDecision` is `survey-required`.
 
 6. **Retry/Fallback**
    - Retry build or validation failures at most 3 times.
@@ -92,6 +118,7 @@ state:
 
 - Do not route by exact keyword alone.
 - Do not load every prompt for every task.
-- Do not ask broad clarification questions when a safe route is above threshold.
+- Do not ask broad clarification questions when a safe route and a safe execution gate are above threshold.
 - Do not refactor while fixing an untriaged bug.
 - Do not create a new workflow if a shared phase already covers the step.
+- Do not create architecture, navigation, business logic, or dependency changes from assumptions when preflight confidence is below `70`.

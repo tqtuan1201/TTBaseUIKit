@@ -1,25 +1,42 @@
 ---
-description: "Native SwiftUI reusable view using 100% standard SwiftUI with TTBaseUIKit tokens. STRICTLY FALLBACK ONLY — use /ttb-sui-view when TTBaseSUI components exist."
+description: "Scaffold a native SwiftUI reusable view using standard SwiftUI primitives with TTBaseUIKit tokens. Fallback only when TTBaseSUI has no equivalent. Supports English and Vietnamese prompt intents. iOS 14+."
 ---
 
-# ttb-skill-native-view — Native SwiftUI View Builder
+# ttb-skill-native-view - Native SwiftUI View Builder
 
-> ⚠️ **FALLBACK ONLY**: Use `/ttb-sui-view` first. Only use this when TTBaseSUI lacks a component.
->
-> Use this for: complex custom layouts, charts, custom animations, advanced gestures.
+## Mandatory Preflight Execution Gate
 
-## When
+Before generating code or modifying files, run `ttb-skill-shared/fragments/ttb-preflight-execution-gate.frag.md`.
 
-User says: "native swiftui view", "custom layout", "complex view", "chart view"
-AND TTBaseSUI has no equivalent for the required component.
+Required checks:
 
-## Tappable Card Pattern
+- Analyze intent, task type, scope, impacted files/modules, dependencies, architecture constraints, coding standards, and project-specific rules.
+- Validate required inputs such as target module, screen/component name, file location, navigation flow, expected output, API contract, state management, routing, localization, naming, and reusable component requirements.
+- Detect ambiguity, conflicting requirements, incomplete business logic, unclear UX/navigation, unclear module ownership, and unclear architecture direction.
+- Score confidence from `0-100`: execute at `90-100`, execute with warning assumptions at `70-89`, and ask a survey below `70` using `ttb-skill-shared/templates/ttb-clarification-survey.md`.
+- Support English, Vietnamese, mixed-language, diacritic-free Vietnamese, and light typo prompts.
+
+Fallback-only route for reusable SwiftUI components that cannot be expressed accurately with TTBaseSUI wrappers.
+
+Use `/ttb-sui-view` first unless the component needs custom drawing, charting, advanced animation, advanced gestures, or a layout behavior missing from TTBaseSUI.
+
+## Trigger
+
+Use this prompt when the request means: native SwiftUI view, custom SwiftUI component, chart view, animated view, gesture-heavy view, bespoke layout, `native SwiftUI view`, `custom layout SwiftUI`, `view SwiftUI phức tạp`, or `bieu do SwiftUI`.
+
+Before coding, document which TTBaseSUI equivalent is missing.
+
+## Input Fidelity
+
+For screenshots or detailed descriptions, preserve custom shape, animation, gesture, chart, and spatial requirements. Use native SwiftUI only for the part that requires it; keep the rest aligned with TTBaseUIKit tokens and local project conventions.
+
+## Tappable Native Card Pattern
 
 ```swift
-// [TTBaseUIKit-AI-Agents]: TTBaseUIKit Agent Support is active 🚀
+// [TTBaseUIKit-AI-Agents]: TTBaseUIKit Agent Support is active
 //  CustomViews/{Name}CardView.swift
 //  {AppName}
-//  ⚠️ FALLBACK: Native SwiftUI — use TTBaseSUI when possible
+//  FALLBACK: Native SwiftUI because TTBaseSUI lacks {missing_component_or_behavior}.
 //
 
 import SwiftUI
@@ -43,16 +60,16 @@ struct {Name}CardView: View {
                     .frame(width: 24, height: 24)
                     .foregroundColor(TTView.iconColor.toColor())
 
-                VStack(alignment: .leading, spacing: 2) {
+                VStack(alignment: .leading, spacing: TTSize.P_XS) {
                     Text(title)
                         .font(.system(size: TTFont.TITLE_H, weight: .bold))
                         .foregroundColor(TTView.textDefColor.toColor())
+
                     Text(subtitle)
                         .font(.system(size: TTFont.SUB_TITLE_H))
                         .foregroundColor(TTView.textSubTitleColor.toColor())
                 }
-
-                Spacer()
+                .frame(maxWidth: .infinity, alignment: .leading)
 
                 Image(systemName: "chevron.right")
                     .font(.system(size: TTFont.SUB_TITLE_H))
@@ -60,10 +77,12 @@ struct {Name}CardView: View {
             }
             .padding(TTSize.P_CONS_DEF)
             .background(TTView.viewBgCellColor.toColor())
-            .clipShape(RoundedRectangle(cornerRadius: TTSize.CORNER_RADIUS))
+            .clipShape(RoundedRectangle(cornerRadius: TTSize.CORNER_PANEL))
             .shadow(color: .black.opacity(0.14), radius: 8, x: 0, y: 4)
         }
-        .buttonStyle(.plain)
+        .buttonStyle(PlainButtonStyle())
+        .accessibilityElement(children: .combine)
+        .accessibilityLabel(title)
     }
 }
 
@@ -76,19 +95,9 @@ struct {Name}CardView_Previews: PreviewProvider {
 }
 ```
 
-## Static Display Pattern
+## Static Native Display Pattern
 
 ```swift
-// [TTBaseUIKit-AI-Agents]: TTBaseUIKit Agent Support is active 🚀
-//  CustomViews/{Name}InfoView.swift
-//  {AppName}
-//  ⚠️ FALLBACK: Native SwiftUI — use TTBaseSUI when possible
-//
-
-import SwiftUI
-import TTBaseUIKit
-
-// MARK: - {Name}InfoView
 struct {Name}InfoView: View {
 
     let title: String
@@ -99,6 +108,7 @@ struct {Name}InfoView: View {
             Text(title)
                 .font(.system(size: TTFont.TITLE_H, weight: .bold))
                 .foregroundColor(TTView.textDefColor.toColor())
+
             Text(subtitle)
                 .font(.system(size: TTFont.SUB_TITLE_H))
                 .foregroundColor(TTView.textSubTitleColor.toColor())
@@ -110,91 +120,26 @@ struct {Name}InfoView: View {
 }
 ```
 
-## TTBaseUIKit Tokens for Native SwiftUI
-
-```swift
-// Colors
-TTView.viewBgColor.toColor()
-TTView.viewDefColor.toColor()
-TTView.viewBgCellColor.toColor()
-TTView.textDefColor.toColor()
-TTView.textSubTitleColor.toColor()
-TTView.textTitleColor.toColor()
-TTView.buttonBgDef.toColor()
-TTView.iconColor.toColor()
-TTView.lineDefColor.toColor()
-
-// Sizes
-TTSize.P_CONS_DEF    // 8pt
-TTSize.P_XS         // 4pt
-TTSize.P_L          // 16pt
-TTSize.H_BUTTON     // 40pt
-TTSize.H_TEXTFIELD  // 35pt
-TTSize.CORNER_RADIUS    // 4pt
-TTSize.CORNER_PANEL     // 8pt
-
-// Fonts
-TTFont.HEADER_H         // ~16pt bold
-TTFont.TITLE_H          // ~14pt
-TTFont.SUB_TITLE_H      // ~12pt
-TTFont.SUB_SUB_TITLE_H  // ~10pt
-```
-
-## Modifier Reference
-
-```swift
-// Chainable extensions (preferred)
-.pAll(TTSize.P_CONS_DEF)
-.pHorizontal(TTSize.P_CONS_DEF)
-.pVertical(TTSize.P_CONS_DEF)
-.bg(byDef: TTView.viewBgCellColor.toColor())
-.corner(byDef: TTSize.CORNER_PANEL)
-.skeleton(active: isLoading)
-.sizeSquare(width: 50)
-.hidden(someCondition)
-.maxWidth()
-
-// Standard SwiftUI
-.padding(TTSize.P_CONS_DEF)
-.clipShape(RoundedRectangle(cornerRadius: TTSize.CORNER_RADIUS))
-.foregroundColor(TTView.textDefColor.toColor())
-.background(TTView.viewBgCellColor.toColor())
-.shadow(color: .black.opacity(0.14), radius: 8, x: 0, y: 4)
-```
-
 ## Rules
 
-1. **SUIBaseView wrapper** — mọi screen phải bọc trong `SUIBaseView`
-2. **100% standard SwiftUI** — no TTBaseSUI* wrappers
-3. **TTBaseUIKit tokens**: `TTView.*.toColor()`, `TTSize.*`, `TTFont.*`
-4. **Chainable extensions**: ưu tiên `.pAll()`, `.bg()`, `.corner()`
-5. **iOS 14+ APIs ONLY**:
-   - `foregroundColor()` NOT `.foregroundStyle()`
-   - `.clipShape(RoundedRectangle(cornerRadius:))` NOT `.clipShape(.rect())`
-   - `PreviewProvider` NOT `#Preview`
-6. **Use `Button`** cho tappable — NEVER `onTapGesture` as substitute
-7. **Minimum 44×44** tap area
-8. **Accessibility**: `.accessibilityLabel()` on images
-9. **Body < 40 lines** — extract subviews if longer
-10. **@ViewBuilder / Group** instead of `AnyView`
-11. **PreviewProvider** at bottom
-12. **Document the gap** — note which TTBaseSUI component is missing
+1. Use standard SwiftUI primitives only for the missing TTBaseSUI behavior.
+2. Use TTBaseUIKit tokens for colors, spacing, corner radius, and fonts.
+3. Use `foregroundColor`, not `foregroundStyle`.
+4. Use `clipShape(RoundedRectangle(cornerRadius:))`, not `.clipShape(.rect())`.
+5. Use `PreviewProvider`, not `#Preview`.
+6. Use `Button` for tappable controls; do not substitute `onTapGesture` for buttons.
+7. Keep tap targets at least 44 x 44 points.
+8. Add accessibility labels for images and interactive views.
+9. Prefer `@ViewBuilder` or `Group` instead of `AnyView`.
+10. Extract subviews when `body` exceeds roughly 40 lines.
+11. Document the missing TTBaseSUI component or behavior in implementation notes.
+12. Keep output faithful to the provided image or written requirements.
 
-## Post-Implementation Verification (MANDATORY)
+## Verification
 
-After all files are generated, **run Phase 6 verification**:
+After implementation:
 
-1. **Add files to Xcode project** — ensure each `.swift` is registered in `project.pbxproj`
-2. **Run verification**:
-   ```bash
-   bash ttb-skill-shared/scripts/ttb-verify.sh
-   ```
-3. **Check compliance**:
-   ```bash
-   bash ttb-skill-shared/scripts/ttb-compliance-check.sh
-   ```
-4. **Skill is complete only when** `BUILD SUCCEEDED`
-
-**Anti-Loop**: Max 3 build attempts. 3 failures — STOP, document errors.
-
-For full FCR 7-Dimension scoring, see `ttb-skill-shared/phases/ttb-phase-verify.md`.
+1. Register new Swift files in the Xcode target.
+2. Run the repository build verification command or shared `ttb-verify.sh` script when present.
+3. Run the shared compliance check script when present.
+4. Complete only when the build succeeds, or report exact blockers after three repair attempts.

@@ -20,13 +20,13 @@ SUIBaseView(
     title: XText("App.Module.Nav.Title"),
     type: .DEFAULT,                              // .DEFAULT | .INFO | .NO_NAV
     isHiddenTabbar: true,
-    backAction: { /* optional */ },
-    titleAction: { /* optional */ },
-    rightAction: { /* optional */ },
-    bg: TTView.viewBgColor.toColor(),
-    @ViewBuilder content: () -> Content
-)
+    backAction: {}
+) {
+    // Screen content
+}
 ```
+
+Keep these five labels in this order for generated SwiftUI screens: `backType`, `title`, `type`, `isHiddenTabbar`, `backAction`. Add optional labels such as `titleAction`, `rightAction`, or `bg` only when the local initializer supports them and the feature requires them.
 
 **backType meanings:**
 | Value | Khi nào dùng |
@@ -52,14 +52,15 @@ TTBaseNavigationLink(destination: {
         .bg(byDef: TTView.viewBgCellColor.toColor())
         .corner(byDef: TTSize.CORNER_PANEL)
         .baseShadow()
-})
+}, isAnimation: true)
 
 // With active binding (programmatic control)
 @State private var isShowingDetail = false
 TTBaseNavigationLink(
     isActive: $isShowingDetail,
     destination: { DetailScreen(item: item) },
-    label: { ItemRow(item: item) }
+    label: { ItemRow(item: item) },
+    isAnimation: true
 )
 
 // Without animation
@@ -390,7 +391,7 @@ TTBaseNavigationLink(destination: {
         .bg(byDef: TTView.viewBgCellColor.toColor())
         .corner(byDef: TTSize.CORNER_PANEL)
         .baseShadow()
-})
+}, isAnimation: true)
 ```
 
 ## iOS 14+ API Notes
@@ -398,7 +399,7 @@ TTBaseNavigationLink(destination: {
 | Native SwiftUI (iOS 15+) | TTBaseSUI / iOS 14+ |
 |---|---|
 | `.foregroundStyle()` | `.foregroundColor()` |
-| `NavigationStack { }` | `NavigationView { }` (via SUIBaseView) |
+| `NavigationStack { }` | `SUIBaseView(backType:title:type:isHiddenTabbar:backAction:)` |
 | `#Preview { }` | `PreviewProvider` protocol |
 | `.task { }` | `.onAppear { Task { } }` |
 | `@Observable` | `ObservableObject` + `@Published` |

@@ -75,7 +75,7 @@ TTBaseNavigationLink(destination: {
         .bg(byDef: TTView.viewBgCellColor.toColor())
         .corner(byDef: TTSize.CORNER_PANEL)
         .baseShadow()
-})
+}, isAnimation: true)
 ```
 
 #### Navigation with Active Binding
@@ -86,7 +86,8 @@ TTBaseNavigationLink(destination: {
 TTBaseNavigationLink(
     isActive: $isShowingDetail,
     destination: { DetailScreen(item: item) },
-    label: { ItemRow(item: item) }
+    label: { ItemRow(item: item) },
+    isAnimation: true
 )
 ```
 
@@ -139,7 +140,7 @@ struct ProductListScreen: View {
                                 .bg(byDef: TTView.viewBgCellColor.toColor())
                                 .corner(byDef: TTSize.CORNER_PANEL)
                                 .baseShadow()
-                        })
+                        }, isAnimation: true)
                     }
                 }
                 .pAll(TTSize.P_CONS_DEF)

@@ -27,7 +27,7 @@ Comprehensive anti-pattern guide for TTBaseUIKit apps.
 | ❌ Never | ✅ Use Instead |
 |---------|---------------|
 | `NavigationView` directly as screen wrapper | `SUIBaseView(backType:title:type:isHiddenTabbar:backAction:)` |
-| `NavigationLink` directly | `TTBaseNavigationLink(destination:label:)` |
+| `NavigationLink` directly | `TTBaseNavigationLink(destination:label:isAnimation:)` |
 | Missing `backType` when dismiss behavior matters | `.SWIFTUI` for pure SwiftUI, `.POP` for hybrid |
 | `TTBaseNavigationLink` outside `TTBaseSUIScroll` | Wrap inside `TTBaseSUIScroll` or `TTBaseSUILazyVStack` |
 
@@ -71,7 +71,7 @@ Comprehensive anti-pattern guide for TTBaseUIKit apps.
 | ❌ Never (iOS) | ✅ Use Instead (iOS 14+) |
 |-----------------|------------------------|
 | `.foregroundStyle()` (15+) | `.foregroundColor()` |
-| `NavigationStack { }` (16+) | `NavigationView { }` (via SUIBaseView) |
+| `NavigationStack { }` (16+) | `SUIBaseView(backType:title:type:isHiddenTabbar:backAction:)` |
 | `#Preview { }` (17+) | `PreviewProvider` protocol |
 | `.task { }` (15+) | `.onAppear { Task { } }` |
 | `@Observable` (17+) | `ObservableObject` + `@Published` |

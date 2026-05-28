@@ -12,6 +12,7 @@ templates/
   README.md              ← This file
   SKILL.md.template       ← Template for new skill SKILL.md
   prompt.md.template      ← Template for new prompt files
+  ttb-clarification-survey.md ← Standard survey patterns for preflight gating
   rule.md.template       ← Template for new rule files
   phase.md.template      ← Template for phase definition files
   fragment.md.template    ← Template for reusable fragments
@@ -34,7 +35,8 @@ templates/
 2. **Use shell scripts** for verification/compliance instead of inline bash blocks
 3. **Reference phases** from `phases/` instead of duplicating phase definitions
 4. **Use fragments** for Iron Laws, markers, and other reusable content
-5. **Progressive loading** — set `loadLevel` correctly: `always` / `domain` / `on-demand`
+5. **Use preflight gate** — every new skill/prompt must reference `fragments/ttb-preflight-execution-gate.frag.md`
+6. **Progressive loading** — set `loadLevel` correctly: `always` / `domain` / `on-demand`
 
 ### Naming Conventions
 
@@ -71,6 +73,9 @@ Brief usage instructions.
 
 ## Shared Resources
 List of required shared resources from `ttb-skill-shared/`.
+
+## Mandatory Preflight Execution Gate
+Run requirement analysis, context validation, ambiguity detection, missing information detection, clarification/survey, confidence scoring, and execution approval before any file modification.
 
 ## Token Budget
 Session limit and budget notes.

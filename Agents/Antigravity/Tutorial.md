@@ -356,17 +356,17 @@ struct ProductDetailScreen: View {
 
 ```swift
 SUIBaseView(
-    backType: BACK_TYPE,       // .SWIFTUI | .POP | .POP_TO_ROOT | .DISMISS | .DISMISS_ALL | .CLOSE_FLOW
-    title: String,             // Navigation bar title
-    type: TYPE,                // .DEFAULT | .INFO | .NO_NAV
-    isHiddenTabbar: Bool,      // Hide/show tabbar on screen
-    backAction: (() -> Void)?, // Callback on back press
-    titleAction: (() -> Void)?, // Callback on title press
-    rightAction: (() -> Void)?, // Callback on right button press
-    bg: Color,                 // Background color
-    @ViewBuilder content: () -> Content
-)
+    backType: .SWIFTUI,
+    title: XText("App.Module.Nav.Title"),
+    type: .DEFAULT,
+    isHiddenTabbar: true,
+    backAction: {}
+) {
+    content
+}
 ```
+
+Use these five labels in this order for generated screens. Add optional parameters only when the local initializer supports them and the requested UI needs them.
 
 ### TTBaseSUI Component Reference (Complete)
 

@@ -37,6 +37,8 @@ This file remains for backward compatibility because older skills and installers
 | EN/VI aliases | `routing/multilingual-aliases.json` |
 | Routing examples | `routing/router-examples.md` |
 | Workflow state/retry/fallback | `workflows/ttb-workflow-standard.md` |
+| Preflight execution gate | `fragments/ttb-preflight-execution-gate.frag.md` |
+| Clarification surveys | `templates/ttb-clarification-survey.md` |
 
 ## Compatibility Note
 

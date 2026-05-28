@@ -46,9 +46,11 @@ Every navigation between screens **MUST** use `TTBaseNavigationLink`.
 struct HomeScreen: View {
     var body: some View {
         SUIBaseView(
-            titleNav: XTextU("App.Home.Title"),
-            isShowBack: true,
-            backType: .SWIFTUI
+            backType: .SWIFTUI,
+            title: XText("App.Home.Title"),
+            type: .DEFAULT,
+            isHiddenTabbar: true,
+            backAction: {}
         ) {
             // Content here
         }
@@ -60,7 +62,7 @@ TTBaseNavigationLink(destination: {
     DetailScreen(viewModel: vm)
 }, label: {
     ItemRow(item: item)
-})
+}, isAnimation: true)
 ```
 
 ---

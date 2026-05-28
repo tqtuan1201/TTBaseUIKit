@@ -202,9 +202,11 @@ Every SwiftUI screen **MUST** use `SUIBaseView` as the root wrapper.
 struct HomeScreen: View {
     var body: some View {
         SUIBaseView(
-            titleNav: XTextU("Screen.Title"),
-            isShowBack: true,
-            backType: .SWIFTUI
+            backType: .SWIFTUI,
+            title: XText("Screen.Title"),
+            type: .DEFAULT,
+            isHiddenTabbar: true,
+            backAction: {}
         ) {
             content
         }
@@ -219,7 +221,7 @@ TTBaseNavigationLink(destination: {
     DetailScreen(viewModel: vm)
 }, label: {
     ItemCardView(item: item)
-})
+}, isAnimation: true)
 ```
 
 ### backType Decision Matrix

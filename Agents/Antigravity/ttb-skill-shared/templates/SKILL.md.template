@@ -41,6 +41,33 @@ fallback:
   default: "..."
 ```
 
+## Mandatory Preflight Execution Gate
+
+Before this skill generates code, refactors, migrates, modifies files, creates architecture, updates workflows, updates UI/navigation, changes dependencies, or changes business logic, run:
+
+- `ttb-skill-shared/fragments/ttb-preflight-execution-gate.frag.md`
+- `ttb-skill-shared/templates/ttb-clarification-survey.md` if confidence is below threshold
+
+Required gate phases:
+
+1. Requirement Analysis
+2. Context Validation
+3. Ambiguity Detection
+4. Missing Information Detection
+5. Survey / Clarification Phase
+6. Confidence Evaluation
+7. Execution Approval
+
+Execution thresholds:
+
+| Confidence | Action |
+|------------|--------|
+| `90-100` | Execute directly |
+| `70-89` | Execute with documented low-risk assumptions |
+| `<70` | Stop and ask a survey |
+
+Cap confidence at `69` when architecture, navigation, business logic, API contract, target module, state management, localization, or ownership is unclear.
+
 ## How to Use
 
 ```bash
@@ -79,6 +106,8 @@ If context is insufficient, ask one focused clarification or route to the safer 
 | Resource | Purpose |
 |---------|---------|
 | `fragments/ttb-iron-laws.frag.md` | Mandatory laws |
+| `fragments/ttb-preflight-execution-gate.frag.md` | Requirement validation and execution gate |
+| `templates/ttb-clarification-survey.md` | Standard clarification surveys |
 | `fragments/ttb-marker.frag.md` | File header |
 | `routing/intent-router.md` | Routing contract |
 | `workflows/ttb-workflow-standard.md` | State/retry/fallback workflow |

@@ -15,6 +15,25 @@ tags: ["init", "project-setup", "mvvm-c", "ttbaseuikit", "localization", "debug"
 > Run FIRST before any other TTBaseUIKit skill (uikit, swiftui, bugfix, refactor, audit).
 > MVVM-C Structure | TTBaseUIKitConfig | Localization | TTBDebugPlus | iOS 14+
 
+## Mandatory Preflight Execution Gate
+
+Before this skill generates code, refactors, migrates, modifies files, creates architecture, updates UI/navigation, changes dependencies, updates workflows, or changes business logic, run the shared gate:
+
+- `ttb-skill-shared/fragments/ttb-preflight-execution-gate.frag.md`
+- `ttb-skill-shared/templates/ttb-clarification-survey.md` when confidence is below threshold
+
+Required phase order: Requirement Analysis -> Context Validation -> Ambiguity Detection -> Missing Information Detection -> Survey / Clarification -> Confidence Evaluation -> Execution Approval.
+
+Execution thresholds:
+
+| Confidence | Action |
+|------------|--------|
+| `90-100` | Execute directly and state key assumptions |
+| `70-89` | Execute only with documented low-risk assumptions |
+| `<70` | Do not execute; ask a concise survey first |
+
+Cap confidence at `69` when target module, architecture direction, UIKit/SwiftUI choice, navigation behavior, API/business logic, localization format, state management, dependency info, or ownership is unclear. Parse English, Vietnamese, mixed-language, diacritic-free Vietnamese, and light typos before scoring.
+
 ## Skills in This Set
 
 | Command | Description |

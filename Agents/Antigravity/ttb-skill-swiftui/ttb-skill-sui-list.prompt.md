@@ -1,19 +1,43 @@
 ---
-description: "Scaffold a TTBaseSUI SwiftUI list screen using SUIBaseView, TTBaseSUIScroll, and TTBaseNavigationLink. iOS 14+."
+description: "Scaffold a TTBaseSUI SwiftUI list, grid, or carousel screen using SUIBaseView, TTBaseSUIScroll, and TTBaseNavigationLink. Supports English and Vietnamese prompt intents. iOS 14+."
 ---
 
-# ttb-skill-sui-list — TTBaseSUI List Screen Builder
+# ttb-skill-sui-list - TTBaseSUI List Screen Builder
 
-Build a SwiftUI scrollable list screen using `SUIBaseView` + `TTBaseSUIScroll` + `TTBaseSUILazyVStack` + `TTBaseNavigationLink`.
+## Mandatory Preflight Execution Gate
 
-## When
+Before generating code or modifying files, run `ttb-skill-shared/fragments/ttb-preflight-execution-gate.frag.md`.
 
-User says: "swiftui list", "list screen", "danh sách swiftui", "grid screen", "scrollable list"
+Required checks:
 
-## Pattern
+- Analyze intent, task type, scope, impacted files/modules, dependencies, architecture constraints, coding standards, and project-specific rules.
+- Validate required inputs such as target module, screen/component name, file location, navigation flow, expected output, API contract, state management, routing, localization, naming, and reusable component requirements.
+- Detect ambiguity, conflicting requirements, incomplete business logic, unclear UX/navigation, unclear module ownership, and unclear architecture direction.
+- Score confidence from `0-100`: execute at `90-100`, execute with warning assumptions at `70-89`, and ask a survey below `70` using `ttb-skill-shared/templates/ttb-clarification-survey.md`.
+- Support English, Vietnamese, mixed-language, diacritic-free Vietnamese, and light typo prompts.
+
+Build a SwiftUI list/grid screen with `SUIBaseView`, `TTBaseSUIScroll`, lazy TTBaseSUI containers, and `TTBaseNavigationLink`.
+
+## Trigger
+
+Use this prompt when the request means: SwiftUI list, list screen, grid screen, collection-style screen, carousel, searchable list, `danh sách SwiftUI`, `danh sach SwiftUI`, `màn hình danh sách`, or `luoi SwiftUI`.
+
+## Input Fidelity
+
+For screenshots or detailed descriptions, map visible content into:
+
+- Search/filter/header areas.
+- List item anatomy: image, title, subtitle, metadata, badges, actions.
+- Empty/loading/error states.
+- Navigation destination for each item.
+- List density, spacing, separators, cards, grid columns, and carousel height.
+
+Do not replace a requested list with a generic placeholder when item structure is visible.
+
+## Base Pattern
 
 ```swift
-// [TTBaseUIKit-AI-Agents]: TTBaseUIKit Agent Support is active 🚀
+// [TTBaseUIKit-AI-Agents]: TTBaseUIKit Agent Support is active
 //  {Name}ListScreen.swift
 //  {AppName}
 //
@@ -36,6 +60,7 @@ struct {Name}ListScreen: View {
         ) {
             TTBaseSUIVStack(alignment: .center, spacing: TTSize.P_XS, bg: TTView.viewBgColor.toColor()) {
                 searchSection
+
                 if vm.isEmpty {
                     {Name}EmptyView()
                 } else {
@@ -51,15 +76,16 @@ struct {Name}ListScreen: View {
 private extension {Name}ListScreen {
 
     private var searchSection: some View {
-        TTBaseSUIVStack(alignment: .center, spacing: TTSize.P_XS, bg: .clear) {
-            TTBaseSUITextField(placeholder: XText("App.{Name}.Search.Placeholder"), text: $vm.searchText, type: .SEARCH)
-                .size(height: TTSize.H_TEXTFIELD)
-                .bg(byDef: TTView.viewBgCellColor.toColor())
-                .corner()
-        }
-        .pHorizontal()
+        TTBaseSUITextField(
+            placeholder: XText("App.{Name}.Search.Placeholder"),
+            text: $vm.searchText,
+            type: .SEARCH
+        )
+        .size(height: TTSize.H_TEXTFIELD)
+        .bg(byDef: TTView.viewBgCellColor.toColor())
+        .corner()
+        .pHorizontal(TTSize.P_CONS_DEF)
         .pTop(TTSize.P_CONS_DEF)
-        .baseShadow(color: .black.opacity(0.08), radius: 6, x: 0, y: 2)
     }
 
     private var listSection: some View {
@@ -74,7 +100,7 @@ private extension {Name}ListScreen {
                             .bg(byDef: TTView.viewBgCellColor.toColor())
                             .corner(byDef: TTSize.CORNER_PANEL)
                             .baseShadow()
-                    })
+                    }, isAnimation: true)
                 }
             }
             .pAll(TTSize.P_CONS_DEF)
@@ -85,8 +111,11 @@ private extension {Name}ListScreen {
         .pBottom(TTSize.P_CONS_DEF)
     }
 }
+```
 
-// MARK: - {Name}ItemView
+## Item Pattern
+
+```swift
 struct {Name}ItemView: View {
 
     let item: {Name}Model
@@ -97,10 +126,8 @@ struct {Name}ItemView: View {
                 .sizeSquare(width: 50)
 
             TTBaseSUIVStack(alignment: .leading, spacing: TTSize.P_XS) {
-                TTBaseSUIText(withBold: .TITLE, text: item.title ?? "",
-                              align: .leading, color: TTView.textDefColor.toColor())
-                TTBaseSUIText(withType: .SUB_TITLE, text: item.subtitle ?? "",
-                              align: .leading, color: TTView.textSubTitleColor.toColor())
+                TTBaseSUIText(withBold: .TITLE, text: item.title ?? "", align: .leading, color: TTView.textDefColor.toColor())
+                TTBaseSUIText(withType: .SUB_TITLE, text: item.subtitle ?? "", align: .leading, color: TTView.textSubTitleColor.toColor())
             }
             .maxWidth(alignment: .leading)
 
@@ -109,37 +136,13 @@ struct {Name}ItemView: View {
             TTBaseSUIImage(withSystemName: "chevron.right", iconColor: TTView.textSubTitleColor.toColor(), contentMode: .fit)
                 .sizeSquare(width: 14)
         }
-        .skeleton(active: true)
-    }
-}
-
-// MARK: - {Name}EmptyView
-struct {Name}EmptyView: View {
-    var body: some View {
-        TTBaseSUIVStack(alignment: .center, spacing: TTSize.P_CONS_DEF) {
-            TTBaseSUIImage(withSystemName: "tray", iconColor: TTView.iconColor.toColor(), contentMode: .fit)
-                .sizeSquare(width: 80)
-            TTBaseSUIText(withBold: .TITLE, text: XText("App.{Name}.Empty.Title"), align: .center, color: TTView.textDefColor.toColor())
-            TTBaseSUIText(withType: .SUB_TITLE, text: XText("App.{Name}.Empty.Subtitle"), align: .center, color: TTView.textSubTitleColor.toColor())
-        }
-        .maxWidth().maxHeight()
-        .bg(byDef: TTView.viewBgColor.toColor())
-        .corner()
-        .pAll(TTSize.P_L * 2)
-    }
-}
-
-// MARK: - Preview
-struct {Name}ListScreen_Previews: PreviewProvider {
-    static var previews: some View {
-        {Name}ListScreen()
     }
 }
 ```
 
-## Grid List Pattern
+## Grid Pattern
 
-For 2-column product grids, use `TTBaseEqualHeightGridView`:
+Use `TTBaseEqualHeightGridView` when grid cells must align by height.
 
 ```swift
 private var productGrid: some View {
@@ -155,23 +158,20 @@ private var productGrid: some View {
             }, label: {
                 ProductCardView(product: product)
                     .pAll(TTSize.P_CONS_DEF)
-                    .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .topLeading)
-                    .bg(byDef: TTView.viewBgColor.toColor())
-                    .corner()
-                    .pLeading(TTSize.P_CONS_DEF).pTrailing(TTSize.P_CONS_DEF).pTop(TTSize.P_CONS_DEF)
+                    .bg(byDef: TTView.viewBgCellColor.toColor())
+                    .corner(byDef: TTSize.CORNER_PANEL)
                     .baseShadow()
-            })
+            }, isAnimation: true)
         }
         .pBottom(TTSize.H_BUTTON)
     }
     .hideKeyboardOnScroll()
-    .frame(maxHeight: .infinity)
-    .pBottom(TTSize.P_CONS_DEF)
+    .maxHeight()
     .skeleton(active: vm.isLoading)
 }
 ```
 
-## Horizontal List Pattern (Banner/Carousel)
+## Carousel Pattern
 
 ```swift
 private var bannerSection: some View {
@@ -185,128 +185,35 @@ private var bannerSection: some View {
                         BannerDetailScreen(banner: banner)
                     }, label: {
                         BannerCard(banner: banner)
-                    })
+                    }, isAnimation: true)
                 }
             }
         }
-        .size(height: BannerCard.HEIGHT)
+        .size(height: BannerCard.height)
     }
-    .pHorizontal()
+    .pHorizontal(TTSize.P_CONS_DEF)
 }
-```
-
-## Paged/Carousel List Pattern (TTBaseSUITabView)
-
-```swift
-@State private var currentPage = 0
-
-private var pagerSection: some View {
-    TTBaseSUIVStack(alignment: .center, spacing: TTSize.P_CONS_DEF) {
-        TTBaseSUIText(withBold: .HEADER, text: XText("App.Home.Carousel.Title"), align: .leading, color: TTView.textDefColor.toColor())
-
-        TTBaseSUITabView(selection: $currentPage, type: .PAGE) {
-            ForEach(Array(vm.pages.enumerated()), id: \.offset) { index, page in
-                TTBaseNavigationLink(destination: {
-                    PageDetailScreen(page: page)
-                }, label: {
-                    PageCard(page: page)
-                })
-                .tag(index)
-            }
-        }
-        .frame(height: 160)
-        .corner(byDef: TTSize.CORNER_PANEL)
-    }
-    .pHorizontal()
-}
-```
-
-## Section Header List Pattern
-
-```swift
-private var sectionedList: some View {
-    TTBaseSUIScroll(alignment: .vertical) {
-        TTBaseSUILazyVStack(alignment: .center, spacing: TTSize.P_CONS_DEF, bg: .clear) {
-            ForEach(vm.sections) { section in
-                sectionHeader(title: section.title)
-                ForEach(section.items) { item in
-                    TTBaseNavigationLink(destination: {
-                        DetailScreen(item: item)
-                    }, label: {
-                        ListItemView(item: item)
-                            .pAll(TTSize.P_CONS_DEF)
-                            .bg(byDef: TTView.viewBgCellColor.toColor())
-                            .corner(byDef: TTSize.CORNER_PANEL)
-                    })
-                }
-            }
-        }
-        .pAll(TTSize.P_CONS_DEF)
-        .pBottom(TTSize.H_BUTTON)
-    }
-    .skeleton(active: vm.isLoading)
-}
-
-private func sectionHeader(title: String) -> some View {
-    TTBaseSUIText(withBold: .HEADER, text: title, align: .leading, color: TTView.textDefColor.toColor())
-        .pTop(TTSize.P_CONS_DEF)
-        .pBottom(TTSize.P_XS)
-        .maxWidth(alignment: .leading)
-}
-```
-
-## Modifier Reference (Chainable Extensions)
-
-```swift
-// TTBaseUIKit chainable extensions (preferred in modifier chains)
-.pAll(TTSize.P_CONS_DEF)                        // all sides padding
-.pHorizontal(TTSize.P_CONS_DEF)                   // horizontal only
-.pVertical(TTSize.P_CONS_DEF)                     // vertical only
-.pTop(TTSize.P_CONS_DEF)                       // top only
-.pBottom(TTSize.P_CONS_DEF)                    // bottom only
-.pLeading(TTSize.P_CONS_DEF)                  // leading only
-.pTrailing(TTSize.P_CONS_DEF)                 // trailing only
-.bg(byDef: TTView.viewBgCellColor.toColor())   // background
-.corner(byDef: TTSize.CORNER_PANEL)          // corner radius
-.baseShadow()                                  // card shadow
-.skeleton(active: isLoading)                    // shimmer loading
-.onTapHandle { action() }                     // tap gesture
-.sizeSquare(width: 50)                       // square frame
-.maxWidth()                                 // fill width
-.maxHeight()                                // fill height
-.hideKeyboardOnScroll()                     // dismiss keyboard
 ```
 
 ## Rules
 
-1. **SUIBaseView wrapper** — mọi list screen bọc trong `SUIBaseView`
-2. **TTBaseNavigationLink** — dùng cho mọi navigation từ list item
-3. **TTBaseSUIScroll** + **TTBaseSUILazyVStack** — cho scroll performance
-4. **TTBaseEqualHeightGridView** — cho grid layouts 2+ columns
-5. **TTBaseSUITabView** — cho horizontal pager/carousel
-6. **`.skeleton(active: vm.isLoading)`** — cho loading state trên mọi list item
-7. **`ForEach` với model's `id`** — stable identifier, KHÔNG bao giờ dùng `UUID()`
-8. **TTBaseSUI components** — no native SwiftUI primitives
-9. **Card chain**: `.pAll()` → `.bg()` → `.corner()` → `.baseShadow()`
-10. **Extract item view** — mỗi item view là 1 file riêng
-11. **@StateObject** cho owned ViewModel
-12. **`.onAppear { }`** cho data loading
+1. Wrap list screens in `SUIBaseView`.
+2. Use `TTBaseNavigationLink(destination:label:isAnimation:)` for item navigation, with closure-based destination/label and explicit `isAnimation: true`.
+3. Use `TTBaseSUIScroll` plus lazy TTBaseSUI containers for scrolling performance.
+4. Use `TTBaseEqualHeightGridView` for multi-column card grids.
+5. Use `TTBaseSUITabView` or horizontal `TTBaseSUIScroll` for paged/carousel content.
+6. Use `.skeleton(active: vm.isLoading)` for loading state.
+7. Use stable model identifiers in `ForEach`; never create `UUID()` inside rendering.
+8. Prefer TTBaseSUI components over native SwiftUI primitives.
+9. Use the card chain `.pAll()` -> `.bg()` -> `.corner()` -> `.baseShadow()`.
+10. Extract item views into their own files when reused or visually complex.
+11. Keep the generated list structure faithful to the provided image or description.
 
-## Post-Implementation Verification (MANDATORY)
+## Verification
 
-After all files are generated, **run Phase 6 verification**:
+After implementation:
 
-1. **Add files to Xcode project** — ensure each `.swift` is registered in `project.pbxproj`
-2. **Run verification**:
-   ```bash
-   bash ttb-skill-shared/scripts/ttb-verify.sh
-   ```
-3. **Check compliance**:
-   ```bash
-   bash ttb-skill-shared/scripts/ttb-compliance-check.sh
-   ```
-4. **Skill is complete only when** `BUILD SUCCEEDED`
-
-**Anti-Loop**: Max 3 build attempts. 3 failures — STOP, document errors.
-
-For full FCR 7-Dimension scoring, see `ttb-skill-shared/phases/ttb-phase-verify.md`.
+1. Register new Swift files in the Xcode target.
+2. Run the repository build verification command or shared `ttb-verify.sh` script when present.
+3. Run the shared compliance check script when present.
+4. Complete only when the build succeeds, or report exact blockers after three repair attempts.

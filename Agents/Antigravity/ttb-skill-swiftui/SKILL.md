@@ -1,63 +1,126 @@
 ---
 name: "ttb-skill-swiftui"
-description: "SwiftUI full-stack development for TTBaseUIKit apps: SUIBaseView navigation, TTBaseSUI components, chainable modifiers, Native SwiftUI fallback. iOS 14+."
-version: "2.2.0"
+description: "SwiftUI full-stack development for TTBaseUIKit apps. Use for SwiftUI/SUIBaseView/TTBaseSUI screens, reusable SwiftUI views, list/grid screens, SwiftUI ViewModels, and native SwiftUI fallback when TTBaseSUI has no equivalent. Supports English and Vietnamese user prompts. iOS 14+."
+version: "2.3.0"
 date_updated: "2026-05-22"
 risk: "safe"
 source: "internal"
 loadLevel: "domain"
-tags: ["swiftui", "ttbasesui", "suibaseview", "navigation", "viewmodel", "native-fallback", "routing"]
+tags: ["swiftui", "ttbasesui", "suibaseview", "navigation", "viewmodel", "native-fallback", "routing", "multilingual"]
 ---
 
 # ttb-skill-swiftui
 
-> SwiftUI development skill for TTBaseUIKit apps — TTBaseSUI components, MVVM, navigation, iOS 14+.
-> **Rule #1: Use TTBaseSUI wherever it exists. Only fall back to Native SwiftUI when TTBaseSUI has no equivalent.**
+SwiftUI development skill set for TTBaseUIKit apps.
 
-## Tổng quan: Ba Tầng Tiếp Cận
+Primary rule: use TTBaseSUI whenever an equivalent component exists. Use native SwiftUI only as a documented fallback.
 
-| Tầng | Khi nào dùng | Lệnh |
-|-------|--------------|------|
-| **Tầng 1 — TTBaseSUI** | Mọi component TTBaseSUI đã có | `/ttb-sui-screen`, `/ttb-sui-view`, `/ttb-sui-list` |
-| **Tầng 2 — SUIBaseView Navigation** | Navigation giữa các màn hình | Pattern bên dưới |
-| **Tầng 3 — Native SwiftUI** | Khi TTBaseSUI không có component tương đương | `/ttb-native-screen`, `/ttb-native-view` |
+## Mandatory Preflight Execution Gate
 
-## Danh sách Commands
+Before this skill generates code, refactors, migrates, modifies files, creates architecture, updates UI/navigation, changes dependencies, updates workflows, or changes business logic, run the shared gate:
 
-| Command | Mô tả |
-|---------|--------|
-| `/ttb-sui-screen` | TTBaseSUI screen — dùng `SUIBaseView` + `TTBaseNavigationLink` |
-| `/ttb-sui-view` | TTBaseSUI reusable view component |
-| `/ttb-sui-list` | TTBaseSUI list screen với `TTBaseSUILazyVStack` |
-| `/ttb-native-screen` | Native SwiftUI screen — chỉ khi TTBaseSUI không có |
-| `/ttb-native-view` | Native SwiftUI reusable view — chỉ khi TTBaseSUI không có |
-| `/ttb-sui-viewmodel` | SwiftUI ViewModel với `@Published` + `@MainActor` |
+- `ttb-skill-shared/fragments/ttb-preflight-execution-gate.frag.md`
+- `ttb-skill-shared/templates/ttb-clarification-survey.md` when confidence is below threshold
+
+Required phase order: Requirement Analysis -> Context Validation -> Ambiguity Detection -> Missing Information Detection -> Survey / Clarification -> Confidence Evaluation -> Execution Approval.
+
+Execution thresholds:
+
+| Confidence | Action |
+|------------|--------|
+| `90-100` | Execute directly and state key assumptions |
+| `70-89` | Execute only with documented low-risk assumptions |
+| `<70` | Do not execute; ask a concise survey first |
+
+Cap confidence at `69` when target module, architecture direction, UIKit/SwiftUI choice, navigation behavior, API/business logic, localization format, state management, dependency info, or ownership is unclear. Parse English, Vietnamese, mixed-language, diacritic-free Vietnamese, and light typos before scoring.
+
+## Trigger Scope
+
+Use this skill when the user asks for any of these artifacts:
+
+| Artifact | Route | Examples |
+|----------|-------|----------|
+| SwiftUI screen | `/ttb-sui-screen` | screen, page, flow, detail, settings, profile |
+| SwiftUI list/grid screen | `/ttb-sui-list` | list, grid, collection, carousel, searchable list |
+| Reusable TTBaseSUI view | `/ttb-sui-view` | card, row, header, badge, empty state, custom cell |
+| SwiftUI ViewModel | `/ttb-sui-viewmodel` | ObservableObject, @Published state, loading/error state |
+| Native SwiftUI screen fallback | `/ttb-native-screen` | custom chart, advanced gesture, custom animation, layout not covered by TTBaseSUI |
+| Native SwiftUI view fallback | `/ttb-native-view` | bespoke visual component not covered by TTBaseSUI |
+
+Do not use this skill for UIKit-only requests. Route UIKit/ViewController/cell/API/coordinator tasks to the UIKit skill.
+
+## Multilingual Prompt Support
+
+Treat English and Vietnamese prompts as equivalent intent signals. Keep generated code, comments, documentation, and final implementation notes in English unless the user explicitly asks for Vietnamese output.
+
+Common aliases:
+
+- English: `SwiftUI screen`, `build SwiftUI`, `TTBaseSUI view`, `SUIBaseView`, `SwiftUI list`, `grid screen`, `SwiftUI ViewModel`, `native SwiftUI`, `custom SwiftUI component`.
+- Vietnamese: `tạo màn hình SwiftUI`, `tao man hinh SwiftUI`, `danh sách SwiftUI`, `danh sach SwiftUI`, `tạo view SwiftUI`, `tao view SwiftUI`, `điều hướng SwiftUI`, `dieu huong SwiftUI`, `tạo ViewModel SwiftUI`, `tao ViewModel SwiftUI`.
 
 ## Routing Contract
 
 ```yaml
 input:
-  required: [artifact_type, feature_name, state_model]
-  optional: [navigation_flow, ttbase_sui_component_availability, data_source, localization_keys]
+  required: [artifact_type, feature_name, visual_or_text_requirements]
+  optional:
+    - navigation_flow
+    - data_source_or_api_contract
+    - empty_loading_error_states
+    - localization_keys
+    - image_reference_or_mockup
+    - ttbase_sui_component_availability
 output:
-  artifacts: [suibaseview_screen_or_view, ttbase_sui_components, swiftui_viewmodel_when_needed, verification_report]
-  completion_gate: "SUIBaseView + TTBaseNavigationLink + iOS 14 compatibility + build verification"
+  artifacts:
+    - suibaseview_screen_or_reusable_view
+    - ttbase_sui_components
+    - native_swiftui_fallback_when_needed
+    - swiftui_viewmodel_when_needed
+    - verification_report
+  completion_gate: "SUIBaseView + TTBaseNavigationLink when navigating + iOS 14 compatibility + build verification"
 confidence:
   auto_route: ">= 0.78 for SwiftUI, TTBaseSUI, SUIBaseView, SwiftUI list/view/screen/viewmodel intents"
-  clarify: "0.55-0.77 when prompt says screen/view but does not say UIKit or SwiftUI"
+  clarify: "0.55-0.77 when the user says screen/view but does not specify UIKit or SwiftUI"
 fallback:
-  default: "Prefer TTBaseSUI. Use native SwiftUI only when TTBaseSUI has no equivalent and document the gap."
+  default: "Prefer TTBaseSUI. Use native SwiftUI only when TTBaseSUI has no equivalent and document the missing component."
 ```
 
-Multilingual aliases: `SwiftUI screen`, `SUIBaseView`, `TTBaseSUI view`, `tạo màn hình SwiftUI`, `tao man hinh swiftui`, `danh sách SwiftUI`, `điều hướng SwiftUI`.
+## Workflow
 
-Anti-patterns: do not build full SwiftUI screens without `SUIBaseView`; do not use native SwiftUI when TTBaseSUI exists; do not navigate without `TTBaseNavigationLink`; do not use iOS 15+ APIs without `@available`.
+1. Classify the requested artifact and choose exactly one route from the trigger table.
+2. Extract requirements from text, screenshots, mockups, or existing code. Preserve visual hierarchy, spacing, states, copy intent, and navigation behavior.
+3. Inspect the local codebase for existing patterns, token names, localization style, target folders, and project registration requirements.
+4. Prefer TTBaseSUI components. If falling back to native SwiftUI, name the missing TTBaseSUI equivalent in the implementation notes.
+5. Implement with iOS 14-compatible SwiftUI and TTBaseUIKit tokens.
+6. Add or update localization keys when the project uses localization.
+7. Register new files in the Xcode project when needed.
+8. Run build verification and fix issues until `BUILD SUCCEEDED`, with a maximum of three fix attempts before reporting blockers.
 
-## Tầng 1: SUIBaseView — Navigation Pattern Bắt Buộc
+## Image and Description Fidelity
 
-`SUIBaseView` là screen wrapper **duy nhất** cho TTBaseUIKit SwiftUI. Nó cung cấp navigation bar, back button, tabbar control, và `TTBaseNavigationLink` để điều hướng.
+When the user provides an image, screenshot, or detailed visual description:
 
-### Pattern Cơ Bản
+- Identify all visible regions before coding: navigation bar, primary content, actions, lists/cards, empty/loading/error states, overlays, and bottom controls.
+- Match layout order, alignment, approximate spacing, typography hierarchy, color roles, icon intent, and component states using TTBaseUIKit tokens.
+- Do not invent unrelated sections or marketing copy.
+- If information is missing, infer conservative defaults from nearby project patterns and clearly state the assumption.
+- Validate that generated screens still satisfy accessibility, dynamic text resilience, and iOS 14 API constraints.
+
+## Core SwiftUI Rules
+
+1. iOS 14+ only: no `NavigationStack`, `.task`, `#Preview`, `.foregroundStyle`, `.scrollIndicators`, `@Observable`, or iOS 15+ APIs without `@available`.
+2. Every full SwiftUI screen uses `SUIBaseView`.
+3. Navigation between SwiftUI screens uses `TTBaseNavigationLink`.
+4. Use `TTBaseSUI*` components before native SwiftUI primitives.
+5. Use `TTView`, `TTSize`, and `TTFont` tokens instead of hardcoded colors, spacing, and font sizes.
+6. User-visible strings go through the project localization helper, usually `XText("key")` or the existing local convention.
+7. Owned ViewModels use `@StateObject`; injected ViewModels use `@ObservedObject`.
+8. ViewModels are `@MainActor ObservableObject` with `@Published` state and no UIKit/SwiftUI imports.
+9. Use `[weak self]` in escaping closures.
+10. Extract subviews when `body` grows beyond roughly 40 lines.
+11. Use `PreviewProvider`, not `#Preview`.
+
+## Required Screen Pattern
 
 ```swift
 import SwiftUI
@@ -65,7 +128,7 @@ import TTBaseUIKit
 
 struct ProductListScreen: View {
 
-    @StateObject private var vm = ProductViewModel()
+    @StateObject private var vm = ProductListViewModel()
 
     var body: some View {
         SUIBaseView(
@@ -76,400 +139,84 @@ struct ProductListScreen: View {
             backAction: {}
         ) {
             TTBaseSUIVStack(alignment: .center, spacing: TTSize.P_XS, bg: TTView.viewBgColor.toColor()) {
-                searchHeader
-                if vm.isEmpty {
-                    EmptyProductView()
-                } else {
-                    productGrid
-                }
+                headerSection
+                contentSection
             }
         }
+        .onAppear { vm.fetchData() }
     }
 }
 ```
 
-### SUIBaseView Parameters
-
-```swift
-SUIBaseView(
-    backType: BACK_TYPE,       // .SWIFTUI | .POP | .POP_TO_ROOT | .DISMISS | .DISMISS_ALL | .CLOSE_FLOW
-    title: String,             // Navigation bar title
-    type: TYPE,                // .DEFAULT | .INFO | .NO_NAV
-    isHiddenTabbar: Bool,      // Ẩn/hiện tabbar khi vào màn
-    backAction: (() -> Void)?, // Callback khi nhấn back
-    titleAction: (() -> Void)?, // Callback khi nhấn title
-    rightAction: (() -> Void)?, // Callback khi nhấn nút phải
-    bg: Color = ...,           // Background color
-    @ViewBuilder content: () -> Content
-)
-```
-
-### Tầng 2: TTBaseNavigationLink — Điều Hướng Bắt Buộc
+## Required Navigation Pattern
 
 ```swift
 TTBaseNavigationLink(destination: {
-    ProductItemScreen(product: product)
+    ProductDetailScreen(product: product)
 }, label: {
     ProductCardView(product: product)
         .pAll(TTSize.P_CONS_DEF)
-        .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .topLeading)
-        .bg(byDef: TTView.viewBgColor.toColor())
-        .corner()
-        .pLeading(TTSize.P_CONS_DEF).pTrailing(TTSize.P_CONS_DEF).pTop(TTSize.P_CONS_DEF)
+        .bg(byDef: TTView.viewBgCellColor.toColor())
+        .corner(byDef: TTSize.CORNER_PANEL)
         .baseShadow()
-})
+}, isAnimation: true)
 ```
 
-**Đặt `TTBaseNavigationLink` BÊN TRONG `TTBaseSUIScroll` hoặc `TTBaseSUILazyVStack`.**
+Place `TTBaseNavigationLink` inside the relevant scroll, stack, list, grid, or card row. Use closure-based `destination` and `label` parameters, pass `isAnimation: true` explicitly for normal navigation, and use `isAnimation: false` only when required by performance or UX.
 
-### Điều Hướng Có Active Binding
+## TTBaseSUI Component Preference
+
+Use these families before native SwiftUI:
+
+- Text: `TTBaseSUIText`
+- Buttons: `TTBaseSUIButton`
+- Stacks: `TTBaseSUIVStack`, `TTBaseSUIHStack`, `TTBaseSUIZStack`
+- Scroll/list/grid: `TTBaseSUIScroll`, `TTBaseSUILazyVStack`, `TTBaseSUILazyHStack`, `TTBaseSUILazyVGrid`, `TTBaseEqualHeightGridView`, `TTBaseSUIList`
+- Images: `TTBaseSUIImage`, `TTBaseSUICircleImage`, `TTBaseSUIAsyncImage` when project deployment supports it
+- Forms: `TTBaseSUITextField`, `TTBaseSUIToggle`, `TTBaseSUISlider`
+- Containers: `TTBaseSUIView`, `TTBaseSUIGroup`, dividers, spacers, tab views
+
+Preferred card modifier chain:
 
 ```swift
-@State private var isShowingDetail = false
-
-TTBaseNavigationLink(
-    isActive: $isShowingDetail,
-    destination: { DetailScreen() },
-    label: { ButtonRow(label: "Go to Detail") }
-)
+.pAll(TTSize.P_CONS_DEF)
+.bg(byDef: TTView.viewBgCellColor.toColor())
+.corner(byDef: TTSize.CORNER_PANEL)
+.baseShadow()
 ```
 
-### Điều Hướng Không Animation
-
-```swift
-TTBaseNavigationLink(
-    destination: { HeavyScreen() },
-    label: { NavLabel() },
-    isAnimation: false
-)
-```
-
-## Tầng 3: TTBaseSUI Component Reference Đầy Đủ
-
-### Text Components
-
-```swift
-// Theo type (tự động apply font size)
-TTBaseSUIText(withType: .HEADER_SUPER, text: "...", align: .center)
-TTBaseSUIText(withType: .HEADER, text: "...", align: .leading)
-TTBaseSUIText(withType: .TITLE, text: "...", align: .leading)
-TTBaseSUIText(withType: .SUB_TITLE, text: "...", align: .leading)
-TTBaseSUIText(withType: .SUB_SUB_TILE, text: "...", align: .leading)
-
-// Theo bold weight (custom color)
-TTBaseSUIText(withBold: .HEADER, text: "...", align: .center, color: .white)
-TTBaseSUIText(withBold: .TITLE, text: "...", align: .leading, color: TTView.textDefColor.toColor())
-```
-
-### Button Component
-
-```swift
-TTBaseSUIButton(type: .DEFAULT, title: "CONFIRM")
-TTBaseSUIButton(type: .DEFAULT_COLOR(color: .systemBlue, textColor: .white), title: "CUSTOM")
-TTBaseSUIButton(type: .WARRING, title: "DELETE")
-TTBaseSUIButton(type: .DISABLE, title: "DISABLED")
-TTBaseSUIButton(type: .NO_BG_COLOR, title: "LINK")
-TTBaseSUIButton(type: .BORDER, title: "OUTLINE")
-
-// Custom action
-TTBaseSUIButton(type: .DEFAULT) {
-    TTBaseSUIText(withType: .TITLE, text: "Tap me")
-} action: {
-    viewModel.submit()
-}
-```
-
-### Stack Components
-
-```swift
-TTBaseSUIVStack(alignment: .center, spacing: TTSize.P_CONS_DEF) { }
-TTBaseSUIVStack(alignment: .center, spacing: TTSize.P_CONS_DEF, bg: .clear) { }
-TTBaseSUIVStack(alignment: .center, spacing: TTSize.P_CONS_DEF, bg: .clear, radius: 8) { }
-TTBaseSUIHStack(alignment: .center, spacing: TTSize.P_CONS_DEF) { }
-TTBaseSUIZStack(alignment: .center, bg: .clear) { }
-```
-
-### Scroll Components
-
-```swift
-TTBaseSUIScroll(alignment: .vertical, showIndicators: false) { }
-TTBaseSUIScroll(alignment: .vertical, bg: .clear, isEnablePullToRefresh: true) {
-    // content
-} pullToRefresh: {
-    viewModel.fetch()
-}
-
-TTBaseSUILazyVStack(alignment: .leading, spacing: TTSize.P_CONS_DEF, bg: .clear) { }
-TTBaseSUILazyHStack(alignment: .center, spacing: TTSize.P_CONS_DEF) { }
-TTBaseSUILazyVGrid(columns: [GridItem(.flexible()), GridItem(.flexible())], spacing: 8) { }
-TTBaseSUILazyHGrid(rows: [GridItem(.fixed(60)), GridItem(.fixed(60))], spacing: 8) { }
-```
-
-### Grid Components
-
-```swift
-// Equal-height grid (tất cả items cùng chiều cao = chiều cao lớn nhất)
-let columns = [GridItem(.flexible()), GridItem(.flexible())]
-TTBaseEqualHeightGridView(items: products, columns: columns) { product in
-    ProductCard(product: product)
-}
-```
-
-### Image Components
-
-```swift
-// Asset image
-TTBaseSUIImage(withname: "icon_name")
-TTBaseSUIImage(withname: "icon_name", conner: TTSize.CORNER_RADIUS)
-TTBaseSUIImage(withname: "icon_name", contentMode: .fit)
-
-// System image
-TTBaseSUIImage(withSystemName: "star.fill", iconColor: .orange, contentMode: .fit)
-
-// Circle image
-TTBaseSUICircleImage(withname: "avatar")
-TTBaseSUICircleImage(withname: "avatar", conner: TTSize.CORNER_IMAGE)
-
-// Async image (iOS 15+)
-TTBaseSUIAsyncImage(urlString: product.avatarUrl)
-TTBaseSUIAsyncImage(urlString: product.avatarUrl, type: .CIRCLE)
-    .sizeSquare(width: 60)
-```
-
-### Divider Components
-
-```swift
-TTBaseSUIHorizontalDividerView(noConner: .LINE)           // Line mỏng
-TTBaseSUIHorizontalDividerView(noConner: .SPACE)         // Khoảng trắng
-TTBaseSUIHorizontalDividerView(withConner: 4, type: .SPACE)
-
-TTBaseSUIVerticalDividerView(noConner: .LINE)             // Line dọc mỏng
-TTBaseSUIVerticalDividerView(noConner: .SPACE)            // Khoảng trắng dọc
-```
-
-### Spacer
-
-```swift
-TTBaseSUISpacer()                           // Fill available space
-TTBaseSUISpacer(maxHeight: 20)              // Fixed height spacer
-TTBaseSUISpacer(maxWidth: 50)                // Fixed width spacer
-TTBaseSUISpacer(withBg: .green, radius: 8)  // Colored spacer fill
-```
-
-### Container View
-
-```swift
-TTBaseSUIView(withCornerRadius: 0) { }
-TTBaseSUIView(withCornerRadius: TTSize.CORNER_PANEL, bg: .white) { }
-```
-
-### Form Components
-
-```swift
-// TextField
-TTBaseSUITextField(placeholder: "Enter name", text: $name)
-TTBaseSUITextField(placeholder: "Password", text: $password, isSecure: true)
-TTBaseSUITextField(placeholder: "Search...", text: $query, type: .SEARCH)
-TTBaseSUITextField(placeholder: "Email", text: $email, type: .BORDER)
-TTBaseSUITextField(placeholder: "Phone", text: $phone, type: .UNDERLINE)
-
-// Toggle
-TTBaseSUIToggle(label: "Enable notifications", isOn: $isEnabled)
-TTBaseSUIToggle(label: "Dark mode", isOn: $isDark, type: .ICON(name: "moon.fill"))
-TTBaseSUIToggle(label: "Custom tint", isOn: $isOn, tintColor: TTView.buttonBgDef.toColor())
-
-// Slider
-TTBaseSUISlider(value: $volume)
-TTBaseSUISlider(value: $brightness, in: 0...100, step: 5)
-TTBaseSUISlider(value: $size, in: 0...1, type: .WITH_LABELS(min: "0%", max: "100%"))
-```
-
-### List Components
-
-```swift
-TTBaseSUIList(type: .PLAIN) {
-    ForEach(items) { item in RowView(item: item) }
-}
-
-TTBaseSUIList(type: .GROUPED, isEnablePullToRefresh: true) {
-    ForEach(items) { item in RowView(item: item) }
-} pullToRefresh: {
-    viewModel.reload()
-}
-```
-
-### Tab Components
-
-```swift
-// Horizontal swipe pager
-TTBaseSUITabView(selection: $currentPage, type: .PAGE) {
-    ForEach(pages) { page in PageView(page: page).tag(page.id) }
-}
-
-// Pager without dots
-TTBaseSUITabView(selection: $idx, type: .PAGE_HIDDEN_DOTS) { ... }
-
-// Standard tab bar
-TTBaseSUITabView(type: .DEFAULT) {
-    HomeView().tabItem { Label("Home", systemImage: "house") }.tag(0)
-    SettingsView().tabItem { Label("Settings", systemImage: "gear") }.tag(1)
-}
-```
-
-### Group Component
-
-```swift
-TTBaseSUIGroup { }                              // Transparent group
-TTBaseSUIGroup(bg: .white, radius: 8) { }      // Group with bg + radius
-TTBaseSUIGroup(bg: .white, radius: 8, padding: TTSize.P_CONS_DEF) { }
-```
-
-## Tầng 4: Chainable Modifier Extensions (BẮT BUỘC DÙNG)
-
-**Luôn dùng chainable extensions trong modifier chains. Chúng trả về `some View` và chain đúng.**
-
-### Padding Extensions
-
-```swift
-.pAll(TTSize.P_CONS_DEF)                // all sides padding (default: 8pt)
-.pAll(.horizontal, TTSize.P_CONS_DEF)    // horizontal only
-.pAll(.vertical, TTSize.P_CONS_DEF)      // vertical only
-.pHorizontal(TTSize.P_CONS_DEF)          // horizontal only (default: 8pt)
-.pVertical(TTSize.P_CONS_DEF)            // vertical only (default: 8pt)
-.pTop(TTSize.P_CONS_DEF)                // top only (default: 8pt)
-.pBottom(TTSize.P_CONS_DEF)             // bottom only (default: 8pt)
-.pLeading(TTSize.P_CONS_DEF)             // leading only (default: 8pt)
-.pTrailing(TTSize.P_CONS_DEF)            // trailing only (default: 8pt)
-
-// Dùng khi chain bị break
-.padding(TTSize.P_CONS_DEF)              // standard SwiftUI padding
-.padding(.horizontal, TTSize.P_CONS_DEF)
-```
-
-### Background & Corner Extensions
-
-```swift
-.bg(byDef: TTView.viewBgCellColor.toColor())  // background từ token
-.bg(byUIColor: TTView.viewBgColor)           // UIColor version
-.corner(byDef: TTSize.CORNER_PANEL)         // corner radius từ token
-```
-
-### Shadow & Border Extensions
-
-```swift
-.baseShadow()                                      // card shadow mặc định
-.baseShadow(corner: 8, color: .black.opacity(0.15), radius: 8, x: 0, y: 4)
-.baseBorder(color: TTView.lineDefColor.toColor(), width: TTSize.H_LINEVIEW, radius: TTSize.CORNER_RADIUS)
-```
-
-### Size Extensions
-
-```swift
-.size(width: 120)                         // set width
-.size(height: 40)                         // set height
-.size(width: 100, height: 40)           // set both
-.sizeSquare(width: 50)                    // square frame
-.maxWidth()                               // fill width
-.maxWidth(alignment: .leading)            // fill width, align left
-.maxHeight()                               // fill height
-```
-
-### Interactive Extensions
-
-```swift
-.onTapHandle { action() }                // tap gesture (KHÔNG dùng onTapGesture cho buttons)
-.skeleton(active: true)                   // shimmer loading
-.skeleton(active: true, isShimmering: false)
-.disabled(true)
-.opacity(0.5)
-.hidden(someCondition)                    // conditional hide
-.showNoticeView(title: "Error", body: "Something went wrong", style: .ERROR)
-```
-
-### Layout Extensions
-
-```swift
-.fixedByHorizontal()                     // fixed width, free height
-.fixedByVertical()                        // fixed height, free width
-.fixedByAutoSize()                       // fixed both
-.layoutPriority(1)
-```
-
-### Skeleton + Glass Effects
-
-```swift
-.skeleton(active: isLoading)             // shimmer loading animation
-.enableGlassEffectV2(isClear: false, cornerRadius: 16) { WhiteLiquidGlassBackground(cornerRadius: 16) }
-.enableGlassEffect(cornerRadius: 16) { BlackLiquidGlassBackground(cornerRadius: 16) }
-```
-
-### Keyboard & Navigation Helpers
-
-```swift
-.hideKeyboardOnScroll()                  // dismiss keyboard on scroll
-.hiddenNavigationBar()                    // ẩn navigation bar hoàn toàn
-```
-
-## Pattern Chainable Card Bắt Buộc
-
-```swift
-TTBaseSUIView { ... }
-    .pAll(TTSize.P_CONS_DEF)
-    .bg(byDef: TTView.viewBgCellColor.toColor())
-    .corner(byDef: TTSize.CORNER_PANEL)
-    .baseShadow()
-```
-
-## 11 Iron Laws
-
-1. **iOS 14+ ONLY** — no `.task`, `NavigationStack`, `#Preview`, `.foregroundStyle()`
-2. **SUIBaseView WRAPPER** — mọi screen phải bọc trong `SUIBaseView`
-3. **TTBaseNavigationLink** — dùng cho mọi navigation giữa các màn hình
-4. **TTBaseSUI FIRST** — dùng `TTBaseSUI*` component trước. Chỉ Native SwiftUI khi không có equivalent
-5. **TTView/TTSize/TTFont TOKENS** — không hardcode color/size
-6. **XText("key")** — mọi string hiển thị phải qua localization
-7. **@StateObject cho owned VM** — `@ObservedObject` cho VM được truyền vào
-8. **[weak self]** — mọi closure phải có weak capture
-9. **Body < 40 lines** — extract subviews nếu dài hơn
-10. **Chainable extensions** — ưu tiên `.pAll()`, `.bg()`, `.corner()` trong modifier chains
-
-## Decision Tree
-
-```
-┌─────────────────────────────────────────────────────────────┐
-│ Cần build màn hình mới?                                     │
-│  ↓                                                          │
-│ TTBaseSUI component có chưa?                                │
-│  ├── CÓ → Dùng TTBaseSUI + SUIBaseView + TTBaseNavigationLink│
-│  └── KHÔNG → TTBaseSUI thiếu component gì?                   │
-│              ├── Cần navigation → TTBaseNavigationLink        │
-│              ├── Cần card/sheet/bottom → Native SwiftUI + token│
-│              └── Cần chart/anim phức tạp → Native SwiftUI + token│
-└─────────────────────────────────────────────────────────────┘
-```
-
-## Files in This Skill Set
-
-| File | Purpose |
-|------|---------|
-| `ttb-skill-sui-screen.prompt.md` | TTBaseSUI screen với SUIBaseView + TTBaseNavigationLink |
-| `ttb-skill-sui-view.prompt.md` | TTBaseSUI reusable view component |
-| `ttb-skill-sui-list.prompt.md` | SwiftUI list với TTBaseSUILazyVStack |
-| `ttb-skill-sui-viewmodel.prompt.md` | SwiftUI ViewModel với @Published |
-| `ttb-skill-native-screen.prompt.md` | Native SwiftUI screen — chỉ fallback |
-| `ttb-skill-native-view.prompt.md` | Native SwiftUI reusable view — chỉ fallback |
-| `ttb-ref-ttbasesui.md` | TTBaseSUI component reference đầy đủ |
-| `ttb-ref-config-tokens.md` | Color/size/font tokens |
-
-## Shared Resources
-
-- `ttb-skill-shared/rules/ttb-rule-anti-patterns.md` — SwiftUI decision matrix + anti-patterns
-- `ttb-skill-shared/rules/ttb-rule-coding-standards.md` — Coding standards
-- `ttb-skill-shared/refs/ttb-ref-ios14-compatibility.md` — iOS 14 API guide
-- `ttb-skill-shared/refs/ttb-ref-swiftui-performance.md` — Performance optimization
-- `ttb-skill-shared/refs/ttb-ref-navigation.md` — Navigation pattern reference
+## Command Prompt Files
+
+Load only the route-specific prompt file that matches the task:
+
+| File | Use when |
+|------|----------|
+| `ttb-skill-sui-screen.prompt.md` | Build a TTBaseSUI screen with `SUIBaseView` and navigation |
+| `ttb-skill-sui-view.prompt.md` | Build a reusable TTBaseSUI component |
+| `ttb-skill-sui-list.prompt.md` | Build a TTBaseSUI list/grid/carousel screen |
+| `ttb-skill-sui-viewmodel.prompt.md` | Build a SwiftUI ViewModel |
+| `ttb-skill-native-screen.prompt.md` | Build a native SwiftUI screen fallback |
+| `ttb-skill-native-view.prompt.md` | Build a native SwiftUI reusable view fallback |
+
+## Verification
+
+After implementation:
+
+1. Ensure every new Swift file is part of the Xcode target.
+2. Run the project verification command used by the repository, preferably `xcodebuild` or the shared `ttb-verify.sh` script when present.
+3. Check for iOS 14 API compatibility and TTBaseUIKit token compliance.
+4. Complete only when the build succeeds, or report exact blocking errors after three failed repair attempts.
+
+## Anti-Patterns
+
+- Building full SwiftUI screens without `SUIBaseView`.
+- Using native SwiftUI components when a TTBaseSUI equivalent exists.
+- Navigating between screens without `TTBaseNavigationLink`.
+- Hardcoding colors, sizes, or user-visible strings.
+- Adding iOS 15+ APIs without availability guards.
+- Creating unrelated UI not present in the input image or description.
+- Leaving generated files unregistered in the Xcode project.
 
 ---
 
-**Version**: 2.2.0 | **Date**: 2026-05-22
-**Changelog**: v2.2.0 — Added standardized routing contract, EN/VI SwiftUI aliases, input/output schema, confidence guidance, and fallback strategy. v2.0.0 — Complete rewrite with SUIBaseView + TTBaseNavigationLink and full TTBaseSUI inventory.
+Version: 2.3.0 | Date: 2026-05-22

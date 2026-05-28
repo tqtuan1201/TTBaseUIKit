@@ -40,6 +40,9 @@ output:
   sharedResourcesToLoad: string[]
   chain: string[]
   fallbackAction: string | null
+  preflightRequired: boolean
+  executionConfidence: number
+  executionGate: "execute" | "execute-with-assumptions" | "survey-required"
   reason: string
 ```
 
@@ -51,6 +54,7 @@ output:
 4. **Score candidates**: combine semantic match, explicit framework mention, artifact type, and dependency readiness.
 5. **Apply tie-breakers**: explicit command, framework mention, artifact type, lifecycle stage, risk intent, dependencies, user language.
 6. **Route or clarify**: auto-route at confidence >= 0.78; ask a focused question at 0.55-0.77; fallback to shared guidance below 0.55.
+7. **Run execution preflight**: after route selection and before implementation, use `fragments/ttb-preflight-execution-gate.frag.md` to score execution confidence from `0-100`.
 
 ## Confidence Scoring
 
@@ -71,6 +75,16 @@ Recommended thresholds:
 | `>= 0.78` | Auto-route and state the selected skill briefly |
 | `0.55-0.77` | Ask one clarifying question or choose the least destructive default |
 | `< 0.55` | Load `ttb-skill-shared` and ask for goal/artifact/framework |
+
+Execution confidence thresholds are stricter than routing confidence:
+
+| Execution Confidence | Action |
+|----------------------|--------|
+| `90-100` | Execute directly and state assumptions |
+| `70-89` | Execute only with documented low-risk assumptions |
+| `<70` | Stop and ask a survey from `templates/ttb-clarification-survey.md` |
+
+Architecture-critical or business-critical uncertainty caps execution confidence at `69`, even when route confidence is high.
 
 ## Canonical Routes
 
@@ -108,6 +122,7 @@ Vietnamese prompts can be written with or without diacritics. Mixed prompts are 
 | `audit + fix` | Audit first, then chain to bugfix/refactor based on findings. |
 | `api` without platform | Route to `/ttb-uikit-api` because Antigravity owns iOS RequestAPI patterns, not server backend generation. |
 | missing TTBaseUIKit foundation | Run `ttb-skill-init` validation step before domain work. |
+| clear route but missing execution detail | Keep selected route, then ask a preflight survey before editing. |
 
 ## Fallback Strategy
 

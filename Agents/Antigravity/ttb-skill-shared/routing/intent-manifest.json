@@ -45,6 +45,59 @@
       }
     }
   },
+  "executionPolicy": {
+    "preflightRequiredBefore": [
+      "generate_code",
+      "refactor",
+      "migrate",
+      "modify_files",
+      "create_architecture",
+      "update_workflows",
+      "update_ui",
+      "update_navigation",
+      "change_business_logic",
+      "update_dependencies"
+    ],
+    "preflightResource": "ttb-skill-shared/fragments/ttb-preflight-execution-gate.frag.md",
+    "surveyTemplate": "ttb-skill-shared/templates/ttb-clarification-survey.md",
+    "confidenceThresholds": {
+      "execute": 90,
+      "executeWithAssumptions": 70,
+      "surveyRequiredBelow": 70
+    },
+    "confidenceCaps": {
+      "architectureCriticalUncertainty": 69,
+      "businessLogicUncertainty": 69,
+      "navigationUncertainty": 69,
+      "targetModuleUnknown": 69,
+      "apiContractMissingForApiWork": 69
+    },
+    "requiredPhases": [
+      "requirement_analysis",
+      "context_validation",
+      "ambiguity_detection",
+      "missing_information_detection",
+      "survey_or_clarification",
+      "confidence_evaluation",
+      "execution_approval"
+    ],
+    "requiredInputChecks": [
+      "screen_name",
+      "target_module",
+      "navigation_flow",
+      "expected_output",
+      "api_structure",
+      "architecture_convention",
+      "dependency_info",
+      "file_location",
+      "ui_expectation",
+      "state_management_pattern",
+      "routing_expectation",
+      "naming_convention",
+      "localization_format",
+      "reusable_component_requirements"
+    ]
+  },
   "intents": [
     {
       "id": "project_init",

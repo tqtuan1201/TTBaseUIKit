@@ -6,6 +6,18 @@ description: "Scaffold a new UIKit ViewModel with BaseViewModel, callbacks, API 
 
 Scaffold a new ViewModel with BaseViewModel, MVVM callbacks, and API integration.
 
+## Mandatory Preflight Execution Gate
+
+Before generating code or modifying files, run `ttb-skill-shared/fragments/ttb-preflight-execution-gate.frag.md`.
+
+Required checks:
+
+- Analyze intent, task type, scope, impacted files/modules, dependencies, architecture constraints, coding standards, and project-specific rules.
+- Validate required inputs such as target module, screen/component name, file location, navigation flow, expected output, API contract, state management, routing, localization, naming, and reusable component requirements.
+- Detect ambiguity, conflicting requirements, incomplete business logic, unclear UX/navigation, unclear module ownership, and unclear architecture direction.
+- Score confidence from `0-100`: execute at `90-100`, execute with warning assumptions at `70-89`, and ask a survey below `70` using `ttb-skill-shared/templates/ttb-clarification-survey.md`.
+- Support English, Vietnamese, mixed-language, diacritic-free Vietnamese, and light typo prompts.
+
 ## When
 
 User says: "build viewmodel", "business logic", "MVVM viewmodel"

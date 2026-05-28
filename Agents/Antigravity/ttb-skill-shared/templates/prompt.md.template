@@ -30,6 +30,19 @@ output:
   verification: "BUILD SUCCEEDED or documented blocker"
 ```
 
+## Mandatory Preflight Execution Gate
+
+Before generating code or modifying files, run `ttb-skill-shared/fragments/ttb-preflight-execution-gate.frag.md`.
+
+Required checks:
+
+- Analyze intent, scope, task type, impacted files/modules, dependencies, architecture constraints, coding standards, and project-specific rules.
+- Validate required inputs: target module, file location, expected output, API/state/navigation/localization/reusable component requirements.
+- Detect ambiguity, conflicts, incomplete business logic, unclear ownership, unclear UX flow, and unclear architecture direction.
+- Score execution confidence from `0-100`.
+- Execute at `90-100`, execute with documented low-risk assumptions at `70-89`, and ask a survey from `ttb-skill-shared/templates/ttb-clarification-survey.md` below `70`.
+- Parse English, Vietnamese, mixed-language, diacritic-free Vietnamese, and light typo prompts.
+
 ## Pattern
 
 ```swift

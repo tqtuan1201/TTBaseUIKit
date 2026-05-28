@@ -14,9 +14,9 @@ Strict iOS 14+ compatibility requirements for TTBaseUIKit apps.
 
 | ❌ Do Not Use | ✅ Use Instead (iOS 14+) |
 |---|---|
-| `NavigationStack { }` (iOS 16+) | `NavigationView { }` |
-| `NavigationLink(value:)` (iOS 16+) | `NavigationLink(destination:)` (iOS 13+) |
-| `navigationDestination(for:)` (iOS 16+) | Navigation via `NavigationView` push/pop |
+| `NavigationStack { }` (iOS 16+) | `SUIBaseView(backType:title:type:isHiddenTabbar:backAction:)` |
+| `NavigationLink(value:)` (iOS 16+) | `TTBaseNavigationLink(destination:label:isAnimation:)` |
+| `navigationDestination(for:)` (iOS 16+) | `TTBaseNavigationLink` with closure-based destination |
 | `.topBarLeading` (iOS 15+) | `.navigationBarLeading` (iOS 13+) |
 | `.topBarTrailing` (iOS 15+) | `.navigationBarTrailing` (iOS 13+) |
 | `.navigationBarTitleDisplayMode(.large)` (iOS 14+) | OK — this is iOS 14+ |

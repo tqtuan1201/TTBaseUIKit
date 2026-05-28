@@ -356,17 +356,17 @@ struct ProductDetailScreen: View {
 
 ```swift
 SUIBaseView(
-    backType: BACK_TYPE,        // .SWIFTUI | .POP | .POP_TO_ROOT | .DISMISS | .DISMISS_ALL | .CLOSE_FLOW
-    title: String,              // Navigation bar title
-    type: TYPE,                 // .DEFAULT | .INFO | .NO_NAV
-    isHiddenTabbar: Bool,       // Ẩn/hiện tabbar khi vào màn
-    backAction: (() -> Void)?, // Callback khi nhấn back
-    titleAction: (() -> Void)?, // Callback khi nhấn title
-    rightAction: (() -> Void)?, // Callback khi nhấn nút phải
-    bg: Color,                  // Background color
-    @ViewBuilder content: () -> Content
-)
+    backType: .SWIFTUI,
+    title: XText("App.Module.Nav.Title"),
+    type: .DEFAULT,
+    isHiddenTabbar: true,
+    backAction: {}
+) {
+    content
+}
 ```
+
+Dùng đúng năm label này theo thứ tự trên khi generate màn hình. Chỉ thêm tham số optional khi initializer hiện tại hỗ trợ và UI thật sự cần.
 
 ### TTBaseSUI Component Reference Đầy Đủ
 

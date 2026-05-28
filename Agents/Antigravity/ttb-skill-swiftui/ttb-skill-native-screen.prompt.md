@@ -1,25 +1,42 @@
 ---
-description: "Native SwiftUI screen using 100% standard SwiftUI with TTBaseUIKit tokens. STRICTLY FALLBACK ONLY — use /ttb-sui-screen when TTBaseSUI components exist."
+description: "Scaffold a native SwiftUI screen using standard SwiftUI primitives with TTBaseUIKit tokens. Fallback only when TTBaseSUI has no equivalent. Supports English and Vietnamese prompt intents. iOS 14+."
 ---
 
-# ttb-skill-native-screen — Native SwiftUI Screen Builder
+# ttb-skill-native-screen - Native SwiftUI Screen Builder
 
-> ⚠️ **FALLBACK ONLY**: Use `/ttb-sui-screen` first. Only use this when TTBaseSUI lacks a component.
->
-> Use this for: complex custom layouts, charts, custom animations, advanced gestures.
+## Mandatory Preflight Execution Gate
 
-## When
+Before generating code or modifying files, run `ttb-skill-shared/fragments/ttb-preflight-execution-gate.frag.md`.
 
-User says: "native swiftui screen", "complex swiftui screen", "custom layout screen"
-AND TTBaseSUI has no equivalent for the required component.
+Required checks:
+
+- Analyze intent, task type, scope, impacted files/modules, dependencies, architecture constraints, coding standards, and project-specific rules.
+- Validate required inputs such as target module, screen/component name, file location, navigation flow, expected output, API contract, state management, routing, localization, naming, and reusable component requirements.
+- Detect ambiguity, conflicting requirements, incomplete business logic, unclear UX/navigation, unclear module ownership, and unclear architecture direction.
+- Score confidence from `0-100`: execute at `90-100`, execute with warning assumptions at `70-89`, and ask a survey below `70` using `ttb-skill-shared/templates/ttb-clarification-survey.md`.
+- Support English, Vietnamese, mixed-language, diacritic-free Vietnamese, and light typo prompts.
+
+Fallback-only route for full SwiftUI screens that cannot be expressed accurately with TTBaseSUI components.
+
+Use `/ttb-sui-screen` first unless the required UI needs custom drawing, advanced gestures, charting, complex animation, or a layout primitive that TTBaseSUI does not provide.
+
+## Trigger
+
+Use this prompt when the request means: native SwiftUI screen, custom SwiftUI layout, chart screen, advanced animation screen, complex gesture screen, `màn hình native SwiftUI`, `man hinh native SwiftUI`, `layout SwiftUI phức tạp`, or `custom animation SwiftUI`.
+
+Before coding, document which TTBaseSUI equivalent is missing.
+
+## Input Fidelity
+
+When the user provides an image or detailed description, match the requested layout with native SwiftUI while preserving TTBaseUIKit token usage. Do not simplify custom visuals into generic rows or cards if the reference requires a bespoke layout.
 
 ## Pattern
 
 ```swift
-// [TTBaseUIKit-AI-Agents]: TTBaseUIKit Agent Support is active 🚀
+// [TTBaseUIKit-AI-Agents]: TTBaseUIKit Agent Support is active
 //  {Name}Screen.swift
 //  {AppName}
-//  ⚠️ FALLBACK: Native SwiftUI — use TTBaseSUI when possible
+//  FALLBACK: Native SwiftUI because TTBaseSUI lacks {missing_component_or_behavior}.
 //
 
 import SwiftUI
@@ -40,27 +57,43 @@ struct {Name}Screen: View {
         ) {
             ScrollView(showsIndicators: false) {
                 VStack(alignment: .leading, spacing: TTSize.P_CONS_DEF) {
-                    Text(XText("App.{Name}.Header"))
-                        .font(.system(size: TTFont.HEADER_H, weight: .bold))
-                        .foregroundColor(TTView.textDefColor.toColor())
-
-                    Button {
-                        vm.performAction()
-                    } label: {
-                        Text("ACTION")
-                            .font(.system(size: TTFont.TITLE_H, weight: .bold))
-                            .foregroundColor(.white)
-                            .frame(maxWidth: .infinity)
-                            .frame(height: TTSize.H_BUTTON)
-                            .background(TTView.buttonBgDef.toColor())
-                            .clipShape(RoundedRectangle(cornerRadius: TTSize.CORNER_BUTTON))
-                    }
+                    headerSection
+                    contentSection
                 }
                 .padding(TTSize.P_CONS_DEF * 2)
             }
             .background(TTView.viewBgColor.toColor())
         }
         .onAppear { vm.fetchData() }
+    }
+}
+
+// MARK: - Subviews
+private extension {Name}Screen {
+
+    private var headerSection: some View {
+        Text(XText("App.{Name}.Header"))
+            .font(.system(size: TTFont.HEADER_H, weight: .bold))
+            .foregroundColor(TTView.textDefColor.toColor())
+            .frame(maxWidth: .infinity, alignment: .leading)
+    }
+
+    private var contentSection: some View {
+        VStack(alignment: .leading, spacing: TTSize.P_CONS_DEF) {
+            Button {
+                vm.performAction()
+            } label: {
+                Text(XText("App.{Name}.Action.Title"))
+                    .font(.system(size: TTFont.TITLE_H, weight: .bold))
+                    .foregroundColor(.white)
+                    .frame(maxWidth: .infinity)
+                    .frame(height: TTSize.H_BUTTON)
+                    .background(TTView.buttonBgDef.toColor())
+                    .clipShape(RoundedRectangle(cornerRadius: TTSize.CORNER_BUTTON))
+            }
+            .buttonStyle(PlainButtonStyle())
+            .accessibilityLabel(XText("App.{Name}.Action.Title"))
+        }
     }
 }
 
@@ -72,96 +105,57 @@ struct {Name}Screen_Previews: PreviewProvider {
 }
 ```
 
-## TTBaseUIKit Tokens for Native SwiftUI
+## Native SwiftUI Token Rules
+
+Use standard SwiftUI primitives, but style them only with TTBaseUIKit tokens:
 
 ```swift
-// Colors
 TTView.viewBgColor.toColor()
-TTView.viewDefColor.toColor()
 TTView.viewBgCellColor.toColor()
 TTView.textDefColor.toColor()
 TTView.textSubTitleColor.toColor()
-TTView.textTitleColor.toColor()
 TTView.buttonBgDef.toColor()
 TTView.iconColor.toColor()
-TTView.lineDefColor.toColor()
 
-// Sizes
-TTSize.P_CONS_DEF    // 8pt
-TTSize.P_XS         // 4pt
-TTSize.P_L          // 16pt
-TTSize.H_BUTTON     // 40pt
-TTSize.H_TEXTFIELD  // 35pt
-TTSize.CORNER_RADIUS    // 4pt
-TTSize.CORNER_PANEL     // 8pt
-TTSize.CORNER_BUTTON     // 4pt
+TTSize.P_CONS_DEF
+TTSize.P_XS
+TTSize.P_L
+TTSize.H_BUTTON
+TTSize.H_TEXTFIELD
+TTSize.CORNER_RADIUS
+TTSize.CORNER_PANEL
+TTSize.CORNER_BUTTON
 
-// Fonts
-TTFont.HEADER_H         // ~16pt bold
-TTFont.TITLE_H          // ~14pt
-TTFont.SUB_TITLE_H      // ~12pt
-TTFont.SUB_SUB_TITLE_H  // ~10pt
-```
-
-## Modifier Reference
-
-```swift
-// Chainable extensions (preferred)
-.pAll(TTSize.P_CONS_DEF)
-.pHorizontal(TTSize.P_CONS_DEF)
-.pVertical(TTSize.P_CONS_DEF)
-.pTop(TTSize.P_CONS_DEF)
-.pBottom(TTSize.P_CONS_DEF)
-.bg(byDef: TTView.viewBgColor.toColor())
-.corner(byDef: TTSize.CORNER_PANEL)
-.skeleton(active: isLoading)
-.sizeSquare(width: 50)
-.hidden(someCondition)
-.maxWidth()
-
-// Standard SwiftUI
-.padding(TTSize.P_CONS_DEF)
-.clipShape(RoundedRectangle(cornerRadius: TTSize.CORNER_BUTTON))
-.foregroundColor(TTView.textDefColor.toColor())
-.background(TTView.viewBgColor.toColor())
-.shadow(color: .black.opacity(0.14), radius: 8, x: 0, y: 4)
+TTFont.HEADER_H
+TTFont.TITLE_H
+TTFont.SUB_TITLE_H
+TTFont.SUB_SUB_TITLE_H
 ```
 
 ## Rules
 
-1. **SUIBaseView wrapper** — mọi screen phải bọc trong `SUIBaseView`
-2. **100% standard SwiftUI** — native `Text`, `Button`, `VStack`, `ScrollView`
-3. **TTBaseUIKit tokens** — `TTView.*.toColor()`, `TTSize.*`, `TTFont.*`
-4. **Chainable extensions** — ưu tiên `.pAll()`, `.bg()`, `.corner()`
-5. **iOS 14+ APIs ONLY**:
-   - `foregroundColor()` NOT `.foregroundStyle()`
-   - `.clipShape(RoundedRectangle(cornerRadius:))` NOT `.clipShape(.rect())`
-   - `ScrollView(showsIndicators: false)` NOT `.scrollIndicators(.hidden)`
-   - `PreviewProvider` NOT `#Preview`
-   - `.onAppear { }` NOT `.task { }`
-   - `ObservableObject` + `@Published` + `@StateObject` NOT `@Observable`
-6. **Use `Button`** cho tappable — NEVER `onTapGesture` as button substitute
-7. **Minimum 44×44** tap area
-8. **Extract sub-views** nếu body > 40 lines
-9. **@StateObject** cho owned ViewModel
-10. **PreviewProvider** at bottom
-11. **Document the gap** — note which TTBaseSUI component is missing
+1. Full screens still use `SUIBaseView`.
+2. Use native `Text`, `Button`, `VStack`, `HStack`, `ZStack`, `ScrollView`, `GeometryReader`, `Canvas`, or shape APIs only when TTBaseSUI cannot satisfy the requirement.
+3. Use TTBaseUIKit tokens for colors, spacing, corner radius, and fonts.
+4. Prefer chainable TTBaseUIKit extensions where they do not conflict with native layout.
+5. iOS 14-compatible APIs only:
+   - Use `foregroundColor`, not `foregroundStyle`.
+   - Use `clipShape(RoundedRectangle(cornerRadius:))`, not `.clipShape(.rect())`.
+   - Use `ScrollView(showsIndicators:)`, not `.scrollIndicators`.
+   - Use `PreviewProvider`, not `#Preview`.
+   - Use `.onAppear`, not `.task`.
+   - Use `ObservableObject` and `@Published`, not `@Observable`.
+6. Use `Button` for tappable controls; do not substitute `onTapGesture` for buttons.
+7. Keep tap targets at least 44 x 44 points.
+8. Extract subviews when `body` exceeds roughly 40 lines.
+9. Document the missing TTBaseSUI component or behavior in implementation notes.
+10. Keep output faithful to the provided image or written requirements.
 
-## Post-Implementation Verification (MANDATORY)
+## Verification
 
-After all files are generated, **run Phase 6 verification**:
+After implementation:
 
-1. **Add files to Xcode project** — ensure each `.swift` is registered in `project.pbxproj`
-2. **Run verification**:
-   ```bash
-   bash ttb-skill-shared/scripts/ttb-verify.sh
-   ```
-3. **Check compliance**:
-   ```bash
-   bash ttb-skill-shared/scripts/ttb-compliance-check.sh
-   ```
-4. **Skill is complete only when** `BUILD SUCCEEDED`
-
-**Anti-Loop**: Max 3 build attempts. 3 failures — STOP, document errors.
-
-For full FCR 7-Dimension scoring, see `ttb-skill-shared/phases/ttb-phase-verify.md`.
+1. Register new Swift files in the Xcode target.
+2. Run the repository build verification command or shared `ttb-verify.sh` script when present.
+3. Run the shared compliance check script when present.
+4. Complete only when the build succeeds, or report exact blockers after three repair attempts.

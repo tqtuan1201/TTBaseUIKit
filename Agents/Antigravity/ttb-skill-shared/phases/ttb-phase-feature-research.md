@@ -10,6 +10,8 @@ version: "2.0.0"
 
 Validate feature request, analyze existing code, assess complexity and risk.
 
+This phase owns the first pass of `fragments/ttb-preflight-execution-gate.frag.md`. It must produce requirement analysis, context validation, ambiguity detection, missing information, confidence score, and execution gate recommendation before any implementation phase starts.
+
 ## Input
 - Feature description from user
 - Existing codebase
@@ -21,6 +23,8 @@ Validate feature request, analyze existing code, assess complexity and risk.
 - Clarify: Who are the users? What are the edge cases?
 - Clarify: What existing code is related?
 - Clarify: Is this UIKit or SwiftUI (or both)?
+- Classify task type: generate, refactor, migration, fix, architecture update, UI update, navigation update, backend update, dependency update, or workflow update.
+- Normalize English, Vietnamese, mixed-language, diacritic-free Vietnamese, and light typo prompts.
 
 ### 2. Analyze Existing Code
 - Find similar features: search for existing ViewControllers/Screens
@@ -48,6 +52,13 @@ Validate feature request, analyze existing code, assess complexity and risk.
 - Can existing cells/views be reused?
 - Does it need SwiftUI with SUIBaseView wrapper?
 
+### 6. Preflight Gate Decision
+- Score execution confidence from `0-100`.
+- `90-100`: proceed.
+- `70-89`: proceed only with documented low-risk assumptions.
+- `<70`: stop and ask a survey from `templates/ttb-clarification-survey.md`.
+- Cap confidence at `69` when target module, architecture direction, navigation behavior, API/business logic, localization format, state management, or ownership is unclear.
+
 ## Output
 
 ```
@@ -74,6 +85,15 @@ Validate feature request, analyze existing code, assess complexity and risk.
 
 ### Recommendation
 [PROCEED / CLARIFY / REJECT] with reason
+
+### Preflight
+- Intent:
+- Task Type:
+- Missing Information:
+- Ambiguities:
+- Assumptions:
+- Confidence:
+- Gate Decision:
 ```
 
 ## Rules
@@ -81,5 +101,6 @@ Validate feature request, analyze existing code, assess complexity and risk.
 - Always use existing components before creating new
 - Always classify complexity before starting
 - Always validate architecture fit
+- Always run the preflight execution gate before implementation
 - SwiftUI screens MUST use SUIBaseView wrapper
 - Navigation MUST use TTBaseNavigationLink (SwiftUI)

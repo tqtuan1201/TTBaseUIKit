@@ -11,8 +11,8 @@ import Network
 import UIKit
 
 // MARK: - TTDebugBridge
-/// Singleton bridge that connects the iOS app to a macOS TTBDebugPlus instance.
-/// Discovers the macOS service via Bonjour, establishes WebSocket, and sends logs.
+/// Singleton bridge that connects the iOS app to macOS TTBDebugPlus instances.
+/// Discovers macOS services via Bonjour, establishes TCP streams, and sends logs.
 ///
 /// Usage:
 /// ```swift
@@ -32,6 +32,7 @@ public final class TTDebugBridge {
         public var heartbeatInterval: TimeInterval = 5.0
         public var reconnectMaxDelay: TimeInterval = 30.0
         public var maxBufferedMessages: Int = 200
+        public var isShowMessageLog: Bool = false
         public var sdkVersion: String = "4.2.0"
         public var isEnabled: Bool = true
         
@@ -61,16 +62,18 @@ public final class TTDebugBridge {
     
     // MARK: - Private
     private var browser: NWBrowser?
-    /// Strong reference to the active NWConnection — ONLY mutated on `queue`
-    private var connection: NWConnection?
+    /// Strong references to active NWConnections keyed by Bonjour endpoint description.
+    /// ONLY mutated on `queue`.
+    private var connections: [String: NWConnection] = [:]
+    private var readyEndpointKeys: Set<String> = []
     private var heartbeatTimer: Timer?
     private var reconnectAttempt: Int = 0
     /// Serial queue. ALL mutable state reads/writes happen here. No exceptions.
     private let queue = DispatchQueue(label: "com.ttbdebug.bridge", qos: .utility)
     private var messageBuffer: [Data] = []
     private let deviceId: String
-    /// Monotonically increasing ID to track connection generations
-    private var connectionGeneration: UInt64 = 0
+    /// Monotonically increasing IDs to track connection generations per endpoint.
+    private var connectionGenerations: [String: UInt64] = [:]
     
     /// Network path monitor for detecting Wi-Fi / cellular / VPN changes
     private var pathMonitor: NWPathMonitor?
@@ -215,7 +218,7 @@ public final class TTDebugBridge {
             guard let self = self else { return }
             self.queue.async {
                 guard self.browser === b else { return }
-                guard self.state == .browsing || self.state == .disconnected else { return }
+                guard self.state == .browsing || self.state == .disconnected || self.state == .connected else { return }
                 
                 // Track browse results for diagnostics
                 ConnectionDiagnostics.shared.recordBrowseResults(
@@ -223,8 +226,8 @@ public final class TTDebugBridge {
                     endpoint: results.first?.endpoint.debugDescription
                 )
                 
-                if let endpoint = results.first?.endpoint {
-                    TTBaseFunc.shared.printLog(object: "[TTDebugBridge] 📡 Found service: \(endpoint)")
+                for result in results {
+                    let endpoint = result.endpoint
                     self._connect(to: endpoint)
                 }
             }
@@ -243,24 +246,31 @@ public final class TTDebugBridge {
     
     // MARK: - Private: Connection (queue)
     
-    /// Tears down the current connection cleanly. Must be called on `queue`.
+    /// Tears down all current connections cleanly. Must be called on `queue`.
     private func _teardownConnection() {
-        if let c = connection {
+        for (_, c) in connections {
             c.stateUpdateHandler = nil
             c.cancel()
-            connection = nil
         }
-        connectionGeneration &+= 1
+        connections.removeAll()
+        readyEndpointKeys.removeAll()
+        connectionGenerations.removeAll()
     }
     
     /// Establishes a new TCP connection. Must be called on `queue`.
     private func _connect(to endpoint: NWEndpoint) {
-        // Clean up previous
-        _teardownConnection()
-        _updateState(.connecting)
+        let endpointKey = endpoint.debugDescription
+        guard connections[endpointKey] == nil else { return }
+        
+        TTBaseFunc.shared.printLog(object: "[TTDebugBridge] 📡 Found service: \(endpoint)")
+        
+        if readyEndpointKeys.isEmpty {
+            _updateState(.connecting)
+        }
         
         // Increment generation — used to discard stale callbacks
-        let gen = connectionGeneration
+        let gen = (connectionGenerations[endpointKey] ?? 0) &+ 1
+        connectionGenerations[endpointKey] = gen
         
         // Build parameters — raw TCP, no WebSocket (avoids HTTP upgrade crash on Bonjour endpoints)
         let tcp = NWProtocolTCP.Options()
@@ -269,13 +279,13 @@ public final class TTDebugBridge {
         params.includePeerToPeer = true
         
         let c = NWConnection(to: endpoint, using: params)
-        self.connection = c
+        connections[endpointKey] = c
         
         c.stateUpdateHandler = { [weak self] nwState in
             // NWConnection delivers this on `queue` (we pass queue to start)
             guard let self = self else { return }
             // Discard if this is a stale connection from a previous generation
-            guard self.connectionGeneration == gen else { return }
+            guard self.connectionGenerations[endpointKey] == gen else { return }
             
             switch nwState {
             case .setup:
@@ -287,41 +297,47 @@ public final class TTDebugBridge {
                 TTBaseFunc.shared.printLog(object: "[TTDebugBridge] 🔄 Preparing connection (DNS resolve / TCP handshake)...")
                 
             case .ready:
-                TTBaseFunc.shared.printLog(object: "[TTDebugBridge] ✅ Connected!")
+                TTBaseFunc.shared.printLog(object: "[TTDebugBridge] ✅ Connected: \(endpoint)")
                 self.reconnectAttempt = 0
+                self.readyEndpointKeys.insert(endpointKey)
                 self._updateState(.connected)
-                self._stopBrowsing()
                 self._stopDiagnosticTimer() // No need for diagnostics while connected
-                self._sendDeviceInfo()
-                self._sendConnectionDiagnostics() // Send diagnostic info to macOS
+                self._sendDeviceInfo(to: endpointKey)
+                self._sendConnectionDiagnostics(to: endpointKey) // Send diagnostic info to macOS
                 self._startHeartbeat()
-                self._flushBuffer()
-                self._receiveLoop(gen: gen)
+                self._replayBuffer(to: endpointKey)
+                self._receiveLoop(endpointKey: endpointKey, gen: gen)
                 
             case .waiting(let error):
                 // Path is not viable (e.g. no route, Wi-Fi off).
                 // Teardown and schedule reconnect to try fresh later.
                 TTBaseFunc.shared.printLog(object: "[TTDebugBridge] ⏳ Waiting (path not viable): \(error)")
                 ConnectionDiagnostics.shared.recordEvent(state: "waiting", detail: "\(error)")
-                self._teardownConnection()
-                self._updateState(.disconnected)
-                self._startDiagnosticTimer()
-                self._scheduleReconnect()
+                self._removeConnection(endpointKey: endpointKey)
+                if self.readyEndpointKeys.isEmpty {
+                    self._updateState(.disconnected)
+                    self._startDiagnosticTimer()
+                    self._scheduleReconnect()
+                }
                 
             case .failed(let error):
                 TTBaseFunc.shared.printLog(object: "[TTDebugBridge] ❌ Failed: \(error)")
                 ConnectionDiagnostics.shared.recordEvent(state: "failed", detail: "\(error)")
-                self._teardownConnection()
-                self._updateState(.disconnected)
-                self._startDiagnosticTimer()
-                self._scheduleReconnect()
+                self._removeConnection(endpointKey: endpointKey)
+                if self.readyEndpointKeys.isEmpty {
+                    self._updateState(.disconnected)
+                    self._startDiagnosticTimer()
+                    self._scheduleReconnect()
+                }
                 
             case .cancelled:
                 TTBaseFunc.shared.printLog(object: "[TTDebugBridge] 🚫 Connection cancelled")
                 // Only act if still the current generation
-                if self.connectionGeneration == gen {
-                    self.connection = nil
-                    self._updateState(.disconnected)
+                if self.connectionGenerations[endpointKey] == gen {
+                    self._removeConnection(endpointKey: endpointKey)
+                    if self.readyEndpointKeys.isEmpty {
+                        self._updateState(.disconnected)
+                    }
                 }
                 
             @unknown default:
@@ -333,14 +349,23 @@ public final class TTDebugBridge {
         c.start(queue: queue)
     }
     
+    private func _removeConnection(endpointKey: String) {
+        connections[endpointKey]?.stateUpdateHandler = nil
+        connections[endpointKey]?.cancel()
+        connections.removeValue(forKey: endpointKey)
+        readyEndpointKeys.remove(endpointKey)
+        connectionGenerations.removeValue(forKey: endpointKey)
+    }
+    
     // MARK: - Private: Length-Prefixed Receive (queue)
     
-    private func _receiveLoop(gen: UInt64) {
-        guard let c = connection, connectionGeneration == gen else { return }
+    private func _receiveLoop(endpointKey: String, gen: UInt64) {
+        guard let c = connections[endpointKey],
+              connectionGenerations[endpointKey] == gen else { return }
         
         // Read 4-byte length header
         c.receive(minimumIncompleteLength: 4, maximumLength: 4) { [weak self] header, _, _, error in
-            guard let self = self, self.connectionGeneration == gen else { return }
+            guard let self = self, self.connectionGenerations[endpointKey] == gen else { return }
             
             if let error = error {
                 TTBaseFunc.shared.printLog(object: "[TTDebugBridge] Recv header error: \(error)")
@@ -357,7 +382,7 @@ public final class TTDebugBridge {
             
             // Read message body
             c.receive(minimumIncompleteLength: Int(length), maximumLength: Int(length)) { [weak self] body, _, _, error in
-                guard let self = self, self.connectionGeneration == gen else { return }
+                guard let self = self, self.connectionGenerations[endpointKey] == gen else { return }
                 
                 if let error = error {
                     TTBaseFunc.shared.printLog(object: "[TTDebugBridge] Recv body error: \(error)")
@@ -370,7 +395,7 @@ public final class TTDebugBridge {
                 }
                 
                 // Continue reading next message
-                self._receiveLoop(gen: gen)
+                self._receiveLoop(endpointKey: endpointKey, gen: gen)
             }
         }
     }
@@ -449,7 +474,7 @@ public final class TTDebugBridge {
     
     // MARK: - Private: Device Info (main → queue)
     
-    private func _sendDeviceInfo() {
+    private func _sendDeviceInfo(to endpointKey: String) {
         DispatchQueue.main.async { [weak self] in
             guard let self = self else { return }
             let device = UIDevice.current
@@ -475,7 +500,7 @@ public final class TTDebugBridge {
                 screenWidth: Double(screen.bounds.width * screen.scale),
                 screenHeight: Double(screen.bounds.height * screen.scale)
             )
-            self._enqueueMessage(type: .deviceInfo, payload: payload)
+            self._enqueueMessage(type: .deviceInfo, payload: payload, targetEndpointKey: endpointKey)
         }
     }
     
@@ -515,13 +540,20 @@ public final class TTDebugBridge {
     // MARK: - Private: Messaging (any thread → queue)
     
     /// Thread-safe entry point for sending messages. Encodes on caller thread, dispatches to queue.
-    private func _enqueueMessage<T: Encodable>(type: MessageType, payload: T) {
+    private func _enqueueMessage<T: Encodable>(type: MessageType, payload: T, targetEndpointKey: String? = nil) {
         guard let msg = DebugMessage.create(type: type, payload: payload),
               let data = msg.toData() else { return }
         
         queue.async { [self] in
-            if state == .connected, let c = connection {
-                _sendData(data, on: c)
+            if let targetEndpointKey {
+                if let c = connections[targetEndpointKey] {
+                    _sendData(data, on: c)
+                }
+            } else if state == .connected, !readyEndpointKeys.isEmpty {
+                for key in readyEndpointKeys {
+                    guard let c = connections[key] else { continue }
+                    _sendData(data, on: c)
+                }
             } else {
                 messageBuffer.append(data)
                 if messageBuffer.count > config.maxBufferedMessages {
@@ -544,15 +576,13 @@ public final class TTDebugBridge {
         })
     }
     
-    /// Flushes buffered messages. Must be called on `queue`.
-    private func _flushBuffer() {
-        guard let c = connection, !messageBuffer.isEmpty else { return }
-        let buffered = messageBuffer
-        messageBuffer.removeAll()
-        for data in buffered {
+    /// Replays buffered messages to one newly ready observer. Must be called on `queue`.
+    private func _replayBuffer(to endpointKey: String) {
+        guard let c = connections[endpointKey], !messageBuffer.isEmpty else { return }
+        for data in messageBuffer {
             _sendData(data, on: c)
         }
-        TTBaseFunc.shared.printLog(object: "[TTDebugBridge] 📤 Flushed \(buffered.count) buffered messages")
+        TTBaseFunc.shared.printLog(object: "[TTDebugBridge] 📤 Replayed \(messageBuffer.count) buffered messages")
     }
     
     // MARK: - Private: State (queue)
@@ -574,15 +604,18 @@ public final class TTDebugBridge {
                 userInfo: ["state": s.rawValue]
             )
             
-            #if DEBUG
-            if isChanged, self?.config.showStateNotice == true {
-                if s == .connected {
-                    UIApplication.topViewController()?.onShowNoticeView(title: "🖥 TTDebugBridge", body: "Connected successfully to macOS TTBDebugPlus!", style: .SUCCESS)
-                } else if s == .disconnected {
-                    UIApplication.topViewController()?.onShowNoticeView(title: "🖥 TTDebugBridge", body: "Connection failed or disconnected.", style: .WARNING)
+            if TTDebugBridge.shared.config.isShowMessageLog {
+                DispatchQueue.main.async {
+                    if isChanged, self?.config.showStateNotice == true {
+                        if s == .connected {
+                            UIApplication.topViewController()?.onShowNoticeView(title: "🖥 TTDebugBridge", body: "Connected successfully to macOS TTBDebugPlus!", style: .SUCCESS)
+                        } else if s == .disconnected {
+                            UIApplication.topViewController()?.onShowNoticeView(title: "🖥 TTDebugBridge", body: "Connection failed or disconnected.", style: .WARNING)
+                        }
+                    }
                 }
             }
-            #endif
+
         }
     }
     
@@ -591,8 +624,7 @@ public final class TTDebugBridge {
     private func _startPathMonitor() {
         _stopPathMonitor()
         let monitor = NWPathMonitor()
-        monitor.pathUpdateHandler = { [weak self] path in
-            guard let self = self else { return }
+        monitor.pathUpdateHandler = { path in
             let status: String
             switch path.status {
             case .satisfied: status = "satisfied"
@@ -690,7 +722,7 @@ public final class TTDebugBridge {
     
     // MARK: - Private: Send Diagnostics to macOS
     
-    private func _sendConnectionDiagnostics() {
+    private func _sendConnectionDiagnostics(to endpointKey: String) {
         let payload = ConnectionDiagnosticsPayload(
             localIP: NetworkDiagnosticUtils.getLocalIPAddress(),
             subnetMask: NetworkDiagnosticUtils.getSubnetMask(),
@@ -701,7 +733,7 @@ public final class TTDebugBridge {
             connectionAttempts: reconnectAttempt,
             stateDurationSeconds: Date().timeIntervalSince(ConnectionDiagnostics.shared.stateEnteredAt)
         )
-        _enqueueMessage(type: .connectionDiagnostics, payload: payload)
+        _enqueueMessage(type: .connectionDiagnostics, payload: payload, targetEndpointKey: endpointKey)
     }
     
     // MARK: - Private: System Metrics (safe from any thread)

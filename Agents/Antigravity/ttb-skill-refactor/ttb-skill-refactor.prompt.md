@@ -6,6 +6,18 @@ description: "Refactor TTBaseUIKit code: migrate to TTViewCodable, replace raw U
 
 Refactor existing TTBaseUIKit code: migrate to TTViewCodable, replace raw UIKit, TTBaseSUI adoption, clean MVVM separation.
 
+## Mandatory Preflight Execution Gate
+
+Before generating code or modifying files, run `ttb-skill-shared/fragments/ttb-preflight-execution-gate.frag.md`.
+
+Required checks:
+
+- Analyze intent, task type, scope, impacted files/modules, dependencies, architecture constraints, coding standards, and project-specific rules.
+- Validate required inputs such as target module, screen/component name, file location, navigation flow, expected output, API contract, state management, routing, localization, naming, and reusable component requirements.
+- Detect ambiguity, conflicting requirements, incomplete business logic, unclear UX/navigation, unclear module ownership, and unclear architecture direction.
+- Score confidence from `0-100`: execute at `90-100`, execute with warning assumptions at `70-89`, and ask a survey below `70` using `ttb-skill-shared/templates/ttb-clarification-survey.md`.
+- Support English, Vietnamese, mixed-language, diacritic-free Vietnamese, and light typo prompts.
+
 ## When
 
 User says: "refactor", "clean up code", "restructure", "migrate to TTViewCodable"
@@ -77,7 +89,7 @@ User says: "refactor", "clean up code", "restructure", "migrate to TTViewCodable
 | `ScrollView { }` | `TTBaseSUIScroll { }` |
 | `LazyVStack { }` | `TTBaseSUILazyVStack(...)` |
 | `Divider()` | `BaseHorizontalDivider()` |
-| `NavigationView` as screen wrapper | `SUIBaseView(backType:title:)` |
+| `NavigationView` as screen wrapper | `SUIBaseView(backType:title:type:isHiddenTabbar:backAction:)` |
 
 ### Phase 2 -- Modifier Migration
 | Native SwiftUI | TTBaseUIKit |

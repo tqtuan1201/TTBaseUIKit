@@ -1,22 +1,42 @@
 ---
-description: "Scaffold a reusable TTBaseSUI view component. iOS 14+."
+description: "Scaffold a reusable TTBaseSUI SwiftUI view component such as a card, row, header, badge, empty state, or custom cell. Supports English and Vietnamese prompt intents. iOS 14+."
 ---
 
-# ttb-skill-sui-view — TTBaseSUI View Builder
+# ttb-skill-sui-view - TTBaseSUI View Builder
 
-Build a reusable SwiftUI view using TTBaseSUI* wrapper components.
+## Mandatory Preflight Execution Gate
 
-> Use this for reusable components (cards, rows, buttons, headers, badges, cells).
-> For complex custom layouts, animations, charts — use `/ttb-native-view` instead.
+Before generating code or modifying files, run `ttb-skill-shared/fragments/ttb-preflight-execution-gate.frag.md`.
 
-## When
+Required checks:
 
-User says: "ttbasesui view", "swiftui component", "reusable view", "card view", "row view", "badge view"
+- Analyze intent, task type, scope, impacted files/modules, dependencies, architecture constraints, coding standards, and project-specific rules.
+- Validate required inputs such as target module, screen/component name, file location, navigation flow, expected output, API contract, state management, routing, localization, naming, and reusable component requirements.
+- Detect ambiguity, conflicting requirements, incomplete business logic, unclear UX/navigation, unclear module ownership, and unclear architecture direction.
+- Score confidence from `0-100`: execute at `90-100`, execute with warning assumptions at `70-89`, and ask a survey below `70` using `ttb-skill-shared/templates/ttb-clarification-survey.md`.
+- Support English, Vietnamese, mixed-language, diacritic-free Vietnamese, and light typo prompts.
 
-## Tappable Card Pattern (Chainable)
+Build reusable SwiftUI view components using TTBaseSUI wrappers and TTBaseUIKit tokens.
+
+## Trigger
+
+Use this prompt when the request means: TTBaseSUI view, SwiftUI component, reusable view, card view, row view, badge view, custom cell, header view, empty state, `tạo view SwiftUI`, `tao view SwiftUI`, `tạo card`, `tao card`, or `custom view SwiftUI`.
+
+Use `/ttb-native-view` only when TTBaseSUI has no equivalent for the required visual or interaction.
+
+## Input Fidelity
+
+For screenshots or detailed descriptions, preserve:
+
+- Component size role: compact row, full card, badge, header, empty state, action button, or cell.
+- Text hierarchy, icon position, image shape, badges, actions, disabled/loading states.
+- Padding, spacing, corner radius, shadow, border, and background token role.
+- Tappable behavior and accessibility labels.
+
+## Tappable Card Pattern
 
 ```swift
-// [TTBaseUIKit-AI-Agents]: TTBaseUIKit Agent Support is active 🚀
+// [TTBaseUIKit-AI-Agents]: TTBaseUIKit Agent Support is active
 //  CustomViews/{Name}CardView.swift
 //  {AppName}
 //
@@ -37,40 +57,30 @@ struct {Name}CardView: View {
                 .sizeSquare(width: 50)
 
             TTBaseSUIVStack(alignment: .leading, spacing: TTSize.P_XS) {
-                TTBaseSUIText(withBold: .TITLE, text: title,
-                              align: .leading, color: TTView.textDefColor.toColor())
-                TTBaseSUIText(withType: .SUB_TITLE, text: subtitle, align: .leading)
+                TTBaseSUIText(withBold: .TITLE, text: title, align: .leading, color: TTView.textDefColor.toColor())
+                TTBaseSUIText(withType: .SUB_TITLE, text: subtitle, align: .leading, color: TTView.textSubTitleColor.toColor())
             }
             .maxWidth(alignment: .leading)
 
             TTBaseSUISpacer()
 
-            TTBaseSUIImage(withname: "chevron.right",
-                           color: TTView.textSubTitleColor.toColor(),
-                           contentMode: .fit)
-                .sizeSquare(width: 16)
+            TTBaseSUIImage(withSystemName: "chevron.right", iconColor: TTView.textSubTitleColor.toColor(), contentMode: .fit)
+                .sizeSquare(width: 14)
         }
         .pAll(TTSize.P_CONS_DEF)
         .bg(byDef: TTView.viewBgCellColor.toColor())
         .corner(byDef: TTSize.CORNER_PANEL)
         .baseShadow()
         .onTapHandle { onTap?() }
+        .accessibilityElement(children: .combine)
+        .accessibilityLabel(title)
     }
 }
 ```
 
-## Static Display Pattern (Chainable)
+## Static Display Pattern
 
 ```swift
-// [TTBaseUIKit-AI-Agents]: TTBaseUIKit Agent Support is active 🚀
-//  CustomViews/{Name}InfoView.swift
-//  {AppName}
-//
-
-import SwiftUI
-import TTBaseUIKit
-
-// MARK: - {Name}InfoView
 struct {Name}InfoView: View {
 
     let title: String
@@ -78,9 +88,8 @@ struct {Name}InfoView: View {
 
     var body: some View {
         TTBaseSUIVStack(alignment: .leading, spacing: TTSize.P_S) {
-            TTBaseSUIText(withBold: .TITLE, text: title,
-                          align: .leading, color: TTView.textDefColor.toColor())
-            TTBaseSUIText(withType: .SUB_TITLE, text: subtitle, align: .leading)
+            TTBaseSUIText(withBold: .TITLE, text: title, align: .leading, color: TTView.textDefColor.toColor())
+            TTBaseSUIText(withType: .SUB_TITLE, text: subtitle, align: .leading, color: TTView.textSubTitleColor.toColor())
         }
         .pAll(TTSize.P_CONS_DEF)
         .bg(byDef: TTView.viewBgCellColor.toColor())
@@ -89,85 +98,22 @@ struct {Name}InfoView: View {
 }
 ```
 
-## Action Button Row Pattern
+## Badge Pattern
 
 ```swift
-// MARK: - ActionRowView
-struct ActionRowView: View {
-    let icon: String
-    let title: String
-    var badge: String?
-    var onTap: (() -> Void)?
+struct BadgeView: View {
+
+    let text: String
+    let backgroundColor: Color
 
     var body: some View {
-        TTBaseSUIHStack(alignment: .center, spacing: TTSize.P_CONS_DEF) {
-            TTBaseSUIImage(withname: icon, conner: TTSize.CORNER_RADIUS)
-                .sizeSquare(width: TTSize.H_SMALL_ICON)
-
-            TTBaseSUIText(withBold: .TITLE, text: title, align: .leading, color: TTView.textDefColor.toColor())
-                .maxWidth(alignment: .leading)
-
-            TTBaseSUISpacer()
-
-            if let badge = badge, !badge.isEmpty {
-                TTBaseSUIText(withType: .SUB_SUB_TILE, text: badge, align: .center, color: .white)
-                    .pVertical(TTSize.P_XS)
-                    .pHorizontal(TTSize.P_S)
-                    .bg(byDef: TTView.buttonBgWar.toColor())
-                    .corner(byDef: TTSize.P_S)
-            }
-
-            TTBaseSUIImage(withSystemName: "chevron.right", iconColor: TTView.textSubTitleColor.toColor(), contentMode: .fit)
-                .sizeSquare(width: 14)
-        }
-        .pAll(TTSize.P_CONS_DEF)
-        .bg(byDef: TTView.viewBgCellColor.toColor())
-        .onTapHandle { onTap?() }
-    }
-}
-```
-
-## Product/Card Grid Item Pattern
-
-```swift
-// MARK: - ProductCardView
-struct ProductCardView: View {
-    let product: ProductItemModel
-
-    var body: some View {
-        TTBaseSUIZStack(alignment: .topLeading) {
-            TTBaseSUIVStack(alignment: .leading, spacing: TTSize.P_XS) {
-                TTBaseSUIZStack(alignment: .topLeading) {
-                    TTBaseSUIImage(withname: product.avatarUrl ?? "", contentMode: .fill)
-                        .frame(height: 120)
-                }
-                discountBadge
-                productName
-                productPrice
-                TTBaseSUISpacer(maxWidth: 1).bg(byDef: .clear)
-            }
-        }
-    }
-
-    private var discountBadge: some View {
-        let discountText = product.getDiscountToDisplay()
-        if !discountText.isEmpty {
-            TTBaseSUIText(withType: .SUB_SUB_TILE, text: discountText, align: .center, color: .white)
-                .pVertical(TTSize.P_XS)
-                .pHorizontal(TTSize.P_S)
-                .bg(byDef: .red)
-                .corner(byDef: TTSize.P_S)
-                .pTop(TTSize.P_XS)
-        }
-    }
-
-    private var productName: some View {
-        TTBaseSUIText(withBold: .TITLE, text: product.productName ?? "", align: .leading, color: TTView.textDefColor.toColor())
-            .lineLimit(2)
-    }
-
-    private var productPrice: some View {
-        TTBaseSUIText(withBold: .TITLE, text: product.getMinPriceTDL(), align: .leading, color: TTView.textWarringColor.toColor())
+        TTBaseSUIText(withType: .SUB_SUB_TILE, text: text, align: .center, color: .white)
+            .pVertical(TTSize.P_XS)
+            .pHorizontal(TTSize.P_S)
+            .bg(byDef: backgroundColor)
+            .corner(byDef: TTSize.P_S)
+            .accessibilityElement(children: .combine)
+            .accessibilityLabel(text)
     }
 }
 ```
@@ -175,8 +121,8 @@ struct ProductCardView: View {
 ## Empty State Pattern
 
 ```swift
-// MARK: - EmptyStateView
 struct EmptyStateView: View {
+
     let icon: String
     let title: String
     let subtitle: String
@@ -187,20 +133,24 @@ struct EmptyStateView: View {
         TTBaseSUIVStack(alignment: .center, spacing: TTSize.P_CONS_DEF) {
             TTBaseSUIImage(withSystemName: icon, iconColor: TTView.iconColor.toColor().opacity(0.7), contentMode: .fit)
                 .sizeSquare(width: 80)
-                .pTop(TTSize.P_L * 5)
 
             TTBaseSUIText(withBold: .TITLE, text: title, align: .center, color: TTView.textDefColor.toColor())
-            TTBaseSUIText(withType: .SUB_TITLE, text: subtitle, align: .center, color: TTView.textDefColor.toColor().opacity(0.7))
+            TTBaseSUIText(withType: .SUB_TITLE, text: subtitle, align: .center, color: TTView.textSubTitleColor.toColor())
                 .lineLimit(4)
 
             if let buttonTitle = buttonTitle {
-                TTBaseSUIButton(type: .DEFAULT, title: buttonTitle)
-                    .pTop(TTSize.P_CONS_DEF)
+                TTBaseSUIButton(type: .DEFAULT) {
+                    TTBaseSUIText(withBold: .TITLE, text: buttonTitle, align: .center, color: .white)
+                } action: {
+                    onButtonTap?()
+                }
+                .pTop(TTSize.P_CONS_DEF)
             }
 
             TTBaseSUISpacer()
         }
-        .maxWidth().maxHeight()
+        .maxWidth()
+        .maxHeight()
         .bg(byDef: TTView.viewBgColor.toColor())
         .corner()
         .pAll(TTSize.P_L * 2)
@@ -208,161 +158,35 @@ struct EmptyStateView: View {
 }
 ```
 
-## Badge/Tag Pattern
+## Component Reference
 
-```swift
-// MARK: - BadgeView
-struct BadgeView: View {
-    let text: String
-    let bgColor: Color
+Prefer these components:
 
-    var body: some View {
-        TTBaseSUIText(withType: .SUB_SUB_TILE, text: text, align: .center, color: .white)
-            .pVertical(TTSize.P_XS)
-            .pHorizontal(TTSize.P_S)
-            .bg(byDef: bgColor)
-            .corner(byDef: TTSize.P_S)
-            .accessibilityElement(children: .combine)
-            .accessibilityLabel(text)
-    }
-}
-
-// MARK: - BestsellerBadge
-struct BestsellerBadge: View {
-    var text: String = XText("App.Product.Badge.BestSeller")
-
-    var body: some View {
-        TTBaseSUIText(withType: .SUB_SUB_TILE, text: text, align: .center, color: .white)
-            .pVertical(TTSize.P_XS)
-            .pHorizontal(TTSize.P_S)
-            .bg(byDef: TTView.buttonBgDef.toColor())
-            .corner(byDef: TTSize.P_S)
-            .accessibilityElement(children: .combine)
-            .accessibilityLabel(text)
-    }
-}
-```
-
-## TTBaseSUI Component Reference
-
-### Text
-```swift
-TTBaseSUIText(withType: .HEADER_SUPER, text: "...", align: .center)
-TTBaseSUIText(withType: .HEADER, text: "...", align: .left)
-TTBaseSUIText(withType: .TITLE, text: "...", align: .left)
-TTBaseSUIText(withType: .SUB_TITLE, text: "...", align: .left)
-TTBaseSUIText(withType: .SUB_SUB_TILE, text: "...", align: .left)
-TTBaseSUIText(withBold: .HEADER, text: "...", align: .center, color: .white)
-TTBaseSUIText(withBold: .TITLE, text: "...", align: .leading, color: TTView.textDefColor.toColor())
-```
-
-### Button
-```swift
-TTBaseSUIButton(type: .DEFAULT, title: "CONFIRM")
-TTBaseSUIButton(type: .DEFAULT_COLOR(color: .systemBlue, textColor: .white), title: "CUSTOM")
-TTBaseSUIButton(type: .WARRING, title: "DELETE")
-TTBaseSUIButton(type: .DISABLE, title: "DISABLED")
-TTBaseSUIButton(type: .NO_BG_COLOR, title: "LINK")
-TTBaseSUIButton(type: .BORDER, title: "OUTLINE")
-```
-
-### Stacks
-```swift
-TTBaseSUIVStack(alignment: .center, spacing: TTSize.P_CONS_DEF) { }
-TTBaseSUIVStack(alignment: .center, spacing: TTSize.P_CONS_DEF, bg: .clear) { }
-TTBaseSUIVStack(alignment: .center, spacing: TTSize.P_CONS_DEF, bg: .clear, radius: 8) { }
-TTBaseSUIHStack(alignment: .center, spacing: TTSize.P_CONS_DEF) { }
-TTBaseSUIZStack(alignment: .center, bg: .clear) { }
-```
-
-### Images
-```swift
-TTBaseSUIImage(withname: "icon_name")
-TTBaseSUIImage(withname: "icon_name", conner: TTSize.CORNER_RADIUS)
-TTBaseSUIImage(withSystemName: "star.fill", iconColor: .orange, contentMode: .fit)
-TTBaseSUICircleImage(withname: "avatar")
-TTBaseSUIAsyncImage(urlString: product.avatarUrl)
-TTBaseSUIAsyncImage(urlString: product.avatarUrl, type: .CIRCLE)
-    .sizeSquare(width: 60)
-```
-
-### Dividers
-```swift
-TTBaseSUIHorizontalDividerView(noConner: .LINE)
-TTBaseSUIHorizontalDividerView(noConner: .SPACE)
-TTBaseSUIVerticalDividerView(noConner: .LINE)
-```
-
-### Spacer
-```swift
-TTBaseSUISpacer()
-TTBaseSUISpacer(maxHeight: 20)
-TTBaseSUISpacer(maxWidth: 50)
-TTBaseSUISpacer(withBg: .green, radius: 8)
-```
-
-### Form
-```swift
-TTBaseSUITextField(placeholder: "Search...", text: $searchText, type: .SEARCH)
-TTBaseSUIToggle(label: "Enable", isOn: $isEnabled)
-TTBaseSUISlider(value: $volume)
-```
-
-## Modifier Reference (Chainable Extensions)
-
-```swift
-// TTBaseUIKit chainable extensions (preferred in modifier chains)
-.pAll(TTSize.P_CONS_DEF)                        // all sides padding
-.pHorizontal(TTSize.P_CONS_DEF)                   // horizontal only
-.pVertical(TTSize.P_CONS_DEF)                     // vertical only
-.pTop(TTSize.P_CONS_DEF)                       // top only
-.pBottom(TTSize.P_CONS_DEF)                    // bottom only
-.pLeading(TTSize.P_CONS_DEF)                  // leading only
-.pTrailing(TTSize.P_CONS_DEF)                 // trailing only
-.bg(byDef: TTView.viewBgCellColor.toColor())   // background
-.corner(byDef: TTSize.CORNER_PANEL)          // corner radius
-.baseShadow()                                  // card shadow
-.baseBorder(color: TTView.lineDefColor.toColor(), width: TTSize.H_LINEVIEW, radius: TTSize.CORNER_RADIUS)
-.skeleton(active: isLoading)                    // shimmer loading
-.onTapHandle { action() }                      // tap gesture
-.sizeSquare(width: 50)                        // square frame
-.hidden(someCondition)                        // conditional hide
-.maxWidth()                                  // fill width
-.maxWidth(alignment: .leading)                // fill width, left align
-.maxHeight()                                 // fill height
-.lineLimit(2)                                // line limit on text
-.accessibilityLabel("...")                   // accessibility
-.accessibilityElement(children: .combine)    // combine children
-```
+- Text: `TTBaseSUIText`
+- Button: `TTBaseSUIButton`
+- Layout: `TTBaseSUIVStack`, `TTBaseSUIHStack`, `TTBaseSUIZStack`, `TTBaseSUIGroup`, `TTBaseSUIView`
+- Image: `TTBaseSUIImage`, `TTBaseSUICircleImage`, `TTBaseSUIAsyncImage` when deployment supports it
+- Dividers/spacers: `TTBaseSUIHorizontalDividerView`, `TTBaseSUIVerticalDividerView`, `TTBaseSUISpacer`
+- Form controls: `TTBaseSUITextField`, `TTBaseSUIToggle`, `TTBaseSUISlider`
 
 ## Rules
 
-1. **iOS 14+ ONLY** — no iOS 15+/16+/17+ APIs
-2. **TTBaseSUI components** — no native `Text`, `Button`, `VStack`, `HStack`, `ZStack`
-3. **Data via `let` properties**, callbacks via `var` closures
-4. **TTView/TTSize/TTFont tokens** — never hardcode colors/sizes
-5. **Card chain**: `.pAll()` → `.bg()` → `.corner()` → `.baseShadow()`
-6. **PreviewProvider** at bottom, NOT `#Preview`
-7. Place **screen-specific** views in `{Feature}/CustomViews/`
-8. Place **shared** views in `SharedViews/` or top-level `CustomViews/`
-9. Each view in its **own file**
-10. **Accessibility** — `.accessibilityLabel()` on all interactive views
+1. Use TTBaseSUI components instead of native `Text`, `Button`, `VStack`, `HStack`, and `ZStack`.
+2. Pass data through `let` properties and actions through closure properties.
+3. Use `TTView`, `TTSize`, and `TTFont` tokens instead of hardcoded styling.
+4. Use the card chain `.pAll()` -> `.bg()` -> `.corner()` -> `.baseShadow()`.
+5. Use `PreviewProvider`, not `#Preview`.
+6. Place screen-specific views in the feature `CustomViews` folder.
+7. Place shared views in a shared `CustomViews` or `SharedViews` folder following the local project structure.
+8. Keep each reusable view in its own file when it is reused or complex.
+9. Add accessibility labels to interactive custom views.
+10. Keep visual output faithful to the provided image or written requirements.
 
-## Post-Implementation Verification (MANDATORY)
+## Verification
 
-After all files are generated, **run Phase 6 verification**:
+After implementation:
 
-1. **Add files to Xcode project** — ensure each `.swift` is registered in `project.pbxproj`
-2. **Run verification**:
-   ```bash
-   bash ttb-skill-shared/scripts/ttb-verify.sh
-   ```
-3. **Check compliance**:
-   ```bash
-   bash ttb-skill-shared/scripts/ttb-compliance-check.sh
-   ```
-4. **Skill is complete only when** `BUILD SUCCEEDED`
-
-**Anti-Loop**: Max 3 build attempts. 3 failures — STOP, document errors.
-
-For full FCR 7-Dimension scoring, see `ttb-skill-shared/phases/ttb-phase-verify.md`.
+1. Register new Swift files in the Xcode target.
+2. Run the repository build verification command or shared `ttb-verify.sh` script when present.
+3. Run the shared compliance check script when present.
+4. Complete only when the build succeeds, or report exact blockers after three repair attempts.

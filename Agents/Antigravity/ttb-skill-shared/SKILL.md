@@ -14,6 +14,25 @@ tags: ["shared", "routing", "workflow", "rules", "phases", "refs", "verification
 > Shared resources referenced by ALL TTBaseUIKit skill sets.
 > Rules | Phases | References | Anti-Patterns | Standards | Scripts
 
+## Mandatory Preflight Execution Gate
+
+Before this skill generates code, refactors, migrates, modifies files, creates architecture, updates UI/navigation, changes dependencies, updates workflows, or changes business logic, run the shared gate:
+
+- `ttb-skill-shared/fragments/ttb-preflight-execution-gate.frag.md`
+- `ttb-skill-shared/templates/ttb-clarification-survey.md` when confidence is below threshold
+
+Required phase order: Requirement Analysis -> Context Validation -> Ambiguity Detection -> Missing Information Detection -> Survey / Clarification -> Confidence Evaluation -> Execution Approval.
+
+Execution thresholds:
+
+| Confidence | Action |
+|------------|--------|
+| `90-100` | Execute directly and state key assumptions |
+| `70-89` | Execute only with documented low-risk assumptions |
+| `<70` | Do not execute; ask a concise survey first |
+
+Cap confidence at `69` when target module, architecture direction, UIKit/SwiftUI choice, navigation behavior, API/business logic, localization format, state management, dependency info, or ownership is unclear. Parse English, Vietnamese, mixed-language, diacritic-free Vietnamese, and light typos before scoring.
+
 ## Directory Structure
 
 ```
@@ -26,7 +45,7 @@ ttb-skill-shared/
 │   ├── intent-router.md                  ← human-readable routing contract
 │   └── router-examples.md                ← routing regression examples
 ├── workflows/
-│   └── ttb-workflow-standard.md          ← state, retry, fallback, verification contract
+│   └── ttb-workflow-standard.md          ← preflight, state, retry, fallback, verification contract
 ├── rules/
 │   ├── ttb-rule-anti-patterns.md        ← Component, pattern, performance anti-patterns
 │   ├── ttb-rule-coding-standards.md        ← File header, imports, MARK, naming
@@ -47,8 +66,13 @@ ttb-skill-shared/
 │   ├── ttb-ref-swiftui-architecture.md      ← Clean Architecture for SwiftUI
 │   └── ttb-ref-navigation.md             ← Navigation pattern reference (NEW)
 ├── fragments/
+│   ├── ttb-preflight-execution-gate.frag.md ← requirement/context/ambiguity/confidence gate
 │   ├── ttb-iron-laws.frag.md            ← 11 mandatory Iron Laws
 │   └── ttb-marker.frag.md               ← Code generation marker
+├── templates/
+│   ├── SKILL.md.template                ← new skill template
+│   ├── prompt.md.template               ← new prompt template
+│   └── ttb-clarification-survey.md      ← standardized clarification surveys
 └── scripts/
     ├── ttb-verify.sh                     ← Post-build verification
     ├── ttb-compliance-check.sh             ← grep-based compliance checks
@@ -89,6 +113,30 @@ After completing any work:
 ruby .agent/skills/ttbase-swiftui/scripts/add_to_xcode_project.rb "{plan_file_path}"
 ```
 
+## Preflight Execution Gate (All Skills)
+
+Every Antigravity skill and prompt must run `fragments/ttb-preflight-execution-gate.frag.md` before code generation, refactor, migration, file modification, architecture creation, workflow update, UI update, navigation update, or business logic change.
+
+Required phases:
+
+1. Requirement Analysis
+2. Context Validation
+3. Ambiguity Detection
+4. Missing Information Detection
+5. Survey / Clarification Phase
+6. Confidence Evaluation
+7. Execution Approval
+
+Execution thresholds:
+
+| Confidence | Action |
+|------------|--------|
+| `90-100` | Execute directly and state assumptions |
+| `70-89` | Execute only with low-risk warning assumptions |
+| `<70` | Stop and ask a survey from `templates/ttb-clarification-survey.md` |
+
+The gate must understand English, Vietnamese, mixed-language prompts, diacritic-free Vietnamese, and light typos such as `tao man login`, `create login screen`, `màn login có api chưa`, and `push qua detail screen`.
+
 ## Shared Resources
 
 Referenced by ALL skill sets. Load once per session:
@@ -99,6 +147,8 @@ Referenced by ALL skill sets. Load once per session:
 | Intent Manifest | `routing/intent-manifest.json` | runtime | Machine-readable routes and chains |
 | Multilingual Aliases | `routing/multilingual-aliases.json` | runtime | EN/VI normalization, typos, synonyms |
 | Workflow Standard | `workflows/ttb-workflow-standard.md` | ~500 | Shared state/retry/fallback contract |
+| Preflight Execution Gate | `fragments/ttb-preflight-execution-gate.frag.md` | ~900 | Requirement validation, ambiguity detection, confidence scoring, execution gate |
+| Clarification Survey Template | `templates/ttb-clarification-survey.md` | ~700 | Standard multiple-choice survey patterns |
 | Iron Laws | `fragments/ttb-iron-laws.frag.md` | ~240 | 11 mandatory laws |
 | Marker | `fragments/ttb-marker.frag.md` | ~40 | File header template |
 | Verify Script | `scripts/ttb-verify.sh` | — | Post-build verification |
@@ -130,7 +180,8 @@ Referenced by ALL skill sets. Load once per session:
 3. Use confidence thresholds from `routing/intent-router.md`.
 4. Preserve legacy `/tts-*` aliases by mapping them to canonical `/ttb-*` commands.
 5. Pass execution state using `workflows/ttb-workflow-standard.md`.
-6. Ask one focused clarification only when confidence is below auto-route threshold.
+6. Run the preflight execution gate before any implementation or file modification.
+7. Ask a focused survey when execution confidence is below `70`, critical requirements are missing, or ambiguity is high.
 
 ## Routing Contract
 
@@ -145,6 +196,10 @@ confidence:
   auto_route: ">= 0.78"
   clarify: "0.55-0.77"
   fallback: "< 0.55"
+executionConfidence:
+  execute: "90-100"
+  execute_with_assumptions: "70-89"
+  survey_required: "<70"
 fallback:
   default: "Load shared resources and ask for goal/framework/artifact."
 ```

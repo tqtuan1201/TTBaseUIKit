@@ -57,6 +57,37 @@ Confidence policy:
 | `0.55-0.77` | Ask one focused clarification |
 | `< 0.55` | Load shared resources and ask for goal/framework/artifact |
 
+## Mandatory Preflight Execution Gate
+
+Before any skill generates code, refactors, migrates, modifies files, creates architecture, updates workflows, updates UI, updates navigation, changes dependencies, or changes business logic, it must run:
+
+- `ttb-skill-shared/fragments/ttb-preflight-execution-gate.frag.md`
+- `ttb-skill-shared/templates/ttb-clarification-survey.md` when clarification is required
+
+The gate is mandatory for every root skill, domain skill, prompt, workflow, and template.
+
+Required phase order:
+
+1. Requirement Analysis
+2. Context Validation
+3. Ambiguity Detection
+4. Missing Information Detection
+5. Survey / Clarification Phase
+6. Confidence Evaluation
+7. Execution Approval
+
+Execution confidence policy:
+
+| Confidence | Action |
+|------------|--------|
+| `90-100` | Execute directly and state key assumptions |
+| `70-89` | Execute only when assumptions are low-risk and explicitly documented |
+| `<70` | Do not execute; ask a concise multiple-choice survey first |
+
+Architecture-critical or business-critical uncertainty caps execution confidence at `69`. Examples: unknown target module, unclear UIKit vs SwiftUI direction, missing API contract, unclear navigation behavior, incomplete business logic, unclear localization format, or conflict with existing project conventions.
+
+Multilingual requirement parsing is required. Treat Vietnamese, English, mixed-language prompts, diacritic-free Vietnamese, and light typos as valid intent signals, including `tao man login`, `create login screen`, `màn login có api chưa`, and `push qua detail screen`.
+
 ## Architecture
 
 ```
@@ -127,7 +158,7 @@ TTBaseNavigationLink(destination: {
         .bg(byDef: TTView.viewBgCellColor.toColor())
         .corner(byDef: TTSize.CORNER_PANEL)
         .baseShadow()
-})
+}, isAnimation: true)
 ```
 
 ## Three-Tier SwiftUI Approach

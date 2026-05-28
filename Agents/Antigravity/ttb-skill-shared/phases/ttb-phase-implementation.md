@@ -10,13 +10,18 @@ version: "2.0.0"
 
 Build the feature according to spec, following TTBaseUIKit patterns, with xcodebuild verification.
 
+Implementation is blocked unless `fragments/ttb-preflight-execution-gate.frag.md` has produced `execute` or `execute-with-assumptions`.
+
 ## Input
 - Feature Spec output
 - Approved spec
+- Preflight gate decision with confidence `>=70`
 
 ## Steps
 
 ### 1. Build in Order
+Before writing any file, verify that target module, file locations, architecture pattern, navigation flow, API/business logic, localization format, state management, dependency impact, and ownership are known or safely documented as assumptions.
+
 Build files in dependency order:
 1. **Models** — no dependencies
 2. **RequestData** — depends on Models
@@ -86,6 +91,8 @@ plans/YYYY-MM-DD-{feature}/plan.md
 - One file at a time, verify each
 - Never skip xcodebuild verification
 - Never commit broken code
+- Never implement when preflight confidence is below `70`
+- Never invent architecture, navigation, or business logic that was not validated by the spec or existing project conventions
 
 ## Post-Implementation Verification (MANDATORY)
 

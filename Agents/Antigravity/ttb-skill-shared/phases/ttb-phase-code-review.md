@@ -10,6 +10,8 @@ version: "2.0.0"
 
 Review generated code for FCR compliance across 7 dimensions.
 
+Also verify that the implementation followed the preflight gate: no unapproved architecture changes, navigation changes, business logic changes, dependency changes, or convention changes were introduced after confidence scoring.
+
 ## FCR 7-Dimension Audit
 
 | # | Dimension | Weight | Check |
@@ -72,6 +74,13 @@ Review generated code for FCR compliance across 7 dimensions.
 - [ ] Naming follows convention
 - [ ] No dead code
 - [ ] File < 200 lines
+
+### Preflight Compliance
+- [ ] Requirement analysis and task type were identified before implementation
+- [ ] Impacted files/modules matched the final diff
+- [ ] Missing critical information was clarified or documented as low-risk assumptions
+- [ ] Confidence threshold was respected
+- [ ] No new architecture/navigation/business logic was invented without approval
 
 ## Output Format
 

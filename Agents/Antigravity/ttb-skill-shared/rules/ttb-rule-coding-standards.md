@@ -80,7 +80,7 @@ var body: some View {
         isHiddenTabbar: true,
         backAction: {}
     ) {
-        TTBaseSUIVStack(alignment: .center, spacing: TTSize.P_CONS_DEF, bg: XView.viewBgColor.toColor()) {
+        TTBaseSUIVStack(alignment: .center, spacing: TTSize.P_CONS_DEF, bg: TTView.viewBgColor.toColor()) {
             if vm.isEmpty {
                 emptyView
             } else {
@@ -93,9 +93,9 @@ var body: some View {
 
 private var emptyView: some View {
     TTBaseSUIVStack(alignment: .center, spacing: TTSize.P_CONS_DEF) {
-        TTBaseSUIImage(withSystemName: "tray", iconColor: XView.iconColor.toColor(), contentMode: .fit)
+        TTBaseSUIImage(withSystemName: "tray", iconColor: TTView.iconColor.toColor(), contentMode: .fit)
             .sizeSquare(width: 80)
-        TTBaseSUIText(withBold: .TITLE, text: XText("App.ProductList.Empty"), align: .center, color: XView.textDefColor.toColor())
+        TTBaseSUIText(withBold: .TITLE, text: XText("App.ProductList.Empty"), align: .center, color: TTView.textDefColor.toColor())
     }
     .maxWidth().maxHeight()
     .pAll(TTSize.P_L * 2)
@@ -110,10 +110,10 @@ private var productGrid: some View {
                 }, label: {
                     ProductCardView(product: product)
                         .pAll(TTSize.P_CONS_DEF)
-                        .bg(byDef: XView.viewBgCellColor.toColor())
+                        .bg(byDef: TTView.viewBgCellColor.toColor())
                         .corner(byDef: TTSize.CORNER_PANEL)
                         .baseShadow()
-                })
+                }, isAnimation: true)
             }
         }
         .pAll(TTSize.P_CONS_DEF)
@@ -154,9 +154,10 @@ SUIBaseView(
     title: XText("App.Module.Nav.Title"),
     type: .DEFAULT,                        // .DEFAULT | .INFO | .NO_NAV
     isHiddenTabbar: true,                 // Hide tabbar when entering screen
-    backAction: { /* optional */ },
-    @ViewBuilder content: () -> Content
-)
+    backAction: {}
+) {
+    // Screen content
+}
 ```
 
 ### TTBaseNavigationLink Convention
@@ -168,10 +169,10 @@ TTBaseNavigationLink(destination: {
 }, label: {
     ItemCardView(item: item)
         .pAll(TTSize.P_CONS_DEF)
-        .bg(byDef: XView.viewBgCellColor.toColor())
+        .bg(byDef: TTView.viewBgCellColor.toColor())
         .corner(byDef: TTSize.CORNER_PANEL)
         .baseShadow()
-})
+}, isAnimation: true)
 ```
 
 ## Spacing
@@ -208,7 +209,7 @@ When chaining modifiers, follow this order:
 ```swift
 TTBaseSUIView { ... }
     .pAll(TTSize.P_CONS_DEF)           // 1. Padding
-    .bg(byDef: XView.viewBgCellColor.toColor())  // 2. Background
+    .bg(byDef: TTView.viewBgCellColor.toColor()) // 2. Background
     .corner(byDef: TTSize.CORNER_PANEL)           // 3. Corner radius
     .baseShadow()                      // 4. Shadow
     .onTapHandle { action() }         // 5. Interaction

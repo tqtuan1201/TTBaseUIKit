@@ -17,6 +17,7 @@ After any skill workflow generates or modifies code, verify:
 2. All code changes **comply with project rules** (Iron Laws, anti-patterns, TTBaseUIKit patterns)
 3. No **regression** was introduced to existing code
 4. All **xcodebuild errors** are resolved before reporting completion
+5. The final changes do not exceed the approved preflight scope, assumptions, or confidence gate
 
 ## When
 
@@ -26,6 +27,8 @@ Trigger **automatically** after:
 - `/ttb-bugfix` skill completes (fix applied)
 - `/ttb-refactor` skill completes (migration done)
 - `/ttb-audit` skill completes (fixes applied)
+
+Before verification starts, compare changed files against the preflight `impactedFiles`/`impactedModules`. If new scope appeared during implementation, document it and re-run the preflight gate before continuing.
 
 ## 5-Layer Verification Stack
 
