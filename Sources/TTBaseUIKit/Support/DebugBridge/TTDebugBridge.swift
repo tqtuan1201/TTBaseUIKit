@@ -588,11 +588,9 @@ public final class TTDebugBridge {
     // MARK: - Private: State (queue)
     
     private func _updateState(_ s: BridgeState) {
-        #if DEBUG
-        let isChanged = (self.state != s)
-        #endif
         
-        state = s
+        let isChanged = (self.state != s)
+        self.state = s
         ConnectionDiagnostics.shared.recordStateChange(s)
         DispatchQueue.main.async { [weak self] in
             self?.onStateChange?(s)
