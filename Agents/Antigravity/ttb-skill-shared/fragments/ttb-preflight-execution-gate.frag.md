@@ -1,8 +1,8 @@
 ---
 name: "ttb-preflight-execution-gate"
-description: "Reusable preflight validation, ambiguity detection, survey, confidence scoring, and execution approval gate for every Antigravity skill."
-version: "1.0.0"
-date_updated: "2026-05-22"
+description: "Reusable preflight validation, cross-functional analysis, ambiguity detection, survey, confidence scoring, and execution approval gate for every Antigravity skill."
+version: "1.1.0"
+date_updated: "2026-05-30"
 risk: "safe"
 source: "internal"
 tags: ["preflight", "requirements", "clarification", "confidence", "architecture", "multilingual"]
@@ -16,8 +16,9 @@ This gate is mandatory before any AI action that generates code, refactors, migr
 
 1. **Requirement Analysis**
    - Detect the real user intent, requested output, and business goal.
-   - Classify task type: `generate`, `refactor`, `migration`, `fix`, `architecture update`, `UI update`, `navigation update`, `backend update`, `dependency update`, `workflow update`.
+   - Classify task type: `generate`, `feature update`, `new feature`, `refactor`, `migration`, `fix`, `architecture update`, `UI update`, `navigation update`, `backend update`, `dependency update`, `workflow update`.
    - Identify impacted files, modules, dependencies, architecture constraints, framework conventions, coding standards, and project-specific rules.
+   - For feature updates, new feature development, and bug fixes, also run `ttb-skill-shared/fragments/ttb-cross-functional-analysis-gate.frag.md`.
 
 2. **Context Validation**
    - Inspect local project context before implementation when files/modules may be affected.
@@ -36,9 +37,12 @@ This gate is mandatory before any AI action that generates code, refactors, migr
    - If confidence is low, requirements are incomplete, or ambiguity is high, ask a concise survey before implementation.
    - Prefer grouped multiple-choice questions.
    - Ask only architecture-critical, behavior-critical, or UX-critical questions that cannot be safely inferred from the codebase.
+   - After analysis for feature/update/bug tasks, ask at least 5 value-expansion questions unless the user explicitly constrained scope to a mechanical edit.
+   - If the request is ambiguous or incomplete, stop before design/development and ask at least 6 clarification questions covering business, UX, data, API, security, performance, edge cases, and real production scenarios.
 
 6. **Confidence Evaluation**
    - Score confidence from 0 to 100 using the rubric below.
+   - Cap the final score at `100` after adding positive signals and subtracting risks.
    - Include the score and assumptions in the plan or execution notes.
 
 7. **Execution Approval**
@@ -55,6 +59,7 @@ This gate is mandatory before any AI action that generates code, refactors, migr
 | Target module/files identified | +15 |
 | Existing architecture and framework convention validated | +15 |
 | UI/navigation/state/API behavior specified or discoverable | +15 |
+| Cross-functional impacts evaluated for feature/update/bug work | +10 |
 | Localization/naming/reusable component rules known | +10 |
 | Dependencies and verification path known | +10 |
 | No conflicting requirements | +10 |
@@ -67,6 +72,7 @@ Subtract points:
 | Missing target module or file location | -15 |
 | Unclear navigation or ownership | -15 |
 | Incomplete API/business logic | -20 |
+| Missing cross-functional analysis for feature/update/bug work | -15 |
 | Ambiguous UIKit vs SwiftUI vs Native SwiftUI | -15 |
 | Unknown project convention after inspection | -10 |
 | Conflicting requirements | -25 |
@@ -75,6 +81,7 @@ Subtract points:
 
 - Detect existing architecture before implementation.
 - Reuse existing components, services, coordinators, view models, routing, localization, tokens, naming, folder structure, and dependency injection style.
+- Evaluate implementation options across business value, architecture, UI/UX, performance, scalability, maintainability, security, testing, and operations before recommending a solution for non-trivial feature/update/bug work.
 - Do not invent a new architecture or replace a project convention without explicit user confirmation.
 - Do not generate code that violates TTBaseUIKit, TTViewCodable, TTBaseSUI, SUIBaseView, TTBaseNavigationLink, iOS 14, localization, or verification rules.
 - Large refactors, migrations, navigation changes, and business logic changes require a scoped impact summary before editing files.
@@ -112,6 +119,10 @@ preflight:
   missingInformation: string[]
   ambiguities: string[]
   assumptions: string[]
+  crossFunctionalAnalysisRequired: boolean
+  optionsConsidered: string[]
+  valueExpansionQuestions: string[]
+  clarificationQuestions: string[]
   confidence: 0-100
   gateDecision: "execute" | "execute-with-assumptions" | "survey-required"
 ```

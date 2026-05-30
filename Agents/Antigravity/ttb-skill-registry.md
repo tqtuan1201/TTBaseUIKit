@@ -1,8 +1,8 @@
 ---
 name: "ttb-skill-registry"
-description: "Canonical registry for TTBaseUIKit Antigravity skills, workflows, routing, phases, rules, references, scripts, and templates."
-version: "2.2.0"
-date_updated: "2026-05-22"
+description: "Canonical registry for TTBaseUIKit Antigravity skills, workflows, routing, cross-functional analysis, phases, rules, references, scripts, and templates."
+version: "2.3.0"
+date_updated: "2026-05-30"
 risk: "safe"
 source: "internal"
 tags: ["registry", "routing", "skills", "workflows", "ttbaseuikit", "antigravity"]
@@ -10,7 +10,7 @@ tags: ["registry", "routing", "skills", "workflows", "ttbaseuikit", "antigravity
 
 # TTBaseUIKit Antigravity Skill Registry
 
-**Version**: 2.2.0 | **Date**: 2026-05-22
+**Version**: 2.3.0 | **Date**: 2026-05-30
 
 This is the canonical registry for the Antigravity agent system. It preserves every existing `/ttb-*` command while adding semantic routing metadata for English, Vietnamese, mixed-language prompts, typo-tolerant matching, and workflow chaining.
 
@@ -26,6 +26,7 @@ This is the canonical registry for the Antigravity agent system. It preserves ev
 | Intent router | `ttb-skill-shared/routing/intent-router.md` | Human-readable routing contract |
 | Workflow contract | `ttb-skill-shared/workflows/ttb-workflow-standard.md` | Reusable preflight/state/retry pattern |
 | Preflight gate | `ttb-skill-shared/fragments/ttb-preflight-execution-gate.frag.md` | Requirement analysis, ambiguity detection, confidence gating |
+| Cross-functional analysis gate | `ttb-skill-shared/fragments/ttb-cross-functional-analysis-gate.frag.md` | Product/BA/UX/architecture/dev/QA analysis, option exploration, question gates |
 | Clarification survey | `ttb-skill-shared/templates/ttb-clarification-survey.md` | Standard survey blocks for missing critical information |
 
 ## Canonical Commands
@@ -72,6 +73,8 @@ Execution confidence thresholds:
 
 Every command must run the preflight gate before code generation, refactor, migration, file modification, architecture creation, workflow update, UI/navigation update, dependency update, or business logic change.
 
+For feature updates, new feature development, and bug fixes, every command must also apply `ttb-cross-functional-analysis-gate.frag.md`: analyze as Product Owner, Business Analyst, UX/UI Designer, Solution Architect, Senior Developer, and QA; compare alternatives across business, architecture, UI/UX, performance, scalability, maintainability, security, testing, and operations; ask at least 5 value-expansion questions after analysis; and ask at least 6 blocker clarification questions when requirements are ambiguous or incomplete.
+
 ## Skill Inventory
 
 ### Core Development
@@ -102,6 +105,7 @@ Every command must run the preflight gate before code generation, refactor, migr
 | Router examples | `ttb-skill-shared/routing/router-examples.md` | `on-demand` | Routing regression examples |
 | Workflow standard | `ttb-skill-shared/workflows/ttb-workflow-standard.md` | `domain` | State, retry, fallback, verification contract |
 | Preflight gate | `ttb-skill-shared/fragments/ttb-preflight-execution-gate.frag.md` | `always` | Requirement validation, ambiguity detection, confidence scoring, execution approval |
+| Cross-functional analysis gate | `ttb-skill-shared/fragments/ttb-cross-functional-analysis-gate.frag.md` | `always` | Multi-role analysis, option comparison, value-expansion and clarification question gates |
 | Clarification survey | `ttb-skill-shared/templates/ttb-clarification-survey.md` | `on-demand` | Multiple-choice clarification patterns |
 | Iron Laws | `ttb-skill-shared/fragments/ttb-iron-laws.frag.md` | `always` | 11 mandatory laws |
 | Marker | `ttb-skill-shared/fragments/ttb-marker.frag.md` | `always` | Generated file header |

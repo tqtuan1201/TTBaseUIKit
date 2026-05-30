@@ -1,5 +1,17 @@
 # Antigravity TTBaseUIKit Skills — Version History
 
+## v2.3.0 — 2026-05-30
+
+### Cross-Functional Analysis + Question Gate Upgrade
+
+- Added reusable cross-functional analysis gate:
+  - `ttb-skill-shared/fragments/ttb-cross-functional-analysis-gate.frag.md`
+- Upgraded preflight/workflow/survey resources to require Product Owner, Business Analyst, UX/UI Designer, Solution Architect, Senior Developer, and QA analysis for feature updates, new features, and bug fixes.
+- Added option exploration across business value, architecture, UI/UX, performance, scalability, maintainability, security, testing, and operations.
+- Added mandatory value-expansion questions: at least 5 questions after analysis to improve flows, interactions, adjacent value, observability, accessibility, and QA coverage.
+- Added ambiguity clarification gate: at least 6 blocker questions before design/development when requirements are unclear or incomplete.
+- Updated root, shared, UIKit, SwiftUI, native SwiftUI component, bugfix, refactor, audit, and init skill metadata to reference the new gate.
+
 ## v2.2.0 — 2026-05-22
 
 ### Skills + Workflows Routing Upgrade

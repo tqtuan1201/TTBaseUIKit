@@ -27,7 +27,7 @@ trap cleanup EXIT
 
 echo "========================================"
 echo "  Antigravity Skills — Codex Installer"
-echo "  Version 2.2.0"
+echo "  Version 2.3.0"
 echo "========================================"
 echo ""
 echo "Installation folder: $SCRIPT_DIR"
@@ -139,7 +139,7 @@ for file in "SKILL.md" "README.md" "README-VI.md" "VERSION.md" "Tutorial.md" "Tu
                             echo "description: Antigravity tutorial — when to use each skill, prompt examples, practical guide. Vietnamese version."
                             ;;
                     esac
-                    echo "version: \"2.2.0\""
+                    echo "version: \"2.3.0\""
                     echo "---"
                     echo ""
                     cat "$src"
@@ -182,4 +182,4 @@ echo "  - \$HOME/.agents/skills/  (USER level — this install)"
 echo "  - .agents/skills/        (REPO level)"
 echo "  - /etc/codex/skills/      (ADMIN level)"
 echo ""
-echo "v2.2.0 — semantic routing, EN/VI aliases, workflow standard, 11 Iron Laws"
+echo "v2.3.0 — cross-functional analysis gate, value-expansion questions, ambiguity clarification gate"

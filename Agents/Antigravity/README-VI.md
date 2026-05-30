@@ -1,17 +1,17 @@
 ---
 name: "antigravity-readme-vi"
-description: "Vietnamese README — tổng quan hệ thống TTBaseUIKit Antigravity agent v2.2.0."
-version: "2.2.0"
-date_updated: "2026-05-22"
+description: "Vietnamese README — tổng quan hệ thống TTBaseUIKit Antigravity agent v2.3.0."
+version: "2.3.0"
+date_updated: "2026-05-30"
 ---
 
 # Antigravity — Bộ Agent AI cho TTBaseUIKit
 
-**Version**: 2.2.0 | **Min iOS**: 14+ | **Architecture**: MVVM-C
+**Version**: 2.3.0 | **Min iOS**: 14+ | **Architecture**: MVVM-C
 
 ## Tổng quan
 
-Antigravity là hệ thống skill agent AI để xây dựng ứng dụng iOS với **TTBaseUIKit** (UIKit) và **TTBaseSUI** (SwiftUI wrapper). Hệ thống enforce strict workflow 7 phases, 11 Luật Sắt, FCR 7-Dimension compliance scoring, và semantic routing cho prompt tiếng Việt/tiếng Anh.
+Antigravity là hệ thống skill agent AI để xây dựng ứng dụng iOS với **TTBaseUIKit** (UIKit) và **TTBaseSUI** (SwiftUI wrapper). Hệ thống enforce strict workflow 7 phases, 11 Luật Sắt, FCR 7-Dimension compliance scoring, phân tích sản phẩm đa vai trò, và semantic routing cho prompt tiếng Việt/tiếng Anh.
 
 ## Bắt đầu nhanh
 
@@ -321,6 +321,8 @@ Agents/Antigravity/
     │   ├── ttb-compliance-check.sh       # grep-based compliance checks
     │   └── ttb-precheck.sh              # Pre-skill prerequisite gate
     ├── fragments/
+    │   ├── ttb-preflight-execution-gate.frag.md
+    │   ├── ttb-cross-functional-analysis-gate.frag.md
     │   ├── ttb-iron-laws.frag.md        # 11 Luật Sắt bắt buộc
     │   └── ttb-marker.frag.md           # Code generation marker
     ├── rules/

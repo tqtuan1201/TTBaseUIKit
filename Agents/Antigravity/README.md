@@ -1,17 +1,17 @@
 ---
 name: "antigravity-readme"
-description: "English README — overview of TTBaseUIKit Antigravity agent system v2.2.0. Vietnamese version: README-VI.md."
-version: "2.2.0"
-date_updated: "2026-05-22"
+description: "English README — overview of TTBaseUIKit Antigravity agent system v2.3.0. Vietnamese version: README-VI.md."
+version: "2.3.0"
+date_updated: "2026-05-30"
 ---
 
 # TTBaseUIKit Antigravity Agent System
 
-**Version**: 2.2.0 | **Min iOS**: 14+ | **Architecture**: MVVM-C
+**Version**: 2.3.0 | **Min iOS**: 14+ | **Architecture**: MVVM-C
 
 ## Overview
 
-Antigravity is an AI agent skill system for building iOS apps with **TTBaseUIKit** (UIKit) and **TTBaseSUI** (SwiftUI wrapper). It enforces a strict development workflow with 7 phases, 11 Iron Laws, FCR 7-Dimension compliance scoring, and semantic routing for English/Vietnamese prompts.
+Antigravity is an AI agent skill system for building iOS apps with **TTBaseUIKit** (UIKit) and **TTBaseSUI** (SwiftUI wrapper). It enforces a strict development workflow with 7 phases, 11 Iron Laws, FCR 7-Dimension compliance scoring, cross-functional product analysis, and semantic routing for English/Vietnamese prompts.
 
 ## Quick Start
 
@@ -321,6 +321,8 @@ Agents/Antigravity/
     │   ├── ttb-compliance-check.sh        # grep-based compliance checks
     │   └── ttb-precheck.sh               # Pre-skill prerequisite gate
     ├── fragments/
+    │   ├── ttb-preflight-execution-gate.frag.md
+    │   ├── ttb-cross-functional-analysis-gate.frag.md
     │   ├── ttb-iron-laws.frag.md         # 11 mandatory Iron Laws
     │   └── ttb-marker.frag.md            # Code generation marker
     ├── rules/

@@ -1,8 +1,8 @@
 ---
 name: "ttb-skill-shared"
-description: "Shared resources for all TTBaseUIKit skills: routing, workflows, rules, phases, references, anti-patterns, coding standards, and verification."
-version: "2.2.0"
-date_updated: "2026-05-22"
+description: "Shared resources for all TTBaseUIKit skills: routing, workflows, cross-functional analysis, rules, phases, references, anti-patterns, coding standards, and verification."
+version: "2.3.0"
+date_updated: "2026-05-30"
 risk: "safe"
 source: "internal"
 loadLevel: "always"
@@ -19,6 +19,7 @@ tags: ["shared", "routing", "workflow", "rules", "phases", "refs", "verification
 Before this skill generates code, refactors, migrates, modifies files, creates architecture, updates UI/navigation, changes dependencies, updates workflows, or changes business logic, run the shared gate:
 
 - `ttb-skill-shared/fragments/ttb-preflight-execution-gate.frag.md`
+- `ttb-skill-shared/fragments/ttb-cross-functional-analysis-gate.frag.md` for feature updates, new features, and bug fixes
 - `ttb-skill-shared/templates/ttb-clarification-survey.md` when confidence is below threshold
 
 Required phase order: Requirement Analysis -> Context Validation -> Ambiguity Detection -> Missing Information Detection -> Survey / Clarification -> Confidence Evaluation -> Execution Approval.
@@ -32,6 +33,8 @@ Execution thresholds:
 | `<70` | Do not execute; ask a concise survey first |
 
 Cap confidence at `69` when target module, architecture direction, UIKit/SwiftUI choice, navigation behavior, API/business logic, localization format, state management, dependency info, or ownership is unclear. Parse English, Vietnamese, mixed-language, diacritic-free Vietnamese, and light typos before scoring.
+
+For feature updates, new feature development, and bug fixes, always apply cross-functional analysis as Product Owner, Business Analyst, UX/UI Designer, Solution Architect, Senior Developer, and QA. Compare implementation options across business, architecture, UI/UX, performance, scalability, maintainability, security, testing, and operations; ask at least 5 value-expansion questions after analysis. If requirements are ambiguous/incomplete, ask at least 6 blocker clarification questions before design/development.
 
 ## Directory Structure
 
@@ -67,6 +70,7 @@ ttb-skill-shared/
 │   └── ttb-ref-navigation.md             ← Navigation pattern reference (NEW)
 ├── fragments/
 │   ├── ttb-preflight-execution-gate.frag.md ← requirement/context/ambiguity/confidence gate
+│   ├── ttb-cross-functional-analysis-gate.frag.md ← product/BA/UX/architecture/dev/QA analysis gate
 │   ├── ttb-iron-laws.frag.md            ← 11 mandatory Iron Laws
 │   └── ttb-marker.frag.md               ← Code generation marker
 ├── templates/
@@ -232,5 +236,5 @@ The following tokens **DO NOT EXIST** in TTBaseUIKit:
 
 ---
 
-**Version**: 2.2.0 | **Date**: 2026-05-22
-**Changelog**: v2.2.0 — Added routing and workflow directories, canonical registry shim, semantic EN/VI routing contract, aliases, examples, and shared state/retry/fallback workflow. v2.0.0 — Added ttb-ref-navigation.md to refs. Added Iron Law #5 (SUIBaseView) and #6 (TTBaseNavigationLink). Added critical token warnings. Added ttb-rule-comments.md to index.
+**Version**: 2.3.0 | **Date**: 2026-05-30
+**Changelog**: v2.3.0 — Added cross-functional product analysis gate, option exploration, 5 value-expansion questions, and 6-question ambiguity clarification gate. v2.2.0 — Added routing and workflow directories, canonical registry shim, semantic EN/VI routing contract, aliases, examples, and shared state/retry/fallback workflow. v2.0.0 — Added ttb-ref-navigation.md to refs. Added Iron Law #5 (SUIBaseView) and #6 (TTBaseNavigationLink). Added critical token warnings. Added ttb-rule-comments.md to index.

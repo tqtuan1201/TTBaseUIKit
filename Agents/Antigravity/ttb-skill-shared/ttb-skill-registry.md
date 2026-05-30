@@ -1,8 +1,8 @@
 ---
 name: "ttb-skill-shared-registry"
 description: "Backward-compatible registry shim. The canonical Antigravity skill registry now lives at ../ttb-skill-registry.md."
-version: "2.2.0"
-date_updated: "2026-05-22"
+version: "2.3.0"
+date_updated: "2026-05-30"
 risk: "safe"
 source: "internal"
 tags: ["registry", "compatibility", "shim", "antigravity"]
@@ -38,6 +38,7 @@ This file remains for backward compatibility because older skills and installers
 | Routing examples | `routing/router-examples.md` |
 | Workflow state/retry/fallback | `workflows/ttb-workflow-standard.md` |
 | Preflight execution gate | `fragments/ttb-preflight-execution-gate.frag.md` |
+| Cross-functional analysis gate | `fragments/ttb-cross-functional-analysis-gate.frag.md` |
 | Clarification surveys | `templates/ttb-clarification-survey.md` |
 
 ## Compatibility Note

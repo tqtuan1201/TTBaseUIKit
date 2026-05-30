@@ -1,8 +1,8 @@
 ---
 name: "ttb-skill-audit"
 description: "Code audits for TTBaseUIKit apps: performance, accessibility, localization. FCR compliance scoring."
-version: "2.2.0"
-date_updated: "2026-05-22"
+version: "2.3.0"
+date_updated: "2026-05-30"
 risk: "safe"
 source: "internal"
 loadLevel: "on-demand"
@@ -19,6 +19,7 @@ tags: ["audit", "performance", "accessibility", "localization", "fcr", "routing"
 Before this skill generates code, refactors, migrates, modifies files, creates architecture, updates UI/navigation, changes dependencies, updates workflows, or changes business logic, run the shared gate:
 
 - `ttb-skill-shared/fragments/ttb-preflight-execution-gate.frag.md`
+- `ttb-skill-shared/fragments/ttb-cross-functional-analysis-gate.frag.md` when audit produces feature/update/bugfix recommendations
 - `ttb-skill-shared/templates/ttb-clarification-survey.md` when confidence is below threshold
 
 Required phase order: Requirement Analysis -> Context Validation -> Ambiguity Detection -> Missing Information Detection -> Survey / Clarification -> Confidence Evaluation -> Execution Approval.
@@ -32,6 +33,8 @@ Execution thresholds:
 | `<70` | Do not execute; ask a concise survey first |
 
 Cap confidence at `69` when target module, architecture direction, UIKit/SwiftUI choice, navigation behavior, API/business logic, localization format, state management, dependency info, or ownership is unclear. Parse English, Vietnamese, mixed-language, diacritic-free Vietnamese, and light typos before scoring.
+
+When audit findings lead to feature updates, bug fixes, UX changes, or architecture changes, analyze recommendations as Product Owner, Business Analyst, UX/UI Designer, Solution Architect, Senior Developer, and QA. Compare options across business value, architecture, UI/UX, performance, scalability, maintainability, security, testing, and operations; ask at least 5 value-expansion questions after analysis. If requirements are ambiguous/incomplete, ask at least 6 clarification questions before design/development.
 
 ## Skills in This Set
 
@@ -142,5 +145,5 @@ Report layers 1-5 from `ttb-phase-verify.md`. Audit is complete only when `✅ B
 
 ---
 
-**Version**: 2.2.0 | **Date**: 2026-05-22
-**Changelog**: v2.2.0 — Added standardized routing contract, EN/VI audit aliases, input/output schema, confidence guidance, and fallback strategy. v2.0.0 — Version bump, Iron Laws, critical token warnings, and shared resource alignment.
+**Version**: 2.3.0 | **Date**: 2026-05-30
+**Changelog**: v2.3.0 — Added cross-functional product analysis gate, option exploration, 5 value-expansion questions, and 6-question ambiguity clarification gate. v2.2.0 — Added standardized routing contract, EN/VI audit aliases, input/output schema, confidence guidance, and fallback strategy. v2.0.0 — Version bump, Iron Laws, critical token warnings, and shared resource alignment.

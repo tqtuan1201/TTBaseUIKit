@@ -1,8 +1,8 @@
 ---
 name: "antigravity-root"
-description: "Enterprise-grade iOS development workflow for TTBaseUIKit-powered apps. MVVM-C Architecture | UIKit + SwiftUI | TTViewCodable | TTBaseSUI | xcodebuild CLI Verification | Zero Regression | iOS 14+"
-version: "2.2.0"
-date_updated: "2026-05-22"
+description: "Enterprise-grade iOS development workflow for TTBaseUIKit-powered apps. Cross-functional product analysis | MVVM-C Architecture | UIKit + SwiftUI | TTViewCodable | TTBaseSUI | xcodebuild CLI Verification | Zero Regression | iOS 14+"
+version: "2.3.0"
+date_updated: "2026-05-30"
 risk: "safe"
 source: "internal"
 loadLevel: "always"
@@ -62,6 +62,7 @@ Confidence policy:
 Before any skill generates code, refactors, migrates, modifies files, creates architecture, updates workflows, updates UI, updates navigation, changes dependencies, or changes business logic, it must run:
 
 - `ttb-skill-shared/fragments/ttb-preflight-execution-gate.frag.md`
+- `ttb-skill-shared/fragments/ttb-cross-functional-analysis-gate.frag.md` for feature updates, new features, and bug fixes
 - `ttb-skill-shared/templates/ttb-clarification-survey.md` when clarification is required
 
 The gate is mandatory for every root skill, domain skill, prompt, workflow, and template.
@@ -87,6 +88,17 @@ Execution confidence policy:
 Architecture-critical or business-critical uncertainty caps execution confidence at `69`. Examples: unknown target module, unclear UIKit vs SwiftUI direction, missing API contract, unclear navigation behavior, incomplete business logic, unclear localization format, or conflict with existing project conventions.
 
 Multilingual requirement parsing is required. Treat Vietnamese, English, mixed-language prompts, diacritic-free Vietnamese, and light typos as valid intent signals, including `tao man login`, `create login screen`, `màn login có api chưa`, and `push qua detail screen`.
+
+## Cross-Functional Product Analysis
+
+For every existing feature update, new feature, bug fix, regression, UX flow change, business logic change, or architecture change:
+
+- Analyze the request as Product Owner, Business Analyst, UX/UI Designer, Solution Architect, Senior Developer, and QA.
+- Survey the current codebase and propose optimal implementation directions across business value, architecture, UI/UX, performance, scalability, maintainability, testing, security, release, and operations.
+- Compare viable alternatives with pros/cons and recommend the best option grounded in the existing TTBaseUIKit project constraints.
+- After analysis, ask at least 5 value-expansion questions that could improve user flow, interactions, adjacent features, feedback states, observability, accessibility, or QA coverage.
+- If the request is ambiguous or incomplete, stop before design/development and ask at least 6 clarification questions covering business, UX, data, API, security, performance, edge cases, and real production scenarios.
+- Apply relevant product, UX/UI, architecture, development, QA, release, observability, and operations best practices before implementation.
 
 ## Architecture
 
@@ -442,5 +454,5 @@ The following tokens **DO NOT EXIST** in TTBaseUIKit. Always use alternatives:
 
 ---
 
-**Version**: 2.2.0 | **Date**: 2026-05-22
-**Changelog**: v2.2.0 — Added semantic intent routing, EN/VI mixed-language aliases, confidence thresholds, routing manifest, workflow standard contract, and registry deduplication shim. v2.1.0 — Added mandatory SUIBaseView + TTBaseNavigationLink as Iron Laws #5-#6. Added critical token warnings section. Added three-tier SwiftUI approach. Added navigation ref to directory structure. Fixed XView/XSize/XFont references throughout. Added ttb-rule-comments to shared resources. Bumped all skill versions to v2.0.0 for consistency.
+**Version**: 2.3.0 | **Date**: 2026-05-30
+**Changelog**: v2.3.0 — Added cross-functional product analysis gate, option exploration, 5 value-expansion questions, and 6-question ambiguity clarification gate. v2.2.0 — Added semantic intent routing, EN/VI mixed-language aliases, confidence thresholds, routing manifest, workflow standard contract, and registry deduplication shim. v2.1.0 — Added mandatory SUIBaseView + TTBaseNavigationLink as Iron Laws #5-#6. Added critical token warnings section. Added three-tier SwiftUI approach. Added navigation ref to directory structure. Fixed XView/XSize/XFont references throughout. Added ttb-rule-comments to shared resources. Bumped all skill versions to v2.0.0 for consistency.

@@ -4,7 +4,7 @@
 
 This package contains the full Antigravity TTBaseUIKit skill set for **Codex** AI agents.
 
-**Version 2.2.0** — semantic routing, Vietnamese/English aliases, workflow standard, 11 Iron Laws, SUIBaseView + TTBaseNavigationLink mandatory, navigation reference, token warnings, FCR 7-Dimension scoring, progressive loading.
+**Version 2.3.0** — cross-functional analysis gate, value-expansion questions, ambiguity clarification gate, semantic routing, Vietnamese/English aliases, workflow standard, 11 Iron Laws, SUIBaseView + TTBaseNavigationLink mandatory, navigation reference, token warnings, FCR 7-Dimension scoring, progressive loading.
 
 ## Codex Skill Locations
 
@@ -22,7 +22,7 @@ Skills in `~/.agents/skills/` apply to every repository you work in.
 
 ```
 Codex/
-├── antigravity-codex-skills.tar.gz    ← Portable archive (v2.2.0)
+├── antigravity-codex-skills.tar.gz    ← Portable archive (v2.3.0)
 ├── install.sh                         ← Installation script
 └── INSTALL.md                        ← This file
 ```
@@ -94,22 +94,24 @@ Skills land in `~/.agents/skills/`:
 │   │   ├── ttb-verify.sh                  ← 5-layer post-build verification
 │   │   ├── ttb-compliance-check.sh          ← grep-based compliance checks
 │   │   └── ttb-precheck.sh                ← Pre-skill prerequisite gate
-│   ├── fragments/             2 inline fragments
+│   ├── fragments/             3 inline fragments
+│   │   ├── ttb-preflight-execution-gate.frag.md
+│   │   ├── ttb-cross-functional-analysis-gate.frag.md
 │   │   ├── ttb-iron-laws.frag.md         ← 11 mandatory Iron Laws (v2.0)
 │   │   └── ttb-marker.frag.md             ← Code generation marker (v2.0)
 │   └── ttb-skill-registry.md   Skill index + progressive loading
 ├── antigravity-SKILL.md/
 │   └── SKILL.md               Root skill entry point (v2.1.0)
 ├── antigravity-README.md/
-│   └── SKILL.md               Overview and quick reference (v2.2.0)
+│   └── SKILL.md               Overview and quick reference (v2.3.0)
 ├── antigravity-README-VI.md/
-│   └── SKILL.md               Vietnamese overview (v2.2.0)
+│   └── SKILL.md               Vietnamese overview (v2.3.0)
 ├── antigravity-Tutorial.md/
 │   └── SKILL.md               Tutorial: when to use each skill, prompt examples (v1.0.0)
 ├── antigravity-Tutorial-vi.md/
 │   └── SKILL.md               Vietnamese tutorial (v1.0.0)
 └── antigravity-VERSION.md/
-    └── SKILL.md               Version history (v2.2.0)
+    └── SKILL.md               Version history (v2.3.0)
 ```
 
 ## Skill Activation
