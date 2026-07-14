@@ -182,7 +182,7 @@ TTBaseUIKitConfig.withDefaultConfig(
 **Via `Package.swift`:**
 ```swift
 dependencies: [
-    .package(url: "https://github.com/tqtuan1201/TTBaseUIKit.git", from: "2.3.0")
+    .package(url: "https://github.com/tqtuan1201/TTBaseUIKit.git", branch: "master")
 ]
 ```
 
