@@ -67,5 +67,8 @@
     <array>
         <string>_ttbdebug._tcp</string>
     </array>
+    <!-- TTBDebugPlus: QR pairing fallback (Debug Bridge → Scan QR) -->
+    <key>NSCameraUsageDescription</key>
+    <string>Used to scan the TTBDebugPlus pairing QR code when connecting to your Mac.</string>
 </dict>
 </plist>
