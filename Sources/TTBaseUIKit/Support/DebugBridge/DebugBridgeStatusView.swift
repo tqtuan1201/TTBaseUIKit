@@ -31,15 +31,33 @@ public struct DebugBridgeStatusView: View {
     @State private var isResetting: Bool = false
     @State private var pulseAnimation: Bool = false
     @State private var showEventLog: Bool = false
-    
+    @State private var stateChangeObserverToken: NSObjectProtocol?
+    @State private var showManualConnect: Bool = false
+    @State private var showQRScanner: Bool = false
+    @State private var manualHost: String = ""
+    @State private var manualPort: String = ""
+    @State private var hasEverConnected: Bool = true
+    @State private var infoPlistConfigured: Bool = true
+    @State private var qrFeedback: String? = nil
+
     public init() {}
     
     public var body: some View {
         ScrollView {
             VStack(spacing: 16) {
+                if let qrFeedback {
+                    qrFeedbackBanner(qrFeedback)
+                }
+
                 // Hero connection status card
                 connectionStatusCard
-                
+
+                if bridgeState == .permissionDenied {
+                    permissionDeniedBanner
+                } else if !hasEverConnected {
+                    firstRunChecklistSection
+                }
+
                 // Network info section
                 if let s = snapshot {
                     networkInfoSection(s)
@@ -77,7 +95,14 @@ public struct DebugBridgeStatusView: View {
             withAnimation(.easeInOut(duration: 1.0).repeatForever(autoreverses: true)) {
                 pulseAnimation = true
             }
-            NotificationCenter.default.addObserver(
+            // Block-based observers are keyed by the token they return, NOT by `self`
+            // (removeObserver(self, ...) below was a no-op for this registration —
+            // every appearance of this view leaked a stacked observer). Guard against
+            // double-registration too, in case onAppear fires again before onDisappear.
+            if let existing = stateChangeObserverToken {
+                NotificationCenter.default.removeObserver(existing)
+            }
+            stateChangeObserverToken = NotificationCenter.default.addObserver(
                 forName: .ttDebugBridgeStateDidChange,
                 object: nil,
                 queue: .main
@@ -94,10 +119,21 @@ public struct DebugBridgeStatusView: View {
         .onDisappear {
             refreshTimer?.invalidate()
             refreshTimer = nil
-            NotificationCenter.default.removeObserver(self, name: .ttDebugBridgeStateDidChange, object: nil)
+            if let token = stateChangeObserverToken {
+                NotificationCenter.default.removeObserver(token)
+                stateChangeObserverToken = nil
+            }
         }
         .sheet(isPresented: $showFullReport) {
             fullReportSheet
+        }
+        .sheet(isPresented: $showManualConnect) {
+            manualConnectSheet
+        }
+        .fullScreenCover(isPresented: $showQRScanner) {
+            QRScannerView { code in
+                handleScannedCode(code)
+            }
         }
     }
     
@@ -162,6 +198,139 @@ public struct DebugBridgeStatusView: View {
         )
     }
     
+    // MARK: - QR Feedback Banner
+
+    /// Confirms a relay-config QR (Phase 8) was recognized and persisted — scanning a QR that
+    /// silently changes future-launch behavior with no visible confirmation would be confusing.
+    private func qrFeedbackBanner(_ message: String) -> some View {
+        HStack(spacing: 8) {
+            Image(systemName: "checkmark.circle.fill")
+                .foregroundColor(.green)
+            Text(message)
+                .font(.system(size: 13, weight: .medium))
+                .foregroundColor(.primary)
+            Spacer()
+        }
+        .padding(12)
+        .background(
+            RoundedRectangle(cornerRadius: 12)
+                .fill(Color.green.opacity(0.08))
+        )
+        .overlay(
+            RoundedRectangle(cornerRadius: 12)
+                .stroke(Color.green.opacity(0.2), lineWidth: 1)
+        )
+        .transition(.opacity)
+    }
+
+    // MARK: - Permission Denied Banner
+
+    private var permissionDeniedBanner: some View {
+        VStack(alignment: .leading, spacing: 10) {
+            HStack(spacing: 8) {
+                Image(systemName: "lock.shield.fill")
+                    .font(.system(size: 16, weight: .semibold))
+                    .foregroundColor(.red)
+                Text("Local Network Access Denied")
+                    .font(.system(size: 14, weight: .semibold))
+                    .foregroundColor(.primary)
+            }
+            Text("iOS is blocking TTDebugBridge from finding TTBDebugPlus on your Mac. Grant \"Local Network\" access in Settings, then come back and tap Reset Connection.")
+                .font(.system(size: 13))
+                .foregroundColor(.secondary)
+                .fixedSize(horizontal: false, vertical: true)
+
+            Button(action: openSystemSettings) {
+                HStack {
+                    Image(systemName: "gear")
+                        .font(.system(size: 14, weight: .medium))
+                    Text("Open Settings")
+                        .font(.system(size: 14, weight: .semibold))
+                    Spacer()
+                    Image(systemName: "chevron.right")
+                        .font(.system(size: 12, weight: .semibold))
+                        .foregroundColor(.secondary)
+                }
+                .foregroundColor(.red)
+                .padding(.horizontal, 14)
+                .padding(.vertical, 10)
+                .background(
+                    RoundedRectangle(cornerRadius: 10)
+                        .fill(Color(.tertiarySystemGroupedBackground))
+                )
+            }
+            .buttonStyle(PlainButtonStyle())
+        }
+        .padding(14)
+        .background(
+            RoundedRectangle(cornerRadius: 12)
+                .fill(Color.red.opacity(0.08))
+        )
+        .overlay(
+            RoundedRectangle(cornerRadius: 12)
+                .stroke(Color.red.opacity(0.25), lineWidth: 1)
+        )
+    }
+
+    private func openSystemSettings() {
+        guard let url = URL(string: UIApplication.openSettingsURLString) else { return }
+        UIApplication.shared.open(url)
+    }
+
+    // MARK: - First-Run Checklist
+
+    /// Shown instead of the usual diagnostics until this app has connected to TTBDebugPlus at
+    /// least once (`TTDebugBridge.hasEverConnected`, persisted across launches) — a blank
+    /// status card gives a first-time integrator nothing to act on, while this names the exact
+    /// step they're stuck on.
+    private var firstRunChecklistSection: some View {
+        VStack(alignment: .leading, spacing: 0) {
+            sectionHeader("GETTING STARTED")
+
+            VStack(spacing: 0) {
+                infoRow(
+                    icon: infoPlistConfigured ? "checkmark.circle.fill" : "xmark.circle.fill",
+                    iconColor: infoPlistConfigured ? .green : .red,
+                    title: "Info.plist configured",
+                    value: infoPlistConfigured ? "OK" : "Missing keys",
+                    valueColor: infoPlistConfigured ? .green : .red
+                )
+
+                Divider().padding(.leading, 44)
+
+                infoRow(
+                    icon: (bridgeState == .browsing || bridgeState == .connecting)
+                        ? "antenna.radiowaves.left.and.right" : "clock",
+                    iconColor: (bridgeState == .browsing || bridgeState == .connecting) ? .blue : .secondary,
+                    title: "Searching for your Mac",
+                    value: (bridgeState == .browsing || bridgeState == .connecting) ? "In progress" : "Waiting",
+                    valueColor: (bridgeState == .browsing || bridgeState == .connecting) ? .blue : .secondary
+                )
+
+                Divider().padding(.leading, 44)
+
+                infoRow(
+                    icon: "circle",
+                    iconColor: .secondary,
+                    title: "Connected",
+                    value: "Not yet",
+                    valueColor: .secondary
+                )
+            }
+            .background(
+                RoundedRectangle(cornerRadius: 12)
+                    .fill(Color(.secondarySystemGroupedBackground))
+            )
+
+            if !infoPlistConfigured {
+                Text("Missing Info.plist keys — see the Xcode console for exactly what to add, or the Integration Guide.")
+                    .font(.system(size: 12))
+                    .foregroundColor(.secondary)
+                    .padding(.top, 6)
+            }
+        }
+    }
+
     // MARK: - Network Info Section
     
     private func networkInfoSection(_ s: ConnectionDiagnostics.Snapshot) -> some View {
@@ -219,16 +388,18 @@ public struct DebugBridgeStatusView: View {
     
     private func discoverySection(_ s: ConnectionDiagnostics.Snapshot) -> some View {
         VStack(alignment: .leading, spacing: 0) {
-            sectionHeader("BONJOUR DISCOVERY")
-            
+            // "DISCOVERY", not "BONJOUR DISCOVERY" — this card now also reports the configured
+            // Relay channel (Phase 9), so a Bonjour-only title would be inaccurate.
+            sectionHeader("DISCOVERY")
+
             VStack(spacing: 0) {
                 infoRow(
-                    icon: "bonjour",
-                    iconColor: .purple,
-                    title: "Services Found",
+                    icon: "antenna.radiowaves.left.and.right",
+                    iconColor: .blue,
+                    title: "Bonjour Services Found",
                     value: "\(s.browseResultCount)"
                 )
-                
+
                 if let endpoint = s.lastFoundEndpoint {
                     Divider().padding(.leading, 44)
                     infoRow(
@@ -238,7 +409,19 @@ public struct DebugBridgeStatusView: View {
                         value: endpoint
                     )
                 }
-                
+
+                // Relay channel (Phase 9) — same icon convention as macOS's ChannelChip
+                // (`globe` = relay), so the two apps use the same visual vocabulary.
+                if let host = s.configuredRelayHost, let port = s.configuredRelayPort {
+                    Divider().padding(.leading, 44)
+                    infoRow(
+                        icon: "globe",
+                        iconColor: .purple,
+                        title: "Relay Configured",
+                        value: "\(host):\(port)"
+                    )
+                }
+
                 if s.reconnectAttempt > 0 {
                     Divider().padding(.leading, 44)
                     infoRow(
@@ -427,9 +610,108 @@ public struct DebugBridgeStatusView: View {
             .buttonStyle(PlainButtonStyle())
             .disabled(isResetting)
             .opacity(isResetting ? 0.6 : 1.0)
+
+            // Manual connect / QR scan — fallback when Bonjour/mDNS is blocked
+            // (corporate networks, some VPNs) or discovery is just slow.
+            HStack(spacing: 10) {
+                Button(action: { showManualConnect = true }) {
+                    HStack {
+                        Image(systemName: "network")
+                            .font(.system(size: 14, weight: .medium))
+                        Text("Enter IP")
+                            .font(.system(size: 14, weight: .semibold))
+                    }
+                    .frame(maxWidth: .infinity)
+                    .foregroundColor(.secondary)
+                    .padding(.vertical, 12)
+                    .background(
+                        RoundedRectangle(cornerRadius: 12)
+                            .fill(Color(.secondarySystemGroupedBackground))
+                    )
+                }
+                .buttonStyle(PlainButtonStyle())
+
+                Button(action: { showQRScanner = true }) {
+                    HStack {
+                        Image(systemName: "qrcode.viewfinder")
+                            .font(.system(size: 14, weight: .medium))
+                        Text("Scan QR")
+                            .font(.system(size: 14, weight: .semibold))
+                    }
+                    .frame(maxWidth: .infinity)
+                    .foregroundColor(.secondary)
+                    .padding(.vertical, 12)
+                    .background(
+                        RoundedRectangle(cornerRadius: 12)
+                            .fill(Color(.secondarySystemGroupedBackground))
+                    )
+                }
+                .buttonStyle(PlainButtonStyle())
+            }
         }
     }
-    
+
+    // MARK: - Manual Connect Sheet
+
+    private var manualConnectSheet: some View {
+        NavigationView {
+            Form {
+                Section {
+                    TextField("IP Address (e.g. 192.168.1.10)", text: $manualHost)
+                        .keyboardType(.numbersAndPunctuation)
+                        .autocapitalization(.none)
+                        .disableAutocorrection(true)
+                    TextField("Port (e.g. 50689)", text: $manualPort)
+                        .keyboardType(.numberPad)
+                } header: {
+                    Text("Connect Manually")
+                } footer: {
+                    Text("Use this when auto-discovery doesn't find TTBDebugPlus (corporate network, VPN blocking mDNS). Find the IP and port in TTBDebugPlus → Connection Health.")
+                }
+            }
+            .navigationBarTitle("Connect Manually", displayMode: .inline)
+            .navigationBarItems(
+                leading: Button("Cancel") { showManualConnect = false },
+                trailing: Button("Connect") { connectManually() }
+                    .disabled(
+                        manualHost.trimmingCharacters(in: .whitespaces).isEmpty
+                        || UInt16(manualPort.trimmingCharacters(in: .whitespaces)) == nil
+                    )
+            )
+        }
+    }
+
+    private func connectManually() {
+        let host = manualHost.trimmingCharacters(in: .whitespaces)
+        guard !host.isEmpty, let port = UInt16(manualPort.trimmingCharacters(in: .whitespaces)) else { return }
+        TTDebugBridge.shared.connectManually(host: host, port: port)
+        showManualConnect = false
+    }
+
+    private func handleScannedCode(_ code: String) {
+        // Try the relay-config QR format first (Phase 8) — distinct from, and checked before,
+        // the plain LAN-pairing QR below so both formats keep working independently.
+        if let info = TTDebugBridge.parseRelayPairingQR(code) {
+            TTDebugBridge.shared.applyRelayConfig(info)
+            showQRFeedback("Relay configured: \(info.host):\(info.port) — saved for future launches")
+            return
+        }
+        guard !TTDebugBridge.shared.connectManually(pairingString: code) else { return }
+        // Not a `ttbdebug://` URL — fall back to a bare "host:port" string.
+        let parts = code.split(separator: ":")
+        guard parts.count == 2, let port = UInt16(parts[1]) else { return }
+        TTDebugBridge.shared.connectManually(host: String(parts[0]), port: port)
+    }
+
+    private func showQRFeedback(_ message: String) {
+        withAnimation(.easeInOut(duration: 0.2)) { qrFeedback = message }
+        DispatchQueue.main.asyncAfter(deadline: .now() + 3.0) {
+            withAnimation(.easeInOut(duration: 0.2)) {
+                if qrFeedback == message { qrFeedback = nil }
+            }
+        }
+    }
+
     // MARK: - SDK Info Footer
     
     private var sdkInfoFooter: some View {
@@ -544,6 +826,8 @@ public struct DebugBridgeStatusView: View {
     
     private func refreshSnapshot() {
         snapshot = TTDebugBridge.shared.getDiagnosticSnapshot()
+        hasEverConnected = TTDebugBridge.shared.hasEverConnected
+        infoPlistConfigured = TTDebugBridge.shared.checkInfoPlistConfiguration().isEmpty
         withAnimation(.easeInOut(duration: 0.2)) {
             bridgeState = TTDebugBridge.shared.state
         }
@@ -577,9 +861,10 @@ public struct DebugBridgeStatusView: View {
         case .connecting: return .orange
         case .connected: return .green
         case .disconnected: return .red
+        case .permissionDenied: return .red
         }
     }
-    
+
     private func colorForStateName(_ name: String) -> Color {
         switch name.lowercased() {
         case "idle": return .gray
@@ -598,9 +883,10 @@ public struct DebugBridgeStatusView: View {
         case .connecting: return "arrow.triangle.2.circlepath"
         case .connected: return "checkmark.circle.fill"
         case .disconnected: return "xmark.circle"
+        case .permissionDenied: return "lock.shield"
         }
     }
-    
+
     private func labelForState(_ state: TTDebugBridge.BridgeState) -> String {
         switch state {
         case .idle: return "Idle"
@@ -608,9 +894,10 @@ public struct DebugBridgeStatusView: View {
         case .connecting: return "Connecting..."
         case .connected: return "Connected"
         case .disconnected: return "Disconnected"
+        case .permissionDenied: return "Permission Denied"
         }
     }
-    
+
     private func descriptionForState(_ state: TTDebugBridge.BridgeState) -> String {
         switch state {
         case .idle:
@@ -623,6 +910,8 @@ public struct DebugBridgeStatusView: View {
             return "Successfully connected to TTBDebugPlus.\nLogs are being streamed in real-time."
         case .disconnected:
             return "Connection lost. Auto-reconnecting..."
+        case .permissionDenied:
+            return "Local Network access is denied.\nGrant permission in Settings to connect."
         }
     }
     

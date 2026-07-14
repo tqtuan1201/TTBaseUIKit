@@ -32,7 +32,13 @@ public final class ConnectionDiagnostics {
         // Bonjour
         public let browseResultCount: Int
         public let lastFoundEndpoint: String?
-        
+
+        // Relay (Phase 9) — nil when no relay is configured (`config.relayHost`/`relayPort`),
+        // regardless of whether it's actually connected right now (that's `bridgeState`/
+        // `readyEndpointKeys`, not exposed per-endpoint here — this just says "is one set up").
+        public let configuredRelayHost: String?
+        public let configuredRelayPort: UInt16?
+
         // SDK
         public let sdkVersion: String
         public let isEnabled: Bool
@@ -129,6 +135,8 @@ public final class ConnectionDiagnostics {
             reconnectAttempt: bridge.currentReconnectAttempt,
             browseResultCount: resultCount,
             lastFoundEndpoint: endpoint,
+            configuredRelayHost: bridge.config.relayHost,
+            configuredRelayPort: bridge.config.relayPort,
             sdkVersion: bridge.config.sdkVersion,
             isEnabled: bridge.config.isEnabled,
             recentEvents: events
@@ -210,6 +218,7 @@ public final class ConnectionDiagnostics {
         case .connecting: return "🔄"
         case .connected: return "✅"
         case .disconnected: return "❌"
+        case .permissionDenied: return "🔒"
         }
     }
     
@@ -255,8 +264,12 @@ public final class ConnectionDiagnostics {
                 hints.append("⚠️ Multiple reconnect attempts (\(s.reconnectAttempt))")
                 hints.append("   Connection may be unstable")
             }
+
+        case .permissionDenied:
+            hints.append("⚠️ \"Local Network\" permission is denied for this app")
+            hints.append("   Bonjour cannot work until this is granted")
         }
-        
+
         return hints
     }
     
@@ -292,7 +305,12 @@ public final class ConnectionDiagnostics {
         case .disconnected:
             steps.append("Connection will auto-retry in a few seconds")
             steps.append("If persistent, restart both TTBDebugPlus and your app")
-            
+
+        case .permissionDenied:
+            steps.append("Open Settings → Privacy & Security → Local Network")
+            steps.append("Enable the toggle for this app")
+            steps.append("Return to the app and tap Reset Connection")
+
         default:
             break
         }

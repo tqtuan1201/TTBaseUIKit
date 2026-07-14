@@ -26,7 +26,7 @@ public final class LogInterceptor {
     public func install() {
         guard !isInstalled else { return }
         isInstalled = true
-        TTBaseFunc.shared.printLog(object: "[TTDebugBridge] 📝 Log interceptor installed")
+        DebugBridgeLog.log("[TTDebugBridge] 📝 Log interceptor installed")
     }
     
     // MARK: - Intercept API Log

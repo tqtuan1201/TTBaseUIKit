@@ -127,6 +127,17 @@ A **professional-grade native macOS app** for debugging iOS applications in real
 
 > **[📥 Download TTBDebugPlus for macOS](https://tqtuan1201.github.io/public/docs/ttbaseuikit/apps/TTBDebugPlus-Installer.dmg)** (.dmg • 5.8 MB • macOS 14+ • Universal)
 
+> ⚠️ **Before calling `TTDebugBridge.shared.start()`**, add these 2 required keys to your iOS app's Info.plist — missing them causes a silent `NoAuth -65555` failure:
+> ```xml
+> <key>NSLocalNetworkUsageDescription</key>
+> <string>Required for connecting to TTBDebugPlus on macOS to stream debug logs.</string>
+> <key>NSBonjourServices</key>
+> <array>
+>     <string>_ttbdebug._tcp</string>
+> </array>
+> ```
+> Full steps + troubleshooting: see "iOS SDK Integration" in the TTBDebugPlus companion project's README, or the hosted guide below.
+
 > 📖 [Full documentation & SDK integration guide →](https://tqtuan1201.github.io/public/docs/ttbaseuikit/ttbdebugplus.html)
 
 ### 🤖 AI Agent Ready

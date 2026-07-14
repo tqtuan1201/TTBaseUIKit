@@ -11,31 +11,63 @@ import Foundation
 
 // MARK: - Message Envelope
 struct DebugMessage: Codable {
+    /// Wire protocol version. Bump when the envelope or a payload shape changes
+    /// in a way older peers can't safely ignore.
+    static let currentProtocolVersion = 1
+
     let type: MessageType
     let payload: Data
     let timestamp: TimeInterval
-    
+    /// `nil` means the peer predates this field (pre-2026-07-13 SDK/app) — treat as version 0.
+    let protocolVersion: Int?
+    /// Stamped by a macOS Relay Server when forwarding a producer's frame to viewers — never
+    /// set or read by iOS itself. Kept here only for envelope parity with the macOS copy (see
+    /// Phase 3 relay design doc); this SDK never needs to inspect it.
+    var sourceDeviceId: String?
+
     init(type: MessageType, payload: Data) {
         self.type = type
         self.payload = payload
         self.timestamp = Date().timeIntervalSince1970 * 1000
+        self.protocolVersion = DebugMessage.currentProtocolVersion
+        self.sourceDeviceId = nil
     }
     
     static func create<T: Encodable>(type: MessageType, payload: T) -> DebugMessage? {
-        guard let data = try? JSONEncoder().encode(payload) else { return nil }
-        return DebugMessage(type: type, payload: data)
+        do {
+            let data = try JSONEncoder().encode(payload)
+            return DebugMessage(type: type, payload: data)
+        } catch {
+            TTBaseFunc.shared.printLog(object: "[TTDebugBridge] ⚠️ Failed to encode \(type.rawValue) payload: \(error)")
+            return nil
+        }
     }
-    
+
     func decodePayload<T: Decodable>(_ type: T.Type) -> T? {
-        try? JSONDecoder().decode(type, from: payload)
+        do {
+            return try JSONDecoder().decode(type, from: payload)
+        } catch {
+            TTBaseFunc.shared.printLog(object: "[TTDebugBridge] ⚠️ decodePayload(\(type)) failed for \(self.type.rawValue): \(error)")
+            return nil
+        }
     }
-    
+
     func toData() -> Data? {
-        try? JSONEncoder().encode(self)
+        do {
+            return try JSONEncoder().encode(self)
+        } catch {
+            TTBaseFunc.shared.printLog(object: "[TTDebugBridge] ⚠️ Failed to encode DebugMessage envelope (\(type.rawValue)): \(error)")
+            return nil
+        }
     }
-    
+
     static func from(data: Data) -> DebugMessage? {
-        try? JSONDecoder().decode(DebugMessage.self, from: data)
+        do {
+            return try JSONDecoder().decode(DebugMessage.self, from: data)
+        } catch {
+            TTBaseFunc.shared.printLog(object: "[TTDebugBridge] ⚠️ DebugMessage envelope decode failed (\(data.count) bytes): \(error)")
+            return nil
+        }
     }
 }
 
@@ -47,6 +79,10 @@ enum MessageType: String, Codable {
     case screenshotRequest = "screenshot_request"
     case screenshotResponse = "screenshot_response"
     case heartbeat = "heartbeat"
+    case heartbeatAck = "heartbeat_ack"
+    /// macOS-internal (Relay Client → Relay Server handshake) — this SDK never sends or
+    /// receives it. Present only for envelope/enum parity with the macOS copy.
+    case relayClientHello = "relay_client_hello"
     case appCommand = "app_command"
     case performanceMetrics = "performance_metrics"
     case disconnect = "disconnect"
