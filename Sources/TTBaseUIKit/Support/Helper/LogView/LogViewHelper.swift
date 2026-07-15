@@ -165,6 +165,14 @@ extension LogViewHelper {
             self?.viewModel.isShow = false
         })
 
+        // Scan QR Code — quick pair with TTBDebugPlus without opening Debug Bridge
+        ac.addAction(UIAlertAction(title: "SCAN QR CODE", style: .default) { [weak self] _ in
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) {
+                self?.openQRCodeScanner()
+            }
+            self?.viewModel.isShow = false
+        })
+
         // Debug Bridge
         ac.addAction(UIAlertAction(title: "DEBUG BRIDGE", style: .default) { [weak self] _ in
             DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) {
@@ -216,6 +224,36 @@ extension LogViewHelper {
         }
 
         UIApplication.topViewController()?.present(ac, animated: true)
+    }
+
+    /// Presents the shared `QRScannerView` for LAN / relay pairing without opening Debug Bridge.
+    private func openQRCodeScanner() {
+        #if canImport(SwiftUI) && canImport(AVFoundation)
+        if #available(iOS 14.0, *) {
+            guard let topVC = UIApplication.topViewController() else { return }
+            let scanner = QRScannerView { code in
+                // Apply pairing immediately; toast after scanner dismiss animation.
+                let result = TTDebugBridge.shared.handlePairingQRPayload(code)
+                let style: TTBaseNotificationViewConfig.NOTIFICATION_TYPE =
+                    result.isSuccess ? .SUCCESS : .WARNING
+                DispatchQueue.main.asyncAfter(deadline: .now() + 0.35) {
+                    UIApplication.topViewController()?.onShowNoticeView(
+                        body: result.userMessage,
+                        style: style
+                    )
+                }
+            }
+            let host = UIHostingController(rootView: scanner)
+            host.modalPresentationStyle = .fullScreen
+            host.view.backgroundColor = .black
+            topVC.presentDef(vc: host, type: .overFullScreen, transitionStyle: .coverVertical)
+            return
+        }
+        #endif
+        UIApplication.topViewController()?.onShowNoticeView(
+            body: "QR scanning requires iOS 14 or later. Use DEBUG BRIDGE → Enter IP instead.",
+            style: .WARNING
+        )
     }
 
     private func openLogList() {

@@ -689,18 +689,14 @@ public struct DebugBridgeStatusView: View {
     }
 
     private func handleScannedCode(_ code: String) {
-        // Try the relay-config QR format first (Phase 8) — distinct from, and checked before,
-        // the plain LAN-pairing QR below so both formats keep working independently.
-        if let info = TTDebugBridge.parseRelayPairingQR(code) {
-            TTDebugBridge.shared.applyRelayConfig(info)
-            showQRFeedback("Relay configured: \(info.host):\(info.port) — saved for future launches")
-            return
+        // Shared path with TTBaseDebugKit menu → SCAN QR CODE (single source of truth).
+        let result = TTDebugBridge.shared.handlePairingQRPayload(code)
+        switch result {
+        case .relayConfigured, .lanConnected:
+            showQRFeedback(result.userMessage)
+        case .invalid:
+            showQRFeedback(result.userMessage)
         }
-        guard !TTDebugBridge.shared.connectManually(pairingString: code) else { return }
-        // Not a `ttbdebug://` URL — fall back to a bare "host:port" string.
-        let parts = code.split(separator: ":")
-        guard parts.count == 2, let port = UInt16(parts[1]) else { return }
-        TTDebugBridge.shared.connectManually(host: String(parts[0]), port: port)
     }
 
     private func showQRFeedback(_ message: String) {

@@ -59,6 +59,38 @@ public struct RelayPairingInfo: Codable, Equatable {
     }
 }
 
+// MARK: - Pairing QR Result
+
+/// Outcome of `TTDebugBridge.handlePairingQRPayload(_:)` — shared by Debug Bridge panel
+/// Scan QR and TTBaseDebugKit menu → **SCAN QR CODE**.
+public enum PairingQRResult: Equatable {
+    /// `ttbdebug://pair?type=relay&...` — relay host/port applied and persisted.
+    case relayConfigured(host: String, port: UInt16)
+    /// `ttbdebug://<host>:<port>` or bare `host:port` — manual LAN connect started.
+    case lanConnected(host: String, port: UInt16)
+    /// Payload could not be recognized as any supported pairing format.
+    case invalid
+
+    /// Short user-facing message for toasts / banners.
+    public var userMessage: String {
+        switch self {
+        case .relayConfigured(let host, let port):
+            return "Relay configured: \(host):\(port) — saved for future launches"
+        case .lanConnected(let host, let port):
+            return "Connecting to \(host):\(port)…"
+        case .invalid:
+            return "Invalid QR code. Scan the pairing QR from TTBDebugPlus → Connection Health or Settings → Relay."
+        }
+    }
+
+    public var isSuccess: Bool {
+        switch self {
+        case .relayConfigured, .lanConnected: return true
+        case .invalid: return false
+        }
+    }
+}
+
 // MARK: - TTDebugBridge
 /// Singleton bridge that connects the iOS app to macOS TTBDebugPlus instances.
 /// Discovers macOS services via Bonjour, establishes TCP streams, and sends logs.
@@ -323,6 +355,50 @@ public final class TTDebugBridge {
         guard let info = Self.parseRelayPairingQR(payload) else { return false }
         applyRelayConfig(info)
         return true
+    }
+
+    /// Single entry point for QR pairing from any UI (Debug Bridge panel, TTBaseDebugKit menu).
+    /// Tries formats in order: relay config → `ttbdebug://host:port` → bare `host:port`.
+    /// Successful LAN/manual paths call `start()` via `connectManually` when needed.
+    @discardableResult
+    public func handlePairingQRPayload(_ payload: String) -> PairingQRResult {
+        let trimmed = payload.trimmingCharacters(in: .whitespacesAndNewlines)
+        guard !trimmed.isEmpty else {
+            DebugBridgeLog.log("[TTDebugBridge] ⚠️ handlePairingQRPayload: empty payload")
+            return .invalid
+        }
+
+        // 1) Relay-config QR (persisted)
+        if let info = Self.parseRelayPairingQR(trimmed) {
+            applyRelayConfig(info)
+            DebugBridgeLog.log("[TTDebugBridge] 📷 QR paired via menu/panel: relay \(info.host):\(info.port)")
+            return .relayConfigured(host: info.host, port: info.port)
+        }
+
+        // 2) LAN pairing URL `ttbdebug://host:port`
+        if connectManually(pairingString: trimmed) {
+            if let url = URL(string: trimmed), let host = url.host, let port = url.port {
+                DebugBridgeLog.log("[TTDebugBridge] 📷 QR paired via menu/panel: LAN \(host):\(port)")
+                return .lanConnected(host: host, port: UInt16(port))
+            }
+            return .lanConnected(host: trimmed, port: 0)
+        }
+
+        // 3) Bare "host:port"
+        let parts = trimmed.split(separator: ":")
+        if parts.count == 2, let port = UInt16(parts[1]) {
+            let host = String(parts[0])
+            guard !host.isEmpty else {
+                DebugBridgeLog.log("[TTDebugBridge] ⚠️ handlePairingQRPayload: invalid bare host:port")
+                return .invalid
+            }
+            connectManually(host: host, port: port)
+            DebugBridgeLog.log("[TTDebugBridge] 📷 QR paired via menu/panel: bare \(host):\(port)")
+            return .lanConnected(host: host, port: port)
+        }
+
+        DebugBridgeLog.log("[TTDebugBridge] ⚠️ handlePairingQRPayload: unrecognized payload")
+        return .invalid
     }
 
     /// Applies relay config directly (skip QR parsing) — e.g. if you already have a
