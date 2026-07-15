@@ -82,7 +82,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             
             TTDebugBridge.shared.start()
             LogInterceptor.shared.install()
-            // Debug Bridge is now accessible via TTBaseDebugKit menu → "DEBUG BRIDGE"
+            // TTBaseDebugKit menu: "SCAN QR CODE" (quick pair) · "DEBUG BRIDGE" (full panel)
         }
         #endif
         

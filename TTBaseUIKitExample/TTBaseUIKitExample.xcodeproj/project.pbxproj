@@ -132,6 +132,8 @@
 		BC8153782FB48D8500FEC4D5 /* SetupDevicesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC8153742FB48D8500FEC4D5 /* SetupDevicesView.swift */; };
 		BC8166A32E378C9A000D6708 /* TTBaseUIKit in Frameworks */ = {isa = PBXBuildFile; productRef = BC8166A22E378C9A000D6708 /* TTBaseUIKit */; };
 		BC8B92E12ED830DB005E7398 /* BaseSwiftUINewVersionDemo.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC8B92E02ED830DB005E7398 /* BaseSwiftUINewVersionDemo.swift */; };
+		BC9A58D030064ACE006EFD17 /* TTBaseUIKit in Frameworks */ = {isa = PBXBuildFile; productRef = BC9A58CF30064ACE006EFD17 /* TTBaseUIKit */; };
+		BC9A58DA30076BF0006EFD17 /* TTBaseUIKit in Frameworks */ = {isa = PBXBuildFile; productRef = BC9A58D930076BF0006EFD17 /* TTBaseUIKit */; };
 		BC9F522D2ED43D600089C15A /* SkeletonTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC9F522C2ED43D600089C15A /* SkeletonTableViewController.swift */; };
 		BC9F522F2ED440CA0089C15A /* BaseSwiftUISkeletonScrollStackDemo.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC9F522E2ED440CA0089C15A /* BaseSwiftUISkeletonScrollStackDemo.swift */; };
 		BCA2808B2C59FC3D00472024 /* BaseComponentsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCA280882C59FC3D00472024 /* BaseComponentsViewModel.swift */; };
@@ -340,6 +342,7 @@
 				BC2FD3FC2F615B8700FC6984 /* TTBaseUIKit in Frameworks */,
 				BCB90CDD2ED06AFD00125913 /* TTBaseUIKit in Frameworks */,
 				BC65F3D12F8E524800151236 /* TTBaseUIKit in Frameworks */,
+				BC9A58D030064ACE006EFD17 /* TTBaseUIKit in Frameworks */,
 				BC65F3D42F8F2E5D00151236 /* TTBaseUIKit in Frameworks */,
 				BCCF1A4E2E3A1346001BF6A3 /* TTBaseUIKit in Frameworks */,
 				BCF7B68C2FBC3FCD00B1C469 /* TTBaseUIKit in Frameworks */,
@@ -347,6 +350,7 @@
 				BC7FC3B93004B05300F3C7DB /* TTBaseUIKit in Frameworks */,
 				BCB8E4232FBD930200C6D570 /* TTBaseUIKit in Frameworks */,
 				BC6794D72F8E0BC000174B52 /* TTBaseUIKit in Frameworks */,
+				BC9A58DA30076BF0006EFD17 /* TTBaseUIKit in Frameworks */,
 				BC5581172F8DFA2E001F4410 /* TTBaseUIKit in Frameworks */,
 				BCCF1A4B2E3A0EA2001BF6A3 /* TTBaseUIKit in Frameworks */,
 				BC5DF8B72F7C275D000DD8D2 /* TTBaseUIKit in Frameworks */,
@@ -1430,7 +1434,7 @@
 			);
 			mainGroup = 93F0FDBD22580B980037C427;
 			packageReferences = (
-				BC72EE643005EC1E003186AA /* XCRemoteSwiftPackageReference "TTBaseUIKit" */,
+				BC9A58D830076BF0006EFD17 /* XCRemoteSwiftPackageReference "TTBaseUIKit" */,
 			);
 			productRefGroup = 93F0FDC722580B980037C427 /* Products */;
 			projectDirPath = "";
@@ -1925,6 +1929,14 @@
 				kind = branch;
 			};
 		};
+		BC9A58D830076BF0006EFD17 /* XCRemoteSwiftPackageReference "TTBaseUIKit" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/tqtuan1201/TTBaseUIKit.git";
+			requirement = {
+				branch = master;
+				kind = branch;
+			};
+		};
 		BCB8E4212FBD930200C6D570 /* XCRemoteSwiftPackageReference "TTBaseUIKit" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/tqtuan1201/TTBaseUIKit.git";
@@ -2016,6 +2028,15 @@
 		BC8166A22E378C9A000D6708 /* TTBaseUIKit */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = BC8166A12E378C9A000D6708 /* XCRemoteSwiftPackageReference "TTBaseUIKit" */;
+			productName = TTBaseUIKit;
+		};
+		BC9A58CF30064ACE006EFD17 /* TTBaseUIKit */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = TTBaseUIKit;
+		};
+		BC9A58D930076BF0006EFD17 /* TTBaseUIKit */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = BC9A58D830076BF0006EFD17 /* XCRemoteSwiftPackageReference "TTBaseUIKit" */;
 			productName = TTBaseUIKit;
 		};
 		BCB8E4222FBD930200C6D570 /* TTBaseUIKit */ = {
