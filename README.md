@@ -125,7 +125,7 @@ A **professional-grade native macOS app** for debugging iOS applications in real
 </tr>
 </table>
 
-> **[📥 Download TTBDebugPlus for macOS](https://tqtuan1201.github.io/public/docs/ttbaseuikit/apps/TTBDebugPlus-Installer.dmg)** (.dmg • 5.8 MB • macOS 14+ • Universal)
+> **[📥 Download TTBDebugPlus for macOS](https://github.com/tqtuan1201/TTBDebugPlus/blob/dev/apps-build-dmg/TTBDebugPlus-Installer.dmg)** (always latest on `dev` · macOS 14+)
 
 > ⚠️ **Before calling `TTDebugBridge.shared.start()`**, add these 2 required keys to your iOS app's Info.plist — missing them causes a silent `NoAuth -65555` failure:
 > ```xml
